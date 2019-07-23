@@ -24,29 +24,15 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 For more information, please refer to <http://unlicense.org>
 */
-/*
-Main entry point, one giant list of microcontroller targets that are supported.
-Keep this header as small as possible, warnings definitions keep them in the 
-MCU specific headers.
-*/
-#ifndef MCU_LL_H
-#define MCU_LL_H
+/* Main entry point for the LPC812M101JTB16 microcontroller definitions */
+#ifndef LPC812M101JTB16_H
+#define LPC812M101JTB16_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#if defined(MCU_LPC824M201JHI33)
-#include <nxp/LPC824M201JHI33.h>
-#elif defined(MCU_LPC824M201JDH20)
-#include <nxp/LPC824M201JDH20.h>
-#elif defined(MCU_LPC812M101JDH20)
-#include <nxp/LPC812M101JDH20.h>
-#elif defined(MCU_LPC812M101JTB16)
-#include <nxp/LPC812M101JTB16.h>
-#else
-#error "Unknown or unsupported microcontroller defined, use MCU_Microcontroller"
-#endif
+#warning "Microcontroller LPC812M101JTB16 support is WIP"
 
 #ifdef __cplusplus
 }
