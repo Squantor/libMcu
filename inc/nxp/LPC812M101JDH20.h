@@ -34,9 +34,6 @@ extern "C" {
 
 #warning "Microcontroller LPC812M101JDH20 support is WIP"
 
-// Define peripheral addresses
-// Define peripherals
-
 /* Configuration of the Cortex-M0+ Processor and Core Peripherals */
 #define __CM0PLUS_REV             0x0001
 #define __MPU_PRESENT             0
@@ -86,6 +83,9 @@ typedef enum {
 } IRQn_Type;
 
 #include <CMSIS/core_cm0plus.h>
+
+// Define peripheral addresses
+// Define peripherals
 
 #ifdef __cplusplus
 }
