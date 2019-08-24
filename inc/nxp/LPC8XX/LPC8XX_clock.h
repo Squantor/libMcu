@@ -107,89 +107,92 @@ typedef enum CHIP_SYSCTL_CLKOUTSRC {
     SYSCTL_CLKOUTSRC_MAINSYSCLK,    /*!< Main system clock for CLKOUT */
 } CHIP_SYSCTL_CLKOUTSRC_T;
 
-static inline void Chip_Clock_SetupSystemPLL(uint8_t msel, uint8_t psel)
+extern const uint32_t OscRateIn;
+extern const uint32_t ExtRateIn;
+
+static inline void Clock_SetupSystemPLL(uint8_t msel, uint8_t psel)
 {
     LPC_SYSCTL->SYSPLLCTRL = (msel & 0x1F) | ((psel & 0x3) << 5);
 }
 
-static inline bool Chip_Clock_IsSystemPLLLocked(void)
+static inline bool Clock_IsSystemPLLLocked(void)
 {
     return (bool) ((LPC_SYSCTL->SYSPLLSTAT & 1) != 0);
 }
 
-static inline void Chip_Clock_SetWDTOSC(CHIP_WDTLFO_OSC_T wdtclk, uint8_t div)
+static inline void Clock_SetWDTOSC(CHIP_WDTLFO_OSC_T wdtclk, uint8_t div)
 {
     LPC_SYSCTL->WDTOSCCTRL  = (((uint32_t) wdtclk) << 5) | ((div >> 1) - 1);
 }
 
-static inline CHIP_SYSCTL_MAINCLKSRC_T Chip_Clock_GetMainClockSource(void)
+static inline CHIP_SYSCTL_MAINCLKSRC_T Clock_GetMainClockSource(void)
 {
     return (CHIP_SYSCTL_MAINCLKSRC_T) (LPC_SYSCTL->MAINCLKSEL & ~SYSCTL_MAINCLKSEL_RESERVED);
 }
 
-static inline void Chip_Clock_SetSysClockDiv(uint32_t div)
+static inline void Clock_SetSysClockDiv(uint32_t div)
 {
     LPC_SYSCTL->SYSAHBCLKDIV  = div;
 }
 
-static inline void Chip_Clock_EnablePeriphClock(CHIP_SYSCTL_CLOCK_T clk)
+static inline void Clock_EnablePeriphClock(CHIP_SYSCTL_CLOCK_T clk)
 {
     LPC_SYSCTL->SYSAHBCLKCTRL = (1 << clk) | (LPC_SYSCTL->SYSAHBCLKCTRL & ~SYSCTL_SYSAHBCLKCTRL_RESERVED);
 }
 
-static inline void Chip_Clock_DisablePeriphClock(CHIP_SYSCTL_CLOCK_T clk)
+static inline void Clock_DisablePeriphClock(CHIP_SYSCTL_CLOCK_T clk)
 {
     LPC_SYSCTL->SYSAHBCLKCTRL &= ~((1 << clk) | SYSCTL_SYSAHBCLKCTRL_RESERVED);
 }
 
-static inline void Chip_Clock_SetUARTClockDiv(uint32_t div)
+static inline void Clock_SetUARTClockDiv(uint32_t div)
 {
     LPC_SYSCTL->UARTCLKDIV = div;
 }
 
-static inline uint32_t Chip_Clock_GetUARTClockDiv(void)
+static inline uint32_t Clock_GetUARTClockDiv(void)
 {
     return LPC_SYSCTL->UARTCLKDIV & ~SYSCTL_UARTCLKDIV_RESERVED;
 }
 
-static inline void Chip_SYSCTL_SetUSARTFRGDivider(uint8_t div)
+static inline void SYSCTL_SetUSARTFRGDivider(uint8_t div)
 {
     LPC_SYSCTL->UARTFRGDIV = (uint32_t) div;
 }
 
-static inline uint32_t Chip_SYSCTL_GetUSARTFRGDivider(void)
+static inline uint32_t SYSCTL_GetUSARTFRGDivider(void)
 {
     return LPC_SYSCTL->UARTFRGDIV & ~SYSCTL_UARTFRGDIV_RESERVED;
 }
 
-static inline void Chip_SYSCTL_SetUSARTFRGMultiplier(uint8_t mult)
+static inline void SYSCTL_SetUSARTFRGMultiplier(uint8_t mult)
 {
     LPC_SYSCTL->UARTFRGMULT = (uint32_t) mult;
 }
 
-static inline uint32_t Chip_SYSCTL_GetUSARTFRGMultiplier(void)
+static inline uint32_t SYSCTL_GetUSARTFRGMultiplier(void)
 {
     return LPC_SYSCTL->UARTFRGMULT & ~SYSCTL_UARTFRGMULT_RESERVED;
 }
 
-uint32_t Chip_Clock_SetUSARTNBaseClockRate(uint32_t rate, bool fEnable);
+uint32_t Clock_SetUSARTNBaseClockRate(uint32_t rate, bool fEnable);
 
-uint32_t Chip_Clock_GetUSARTNBaseClockRate(void);
+uint32_t Clock_GetUSARTNBaseClockRate(void);
 
 
-static inline uint32_t Chip_Clock_GetIntOscRate(void)
+static inline uint32_t Clock_GetIntOscRate(void)
 {
     return SYSCTL_IRC_FREQ;
 }
 
-static inline void Chip_Clock_SetSystemPLLSource(CHIP_SYSCTL_PLLCLKSRC_T src)
+static inline void Clock_SetSystemPLLSource(CHIP_SYSCTL_PLLCLKSRC_T src)
 {
     LPC_SYSCTL->SYSPLLCLKSEL  = (uint32_t) src;
     LPC_SYSCTL->SYSPLLCLKUEN  = 0;
     LPC_SYSCTL->SYSPLLCLKUEN  = 1;
 }
 
-static inline void Chip_Clock_SetPLLBypass(bool bypass, bool highfr)
+static inline void Clock_SetPLLBypass(bool bypass, bool highfr)
 {
     uint32_t ctrl = 0;
     if(bypass)
@@ -200,7 +203,7 @@ static inline void Chip_Clock_SetPLLBypass(bool bypass, bool highfr)
     LPC_SYSCTL->SYSOSCCTRL = ctrl;
 }
 
-static inline void Chip_Clock_SetMainClockSource(CHIP_SYSCTL_MAINCLKSRC_T src)
+static inline void Clock_SetMainClockSource(CHIP_SYSCTL_MAINCLKSRC_T src)
 {
     LPC_SYSCTL->MAINCLKSEL  = (uint32_t) src;
     
@@ -209,7 +212,7 @@ static inline void Chip_Clock_SetMainClockSource(CHIP_SYSCTL_MAINCLKSRC_T src)
     LPC_SYSCTL->MAINCLKUEN  = 1;
 }
 
-static inline void Chip_Clock_SetCLKOUTSource(CHIP_SYSCTL_CLKOUTSRC_T src, uint32_t div)
+static inline void Clock_SetCLKOUTSource(CHIP_SYSCTL_CLKOUTSRC_T src, uint32_t div)
 {
     LPC_SYSCTL->CLKOUTSEL = (uint32_t) src;
     
@@ -219,38 +222,40 @@ static inline void Chip_Clock_SetCLKOUTSource(CHIP_SYSCTL_CLKOUTSRC_T src, uint3
     LPC_SYSCTL->CLKOUTDIV = div;
 }
 
-static inline uint32_t Chip_Clock_GetPLLFreq(uint32_t PLLReg, uint32_t inputRate)
+static inline uint32_t Clock_GetPLLFreq(uint32_t PLLReg, uint32_t inputRate)
 {
     uint32_t m_val = ((PLLReg & 0x1F) + 1);
 
     return (inputRate * m_val);
 }
 
-uint32_t Chip_Clock_GetWDTOSCRate(void);
+uint32_t Clock_GetWDTOSCRate(void);
 
-static inline uint32_t Chip_Clock_GetSystemPLLOutClockRate(void)
+static inline uint32_t Clock_GetMainOscRate(void)
 {
-    return Chip_Clock_GetPLLFreq((LPC_SYSCTL->SYSPLLCTRL & ~SYSCTL_SYSPLLCTRL_RESERVED),
-                                 Chip_Clock_GetSystemPLLInClockRate());
+    return OscRateIn;
 }
 
-uint32_t Chip_Clock_GetSystemPLLOutClockRate(void);
+static inline uint32_t Clock_GetExtClockInRate(void)
+{
+    return ExtRateIn;
+}
 
-static inline uint32_t Chip_Clock_GetSystemPLLInClockRate(void)
+static inline uint32_t Clock_GetSystemPLLInClockRate(void)
 {
     uint32_t clkRate;
 
     switch ((CHIP_SYSCTL_PLLCLKSRC_T) (LPC_SYSCTL->SYSPLLCLKSEL & 0x3)) {
     case SYSCTL_PLLCLKSRC_IRC:
-        clkRate = Chip_Clock_GetIntOscRate();
+        clkRate = Clock_GetIntOscRate();
         break;
 
     case SYSCTL_PLLCLKSRC_SYSOSC:
-        clkRate = Chip_Clock_GetMainOscRate();
+        clkRate = Clock_GetMainOscRate();
         break;
 
     case SYSCTL_PLLCLKSRC_EXT_CLKIN:
-        clkRate = Chip_Clock_GetExtClockInRate();
+        clkRate = Clock_GetExtClockInRate();
         break;
 
     default:
@@ -260,45 +265,53 @@ static inline uint32_t Chip_Clock_GetSystemPLLInClockRate(void)
     return clkRate;
 }
 
-static inline uint32_t Chip_Clock_GetMainClockRate(void)
+static inline uint32_t Clock_GetSystemPLLOutClockRate(void)
+{
+    return Clock_GetPLLFreq((LPC_SYSCTL->SYSPLLCTRL & ~SYSCTL_SYSPLLCTRL_RESERVED),
+                                 Clock_GetSystemPLLInClockRate());
+}
+
+uint32_t Clock_GetSystemPLLOutClockRate(void);
+
+static inline uint32_t Clock_GetMainClockRate(void)
 {
     uint32_t clkRate = 0;
 
     switch ((CHIP_SYSCTL_MAINCLKSRC_T) (LPC_SYSCTL->MAINCLKSEL & 0x3)) {
     case SYSCTL_MAINCLKSRC_IRC:
-        clkRate = Chip_Clock_GetIntOscRate();
+        clkRate = Clock_GetIntOscRate();
         break;
 
     case SYSCTL_MAINCLKSRC_PLLIN:
-        clkRate = Chip_Clock_GetSystemPLLInClockRate();
+        clkRate = Clock_GetSystemPLLInClockRate();
         break;
 
     case SYSCTL_MAINCLKSRC_WDTOSC:
-        clkRate = Chip_Clock_GetWDTOSCRate();
+        clkRate = Clock_GetWDTOSCRate();
         break;
 
     case SYSCTL_MAINCLKSRC_PLLOUT:
-        clkRate = Chip_Clock_GetSystemPLLOutClockRate();
+        clkRate = Clock_GetSystemPLLOutClockRate();
         break;
     }
 
     return clkRate;
 }
 
-static inline uint32_t Chip_Clock_GetSystemClockRate(void)
+static inline uint32_t Clock_GetSystemClockRate(void)
 {
-    return Chip_Clock_GetMainClockRate() / (LPC_SYSCTL->SYSAHBCLKDIV & ~SYSCTL_SYSAHBCLKDIV_RESERVED);
+    return Clock_GetMainClockRate() / (LPC_SYSCTL->SYSAHBCLKDIV & ~SYSCTL_SYSAHBCLKDIV_RESERVED);
 }
 
-static inline uint32_t Chip_Clock_GetIOCONCLKDIVClockRate(CHIP_PIN_CLKDIV_T reg)
+static inline uint32_t Clock_GetIOCONCLKDIVClockRate(CHIP_PIN_CLKDIV_T reg)
 {
     uint32_t div = LPC_SYSCTL->IOCONCLKDIV[reg] & ~SYSCTL_IOCONCLKDIV_RESERVED;
-    uint32_t main_clk = Chip_Clock_GetMainClockRate();
+    uint32_t main_clk = Clock_GetMainClockRate();
     
     return (div == 0) ? 0 : (main_clk / div);
 }
 
-static inline void Chip_Clock_SetIOCONCLKDIV(CHIP_PIN_CLKDIV_T reg, uint8_t div)
+static inline void Clock_SetIOCONCLKDIV(CHIP_PIN_CLKDIV_T reg, uint8_t div)
 {
     int t_reg = IOCONCLK_MAX-reg;
     LPC_SYSCTL->IOCONCLKDIV[t_reg] = div;
