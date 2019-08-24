@@ -296,7 +296,7 @@ static inline void SYSCTL_SetWakeup(uint32_t wakeupmask)
     LPC_SYSCTL->PDAWAKECFG = PDWAKEUPWRMASK | (wakeupmask & PDWAKEUPDATMASK);
 }
 
-void SYSCTL_PowerDown(uint32_t powerdownmask)
+static inline void SYSCTL_PowerDown(uint32_t powerdownmask)
 {
     uint32_t pdrun;
 
@@ -310,7 +310,7 @@ void SYSCTL_PowerDown(uint32_t powerdownmask)
     LPC_SYSCTL->PDRUNCFG = (PDWAKEUPWRMASK | pdrun);
 }
 
-void SYSCTL_PowerUp(uint32_t powerupmask)
+static inline void SYSCTL_PowerUp(uint32_t powerupmask)
 {
     uint32_t pdrun;
 

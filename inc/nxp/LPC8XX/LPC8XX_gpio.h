@@ -32,6 +32,18 @@ LPC800 series common GPIO functions
 
 #include <stdint.h>
 
+/* GPIO initilisation function */
+static inline void GPIO_Init(LPC_GPIO_T *pGPIO)
+{
+    Clock_EnablePeriphClock(SYSCTL_CLOCK_GPIO);
+}
+
+/* GPIO deinitialisation function */
+static inline void GPIO_DeInit(LPC_GPIO_T *pGPIO)
+{
+    Clock_DisablePeriphClock(SYSCTL_CLOCK_GPIO);
+}
+
 static inline void GPIO_WritePortBit(LPC_GPIO_T *pGPIO, uint32_t port, uint8_t pin, bool setting)
 {
     pGPIO->B[port][pin] = setting;
