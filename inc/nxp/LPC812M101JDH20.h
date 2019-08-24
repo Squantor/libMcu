@@ -134,6 +134,9 @@ typedef enum {
 #define LPC_MRT         ((LPC_MRT_T     *) LPC_MRT_BASE)
 #define LPC_I2C0        ((LPC_I2C_T     *) LPC_I2C0_BASE)
 
+// Peripheral definition includes
+#include "nxp/LPC8XX/LPC81X_gpio.h"
+
 
 #ifdef __cplusplus
 }
