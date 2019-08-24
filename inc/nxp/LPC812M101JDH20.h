@@ -136,6 +136,7 @@ typedef enum {
 
 // Peripheral definition includes
 #include "nxp/LPC8XX/LPC81X_gpio.h"
+#include "nxp/LPC8XX/LPC8XX_iocon.h"
 
 
 #ifdef __cplusplus
