@@ -32,6 +32,7 @@ LPC800 series common GPIO functions
 
 #include <stdint.h>
 
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 /* GPIO initilisation function */
 static inline void GPIO_Init(LPC_GPIO_T *pGPIO)
 {
@@ -43,6 +44,7 @@ static inline void GPIO_DeInit(LPC_GPIO_T *pGPIO)
 {
     Clock_DisablePeriphClock(SYSCTL_CLOCK_GPIO);
 }
+#pragma GCC diagnostic pop
 
 static inline void GPIO_WritePortBit(LPC_GPIO_T *pGPIO, uint32_t port, uint8_t pin, bool setting)
 {
