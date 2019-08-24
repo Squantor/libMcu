@@ -28,6 +28,10 @@ For more information, please refer to <http://unlicense.org>
 #ifndef LPC812M101JDH20_H
 #define LPC812M101JDH20_H
 
+/*
+Most information here derived/copied over from the LPCopen libraries.
+*/
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -84,8 +88,52 @@ typedef enum {
 
 #include <CMSIS/core_cm0plus.h>
 
-// Define peripheral addresses
+// Define peripheral addresses on APB0 bus
+#define LPC_WWDT_BASE         (0x40000000UL)
+#define LPC_MRT_BASE          (0x40004000UL)
+#define LPC_WKT_BASE          (0x40008000UL)
+#define LPC_SWM_BASE          (0x4000C000UL)
+#define LPC_PMU_BASE          (0x40020000UL)
+#define LPC_CMP_BASE          (0x40024000UL)
+
+#define LPC_FMC_BASE          (0x40040000UL)
+#define LPC_IOCON_BASE        (0x40044000UL)
+#define LPC_SYSCTL_BASE       (0x40048000UL)
+#define LPC_I2C0_BASE         (0x40050000UL)
+#define LPC_SPI0_BASE         (0x40058000UL)
+#define LPC_SPI1_BASE         (0x4005C000UL)
+#define LPC_USART0_BASE       (0x40064000UL)
+#define LPC_USART1_BASE       (0x40068000UL)
+#define LPC_USART2_BASE       (0x4006C000UL)
+
+/* AHB peripherals */
+#define LPC_CRC_BASE          (0x50000000UL)
+#define LPC_SCT_BASE          (0x50004000UL)
+
+#define LPC_GPIO_PORT_BASE    (0xA0000000UL)
+#define LPC_PIN_INT_BASE      (0xA0004000UL)
+
 // Define peripherals
+#define LPC_WWDT        ((LPC_WWDT_T    *) LPC_WWDT_BASE)
+#define LPC_SPI0        ((LPC_SPI_T     *) LPC_SPI0_BASE)
+#define LPC_SPI1        ((LPC_SPI_T     *) LPC_SPI1_BASE)
+#define LPC_USART0      ((LPC_USART_T   *) LPC_USART0_BASE)
+#define LPC_USART1      ((LPC_USART_T   *) LPC_USART1_BASE)
+#define LPC_USART2      ((LPC_USART_T   *) LPC_USART2_BASE)
+#define LPC_WKT         ((LPC_WKT_T     *) LPC_WKT_BASE)
+#define LPC_PMU         ((LPC_PMU_T     *) LPC_PMU_BASE)
+#define LPC_CRC         ((LPC_CRC_T     *) LPC_CRC_BASE)
+#define LPC_SCT         ((LPC_SCT_T     *) LPC_SCT_BASE)
+#define LPC_GPIO_PORT   ((LPC_GPIO_T    *) LPC_GPIO_PORT_BASE)
+#define LPC_PININT      ((LPC_PIN_INT_T *) LPC_PIN_INT_BASE)
+#define LPC_IOCON       ((LPC_IOCON_T   *) LPC_IOCON_BASE)
+#define LPC_SWM         ((LPC_SWM_T     *) LPC_SWM_BASE)
+#define LPC_SYSCTL      ((LPC_SYSCTL_T  *) LPC_SYSCTL_BASE)
+#define LPC_CMP         ((LPC_CMP_T     *) LPC_CMP_BASE)
+#define LPC_FMC         ((LPC_FMC_T     *) LPC_FMC_BASE)
+#define LPC_MRT         ((LPC_MRT_T     *) LPC_MRT_BASE)
+#define LPC_I2C0        ((LPC_I2C_T     *) LPC_I2C0_BASE)
+
 
 #ifdef __cplusplus
 }
