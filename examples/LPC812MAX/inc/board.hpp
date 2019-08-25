@@ -26,19 +26,21 @@ SOFTWARE.
 
 void boardInit(void);
 
-// led state pin
-#define STATE_LED_PIN (15)
-#define STATE_LED_IOCON (IOCON_PIO15)
-// led alive pin
-#define ALIVE_LED_PIN (17)
-#define ALIVE_LED_IOCON (IOCON_PIO17)
+// LEDS
+#define LED_RED_PIN     (7)
+#define LED_RED_IOCON   (IOCON_PIO7)
+#define LED_GREEN_PIN   (17)
+#define LED_GREEN_IOCON (IOCON_PIO17)
+#define LED_BLUE_PIN    (16)
+#define LED_BLUE_IOCON  (IOCON_PIO16)
+
 
 // how many ticks per second
 #define TICKS_PER_S     (100)
 
 void boardInit(void);
 
-// board control functions
+// led control functions
 void toggleAliveLed(void);
 void toggleStatusLed(void);
 void offStatusLed(void);

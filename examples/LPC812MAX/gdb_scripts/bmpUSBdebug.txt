@@ -1,12 +1,12 @@
-file bin/debug/template_microcontroller.elf
+file bin/debug/example_LPC812MAX.elf
 target extended-remote /dev/ttyBmpGdb0
-monitor tpwr enable
+mon tpwr enable
 shell sleep 1
 monitor swdp_scan
 attach 1
 set mem inaccessible-by-default off
 set {int}0x40048000 = 2
-load bin/debug/template_microcontroller.elf
+load bin/debug/example_LPC812MAX.elf
 set {int}0x40048000 = 2
 compare-sections
 b main

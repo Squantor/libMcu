@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CodeLite_Project Name="example_LPC812MAX" Version="10.0.0" InternalType="">
+<CodeLite_Project Name="example_LPC812test" Version="10.0.0" InternalType="">
+  <VirtualDirectory Name="inc">
+    <File Name="inc/board.hpp"/>
+    <File Name="inc/systick.hpp"/>
+  </VirtualDirectory>
+  <VirtualDirectory Name="src">
+    <File Name="src/LPC812MAX.cpp"/>
+    <File Name="src/systick.cpp"/>
+    <File Name="src/main.cpp"/>
+    <File Name="src/startup.cpp"/>
+  </VirtualDirectory>
+  <Reconciliation>
+    <Regexes/>
+    <Excludepaths/>
+    <Ignorefiles/>
+    <Extensions>
+      <![CDATA[*.cpp;*.c;*.h;*.hpp;*.xrc;*.wxcp;*.fbp]]>
+    </Extensions>
+    <Topleveldir>/home/abilos/projects/my_public/libMcuLL/examples/LPC812MAX</Topleveldir>
+  </Reconciliation>
   <Plugins>
     <Plugin Name="qmake">
       <![CDATA[00020001N0005Debug0000000000000001N0007Release000000000000]]>
@@ -14,16 +33,6 @@
     <File Name="platform/cortexm_irqs_lpc.cpp"/>
     <File Name="platform/cortexm_irqs_standard.cpp"/>
     <File Name="platform/isr_lpc81X.cpp"/>
-  </VirtualDirectory>
-  <VirtualDirectory Name="inc">
-    <File Name="inc/systick.hpp"/>
-    <File Name="inc/board.hpp"/>
-  </VirtualDirectory>
-  <VirtualDirectory Name="src">
-    <File Name="src/systick.cpp"/>
-    <File Name="src/main.cpp"/>
-    <File Name="src/dummy_board.cpp"/>
-    <File Name="src/startup.cpp"/>
   </VirtualDirectory>
   <Description/>
   <Dependencies/>
@@ -43,21 +52,20 @@
       </Compiler>
       <Linker Options="" Required="yes"/>
       <ResourceCompiler Options="" Required="no"/>
-      <General OutputFile="./bin/debug/template_microcontroller.elf" IntermediateDirectory="./build/debug" Command="./bin/debug/template_microcontroller.elf" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="." PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <General OutputFile="./bin/debug/example_LPC812MAX.elf" IntermediateDirectory="./build/debug" Command="./bin/debug/example_LPC812MAX.elf" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="." PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
       <BuildSystem Name="Default"/>
       <Environment EnvVarSetName="Default" DbgSetName="&lt;Use Defaults&gt;">
         <![CDATA[]]>
       </Environment>
-      <Debugger IsRemote="yes" RemoteHostName="/dev/ttyBmpGdb0" RemoteHostPort="" DebuggerPath="../../../../../../usr/bin/arm-none-eabi-gdb" IsExtended="yes">
+      <Debugger IsRemote="yes" RemoteHostName="/dev/ttyBmpGdb0" RemoteHostPort="" DebuggerPath="../../../../../../../usr/bin/arm-none-eabi-gdb" IsExtended="yes">
         <DebuggerSearchPaths/>
-        <PostConnectCommands>file bin/debug/template_microcontroller.elf
-monitor tpwr enable
+        <PostConnectCommands>file bin/debug/example_LPC812MAX.elf
 shell sleep 1
 monitor swdp_scan
 attach 1
 set mem inaccessible-by-default off
 set {int}0x40048000 = 2
-load bin/debug/template_microcontroller.elf
+load bin/debug/example_LPC812MAX.elf
 set {int}0x40048000 = 2
 compare-sections
 b main</PostConnectCommands>
@@ -92,21 +100,20 @@ b main</PostConnectCommands>
       </Compiler>
       <Linker Options="-O2" Required="yes"/>
       <ResourceCompiler Options="" Required="no"/>
-      <General OutputFile="./bin/release/template_microcontroller.elf" IntermediateDirectory="./build/release" Command="./bin/release/template_microcontroller.elf" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="." PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <General OutputFile="./bin/release/example_LPC812MAX.elf" IntermediateDirectory="./build/release" Command="./bin/release/example_LPC812MAX.elf" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="." PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
       <BuildSystem Name="Default"/>
       <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
         <![CDATA[]]>
       </Environment>
-      <Debugger IsRemote="yes" RemoteHostName="/dev/ttyBmpGdb0" RemoteHostPort="" DebuggerPath="../../../../../../usr/bin/arm-none-eabi-gdb" IsExtended="yes">
+      <Debugger IsRemote="yes" RemoteHostName="/dev/ttyBmpGdb0" RemoteHostPort="" DebuggerPath="../../../../../../../usr/bin/arm-none-eabi-gdb" IsExtended="yes">
         <DebuggerSearchPaths/>
-        <PostConnectCommands>file bin/release/template_microcontroller.elf
-monitor tpwr enable
+        <PostConnectCommands>file bin/release/example_LPC812MAX.elf
 shell sleep 1
 monitor swdp_scan
 attach 1
 set mem inaccessible-by-default off
 set {int}0x40048000 = 2
-load bin/release/template_microcontroller.elf
+load bin/release/example_LPC812MAX.elf
 set {int}0x40048000 = 2
 compare-sections
 b main</PostConnectCommands>

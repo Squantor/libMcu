@@ -1,8 +1,8 @@
 # update per change V0006
 
 # project name
-BIN_NAME = template_microcontroller
-BOARD = dummy_board
+BIN_NAME = example_LPC812test
+BOARD = LPC812test
 
 #include board specific settings/rules
 include src/$(BOARD).mk

@@ -1,5 +1,5 @@
 # LibMcuLL example program for LPC812 MAX
-This project contains a example program for the LPC812 MAX board and is intended as an example how to use LibMcuLL for the LPC812 microcontroller.
+This project contains a example program for the LPC812 test board and is intended as an example how to use LibMcuLL for the LPC812 microcontroller.
 ## Checking out
 use ```git clone --recurse-submodules https://github.com/Squantor/$(PROJECT).git``` to clone the repository and its submodules.
 ## Compiling
@@ -25,8 +25,8 @@ This program depends TODO. This is automatically checked out when using ```git c
 ## Usage
 To use the software you need the following hardware:
 * [Black magic probe](https://github.com/blacksphere/blackmagic)
-* [LPC812 MAX](https://www.embeddedartists.com/products/lpc812-max/)
+* LPC812 test board, see HSI for more information on connections
 # TODO
 The following tasks are still open:
-* create a HSI (Hardware Software Interface) for the LPC812 MAX
+* create a HSI (Hardware Software Interface) for the LPC812 test board
 * starting implementing more and more of the microcontroller features
