@@ -135,7 +135,6 @@ typedef enum {
 #define LPC_I2C0        ((LPC_I2C_T     *) LPC_I2C0_BASE)
 
 // Peripheral definition includes, ordering matters
-#include "nxp/LPC8XX/LPC8XX_ROM.h"
 #include "nxp/LPC8XX/LPC81X_syscon.h"
 #include "nxp/LPC8XX/LPC8XX_clock.h"
 #include "nxp/LPC8XX/LPC81X_swm.h"
@@ -144,6 +143,7 @@ typedef enum {
 #include "nxp/LPC8XX/LPC8XX_wwdt.h"
 #include "nxp/LPC8XX/LPC8XX_wkt.h"
 #include "nxp/LPC8XX/LPC8XX_sct.h"
+#include "nxp/LPC8XX/LPC8XX_ROM.h"
 
 #ifdef __cplusplus
 }

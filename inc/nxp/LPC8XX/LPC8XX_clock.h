@@ -109,6 +109,7 @@ typedef enum CHIP_SYSCTL_CLKOUTSRC {
 
 extern const uint32_t OscRateIn;
 extern const uint32_t ExtRateIn;
+extern uint32_t SystemCoreClock;
 
 static inline void Clock_SetupSystemPLL(uint8_t msel, uint8_t psel)
 {
