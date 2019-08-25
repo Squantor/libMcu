@@ -141,6 +141,7 @@ typedef enum {
 #include "nxp/LPC8XX/LPC81X_gpio.h"
 #include "nxp/LPC8XX/LPC8XX_iocon.h"
 #include "nxp/LPC8XX/LPC8XX_wwdt.h"
+#include "nxp/LPC8XX/LPC8XX_wkt.h"
 
 #ifdef __cplusplus
 }
