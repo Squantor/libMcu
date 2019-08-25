@@ -6,15 +6,13 @@ C_SOURCES +=
 CXX_SOURCES += src/$(BOARD).cpp
 S_SOURCES +=
 DEFINES += -D$(BOARD) -D$(MCU)
-INCLUDES += -Iinc -I../inc
+INCLUDES += -Iinc -I../../inc
 ALIBS +=
 RLIBS +=
 DLIBS +=
 ALIBDIR +=
-RLIBDIR += -L"../squantorLibC/bin/CortexM0/release" \
--L"../squantorLibEmbeddedC/bin/CortexM0/release"
-DLIBDIR += -L"../squantorLibC/bin/CortexM0/debug" \
--L"../squantorLibEmbeddedC/bin/CortexM0/debug"
+RLIBDIR += 
+DLIBDIR += 
 
 #custom build rules
 pre-clean:
