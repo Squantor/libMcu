@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CodeLite_Project Name="example_LPC812test" Version="10.0.0" InternalType="">
+  <Plugins>
+    <Plugin Name="qmake">
+      <![CDATA[00020001N0005Debug0000000000000001N0007Release000000000000]]>
+    </Plugin>
+  </Plugins>
   <VirtualDirectory Name="inc">
     <File Name="inc/board.hpp"/>
     <File Name="inc/systick.hpp"/>
@@ -19,11 +24,6 @@
     </Extensions>
     <Topleveldir>/home/abilos/projects/my_public/libMcuLL/examples/LPC812MAX</Topleveldir>
   </Reconciliation>
-  <Plugins>
-    <Plugin Name="qmake">
-      <![CDATA[00020001N0005Debug0000000000000001N0007Release000000000000]]>
-    </Plugin>
-  </Plugins>
   <VirtualDirectory Name="platform">
     <File Name="platform/isr_lpc82X.cpp"/>
     <File Name="platform/isr_STM32F103C8.cpp"/>
@@ -59,13 +59,13 @@
       </Environment>
       <Debugger IsRemote="yes" RemoteHostName="/dev/ttyBmpGdb0" RemoteHostPort="" DebuggerPath="../../../../../../../usr/bin/arm-none-eabi-gdb" IsExtended="yes">
         <DebuggerSearchPaths/>
-        <PostConnectCommands>file bin/debug/example_LPC812MAX.elf
+        <PostConnectCommands>file bin/debug/example_LPC812test.elf
 shell sleep 1
 monitor swdp_scan
 attach 1
 set mem inaccessible-by-default off
 set {int}0x40048000 = 2
-load bin/debug/example_LPC812MAX.elf
+load bin/debug/example_LPC812test.elf
 set {int}0x40048000 = 2
 compare-sections
 b main</PostConnectCommands>
@@ -107,13 +107,13 @@ b main</PostConnectCommands>
       </Environment>
       <Debugger IsRemote="yes" RemoteHostName="/dev/ttyBmpGdb0" RemoteHostPort="" DebuggerPath="../../../../../../../usr/bin/arm-none-eabi-gdb" IsExtended="yes">
         <DebuggerSearchPaths/>
-        <PostConnectCommands>file bin/release/example_LPC812MAX.elf
+        <PostConnectCommands>file bin/release/example_LPC812test.elf
 shell sleep 1
 monitor swdp_scan
 attach 1
 set mem inaccessible-by-default off
 set {int}0x40048000 = 2
-load bin/release/example_LPC812MAX.elf
+load bin/release/example_LPC812test.elf
 set {int}0x40048000 = 2
 compare-sections
 b main</PostConnectCommands>
