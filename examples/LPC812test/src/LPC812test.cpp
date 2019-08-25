@@ -38,17 +38,11 @@ void boardInit(void)
     IOCON_PinSetMode(LPC_IOCON, IOCON_PIO9, PIN_MODE_INACTIVE);
     // setup LED pins
     IOCON_PinSetMode(LPC_IOCON, LED_RED_IOCON, PIN_MODE_INACTIVE);
-    IOCON_PinSetMode(LPC_IOCON, LED_GREEN_IOCON, PIN_MODE_INACTIVE);
-    IOCON_PinSetMode(LPC_IOCON, LED_BLUE_IOCON, PIN_MODE_INACTIVE);
     Clock_DisablePeriphClock(SYSCTL_CLOCK_IOCON);
     // GPIO pins setup
     GPIO_Init(LPC_GPIO_PORT);
     GPIO_SetPinDIROutput(LPC_GPIO_PORT, 0, LED_RED_PIN);
     GPIO_SetPinState(LPC_GPIO_PORT, 0, LED_RED_PIN, true);
-    GPIO_SetPinDIROutput(LPC_GPIO_PORT, 0, LED_GREEN_PIN);
-    GPIO_SetPinState(LPC_GPIO_PORT, 0, LED_GREEN_PIN, true);
-    GPIO_SetPinDIROutput(LPC_GPIO_PORT, 0, LED_BLUE_PIN);
-    GPIO_SetPinState(LPC_GPIO_PORT, 0, LED_BLUE_PIN, true);
     //SetupXtalClocking();
     //SystemCoreClockUpdate();
     // systick configuration

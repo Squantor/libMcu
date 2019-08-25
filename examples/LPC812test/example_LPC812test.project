@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CodeLite_Project Name="example_LPC812test" Version="10.0.0" InternalType="">
-  <Plugins>
-    <Plugin Name="qmake">
-      <![CDATA[00020001N0005Debug0000000000000001N0007Release000000000000]]>
-    </Plugin>
-  </Plugins>
   <VirtualDirectory Name="inc">
     <File Name="inc/board.hpp"/>
     <File Name="inc/systick.hpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="src">
-    <File Name="src/LPC812MAX.cpp"/>
     <File Name="src/systick.cpp"/>
     <File Name="src/main.cpp"/>
     <File Name="src/startup.cpp"/>
+    <File Name="src/LPC812test.cpp"/>
   </VirtualDirectory>
+  <Plugins>
+    <Plugin Name="qmake">
+      <![CDATA[00020001N0005Debug0000000000000001N0007Release000000000000]]>
+    </Plugin>
+  </Plugins>
   <Reconciliation>
     <Regexes/>
     <Excludepaths/>

@@ -29,11 +29,6 @@ void boardInit(void);
 // LEDS
 #define LED_RED_PIN     (7)
 #define LED_RED_IOCON   (IOCON_PIO7)
-#define LED_GREEN_PIN   (17)
-#define LED_GREEN_IOCON (IOCON_PIO17)
-#define LED_BLUE_PIN    (16)
-#define LED_BLUE_IOCON  (IOCON_PIO16)
-
 
 // how many ticks per second
 #define TICKS_PER_S     (100)
