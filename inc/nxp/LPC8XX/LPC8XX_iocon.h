@@ -30,8 +30,6 @@ LPC800 series common IOCON functions
 #ifndef LPC8XX_IOCON_H
 #define LPC8XX_IOCON_H
 
-#include <stdint.h>
-
 #define NUM_IOCON_PIO  (29)
 
 typedef struct {

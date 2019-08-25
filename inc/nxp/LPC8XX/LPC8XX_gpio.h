@@ -30,8 +30,6 @@ LPC800 series common GPIO functions
 #ifndef LPC8XX_GPIO_H
 #define LPC8XX_GPIO_H
 
-#include <stdint.h>
-
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 /* GPIO initilisation function */
 static inline void GPIO_Init(LPC_GPIO_T *pGPIO)

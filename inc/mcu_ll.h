@@ -36,6 +36,9 @@ MCU specific headers.
 extern "C" {
 #endif
 
+#include <stdint.h>
+#include <stdbool.h>
+
 #if defined(MCU_LPC824M201JHI33)
 #include <nxp/LPC824M201JHI33.h>
 #elif defined(MCU_LPC824M201JDH20)
