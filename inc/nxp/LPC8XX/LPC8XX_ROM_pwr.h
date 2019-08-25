@@ -30,4 +30,44 @@ LPC800 series common ROM power control driver functions/definitions
 #ifndef LPC8XX_ROM_PWR_H
 #define LPC8XX_ROM_PWR_H
 
+/**
+ * LPC8xx Power ROM APIs - set_pll mode options
+ */
+#define CPU_FREQ_EQU    0
+#define CPU_FREQ_LTE    1
+#define CPU_FREQ_GTE    2
+#define CPU_FREQ_APPROX 3
+
+/**
+ * LPC8xx Power ROM APIs - set_pll response0 options
+ */
+#define PLL_CMD_SUCCESS    0
+#define PLL_INVALID_FREQ   1
+#define PLL_INVALID_MODE   2
+#define PLL_FREQ_NOT_FOUND 3
+#define PLL_NOT_LOCKED     4
+
+/**
+ * LPC8xx Power ROM APIs - set_power mode options
+ */
+#define PWR_DEFAULT         0
+#define PWR_CPU_PERFORMANCE 1
+#define PWR_EFFICIENCY      2
+#define PWR_LOW_CURRENT     3
+
+/**
+ * LPC8xx Power ROM APIs - set_power response0 options
+ */
+#define PWR_CMD_SUCCESS  0
+#define PWR_INVALID_FREQ 1
+#define PWR_INVALID_MODE 2
+
+/**
+ * LPC8XX Power ROM API structure
+ */
+typedef struct PWRD_API {
+    void (*set_pll)(uint32_t cmd[], uint32_t resp[]);    /*!< Set PLL function */
+    void (*set_power)(uint32_t cmd[], uint32_t resp[]);    /*!< Set power function */
+} PWRD_API_T;
+
 #endif
