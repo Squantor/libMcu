@@ -147,6 +147,7 @@ typedef enum {
 #include "nxp/LPC8XX/LPC8XX_pmu.h"
 #include "nxp/LPC8XX/LPC8XX_pinint.h"
 #include "nxp/LPC8XX/LPC8XX_mrt.h"
+#include "nxp/LPC8XX/LPC8XX_fmc.h"
 #include "nxp/LPC8XX/LPC8XX_irc.h"
 
 #ifdef __cplusplus
