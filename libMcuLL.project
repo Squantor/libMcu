@@ -30,6 +30,7 @@
     <File Name="inc/mcu_dummy.h"/>
     <VirtualDirectory Name="nxp">
       <VirtualDirectory Name="LPC8XX">
+        <File Name="inc/nxp/LPC8XX/LPC8XX_mrt.h"/>
         <File Name="inc/nxp/LPC8XX/LPC8XX_pinint.h"/>
         <File Name="inc/nxp/LPC8XX/LPC8XX_pmu.h"/>
         <File Name="inc/nxp/LPC8XX/LPC8XX_ROM_pwr.h"/>
