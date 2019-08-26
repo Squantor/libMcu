@@ -241,24 +241,24 @@ typedef struct {
 /**
  * SCT Match register values enum
  */
-typedef enum CHIP_SCT_MATCH_REG {
+typedef enum SCT_MATCH_REG {
     SCT_MATCH_0 = 0,    /*!< SCT Match register 0 */
     SCT_MATCH_1 = 1,    /*!< SCT Match register 1 */
     SCT_MATCH_2 = 2,    /*!< SCT Match register 2 */
     SCT_MATCH_3 = 3,    /*!< SCT Match register 3 */
     SCT_MATCH_4 = 4        /*!< SCT Match register 4 */
-} CHIP_SCT_MATCH_REG_T;
+} SCT_MATCH_REG_T;
 
 /**
  * SCT Event values enum
  */
-typedef enum CHIP_SCT_EVENT {
+typedef enum SCT_EVENT {
     SCT_EVT_0  = (1 << 0),    /*!< Event 0 */
     SCT_EVT_1  = (1 << 1),    /*!< Event 1 */
     SCT_EVT_2  = (1 << 2),    /*!< Event 2 */
     SCT_EVT_3  = (1 << 3),    /*!< Event 3 */
     SCT_EVT_4  = (1 << 4)    /*!< Event 4 */
-} CHIP_SCT_EVENT_T;
+} SCT_EVENT_T;
 
 static inline void SCT_Config(LPC_SCT_T *pSCT, uint32_t value)
 {
@@ -280,27 +280,27 @@ static inline void SCT_SetCountH(LPC_SCT_T *pSCT, uint16_t count)
     pSCT->COUNT_H = count;
 }
 
-static inline void SCT_SetMatchCount(LPC_SCT_T *pSCT, CHIP_SCT_MATCH_REG_T n, uint32_t value)
+static inline void SCT_SetMatchCount(LPC_SCT_T *pSCT, SCT_MATCH_REG_T n, uint32_t value)
 {
     pSCT->MATCH[n].U = value;
 }
 
-static inline void SCT_SetMatchReload(LPC_SCT_T *pSCT, CHIP_SCT_MATCH_REG_T n, uint32_t value)
+static inline void SCT_SetMatchReload(LPC_SCT_T *pSCT, SCT_MATCH_REG_T n, uint32_t value)
 {
     pSCT->MATCHREL[n].U = value;
 }
 
-static inline void SCT_EnableEventInt(LPC_SCT_T *pSCT, CHIP_SCT_EVENT_T evt)
+static inline void SCT_EnableEventInt(LPC_SCT_T *pSCT, SCT_EVENT_T evt)
 {
     pSCT->EVEN = evt | (pSCT->EVEN & ~SCT_EVEN_RESERVED);
 }
 
-static inline void SCT_DisableEventInt(LPC_SCT_T *pSCT, CHIP_SCT_EVENT_T evt)
+static inline void SCT_DisableEventInt(LPC_SCT_T *pSCT, SCT_EVENT_T evt)
 {
     pSCT->EVEN &= ~(evt | SCT_EVEN_RESERVED);
 }
 
-static inline void SCT_ClearEventFlag(LPC_SCT_T *pSCT, CHIP_SCT_EVENT_T evt)
+static inline void SCT_ClearEventFlag(LPC_SCT_T *pSCT, SCT_EVENT_T evt)
 {
     pSCT->EVFLAG = evt | (pSCT->EVFLAG & ~SCT_EVFLAG_RESERVED);
 }
