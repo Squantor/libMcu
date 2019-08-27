@@ -27,8 +27,8 @@ For more information, please refer to <http://unlicense.org>
 /* 
 LPC820 series common UART registers,definitions and functions.
 */
-#ifndef LPC82X_PININT_H
-#define LPC82X_PININT_H
+#ifndef LPC82X_UART_H
+#define LPC82X_UART_H
 
 /* UART CFG register definitions */
 #define UART_CFG_OETA           (0x01 << 18)    /* Output Enable Turnaround time for RS485 */

@@ -27,8 +27,8 @@ For more information, please refer to <http://unlicense.org>
 /* 
 LPC810 series common UART registers,definitions and functions.
 */
-#ifndef LPC81X_PININT_H
-#define LPC81X_PININT_H
+#ifndef LPC81X_UART_H
+#define LPC81X_UART_H
 
 /* UART CFG register definitions */
 #define UART_CFG_RESERVED       ((1<<1)|(1<<7)|(1<<8)|(1<<10)|(1<<13)|(0xffffu<<16))
