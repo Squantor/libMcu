@@ -30,6 +30,9 @@
     <File Name="inc/mcu_dummy.h"/>
     <VirtualDirectory Name="nxp">
       <VirtualDirectory Name="LPC8XX">
+        <File Name="inc/nxp/LPC8XX/LPC8XX_i2c_funcs.h"/>
+        <File Name="inc/nxp/LPC8XX/LPC8XX_i2c_defs.h"/>
+        <File Name="inc/nxp/LPC8XX/LPC8XX_i2c_func.h"/>
         <File Name="inc/nxp/LPC8XX/LPC81X_i2c.h"/>
         <File Name="inc/nxp/LPC8XX/LPC8XX_i2c.h"/>
         <File Name="inc/nxp/LPC8XX/LPC82X_i2c.h"/>

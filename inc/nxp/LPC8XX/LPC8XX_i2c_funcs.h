@@ -25,28 +25,55 @@ OTHER DEALINGS IN THE SOFTWARE.
 For more information, please refer to <http://unlicense.org>
 */
 /* 
-LPC810 series common I2C bus registers, definitions and functions.
+LPC800 series common I2C bus functions.
 */
-#ifndef LPC81X_I2C_H
-#define LPC81X_I2C_H
+#ifndef LPC8XX_I2C_FUNCS_H
+#define LPC8XX_I2C_FUNCS_H
 
-#include "nxp/LPC8XX/LPC8XX_i2c_defs.h"
-
-/* we cant avoid this pragma as this parameter is used for the LPC82X */
-#pragma GCC diagnostic ignored "-Wunused-parameter"
-
-static inline SYSCTL_PERIPH_RESET_T I2C_GetResetID(LPC_I2C_T *pI2C)
+static inline void I2C_Init(LPC_I2C_T *pI2C)
 {
-    return RESET_I2C0;
+    Clock_EnablePeriphClock(I2C_GetClockID(pI2C));
+    SYSCTL_PeriphReset(I2C_GetResetID(pI2C));    
 }
 
-static inline SYSCTL_CLOCK_T I2C_GetClockID(LPC_I2C_T *pI2C)
+static inline void I2C_DeInit(LPC_I2C_T *pI2C)
 {
-    return SYSCTL_CLOCK_I2C0;
+    Clock_DisablePeriphClock(I2C_GetClockID(pI2C));
 }
 
-#pragma GCC diagnostic pop
+static inline void I2C_SetClockDiv(LPC_I2C_T *pI2C, uint32_t clkdiv)
+{
+    if ((clkdiv >= 1) && (clkdiv <= 65536)) {
+        pI2C->CLKDIV = clkdiv - 1;
+    }
+    else {
+        pI2C->CLKDIV = 0;
+    }
+}
 
-#include "nxp/LPC8XX/LPC8XX_i2c_funcs.h"
+static inline uint32_t I2C_GetClockDiv(LPC_I2C_T *pI2C)
+{
+    return (pI2C->CLKDIV & 0xFFFF) + 1;
+}
+
+static inline void I2C_EnableInt(LPC_I2C_T *pI2C, uint32_t intEn)
+{
+    pI2C->INTENSET = intEn;
+}
+
+static inline void I2C_DisableInt(LPC_I2C_T *pI2C, uint32_t intClr)
+{
+    pI2C->INTENCLR = intClr;
+}
+
+static inline void I2C_ClearInt(LPC_I2C_T *pI2C, uint32_t intClr)
+{
+    I2C_DisableInt(pI2C, intClr);
+}
+
+static inline uint32_t I2C_GetPendingInt(LPC_I2C_T *pI2C)
+{
+    return pI2C->INTSTAT & ~I2C_INTSTAT_RESERVED;
+}
 
 #endif

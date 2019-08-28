@@ -25,10 +25,10 @@ OTHER DEALINGS IN THE SOFTWARE.
 For more information, please refer to <http://unlicense.org>
 */
 /* 
-LPC800 series common I2C bus registers, definitions and functions.
+LPC800 series common I2C bus registers and definitions.
 */
-#ifndef LPC8XX_I2C_H
-#define LPC8XX_I2C_H
+#ifndef LPC8XX_I2C_DEFS_H
+#define LPC8XX_I2C_DEFS_H
 
 /* I2C register block structure */
 typedef struct {                    /* I2C0 Structure         */
@@ -181,51 +181,5 @@ typedef struct {                    /* I2C0 Structure         */
 #define I2C_MONRXDAT_MONSTART       (1 << 8)            /* Monitor Received Start Bit */
 #define I2C_MONRXDAT_MONRESTART     (1 << 9)            /* Monitor Received Repeated Start Bit */
 #define I2C_MONRXDAT_MONNACK        (1 << 10)            /* Monitor Received Nack Bit */
-
-static inline void I2C_Init(LPC_I2C_T *pI2C)
-{
-    Clock_EnablePeriphClock(I2C_GetClockID(pI2C));
-    SYSCTL_PeriphReset(I2C_GetResetID(pI2C));    
-}
-
-static inline void I2C_DeInit(LPC_I2C_T *pI2C)
-{
-    Clock_DisablePeriphClock(I2C_GetClockID(pI2C));
-}
-
-static inline void I2C_SetClockDiv(LPC_I2C_T *pI2C, uint32_t clkdiv)
-{
-    if ((clkdiv >= 1) && (clkdiv <= 65536)) {
-        pI2C->CLKDIV = clkdiv - 1;
-    }
-    else {
-        pI2C->CLKDIV = 0;
-    }
-}
-
-static inline uint32_t I2C_GetClockDiv(LPC_I2C_T *pI2C)
-{
-    return (pI2C->CLKDIV & 0xFFFF) + 1;
-}
-
-static inline void I2C_EnableInt(LPC_I2C_T *pI2C, uint32_t intEn)
-{
-    pI2C->INTENSET = intEn;
-}
-
-static inline void I2C_DisableInt(LPC_I2C_T *pI2C, uint32_t intClr)
-{
-    pI2C->INTENCLR = intClr;
-}
-
-static inline void I2C_ClearInt(LPC_I2C_T *pI2C, uint32_t intClr)
-{
-    I2C_DisableInt(pI2C, intClr);
-}
-
-static inline uint32_t I2C_GetPendingInt(LPC_I2C_T *pI2C)
-{
-    return pI2C->INTSTAT & ~I2C_INTSTAT_RESERVED;
-}
 
 #endif
