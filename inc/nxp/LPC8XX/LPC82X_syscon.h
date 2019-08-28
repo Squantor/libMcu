@@ -124,7 +124,7 @@ typedef enum {
     RESET_I2C1 = 14,    /*!< I2C1 reset control [Available only in LPC82x] */
     RESET_I2C2,            /*!< I2C2 reset control [Available only in LPC82x] */
     RESET_I2C3,            /*!< I2C3 reset control [Available only in LPC82x] */
-} CHIP_SYSCTL_PERIPH_RESET_T;
+} SYSCTL_PERIPH_RESET_T;
 
 #include "nxp/LPC8XX/LPC8XX_syscon.h"
 

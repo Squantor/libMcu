@@ -108,7 +108,7 @@ typedef enum {
     RESET_GPIO,            /*!< GPIO reset control */
     RESET_FLASH,        /*!< FLASH reset control */
     RESET_ACMP,            /*!< ACMP reset control */
-} CHIP_SYSCTL_PERIPH_RESET_T;
+} SYSCTL_PERIPH_RESET_T;
 
 #include "nxp/LPC8XX/LPC8XX_syscon.h"
 

@@ -83,7 +83,7 @@ LPC800 series common system control functions
  * @brief IOCON Perpipheral Clock divider selction for input filter
  * sampling clock
  */
-typedef enum CHIP_PIN_CLKDIV {
+typedef enum PIN_CLKDIV {
     IOCONCLKDIV0 = 0,                /*!< Clock divider 0 */
     IOCONCLKDIV1,                    /*!< Clock divider 1 */
     IOCONCLKDIV2,                    /*!< Clock divider 2 */
@@ -92,7 +92,7 @@ typedef enum CHIP_PIN_CLKDIV {
     IOCONCLKDIV5,                    /*!< Clock divider 5 */
     IOCONCLKDIV6,                    /*!< Clock divider 6 */
     IOCONCLK_MAX = IOCONCLKDIV6        /*!< Top value used to reverse the dividers */
-} CHIP_PIN_CLKDIV_T;
+} PIN_CLKDIV_T;
 
 /* Reserved bits masks for registers */
 #define SYSCTL_SYSMEMREMAP_RESERVED     (~3)
@@ -128,48 +128,48 @@ typedef enum CHIP_PIN_CLKDIV {
 /**
  * System memory remap modes used to remap interrupt vectors
  */
-typedef enum CHIP_SYSCTL_BOOT_MODE_REMAP {
+typedef enum SYSCTL_BOOT_MODE_REMAP {
     REMAP_BOOT_LOADER_MODE,    /*!< Interrupt vectors are re-mapped to Boot ROM */
     REMAP_USER_RAM_MODE,    /*!< Interrupt vectors are re-mapped to user Static RAM */
     REMAP_USER_FLASH_MODE    /*!< Interrupt vectors are not re-mapped and reside in Flash */
-} CHIP_SYSCTL_BOOT_MODE_REMAP_T;
+} SYSCTL_BOOT_MODE_REMAP_T;
 
 /**
  * Brown-out detector reset level
  */
-typedef enum CHIP_SYSCTL_BODRSTLVL {
+typedef enum SYSCTL_BODRSTLVL {
     SYSCTL_BODRSTLVL_0,    /*!< Brown-out reset at 1.46 ~ 1.63v */
     SYSCTL_BODRSTLVL_1,    /*!< Brown-out reset at 2.06v ~ 2.15v */
     SYSCTL_BODRSTLVL_2,    /*!< Brown-out reset at 2.35v ~ 2.43v */
     SYSCTL_BODRSTLVL_3,    /*!< Brown-out reset at 2.63v ~ 2.71v */
-} CHIP_SYSCTL_BODRSTLVL_T;
+} SYSCTL_BODRSTLVL_T;
 
 /**
  * Brown-out detector interrupt level
  */
-typedef enum CHIP_SYSCTL_BODRINTVAL {
+typedef enum SYSCTL_BODRINTVAL {
     SYSCTL_BODINTVAL_LVL0,    /* Brown-out interrupt at 1.65 ~ 1.80v */
     SYSCTL_BODINTVAL_LVL1,    /* Brown-out interrupt at 2.22v ~ 2.35v*/
     SYSCTL_BODINTVAL_LVL2,    /* Brown-out interrupt at 2.52v ~ 2.66v */
     SYSCTL_BODINTVAL_LVL3,    /* Brown-out interrupt at 2.80v ~ 2.90v */
-} CHIP_SYSCTL_BODRINTVAL_T;
+} SYSCTL_BODRINTVAL_T;
 
-static inline void SYSCTL_Map(CHIP_SYSCTL_BOOT_MODE_REMAP_T remap)
+static inline void SYSCTL_Map(SYSCTL_BOOT_MODE_REMAP_T remap)
 {
     LPC_SYSCTL->SYSMEMREMAP = (uint32_t) remap;
 }
 
-static inline void SYSCTL_AssertPeriphReset(CHIP_SYSCTL_PERIPH_RESET_T periph)
+static inline void SYSCTL_AssertPeriphReset(SYSCTL_PERIPH_RESET_T periph)
 {
     LPC_SYSCTL->PRESETCTRL &= ~((1 << (uint32_t) periph) | SYSCTL_PRESETCTRL_RESERVED);
 }
 
-static inline void SYSCTL_DeassertPeriphReset(CHIP_SYSCTL_PERIPH_RESET_T periph)
+static inline void SYSCTL_DeassertPeriphReset(SYSCTL_PERIPH_RESET_T periph)
 {
     LPC_SYSCTL->PRESETCTRL = (1 << (uint32_t) periph) | (LPC_SYSCTL->PRESETCTRL & ~SYSCTL_PRESETCTRL_RESERVED);
 }
 
-static inline void SYSCTL_PeriphReset(CHIP_SYSCTL_PERIPH_RESET_T periph)
+static inline void SYSCTL_PeriphReset(SYSCTL_PERIPH_RESET_T periph)
 {
     SYSCTL_AssertPeriphReset(periph);
     SYSCTL_DeassertPeriphReset(periph);
@@ -190,8 +190,8 @@ static inline uint32_t SYSCTL_GetPORPIOStatus(void)
     return LPC_SYSCTL->PIOPORCAP0 & ~SYSCTL_PIOPORCAP0_RESERVED;
 }
 
-static inline void SYSCTL_SetBODLevels(CHIP_SYSCTL_BODRSTLVL_T rstlvl,
-                                            CHIP_SYSCTL_BODRINTVAL_T intlvl)
+static inline void SYSCTL_SetBODLevels(SYSCTL_BODRSTLVL_T rstlvl,
+                                            SYSCTL_BODRINTVAL_T intlvl)
 {
     LPC_SYSCTL->BODCTRL = ((uint32_t) rstlvl) | (((uint32_t) intlvl) << 2);
 }

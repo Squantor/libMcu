@@ -177,7 +177,7 @@ static inline void UART_SetAddr(LPC_USART_T *pUART, uint32_t addr)
 }
 
 /* Return UART clock ID from the UART register address */
-static inline CHIP_SYSCTL_CLOCK_T getUARTClockID(LPC_USART_T *pUART)
+static inline SYSCTL_CLOCK_T getUARTClockID(LPC_USART_T *pUART)
 {
     if (pUART == LPC_USART0) {
         return SYSCTL_CLOCK_UART0;
