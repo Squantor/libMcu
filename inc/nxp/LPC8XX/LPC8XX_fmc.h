@@ -33,13 +33,13 @@ and functions.
 
 /* FLASH Memory Controller Unit register block structure */
 typedef struct {
-    volatile const uint32_t RESERVED1[4];
-    volatile uint32_t FLASHCFG;        /*!< Flash Configuration register */
-    volatile const uint32_t RESERVED2[3];
-    volatile uint32_t FMSSTART;        /*!< Signature start address register */
-    volatile uint32_t FMSSTOP;            /*!< Signature stop address register */
-    volatile const uint32_t RESERVED3;
-    volatile const uint32_t FMSW[1];            /*!< Signature word regsiter */
+    __I  uint32_t RESERVED1[4];
+    __IO uint32_t FLASHCFG;        /*!< Flash Configuration register */
+    __I  uint32_t RESERVED2[3];
+    __IO uint32_t FMSSTART;        /*!< Signature start address register */
+    __IO uint32_t FMSSTOP;            /*!< Signature stop address register */
+    __I  uint32_t RESERVED3;
+    __I  uint32_t FMSW[1];            /*!< Signature word regsiter */
 } LPC_FMC_T;
 
 /* Reserved bits masks for registers */

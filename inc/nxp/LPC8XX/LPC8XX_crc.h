@@ -33,13 +33,13 @@ functions.
 
 /* CRC register block structure */
 typedef struct {                
-    volatile uint32_t MODE;        /* CRC Mode Register */
-    volatile uint32_t SEED;        /* CRC SEED Register */
+    __IO uint32_t MODE;         /* CRC Mode Register */
+    __IO uint32_t SEED;         /* CRC SEED Register */
     union {
-        volatile const uint32_t SUM;/* CRC Checksum Register. */
-        volatile uint32_t WRDATA32;    /* CRC Data Register: write size 32-bit */
-        volatile uint16_t WRDATA16;    /* CRC Data Register: write size 16-bit */
-        volatile uint8_t WRDATA8;    /* CRC Data Register: write size 8-bit */
+        __I uint32_t SUM;       /* CRC Checksum Register. */
+        __O uint32_t WRDATA32;  /* CRC Data Register: write size 32-bit */
+        __O uint16_t WRDATA16;  /* CRC Data Register: write size 16-bit */
+        __O uint8_t  WRDATA8;   /* CRC Data Register: write size 8-bit */
     };
 } LPC_CRC_T;
 

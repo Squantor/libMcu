@@ -31,9 +31,9 @@ LPC800 series wakeup timer functions
 #define LPC8XX_WKT_H
 
 typedef struct {
-    volatile uint32_t  CTRL;    /* Alarm/Wakeup Timer Control register */
+    __IO uint32_t  CTRL;    /* Alarm/Wakeup Timer Control register */
     uint32_t  Reserved[2];
-    volatile uint32_t  COUNT;   /* Alarm/Wakeup Timer Counter register */
+    __IO uint32_t  COUNT;   /* Alarm/Wakeup Timer Counter register */
 } LPC_WKT_T;
 
 #define WKT_CTRL_RESERVED (~7)

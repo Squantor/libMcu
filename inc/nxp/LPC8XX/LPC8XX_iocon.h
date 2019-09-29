@@ -38,7 +38,7 @@ typedef struct {
 } PINMUX_GRP_T;
 
 typedef struct {
-    volatile uint32_t PIO0[NUM_IOCON_PIO + 2]; /* 2 added for reserved register */
+    __IO uint32_t PIO0[NUM_IOCON_PIO + 2]; /* 2 added for reserved register */
 } LPC_IOCON_T;
 
 /**

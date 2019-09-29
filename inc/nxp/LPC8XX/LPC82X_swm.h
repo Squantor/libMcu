@@ -31,9 +31,9 @@ LPC820 series common switch matrix control
 #define LPC82X_SWM_H
 
 typedef struct {
-    volatile uint32_t PINASSIGN[12];        /*!< Pin Assign register array */
-    volatile const uint32_t RESERVED0[100];
-    volatile uint32_t PINENABLE0;           /*!< Pin Enable register */
+    __IO uint32_t PINASSIGN[12];        /*!< Pin Assign register array */
+    __I  uint32_t RESERVED0[100];
+    __IO uint32_t PINENABLE0;           /*!< Pin Enable register */
 } LPC_SWM_T;
 
 #define SWM_PINENABLE0_RESERVED  (~0x1ffffff)

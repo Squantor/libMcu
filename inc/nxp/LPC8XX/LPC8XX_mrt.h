@@ -38,18 +38,18 @@ functions.
 
 /* MRT register block structure */
 typedef struct {
-    volatile uint32_t INTVAL;    /*!< Timer interval register */
-    volatile uint32_t TIMER;    /*!< Timer register */
-    volatile uint32_t CTRL;        /*!< Timer control register */
-    volatile uint32_t STAT;        /*!< Timer status register */
+    __IO uint32_t INTVAL;   /* Timer interval register */
+    __O  uint32_t TIMER;    /* Timer register */
+    __IO uint32_t CTRL;     /* Timer control register */
+    __IO uint32_t STAT;     /* Timer status register */
 } LPC_MRT_CH_T;
 
 /* MRT register block structure */
 typedef struct {
     LPC_MRT_CH_T CHANNEL[MRT_CHANNELS_NUM];
     uint32_t unused[45];
-    volatile uint32_t IDLE_CH;
-    volatile uint32_t IRQ_FLAG;
+    __O  uint32_t IDLE_CH;
+    __IO uint32_t IRQ_FLAG;
 } LPC_MRT_T;
 
 /* Reserved bits masks for registers */

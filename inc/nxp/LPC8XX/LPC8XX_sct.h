@@ -36,44 +36,44 @@ LPC800 series state configurable timer functions
 #define CONFIG_SCT_nOU   (6)            /*!< Number of outputs */
 
 typedef struct {
-    volatile  uint32_t CONFIG;                /*!< configuration Register (offset (0x000) */
+    __IO uint32_t CONFIG;                /*!< configuration Register (offset (0x000) */
     union {
-        volatile uint32_t CTRL_U;            /*!< control Register */
+        __IO uint32_t CTRL_U;            /*!< control Register */
         struct {
-            volatile uint16_t CTRL_L;        /*!< low control register */
-            volatile uint16_t CTRL_H;        /*!< high control register */
+            __IO uint16_t CTRL_L;        /*!< low control register */
+            __IO uint16_t CTRL_H;        /*!< high control register */
         };
     };
     union {
-        volatile uint32_t LIMIT_U;            /*!< limit Register */
+        __IO uint32_t LIMIT_U;            /*!< limit Register */
         struct {
-            volatile uint16_t LIMIT_L;        /*!< limit register for counter L */
-            volatile uint16_t LIMIT_H;        /*!< limit register for counter H */
-        };
-    };
-
-    union {
-        volatile uint32_t HALT_U;            /*!< halt Register */
-        struct {
-            volatile uint16_t HALT_L;        /*!< halt register for counter L */
-            volatile uint16_t HALT_H;        /*!< halt register for counter H */
+            __IO uint16_t LIMIT_L;        /*!< limit register for counter L */
+            __IO uint16_t LIMIT_H;        /*!< limit register for counter H */
         };
     };
 
     union {
-        volatile uint32_t STOP_U;            /*!< stop Register */
+        __IO uint32_t HALT_U;            /*!< halt Register */
         struct {
-            volatile uint16_t STOP_L;        /*!< stop register for counter L */
-            volatile uint16_t STOP_H;        /*!< stop register for counter H */
+            __IO uint16_t HALT_L;        /*!< halt register for counter L */
+            __IO uint16_t HALT_H;        /*!< halt register for counter H */
+        };
+    };
+
+    union {
+        __IO uint32_t STOP_U;            /*!< stop Register */
+        struct {
+            __IO uint16_t STOP_L;        /*!< stop register for counter L */
+            __IO uint16_t STOP_H;        /*!< stop register for counter H */
         };
 
     };
 
     union {
-        volatile uint32_t START_U;            /*!< start Register */
+        __IO uint32_t START_U;            /*!< start Register */
         struct {
-            volatile uint16_t START_L;        /*!< start register for counter L */
-            volatile uint16_t START_H;        /*!< start register for counter H */
+            __IO uint16_t START_L;        /*!< start register for counter L */
+            __IO uint16_t START_H;        /*!< start register for counter H */
         };
 
     };
@@ -81,44 +81,44 @@ typedef struct {
     uint32_t RESERVED1[10];                    /*!< 0x018 - 0x03C reserved */
 
     union {
-        volatile uint32_t COUNT_U;            /*!< counter register (offset 0x040)*/
+        __IO uint32_t COUNT_U;            /*!< counter register (offset 0x040)*/
         struct {
-            volatile uint16_t COUNT_L;        /*!< counter register for counter L */
-            volatile uint16_t COUNT_H;        /*!< counter register for counter H */
+            __IO uint16_t COUNT_L;        /*!< counter register for counter L */
+            __IO uint16_t COUNT_H;        /*!< counter register for counter H */
         };
     };
 
     union {
-        volatile uint32_t STATE_U;            /*!< State register */
+        __IO uint32_t STATE_U;            /*!< State register */
         struct {
-            volatile uint16_t STATE_L;        /*!< state register for counter L */
-            volatile uint16_t STATE_H;        /*!< state register for counter H */
+            __IO uint16_t STATE_L;        /*!< state register for counter L */
+            __IO uint16_t STATE_H;        /*!< state register for counter H */
         };
     };
 
-    volatile const  uint32_t INPUT;            /*!< input register */
+    __IO const  uint32_t INPUT;            /*!< input register */
     union {
-        volatile uint32_t REGMODE_U;        /*!< RegMode register */
+        __IO uint32_t REGMODE_U;        /*!< RegMode register */
         struct {
-            volatile uint16_t REGMODE_L;    /*!< match - capture registers mode register L */
-            volatile uint16_t REGMODE_H;    /*!< match - capture registers mode register H */
+            __IO uint16_t REGMODE_L;    /*!< match - capture registers mode register L */
+            __IO uint16_t REGMODE_H;    /*!< match - capture registers mode register H */
         };
     };
 
-    volatile uint32_t OUTPUT;                /*!< output register */
-    volatile uint32_t OUTPUTDIRCTRL;        /*!< output counter direction Control Register */
-    volatile uint32_t RES;                    /*!< conflict resolution register */
-    volatile uint32_t DMAREQ0;                /*!< DMA0 Request Register */
-    volatile uint32_t DMAREQ1;                /*!< DMA1 Request Register */
+    __IO uint32_t OUTPUT;                /*!< output register */
+    __IO uint32_t OUTPUTDIRCTRL;        /*!< output counter direction Control Register */
+    __IO uint32_t RES;                    /*!< conflict resolution register */
+    __IO uint32_t DMAREQ0;                /*!< DMA0 Request Register */
+    __IO uint32_t DMAREQ1;                /*!< DMA1 Request Register */
 
     uint32_t RESERVED2[35];                    /*!< 0x064 - 0x0EC reserved */
 
-    volatile uint32_t EVEN;                    /*!< event enable register (offset 0x0F0)*/
-    volatile uint32_t EVFLAG;                /*!< event flag register */
-    volatile uint32_t CONEN;                /*!< conflict enable register */
-    volatile uint32_t CONFLAG;                /*!< conflict flag register */
+    __IO uint32_t EVEN;                    /*!< event enable register (offset 0x0F0)*/
+    __IO uint32_t EVFLAG;                /*!< event flag register */
+    __IO uint32_t CONEN;                /*!< conflict enable register */
+    __IO uint32_t CONFLAG;                /*!< conflict flag register */
     union {
-        volatile union {                    /*!< ... Match / Capture value */
+        __IO union {                    /*!< ... Match / Capture value */
             uint32_t U;                        /*!<  MATCH[i].U  Unified 32-bit register */
             struct {
                 uint16_t L;                    /*!<  MATCH[i].L  Access to L value */
@@ -126,7 +126,7 @@ typedef struct {
             };
         } MATCH[CONFIG_SCT_nRG];
 
-        volatile const union {
+        __I union {
             uint32_t U;                        /*!<  CAP[i].U  Unified 32-bit register */
             struct {
                 uint16_t L;                    /*!<  CAP[i].L  Access to L value */
@@ -138,7 +138,7 @@ typedef struct {
     uint32_t RESERVED3[56];                    /*!< 0x120 - 0x1FC reserved */
 
     union {
-        volatile union {                    /*!< ...Match Reload / Capture Control value (offset 0x200) */
+        __IO union {                    /*!< ...Match Reload / Capture Control value (offset 0x200) */
             uint32_t U;                        /*!<  MATCHREL[i].U  Unified 32-bit register */
             struct {
                 uint16_t L;                    /*!<  MATCHREL[i].L  Access to L value */
@@ -146,7 +146,7 @@ typedef struct {
             };
         } MATCHREL[CONFIG_SCT_nRG];
 
-        volatile union {
+        __IO union {
             uint32_t U;                        /*!<  CAPCTRL[i].U  Unified 32-bit register */
             struct {
                 uint16_t L;                    /*!<  CAPCTRL[i].L  Access to L value */
@@ -157,14 +157,14 @@ typedef struct {
 
     uint32_t RESERVED4[56];                    /*!< 0x220 - 0x2FC reserved */
 
-    volatile struct {                        /*!< EV[i].STATE / EV[i].CTRL (offset 0x300) */
+    __IO struct {                        /*!< EV[i].STATE / EV[i].CTRL (offset 0x300) */
         uint32_t STATE;                        /*!< Event State Register */
         uint32_t CTRL;                        /*!< Event Control Register */
     } EV[CONFIG_SCT_nEV];
 
     uint32_t RESERVED5[112];                /*!< 0x340 - 0x4FC reserved */
 
-    volatile struct {                        /*!< OUT[i].SET / OUT[i].CLR  (offset 0x500) */
+    __IO struct {                        /*!< OUT[i].SET / OUT[i].CLR  (offset 0x500) */
         uint32_t SET;                        /*!< Output n Set Register */
         uint32_t CLR;                        /*!< Output n Clear Register */
     } OUT[CONFIG_SCT_nOU];
