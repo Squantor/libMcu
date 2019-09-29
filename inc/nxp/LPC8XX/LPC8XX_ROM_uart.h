@@ -33,11 +33,11 @@ LPC800 series common ROM uart driver defines and functions.
 /**
  * UART ROM driver - UART errors in UART configuration used in uart_init function
  */
-#define OVERRUN_ERR_EN        (1 << 0)    /* Bit 0: Enable overrun error */
-#define UNDERRUN_ERR_EN        (1 << 1)    /* Bit 1: Enable underrun error */
-#define FRAME_ERR_EN        (1 << 2)    /* Bit 2: enable frame error */
-#define PARITY_ERR_EN        (1 << 3)    /* Bit 3: enable parity error */
-#define RXNOISE_ERR_EN        (1 << 4)    /* Bit 4: enable receive noise error */
+#define OVERRUN_ERR_EN  (1 << 0)    /* Bit 0: Enable overrun error */
+#define UNDERRUN_ERR_EN (1 << 1)    /* Bit 1: Enable underrun error */
+#define FRAME_ERR_EN    (1 << 2)    /* Bit 2: enable frame error */
+#define PARITY_ERR_EN   (1 << 3)    /* Bit 3: enable parity error */
+#define RXNOISE_ERR_EN  (1 << 4)    /* Bit 4: enable receive noise error */
 
 /**
  * Macros for UART errors
@@ -54,26 +54,26 @@ LPC800 series common ROM uart driver defines and functions.
  */
 /* 0x00: uart_get_line: stop transfer when the buffer is full */
 /* 0x00: uart_put_line: stop transfer when the buffer is empty */
-#define TX_MODE_BUF_EMPTY        (0x00)
+#define TX_MODE_BUF_EMPTY       (0x00)
 #define RX_MODE_BUF_FULL        (0x00)
 /* 0x01: uart_get_line: stop transfer when CRLF are received */
 /* 0x01: uart_put_line: transfer stopped after reaching \0 and CRLF is sent out after that */
-#define TX_MODE_SZERO_SEND_CRLF    (0x01)
-#define RX_MODE_CRLF_RECVD        (0x01)
+#define TX_MODE_SZERO_SEND_CRLF (0x01)
+#define RX_MODE_CRLF_RECVD      (0x01)
 /* 0x02: uart_get_line: stop transfer when LF are received */
 /* 0x02: uart_put_line: transfer stopped after reaching \0. And LF is sent out after that */
-#define TX_MODE_SZERO_SEND_LF    (0x02)
+#define TX_MODE_SZERO_SEND_LF   (0x02)
 #define RX_MODE_LF_RECVD        (0x02)
 /* 0x03: uart_get_line: RESERVED */
 /* 0x03: uart_put_line: transfer stopped after reaching \0 */
-#define TX_MODE_SZERO            (0x03)
+#define TX_MODE_SZERO           (0x03)
 
 /**
  * UART ROM driver modes
  */
-#define DRIVER_MODE_POLLING        (0x00)    /* Polling mode */
-#define DRIVER_MODE_INTERRUPT    (0x01)    /* Interrupt mode */
-#define DRIVER_MODE_DMA            (0x02)    /* DMA mode */
+#define DRIVER_MODE_POLLING     (0x00)    /* Polling mode */
+#define DRIVER_MODE_INTERRUPT   (0x01)    /* Interrupt mode */
+#define DRIVER_MODE_DMA         (0x02)    /* DMA mode */
 
 /**
  * UART ROM driver UART handle
@@ -94,13 +94,13 @@ typedef void (*UART_DMA_REQ_T)(uint32_t src_adr, uint32_t dst_adr, uint32_t size
  * UART ROM driver configutaion structure
  */
 typedef struct {
-    uint32_t sys_clk_in_hz;        /* main clock in Hz */
+    uint32_t sys_clk_in_hz;     /* main clock in Hz */
     uint32_t baudrate_in_hz;    /* Baud rate in Hz */
     uint8_t  config;            /* Configuration value */
                                 /*  bit1:0  Data Length: 00: 7 bits length, 01: 8 bits length, others: reserved */
                                 /*  bit3:2  Parity: 00: No Parity, 01: reserved, 10: Even, 11: Odd */
                                 /*  bit4:   Stop Bit(s): 0: 1 Stop bit, 1: 2 Stop bits */
-    uint8_t sync_mod;            /* Sync mode settings */
+    uint8_t sync_mod;           /* Sync mode settings */
                                 /*  bit0:  Mode: 0: Asynchronous mode, 1: Synchronous  mode */
                                 /*  bit1:  0: Un_RXD is sampled on the falling edge of SCLK */
                                 /*         1: Un_RXD is sampled on the rising edge of SCLK */
@@ -108,7 +108,7 @@ typedef struct {
                                 /*         1: Start and stop bits are not transmitted) */
                                 /*  bit3:  0: The UART is a  slave in Synchronous mode */
                                 /*         1: The UART is a master in Synchronous mode */
-    uint16_t error_en;            /* Errors to be enabled */
+    uint16_t error_en;          /* Errors to be enabled */
                                 /*  bit0: Overrun Errors Enabled */
                                 /*  bit1: Underrun Errors Enabled */
                                 /*  bit2: FrameErr Errors Enabled */
@@ -121,8 +121,8 @@ typedef struct {
  */
 typedef struct {
     uint8_t         *buffer;        /* Pointer to data buffer */
-    uint32_t        size;            /* Size of the buffer */
-    uint16_t        transfer_mode;    /* Transfer mode settings */
+    uint32_t        size;           /* Size of the buffer */
+    uint16_t        transfer_mode;  /* Transfer mode settings */
                                     /*   0x00: uart_get_line: stop transfer when the buffer is full */
                                     /*   0x00: uart_put_line: stop transfer when the buffer is empty */
                                     /*   0x01: uart_get_line: stop transfer when CRLF are received */
