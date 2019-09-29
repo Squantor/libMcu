@@ -38,7 +38,7 @@ typedef struct {
 
 #define SWM_PINENABLE0_RESERVED  (~0x1ff)
 
-typedef enum CHIP_SWM_PIN_MOVABLE  {
+typedef enum SWM_PIN_MOVABLE  {
     SWM_U0_TXD_O,               /*!< PINASSIGN0 - UART0 TXD Output */
     SWM_U0_RXD_I,               /*!< PINASSIGN0 - UART0 RXD Input */
     SWM_U0_RTS_O,               /*!< PINASSIGN0 - UART0 RTS Output */
@@ -75,9 +75,9 @@ typedef enum CHIP_SWM_PIN_MOVABLE  {
     SWM_ACMP_O_O,               /*!< PINASSIGN8 - I2C ACMP Output */
     SWM_CLKOUT_O,               /*!< PINASSIGN8 - I2C CLKOUT Output */
     SWM_GPIO_INT_BMAT_O,        /*!< PINASSIGN8 - I2C GPIO INT BMAT Output */
-} CHIP_SWM_PIN_MOVABLE_T;
+} SWM_PIN_MOVABLE_T;
 
-typedef enum CHIP_SWM_PIN_FIXED    {
+typedef enum SWM_PIN_FIXED    {
     SWM_FIXED_ACMP_I1 = 0,    /*!< ACMP I1 */
     SWM_FIXED_ACMP_I2 = 1,    /*!< ACMP I2 */
     SWM_FIXED_SWCLK   = 2,    /*!< SWCLK */
@@ -87,7 +87,7 @@ typedef enum CHIP_SWM_PIN_FIXED    {
     SWM_FIXED_RST     = 6,    /*!< Reset */
     SWM_FIXED_CLKIN   = 7,    /*!< Clock Input */
     SWM_FIXED_VDDCMP  = 8    /*!< VDD */
-} CHIP_SWM_PIN_FIXED_T;
+} SWM_PIN_FIXED_T;
 
 #include "nxp/LPC8XX/LPC8XX_swm.h"
 

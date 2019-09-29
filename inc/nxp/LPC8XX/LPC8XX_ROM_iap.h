@@ -77,7 +77,7 @@ static inline void iap_entry(uint32_t cmd_param[], uint32_t status_result[])
     ((IAP_ENTRY_T) IAP_ENTRY_LOCATION)(cmd_param, status_result);
 }
 
-static inline uint8_t Chip_IAP_PreSectorForReadWrite(uint32_t strSector, uint32_t endSector)
+static inline uint8_t IAP_PreSectorForReadWrite(uint32_t strSector, uint32_t endSector)
 {
     uint32_t command[5], result[5];
 
@@ -89,7 +89,7 @@ static inline uint8_t Chip_IAP_PreSectorForReadWrite(uint32_t strSector, uint32_
     return result[0];
 }
 
-static inline uint8_t Chip_IAP_CopyRamToFlash(uint32_t dstAdd, uint32_t *srcAdd, uint32_t byteswrt)
+static inline uint8_t IAP_CopyRamToFlash(uint32_t dstAdd, uint32_t *srcAdd, uint32_t byteswrt)
 {
     uint32_t command[5], result[5];
 
@@ -103,7 +103,7 @@ static inline uint8_t Chip_IAP_CopyRamToFlash(uint32_t dstAdd, uint32_t *srcAdd,
     return result[0];
 }
 
-static inline uint8_t Chip_IAP_EraseSector(uint32_t strSector, uint32_t endSector)
+static inline uint8_t IAP_EraseSector(uint32_t strSector, uint32_t endSector)
 {
     uint32_t command[5], result[5];
 
@@ -116,7 +116,7 @@ static inline uint8_t Chip_IAP_EraseSector(uint32_t strSector, uint32_t endSecto
     return result[0];
 }
 
-static inline uint8_t Chip_IAP_BlankCheckSector(uint32_t strSector, uint32_t endSector)
+static inline uint8_t IAP_BlankCheckSector(uint32_t strSector, uint32_t endSector)
 {
     uint32_t command[5], result[5];
 
@@ -128,7 +128,7 @@ static inline uint8_t Chip_IAP_BlankCheckSector(uint32_t strSector, uint32_t end
     return result[0];
 }
 
-static inline uint32_t Chip_IAP_ReadPID(void)
+static inline uint32_t IAP_ReadPID(void)
 {
     uint32_t command[5], result[5];
 
@@ -138,7 +138,7 @@ static inline uint32_t Chip_IAP_ReadPID(void)
     return result[1];    
 }
 
-static inline uint32_t Chip_IAP_ReadBootCode(void)
+static inline uint32_t IAP_ReadBootCode(void)
 {
     uint32_t command[5], result[5];
 
@@ -148,7 +148,7 @@ static inline uint32_t Chip_IAP_ReadBootCode(void)
     return result[1] & 0xffff;
 }
 
-static inline uint8_t Chip_IAP_Compare(uint32_t dstAdd, uint32_t srcAdd, uint32_t bytescmp)
+static inline uint8_t IAP_Compare(uint32_t dstAdd, uint32_t srcAdd, uint32_t bytescmp)
 {
     uint32_t command[5], result[5];
 
@@ -161,7 +161,7 @@ static inline uint8_t Chip_IAP_Compare(uint32_t dstAdd, uint32_t srcAdd, uint32_
     return result[0];
 }
 
-static inline uint8_t Chip_IAP_ReinvokeISP(void)
+static inline uint8_t IAP_ReinvokeISP(void)
 {
     uint32_t command[5], result[5];
 
@@ -171,7 +171,7 @@ static inline uint8_t Chip_IAP_ReinvokeISP(void)
     return result[0];
 }
 
-static inline uint32_t Chip_IAP_ReadUID(uint32_t* uid)
+static inline uint32_t IAP_ReadUID(uint32_t* uid)
 {
     uint32_t command[5], result[5];
     uint32_t i;
@@ -185,7 +185,7 @@ static inline uint32_t Chip_IAP_ReadUID(uint32_t* uid)
     return result[0];
 }
 
-static inline uint8_t Chip_IAP_ErasePage(uint32_t strPage, uint32_t endPage)
+static inline uint8_t IAP_ErasePage(uint32_t strPage, uint32_t endPage)
 {
     uint32_t command[5], result[5];
 

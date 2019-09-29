@@ -64,13 +64,13 @@ typedef struct I2C_RESULT {
 /**
  * LPC8xx I2C ROM driver modes enum
  */
-typedef enum CHIP_I2C_MODE {
+typedef enum I2C_MODE {
     IDLE,            /*!< IDLE state */
     MASTER_SEND,    /*!< Master send state */
     MASTER_RECEIVE,    /*!< Master Receive state */
     SLAVE_SEND,        /*!< Slave send state */
     SLAVE_RECEIVE    /*!< Slave receive state */
-} CHIP_I2C_MODE_T;
+} I2C_MODE_T;
 
 /**
  * LPC8xx I2C ROM driver APIs structure
@@ -99,7 +99,7 @@ typedef struct  I2CD_API {
     I2C_HANDLE_T *  (*i2c_setup)( uint32_t  i2c_base_addr, uint32_t * start_of_ram);
     ErrorCode_t     (*i2c_set_bitrate)(I2C_HANDLE_T *handle, uint32_t  p_clk_in_hz, uint32_t bitrate_in_bps);
     uint32_t        (*i2c_get_firmware_version)(void);
-    CHIP_I2C_MODE_T (*i2c_get_status)(I2C_HANDLE_T *handle);
+    I2C_MODE_T (*i2c_get_status)(I2C_HANDLE_T *handle);
     ErrorCode_t     (*i2c_set_timeout)(I2C_HANDLE_T *handle, uint32_t timeout);
 } I2CD_API_T;
 
