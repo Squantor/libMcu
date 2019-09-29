@@ -114,12 +114,9 @@ typedef enum PININT_BITSLICE_CFG {
     PININT_PATTEREVENT             = 0x7    /*!< Match occurs on event */    
 } PININT_BITSLICE_CFG_T;
 
-#pragma GCC diagnostic ignored "-Wunused-parameter"
+static inline void PININT_Init(void) {}
 
-static inline void PININT_Init(LPC_PIN_INT_T *pPININT) {}
-
-static inline void PININT_DeInit(LPC_PIN_INT_T *pPININT) {}
-#pragma GCC diagnostic pop
+static inline void PININT_DeInit(void) {}
 
 static inline void PININT_SetPinModeEdge(LPC_PIN_INT_T *pPININT, uint32_t pins)
 {

@@ -73,12 +73,10 @@ static inline void WWDT_Init(LPC_WWDT_T *pWWDT)
     pWWDT->WINDOW    = 0xFFFFFF;
 }
 
-#pragma GCC diagnostic ignored "-Wunused-parameter"
-static inline void WWDT_DeInit(LPC_WWDT_T *pWWDT)
+static inline void WWDT_DeInit(void)
 {
     Clock_DisablePeriphClock(SYSCTL_CLOCK_WWDT);
 }
-#pragma GCC diagnostic pop
 
 static inline void WWDT_SetTimeOut(LPC_WWDT_T *pWWDT, uint32_t timeout)
 {
