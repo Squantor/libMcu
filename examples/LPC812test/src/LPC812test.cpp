@@ -26,23 +26,23 @@ SOFTWARE.
 
 void boardInit(void)
 {
-    Clock_EnablePeriphClock(SYSCTL_CLOCK_SWM);
+    ClockEnablePeriphClock(SYSCTL_CLOCK_SWM);
     // setup crystal functionality
     SWM_FixedPinEnable(SWM_FIXED_XTALIN, true);
     SWM_FixedPinEnable(SWM_FIXED_XTALOUT, true);
-    Clock_DisablePeriphClock(SYSCTL_CLOCK_SWM);
+    ClockDisablePeriphClock(SYSCTL_CLOCK_SWM);
     // setup IO control
-    Clock_EnablePeriphClock(SYSCTL_CLOCK_IOCON);
+    ClockEnablePeriphClock(SYSCTL_CLOCK_IOCON);
     // setup pins for crystal oscillator
     IOCON_PinSetMode(LPC_IOCON, IOCON_PIO8, PIN_MODE_INACTIVE);
     IOCON_PinSetMode(LPC_IOCON, IOCON_PIO9, PIN_MODE_INACTIVE);
     // setup LED pins
     IOCON_PinSetMode(LPC_IOCON, LED_RED_IOCON, PIN_MODE_INACTIVE);
-    Clock_DisablePeriphClock(SYSCTL_CLOCK_IOCON);
+    ClockDisablePeriphClock(SYSCTL_CLOCK_IOCON);
     // GPIO pins setup
-    GPIO_Init(LPC_GPIO_PORT);
-    GPIO_SetPinDIROutput(LPC_GPIO_PORT, 0, LED_RED_PIN);
-    GPIO_SetPinState(LPC_GPIO_PORT, 0, LED_RED_PIN, true);
+    GpioInit(LPC_GPIO_PORT);
+    GpioSetPinDIROutput(LPC_GPIO_PORT, 0, LED_RED_PIN);
+    GpioSetPinState(LPC_GPIO_PORT, 0, LED_RED_PIN, true);
     //SetupXtalClocking();
     //SystemCoreClockUpdate();
     // systick configuration

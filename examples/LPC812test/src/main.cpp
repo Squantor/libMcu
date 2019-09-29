@@ -37,7 +37,7 @@ int main()
         var ^= 0x55;
         if(timeDelayCheck(&blinkyDelay) != delayNotReached)
         {
-            GPIO_SetPinToggle(LPC_GPIO_PORT, 0, LED_RED_PIN);
+            GpioSetPinToggle(LPC_GPIO_PORT, 0, LED_RED_PIN);
         }       
     }
 }

@@ -185,10 +185,10 @@ static inline void SPI_ClearCFGRegBits(LPC_SPI_T *pSPI, uint32_t bits)
 static inline void SPI_Init(LPC_SPI_T *pSPI)
 {
     if (pSPI == LPC_SPI1) {
-        Clock_EnablePeriphClock(SYSCTL_CLOCK_SPI1);
+        ClockEnablePeriphClock(SYSCTL_CLOCK_SPI1);
         SYSCTL_PeriphReset(RESET_SPI1);
     } else {
-        Clock_EnablePeriphClock(SYSCTL_CLOCK_SPI0);
+        ClockEnablePeriphClock(SYSCTL_CLOCK_SPI0);
         SYSCTL_PeriphReset(RESET_SPI0);
     }
 }
@@ -202,9 +202,9 @@ static inline void SPI_DeInit(LPC_SPI_T *pSPI)
 {
     SPI_Disable(pSPI);
     if (pSPI == LPC_SPI1) {
-        Clock_DisablePeriphClock(SYSCTL_CLOCK_SPI1);
+        ClockDisablePeriphClock(SYSCTL_CLOCK_SPI1);
     } else {
-        Clock_DisablePeriphClock(SYSCTL_CLOCK_SPI0);
+        ClockDisablePeriphClock(SYSCTL_CLOCK_SPI0);
     }
 }
 

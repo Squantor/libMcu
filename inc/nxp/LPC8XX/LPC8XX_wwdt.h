@@ -64,7 +64,7 @@ typedef struct {
 
 static inline void WWDT_Init(LPC_WWDT_T *pWWDT)
 {
-    Clock_EnablePeriphClock(SYSCTL_CLOCK_WWDT);
+    ClockEnablePeriphClock(SYSCTL_CLOCK_WWDT);
 
     /* Disable watchdog */
     pWWDT->MOD       = 0;
@@ -75,7 +75,7 @@ static inline void WWDT_Init(LPC_WWDT_T *pWWDT)
 
 static inline void WWDT_DeInit(void)
 {
-    Clock_DisablePeriphClock(SYSCTL_CLOCK_WWDT);
+    ClockDisablePeriphClock(SYSCTL_CLOCK_WWDT);
 }
 
 static inline void WWDT_SetTimeOut(LPC_WWDT_T *pWWDT, uint32_t timeout)

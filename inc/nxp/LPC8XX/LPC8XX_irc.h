@@ -137,15 +137,15 @@ static const uint16_t config_tab_ct = sizeof(config_tab) / sizeof(LPC_8XX_PLL_T)
 static inline void pll_config(const LPC_8XX_PLL_T* pll_cfg)
 {
     SYSCTL_PowerUp(SYSCTL_SLPWAKE_IRC_PD);                                    /* turn on the IRC by clearing the power down bit */
-    Clock_SetSystemPLLSource(SYSCTL_PLLCLKSRC_IRC);                        /* select PLL input to be IRC */
-    Clock_SetMainClockSource(SYSCTL_MAINCLKSRC_IRC);
+    ClockSetSystemPLLSource(SYSCTL_PLLCLKSRC_IRC);                        /* select PLL input to be IRC */
+    ClockSetMainClockSource(SYSCTL_MAINCLKSRC_IRC);
     FMC_SetFLASHAccess(FLASHTIM_30MHZ_CPU);                                /* setup FLASH access to 2 clocks (up to 30MHz) */
     SYSCTL_PowerDown(SYSCTL_SLPWAKE_SYSPLL_PD);                            /* power down PLL to change the PLL divider ratio */
-    Clock_SetupSystemPLL(pll_cfg->msel, pll_cfg->psel);                    /* configure the PLL */
+    ClockSetupSystemPLL(pll_cfg->msel, pll_cfg->psel);                    /* configure the PLL */
     SYSCTL_PowerUp(SYSCTL_SLPWAKE_SYSPLL_PD);                                /* turn on the PLL by clearing the power down bit */
-    while (!Clock_IsSystemPLLLocked()) {}                                    /* wait for PLL to lock */
-    Clock_SetSysClockDiv(pll_cfg->divider);                                /* load the divider */
-    Clock_SetMainClockSource(SYSCTL_MAINCLKSRC_PLLOUT);                    /* enable the new Frequency */
+    while (!ClockIsSystemPLLLocked()) {}                                    /* wait for PLL to lock */
+    ClockSetSysClockDiv(pll_cfg->divider);                                /* load the divider */
+    ClockSetMainClockSource(SYSCTL_MAINCLKSRC_PLLOUT);                    /* enable the new Frequency */
 }
 
 static inline bool IRC_SetFreq(uint32_t main, uint32_t sys)
@@ -180,10 +180,10 @@ static inline void IRC_SetFreq_ROM(uint32_t sys)
     uint32_t cmd[4], resp[2];
 
     SYSCTL_PowerUp(SYSCTL_SLPWAKE_IRC_PD);                                    /* Turn on the IRC by clearing the power down bit */
-    Clock_SetSystemPLLSource(SYSCTL_PLLCLKSRC_IRC);                        /* Select PLL input to be IRC */
+    ClockSetSystemPLLSource(SYSCTL_PLLCLKSRC_IRC);                        /* Select PLL input to be IRC */
     FMC_SetFLASHAccess(FLASHTIM_30MHZ_CPU);                                /* Setup FLASH access to 2 clocks (up to 30MHz) */
 
-    cmd[0] = Clock_GetIntOscRate() / 1000;                                    /* in KHz */
+    cmd[0] = ClockGetIntOscRate() / 1000;                                    /* in KHz */
     cmd[1] = sys / 1000;                                                        /* system clock rate in kHz */
     cmd[2] = CPU_FREQ_EQU;
     cmd[3] = sys / 10000;                                                        /* Timeout. See UM10601, section 23.4.1.3 for details */

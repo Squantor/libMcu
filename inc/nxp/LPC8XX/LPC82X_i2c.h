@@ -32,7 +32,7 @@ LPC820 series common I2C bus registers, defines and functions.
 
 #include "nxp/LPC8XX/LPC8XX_i2c_defs.h"
 
-static inline SYSCTL_PERIPH_RESET_T I2C_GetResetID(LPC_I2C_T *pI2C)
+static inline SYSCTL_PERIPH_RESET_T I2cGetResetID(LPC_I2C_T *pI2C)
 {
     uint32_t base = (uint32_t) pI2C;
     switch (base) {
@@ -47,7 +47,7 @@ static inline SYSCTL_PERIPH_RESET_T I2C_GetResetID(LPC_I2C_T *pI2C)
     }
 }
 
-static inline SYSCTL_CLOCK_T I2C_GetClockID(LPC_I2C_T *pI2C)
+static inline SYSCTL_CLOCK_T I2cGetClockID(LPC_I2C_T *pI2C)
 {
     uint32_t base = (uint32_t) pI2C;
     switch (base) {

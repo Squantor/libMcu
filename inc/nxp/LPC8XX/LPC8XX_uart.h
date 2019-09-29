@@ -192,7 +192,7 @@ static inline SYSCTL_CLOCK_T getUARTClockID(LPC_USART_T *pUART)
 static inline void UART_Init(LPC_USART_T *pUART)
 {
     /* Enable USART clock */
-    Clock_EnablePeriphClock(getUARTClockID(pUART));
+    ClockEnablePeriphClock(getUARTClockID(pUART));
 
     /* UART reset */
     if (pUART == LPC_USART0) {
@@ -211,13 +211,13 @@ static inline void UART_Init(LPC_USART_T *pUART)
 
 static inline void UART_DeInit(LPC_USART_T *pUART)
 {
-    Clock_DisablePeriphClock(getUARTClockID(pUART));
+    ClockDisablePeriphClock(getUARTClockID(pUART));
 }
 
 static inline void UART_SetBaud(LPC_USART_T *pUART, uint32_t baudrate)
 {
     uint32_t baudRateGenerator;
-    baudRateGenerator = Clock_GetUSARTNBaseClockRate() / (16 * baudrate);
+    baudRateGenerator = ClockGetUSARTNBaseClockRate() / (16 * baudrate);
     pUART->BRG = baudRateGenerator - 1;    /* baud rate */
 }
 

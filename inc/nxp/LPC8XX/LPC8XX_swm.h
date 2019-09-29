@@ -36,12 +36,12 @@ functions.
 
 static inline void SWM_Init(void)
 {
-    Clock_EnablePeriphClock(SYSCTL_CLOCK_SWM);
+    ClockEnablePeriphClock(SYSCTL_CLOCK_SWM);
 }
 
 static inline void SWM_Deinit(void)
 {
-    Clock_DisablePeriphClock(SYSCTL_CLOCK_SWM);
+    ClockDisablePeriphClock(SYSCTL_CLOCK_SWM);
 }
 
 static inline void SWM_EnableFixedPin(SWM_PIN_FIXED_T pin)

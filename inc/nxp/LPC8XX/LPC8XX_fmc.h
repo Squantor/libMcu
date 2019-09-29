@@ -64,23 +64,23 @@ static inline void FMC_SetFLASHAccess(FMC_FLASHTIM_T clks)
 /* Flash signature start and busy status bit */
 #define FMC_FLASHSIG_BUSY    (1UL << 31)
 
-static inline void FMC_ComputeSignature(uint32_t start, uint32_t stop)
+static inline void FmcComputeSignature(uint32_t start, uint32_t stop)
 {
     LPC_FMC->FMSSTART = (start >> 4);
     LPC_FMC->FMSSTOP = (stop >> 4) | FMC_FLASHSIG_BUSY;
 }
 
-static inline void FMC_ComputeSignatureBlocks(uint32_t start, uint32_t blocks)
+static inline void FmcComputeSignatureBlocks(uint32_t start, uint32_t blocks)
 {
-    FMC_ComputeSignature(start, (start + (blocks * 16)));
+    FmcComputeSignature(start, (start + (blocks * 16)));
 }
 
-static inline bool FMC_IsSignatureBusy(void)
+static inline bool FmcIsSignatureBusy(void)
 {
     return (bool) ((LPC_FMC->FMSSTOP & FMC_FLASHSIG_BUSY) != 0);
 }
 
-static inline uint32_t FMC_GetSignature(int index)
+static inline uint32_t FmcGetSignature(int index)
 {
     return LPC_FMC->FMSW[index];
 }

@@ -69,65 +69,65 @@ typedef enum {
     ACMP_HYS_20MV = (3 << 25)   /* 20mV hysteresis */
 } ACMP_HYS_T;
 
-static inline void ACMP_Init(void)
+static inline void AcmpInit(void)
 {
     SYSCTL_PowerUp(SYSCTL_SLPWAKE_ACMP_PD);
-    Clock_EnablePeriphClock(SYSCTL_CLOCK_ACOMP);
+    ClockEnablePeriphClock(SYSCTL_CLOCK_ACOMP);
 }
 
-static inline void ACMP_Deinit(void)
+static inline void AcmpDeinit(void)
 {
-    Clock_DisablePeriphClock(SYSCTL_CLOCK_ACOMP);
+    ClockDisablePeriphClock(SYSCTL_CLOCK_ACOMP);
     SYSCTL_PowerDown(SYSCTL_SLPWAKE_ACMP_PD);
 }
 
-static inline uint32_t ACMP_GetCompStatus(LPC_CMP_T *pACMP)
+static inline uint32_t AcmpGetCompStatus(LPC_CMP_T *pACMP)
 {
     return pACMP->CTRL & (ACMP_COMPSTAT_BIT | ACMP_COMPEDGE_BIT);
 }
 
-static inline void ACMP_EdgeClear(LPC_CMP_T *pACMP)
+static inline void AcmpEdgeClear(LPC_CMP_T *pACMP)
 {
     uint32_t reg = pACMP->CTRL & ~ACMP_CTRL_RESERVED;
     pACMP->CTRL = reg | ACMP_EDGECLR_BIT;
     pACMP->CTRL = reg & ~ACMP_EDGECLR_BIT;
 }
 
-static inline void ACMP_SetEdgeSelection(LPC_CMP_T *pACMP, ACMP_EDGESEL_T edgeSel)
+static inline void AcmpSetEdgeSelection(LPC_CMP_T *pACMP, ACMP_EDGESEL_T edgeSel)
 {
     uint32_t reg = pACMP->CTRL & ~(ACMP_EDGESEL_MASK | ACMP_CTRL_RESERVED);
     pACMP->CTRL = reg | (uint32_t) edgeSel;
 }
 
-static inline void ACMP_EnableSyncCompOut(LPC_CMP_T *pACMP)
+static inline void AcmpEnableSyncCompOut(LPC_CMP_T *pACMP)
 {
     pACMP->CTRL = ACMP_COMPSA_BIT | (pACMP->CTRL & ~ACMP_CTRL_RESERVED);
 }
 
-static inline void ACMP_DisableSyncCompOut(LPC_CMP_T *pACMP)
+static inline void AcmpDisableSyncCompOut(LPC_CMP_T *pACMP)
 {
     pACMP->CTRL &= ~(ACMP_COMPSA_BIT | ACMP_CTRL_RESERVED);
 }
 
-static inline void ACMP_SetPosVoltRef(LPC_CMP_T *pACMP, ACMP_POS_INPUT_T Posinput)
+static inline void AcmpSetPosVoltRef(LPC_CMP_T *pACMP, ACMP_POS_INPUT_T Posinput)
 {
     uint32_t reg = pACMP->CTRL & ~(ACMP_COMPVPSEL_MASK | ACMP_CTRL_RESERVED);
     pACMP->CTRL = reg | (uint32_t) Posinput;
 }
 
-static inline void ACMP_SetNegVoltRef(LPC_CMP_T *pACMP, ACMP_NEG_INPUT_T Neginput)
+static inline void AcmpSetNegVoltRef(LPC_CMP_T *pACMP, ACMP_NEG_INPUT_T Neginput)
 {
     uint32_t reg = pACMP->CTRL & ~(ACMP_COMPVMSEL_MASK | ACMP_CTRL_RESERVED);
     pACMP->CTRL = reg | (uint32_t) Neginput;
 }
 
-static inline void ACMP_SetHysteresis(LPC_CMP_T *pACMP, ACMP_HYS_T hys)
+static inline void AcmpSetHysteresis(LPC_CMP_T *pACMP, ACMP_HYS_T hys)
 {
     uint32_t reg = pACMP->CTRL & ~(ACMP_HYSTERESIS_MASK | ACMP_CTRL_RESERVED);
     pACMP->CTRL = reg | (uint32_t) hys;
 }
 
-static inline void ACMP_SetupAMCPRefs(LPC_CMP_T *pACMP, ACMP_EDGESEL_T edgeSel,
+static inline void AcmpSetupAMCPRefs(LPC_CMP_T *pACMP, ACMP_EDGESEL_T edgeSel,
                              ACMP_POS_INPUT_T Posinput, ACMP_NEG_INPUT_T Neginput,
                              ACMP_HYS_T hys)
 {
@@ -137,7 +137,7 @@ static inline void ACMP_SetupAMCPRefs(LPC_CMP_T *pACMP, ACMP_EDGESEL_T edgeSel,
                   (uint32_t) Neginput | (uint32_t) hys;
 }
 
-static inline void ACMP_SetupVoltLadder(LPC_CMP_T *pACMP, uint32_t ladsel, bool ladrefVDDCMP)
+static inline void AcmpSetupVoltLadder(LPC_CMP_T *pACMP, uint32_t ladsel, bool ladrefVDDCMP)
 {
     uint32_t reg = pACMP->LAD & ~(ACMP_LADSEL_MASK | ACMP_LADREF_MASK | ACMP_LAD_RESERVED);
     if(ladrefVDDCMP)
@@ -145,12 +145,12 @@ static inline void ACMP_SetupVoltLadder(LPC_CMP_T *pACMP, uint32_t ladsel, bool 
     pACMP->LAD = reg | (ladsel << 1);
 }
 
-static inline void ACMP_EnableVoltLadder(LPC_CMP_T *pACMP)
+static inline void AcmpEnableVoltLadder(LPC_CMP_T *pACMP)
 {
     pACMP->LAD = ACMP_LADENAB_BIT | (pACMP->LAD & ~ACMP_LAD_RESERVED);
 }
 
-static inline void ACMP_DisableVoltLadder(LPC_CMP_T *pACMP)
+static inline void AcmpDisableVoltLadder(LPC_CMP_T *pACMP)
 {
     pACMP->LAD &= ~(ACMP_LADENAB_BIT | ACMP_LAD_RESERVED);
 }

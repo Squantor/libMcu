@@ -71,114 +71,112 @@ typedef enum IP_CRC_001_POLY {
     CRC_POLY_LAST,
 } CRC_POLY_T;
 
-static inline void CRC_Init(void)
+static inline void CrcInit(void)
 {
-    Clock_EnablePeriphClock(SYSCTL_CLOCK_CRC);
+    ClockEnablePeriphClock(SYSCTL_CLOCK_CRC);
 }
 
-static inline void CRC_Deinit(void)
+static inline void CrcDeinit(void)
 {
-    Clock_DisablePeriphClock(SYSCTL_CLOCK_CRC);
+    ClockDisablePeriphClock(SYSCTL_CLOCK_CRC);
 }
 
-static inline void CRC_SetPoly(CRC_POLY_T poly, uint32_t flags)
+static inline void CrcSetPoly(CRC_POLY_T poly, uint32_t flags)
 {
     LPC_CRC->MODE = (uint32_t) poly | flags;
 }
 
-static inline void CRC_UseCRC16(void)
+static inline void CrcUseCRC16(void)
 {
     LPC_CRC->MODE = MODE_CFG_CRC16;
     LPC_CRC->SEED = CRC_SEED_CRC16;
 }
 
-static inline void CRC_UseCRC32(void)
+static inline void CrcUseCRC32(void)
 {
     LPC_CRC->MODE = MODE_CFG_CRC32;
     LPC_CRC->SEED = CRC_SEED_CRC32;
 }
 
-static inline void CRC_UseCCITT(void)
+static inline void CrcUseCCITT(void)
 {
     LPC_CRC->MODE = MODE_CFG_CCITT;
     LPC_CRC->SEED = CRC_SEED_CCITT;
 }
 
-void CRC_UseDefaultConfig(CRC_POLY_T poly);
+void CrcUseDefaultConfig(CRC_POLY_T poly);
 
-static inline void CRC_SetMode(uint32_t mode)
+static inline void CrcSetMode(uint32_t mode)
 {
     LPC_CRC->MODE = mode;
 }
 
-static inline uint32_t CRC_GetMode(void)
+static inline uint32_t CrcGetMode(void)
 {
     return LPC_CRC->MODE;
 }
 
-static inline void CRC_SetSeed(uint32_t seed)
+static inline void CrcSetSeed(uint32_t seed)
 {
     LPC_CRC->SEED = seed;
 }
 
-static inline uint32_t CRC_GetSeed(void)
+static inline uint32_t CrcGetSeed(void)
 {
     return LPC_CRC->SEED;
 }
 
-static inline void CRC_Write8(uint8_t data)
+static inline void CrcWrite8(uint8_t data)
 {
     LPC_CRC->WRDATA8 = data;
 }
 
-static inline void CRC_Write16(uint16_t data)
+static inline void CrcWrite16(uint16_t data)
 {
     LPC_CRC->WRDATA16 = data;
 }
 
-static inline void CRC_Write32(uint32_t data)
+static inline void CrcWrite32(uint32_t data)
 {
     LPC_CRC->WRDATA32 = data;
 }
 
-static inline uint32_t CRC_Sum(void)
+static inline uint32_t CrcSum(void)
 {
     return LPC_CRC->SUM;
 }
 
-static inline uint32_t CRC_CRC8(const uint8_t *data, uint32_t bytes)
+static inline uint32_t CrcCRC8(const uint8_t *data, uint32_t bytes)
 {
-    CRC_UseCCITT();
+    CrcUseCCITT();
     while (bytes > 0) {
-        CRC_Write8(*data);
+        CrcWrite8(*data);
         data++;
         bytes--;
     }
-    return CRC_Sum();
+    return CrcSum();
 }
 
-static inline uint32_t CRC_CRC16(const uint16_t *data, uint32_t hwords)
+static inline uint32_t CrcCRC16(const uint16_t *data, uint32_t hwords)
 {
-    CRC_UseCRC16();
+    CrcUseCRC16();
     while (hwords > 0) {
-        CRC_Write16(*data);
+        CrcWrite16(*data);
         data++;
         hwords--;
     }
-
-    return CRC_Sum();
+    return CrcSum();
 }
 
-static inline uint32_t CRC_CRC32(const uint32_t *data, uint32_t words)
+static inline uint32_t CrcCRC32(const uint32_t *data, uint32_t words)
 {
-    CRC_UseCRC32();
+    CrcUseCRC32();
     while (words > 0) {
-        CRC_Write32(*data);
+        CrcWrite32(*data);
         data++;
         words--;
     }
-
-    return CRC_Sum();
+    return CrcSum();
 }
 
 #endif

@@ -334,13 +334,13 @@ static inline void SCT_SetConflictResolution(LPC_SCT_T *pSCT, uint8_t outnum, ui
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 static inline void SCT_Init(LPC_SCT_T *pSCT)
 {
-    Clock_EnablePeriphClock(SYSCTL_CLOCK_SCT);
+    ClockEnablePeriphClock(SYSCTL_CLOCK_SCT);
     SYSCTL_PeriphReset(RESET_SCT);
 }
 
 static inline void SCT_DeInit(LPC_SCT_T *pSCT)
 {
-    Clock_DisablePeriphClock(SYSCTL_CLOCK_SCT);
+    ClockDisablePeriphClock(SYSCTL_CLOCK_SCT);
 }
 #pragma GCC diagnostic pop
 

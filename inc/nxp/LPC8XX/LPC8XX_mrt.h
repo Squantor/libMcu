@@ -91,7 +91,7 @@ typedef enum MRT_MODE {
 static inline void MRT_Init(void)
 {
     /* Enable the clock to the register interface */
-    Clock_EnablePeriphClock(SYSCTL_CLOCK_MRT);
+    ClockEnablePeriphClock(SYSCTL_CLOCK_MRT);
 
     /* Reset MRT */
     SYSCTL_PeriphReset(RESET_MRT);
@@ -100,7 +100,7 @@ static inline void MRT_Init(void)
 static inline void MRT_DeInit(void)
 {
     /* Disable the clock to the MRT */
-    Clock_DisablePeriphClock(SYSCTL_CLOCK_MRT);
+    ClockDisablePeriphClock(SYSCTL_CLOCK_MRT);
 }
 
 static inline LPC_MRT_CH_T *MRT_GetRegPtr(uint8_t ch)
