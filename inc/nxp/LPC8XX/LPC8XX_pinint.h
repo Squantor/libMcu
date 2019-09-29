@@ -25,8 +25,8 @@ OTHER DEALINGS IN THE SOFTWARE.
 For more information, please refer to <http://unlicense.org>
 */
 /* 
-LPC800 series common pin interrupt and pattern match registers,
-definitions and functions.
+LPC800 series common pin interrupt and pattern match registers, 
+defines and functions.
 */
 #ifndef LPC8XX_PININT_H
 #define LPC8XX_PININT_H

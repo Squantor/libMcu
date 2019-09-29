@@ -25,8 +25,8 @@ OTHER DEALINGS IN THE SOFTWARE.
 For more information, please refer to <http://unlicense.org>
 */
 /* 
-LPC820 series common input multiplexer registers,
-definitions and functions.
+LPC820 series common input multiplexer registers, defines and 
+functions.
 */
 #ifndef LPC82X_INMUX_H
 #define LPC82X_INMUX_H

@@ -25,7 +25,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 For more information, please refer to <http://unlicense.org>
 */
 /* 
-LPC800 series common I2C bus functions.
+LPC800 series common I2C bus registers, defines and functions.
 */
 #ifndef LPC8XX_I2C_FUNCS_H
 #define LPC8XX_I2C_FUNCS_H

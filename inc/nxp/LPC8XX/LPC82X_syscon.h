@@ -25,7 +25,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 For more information, please refer to <http://unlicense.org>
 */
 /* 
-LPC820 series common system control functions
+LPC820 series common system control registers, defines and functions.
 */
 #ifndef LPC82X_SYSCON_H
 #define LPC82X_SYSCON_H

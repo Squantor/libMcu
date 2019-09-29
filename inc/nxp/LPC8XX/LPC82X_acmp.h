@@ -25,7 +25,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 For more information, please refer to <http://unlicense.org>
 */
 /* 
-LPC820 series common analog comparator registers,definitions and 
+LPC820 series common analog comparator registers, defines and 
 functions.
 */
 #ifndef LPC82X_ACMP_H

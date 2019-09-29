@@ -25,7 +25,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 For more information, please refer to <http://unlicense.org>
 */
 /* 
-LPC800 series common UART registers,definitions and functions.
+LPC800 series common UART registers, defines and functions.
 */
 #ifndef LPC8XX_UART_H
 #define LPC8XX_UART_H

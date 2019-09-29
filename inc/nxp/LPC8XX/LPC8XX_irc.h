@@ -25,7 +25,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 For more information, please refer to <http://unlicense.org>
 */
 /* 
-LPC800 series common internal RC oscillator registers,definitions and 
+LPC800 series common internal RC oscillator registers, defines and 
 functions.
 */
 #ifndef LPC8XX_IRC_H

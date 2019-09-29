@@ -25,7 +25,8 @@ OTHER DEALINGS IN THE SOFTWARE.
 For more information, please refer to <http://unlicense.org>
 */
 /* 
-LPC800 series common power management unit functions
+LPC800 series common power management unit registers, defines and 
+functions.
 */
 #ifndef LPC8XX_PMU_H
 #define LPC8XX_PMU_H

@@ -25,7 +25,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 For more information, please refer to <http://unlicense.org>
 */
 /* 
-LPC810 series GPIO functions
+LPC810 series GPIO registers, defines and functions.
 */
 
 #ifndef LPC81X_GPIO_H

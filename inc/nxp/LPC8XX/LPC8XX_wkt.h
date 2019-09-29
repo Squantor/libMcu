@@ -25,7 +25,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 For more information, please refer to <http://unlicense.org>
 */
 /* 
-LPC800 series wakeup timer functions
+LPC800 series wakeup timer registers, defines and functions.
 */
 #ifndef LPC8XX_WKT_H
 #define LPC8XX_WKT_H

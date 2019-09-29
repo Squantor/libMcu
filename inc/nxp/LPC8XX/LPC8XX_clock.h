@@ -25,7 +25,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 For more information, please refer to <http://unlicense.org>
 */
 /* 
-LPC800 series common clocking functions
+LPC800 series common clocking registers, defines and functions.
 */
 #ifndef LPC8XX_CLOCK_H
 #define LPC8XX_CLOCK_H

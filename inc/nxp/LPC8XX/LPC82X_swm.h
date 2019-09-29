@@ -25,7 +25,8 @@ OTHER DEALINGS IN THE SOFTWARE.
 For more information, please refer to <http://unlicense.org>
 */
 /* 
-LPC820 series common switch matrix control
+LPC820 series common switch matrix control registers, defines and 
+functions.
 */
 #ifndef LPC82X_SWM_H
 #define LPC82X_SWM_H

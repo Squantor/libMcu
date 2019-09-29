@@ -25,7 +25,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 For more information, please refer to <http://unlicense.org>
 */
 /* 
-LPC800 series common In application programming ROM functions
+LPC800 series common In application programming ROM defines and functions.
 */
 #ifndef LPC8XX_ROM_IAP_H
 #define LPC8XX_ROM_IAP_H

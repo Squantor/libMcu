@@ -25,7 +25,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 For more information, please refer to <http://unlicense.org>
 */
 /* 
-LPC800 series common Serial Peripheral Interface registers,definitions 
+LPC800 series common Serial Peripheral Interface registers, defines 
 and functions.
 */
 #ifndef LPC8XX_SPI_H
