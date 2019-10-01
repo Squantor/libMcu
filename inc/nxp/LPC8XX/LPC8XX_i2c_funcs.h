@@ -30,18 +30,18 @@ LPC800 series common I2C bus registers, defines and functions.
 #ifndef LPC8XX_I2C_FUNCS_H
 #define LPC8XX_I2C_FUNCS_H
 
-static inline void I2C_Init(LPC_I2C_T *pI2C)
+static inline void I2cInit(LPC_I2C_T *pI2C)
 {
     ClockEnablePeriphClock(I2cGetClockID(pI2C));
     SYSCTL_PeriphReset(I2cGetResetID(pI2C));    
 }
 
-static inline void I2C_DeInit(LPC_I2C_T *pI2C)
+static inline void I2cDeInit(LPC_I2C_T *pI2C)
 {
     ClockDisablePeriphClock(I2cGetClockID(pI2C));
 }
 
-static inline void I2C_SetClockDiv(LPC_I2C_T *pI2C, uint32_t clkdiv)
+static inline void I2cSetClockDiv(LPC_I2C_T *pI2C, uint32_t clkdiv)
 {
     if ((clkdiv >= 1) && (clkdiv <= 65536)) {
         pI2C->CLKDIV = clkdiv - 1;
@@ -51,27 +51,27 @@ static inline void I2C_SetClockDiv(LPC_I2C_T *pI2C, uint32_t clkdiv)
     }
 }
 
-static inline uint32_t I2C_GetClockDiv(LPC_I2C_T *pI2C)
+static inline uint32_t I2cGetClockDiv(LPC_I2C_T *pI2C)
 {
     return (pI2C->CLKDIV & 0xFFFF) + 1;
 }
 
-static inline void I2C_EnableInt(LPC_I2C_T *pI2C, uint32_t intEn)
+static inline void I2cEnableInt(LPC_I2C_T *pI2C, uint32_t intEn)
 {
     pI2C->INTENSET = intEn;
 }
 
-static inline void I2C_DisableInt(LPC_I2C_T *pI2C, uint32_t intClr)
+static inline void I2cDisableInt(LPC_I2C_T *pI2C, uint32_t intClr)
 {
     pI2C->INTENCLR = intClr;
 }
 
-static inline void I2C_ClearInt(LPC_I2C_T *pI2C, uint32_t intClr)
+static inline void I2cClearInt(LPC_I2C_T *pI2C, uint32_t intClr)
 {
-    I2C_DisableInt(pI2C, intClr);
+    I2cDisableInt(pI2C, intClr);
 }
 
-static inline uint32_t I2C_GetPendingInt(LPC_I2C_T *pI2C)
+static inline uint32_t I2cGetPendingInt(LPC_I2C_T *pI2C)
 {
     return pI2C->INTSTAT & ~I2C_INTSTAT_RESERVED;
 }
