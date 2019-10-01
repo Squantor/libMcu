@@ -34,10 +34,10 @@ void boardInit(void)
     // setup IO control
     ClockEnablePeriphClock(SYSCTL_CLOCK_IOCON);
     // setup pins for crystal oscillator
-    IOCON_PinSetMode(LPC_IOCON, IOCON_PIO8, PIN_MODE_INACTIVE);
-    IOCON_PinSetMode(LPC_IOCON, IOCON_PIO9, PIN_MODE_INACTIVE);
+    IoconPinSetMode(LPC_IOCON, IOCON_PIO8, PIN_MODE_INACTIVE);
+    IoconPinSetMode(LPC_IOCON, IOCON_PIO9, PIN_MODE_INACTIVE);
     // setup LED pins
-    IOCON_PinSetMode(LPC_IOCON, LED_RED_IOCON, PIN_MODE_INACTIVE);
+    IoconPinSetMode(LPC_IOCON, LED_RED_IOCON, PIN_MODE_INACTIVE);
     ClockDisablePeriphClock(SYSCTL_CLOCK_IOCON);
     // GPIO pins setup
     GpioInit(LPC_GPIO_PORT);
