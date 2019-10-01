@@ -134,62 +134,65 @@ static const LPC_8XX_PLL_T config_tab[] = {
 };
 static const uint16_t config_tab_ct = sizeof(config_tab) / sizeof(LPC_8XX_PLL_T);
 
-static inline void pll_config(const LPC_8XX_PLL_T* pll_cfg)
+static inline void pllConfig(const LPC_8XX_PLL_T* pll_cfg)
 {
-    SYSCTL_PowerUp(SYSCTL_SLPWAKE_IRC_PD);                                    /* turn on the IRC by clearing the power down bit */
-    ClockSetSystemPLLSource(SYSCTL_PLLCLKSRC_IRC);                        /* select PLL input to be IRC */
+    SYSCTL_PowerUp(SYSCTL_SLPWAKE_IRC_PD);              /* turn on the IRC by clearing the power down bit */
+    ClockSetSystemPLLSource(SYSCTL_PLLCLKSRC_IRC);      /* select PLL input to be IRC */
     ClockSetMainClockSource(SYSCTL_MAINCLKSRC_IRC);
-    FMC_SetFLASHAccess(FLASHTIM_30MHZ_CPU);                                /* setup FLASH access to 2 clocks (up to 30MHz) */
-    SYSCTL_PowerDown(SYSCTL_SLPWAKE_SYSPLL_PD);                            /* power down PLL to change the PLL divider ratio */
-    ClockSetupSystemPLL(pll_cfg->msel, pll_cfg->psel);                    /* configure the PLL */
-    SYSCTL_PowerUp(SYSCTL_SLPWAKE_SYSPLL_PD);                                /* turn on the PLL by clearing the power down bit */
-    while (!ClockIsSystemPLLLocked()) {}                                    /* wait for PLL to lock */
-    ClockSetSysClockDiv(pll_cfg->divider);                                /* load the divider */
-    ClockSetMainClockSource(SYSCTL_MAINCLKSRC_PLLOUT);                    /* enable the new Frequency */
+    FMC_SetFLASHAccess(FLASHTIM_30MHZ_CPU);             /* setup FLASH access to 2 clocks (up to 30MHz) */
+    SYSCTL_PowerDown(SYSCTL_SLPWAKE_SYSPLL_PD);         /* power down PLL to change the PLL divider ratio */
+    ClockSetupSystemPLL(pll_cfg->msel, pll_cfg->psel);  /* configure the PLL */
+    SYSCTL_PowerUp(SYSCTL_SLPWAKE_SYSPLL_PD);           /* turn on the PLL by clearing the power down bit */
+    while (!ClockIsSystemPLLLocked()) {}                /* wait for PLL to lock */
+    ClockSetSysClockDiv(pll_cfg->divider);              /* load the divider */
+    ClockSetMainClockSource(SYSCTL_MAINCLKSRC_PLLOUT);  /* enable the new Frequency */
 }
 
-static inline bool IRC_SetFreq(uint32_t main, uint32_t sys)
+static inline bool IrcSetFreq(uint32_t main, uint32_t sys)
 {
-    uint16_t    freq_m = main/1000000;                                            /* main frequency in MHz */
-    uint16_t    freq_s = sys/1000000;                                            /* system frequency in MHz */
-    bool        found = false;                                                    /* frequencies found */
+    uint16_t    freq_m = main/1000000;              /* main frequency in MHz */
+    uint16_t    freq_s = sys/1000000;               /* system frequency in MHz */
+    bool        found = false;                      /* frequencies found */
     uint32_t    i = 0;
     uint16_t config_tab_idx = 0;
 
-    if (freq_s > 30)                                                            /* if system frequency is higher than 30MHz... */
-        return false;                                                            /* ...don't attempt to set it */
-    if (freq_m > 96)                                                            /* if main frequency is higher than 96MHz... */
-        return false;                                                            /* ...don't attempt to set it */
+    if (freq_s > 30)                                /* if system frequency is higher than 30MHz... */
+        return false;                               /* ...don't attempt to set it */
+    if (freq_m > 96)                                /* if main frequency is higher than 96MHz... */
+        return false;                               /* ...don't attempt to set it */
     
-    for (i=0; i<config_tab_ct; i++) {                                            /* loop through table */
-        if ((freq_m == config_tab[i].freq_main) && (freq_s == config_tab[i].freq_sys)) {    /* attempt to find a match */
-            config_tab_idx = i;                                                    /* save the data for later */
-            found = true;                                                        /* set state to found */
-            break;                                                                /* go config the PLL */
+    
+    for (i=0; i<config_tab_ct; i++)                 /* loop through table */
+    {               
+        if ( (freq_m == config_tab[i].freq_main) && /* attempt to find a match */
+             (freq_s == config_tab[i].freq_sys)  ) 
+        {                                           
+            config_tab_idx = i;                     /* save the data for later */
+            found = true;                           /* set state to found */
+            break;                                  /* go config the PLL */
         }
     }
-    if (found == true) {                                                        /* if a match has been found */
-        pll_config(&config_tab[config_tab_idx]);                                /* configure the PLL */
-    }
+    if (found == true)                              /* if a match has been found */
+        pllConfig(&config_tab[config_tab_idx]);     /* configure the PLL */
 
-    return found;                                                                /* return operation status */
+    return found;                                   /* return operation status */
 }
 
-static inline void IRC_SetFreq_ROM(uint32_t sys)
+static inline void IrcSetFreqROM(uint32_t sys)
 {
     uint32_t cmd[4], resp[2];
 
-    SYSCTL_PowerUp(SYSCTL_SLPWAKE_IRC_PD);                                    /* Turn on the IRC by clearing the power down bit */
-    ClockSetSystemPLLSource(SYSCTL_PLLCLKSRC_IRC);                        /* Select PLL input to be IRC */
-    FMC_SetFLASHAccess(FLASHTIM_30MHZ_CPU);                                /* Setup FLASH access to 2 clocks (up to 30MHz) */
+    SYSCTL_PowerUp(SYSCTL_SLPWAKE_IRC_PD);          /* Turn on the IRC by clearing the power down bit */
+    ClockSetSystemPLLSource(SYSCTL_PLLCLKSRC_IRC);  /* Select PLL input to be IRC */
+    FMC_SetFLASHAccess(FLASHTIM_30MHZ_CPU);         /* Setup FLASH access to 2 clocks (up to 30MHz) */
 
-    cmd[0] = ClockGetIntOscRate() / 1000;                                    /* in KHz */
-    cmd[1] = sys / 1000;                                                        /* system clock rate in kHz */
+    cmd[0] = ClockGetIntOscRate() / 1000;           /* in KHz */
+    cmd[1] = sys / 1000;                            /* system clock rate in kHz */
     cmd[2] = CPU_FREQ_EQU;
-    cmd[3] = sys / 10000;                                                        /* Timeout. See UM10601, section 23.4.1.3 for details */
-    LPC_PWRD_API->set_pll(cmd, resp);                                            /* Attempt to set the PLL */
+    cmd[3] = sys / 10000;                           /* Timeout. See UM10601, section 23.4.1.3 for details */
+    LPC_PWRD_API->set_pll(cmd, resp);               /* Attempt to set the PLL */
 
-    while (resp[0] != PLL_CMD_SUCCESS) {}                                        /* Dead loop on fail */
+    while (resp[0] != PLL_CMD_SUCCESS) {}           /* Dead loop on fail */
 }
 
 #endif
