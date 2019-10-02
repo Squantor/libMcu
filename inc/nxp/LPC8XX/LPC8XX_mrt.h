@@ -88,7 +88,7 @@ typedef enum MRT_MODE {
 #define MRT3_INTFLAG        (8)
 #define MRTn_INTFLAG(ch)    (1 << (ch))
 
-static inline void MRT_Init(void)
+static inline void MrtInit(void)
 {
     /* Enable the clock to the register interface */
     ClockEnablePeriphClock(SYSCTL_CLOCK_MRT);
@@ -97,53 +97,53 @@ static inline void MRT_Init(void)
     SYSCTL_PeriphReset(RESET_MRT);
 }
 
-static inline void MRT_DeInit(void)
+static inline void MrtDeInit(void)
 {
     /* Disable the clock to the MRT */
     ClockDisablePeriphClock(SYSCTL_CLOCK_MRT);
 }
 
-static inline LPC_MRT_CH_T *MRT_GetRegPtr(uint8_t ch)
+static inline LPC_MRT_CH_T *MrtGetRegPtr(uint8_t ch)
 {
     return LPC_MRT_CH(ch);
 }
 
-static inline uint32_t MRT_GetInterval(LPC_MRT_CH_T *pMRT)
+static inline uint32_t MrtGetInterval(LPC_MRT_CH_T *pMRT)
 {
     return pMRT->INTVAL;
 }
 
-static inline void MRT_SetInterval(LPC_MRT_CH_T *pMRT, uint32_t interval)
+static inline void MrtSetInterval(LPC_MRT_CH_T *pMRT, uint32_t interval)
 {
     pMRT->INTVAL = interval;
 }
 
-static inline uint32_t MRT_GetTimer(LPC_MRT_CH_T *pMRT)
+static inline uint32_t MrtGetTimer(LPC_MRT_CH_T *pMRT)
 {
     return pMRT->TIMER;
 }
 
-static inline bool MRT_GetEnabled(LPC_MRT_CH_T *pMRT)
+static inline bool MrtGetEnabled(LPC_MRT_CH_T *pMRT)
 {
     return (bool) ((pMRT->CTRL & MRT_CTRL_INTEN_MASK) != 0);
 }
 
-static inline void MRT_SetEnabled(LPC_MRT_CH_T *pMRT)
+static inline void MrtSetEnabled(LPC_MRT_CH_T *pMRT)
 {
     pMRT->CTRL = MRT_CTRL_INTEN_MASK | (pMRT->CTRL & ~MRT_CTRL_RESERVED);
 }
 
-static inline void MRT_SetDisabled(LPC_MRT_CH_T *pMRT)
+static inline void MrtSetDisabled(LPC_MRT_CH_T *pMRT)
 {
     pMRT->CTRL &= ~(MRT_CTRL_INTEN_MASK | MRT_CTRL_RESERVED);
 }
 
-static inline MRT_MODE_T MRT_GetMode(LPC_MRT_CH_T *pMRT)
+static inline MRT_MODE_T MrtGetMode(LPC_MRT_CH_T *pMRT)
 {
     return (MRT_MODE_T) (pMRT->CTRL & MRT_CTRL_MODE_MASK);
 }
 
-static inline void MRT_SetMode(LPC_MRT_CH_T *pMRT, MRT_MODE_T mode)
+static inline void MrtSetMode(LPC_MRT_CH_T *pMRT, MRT_MODE_T mode)
 {
     uint32_t reg;
 
@@ -151,52 +151,52 @@ static inline void MRT_SetMode(LPC_MRT_CH_T *pMRT, MRT_MODE_T mode)
     pMRT->CTRL = reg | (uint32_t) mode;
 }
 
-static inline bool MRT_IsRepeatMode(LPC_MRT_CH_T *pMRT)
+static inline bool MrtIsRepeatMode(LPC_MRT_CH_T *pMRT)
 {
     return ((pMRT->CTRL & MRT_CTRL_MODE_MASK) != 0) ? false : true;
 }
 
-static inline bool MRT_IsOneShotMode(LPC_MRT_CH_T *pMRT)
+static inline bool MrtIsOneShotMode(LPC_MRT_CH_T *pMRT)
 {
     return ((pMRT->CTRL & MRT_CTRL_MODE_MASK) != 0) ? true : false;
 }
 
-static inline bool MRT_IntPending(LPC_MRT_CH_T *pMRT)
+static inline bool MrtIntPending(LPC_MRT_CH_T *pMRT)
 {
     return (bool) ((pMRT->STAT & MRT_STAT_INTFLAG) != 0);
 }
 
-static inline void MRT_IntClear(LPC_MRT_CH_T *pMRT)
+static inline void MrtIntClear(LPC_MRT_CH_T *pMRT)
 {
     pMRT->STAT = MRT_STAT_INTFLAG | (pMRT->STAT & ~MRT_STAT_RESERVED);
 }
 
-static inline bool MRT_Running(LPC_MRT_CH_T *pMRT)
+static inline bool MrtRunning(LPC_MRT_CH_T *pMRT)
 {
     return (bool) ((pMRT->STAT & MRT_STAT_RUNNING) != 0);
 }
 
-static inline uint8_t MRT_GetIdleChannel(void)
+static inline uint8_t MrtGetIdleChannel(void)
 {
     return (uint8_t) (LPC_MRT->IDLE_CH);
 }
 
-static inline uint8_t MRT_GetIdleChannelShifted(void)
+static inline uint8_t MrtGetIdleChannelShifted(void)
 {
-    return (uint8_t) (MRT_GetIdleChannel() >> 4);
+    return (uint8_t) (MrtGetIdleChannel() >> 4);
 }
 
-static inline uint32_t MRT_GetIntPending(void)
+static inline uint32_t MrtGetIntPending(void)
 {
     return LPC_MRT->IRQ_FLAG;
 }
 
-static inline bool MRT_GetIntPendingByChannel(uint8_t ch)
+static inline bool MrtGetIntPendingByChannel(uint8_t ch)
 {
     return (bool) (((LPC_MRT->IRQ_FLAG >> ch) & 1) != 0);
 }
 
-static inline void MRT_ClearIntPending(uint32_t mask)
+static inline void MrtClearIntPending(uint32_t mask)
 {
     LPC_MRT->IRQ_FLAG = mask;
 }
