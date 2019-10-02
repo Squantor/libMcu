@@ -68,27 +68,27 @@ typedef struct  I2CD_API {
     void (*i2c_isr_handler)(I2C_HANDLE_T *handle);
 
     /* MASTER functions */
-    ErrorCode_t (*i2c_master_transmit_poll)(I2C_HANDLE_T *handle, I2C_PARAM_T *param, I2C_RESULT_T *result);
-    ErrorCode_t (*i2c_master_receive_poll)(I2C_HANDLE_T *handle, I2C_PARAM_T *param, I2C_RESULT_T *result);
-    ErrorCode_t (*i2c_master_tx_rx_poll)(I2C_HANDLE_T *handle, I2C_PARAM_T *param, I2C_RESULT_T *result);
-    ErrorCode_t (*i2c_master_transmit_intr)(I2C_HANDLE_T *handle, I2C_PARAM_T *param, I2C_RESULT_T *result);
-    ErrorCode_t (*i2c_master_receive_intr)(I2C_HANDLE_T *handle, I2C_PARAM_T *param, I2C_RESULT_T *result);
-    ErrorCode_t (*i2c_master_tx_rx_intr)(I2C_HANDLE_T *handle, I2C_PARAM_T *param, I2C_RESULT_T *result);
+    ErrorCode_t (*I2cMasterTransmitPoll)(I2C_HANDLE_T *handle, I2C_PARAM_T *param, I2C_RESULT_T *result);
+    ErrorCode_t (*I2cMasterReceivePoll)(I2C_HANDLE_T *handle, I2C_PARAM_T *param, I2C_RESULT_T *result);
+    ErrorCode_t (*I2cMasterTxRxPoll)(I2C_HANDLE_T *handle, I2C_PARAM_T *param, I2C_RESULT_T *result);
+    ErrorCode_t (*I2cMasterTransmitIntr)(I2C_HANDLE_T *handle, I2C_PARAM_T *param, I2C_RESULT_T *result);
+    ErrorCode_t (*I2cMasterReceiveIntr)(I2C_HANDLE_T *handle, I2C_PARAM_T *param, I2C_RESULT_T *result);
+    ErrorCode_t (*I2cMasterTxRxIntr)(I2C_HANDLE_T *handle, I2C_PARAM_T *param, I2C_RESULT_T *result);
 
     /* SLAVE functions */
-    ErrorCode_t (*i2c_slave_receive_poll)(I2C_HANDLE_T *handle, I2C_PARAM_T *param, I2C_RESULT_T *result);
-    ErrorCode_t (*i2c_slave_transmit_poll)(I2C_HANDLE_T *handle, I2C_PARAM_T *param, I2C_RESULT_T *result);
-    ErrorCode_t (*i2c_slave_receive_intr)(I2C_HANDLE_T *handle, I2C_PARAM_T *param, I2C_RESULT_T *result);
-    ErrorCode_t (*i2c_slave_transmit_intr)(I2C_HANDLE_T *handle, I2C_PARAM_T *param, I2C_RESULT_T *result);
-    ErrorCode_t (*i2c_set_slave_addr)(I2C_HANDLE_T *handle, uint32_t slave_addr_0_3, uint32_t slave_mask_0_3);
+    ErrorCode_t (*I2cSlaveReceivePoll)(I2C_HANDLE_T *handle, I2C_PARAM_T *param, I2C_RESULT_T *result);
+    ErrorCode_t (*I2cSlaveTransmitPoll)(I2C_HANDLE_T *handle, I2C_PARAM_T *param, I2C_RESULT_T *result);
+    ErrorCode_t (*I2cSlaveReceiveIntr)(I2C_HANDLE_T *handle, I2C_PARAM_T *param, I2C_RESULT_T *result);
+    ErrorCode_t (*I2cSlaveTransmitIntr)(I2C_HANDLE_T *handle, I2C_PARAM_T *param, I2C_RESULT_T *result);
+    ErrorCode_t (*I2cSetSlaveAddr)(I2C_HANDLE_T *handle, uint32_t slave_addr_0_3, uint32_t slave_mask_0_3);
 
     /* OTHER support functions */
-    uint32_t        (*i2c_get_mem_size)(void);
-    I2C_HANDLE_T *  (*i2c_setup)( uint32_t  i2c_base_addr, uint32_t * start_of_ram);
-    ErrorCode_t     (*i2c_set_bitrate)(I2C_HANDLE_T *handle, uint32_t  p_clk_in_hz, uint32_t bitrate_in_bps);
-    uint32_t        (*i2c_get_firmware_version)(void);
-    I2C_MODE_T (*i2c_get_status)(I2C_HANDLE_T *handle);
-    ErrorCode_t     (*i2c_set_timeout)(I2C_HANDLE_T *handle, uint32_t timeout);
+    uint32_t        (*I2cGetMemSize)(void);
+    I2C_HANDLE_T *  (*I2cSetup)( uint32_t  i2c_base_addr, uint32_t * start_of_ram);
+    ErrorCode_t     (*I2cSetBitrate)(I2C_HANDLE_T *handle, uint32_t  p_clk_in_hz, uint32_t bitrate_in_bps);
+    uint32_t        (*I2cGetFirmwareVersion)(void);
+    I2C_MODE_T      (*I2cGetStatus)(I2C_HANDLE_T *handle);
+    ErrorCode_t     (*I2cSetTimeout)(I2C_HANDLE_T *handle, uint32_t timeout);
 } I2CD_API_T;
 
 #endif
