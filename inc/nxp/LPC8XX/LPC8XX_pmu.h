@@ -76,17 +76,17 @@ typedef enum PMU_MCUPOWER {
 /* Reserved bits mask for SCR register */
 #define SCB_SCR_RESERVED (~(SCB_SCR_SLEEPONEXIT_Msk|SCB_SCR_SLEEPDEEP_Msk|SCB_SCR_SEVONPEND_Msk))
 
-static inline void PMU_WriteGPREG(LPC_PMU_T *pPMU, uint8_t regIndex, uint32_t value)
+static inline void PmuWriteGPREG(LPC_PMU_T *pPMU, uint8_t regIndex, uint32_t value)
 {
     pPMU->GPREG[regIndex] = value;
 }
 
-static inline uint32_t PMU_ReadGPREG(LPC_PMU_T *pPMU, uint8_t regIndex)
+static inline uint32_t PmuReadGPREG(LPC_PMU_T *pPMU, uint8_t regIndex)
 {
     return pPMU->GPREG[regIndex];
 }
 
-static inline void PMU_SleepState(LPC_PMU_T *pPMU)
+static inline void PmuSleepState(LPC_PMU_T *pPMU)
 {
     SCB->SCR = ~(1UL << SCB_SCR_SLEEPDEEP_Pos) & (SCB->SCR & ~SCB_SCR_RESERVED);
     pPMU->PCON = PMU_PCON_PM_SLEEP;
@@ -94,7 +94,7 @@ static inline void PMU_SleepState(LPC_PMU_T *pPMU)
     __WFI();
 }
 
-static inline void PMU_DeepSleepState(LPC_PMU_T *pPMU)
+static inline void PmuDeepSleepState(LPC_PMU_T *pPMU)
 {
     SCB->SCR = (1UL << SCB_SCR_SLEEPDEEP_Pos) | (SCB->SCR & ~SCB_SCR_RESERVED);
     pPMU->PCON = PMU_PCON_PM_DEEPSLEEP;
@@ -102,7 +102,7 @@ static inline void PMU_DeepSleepState(LPC_PMU_T *pPMU)
     __WFI();
 }
 
-static inline void PMU_PowerDownState(LPC_PMU_T *pPMU)
+static inline void PmuPowerDownState(LPC_PMU_T *pPMU)
 {
     SCB->SCR = (1UL << SCB_SCR_SLEEPDEEP_Pos) | (SCB->SCR & ~SCB_SCR_RESERVED);
     pPMU->PCON = PMU_PCON_PM_POWERDOWN;
@@ -110,7 +110,7 @@ static inline void PMU_PowerDownState(LPC_PMU_T *pPMU)
     __WFI();
 }
 
-static inline void PMU_DeepPowerDownState(LPC_PMU_T *pPMU)
+static inline void PmuDeepPowerDownState(LPC_PMU_T *pPMU)
 {
     SCB->SCR = (1UL << SCB_SCR_SLEEPDEEP_Pos) | (SCB->SCR & ~SCB_SCR_RESERVED);
     pPMU->PCON = PMU_PCON_PM_DEEPPOWERDOWN;
@@ -118,44 +118,44 @@ static inline void PMU_DeepPowerDownState(LPC_PMU_T *pPMU)
     __WFI();
 }
 
-static inline void PMU_Sleep(LPC_PMU_T *pPMU, PMU_MCUPOWER_T SleepMode)
+static inline void PmuSleep(LPC_PMU_T *pPMU, PMU_MCUPOWER_T SleepMode)
 {
     if (SleepMode == PMU_MCU_DEEP_SLEEP) {
-        PMU_DeepSleepState(pPMU);
+        PmuDeepSleepState(pPMU);
     }
     else if (SleepMode == PMU_MCU_POWER_DOWN) {
-        PMU_PowerDownState(pPMU);
+        PmuPowerDownState(pPMU);
     }
     else if (SleepMode == PMU_MCU_DEEP_PWRDOWN) {
-        PMU_DeepPowerDownState(pPMU);
+        PmuDeepPowerDownState(pPMU);
     }
     else {
         /* PMU_MCU_SLEEP */
-        PMU_SleepState(pPMU);
+        PmuSleepState(pPMU);
     }
 }
 
-static inline void PMU_DisableDeepPowerDown(LPC_PMU_T *pPMU)
+static inline void PmuDisableDeepPowerDown(LPC_PMU_T *pPMU)
 {
     pPMU->PCON = PMU_PCON_NODPD | (pPMU->PCON & ~PMU_PCON_RESERVED);
 }
 
-static inline uint32_t PMU_GetSleepFlags(LPC_PMU_T *pPMU)
+static inline uint32_t PmuGetSleepFlags(LPC_PMU_T *pPMU)
 {
     return (pPMU->PCON & (PMU_PCON_SLEEPFLAG | PMU_PCON_DPDFLAG));
 }
 
-static inline void PMU_ClearSleepFlags(LPC_PMU_T *pPMU, uint32_t flags)
+static inline void PmuClearSleepFlags(LPC_PMU_T *pPMU, uint32_t flags)
 {
     pPMU->PCON |= (flags & (~PMU_PCON_RESERVED));
 }
 
-static inline void PMU_SetPowerDownControl(LPC_PMU_T *pPMU, uint32_t flags)
+static inline void PmuSetPowerDownControl(LPC_PMU_T *pPMU, uint32_t flags)
 {
     pPMU->DPDCTRL = flags | (pPMU->DPDCTRL & ~PMU_DPDCTRL_RESERVED);
 }
 
-static inline void PMU_ClearPowerDownControl(LPC_PMU_T *pPMU, uint32_t flags)
+static inline void PmuClearPowerDownControl(LPC_PMU_T *pPMU, uint32_t flags)
 {
     pPMU->DPDCTRL &= ~(flags | PMU_DPDCTRL_RESERVED);
 }
