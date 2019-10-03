@@ -72,24 +72,24 @@ LPC800 series common In application programming ROM defines and functions.
 /* IAP_ENTRY API function type */
 typedef void (*IAP_ENTRY_T)(uint32_t[], uint32_t[]);
 
-static inline void iap_entry(uint32_t cmd_param[], uint32_t status_result[])
+static inline void iapEntry(uint32_t cmd_param[], uint32_t status_result[])
 {
     ((IAP_ENTRY_T) IAP_ENTRY_LOCATION)(cmd_param, status_result);
 }
 
-static inline uint8_t IAP_PreSectorForReadWrite(uint32_t strSector, uint32_t endSector)
+static inline uint8_t IapPreSectorForReadWrite(uint32_t strSector, uint32_t endSector)
 {
     uint32_t command[5], result[5];
 
     command[0] = IAP_PREWRRITE_CMD;
     command[1] = strSector;
     command[2] = endSector;
-    iap_entry(command, result);
+    iapEntry(command, result);
 
     return result[0];
 }
 
-static inline uint8_t IAP_CopyRamToFlash(uint32_t dstAdd, uint32_t *srcAdd, uint32_t byteswrt)
+static inline uint8_t IapCopyRamToFlash(uint32_t dstAdd, uint32_t *srcAdd, uint32_t byteswrt)
 {
     uint32_t command[5], result[5];
 
@@ -98,12 +98,12 @@ static inline uint8_t IAP_CopyRamToFlash(uint32_t dstAdd, uint32_t *srcAdd, uint
     command[2] = (uint32_t) srcAdd;
     command[3] = byteswrt;
     command[4] = SystemCoreClock / 1000;
-    iap_entry(command, result);
+    iapEntry(command, result);
 
     return result[0];
 }
 
-static inline uint8_t IAP_EraseSector(uint32_t strSector, uint32_t endSector)
+static inline uint8_t IapEraseSector(uint32_t strSector, uint32_t endSector)
 {
     uint32_t command[5], result[5];
 
@@ -111,44 +111,44 @@ static inline uint8_t IAP_EraseSector(uint32_t strSector, uint32_t endSector)
     command[1] = strSector;
     command[2] = endSector;
     command[3] = SystemCoreClock / 1000;
-    iap_entry(command, result);
+    iapEntry(command, result);
 
     return result[0];
 }
 
-static inline uint8_t IAP_BlankCheckSector(uint32_t strSector, uint32_t endSector)
+static inline uint8_t IapBlankCheckSector(uint32_t strSector, uint32_t endSector)
 {
     uint32_t command[5], result[5];
 
     command[0] = IAP_BLANK_CHECK_SECTOR_CMD;
     command[1] = strSector;
     command[2] = endSector;
-    iap_entry(command, result);
+    iapEntry(command, result);
 
     return result[0];
 }
 
-static inline uint32_t IAP_ReadPID(void)
+static inline uint32_t IapReadPID(void)
 {
     uint32_t command[5], result[5];
 
     command[0] = IAP_REPID_CMD;
-    iap_entry(command, result);
+    iapEntry(command, result);
 
     return result[1];    
 }
 
-static inline uint32_t IAP_ReadBootCode(void)
+static inline uint32_t IapReadBootCode(void)
 {
     uint32_t command[5], result[5];
 
     command[0] = IAP_READ_BOOT_CODE_CMD;
-    iap_entry(command, result);
+    iapEntry(command, result);
 
     return result[1] & 0xffff;
 }
 
-static inline uint8_t IAP_Compare(uint32_t dstAdd, uint32_t srcAdd, uint32_t bytescmp)
+static inline uint8_t IapCompare(uint32_t dstAdd, uint32_t srcAdd, uint32_t bytescmp)
 {
     uint32_t command[5], result[5];
 
@@ -156,28 +156,28 @@ static inline uint8_t IAP_Compare(uint32_t dstAdd, uint32_t srcAdd, uint32_t byt
     command[1] = dstAdd;
     command[2] = srcAdd;
     command[3] = bytescmp;
-    iap_entry(command, result);
+    iapEntry(command, result);
 
     return result[0];
 }
 
-static inline uint8_t IAP_ReinvokeISP(void)
+static inline uint8_t IapReinvokeISP(void)
 {
     uint32_t command[5], result[5];
 
     command[0] = IAP_REINVOKE_ISP_CMD;
-    iap_entry(command, result);
+    iapEntry(command, result);
 
     return result[0];
 }
 
-static inline uint32_t IAP_ReadUID(uint32_t* uid)
+static inline uint32_t IapReadUID(uint32_t* uid)
 {
     uint32_t command[5], result[5];
     uint32_t i;
     
     command[0] = IAP_READ_UID_CMD;
-    iap_entry(command, result);
+    iapEntry(command, result);
 
     for (i=0; i<4; i++)
         *(uid+i) = result[i+1];
@@ -185,7 +185,7 @@ static inline uint32_t IAP_ReadUID(uint32_t* uid)
     return result[0];
 }
 
-static inline uint8_t IAP_ErasePage(uint32_t strPage, uint32_t endPage)
+static inline uint8_t IapErasePage(uint32_t strPage, uint32_t endPage)
 {
     uint32_t command[5], result[5];
 
@@ -193,7 +193,7 @@ static inline uint8_t IAP_ErasePage(uint32_t strPage, uint32_t endPage)
     command[1] = strPage;
     command[2] = endPage;
     command[3] = SystemCoreClock / 1000;
-    iap_entry(command, result);
+    iapEntry(command, result);
 
     return result[0];
 }
