@@ -260,70 +260,70 @@ typedef enum SCT_EVENT {
     SCT_EVT_4  = (1 << 4)    /*!< Event 4 */
 } SCT_EVENT_T;
 
-static inline void SCT_Config(LPC_SCT_T *pSCT, uint32_t value)
+static inline void SctConfig(LPC_SCT_T *pSCT, uint32_t value)
 {
     pSCT->CONFIG = value;
 }
 
-static inline void SCT_SetCount(LPC_SCT_T *pSCT, uint32_t count)
+static inline void SctSetCount(LPC_SCT_T *pSCT, uint32_t count)
 {
     pSCT->COUNT_U = count;
 }
 
-static inline void SCT_SetCountL(LPC_SCT_T *pSCT, uint16_t count)
+static inline void SctSetCountL(LPC_SCT_T *pSCT, uint16_t count)
 {
     pSCT->COUNT_L = count;
 }
 
-static inline void SCT_SetCountH(LPC_SCT_T *pSCT, uint16_t count)
+static inline void SctSetCountH(LPC_SCT_T *pSCT, uint16_t count)
 {
     pSCT->COUNT_H = count;
 }
 
-static inline void SCT_SetMatchCount(LPC_SCT_T *pSCT, SCT_MATCH_REG_T n, uint32_t value)
+static inline void SctSetMatchCount(LPC_SCT_T *pSCT, SCT_MATCH_REG_T n, uint32_t value)
 {
     pSCT->MATCH[n].U = value;
 }
 
-static inline void SCT_SetMatchReload(LPC_SCT_T *pSCT, SCT_MATCH_REG_T n, uint32_t value)
+static inline void SctSetMatchReload(LPC_SCT_T *pSCT, SCT_MATCH_REG_T n, uint32_t value)
 {
     pSCT->MATCHREL[n].U = value;
 }
 
-static inline void SCT_EnableEventInt(LPC_SCT_T *pSCT, SCT_EVENT_T evt)
+static inline void SctEnableEventInt(LPC_SCT_T *pSCT, SCT_EVENT_T evt)
 {
     pSCT->EVEN = evt | (pSCT->EVEN & ~SCT_EVEN_RESERVED);
 }
 
-static inline void SCT_DisableEventInt(LPC_SCT_T *pSCT, SCT_EVENT_T evt)
+static inline void SctDisableEventInt(LPC_SCT_T *pSCT, SCT_EVENT_T evt)
 {
     pSCT->EVEN &= ~(evt | SCT_EVEN_RESERVED);
 }
 
-static inline void SCT_ClearEventFlag(LPC_SCT_T *pSCT, SCT_EVENT_T evt)
+static inline void SctClearEventFlag(LPC_SCT_T *pSCT, SCT_EVENT_T evt)
 {
     pSCT->EVFLAG = evt | (pSCT->EVFLAG & ~SCT_EVFLAG_RESERVED);
 }
 
-static inline void SCT_SetControl(LPC_SCT_T *pSCT, uint32_t value)
+static inline void SctSetControl(LPC_SCT_T *pSCT, uint32_t value)
 {
     pSCT->CTRL_U = value | (pSCT->CTRL_U & ~SCT_CTRL_RESERVED);
 }
 
-static inline void SCT_ClearControl(LPC_SCT_T *pSCT, uint32_t value)
+static inline void SctClearControl(LPC_SCT_T *pSCT, uint32_t value)
 {
     pSCT->CTRL_U &= ~(value | SCT_CTRL_RESERVED);
 }
 
-static inline void SCT_SetClrControl(LPC_SCT_T *pSCT, uint32_t value, bool ena)
+static inline void SctSetClrControl(LPC_SCT_T *pSCT, uint32_t value, bool ena)
 {
     if(ena == true) 
-        SCT_SetControl(pSCT, value);
+        SctSetControl(pSCT, value);
     else
-        SCT_ClearControl(pSCT, value);
+        SctClearControl(pSCT, value);
 }
 
-static inline void SCT_SetConflictResolution(LPC_SCT_T *pSCT, uint8_t outnum, uint8_t value)
+static inline void SctSetConflictResolution(LPC_SCT_T *pSCT, uint8_t outnum, uint8_t value)
 {
     uint32_t tem;
     
@@ -332,13 +332,13 @@ static inline void SCT_SetConflictResolution(LPC_SCT_T *pSCT, uint8_t outnum, ui
 }
 
 #pragma GCC diagnostic ignored "-Wunused-parameter"
-static inline void SCT_Init(LPC_SCT_T *pSCT)
+static inline void SctInit(LPC_SCT_T *pSCT)
 {
     ClockEnablePeriphClock(SYSCTL_CLOCK_SCT);
     SYSCTL_PeriphReset(RESET_SCT);
 }
 
-static inline void SCT_DeInit(LPC_SCT_T *pSCT)
+static inline void SctDeInit(LPC_SCT_T *pSCT)
 {
     ClockDisablePeriphClock(SYSCTL_CLOCK_SCT);
 }
