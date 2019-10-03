@@ -190,7 +190,7 @@ static inline void IrcSetFreqROM(uint32_t sys)
     cmd[1] = sys / 1000;                            /* system clock rate in kHz */
     cmd[2] = CPU_FREQ_EQU;
     cmd[3] = sys / 10000;                           /* Timeout. See UM10601, section 23.4.1.3 for details */
-    LPC_PWRD_API->set_pll(cmd, resp);               /* Attempt to set the PLL */
+    LPC_PWRD_API->setPll(cmd, resp);                /* Attempt to set the PLL */
 
     while (resp[0] != PLL_CMD_SUCCESS) {}           /* Dead loop on fail */
 }
