@@ -144,18 +144,18 @@ typedef struct {
  */
 typedef struct UARTD_API {
     /* UART Configuration functions */
-    uint32_t        (*uart_get_mem_size)(void);    /* Get the memory size needed by one Min UART instance */
-    UART_HANDLE_T * (*uart_setup)(uint32_t base_addr, uint8_t * ram);    /* Setup Min UART instance with provided memory and return the handle to this instance */
-    uint32_t        (*uart_init)(UART_HANDLE_T *handle, UART_CONFIG_T *set);    /* Setup baud rate and operation mode for uart, then enable uart */
+    uint32_t        (*UartGetMemSize)(void);    /* Get the memory size needed by one Min UART instance */
+    UART_HANDLE_T * (*UartSetup)(uint32_t base_addr, uint8_t * ram);    /* Setup Min UART instance with provided memory and return the handle to this instance */
+    uint32_t        (*UartInit)(UART_HANDLE_T *handle, UART_CONFIG_T *set);    /* Setup baud rate and operation mode for uart, then enable uart */
 
     /* UART polling functions block until completed */
-    uint8_t         (*uart_get_char)(UART_HANDLE_T *handle);    /* Receive one Char from uart. This functions is only returned after Char is received. In case Echo is enabled, the received data is sent out immediately */
-    void            (*uart_put_char)(UART_HANDLE_T *handle, uint8_t data);    /* Send one Char through uart. This function is only returned after data is sent */
-    uint32_t        (*uart_get_line)(UART_HANDLE_T *handle, UART_PARAM_T *param);    /* Receive multiple bytes from UART */
-    uint32_t        (*uart_put_line)(UART_HANDLE_T *handle, UART_PARAM_T *param);    /* Send string (end with \0) or raw data through UART */
+    uint8_t         (*UartGetChar)(UART_HANDLE_T *handle);    /* Receive one Char from uart. This functions is only returned after Char is received. In case Echo is enabled, the received data is sent out immediately */
+    void            (*UartPutChar)(UART_HANDLE_T *handle, uint8_t data);    /* Send one Char through uart. This function is only returned after data is sent */
+    uint32_t        (*UartGetLine)(UART_HANDLE_T *handle, UART_PARAM_T *param);    /* Receive multiple bytes from UART */
+    uint32_t        (*UartPutLine)(UART_HANDLE_T *handle, UART_PARAM_T *param);    /* Send string (end with \0) or raw data through UART */
 
     /* UART interrupt functions return immediately and callback when completed */
-    void            (*uart_isr)(UART_HANDLE_T *handle);    /* UART interrupt service routine. To use this routine, the corresponding USART interrupt must be enabled. This function is invoked by the user ISR */
+    void            (*UartIsr)(UART_HANDLE_T *handle);    /* UART interrupt service routine. To use this routine, the corresponding USART interrupt must be enabled. This function is invoked by the user ISR */
 } UARTD_API_T;
 
 #endif

@@ -66,8 +66,8 @@ LPC800 series common ROM power control driver defines and functions.
  * LPC8XX Power ROM API structure
  */
 typedef struct PWRD_API {
-    void (*set_pll)(uint32_t cmd[], uint32_t resp[]);    /*!< Set PLL function */
-    void (*set_power)(uint32_t cmd[], uint32_t resp[]);    /*!< Set power function */
+    void (*setPll)(uint32_t cmd[], uint32_t resp[]);    /*!< Set PLL function */
+    void (*setPower)(uint32_t cmd[], uint32_t resp[]);    /*!< Set power function */
 } PWRD_API_T;
 
 #endif
