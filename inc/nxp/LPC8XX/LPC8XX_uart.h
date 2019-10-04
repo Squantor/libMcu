@@ -99,79 +99,79 @@ typedef struct {
 #define UART_INTEN_PARITYERR    (0x01 << 14)        /* Parity error interrupt */
 #define UART_INTEN_RXNOISE      (0x01 << 15)        /* Received noise interrupt */
 
-static inline void UART_Enable(LPC_USART_T *pUART)
+static inline void UartEnable(LPC_USART_T *pUART)
 {
     pUART->CFG = UART_CFG_ENABLE | (pUART->CFG & ~UART_CFG_RESERVED);
 }
 
-static inline void UART_Disable(LPC_USART_T *pUART)
+static inline void UartDisable(LPC_USART_T *pUART)
 {
     pUART->CFG &= ~(UART_CFG_RESERVED | UART_CFG_ENABLE);
 }
 
-static inline void UART_TXEnable(LPC_USART_T *pUART)
+static inline void UartTXEnable(LPC_USART_T *pUART)
 {
     pUART->CTRL &= ~(UART_CTRL_RESERVED | UART_CTRL_TXDIS);
 }
 
-static inline void UART_TXDisable(LPC_USART_T *pUART)
+static inline void UartTXDisable(LPC_USART_T *pUART)
 {
     pUART->CTRL = UART_CTRL_TXDIS | (pUART->CTRL & ~UART_CTRL_RESERVED);
 }
 
-static inline void UART_SendByte(LPC_USART_T *pUART, uint8_t data)
+static inline void UartSendByte(LPC_USART_T *pUART, uint8_t data)
 {
     pUART->TXDATA = (uint32_t) data;
 }
 
-static inline uint32_t UART_ReadByte(LPC_USART_T *pUART)
+static inline uint32_t UartReadByte(LPC_USART_T *pUART)
 {
     return (uint32_t) (pUART->RXDATA & 0x000001FF);
 }
 
-static inline void UART_IntEnable(LPC_USART_T *pUART, uint32_t intMask)
+static inline void UartIntEnable(LPC_USART_T *pUART, uint32_t intMask)
 {
     pUART->INTENSET = intMask;
 }
 
-static inline void UART_IntDisable(LPC_USART_T *pUART, uint32_t intMask)
+static inline void UartIntDisable(LPC_USART_T *pUART, uint32_t intMask)
 {
     pUART->INTENCLR = intMask;
 }
 
-static inline uint32_t UART_GetIntsEnabled(LPC_USART_T *pUART)
+static inline uint32_t UartGetIntsEnabled(LPC_USART_T *pUART)
 {
     return (pUART->INTENSET & ~UART_INTEN_RESERVED);
 }
 
-static inline uint32_t UART_GetIntStatus(LPC_USART_T *pUART)
+static inline uint32_t UartGetIntStatus(LPC_USART_T *pUART)
 {
     return (pUART->INTSTAT & ~UART_INTSTAT_RESERVED);
 }
 
-static inline void UART_ConfigData(LPC_USART_T *pUART, uint32_t config)
+static inline void UartConfigData(LPC_USART_T *pUART, uint32_t config)
 {
     uint32_t reg;
     reg = pUART->CFG & ~((0x3 << 2) | (0x3 << 4) | (0x1 << 6) | UART_CFG_RESERVED);
     pUART->CFG = reg | config;
 }
 
-static inline uint32_t UART_GetStatus(LPC_USART_T *pUART)
+static inline uint32_t UartGetStatus(LPC_USART_T *pUART)
 {
     return (pUART->STAT & ~UART_STAT_RESERVED);
 }
 
-static inline void UART_ClearStatus(LPC_USART_T *pUART, uint32_t stsMask)
+static inline void UartClearStatus(LPC_USART_T *pUART, uint32_t stsMask)
 {
     pUART->STAT = stsMask;
 }
 
-static inline void UART_SetOSR(LPC_USART_T *pUART, uint32_t ovrVal)
+static inline void UartSetOSR(LPC_USART_T *pUART, uint32_t ovrVal)
 {
     pUART->OSR = ovrVal - 1;
 }
 
-static inline void UART_SetAddr(LPC_USART_T *pUART, uint32_t addr)
+static inline void UartSetAddr(LPC_USART_T *pUART, uint32_t addr)
 {
     pUART->ADDR = addr;
 }
@@ -189,32 +189,29 @@ static inline SYSCTL_CLOCK_T getUARTClockID(LPC_USART_T *pUART)
     return SYSCTL_CLOCK_UART2;
 }
 
-static inline void UART_Init(LPC_USART_T *pUART)
+static inline void UartInit(LPC_USART_T *pUART)
 {
     /* Enable USART clock */
     ClockEnablePeriphClock(getUARTClockID(pUART));
 
     /* UART reset */
-    if (pUART == LPC_USART0) {
+    if (pUART == LPC_USART0)
         /* Peripheral reset control to USART0 */
         SysctlPeriphReset(RESET_USART0);
-    }
-    else if (pUART == LPC_USART1) {
+    else if (pUART == LPC_USART1)
         /* Peripheral reset control to USART1 */
         SysctlPeriphReset(RESET_USART1);
-    }
-    else {
+    else
         /* Peripheral reset control to USART2 */
         SysctlPeriphReset(RESET_USART2);
-    }
 }
 
-static inline void UART_DeInit(LPC_USART_T *pUART)
+static inline void UartDeInit(LPC_USART_T *pUART)
 {
     ClockDisablePeriphClock(getUARTClockID(pUART));
 }
 
-static inline void UART_SetBaud(LPC_USART_T *pUART, uint32_t baudrate)
+static inline void UartSetBaud(LPC_USART_T *pUART, uint32_t baudrate)
 {
     uint32_t baudRateGenerator;
     baudRateGenerator = ClockGetUSARTNBaseClockRate() / (16 * baudrate);
