@@ -71,7 +71,7 @@ typedef enum {
 
 static inline void AcmpInit(void)
 {
-    SYSCTL_PowerUp(SYSCTL_SLPWAKE_ACMP_PD);
+    SysctlPowerUp(SYSCTL_SLPWAKE_ACMP_PD);
     ClockEnablePeriphClock(SYSCTL_CLOCK_ACOMP);
 }
 
