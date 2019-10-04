@@ -34,27 +34,27 @@ functions.
 #define PINASSIGN_IDX(movable)  (((movable) >> 4))
 #define PINSHIFT(movable)       (((movable) & 0xF) << 3)
 
-static inline void SWM_Init(void)
+static inline void SwmInit(void)
 {
     ClockEnablePeriphClock(SYSCTL_CLOCK_SWM);
 }
 
-static inline void SWM_Deinit(void)
+static inline void SwmDeinit(void)
 {
     ClockDisablePeriphClock(SYSCTL_CLOCK_SWM);
 }
 
-static inline void SWM_EnableFixedPin(SWM_PIN_FIXED_T pin)
+static inline void SwmEnableFixedPin(SWM_PIN_FIXED_T pin)
 {
     LPC_SWM->PINENABLE0 &= ~((1 << (uint32_t) pin) | SWM_PINENABLE0_RESERVED);
 }
 
-static inline void SWM_DisableFixedPin(SWM_PIN_FIXED_T pin)
+static inline void SwmDisableFixedPin(SWM_PIN_FIXED_T pin)
 {
     LPC_SWM->PINENABLE0 = (1 << (uint32_t) pin) | (LPC_SWM->PINENABLE0 & ~SWM_PINENABLE0_RESERVED);
 }
 
-static inline void SWM_MovablePinAssign(SWM_PIN_MOVABLE_T movable, uint8_t pin)
+static inline void SwmMovablePinAssign(SWM_PIN_MOVABLE_T movable, uint8_t pin)
 {
     uint32_t temp;
     int pinshift = PINSHIFT(movable), regIndex = PINASSIGN_IDX(movable);
@@ -63,19 +63,19 @@ static inline void SWM_MovablePinAssign(SWM_PIN_MOVABLE_T movable, uint8_t pin)
     LPC_SWM->PINASSIGN[regIndex] = temp | (pin << pinshift);
 }
 
-static inline void SWM_FixedPinEnable(SWM_PIN_FIXED_T pin, bool enable)
+static inline void SwmFixedPinEnable(SWM_PIN_FIXED_T pin, bool enable)
 {
     if(enable)
     {
-        SWM_EnableFixedPin(pin);
+        SwmEnableFixedPin(pin);
     }
     else
     {
-        SWM_DisableFixedPin(pin);
+        SwmDisableFixedPin(pin);
     }    
 }
 
-static inline bool SWM_IsEnabled(SWM_PIN_FIXED_T pin)
+static inline bool SwmIsEnabled(SWM_PIN_FIXED_T pin)
 {
     return (bool) ((LPC_SWM->PINENABLE0 & (1 << (uint32_t) pin)) == 0);
 }

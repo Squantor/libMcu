@@ -28,8 +28,8 @@ void boardInit(void)
 {
     ClockEnablePeriphClock(SYSCTL_CLOCK_SWM);
     // setup crystal functionality
-    SWM_FixedPinEnable(SWM_FIXED_XTALIN, true);
-    SWM_FixedPinEnable(SWM_FIXED_XTALOUT, true);
+    SwmFixedPinEnable(SWM_FIXED_XTALIN, true);
+    SwmFixedPinEnable(SWM_FIXED_XTALOUT, true);
     ClockDisablePeriphClock(SYSCTL_CLOCK_SWM);
     // setup IO control
     ClockEnablePeriphClock(SYSCTL_CLOCK_IOCON);
