@@ -62,7 +62,7 @@ typedef struct {
 /** WDT Time Out flag bit */
 #define WWDT_WDMOD_WDINT            ((uint32_t) (1 << 3))
 
-static inline void WWDT_Init(LPC_WWDT_T *pWWDT)
+static inline void WwdtInit(LPC_WWDT_T *pWWDT)
 {
     ClockEnablePeriphClock(SYSCTL_CLOCK_WWDT);
 
@@ -73,54 +73,54 @@ static inline void WWDT_Init(LPC_WWDT_T *pWWDT)
     pWWDT->WINDOW    = 0xFFFFFF;
 }
 
-static inline void WWDT_DeInit(void)
+static inline void WwdtDeInit(void)
 {
     ClockDisablePeriphClock(SYSCTL_CLOCK_WWDT);
 }
 
-static inline void WWDT_SetTimeOut(LPC_WWDT_T *pWWDT, uint32_t timeout)
+static inline void WwdtSetTimeOut(LPC_WWDT_T *pWWDT, uint32_t timeout)
 {
     pWWDT->TC = timeout;
 }
 
-static inline void WWDT_Feed(LPC_WWDT_T *pWWDT)
+static inline void WwdtFeed(LPC_WWDT_T *pWWDT)
 {
     pWWDT->FEED = 0xAA;
     pWWDT->FEED = 0x55;
 }
 
-static inline void WWDT_SetWarning(LPC_WWDT_T *pWWDT, uint32_t timeout)
+static inline void WwdtSetWarning(LPC_WWDT_T *pWWDT, uint32_t timeout)
 {
     pWWDT->WARNINT = timeout;
 }
 
-static inline void WWDT_SetWindow(LPC_WWDT_T *pWWDT, uint32_t timeout)
+static inline void WwdtSetWindow(LPC_WWDT_T *pWWDT, uint32_t timeout)
 {
     pWWDT->WINDOW = timeout;
 }
 
-static inline void WWDT_SetOption(LPC_WWDT_T *pWWDT, uint32_t options)
+static inline void WwdtSetOption(LPC_WWDT_T *pWWDT, uint32_t options)
 {
     pWWDT->MOD = options | (pWWDT->MOD & ~WWDT_MOD_RESERVED);
 }
 
-static inline void WWDT_UnsetOption(LPC_WWDT_T *pWWDT, uint32_t options)
+static inline void WwdtUnsetOption(LPC_WWDT_T *pWWDT, uint32_t options)
 {
     pWWDT->MOD &= (~options) & WWDT_WDMOD_BITMASK;
 }
 
-static inline void WWDT_Start(LPC_WWDT_T *pWWDT)
+static inline void WwdtStart(LPC_WWDT_T *pWWDT)
 {
-    WWDT_SetOption(pWWDT, WWDT_WDMOD_WDEN);
-    WWDT_Feed(pWWDT);
+    WwdtSetOption(pWWDT, WWDT_WDMOD_WDEN);
+    WwdtFeed(pWWDT);
 }
 
-static inline uint32_t WWDT_GetStatus(LPC_WWDT_T *pWWDT)
+static inline uint32_t WwdtGetStatus(LPC_WWDT_T *pWWDT)
 {
     return pWWDT->MOD;
 }
 
-static inline void WWDT_ClearStatusFlag(LPC_WWDT_T *pWWDT, uint32_t status)
+static inline void WwdtClearStatusFlag(LPC_WWDT_T *pWWDT, uint32_t status)
 {
     if(status & WWDT_WDMOD_WDTOF) 
         pWWDT->MOD &= (~WWDT_WDMOD_WDTOF) & WWDT_WDMOD_BITMASK;
@@ -129,7 +129,7 @@ static inline void WWDT_ClearStatusFlag(LPC_WWDT_T *pWWDT, uint32_t status)
         pWWDT->MOD = WWDT_WDMOD_WDINT | (pWWDT->MOD & ~WWDT_MOD_RESERVED);
 }
 
-static inline uint32_t WWDT_GetCurrentCount(LPC_WWDT_T *pWWDT)
+static inline uint32_t WwdtGetCurrentCount(LPC_WWDT_T *pWWDT)
 {
     return pWWDT->TV;
 }
