@@ -33,7 +33,7 @@ LPC800 series common I2C bus registers, defines and functions.
 static inline void I2cInit(LPC_I2C_T *pI2C)
 {
     ClockEnablePeriphClock(I2cGetClockID(pI2C));
-    SYSCTL_PeriphReset(I2cGetResetID(pI2C));    
+    SysctlPeriphReset(I2cGetResetID(pI2C));    
 }
 
 static inline void I2cDeInit(LPC_I2C_T *pI2C)

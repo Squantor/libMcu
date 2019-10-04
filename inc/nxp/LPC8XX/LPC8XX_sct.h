@@ -335,7 +335,7 @@ static inline void SctSetConflictResolution(LPC_SCT_T *pSCT, uint8_t outnum, uin
 static inline void SctInit(LPC_SCT_T *pSCT)
 {
     ClockEnablePeriphClock(SYSCTL_CLOCK_SCT);
-    SYSCTL_PeriphReset(RESET_SCT);
+    SysctlPeriphReset(RESET_SCT);
 }
 
 static inline void SctDeInit(LPC_SCT_T *pSCT)

@@ -197,15 +197,15 @@ static inline void UART_Init(LPC_USART_T *pUART)
     /* UART reset */
     if (pUART == LPC_USART0) {
         /* Peripheral reset control to USART0 */
-        SYSCTL_PeriphReset(RESET_USART0);
+        SysctlPeriphReset(RESET_USART0);
     }
     else if (pUART == LPC_USART1) {
         /* Peripheral reset control to USART1 */
-        SYSCTL_PeriphReset(RESET_USART1);
+        SysctlPeriphReset(RESET_USART1);
     }
     else {
         /* Peripheral reset control to USART2 */
-        SYSCTL_PeriphReset(RESET_USART2);
+        SysctlPeriphReset(RESET_USART2);
     }
 }
 

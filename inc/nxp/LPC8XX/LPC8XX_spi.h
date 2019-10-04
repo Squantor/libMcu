@@ -186,10 +186,10 @@ static inline void SpiInit(LPC_SPI_T *pSPI)
 {
     if (pSPI == LPC_SPI1) {
         ClockEnablePeriphClock(SYSCTL_CLOCK_SPI1);
-        SYSCTL_PeriphReset(RESET_SPI1);
+        SysctlPeriphReset(RESET_SPI1);
     } else {
         ClockEnablePeriphClock(SYSCTL_CLOCK_SPI0);
-        SYSCTL_PeriphReset(RESET_SPI0);
+        SysctlPeriphReset(RESET_SPI0);
     }
 }
 

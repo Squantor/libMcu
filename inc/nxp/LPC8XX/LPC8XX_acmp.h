@@ -78,7 +78,7 @@ static inline void AcmpInit(void)
 static inline void AcmpDeinit(void)
 {
     ClockDisablePeriphClock(SYSCTL_CLOCK_ACOMP);
-    SYSCTL_PowerDown(SYSCTL_SLPWAKE_ACMP_PD);
+    SysctlPowerDown(SYSCTL_SLPWAKE_ACMP_PD);
 }
 
 static inline uint32_t AcmpGetCompStatus(LPC_CMP_T *pACMP)

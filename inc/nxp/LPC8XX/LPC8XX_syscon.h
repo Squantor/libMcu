@@ -154,74 +154,74 @@ typedef enum SYSCTL_BODRINTVAL {
     SYSCTL_BODINTVAL_LVL3,    /* Brown-out interrupt at 2.80v ~ 2.90v */
 } SYSCTL_BODRINTVAL_T;
 
-static inline void SYSCTL_Map(SYSCTL_BOOT_MODE_REMAP_T remap)
+static inline void SysctlMap(SYSCTL_BOOT_MODE_REMAP_T remap)
 {
     LPC_SYSCTL->SYSMEMREMAP = (uint32_t) remap;
 }
 
-static inline void SYSCTL_AssertPeriphReset(SYSCTL_PERIPH_RESET_T periph)
+static inline void SysctlAssertPeriphReset(SYSCTL_PERIPH_RESET_T periph)
 {
     LPC_SYSCTL->PRESETCTRL &= ~((1 << (uint32_t) periph) | SYSCTL_PRESETCTRL_RESERVED);
 }
 
-static inline void SYSCTL_DeassertPeriphReset(SYSCTL_PERIPH_RESET_T periph)
+static inline void SysctlDeassertPeriphReset(SYSCTL_PERIPH_RESET_T periph)
 {
     LPC_SYSCTL->PRESETCTRL = (1 << (uint32_t) periph) | (LPC_SYSCTL->PRESETCTRL & ~SYSCTL_PRESETCTRL_RESERVED);
 }
 
-static inline void SYSCTL_PeriphReset(SYSCTL_PERIPH_RESET_T periph)
+static inline void SysctlPeriphReset(SYSCTL_PERIPH_RESET_T periph)
 {
-    SYSCTL_AssertPeriphReset(periph);
-    SYSCTL_DeassertPeriphReset(periph);
+    SysctlAssertPeriphReset(periph);
+    SysctlDeassertPeriphReset(periph);
 }
 
-static inline uint32_t SYSCTL_GetSystemRSTStatus(void)
+static inline uint32_t SysctlGetSystemRSTStatus(void)
 {
     return LPC_SYSCTL->SYSRSTSTAT & ~SYSCTL_SYSRSTSTAT_RESERVED;
 }
 
-static inline void SYSCTL_ClearSystemRSTStatus(uint32_t reset)
+static inline void SysctlClearSystemRSTStatus(uint32_t reset)
 {
     LPC_SYSCTL->SYSRSTSTAT = reset;
 }
 
-static inline uint32_t SYSCTL_GetPORPIOStatus(void)
+static inline uint32_t SysctlGetPORPIOStatus(void)
 {
     return LPC_SYSCTL->PIOPORCAP0 & ~SYSCTL_PIOPORCAP0_RESERVED;
 }
 
-static inline void SYSCTL_SetBODLevels(SYSCTL_BODRSTLVL_T rstlvl,
+static inline void SysctlSetBODLevels(SYSCTL_BODRSTLVL_T rstlvl,
                                             SYSCTL_BODRINTVAL_T intlvl)
 {
     LPC_SYSCTL->BODCTRL = ((uint32_t) rstlvl) | (((uint32_t) intlvl) << 2);
 }
 
-static inline void SYSCTL_EnableBODReset(void)
+static inline void SysctlEnableBODReset(void)
 {
     LPC_SYSCTL->BODCTRL = (1 << 4) | (LPC_SYSCTL->BODCTRL & ~SYSCTL_BODCTRL_RESERVED);
 }
 
-static inline void SYSCTL_DisableBODReset(void)
+static inline void SysctlDisableBODReset(void)
 {
     LPC_SYSCTL->BODCTRL &= ~((1 << 4) | SYSCTL_BODCTRL_RESERVED);
 }
 
-static inline void SYSCTL_SetSYSTCKCAL(uint32_t sysCalVal)
+static inline void SysctlSetSYSTCKCAL(uint32_t sysCalVal)
 {
     LPC_SYSCTL->SYSTCKCAL = sysCalVal;
 }
 
-static inline void SYSCTL_SetIRQLatency(uint32_t latency)
+static inline void SysctlSetIRQLatency(uint32_t latency)
 {
     LPC_SYSCTL->IRQLATENCY = latency;
 }
 
-static inline uint32_t SYSCTL_GetIRQLatency(void)
+static inline uint32_t SysctlGetIRQLatency(void)
 {
     return LPC_SYSCTL->IRQLATENCY & ~SYSCTL_IRQLATENCY_RESERVED;
 }
 
-static inline void SYSCTL_SetNMISource(uint32_t intsrc)
+static inline void SysctlSetNMISource(uint32_t intsrc)
 {
     /* Disable NMI first */
     LPC_SYSCTL->NMISRC &= ~(SYSCTL_NMISRC_ENABLE | SYSCTL_NMISRC_RESERVED);
@@ -230,73 +230,73 @@ static inline void SYSCTL_SetNMISource(uint32_t intsrc)
     LPC_SYSCTL->NMISRC = intsrc;
 }
 
-static inline void SYSCTL_EnableNMISource(void)
+static inline void SysctlEnableNMISource(void)
 {
     LPC_SYSCTL->NMISRC = SYSCTL_NMISRC_ENABLE | (LPC_SYSCTL->NMISRC & ~SYSCTL_NMISRC_RESERVED);
 }
 
-static inline void SYSCTL_DisableNMISource(void)
+static inline void SysctlDisableNMISource(void)
 {
     LPC_SYSCTL->NMISRC &= ~(SYSCTL_NMISRC_ENABLE | SYSCTL_NMISRC_RESERVED);
 }
 
-static inline void SYSCTL_SetPinInterrupt(uint32_t intno, uint32_t pin)
+static inline void SysctlSetPinInterrupt(uint32_t intno, uint32_t pin)
 {
     LPC_SYSCTL->PINTSEL[intno] = (uint32_t) pin;
 }
 
-static inline void SYSCTL_EnablePINTWakeup(uint32_t pin)
+static inline void SysctlEnablePINTWakeup(uint32_t pin)
 {
     LPC_SYSCTL->STARTERP0 = (1 << pin) | (LPC_SYSCTL->STARTERP0 & ~SYSCTL_STARTERP0_RESERVED);
 }
 
-static inline void SYSCTL_DisablePINTWakeup(uint32_t pin)
+static inline void SysctlDisablePINTWakeup(uint32_t pin)
 {
     LPC_SYSCTL->STARTERP0 &= ~((1 << pin) | SYSCTL_STARTERP0_RESERVED);
 }
 
-static inline void SYSCTL_EnablePeriphWakeup(uint32_t periphmask)
+static inline void SysctlEnablePeriphWakeup(uint32_t periphmask)
 {
     LPC_SYSCTL->STARTERP1 = periphmask | (LPC_SYSCTL->STARTERP0 & ~SYSCTL_STARTERP0_RESERVED);
 }
 
-static inline void SYSCTL_DisablePeriphWakeup(uint32_t periphmask)
+static inline void SysctlDisablePeriphWakeup(uint32_t periphmask)
 {
     LPC_SYSCTL->STARTERP1 &= ~(periphmask | SYSCTL_STARTERP1_RESERVED);
 }
 
-static inline uint32_t SYSCTL_GetDeepSleepPD(void)
+static inline uint32_t SysctlGetDeepSleepPD(void)
 {
     return LPC_SYSCTL->PDSLEEPCFG;
 }
 
-static inline uint32_t SYSCTL_GetWakeup(void)
+static inline uint32_t SysctlGetWakeup(void)
 {
     return LPC_SYSCTL->PDAWAKECFG;
 }
 
-static inline uint32_t SYSCTL_GetPowerStates(void)
+static inline uint32_t SysctlGetPowerStates(void)
 {
     return LPC_SYSCTL->PDRUNCFG;
 }
 
-static inline uint32_t SYSCTL_GetDeviceID(void)
+static inline uint32_t SysctlGetDeviceID(void)
 {
     return LPC_SYSCTL->DEVICEID;
 }
 
-static inline void SYSCTL_SetDeepSleepPD(uint32_t sleepmask)
+static inline void SysctlSetDeepSleepPD(uint32_t sleepmask)
 {
     LPC_SYSCTL->PDSLEEPCFG = PDSLEEPWRMASK | (sleepmask & PDSLEEPDATMASK);
 }
 
-static inline void SYSCTL_SetWakeup(uint32_t wakeupmask)
+static inline void SysctlSetWakeup(uint32_t wakeupmask)
 {
     /* Update new value */
     LPC_SYSCTL->PDAWAKECFG = PDWAKEUPWRMASK | (wakeupmask & PDWAKEUPDATMASK);
 }
 
-static inline void SYSCTL_PowerDown(uint32_t powerdownmask)
+static inline void SysctlPowerDown(uint32_t powerdownmask)
 {
     uint32_t pdrun;
 
@@ -310,7 +310,7 @@ static inline void SYSCTL_PowerDown(uint32_t powerdownmask)
     LPC_SYSCTL->PDRUNCFG = (PDWAKEUPWRMASK | pdrun);
 }
 
-static inline void SYSCTL_PowerUp(uint32_t powerupmask)
+static inline void SysctlPowerUp(uint32_t powerupmask)
 {
     uint32_t pdrun;
 

@@ -140,7 +140,7 @@ static inline void pllConfig(const LPC_8XX_PLL_T* pll_cfg)
     ClockSetSystemPLLSource(SYSCTL_PLLCLKSRC_IRC);      /* select PLL input to be IRC */
     ClockSetMainClockSource(SYSCTL_MAINCLKSRC_IRC);
     FMC_SetFLASHAccess(FLASHTIM_30MHZ_CPU);             /* setup FLASH access to 2 clocks (up to 30MHz) */
-    SYSCTL_PowerDown(SYSCTL_SLPWAKE_SYSPLL_PD);         /* power down PLL to change the PLL divider ratio */
+    SysctlPowerDown(SYSCTL_SLPWAKE_SYSPLL_PD);         /* power down PLL to change the PLL divider ratio */
     ClockSetupSystemPLL(pll_cfg->msel, pll_cfg->psel);  /* configure the PLL */
     SYSCTL_PowerUp(SYSCTL_SLPWAKE_SYSPLL_PD);           /* turn on the PLL by clearing the power down bit */
     while (!ClockIsSystemPLLLocked()) {}                /* wait for PLL to lock */

@@ -94,7 +94,7 @@ static inline void MrtInit(void)
     ClockEnablePeriphClock(SYSCTL_CLOCK_MRT);
 
     /* Reset MRT */
-    SYSCTL_PeriphReset(RESET_MRT);
+    SysctlPeriphReset(RESET_MRT);
 }
 
 static inline void MrtDeInit(void)
