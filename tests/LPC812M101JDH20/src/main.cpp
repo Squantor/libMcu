@@ -30,14 +30,22 @@ volatile int var;
 
 int main()
 {
-    timeDelay_t blinkyDelay;
+    int result = 0;
     boardInit();
-    timeDelayInit(&blinkyDelay, SEC2TICKS(0.5));
+    // test all peripherals
+    // gpio (includes SWM, IOCON etc)
+    // SPI
+    // I2C
+    // Analog comparator
+    // MRT
+    // SCT
+    // CRC
+    // ROM functions
+    // debugger checks
+    if(result == 0)
+        __BKPT(0);
+    else
+        __BKPT(1);
     while (1) {
-        var ^= 0x55;
-        if(timeDelayCheck(&blinkyDelay) != delayNotReached)
-        {
-            GpioSetPinToggle(LPC_GPIO_PORT, 0, LED_RED_PIN);
-        }       
     }
 }
