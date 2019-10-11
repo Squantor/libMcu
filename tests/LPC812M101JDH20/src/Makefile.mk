@@ -2,7 +2,7 @@
 
 # project name
 BIN_NAME = LPC812M101JDH20_test
-BOARD = LPC812test
+BOARD = LPC812M101JDH20_nuclone
 
 #include board specific settings/rules
 include src/$(BOARD).mk
