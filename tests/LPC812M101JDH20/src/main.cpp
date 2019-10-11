@@ -36,6 +36,7 @@ int main()
     // gpio (includes SWM, IOCON etc)
     // SPI
     // I2C
+    // UART
     // Analog comparator
     // MRT
     // SCT
