@@ -134,6 +134,45 @@ typedef enum {
 #define LPC_MRT         ((LPC_MRT_T     *) LPC_MRT_BASE)
 #define LPC_I2C0        ((LPC_I2C_T     *) LPC_I2C0_BASE)
 
+// package specific structures
+typedef enum PINx {
+    IOCON_PIO0  =  0x11,
+    IOCON_PIO1  =  0x0B,
+    IOCON_PIO2  =  0x06,
+    IOCON_PIO3  =  0x05,
+    IOCON_PIO4  =  0x04,
+    IOCON_PIO5  =  0x03,
+    /* The following pins are not present in DIP8 packages */
+    IOCON_PIO6  =  0x10,
+    IOCON_PIO7  =  0x0F,
+    IOCON_PIO8  =  0x0E,
+    IOCON_PIO9  =  0x0D,
+    IOCON_PIO10 =  0x08,
+    IOCON_PIO11 =  0x07,
+    IOCON_PIO12 =  0x02,
+    IOCON_PIO13 =  0x01,
+    /* The following pins are not present in DIP8 & TSSOP16 packages */
+    IOCON_PIO14 =  0x12,
+    IOCON_PIO15 =  0x0A,
+    IOCON_PIO16 =  0x09,
+    IOCON_PIO17 =  0x00,
+    IOCON_PIO_NUL0 = 0x0C,    /*!< PIN NULL */
+
+    /* The following pins are not present in DIP8, TSSOP16 & TSSOP20 packages */
+    IOCON_PIO18 =  0x1E,
+    IOCON_PIO19 =  0x1D,
+    IOCON_PIO20 =  0x1C,
+    IOCON_PIO21 =  0x1B,
+    IOCON_PIO22 =  0x1A,
+    IOCON_PIO23 =  0x19,
+    IOCON_PIO24 =  0x18,
+    IOCON_PIO25 =  0x17,
+    IOCON_PIO26 =  0x16,
+    IOCON_PIO27 =  0x15,
+    IOCON_PIO28 =  0x14,
+    IOCON_PIO_NUL1 = 0x13,
+} PINx_T;
+
 // Peripheral definition includes, ordering matters
 #include "nxp/LPC8XX/LPC81X_syscon.h"
 #include "nxp/LPC8XX/LPC8XX_clock.h"
