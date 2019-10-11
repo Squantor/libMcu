@@ -116,10 +116,8 @@ typedef enum {
 // Define peripherals
 #define LPC_WWDT        ((LPC_WWDT_T    *) LPC_WWDT_BASE)
 #define LPC_SPI0        ((LPC_SPI_T     *) LPC_SPI0_BASE)
-#define LPC_SPI1        ((LPC_SPI_T     *) LPC_SPI1_BASE)
 #define LPC_USART0      ((LPC_USART_T   *) LPC_USART0_BASE)
 #define LPC_USART1      ((LPC_USART_T   *) LPC_USART1_BASE)
-#define LPC_USART2      ((LPC_USART_T   *) LPC_USART2_BASE)
 #define LPC_WKT         ((LPC_WKT_T     *) LPC_WKT_BASE)
 #define LPC_PMU         ((LPC_PMU_T     *) LPC_PMU_BASE)
 #define LPC_CRC         ((LPC_CRC_T     *) LPC_CRC_BASE)
