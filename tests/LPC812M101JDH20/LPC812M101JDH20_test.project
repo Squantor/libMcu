@@ -7,6 +7,7 @@
   </Plugins>
   <VirtualDirectory Name="inc">
     <File Name="inc/board.hpp"/>
+    <File Name="inc/LPC812M101JDH20_nuclone.hpp"/>
     <File Name="inc/systick.hpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="src">

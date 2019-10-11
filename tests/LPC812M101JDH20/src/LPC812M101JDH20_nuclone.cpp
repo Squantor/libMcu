@@ -21,7 +21,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-#include <board.hpp>
+#include <LPC812M101JDH20_nuclone.hpp>
 #include <mcu_ll.h>
 
 void boardInit(void)
@@ -36,13 +36,9 @@ void boardInit(void)
     // setup pins for crystal oscillator
     IoconPinSetMode(LPC_IOCON, IOCON_PIO8, PIN_MODE_INACTIVE);
     IoconPinSetMode(LPC_IOCON, IOCON_PIO9, PIN_MODE_INACTIVE);
-    // setup LED pins
-    IoconPinSetMode(LPC_IOCON, LED_RED_IOCON, PIN_MODE_INACTIVE);
     ClockDisablePeriphClock(SYSCTL_CLOCK_IOCON);
     // GPIO pins setup
     GpioInit(LPC_GPIO_PORT);
-    GpioSetPinDIROutput(LPC_GPIO_PORT, 0, LED_RED_PIN);
-    GpioSetPinState(LPC_GPIO_PORT, 0, LED_RED_PIN, true);
     //SetupXtalClocking();
     //SystemCoreClockUpdate();
     // systick configuration
