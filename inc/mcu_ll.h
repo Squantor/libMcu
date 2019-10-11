@@ -39,14 +39,24 @@ extern "C" {
 #include <stdint.h>
 #include <stdbool.h>
 
-#if defined(MCU_LPC824M201JHI33)
-#include <nxp/LPC824M201JHI33.h>
-#elif defined(MCU_LPC824M201JDH20)
-#include <nxp/LPC824M201JDH20.h>
+// LPC812 variants
+#if defined(MCU_LPC810M021FN8)
+#include <nxp/LPC810M021FN8.h>
+#elif defined(MCU_LPC811M001JDH16)
+#include <nxp/LPC811M001JDH16.h>
+#elif defined(MCU_LPC812M101JD20)
+#include <nxp/LPC812M101JD20.h>
+#elif defined(MCU_LPC812M101JDH16)
+#include <nxp/LPC812M101JDH16.h>
 #elif defined(MCU_LPC812M101JDH20)
 #include <nxp/LPC812M101JDH20.h>
 #elif defined(MCU_LPC812M101JTB16)
 #include <nxp/LPC812M101JTB16.h>
+// LPC824 devices
+#elif defined(MCU_LPC824M201JHI33)
+#include <nxp/LPC824M201JHI33.h>
+#elif defined(MCU_LPC824M201JDH20)
+#include <nxp/LPC824M201JDH20.h>
 #else
 #error "Unknown or unsupported microcontroller defined, use MCU_Microcontroller"
 #endif
