@@ -71,6 +71,13 @@ SOFTWARE.
 #define SPI_CE_PIO      4
 
 // analog pins
+#define VREF_SWM        IOCON_PIO6
+#define VREF_PIO        6
+#define AN_00_SWM       IOCON_PIO0
+#define AN_00_PIO       0
+#define AN_01_SWM       IOCON_PIO1
+#define AN_01_PIO       1
+
 
 // how many ticks per second
 #define TICKS_PER_S     (100)
