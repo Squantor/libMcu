@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CodeLite_Project Name="example_LPC812test" Version="11000" InternalType="">
+<CodeLite_Project Name="LPC812M101JDH20_test" Version="11000" InternalType="">
   <Plugins>
     <Plugin Name="qmake">
       <![CDATA[00020001N0005Debug0000000000000001N0007Release000000000000]]>

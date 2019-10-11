@@ -1,7 +1,7 @@
 # update per change V0006
 
 # project name
-BIN_NAME = example_LPC812test
+BIN_NAME = LPC812M101JDH20_test
 BOARD = LPC812test
 
 #include board specific settings/rules
