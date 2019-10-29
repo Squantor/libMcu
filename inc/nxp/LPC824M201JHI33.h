@@ -152,7 +152,7 @@ typedef enum {
 #define LPC_DMATRIGMUX  ((LPC_DMATRIGMUX_T  *) LPC_DMATIRGMUX_BASE)
 #define LPC_INMUX       ((LPC_INMUX_T       *) LPC_INMUX_BASE)
 
-typedef enum CHIP_PINx {
+typedef enum PINx {
     IOCON_PIO0  =  0x11,
     IOCON_PIO1  =  0x0B,
     IOCON_PIO2  =  0x06,
@@ -171,7 +171,7 @@ typedef enum CHIP_PINx {
     IOCON_PIO15 =  0x0A,
     IOCON_PIO16 =  0x09,
     IOCON_PIO17 =  0x00,
-} CHIP_PINx_T;
+} PINx_T;
 
 // Peripheral definition includes, ordering matters
 #include "nxp/LPC8XX/LPC82X_syscon.h"

@@ -34,6 +34,8 @@
       <File Name="inc/nxp/LPC810M021FN8.h"/>
       <File Name="inc/nxp/LPC812M101JD20.h"/>
       <VirtualDirectory Name="LPC8XX">
+        <File Name="inc/nxp/LPC8XX/LPC82X_adc.h"/>
+        <File Name="inc/nxp/LPC8XX/LPC82X_dma.h"/>
         <File Name="inc/nxp/LPC8XX/LPC81X_uart.h"/>
         <File Name="inc/nxp/LPC8XX/LPC8XX_crc.h"/>
         <File Name="inc/nxp/LPC8XX/LPC8XX_syscon.h"/>
