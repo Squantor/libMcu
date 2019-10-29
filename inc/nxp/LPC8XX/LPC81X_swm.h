@@ -32,62 +32,62 @@ functions.
 #define LPC81X_SWM_H
 
 typedef struct {
-    __IO uint32_t PINASSIGN[9];         /*!< Pin Assign register array */
+    __IO uint32_t PINASSIGN[9];         /* Pin Assign register array */
     __I  uint32_t RESERVED0[103];
-    __IO uint32_t PINENABLE0;           /*!< Pin Enable register */
+    __IO uint32_t PINENABLE0;           /* Pin Enable register */
 } LPC_SWM_T;
 
 #define SWM_PINENABLE0_RESERVED  (~0x1ff)
 
 typedef enum SWM_PIN_MOVABLE  {
-    SWM_U0_TXD_O,               /*!< PINASSIGN0 - UART0 TXD Output */
-    SWM_U0_RXD_I,               /*!< PINASSIGN0 - UART0 RXD Input */
-    SWM_U0_RTS_O,               /*!< PINASSIGN0 - UART0 RTS Output */
-    SWM_U0_CTS_I,               /*!< PINASSIGN0 - UART0 CTS Input */
-    SWM_U0_SCLK_IO = 0x10,      /*!< PINASSIGN1 - UART0 SCLK I/O */
-    SWM_U1_TXD_O,               /*!< PINASSIGN1 - UART1 TXD Output */
-    SWM_U1_RXD_I,               /*!< PINASSIGN1 - UART1 RXD Input */
-    SWM_U1_RTS_O,               /*!< PINASSIGN1 - UART1 RTS Output */
-    SWM_U1_CTS_I = 0x20,        /*!< PINASSIGN2 - UART1 CTS Input */
-    SWM_U1_SCLK_IO,             /*!< PINASSIGN2 - UART1 SCLK I/O */
-    SWM_U2_TXD_O,               /*!< PINASSIGN2 - UART2 TXD Output */
-    SWM_U2_RXD_I,               /*!< PINASSIGN2 - UART2 RXD Input */
-    SWM_U2_RTS_O = 0x30,        /*!< PINASSIGN3 - UART2 RTS Output */
-    SWM_U2_CTS_I,               /*!< PINASSIGN3 - UART2 CTS Input */
-    SWM_U2_SCLK_IO,             /*!< PINASSIGN3 - UART2 SCLK I/O */
-    SWM_SPI0_SCK_IO,            /*!< PINASSIGN3 - SPI0 SCK I/O */
-    SWM_SPI0_MOSI_IO = 0x40,    /*!< PINASSIGN4 - SPI0 MOSI I/O */
-    SWM_SPI0_MISO_IO,           /*!< PINASSIGN4 - SPI0 MISO I/O */
-    SWM_SPI0_SSEL_IO,           /*!< PINASSIGN4 - SPI0 SSEL I/O */
-    SWM_SPI1_SCK_IO,            /*!< PINASSIGN4 - SPI1 SCK I/O */
-    SWM_SPI1_MOSI_IO = 0x50,    /*!< PINASSIGN5 - SPI1 MOSI I/O */
-    SWM_SPI1_MISO_IO,           /*!< PINASSIGN5 - SPI1 MISO I/O */
-    SWM_SPI1_SSEL_IO,           /*!< PINASSIGN5 - SPI1 SSEL I/O */
-    SWM_CTIN_0_I,               /*!< PINASSIGN5 - CTIN0 Input */
-    SWM_CTIN_1_I = 0x60,        /*!< PINASSIGN6 - CTIN1 Input */
-    SWM_CTIN_2_I,               /*!< PINASSIGN6 - CTIN2 Input */
-    SWM_CTIN_3_I,               /*!< PINASSIGN6 - CTIN3 Input */
-    SWM_CTOUT_0_O,              /*!< PINASSIGN6 - CTOUT0 Output */
-    SWM_CTOUT_1_O = 0x70,       /*!< PINASSIGN7 - CTOUT1 Output */
-    SWM_CTOUT_2_O,              /*!< PINASSIGN7 - CTOUT2 Output */
-    SWM_CTOUT_3_O,              /*!< PINASSIGN7 - CTOUT3 Output */
-    SWM_I2C_SDA_IO,             /*!< PINASSIGN7 - I2C SDA I/O */
-    SWM_I2C_SCL_IO = 0x80,      /*!< PINASSIGN8 - I2C SCL I/O */
-    SWM_ACMP_O_O,               /*!< PINASSIGN8 - I2C ACMP Output */
-    SWM_CLKOUT_O,               /*!< PINASSIGN8 - I2C CLKOUT Output */
-    SWM_GPIO_INT_BMAT_O,        /*!< PINASSIGN8 - I2C GPIO INT BMAT Output */
+    SWM_U0_TXD_O,               /* PINASSIGN0 - UART0 TXD Output */
+    SWM_U0_RXD_I,               /* PINASSIGN0 - UART0 RXD Input */
+    SWM_U0_RTS_O,               /* PINASSIGN0 - UART0 RTS Output */
+    SWM_U0_CTS_I,               /* PINASSIGN0 - UART0 CTS Input */
+    SWM_U0_SCLK_IO = 0x10,      /* PINASSIGN1 - UART0 SCLK I/O */
+    SWM_U1_TXD_O,               /* PINASSIGN1 - UART1 TXD Output */
+    SWM_U1_RXD_I,               /* PINASSIGN1 - UART1 RXD Input */
+    SWM_U1_RTS_O,               /* PINASSIGN1 - UART1 RTS Output */
+    SWM_U1_CTS_I = 0x20,        /* PINASSIGN2 - UART1 CTS Input */
+    SWM_U1_SCLK_IO,             /* PINASSIGN2 - UART1 SCLK I/O */
+    SWM_U2_TXD_O,               /* PINASSIGN2 - UART2 TXD Output */
+    SWM_U2_RXD_I,               /* PINASSIGN2 - UART2 RXD Input */
+    SWM_U2_RTS_O = 0x30,        /* PINASSIGN3 - UART2 RTS Output */
+    SWM_U2_CTS_I,               /* PINASSIGN3 - UART2 CTS Input */
+    SWM_U2_SCLK_IO,             /* PINASSIGN3 - UART2 SCLK I/O */
+    SWM_SPI0_SCK_IO,            /* PINASSIGN3 - SPI0 SCK I/O */
+    SWM_SPI0_MOSI_IO = 0x40,    /* PINASSIGN4 - SPI0 MOSI I/O */
+    SWM_SPI0_MISO_IO,           /* PINASSIGN4 - SPI0 MISO I/O */
+    SWM_SPI0_SSEL_IO,           /* PINASSIGN4 - SPI0 SSEL I/O */
+    SWM_SPI1_SCK_IO,            /* PINASSIGN4 - SPI1 SCK I/O */
+    SWM_SPI1_MOSI_IO = 0x50,    /* PINASSIGN5 - SPI1 MOSI I/O */
+    SWM_SPI1_MISO_IO,           /* PINASSIGN5 - SPI1 MISO I/O */
+    SWM_SPI1_SSEL_IO,           /* PINASSIGN5 - SPI1 SSEL I/O */
+    SWM_CTIN_0_I,               /* PINASSIGN5 - CTIN0 Input */
+    SWM_CTIN_1_I = 0x60,        /* PINASSIGN6 - CTIN1 Input */
+    SWM_CTIN_2_I,               /* PINASSIGN6 - CTIN2 Input */
+    SWM_CTIN_3_I,               /* PINASSIGN6 - CTIN3 Input */
+    SWM_CTOUT_0_O,              /* PINASSIGN6 - CTOUT0 Output */
+    SWM_CTOUT_1_O = 0x70,       /* PINASSIGN7 - CTOUT1 Output */
+    SWM_CTOUT_2_O,              /* PINASSIGN7 - CTOUT2 Output */
+    SWM_CTOUT_3_O,              /* PINASSIGN7 - CTOUT3 Output */
+    SWM_I2C_SDA_IO,             /* PINASSIGN7 - I2C SDA I/O */
+    SWM_I2C_SCL_IO = 0x80,      /* PINASSIGN8 - I2C SCL I/O */
+    SWM_ACMP_O_O,               /* PINASSIGN8 - I2C ACMP Output */
+    SWM_CLKOUT_O,               /* PINASSIGN8 - I2C CLKOUT Output */
+    SWM_GPIO_INT_BMAT_O,        /* PINASSIGN8 - I2C GPIO INT BMAT Output */
 } SWM_PIN_MOVABLE_T;
 
 typedef enum SWM_PIN_FIXED    {
-    SWM_FIXED_ACMP_I1 = 0,    /*!< ACMP I1 */
-    SWM_FIXED_ACMP_I2 = 1,    /*!< ACMP I2 */
-    SWM_FIXED_SWCLK   = 2,    /*!< SWCLK */
-    SWM_FIXED_SWDIO   = 3,    /*!< SWDIO */
-    SWM_FIXED_XTALIN  = 4,    /*!< XTALIN */
-    SWM_FIXED_XTALOUT = 5,    /*!< XTALOUT */
-    SWM_FIXED_RST     = 6,    /*!< Reset */
-    SWM_FIXED_CLKIN   = 7,    /*!< Clock Input */
-    SWM_FIXED_VDDCMP  = 8    /*!< VDD */
+    SWM_FIXED_ACMP_I1 = 0,    /* ACMP I1 */
+    SWM_FIXED_ACMP_I2 = 1,    /* ACMP I2 */
+    SWM_FIXED_SWCLK   = 2,    /* SWCLK */
+    SWM_FIXED_SWDIO   = 3,    /* SWDIO */
+    SWM_FIXED_XTALIN  = 4,    /* XTALIN */
+    SWM_FIXED_XTALOUT = 5,    /* XTALOUT */
+    SWM_FIXED_RST     = 6,    /* Reset */
+    SWM_FIXED_CLKIN   = 7,    /* Clock Input */
+    SWM_FIXED_VDDCMP  = 8    /* VDD */
 } SWM_PIN_FIXED_T;
 
 #include "nxp/LPC8XX/LPC8XX_swm.h"
