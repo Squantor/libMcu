@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CodeLite_Project Name="LPC824M201JHI33_test" Version="11000" InternalType="">
+  <VirtualDirectory Name="inc">
+    <File Name="inc/board.hpp"/>
+    <File Name="inc/systick.hpp"/>
+    <File Name="inc/LPC824M201JHI33_nuclone.hpp"/>
+  </VirtualDirectory>
+  <VirtualDirectory Name="src">
+    <File Name="src/LPC824M201JHI33_nuclone.cpp"/>
+    <File Name="src/systick.cpp"/>
+    <File Name="src/main.cpp"/>
+    <File Name="src/startup.cpp"/>
+  </VirtualDirectory>
   <Plugins>
     <Plugin Name="qmake">
       <![CDATA[00020001N0005Debug0000000000000001N0007Release000000000000]]>
