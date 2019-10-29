@@ -82,17 +82,11 @@ typedef struct {
     __I  uint32_t DEVICEID;   /* Device ID (R/ ) */
 } LPC_SYSCTL_T;
 
-/**
- * Peripheral interrupt wakeup events values
- */
-#define SYSCTL_WAKEUP_I2C1INT     (1 << 7)    /*!< I2C1 interrupt wake-up [Available only on LPC82X] */
-#define SYSCTL_WAKEUP_I2C2INT     (1 << 21)    /*!< I2C2 interrupt wake-up [Available only on LPC82X] */
-#define SYSCTL_WAKEUP_I2C3INT     (1 << 22)    /*!< I2C3 interrupt wake-up [Available only on LPC82X] */
+#define SYSCTL_WAKEUP_I2C1INT     (1 << 7)
+#define SYSCTL_WAKEUP_I2C2INT     (1 << 21)
+#define SYSCTL_WAKEUP_I2C3INT     (1 << 22)
 
-/**
- * Deep sleep to wakeup and power state setup values
- */
-#define SYSCTL_SLPWAKE_ADC_PD    (1 << 4)    /*!< ADC wake-up configuration [Available only on LPC82x] */
+#define SYSCTL_SLPWAKE_ADC_PD    (1 << 4)
 
 /* Reserved bits masks for registers */
 #define SYSCTL_PRESETCTRL_RESERVED      0xfffe2000
@@ -104,26 +98,23 @@ typedef struct {
 #define PDWAKEUPWRMASK  (0x00006D00)
 #define PDWAKEUPDATMASK (0x000080FF)
 
-/**
- * Peripheral reset identifiers
- */
 typedef enum {
-    RESET_SPI0,            /*!< SPI0 reset control */
-    RESET_SPI1,            /*!< SPI1 reset control */
-    RESET_UARTFBRG,        /*!< UART fractional baud rate generator reset control */
-    RESET_USART0,        /*!< USART0 reset control */
-    RESET_USART1,        /*!< USART1 reset control */
-    RESET_USART2,        /*!< USART2 reset control */
-    RESET_I2C0,            /*!< I2C0 reset control */
-    RESET_MRT,            /*!< MRT reset control */
-    RESET_SCT,            /*!< SCT reset control */
-    RESET_WKT,            /*!< Self wake-up timer (WKT) control */
-    RESET_GPIO,            /*!< GPIO reset control */
-    RESET_FLASH,        /*!< FLASH reset control */
-    RESET_ACMP,            /*!< ACMP reset control */
-    RESET_I2C1 = 14,    /*!< I2C1 reset control [Available only in LPC82x] */
-    RESET_I2C2,            /*!< I2C2 reset control [Available only in LPC82x] */
-    RESET_I2C3,            /*!< I2C3 reset control [Available only in LPC82x] */
+    RESET_SPI0,
+    RESET_SPI1,
+    RESET_UARTFBRG,
+    RESET_USART0,
+    RESET_USART1,
+    RESET_USART2,
+    RESET_I2C0,
+    RESET_MRT,
+    RESET_SCT,
+    RESET_WKT,
+    RESET_GPIO,
+    RESET_FLASH,
+    RESET_ACMP,
+    RESET_I2C1 = 14,
+    RESET_I2C2,
+    RESET_I2C3,
 } SYSCTL_PERIPH_RESET_T;
 
 #include "nxp/LPC8XX/LPC8XX_syscon.h"
