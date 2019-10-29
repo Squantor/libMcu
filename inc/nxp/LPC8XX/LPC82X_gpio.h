@@ -32,7 +32,7 @@ LPC820 series GPIO registers, defines and functions.
 #define LPC82X_GPIO_H
 
 typedef struct {
-    __IO uint8_t  B[128][32];    /* Byte pin registers ports 0 to n; pins PIOn_0 to PIOn_31 */
+    __IO uint8_t  B[128][32];   /* Byte pin registers ports 0 to n; pins PIOn_0 to PIOn_31 */
     __IO uint32_t W[32][32];    /* Word pin registers port 0 to n */
     __IO uint32_t DIR[32];      /* Direction registers port n */
     __IO uint32_t MASK[32];     /* Mask register port n */

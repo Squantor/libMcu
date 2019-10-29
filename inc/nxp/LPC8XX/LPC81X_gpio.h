@@ -39,8 +39,8 @@ typedef struct {
     __IO uint32_t PIN[32];      /* Portpin register port n */
     __IO uint32_t MPIN[32];     /* Masked port register port n */
     __IO uint32_t SET[32];      /* Write: Set register for port n Read: output bits for port n */
-    __O uint32_t CLR[32];      /* Clear port n */
-    __O uint32_t NOT[32];      /* Toggle port n */
+    __O uint32_t CLR[32];       /* Clear port n */
+    __O uint32_t NOT[32];       /* Toggle port n */
 } LPC_GPIO_T;
 
 static inline void GpioSetPinDIROutput(LPC_GPIO_T *pGPIO, uint8_t port, uint8_t pin)
