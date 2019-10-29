@@ -1,0 +1,11 @@
+file bin/release/LPC824M201JHI33_test.elf
+target extended-remote /dev/ttyBmpGdb0
+shell sleep 1
+monitor swdp_scan
+attach 1
+set mem inaccessible-by-default off
+set {int}0x40048000 = 2
+load bin/release/example_LPC812test.elf
+set {int}0x40048000 = 2
+compare-sections
+b main
