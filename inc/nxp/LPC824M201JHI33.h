@@ -103,7 +103,6 @@ typedef enum {
 #define LPC_CMP_BASE        (0x40024000UL)
 #define LPC_DMATIRGMUX_BASE (0x40028000UL)
 #define LPC_INMUX_BASE      (0x4002C000UL)
-
 #define LPC_FMC_BASE        (0x40040000UL)
 #define LPC_IOCON_BASE      (0x40044000UL)
 #define LPC_SYSCTL_BASE     (0x40048000UL)

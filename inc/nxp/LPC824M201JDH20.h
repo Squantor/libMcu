@@ -32,7 +32,7 @@ For more information, please refer to <http://unlicense.org>
 extern "C" {
 #endif
 
-#warning "Microcontroller LPC824M201JDH20 support is WIP"
+#error "Microcontroller LPC824M201JDH20 support is not done"
 
 #ifdef __cplusplus
 }
