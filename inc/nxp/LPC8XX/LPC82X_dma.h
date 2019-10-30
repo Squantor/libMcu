@@ -413,146 +413,87 @@ static inline uint32_t DmaGetChannelStatus(LPC_DMA_T *pDMA, DMA_CHID_T ch)
 #define DMA_XFERCFG_WIDTH_8         (0 << 8)    /* 8-bit transfers are performed */
 #define DMA_XFERCFG_WIDTH_16        (1 << 8)    /* 16-bit transfers are performed */
 #define DMA_XFERCFG_WIDTH_32        (2 << 8)    /* 32-bit transfers are performed */
-#define DMA_XFERCFG_SRCINC_0        (0 << 12)    /* DMA source address is not incremented after a transfer */
-#define DMA_XFERCFG_SRCINC_1        (1 << 12)    /* DMA source address is incremented by 1 (width) after a transfer */
-#define DMA_XFERCFG_SRCINC_2        (2 << 12)    /* DMA source address is incremented by 2 (width) after a transfer */
-#define DMA_XFERCFG_SRCINC_4        (3 << 12)    /* DMA source address is incremented by 4 (width) after a transfer */
-#define DMA_XFERCFG_DSTINC_0        (0 << 14)    /* DMA destination address is not incremented after a transfer */
-#define DMA_XFERCFG_DSTINC_1        (1 << 14)    /* DMA destination address is incremented by 1 (width) after a transfer */
-#define DMA_XFERCFG_DSTINC_2        (2 << 14)    /* DMA destination address is incremented by 2 (width) after a transfer */
-#define DMA_XFERCFG_DSTINC_4        (3 << 14)    /* DMA destination address is incremented by 4 (width) after a transfer */
-#define DMA_XFERCFG_XFERCOUNT(n)    ((n - 1) << 16)    /* DMA transfer count in 'transfers', between (0)1 and (1023)1024 */
+#define DMA_XFERCFG_SRCINC_0        (0 << 12)   /* DMA source address is not incremented after a transfer */
+#define DMA_XFERCFG_SRCINC_1        (1 << 12)   /* DMA source address is incremented by 1 (width) after a transfer */
+#define DMA_XFERCFG_SRCINC_2        (2 << 12)   /* DMA source address is incremented by 2 (width) after a transfer */
+#define DMA_XFERCFG_SRCINC_4        (3 << 12)   /* DMA source address is incremented by 4 (width) after a transfer */
+#define DMA_XFERCFG_DSTINC_0        (0 << 14)   /* DMA destination address is not incremented after a transfer */
+#define DMA_XFERCFG_DSTINC_1        (1 << 14)   /* DMA destination address is incremented by 1 (width) after a transfer */
+#define DMA_XFERCFG_DSTINC_2        (2 << 14)   /* DMA destination address is incremented by 2 (width) after a transfer */
+#define DMA_XFERCFG_DSTINC_4        (3 << 14)   /* DMA destination address is incremented by 4 (width) after a transfer */
+#define DMA_XFERCFG_XFERCOUNT(n)    ((n - 1) << 16) /* DMA transfer count in 'transfers', between (0)1 and (1023)1024 */
 
-/**
- * @brief    Setup a DMA channel transfer configuration
- * @param    pDMA    : The base of DMA controller on the chip
- * @param    ch        : DMA channel ID
- * @param    cfg        : An Or'ed value of DMA_XFERCFG_* values that define the channel's transfer configuration
- * @return    Nothing
- * @note    This function sets up the transfer configuration for the DMA channel.<br>
- *
- *            The following example show how to configure the channel's transfer for
- *            multiple transfer descriptors (ie, ping-pong), interrupt 'A' trigger on
- *            transfer descriptor completion, 128 byte size transfers, and source and
- *            destination address increment.<br>
- *            Example: Chip_DMA_SetupChannelTransfer(pDMA, SSP0_RX_DMA,
- *                (DMA_XFERCFG_CFGVALID | DMA_XFERCFG_RELOAD | DMA_XFERCFG_SETINTA |
- *                DMA_XFERCFG_WIDTH_8 | DMA_XFERCFG_SRCINC_1 | DMA_XFERCFG_DSTINC_1 |
- *                DMA_XFERCFG_XFERCOUNT(128)));<br>
- */
-static inline void Chip_DMA_SetupChannelTransfer(LPC_DMA_T *pDMA, DMA_CHID_T ch, uint32_t cfg)
+/*
+This function sets up the transfer configuration for the DMA channel.
+
+The following example show how to configure the channel's transfer for
+multiple transfer descriptors (ie, ping-pong), interrupt 'A' trigger on
+transfer descriptor completion, 128 byte size transfers, and source and
+destination address increment.<br>
+Example: Chip_DMA_SetupChannelTransfer(pDMA, SSP0_RX_DMA,
+(DMA_XFERCFG_CFGVALID | DMA_XFERCFG_RELOAD | DMA_XFERCFG_SETINTA |
+DMA_XFERCFG_WIDTH_8 | DMA_XFERCFG_SRCINC_1 | DMA_XFERCFG_DSTINC_1 |
+DMA_XFERCFG_XFERCOUNT(128)));
+*/
+static inline void DmaSetupChannelTransfer(LPC_DMA_T *pDMA, DMA_CHID_T ch, uint32_t cfg)
 {
     pDMA->DMACH[ch].XFERCFG = cfg;
 }
 
-/**
- * @brief    Set DMA transfer register interrupt bits (safe)
- * @param    pDMA    : The base of DMA controller on the chip
- * @param    ch        : DMA channel ID
- * @param    mask    : Bits to set
- * @return    Nothing
- * @note    This function safely sets bits in the DMA channel specific XFERCFG
- *            register.
- */
-static inline void Chip_DMA_SetTranBits(LPC_DMA_T *pDMA, DMA_CHID_T ch, uint32_t mask)
+static inline void DmaSetTranBits(LPC_DMA_T *pDMA, DMA_CHID_T ch, uint32_t mask)
 {
     /* Read and write values may not be the same, write 0 to
        undefined bits */
     pDMA->DMACH[ch].XFERCFG = (pDMA->DMACH[ch].XFERCFG & ~DMA_XFERCFG_RESERVED) | mask;
 }
 
-/**
- * @brief    Clear DMA transfer register interrupt bits (safe)
- * @param    pDMA    : The base of DMA controller on the chip
- * @param    ch        : DMA channel ID
- * @param    mask    : Bits to clear
- * @return    Nothing
- * @note    This function safely clears bits in the DMA channel specific XFERCFG
- *            register.
- */
-static inline void Chip_DMA_ClearTranBits(LPC_DMA_T *pDMA, DMA_CHID_T ch, uint32_t mask)
+static inline void DmaClearTranBits(LPC_DMA_T *pDMA, DMA_CHID_T ch, uint32_t mask)
 {
     /* Read and write values may not be the same, write 0 to
        undefined bits */
     pDMA->DMACH[ch].XFERCFG &= ~(DMA_XFERCFG_RESERVED | mask);
 }
 
-/**
- * @brief    Update the transfer size in an existing DMA channel transfer configuration
- * @param    pDMA    : The base of DMA controller on the chip
- * @param    ch        : DMA channel ID
- * @param    trans    : Number of transfers to update the transfer configuration to (1 - 1023)
- * @return    Nothing
- */
-static inline void Chip_DMA_SetupChannelTransferSize(LPC_DMA_T *pDMA, DMA_CHID_T ch, uint32_t trans)
+static inline void DmaSetupChannelTransferSize(LPC_DMA_T *pDMA, DMA_CHID_T ch, uint32_t trans)
 {
     pDMA->DMACH[ch].XFERCFG = (pDMA->DMACH[ch].XFERCFG & ~(DMA_XFERCFG_RESERVED | (0x3FF << 16))) | DMA_XFERCFG_XFERCOUNT(trans);
 }
 
-/**
- * @brief    Sets a DMA channel configuration as valid
- * @param    pDMA    : The base of DMA controller on the chip
- * @param    ch        : DMA channel ID
- * @return    Nothing
- */
-static inline void Chip_DMA_SetChannelValid(LPC_DMA_T *pDMA, DMA_CHID_T ch)
+static inline void DmaSetChannelValid(LPC_DMA_T *pDMA, DMA_CHID_T ch)
 {
-    Chip_DMA_SetTranBits(pDMA, ch, DMA_XFERCFG_CFGVALID);
+    DmaSetTranBits(pDMA, ch, DMA_XFERCFG_CFGVALID);
 }
 
-/**
- * @brief    Sets a DMA channel configuration as invalid
- * @param    pDMA    : The base of DMA controller on the chip
- * @param    ch        : DMA channel ID
- * @return    Nothing
- */
-static inline void Chip_DMA_SetChannelInValid(LPC_DMA_T *pDMA, DMA_CHID_T ch)
+static inline void DmaSetChannelInValid(LPC_DMA_T *pDMA, DMA_CHID_T ch)
 {
-    Chip_DMA_ClearTranBits(pDMA, ch, DMA_XFERCFG_CFGVALID);
+    DmaClearTranBits(pDMA, ch, DMA_XFERCFG_CFGVALID);
 }
 
-/**
- * @brief    Performs a software trigger of the DMA channel
- * @param    pDMA    : The base of DMA controller on the chip
- * @param    ch        : DMA channel ID
- * @return    Nothing
- */
-static inline void Chip_DMA_SWTriggerChannel(LPC_DMA_T *pDMA, DMA_CHID_T ch)
+static inline void DmaSWTriggerChannel(LPC_DMA_T *pDMA, DMA_CHID_T ch)
 {
-    Chip_DMA_SetTranBits(pDMA, ch, DMA_XFERCFG_SWTRIG);
+    DmaSetTranBits(pDMA, ch, DMA_XFERCFG_SWTRIG);
 }
 
-/**
- * @brief    Checks if the given channel is active or not
- * @param    pDMA    : The base of DMA controller on the chip
- * @param    ch        : DMA channel ID
- * @return    1 if channel @a ch is active; 0 if channel @a ch is not active
- */
-static inline bool Chip_DMA_IsChannelActive(LPC_DMA_T *pDMA, DMA_CHID_T ch)
+static inline bool DmaIsChannelActive(LPC_DMA_T *pDMA, DMA_CHID_T ch)
 {
     return (pDMA->DMACOMMON[0].ACTIVE & (1 << ch)) != 0;
 }
 
-/**
- * @brief    Sets up a DMA channel with the passed DMA transfer descriptor
- * @param    pDMA    : The base of DMA controller on the chip
- * @param    ch        : DMA channel ID
- * @param    desc    : Pointer to DMA transfer descriptor
- * @return    false if the DMA channel was active, otherwise true
- * @note    This function will set the DMA descriptor in the SRAM table to the
- *            the passed descriptor. This function is only meant to be used when
- *            the DMA channel is not active and can be used to setup the
- *            initial transfer for a linked list or ping-pong buffer or just a
- *            single transfer without a next descriptor.<br>
- *
- *            If using this function to write the initial transfer descriptor in
- *            a linked list or ping-pong buffer configuration, it should contain a
- *            non-NULL 'next' field pointer.
- */
-static inline bool Chip_DMA_SetupTranChannel(LPC_DMA_T *pDMA, DMA_CHID_T ch, const DMA_CHDESC_T *desc)
+/*
+This function will set the DMA descriptor in the SRAM table to the
+the passed descriptor. This function is only meant to be used when
+the DMA channel is not active and can be used to setup the
+initial transfer for a linked list or ping-pong buffer or just a
+single transfer without a next descriptor.
+
+If using this function to write the initial transfer descriptor in
+a linked list or ping-pong buffer configuration, it should contain a
+non-NULL 'next' field pointer.
+*/
+static inline bool DmaSetupTranChannel(LPC_DMA_T *pDMA, DMA_CHID_T ch, const DMA_CHDESC_T *desc)
 {
     /* If channel is active return false */
-    if (Chip_DMA_IsChannelActive(pDMA, ch))
+    if (DmaIsChannelActive(pDMA, ch))
         return false;
 
     /* Assign the descriptor to descriptor table */
