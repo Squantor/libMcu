@@ -32,16 +32,8 @@ int main()
 {
     int result = 0;
     boardInit();
-    // test all peripherals
-    // gpio (includes SWM, IOCON etc)
-    // SPI
-    // I2C
-    // UART
-    // Analog comparator
-    // MRT
-    // SCT
-    // CRC
-    // ROM functions
+    // Setup test synchronisation pins
+
     // debugger checks
     if(result == 0)
         __BKPT(0);
