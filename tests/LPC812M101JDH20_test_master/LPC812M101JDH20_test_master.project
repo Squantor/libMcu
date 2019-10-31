@@ -37,6 +37,8 @@
   </VirtualDirectory>
   <Description/>
   <Dependencies/>
+  <Dependencies Name="Debug"/>
+  <Dependencies Name="Release"/>
   <Settings Type="Dynamic Library">
     <GlobalSettings>
       <Compiler Options="" C_Options="" Assembler="">
@@ -60,14 +62,14 @@
       </Environment>
       <Debugger IsRemote="yes" RemoteHostName="/dev/ttyBmpGdb0" RemoteHostPort="" DebuggerPath="../../../../../../../usr/bin/arm-none-eabi-gdb" IsExtended="yes">
         <DebuggerSearchPaths/>
-        <PostConnectCommands>file bin/debug/example_LPC812test.elf
-mon tpwr enable
+        <PostConnectCommands>file bin/debug/LPC812M101JDH20_test_master.elf
+target extended-remote /dev/ttyBmpGdb0
 shell sleep 1
 monitor swdp_scan
 attach 1
 set mem inaccessible-by-default off
 set {int}0x40048000 = 2
-load bin/debug/example_LPC812test.elf
+load bin/debug/LPC812M101JDH20_test_master.elf
 set {int}0x40048000 = 2
 compare-sections
 b main</PostConnectCommands>
@@ -109,14 +111,14 @@ b main</PostConnectCommands>
       </Environment>
       <Debugger IsRemote="yes" RemoteHostName="/dev/ttyBmpGdb0" RemoteHostPort="" DebuggerPath="../../../../../../../usr/bin/arm-none-eabi-gdb" IsExtended="yes">
         <DebuggerSearchPaths/>
-        <PostConnectCommands>file bin/release/example_LPC812test.elf
-mon tpwr enable
+        <PostConnectCommands>file bin/release/LPC812M101JDH20_test_master.elf
+target extended-remote /dev/ttyBmpGdb0
 shell sleep 1
 monitor swdp_scan
 attach 1
 set mem inaccessible-by-default off
 set {int}0x40048000 = 2
-load bin/release/example_LPC812test.elf
+load bin/release/LPC812M101JDH20_test_master.elf
 set {int}0x40048000 = 2
 compare-sections
 b main</PostConnectCommands>
@@ -146,6 +148,4 @@ b main</PostConnectCommands>
       </Completion>
     </Configuration>
   </Settings>
-  <Dependencies Name="Debug"/>
-  <Dependencies Name="Release"/>
 </CodeLite_Project>

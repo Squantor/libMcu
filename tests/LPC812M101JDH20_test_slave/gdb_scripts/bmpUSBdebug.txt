@@ -1,12 +1,11 @@
 file bin/debug/LPC812M101JDH20_test_slave.elf
 target extended-remote /dev/ttyBmpGdb0
-mon tpwr enable
 shell sleep 1
 monitor swdp_scan
 attach 1
 set mem inaccessible-by-default off
 set {int}0x40048000 = 2
-load bin/debug/example_LPC812test.elf
+load bin/debug/LPC812M101JDH20_test_slave.elf
 set {int}0x40048000 = 2
 compare-sections
 b main

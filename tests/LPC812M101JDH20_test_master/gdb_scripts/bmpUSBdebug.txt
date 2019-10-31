@@ -1,6 +1,5 @@
 file bin/debug/LPC812M101JDH20_test_master.elf
 target extended-remote /dev/ttyBmpGdb0
-mon tpwr enable
 shell sleep 1
 monitor swdp_scan
 attach 1
