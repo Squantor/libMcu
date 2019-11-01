@@ -33,8 +33,18 @@ Output 0, input 0: Slave acknowledges that master is ready for next test.
 */
 
 #include <test_sync.hpp>
+#include <mcu_ll.h>
+
+void testSyncInit()
+{
+    GpioSetPinOutLow(LPC_GPIO_PORT, 0, TEST_SYNC_OUT);
+    GpioSetPinDIR(LPC_GPIO_PORT, 0, TEST_SYNC_OUT, true);
+    GpioSetPinDIR(LPC_GPIO_PORT, 0, TEST_SYNC_IN, false);
+}
 
 t_testSyncResult testSyncNextTest(timeTicks timeout)
 {
+    // check if input is at 0
+    // 
     return testSyncReady;
 }
