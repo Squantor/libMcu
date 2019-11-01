@@ -35,9 +35,15 @@ typedef enum testSyncResult {
 
 // setup test synchroniser
 void testSyncInit();
-// request next test setup
-testSyncResult_t testSyncSetup(timeTicks timeout); 
-// request next test start
-testSyncResult_t testSyncStart(timeTicks timeout);
+// request test setup phase
+testSyncResult_t testSyncRequestSetup(void); 
+// request test start phase
+testSyncResult_t testSyncRequestStart(void);
+// wait test setup phase
+testSyncResult_t testSyncWaitSetup(void); 
+// wait test start phase
+testSyncResult_t testSyncWaitStart(void); 
+
+
 
 #endif

@@ -45,38 +45,42 @@ void testSyncInit()
     GpioSetPinDir(LPC_GPIO_PORT, 0, TEST_SYNC_IN_GPIO, false);
 }
 
-testSyncResult_t testSyncSetup(timeTicks timeout)
+testSyncResult_t testSyncRequestSetup(void)
 {
-    timeDelay_t timeoutDelay;
-    timeDelayInit(timeoutDelay, timeout);
-    
     // request that we go to setup state
     GpioSetPinOutHigh(LPC_GPIO_PORT, 0, TEST_SYNC_OUT_GPIO);
     // wait for acknowledge/timeout
-    while(timeDelayCheck(timeoutDelay) == delayNotReached && 
-        GpioGetPinState(LPC_GPIO_PORT, 0, TEST_SYNC_IN_GPIO) == false)
+    while(GpioGetPinState(LPC_GPIO_PORT, 0, TEST_SYNC_IN_GPIO) == true)
         ;
-    // report if we timed out
-    if(timeDelayCheck(timeoutDelay) != delayNotReached)
-        return testSyncTimeout;
-    else  
-        return testSyncReady;
+    return testSyncReady;
 }
 
-testSyncResult_t testSyncStart(timeTicks timeout)
-{
-    timeDelay_t timeoutDelay;
-    timeDelayInit(timeoutDelay, timeout);
-    
+testSyncResult_t testSyncRequestStart(void)
+{ 
     // request that we go to test state
     GpioSetPinOutLow(LPC_GPIO_PORT, 0, TEST_SYNC_OUT_GPIO);
     // wait for acknowledge/timeout
-    while(timeDelayCheck(timeoutDelay) == delayNotReached && 
-        GpioGetPinState(LPC_GPIO_PORT, 0, TEST_SYNC_IN_GPIO) == true)
+    while(GpioGetPinState(LPC_GPIO_PORT, 0, TEST_SYNC_IN_GPIO) == false)
         ;
-    // report if we timed out
-    if(timeDelayCheck(timeoutDelay) != delayNotReached)
-        return testSyncTimeout;
-    else  
-        return testSyncReady;
+    return testSyncReady;
+}
+
+testSyncResult_t testSyncWaitSetup(void)
+{
+    // wait for test setup
+    while(GpioGetPinState(LPC_GPIO_PORT, 0, TEST_SYNC_IN_GPIO) == true)
+        ;
+    // acknowledge we are ready to go to setup
+    GpioSetPinOutHigh(LPC_GPIO_PORT, 0, TEST_SYNC_OUT_GPIO);
+    return testSyncReady;
+}
+
+testSyncResult_t testSyncWaitStart(void)
+{
+    // wait for test start
+    while(GpioGetPinState(LPC_GPIO_PORT, 0, TEST_SYNC_IN_GPIO) == false)
+        ;
+    // acknowledge we are ready to start
+    GpioSetPinOutLow(LPC_GPIO_PORT, 0, TEST_SYNC_OUT_GPIO);
+    return testSyncReady;
 }

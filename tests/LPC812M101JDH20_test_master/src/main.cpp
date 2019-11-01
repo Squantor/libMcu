@@ -47,20 +47,13 @@ void testsFailed(void)
 int main()
 {
     int result = 0;
-    timeDelay_t testDelay;
     boardInit();
     // Setup test synchronisation pins
     testSyncInit();
     
     while(1)
     {
-        testSyncSetup(SEC2TICKS(0.1));
-        timeDelayInit(testDelay, SEC2TICKS(0.1));
-        while(timeDelayCheck(testDelay) == delayNotReached)
-            ;
-        testSyncStart(SEC2TICKS(0.1));
-        timeDelayInit(testDelay, SEC2TICKS(0.1));
-        while(timeDelayCheck(testDelay) == delayNotReached)
-            ;
+        testSyncRequestSetup();
+        testSyncRequestStart();
     }
 }
