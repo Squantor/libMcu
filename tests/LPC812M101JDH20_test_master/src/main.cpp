@@ -25,20 +25,42 @@ SOFTWARE.
 #include <mcu_ll.h>
 #include <board.hpp>
 #include <systick.hpp>
+#include <test_sync.hpp>
 
 volatile int var;
+
+
+void testsPassed(void)
+{
+    __BKPT(0);
+    while(1)
+        ;
+}
+
+void testsFailed(void)
+{
+    __BKPT(1);
+    while(1)
+        ;
+}
 
 int main()
 {
     int result = 0;
+    timeDelay_t testDelay;
     boardInit();
     // Setup test synchronisation pins
-
-    // debugger checks
-    if(result == 0)
-        __BKPT(0);
-    else
-        __BKPT(1);
-    while (1) {
+    testSyncInit();
+    
+    while(1)
+    {
+        testSyncSetup(SEC2TICKS(1));
+        timeDelayInit(testDelay, SEC2TICKS(0.5));
+        while(timeDelayCheck(testDelay) == delayNotReached)
+            ;
+        testSyncStart(SEC2TICKS(1));
+        timeDelayInit(testDelay, SEC2TICKS(0.5));
+        while(timeDelayCheck(testDelay) == delayNotReached)
+            ;
     }
 }

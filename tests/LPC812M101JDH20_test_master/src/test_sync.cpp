@@ -48,9 +48,6 @@ testSyncResult_t testSyncSetup(timeTicks timeout)
     timeDelay_t timeoutDelay;
     timeDelayInit(timeoutDelay, timeout);
     
-    // check if we are in initial state, out:0, in:0
-    if(GpioGetPinState(LPC_GPIO_PORT, 0, TEST_SYNC_IN) == true)
-        return testSyncInvalid;
     // request that we go to setup state
     GpioSetPinOutHigh(LPC_GPIO_PORT, 0, TEST_SYNC_OUT);
     // wait for acknowledge/timeout
@@ -69,9 +66,6 @@ testSyncResult_t testSyncStart(timeTicks timeout)
     timeDelay_t timeoutDelay;
     timeDelayInit(timeoutDelay, timeout);
     
-    // check if the slave is ready we are in initial state, out:0, in:0
-    if(GpioGetPinState(LPC_GPIO_PORT, 0, TEST_SYNC_IN) == false)
-        return testSyncInvalid;
     // request that we go to test state
     GpioSetPinOutHigh(LPC_GPIO_PORT, 0, TEST_SYNC_OUT);
     // wait for acknowledge/timeout
