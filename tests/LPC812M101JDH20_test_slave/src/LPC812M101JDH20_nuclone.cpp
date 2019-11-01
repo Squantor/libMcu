@@ -24,6 +24,48 @@ SOFTWARE.
 #include <LPC812M101JDH20_nuclone.hpp>
 #include <mcu_ll.h>
 
+// current CPU clock
+uint32_t SystemCoreClock;
+// crystal frequency
+const uint32_t OscRateIn = 12000000;
+// external oscillator frequency
+const uint32_t ExtRateIn = 0;
+
+/* Setup crystal clocking */
+void SetupXtalClocking(void)
+{
+    /* EXT oscillator < 15MHz */
+    ClockSetPLLBypass(false, false);
+
+    /* Turn on the SYSOSC by clearing the power down bit */
+    SysctlPowerUp(SYSCTL_SLPWAKE_SYSOSC_PD);
+
+    /* Select the PLL input to the external oscillator */
+    ClockSetSystemPLLSource(SYSCTL_PLLCLKSRC_SYSOSC);
+
+    /* Setup FLASH access to 2 clocks (up to 30MHz) */
+    FmcSetFlashAccess(FLASHTIM_30MHZ_CPU);
+
+    /* Power down PLL to change the PLL divider ratio */
+    SysctlPowerDown(SYSCTL_SLPWAKE_SYSPLL_PD);
+
+    /* Configure the PLL M and P dividers */
+    /* Setup PLL for main oscillator rate ((FCLKIN = 12MHz) * 5)/2 = 30MHz */
+    ClockSetupSystemPLL(4, 1);
+
+    /* Turn on the PLL by clearing the power down bit */
+    SysctlPowerUp(SYSCTL_SLPWAKE_SYSPLL_PD);
+
+    /* Wait for PLL to lock */
+    while (!ClockIsSystemPLLLocked()) {}
+
+    ClockSetSysClockDiv(2);
+
+    /* Set main clock source to the system PLL. This will drive 30MHz
+       for the main clock and 30MHz for the system clock */
+    ClockSetMainClockSource(SYSCTL_MAINCLKSRC_PLLOUT);
+}
+
 void boardInit(void)
 {
     ClockEnablePeriphClock(SYSCTL_CLOCK_SWM);
@@ -39,9 +81,8 @@ void boardInit(void)
     ClockDisablePeriphClock(SYSCTL_CLOCK_IOCON);
     // GPIO pins setup
     GpioInit(LPC_GPIO_PORT);
-    //SetupXtalClocking();
-    //SystemCoreClockUpdate();
+    SetupXtalClocking();
+    SystemCoreClock = ClockGetSystemClockRate();
     // systick configuration
-    //SysTick_Config(SystemCoreClock / TICKS_PER_S);
-    SysTick_Config(12000000 / TICKS_PER_S);
+    SysTick_Config(SystemCoreClock / TICKS_PER_S);
 }

@@ -21,36 +21,29 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
+#ifndef TEST_SYNC_HPP
+#define TEST_SYNC_HPP
 
-#include <mcu_ll.h>
-#include <board.hpp>
 #include <systick.hpp>
-#include <test_sync.hpp>
 
-void testsPassed(void)
-{
-    __BKPT(0);
-    while(1)
-        ;
-}
+typedef enum testSyncResult {
+    testSyncReady,
+    testSyncTimeout,
+    testSyncInvalid,    // somehow we are in a strange state?
+} testSyncResult_t;
 
-void testsFailed(void)
-{
-    __BKPT(1);
-    while(1)
-        ;
-}
 
-int main()
-{
-    int result = 0;
-    boardInit();
-    // Setup test synchronisation pins
-    testSyncInit();
-    
-    while(1)
-    {
-        testSyncWaitSetup();
-        testSyncWaitStart();
-    }
-}
+// setup test synchroniser
+void testSyncInit();
+// request test setup phase
+testSyncResult_t testSyncRequestSetup(void); 
+// request test start phase
+testSyncResult_t testSyncRequestStart(void);
+// wait test setup phase
+testSyncResult_t testSyncWaitSetup(void); 
+// wait test start phase
+testSyncResult_t testSyncWaitStart(void); 
+
+
+
+#endif
