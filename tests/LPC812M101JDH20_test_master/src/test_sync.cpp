@@ -44,6 +44,8 @@ void testSyncInit()
 
 testSyncResult_t testSyncNextTest(timeTicks timeout)
 {
+    timeDelay_t timeoutDelay;
+    timeDelayInit(timeoutDelay, timeout);
     if(GpioGetPinState(LPC_GPIO_PORT, 0, TEST_SYNC_IN) == true)
         return testSyncInvalid;
     
