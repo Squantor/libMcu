@@ -31,8 +31,10 @@ SOFTWARE.
 #define UART_OUT_RXD    (12)
 
 // synchronisation pins
-#define TEST_SYNC_OUT   (17)
-#define TEST_SYNC_IN    (14)
+#define TEST_SYNC_OUT_IOCON (IOCON_PIO17)
+#define TEST_SYNC_OUT_GPIO  (17)
+#define TEST_SYNC_IN_IOCON  (IOCON_PIO14)
+#define TEST_SYNC_IN_GPIO   (14)
 
 // pins used for testing
 #define TEST_UART_TXD   (16)

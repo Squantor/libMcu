@@ -38,9 +38,11 @@ Output 0, input 0: Slave acknowledges that master is ready for next test.
 
 void testSyncInit()
 {
-    GpioSetPinOutLow(LPC_GPIO_PORT, 0, TEST_SYNC_OUT);
-    GpioSetPinDir(LPC_GPIO_PORT, 0, TEST_SYNC_OUT, true);
-    GpioSetPinDir(LPC_GPIO_PORT, 0, TEST_SYNC_IN, false);
+    IoconPinSetMode(LPC_IOCON, TEST_SYNC_OUT_IOCON, PIN_MODE_INACTIVE);
+    IoconPinSetMode(LPC_IOCON, TEST_SYNC_IN_IOCON, PIN_MODE_INACTIVE);
+    GpioSetPinOutLow(LPC_GPIO_PORT, 0, TEST_SYNC_OUT_GPIO);
+    GpioSetPinDir(LPC_GPIO_PORT, 0, TEST_SYNC_OUT_GPIO, true);
+    GpioSetPinDir(LPC_GPIO_PORT, 0, TEST_SYNC_IN_GPIO, false);
 }
 
 testSyncResult_t testSyncSetup(timeTicks timeout)
@@ -49,10 +51,10 @@ testSyncResult_t testSyncSetup(timeTicks timeout)
     timeDelayInit(timeoutDelay, timeout);
     
     // request that we go to setup state
-    GpioSetPinOutHigh(LPC_GPIO_PORT, 0, TEST_SYNC_OUT);
+    GpioSetPinOutHigh(LPC_GPIO_PORT, 0, TEST_SYNC_OUT_GPIO);
     // wait for acknowledge/timeout
     while(timeDelayCheck(timeoutDelay) == delayNotReached && 
-        GpioGetPinState(LPC_GPIO_PORT, 0, TEST_SYNC_IN) == 0)
+        GpioGetPinState(LPC_GPIO_PORT, 0, TEST_SYNC_IN_GPIO) == 0)
         ;
     // report if we timed out
     if(timeDelayCheck(timeoutDelay) != delayNotReached)
@@ -67,10 +69,10 @@ testSyncResult_t testSyncStart(timeTicks timeout)
     timeDelayInit(timeoutDelay, timeout);
     
     // request that we go to test state
-    GpioSetPinOutHigh(LPC_GPIO_PORT, 0, TEST_SYNC_OUT);
+    GpioSetPinOutLow(LPC_GPIO_PORT, 0, TEST_SYNC_OUT_GPIO);
     // wait for acknowledge/timeout
     while(timeDelayCheck(timeoutDelay) == delayNotReached && 
-        GpioGetPinState(LPC_GPIO_PORT, 0, TEST_SYNC_IN) == 1)
+        GpioGetPinState(LPC_GPIO_PORT, 0, TEST_SYNC_IN_GPIO) == 1)
         ;
     // report if we timed out
     if(timeDelayCheck(timeoutDelay) != delayNotReached)
