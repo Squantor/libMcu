@@ -54,12 +54,12 @@ int main()
     
     while(1)
     {
-        testSyncSetup(SEC2TICKS(1));
-        timeDelayInit(testDelay, SEC2TICKS(0.5));
+        testSyncSetup(SEC2TICKS(0.1));
+        timeDelayInit(testDelay, SEC2TICKS(0.1));
         while(timeDelayCheck(testDelay) == delayNotReached)
             ;
-        testSyncStart(SEC2TICKS(1));
-        timeDelayInit(testDelay, SEC2TICKS(0.5));
+        testSyncStart(SEC2TICKS(0.1));
+        timeDelayInit(testDelay, SEC2TICKS(0.1));
         while(timeDelayCheck(testDelay) == delayNotReached)
             ;
     }

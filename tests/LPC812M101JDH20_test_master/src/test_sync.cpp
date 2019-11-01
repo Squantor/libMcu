@@ -54,7 +54,7 @@ testSyncResult_t testSyncSetup(timeTicks timeout)
     GpioSetPinOutHigh(LPC_GPIO_PORT, 0, TEST_SYNC_OUT_GPIO);
     // wait for acknowledge/timeout
     while(timeDelayCheck(timeoutDelay) == delayNotReached && 
-        GpioGetPinState(LPC_GPIO_PORT, 0, TEST_SYNC_IN_GPIO) == 0)
+        GpioGetPinState(LPC_GPIO_PORT, 0, TEST_SYNC_IN_GPIO) == false)
         ;
     // report if we timed out
     if(timeDelayCheck(timeoutDelay) != delayNotReached)
@@ -72,7 +72,7 @@ testSyncResult_t testSyncStart(timeTicks timeout)
     GpioSetPinOutLow(LPC_GPIO_PORT, 0, TEST_SYNC_OUT_GPIO);
     // wait for acknowledge/timeout
     while(timeDelayCheck(timeoutDelay) == delayNotReached && 
-        GpioGetPinState(LPC_GPIO_PORT, 0, TEST_SYNC_IN_GPIO) == 1)
+        GpioGetPinState(LPC_GPIO_PORT, 0, TEST_SYNC_IN_GPIO) == true)
         ;
     // report if we timed out
     if(timeDelayCheck(timeoutDelay) != delayNotReached)
