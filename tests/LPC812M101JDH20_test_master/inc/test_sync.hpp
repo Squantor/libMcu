@@ -29,8 +29,9 @@ SOFTWARE.
 typedef enum testSyncResult {
     testSyncReady,
     testSyncTimeout,
-} t_testSyncResult;
+    testSyncInvalid,    // somehow we are in a strange state?
+} testSyncResult_t;
 
-t_testSyncResult testSyncNextTest(timeTicks timeout); 
+testSyncResult_t testSyncNextTest(timeTicks timeout); 
 
 #endif

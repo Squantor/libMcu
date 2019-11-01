@@ -42,9 +42,11 @@ void testSyncInit()
     GpioSetPinDir(LPC_GPIO_PORT, 0, TEST_SYNC_IN, false);
 }
 
-t_testSyncResult testSyncNextTest(timeTicks timeout)
+testSyncResult_t testSyncNextTest(timeTicks timeout)
 {
-    // check if input is at 0
-    // 
+    if(GpioGetPinState(LPC_GPIO_PORT, 0, TEST_SYNC_IN) == true)
+        return testSyncInvalid;
+    
+    
     return testSyncReady;
 }
