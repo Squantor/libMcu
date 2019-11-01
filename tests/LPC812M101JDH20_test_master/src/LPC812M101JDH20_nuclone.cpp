@@ -31,7 +31,7 @@ const uint32_t OscRateIn = 12000000;
 // external oscillator frequency
 const uint32_t ExtRateIn = 0;
 
-/* Setup system clocking */
+/* Setup crystal clocking */
 void SetupXtalClocking(void)
 {
     /* EXT oscillator < 15MHz */
@@ -61,8 +61,8 @@ void SetupXtalClocking(void)
 
     ClockSetSysClockDiv(2);
 
-    /* Set main clock source to the system PLL. This will drive 24MHz
-       for the main clock and 24MHz for the system clock */
+    /* Set main clock source to the system PLL. This will drive 30MHz
+       for the main clock and 30MHz for the system clock */
     ClockSetMainClockSource(SYSCTL_MAINCLKSRC_PLLOUT);
 }
 
