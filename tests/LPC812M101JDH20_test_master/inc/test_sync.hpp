@@ -32,6 +32,12 @@ typedef enum testSyncResult {
     testSyncInvalid,    // somehow we are in a strange state?
 } testSyncResult_t;
 
-testSyncResult_t testSyncNextTest(timeTicks timeout); 
+
+// setup test synchroniser
+void testSyncInit();
+// request next test setup
+testSyncResult_t testSyncSetup(timeTicks timeout); 
+// request next test start
+testSyncResult_t testSyncStart(timeTicks timeout);
 
 #endif

@@ -28,6 +28,7 @@ Step plan to request a new test is as follows:
 Output 0, input 0: Test in progress
 Output 1, input 0: Test done from master side, requesting next test
 Output 1, input 1: Slave is ready for next test
+Do our setup as the slave has done its setup too
 Output 0, input 1: Master is ready for next test
 Output 0, input 0: Slave acknowledges that master is ready for next test.
 */
@@ -42,13 +43,44 @@ void testSyncInit()
     GpioSetPinDir(LPC_GPIO_PORT, 0, TEST_SYNC_IN, false);
 }
 
-testSyncResult_t testSyncNextTest(timeTicks timeout)
+testSyncResult_t testSyncSetup(timeTicks timeout)
 {
     timeDelay_t timeoutDelay;
     timeDelayInit(timeoutDelay, timeout);
+    
+    // check if we are in initial state, out:0, in:0
     if(GpioGetPinState(LPC_GPIO_PORT, 0, TEST_SYNC_IN) == true)
         return testSyncInvalid;
+    // request that we go to setup state
+    GpioSetPinOutHigh(LPC_GPIO_PORT, 0, TEST_SYNC_OUT);
+    // wait for acknowledge/timeout
+    while(timeDelayCheck(timeoutDelay) == delayNotReached && 
+        GpioGetPinState(LPC_GPIO_PORT, 0, TEST_SYNC_IN) == 0)
+        ;
+    // report if we timed out
+    if(timeDelayCheck(timeoutDelay) != delayNotReached)
+        return testSyncTimeout;
+    else  
+        return testSyncReady;
+}
+
+testSyncResult_t testSyncStart(timeTicks timeout)
+{
+    timeDelay_t timeoutDelay;
+    timeDelayInit(timeoutDelay, timeout);
     
-    
-    return testSyncReady;
+    // check if the slave is ready we are in initial state, out:0, in:0
+    if(GpioGetPinState(LPC_GPIO_PORT, 0, TEST_SYNC_IN) == false)
+        return testSyncInvalid;
+    // request that we go to test state
+    GpioSetPinOutHigh(LPC_GPIO_PORT, 0, TEST_SYNC_OUT);
+    // wait for acknowledge/timeout
+    while(timeDelayCheck(timeoutDelay) == delayNotReached && 
+        GpioGetPinState(LPC_GPIO_PORT, 0, TEST_SYNC_IN) == 1)
+        ;
+    // report if we timed out
+    if(timeDelayCheck(timeoutDelay) != delayNotReached)
+        return testSyncTimeout;
+    else  
+        return testSyncReady;
 }
