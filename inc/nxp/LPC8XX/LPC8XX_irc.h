@@ -139,7 +139,7 @@ static inline void pllConfig(const LPC_8XX_PLL_T* pll_cfg)
     SysctlPowerUp(SYSCTL_SLPWAKE_IRC_PD);              /* turn on the IRC by clearing the power down bit */
     ClockSetSystemPLLSource(SYSCTL_PLLCLKSRC_IRC);      /* select PLL input to be IRC */
     ClockSetMainClockSource(SYSCTL_MAINCLKSRC_IRC);
-    FMC_SetFLASHAccess(FLASHTIM_30MHZ_CPU);             /* setup FLASH access to 2 clocks (up to 30MHz) */
+    FmcSetFlashAccess(FLASHTIM_30MHZ_CPU);             /* setup FLASH access to 2 clocks (up to 30MHz) */
     SysctlPowerDown(SYSCTL_SLPWAKE_SYSPLL_PD);         /* power down PLL to change the PLL divider ratio */
     ClockSetupSystemPLL(pll_cfg->msel, pll_cfg->psel);  /* configure the PLL */
     SysctlPowerUp(SYSCTL_SLPWAKE_SYSPLL_PD);           /* turn on the PLL by clearing the power down bit */
@@ -184,7 +184,7 @@ static inline void IrcSetFreqROM(uint32_t sys)
 
     SysctlPowerUp(SYSCTL_SLPWAKE_IRC_PD);          /* Turn on the IRC by clearing the power down bit */
     ClockSetSystemPLLSource(SYSCTL_PLLCLKSRC_IRC);  /* Select PLL input to be IRC */
-    FMC_SetFLASHAccess(FLASHTIM_30MHZ_CPU);         /* Setup FLASH access to 2 clocks (up to 30MHz) */
+    FmcSetFlashAccess(FLASHTIM_30MHZ_CPU);         /* Setup FLASH access to 2 clocks (up to 30MHz) */
 
     cmd[0] = ClockGetIntOscRate() / 1000;           /* in KHz */
     cmd[1] = sys / 1000;                            /* system clock rate in kHz */

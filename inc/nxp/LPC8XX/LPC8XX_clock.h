@@ -253,7 +253,7 @@ static inline uint32_t ClockGetSystemPLLInClockRate(void)
     case SYSCTL_PLLCLKSRC_SYSOSC:
         clkRate = ClockGetMainOscRate();
         break;
-
+    
     case SYSCTL_PLLCLKSRC_EXT_CLKIN:
         clkRate = ClockGetExtClockInRate();
         break;
@@ -261,17 +261,60 @@ static inline uint32_t ClockGetSystemPLLInClockRate(void)
     default:
         clkRate = 0;
     }
-
     return clkRate;
+}
+
+/* Compute a WDT or LFO rate */
+static inline uint32_t ClockGetWdtLfoRate(uint32_t reg)
+{
+    uint32_t div;
+    WDTLFO_OSC_T clk;
+
+    /* Get WDT oscillator settings */
+    clk = (WDTLFO_OSC_T) ((reg >> 5) & 0xF);
+    div = reg & 0x1F;
+    
+    // translating table from LPCopen to a big switch case
+    uint32_t wdtOscRate;
+    switch(clk)
+    {
+        case 0: wdtOscRate = 0; break;
+        case 1: wdtOscRate = 600000; break;
+        case 2: wdtOscRate = 1050000; break;
+        case 3: wdtOscRate = 1400000; break;
+        case 4: wdtOscRate = 1750000; break;
+        case 5: wdtOscRate = 2100000; break;
+        case 6: wdtOscRate = 2400000; break;
+        case 7: wdtOscRate = 2700000; break;
+        case 8: wdtOscRate = 3000000; break;
+        case 9: wdtOscRate = 3250000; break;
+        case 10: wdtOscRate = 3500000; break;
+        case 11: wdtOscRate = 3750000; break;
+        case 12: wdtOscRate = 4000000; break;
+        case 13: wdtOscRate = 4200000; break;
+        case 14: wdtOscRate = 4400000; break;
+        case 15: wdtOscRate = 4600000; break;
+        // we could some assert for the next case
+        default: wdtOscRate = 0; break;
+    }
+
+    return wdtOscRate / ((div + 1) << 1);
+}
+
+static inline uint32_t ClockGetWDTOSCRate(void)
+{
+    return ClockGetWdtLfoRate(
+        LPC_SYSCTL->WDTOSCCTRL & ~SYSCTL_WDTOSCCTRL_RESERVED
+        );
 }
 
 static inline uint32_t ClockGetSystemPLLOutClockRate(void)
 {
-    return ClockGetPLLFreq((LPC_SYSCTL->SYSPLLCTRL & ~SYSCTL_SYSPLLCTRL_RESERVED),
-                                 ClockGetSystemPLLInClockRate());
+    return ClockGetPLLFreq(
+        (LPC_SYSCTL->SYSPLLCTRL & ~SYSCTL_SYSPLLCTRL_RESERVED),
+        ClockGetSystemPLLInClockRate()
+        );
 }
-
-uint32_t ClockGetSystemPLLOutClockRate(void);
 
 static inline uint32_t ClockGetMainClockRate(void)
 {
@@ -287,7 +330,7 @@ static inline uint32_t ClockGetMainClockRate(void)
         break;
 
     case SYSCTL_MAINCLKSRC_WDTOSC:
-        clkRate = Clock_GetWDTOSCRate();
+        clkRate = ClockGetWDTOSCRate();
         break;
 
     case SYSCTL_MAINCLKSRC_PLLOUT:

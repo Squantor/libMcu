@@ -53,7 +53,7 @@ typedef enum {
     FLASHTIM_30MHZ_CPU = 1,     /* Flash accesses use 2 CPU clocks. Use for up to 30 MHz CPU clock*/
 } FMC_FLASHTIM_T;
 
-static inline void FMC_SetFLASHAccess(FMC_FLASHTIM_T clks)
+static inline void FmcSetFlashAccess(FMC_FLASHTIM_T clks)
 {
     uint32_t tmp = LPC_FMC->FLASHCFG & (~((0x3)|FMC_FLASHCFG_RESERVED));
 
