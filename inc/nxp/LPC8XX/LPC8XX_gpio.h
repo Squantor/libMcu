@@ -76,7 +76,7 @@ static inline void GpioWriteDirBit(LPC_GPIO_T *pGPIO, uint32_t port, uint8_t pin
     }
 }
 
-static inline void GpioSetPinDIR(LPC_GPIO_T *pGPIO, uint8_t port, uint8_t pin, bool output)
+static inline void GpioSetPinDir(LPC_GPIO_T *pGPIO, uint8_t port, uint8_t pin, bool output)
 {
     if (output) {
         GpioSetPinDIROutput(pGPIO, port, pin);

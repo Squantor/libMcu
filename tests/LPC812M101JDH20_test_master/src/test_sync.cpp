@@ -38,8 +38,8 @@ Output 0, input 0: Slave acknowledges that master is ready for next test.
 void testSyncInit()
 {
     GpioSetPinOutLow(LPC_GPIO_PORT, 0, TEST_SYNC_OUT);
-    GpioSetPinDIR(LPC_GPIO_PORT, 0, TEST_SYNC_OUT, true);
-    GpioSetPinDIR(LPC_GPIO_PORT, 0, TEST_SYNC_IN, false);
+    GpioSetPinDir(LPC_GPIO_PORT, 0, TEST_SYNC_OUT, true);
+    GpioSetPinDir(LPC_GPIO_PORT, 0, TEST_SYNC_IN, false);
 }
 
 t_testSyncResult testSyncNextTest(timeTicks timeout)
