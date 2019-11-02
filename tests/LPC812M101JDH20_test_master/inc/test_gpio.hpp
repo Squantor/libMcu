@@ -21,25 +21,21 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-#ifndef HW_TESTS_COMMON_HPP
-#define HW_TESTS_COMMON_HPP
+#ifndef TEST_GPIO_HPP
+#define TEST_GPIO_HPP
 
-typedef enum testStatus 
-{
-    testCompleted,
-    testError,
-    testTimeout,
-} testStatus_t;
+#include <hw_tests_common.hpp>
 
-typedef testStatus_t (*testSetup)(void);
-typedef testStatus_t (*testExecute)(void);
-typedef testStatus_t (*testCleanup)(void);
+// test output high operation
+testStatus_t testGpioOutHighSetup(void);
+testStatus_t testGpioOutHighExec(void);
+testStatus_t testGpioOutHighClean(void);
 
-typedef struct testEntry 
-{
-    testSetup setup;
-    testExecute execute;
-    testCleanup cleanup;
-} testEntry_t;
+// test output low operation
+// test input high operation
+// test input low operation
+// test input high pull up operation
+// test input low pull up operation
+// test output high glitch operation
 
 #endif
