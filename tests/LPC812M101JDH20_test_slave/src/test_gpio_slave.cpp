@@ -21,21 +21,30 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-#ifndef TEST_GPIO_MASTER_HPP
-#define TEST_GPIO_MASTER_HPP
+#include <test_gpio_master.hpp>
+#include <mcu_ll.h>
+#include <board.hpp>
 
-#include <hw_tests_common.hpp>
 
-// test output high operation
-testStatus_t testGpioOutHighSetup(void);
-testStatus_t testGpioOutHighExec(void);
-testStatus_t testGpioOutHighClean(void);
+testStatus_t testGpioOutHighSetup(void)
+{
+    IoconPinSetMode(LPC_IOCON, TEST_GPIO_IN_IOCON, PIN_MODE_INACTIVE);
+    GpioSetPinDir(LPC_GPIO_PORT, 0, TEST_GPIO_IN_GPIO, false);
+    return testCompleted;
+}
 
-// test output low operation
-// test input high operation
-// test input low operation
-// test input high pull up operation
-// test input low pull up operation
-// test output high glitch operation
+testStatus_t testGpioOutHighExec(void)
+{
+    if(GpioGetPinState(LPC_GPIO_PORT, 0, TEST_GPIO_IN_GPIO) == true)
+        return testCompleted;
+    else
+        return testFailed;
+}
 
-#endif
+testStatus_t testGpioOutHighClean(void)
+{
+    // set to pulled up, as this is default reset behaviour.
+    IoconPinSetMode(LPC_IOCON, TEST_GPIO_IN_IOCON, PIN_MODE_PULLUP);
+    GpioSetPinDir(LPC_GPIO_PORT, 0, TEST_GPIO_IN_GPIO, false);
+    return testCompleted;
+}

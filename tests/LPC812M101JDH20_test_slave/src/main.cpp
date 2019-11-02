@@ -27,30 +27,44 @@ SOFTWARE.
 #include <systick.hpp>
 #include <test_sync.hpp>
 
+const testEntry_t testListMaster[] = 
+{
+    {testGpioOutHighSetup,  testGpioOutHighExec,    testGpioOutHighClean},
+    {NULL, NULL, NULL}
+};
+
+
 void testsPassed(void)
 {
     __BKPT(0);
-    while(1)
-        ;
 }
 
 void testsFailed(void)
 {
     __BKPT(1);
-    while(1)
-        ;
 }
 
 int main()
 {
-    int result = 0;
     boardInit();
     // Setup test synchronisation pins
     testSyncInit();
-    
-    while(1)
+    testStatus_t testResult;
+    // we prepare by going to the ready state
+    testSyncRequestSetup();
+    int i = 0;
+    do
     {
-        testSyncWaitSetup();
-        testSyncWaitStart();
-    }
+        // setup test
+        if(testListMaster[i].setup() != testCompleted)
+            testsFailed();
+        testSyncRequestStart();
+        if(testListMaster[i].execute() != testCompleted)
+            testsFailed();
+        testSyncRequestSetup();
+        if(testListMaster[i].cleanup() != testCompleted)
+            testsFailed();
+        i++;
+    } while(testListMaster[i].setup != NULL);
+    testsPassed();
 }
