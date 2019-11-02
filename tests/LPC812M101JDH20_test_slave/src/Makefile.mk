@@ -9,9 +9,10 @@ include src/$(BOARD).mk
 
 # project settings
 C_SOURCES +=
-CXX_SOURCES += src/startup.cpp src/main.cpp src/systick.cpp src/test_sync.cpp
+CXX_SOURCES += src/startup.cpp src/main.cpp src/systick.cpp \
+../common/src/test_sync.cpp
 S_SOURCES +=
-INCLUDES += -Iinc
+INCLUDES += -Iinc -I../common/inc
 DEFINES +=
 ALIBS += -lgcc
 RLIBS +=

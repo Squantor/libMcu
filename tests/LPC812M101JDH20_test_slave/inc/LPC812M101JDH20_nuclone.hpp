@@ -46,11 +46,33 @@ SOFTWARE.
 #define TEST_SPI_MOSI   (16)
 #define TEST_SPI_MISO   (15)
 
-
-
+#define TEST_GPIO_OUT_IOCON (IOCON_PIO16)
+#define TEST_GPIO_OUT_GPIO  (16)
+#define TEST_GPIO_IN_IOCON  (IOCON_PIO15)
+#define TEST_GPIO_IN_GPIO   (15)
 
 // how many ticks per second
 #define TICKS_PER_S     (100)
+
+static inline void syncSetupGpio(void)
+{
+    IoconPinSetMode(LPC_IOCON, TEST_SYNC_OUT_IOCON, PIN_MODE_INACTIVE);
+    IoconPinSetMode(LPC_IOCON, TEST_SYNC_IN_IOCON, PIN_MODE_INACTIVE);
+    GpioSetPinOutLow(LPC_GPIO_PORT, 0, TEST_SYNC_OUT_GPIO);
+    GpioSetPinDir(LPC_GPIO_PORT, 0, TEST_SYNC_OUT_GPIO, true);
+    GpioSetPinDir(LPC_GPIO_PORT, 0, TEST_SYNC_IN_GPIO, false);
+}
+
+static inline void syncOutSet(bool level)
+{
+    GpioSetPinState(LPC_GPIO_PORT, 0, TEST_SYNC_OUT_GPIO, level);
+}
+
+static inline bool syncInGet(void)
+{
+    return GpioGetPinState(LPC_GPIO_PORT, 0, TEST_SYNC_IN_GPIO);
+}
+
 
 void boardInit(void);
 
