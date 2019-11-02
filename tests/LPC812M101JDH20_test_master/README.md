@@ -39,7 +39,7 @@ Testing peripherals would require connections too:
 # HSI
 Hardware Software interface
 ## Test sychronisation pins
-Two GPIOS are present for communication between master and slave: ```test_sync_out``` and ```test_sync_in``` respectivly. This process goes as following:
+Two GPIOS are present for communication between master and slave: ```test_sync_out``` and ```test_sync_in``` respectivly. On the LPC812 test pins ```GPIO0_17``` and ```GPIO0_14``` are allocated for this purpose. The whole synchronisation process is as follows:
 1. Both pins are low value when a test in progress. When the master is done with the test, it will first cleanup the test then it will set its test_sync_out to high. 
 2. As test_sync_out from the master is connected to test_sync_in to the slave, it will detect this and start its cleanup of the test. When done is will set its test_sync_out to high.
 3. The master now will detect its test_sync_in is high, now it can perform setup of the next test, when this is done it will set its test_sync_out to low.
@@ -48,6 +48,24 @@ Two GPIOS are present for communication between master and slave: ```test_sync_o
 This process will repeats until all tests have been executed.
 ## I2C
 ## UART
+## Pin connections
+* ```PIO0_5```: Microcontroller reset, default setting, pulled up with 47K
+* ```PIO0_3```: Microcontroller SWCLK, default setting, pulled down with 47K
+* ```PIO0_2```: Microcontroller SWDIO, default setting, pulled up with 47K
+* ```PIO0_8```: Crystal oscillator input, setup and started on startup
+* ```PIO0_9```: Crystal oscillator output, setup and started on startup
+* ```PIO0_12```: debug UART TXD, connected to FTDI cable RXD, set as output
+* ```PIO0_13```: debug UART RXD, connected to FTDI cable TXD, set as input
+* ```PIO0_17```: Test Synchronisation output, set as output
+* ```PIO0_14```: Test Synchronisation intput, set as input
+* ```PIO0_10```: test I2C SDA, connected to I2C SDA of slave, pulled up externally with 2.2K
+* ```PIO0_11```: test I2C SCL, connected to I2C SCL of slave, pulled up externally with 2.2K
+* ```PIO0_16```: test UART TXD, connected to the UART RXD of slave, set as output
+* ```PIO0_15```: test UART RXD, connected to the UART TXD of slave, set as input
+* ```PIO0_6```: VDDCMP, connected to 3.3V as reference for the comparator
+* ```PIO0_0```: ACMP_I1, comparator input, connected to PWM DAC from slave
+* ```PIO0_7```: PWM_DAC, PWM output, filtered with 1K 10uF capacitor, creating a 10mS filtering constant
+
 # Software
 ## Tests
 Each test entry contains three function pointers ```testSetup```, ```testExecute```, ```testTeardown```.
