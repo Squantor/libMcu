@@ -26,6 +26,7 @@ SOFTWARE.
 #include <board.hpp>
 #include <systick.hpp>
 #include <test_sync.hpp>
+#include <test_gpio_slave.hpp>
 
 const testEntry_t testListMaster[] = 
 {
@@ -47,21 +48,20 @@ void testsFailed(void)
 int main()
 {
     boardInit();
-    // Setup test synchronisation pins
     testSyncInit();
-    testStatus_t testResult;
     // we prepare by going to the ready state
-    testSyncRequestSetup();
+    // so we can enter the loop ready to setup
+    testSyncWaitSetup();
     int i = 0;
     do
     {
         // setup test
         if(testListMaster[i].setup() != testCompleted)
             testsFailed();
-        testSyncRequestStart();
+        testSyncWaitStart();
         if(testListMaster[i].execute() != testCompleted)
             testsFailed();
-        testSyncRequestSetup();
+        testSyncWaitSetup();
         if(testListMaster[i].cleanup() != testCompleted)
             testsFailed();
         i++;

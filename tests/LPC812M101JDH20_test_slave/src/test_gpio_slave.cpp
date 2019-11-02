@@ -28,23 +28,21 @@ SOFTWARE.
 
 testStatus_t testGpioOutHighSetup(void)
 {
-    IoconPinSetMode(LPC_IOCON, TEST_GPIO_IN_IOCON, PIN_MODE_INACTIVE);
-    GpioSetPinDir(LPC_GPIO_PORT, 0, TEST_GPIO_IN_GPIO, false);
+    IoconPinSetMode(LPC_IOCON, TEST_GPIO_OUT_IOCON, PIN_MODE_INACTIVE);
+    GpioSetPinDir(LPC_GPIO_PORT, 0, TEST_GPIO_OUT_IOCON, true);
+    GpioSetPinState(LPC_GPIO_PORT, 0, TEST_GPIO_OUT_IOCON, true);
     return testCompleted;
 }
 
 testStatus_t testGpioOutHighExec(void)
 {
-    if(GpioGetPinState(LPC_GPIO_PORT, 0, TEST_GPIO_IN_GPIO) == true)
-        return testCompleted;
-    else
-        return testFailed;
+    
 }
 
 testStatus_t testGpioOutHighClean(void)
 {
+    GpioSetPinDir(LPC_GPIO_PORT, 0, TEST_GPIO_IN_GPIO, false);
     // set to pulled up, as this is default reset behaviour.
     IoconPinSetMode(LPC_IOCON, TEST_GPIO_IN_IOCON, PIN_MODE_PULLUP);
-    GpioSetPinDir(LPC_GPIO_PORT, 0, TEST_GPIO_IN_GPIO, false);
     return testCompleted;
 }
