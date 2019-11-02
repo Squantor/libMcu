@@ -35,4 +35,11 @@ typedef testStatus_t (*testSetup)();
 typedef testStatus_t (*testExecute)();
 typedef testStatus_t (*testCleanup)();
 
+typedef struct testEntry 
+{
+    testSetup setup;
+    testExecute execute;
+    testCleanup cleanup;
+} testEntry_t;
+
 #endif

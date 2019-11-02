@@ -21,13 +21,17 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-
+#include <cstddef>
 #include <mcu_ll.h>
 #include <board.hpp>
 #include <systick.hpp>
 #include <test_sync.hpp>
+#include <hw_tests_common.hpp>
 
-volatile int var;
+const testEntry_t testList[] = 
+{
+    {NULL, NULL, NULL}
+};
 
 
 void testsPassed(void)
