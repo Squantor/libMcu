@@ -21,37 +21,18 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-#ifndef LPC812M101JDH20_NUCLONE
-#define LPC812M101JDH20_NUCLONE
+#ifndef HW_TESTS_COMMON_HPP
+#define HW_TESTS_COMMON_HPP
 
-#include <mcu_ll.h>
+typedef enum testStatus 
+{
+    testCompleted,
+    testError,
+    testTimeout,
+} testStatus_t;
 
-// outside uart communications
-#define UART_OUT_TXD    (13)
-#define UART_OUT_RXD    (12)
-
-// synchronisation pins
-#define TEST_SYNC_OUT_IOCON (IOCON_PIO17)
-#define TEST_SYNC_OUT_GPIO  (17)
-#define TEST_SYNC_IN_IOCON  (IOCON_PIO14)
-#define TEST_SYNC_IN_GPIO   (14)
-
-// pins used for testing
-#define TEST_UART_TXD   (16)
-#define TEST_UART_RXD   (15)
-
-#define TEST_I2C_SCL    (10)
-#define TEST_I2C_SDA    (11)
-
-#define TEST_SPI_MOSI   (16)
-#define TEST_SPI_MISO   (15)
-
-#define TEST_GPIO_OUT   (16)
-#define TEST_GPIO_IN    (15)
-
-// how many ticks per second
-#define TICKS_PER_S     (100)
-
-void boardInit(void);
+typedef testStatus_t (*testSetup)();
+typedef testStatus_t (*testExecute)();
+typedef testStatus_t (*testCleanup)();
 
 #endif

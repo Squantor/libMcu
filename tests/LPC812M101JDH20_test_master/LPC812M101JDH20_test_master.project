@@ -6,12 +6,15 @@
     </Plugin>
   </Plugins>
   <VirtualDirectory Name="inc">
+    <File Name="inc/test_gpio.hpp"/>
+    <File Name="inc/hw_tests_common.hpp"/>
     <File Name="inc/test_sync.hpp"/>
     <File Name="inc/board.hpp"/>
     <File Name="inc/LPC812M101JDH20_nuclone.hpp"/>
     <File Name="inc/systick.hpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="src">
+    <File Name="src/test_gpio.cpp"/>
     <File Name="src/test_sync.cpp"/>
     <File Name="src/LPC812M101JDH20_nuclone.cpp"/>
     <File Name="src/systick.cpp"/>
