@@ -48,13 +48,10 @@ void testsFailed(void)
 
 int main()
 {
-    timeDelay_t testDelay;
-    int result = 0;
     boardInit();
-    // Setup test synchronisation pins
     testSyncInit();
-    testStatus_t testResult;
     // we prepare by going to the ready state
+    // so we can enter the loop ready to setup
     testSyncRequestSetup();
     int i = 0;
     do
