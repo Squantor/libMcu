@@ -11,7 +11,7 @@ include src/$(BOARD).mk
 C_SOURCES +=
 CXX_SOURCES += src/startup.cpp src/main.cpp src/systick.cpp src/test_sync.cpp \
 ../common/src/test.cpp \
-src/test_gpio.cpp
+src/test_gpio_master.cpp
 S_SOURCES +=
 INCLUDES += -Iinc -I../common/inc
 DEFINES +=

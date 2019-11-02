@@ -27,9 +27,9 @@ SOFTWARE.
 #include <systick.hpp>
 #include <test_sync.hpp>
 #include <hw_tests_common.hpp>
-#include <test_gpio.hpp>
+#include <test_gpio_master.hpp>
 
-const testEntry_t testList[] = 
+const testEntry_t testListMaster[] = 
 {
     {testGpioOutHighSetup,  testGpioOutHighExec,    testGpioOutHighClean},
     {NULL, NULL, NULL}
@@ -60,15 +60,15 @@ int main()
     do
     {
         // setup test
-        if(testList[i].setup() != testCompleted)
+        if(testListMaster[i].setup() != testCompleted)
             testsFailed();
         testSyncRequestStart();
-        if(testList[i].execute() != testCompleted)
+        if(testListMaster[i].execute() != testCompleted)
             testsFailed();
         testSyncRequestSetup();
-        if(testList[i].cleanup() != testCompleted)
+        if(testListMaster[i].cleanup() != testCompleted)
             testsFailed();
         i++;
-    } while(testList[i].setup != NULL);
+    } while(testListMaster[i].setup != NULL);
     testsPassed();
 }

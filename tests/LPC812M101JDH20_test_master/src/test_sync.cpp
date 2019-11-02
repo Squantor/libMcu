@@ -34,23 +34,19 @@ Output 0, input 0: Slave acknowledges that master is ready for next test.
 */
 
 #include <test_sync.hpp>
-#include <mcu_ll.h>
+#include <board.hpp>
 
 void testSyncInit()
 {
-    IoconPinSetMode(LPC_IOCON, TEST_SYNC_OUT_IOCON, PIN_MODE_INACTIVE);
-    IoconPinSetMode(LPC_IOCON, TEST_SYNC_IN_IOCON, PIN_MODE_INACTIVE);
-    GpioSetPinOutLow(LPC_GPIO_PORT, 0, TEST_SYNC_OUT_GPIO);
-    GpioSetPinDir(LPC_GPIO_PORT, 0, TEST_SYNC_OUT_GPIO, true);
-    GpioSetPinDir(LPC_GPIO_PORT, 0, TEST_SYNC_IN_GPIO, false);
+    syncSetupGpio();
 }
 
 testSyncResult_t testSyncRequestSetup(void)
 {
     // request that we go to setup state
-    GpioSetPinOutHigh(LPC_GPIO_PORT, 0, TEST_SYNC_OUT_GPIO);
-    // wait for acknowledge/timeout
-    while(GpioGetPinState(LPC_GPIO_PORT, 0, TEST_SYNC_IN_GPIO) == true)
+    syncOutSet(true);
+    // wait for acknowledge
+    while(syncInGet() == true)
         ;
     return testSyncReady;
 }
@@ -58,9 +54,9 @@ testSyncResult_t testSyncRequestSetup(void)
 testSyncResult_t testSyncRequestStart(void)
 { 
     // request that we go to test state
-    GpioSetPinOutLow(LPC_GPIO_PORT, 0, TEST_SYNC_OUT_GPIO);
+    syncOutSet(false);
     // wait for acknowledge/timeout
-    while(GpioGetPinState(LPC_GPIO_PORT, 0, TEST_SYNC_IN_GPIO) == false)
+    while(syncInGet() == false)
         ;
     return testSyncReady;
 }
@@ -68,19 +64,19 @@ testSyncResult_t testSyncRequestStart(void)
 testSyncResult_t testSyncWaitSetup(void)
 {
     // wait for test setup
-    while(GpioGetPinState(LPC_GPIO_PORT, 0, TEST_SYNC_IN_GPIO) == true)
+    while(syncInGet() == true)
         ;
     // acknowledge we are ready to go to setup
-    GpioSetPinOutHigh(LPC_GPIO_PORT, 0, TEST_SYNC_OUT_GPIO);
+    syncOutSet(true);
     return testSyncReady;
 }
 
 testSyncResult_t testSyncWaitStart(void)
 {
     // wait for test start
-    while(GpioGetPinState(LPC_GPIO_PORT, 0, TEST_SYNC_IN_GPIO) == false)
+    while(syncInGet() == false)
         ;
     // acknowledge we are ready to start
-    GpioSetPinOutLow(LPC_GPIO_PORT, 0, TEST_SYNC_OUT_GPIO);
+    syncOutSet(false);
     return testSyncReady;
 }
