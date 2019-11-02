@@ -56,14 +56,14 @@ This process will repeats until all tests have been executed.
 * ```PIO0_9```: Crystal oscillator output, setup and started on startup
 * ```PIO0_12```: debug UART TXD, connected to FTDI cable RXD, set as output
 * ```PIO0_13```: debug UART RXD, connected to FTDI cable TXD, set as input
-* ```PIO0_17```: Test Synchronisation output, set as output
-* ```PIO0_14```: Test Synchronisation intput, set as input
+* ```PIO0_17```: Test Synchronisation output, connected to slave test sync input, set as output
+* ```PIO0_14```: Test Synchronisation intput, connected to slave test sync output, set as input
 * ```PIO0_10```: test I2C SDA, connected to I2C SDA of slave, pulled up externally with 2.2K
 * ```PIO0_11```: test I2C SCL, connected to I2C SCL of slave, pulled up externally with 2.2K
-* ```PIO0_16```: test UART TXD, connected to the UART RXD of slave, set as output
-* ```PIO0_15```: test UART RXD, connected to the UART TXD of slave, set as input
+* ```PIO0_16```: test UART TXD, connected to the UART RXD of the slave, set as output
+* ```PIO0_15```: test UART RXD, connected to the UART TXD of the slave, set as input
 * ```PIO0_6```: VDDCMP, connected to 3.3V as reference for the comparator
-* ```PIO0_0```: ACMP_I1, comparator input, connected to PWM DAC from slave
+* ```PIO0_0```: ACMP_I1, comparator input, connected to PWM DAC of the slave
 * ```PIO0_7```: PWM_DAC, PWM output, filtered with 1K 10uF capacitor, creating a 10mS filtering constant
 
 # Software
