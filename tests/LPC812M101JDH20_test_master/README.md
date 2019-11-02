@@ -29,7 +29,7 @@ To use the software you need the following hardware:
 # Hardware
 The hardware consists of two LPC812 microcontroller breakout boards connected to eachother. One controller is the slave controller, another the master controller. The master initiates each tests and the slave follows.
 
-Communication between the slave and the master consists of one output pin and one input pin, we call them '''test_sync_out''' and ''' test_sync_in''' respectivly. 
+Communication between the slave and the master consists of one output pin and one input pin, we call them ```test_sync_out``` and ```test_sync_in``` respectivly. 
 
 Testing peripherals would require connections too:
 * I2C would require a connection between SDA and SCL on the master and slave, the master would be the I2C master and the slave would respond in slave mode.
@@ -39,18 +39,18 @@ Testing peripherals would require connections too:
 # HSI
 Hardware Software interface
 ## Test sychronisation pins
-Two GPIOS are present for communication between master and slave: '''test_sync_out''' and ''' test_sync_in''' respectivly. This process goes as following:
-* Both pins are low value when a test in progress. When the master is done with the test, it will first cleanup the test then it will set its test_sync_out to high. 
-* As test_sync_out from the master is connected to test_sync_in to the slave, it will detect this and start its cleanup of the test. When done is will set its test_sync_out to high.
-* The master now will detect its test_sync_in is high, now it can perform setup of the next test, when this is done it will set its test_sync_out to low.
-* The slave detects that its test_sync_in is low, it will perform the setup of the next test, when this is done it will set its test_sync_out to low.
-* as both pins are now low, the master can start its next test.
+Two GPIOS are present for communication between master and slave: ```test_sync_out``` and ```test_sync_in``` respectivly. This process goes as following:
+1. Both pins are low value when a test in progress. When the master is done with the test, it will first cleanup the test then it will set its test_sync_out to high. 
+2. As test_sync_out from the master is connected to test_sync_in to the slave, it will detect this and start its cleanup of the test. When done is will set its test_sync_out to high.
+3. The master now will detect its test_sync_in is high, now it can perform setup of the next test, when this is done it will set its test_sync_out to low.
+4. The slave detects that its test_sync_in is low, it will perform the setup of the next test, when this is done it will set its test_sync_out to low.
+5. as both pins are now low, the master can start its next test.
 This process will repeats until all tests have been executed.
 ## I2C
 ## UART
 # Software
 ## Tests
-Each test entry contains three function pointers '''testSetup''','''testExecute''','''testTeardown'''.
+Each test entry contains three function pointers ```testSetup```, ```testExecute```, ```testTeardown```.
 ### Peripheral tests
 We generally try to test as many peripherals where feasable, this entails, GPIO, UART, I2C, SPI and more. This is highly dependent on what microcontroller. If it has two variants of a peripheral and they differ in operation, they should be tested individually.
 
