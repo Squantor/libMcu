@@ -27,9 +27,11 @@ SOFTWARE.
 #include <systick.hpp>
 #include <test_sync.hpp>
 #include <hw_tests_common.hpp>
+#include <test_gpio.hpp>
 
 const testEntry_t testList[] = 
 {
+    {testGpioOutHighSetup,  testGpioOutHighExec,    testGpioOutHighClean},
     {NULL, NULL, NULL}
 };
 

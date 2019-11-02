@@ -27,7 +27,7 @@ SOFTWARE.
 typedef enum testStatus 
 {
     testCompleted,
-    testError,
+    testFailed,
     testTimeout,
 } testStatus_t;
 

@@ -23,19 +23,28 @@ SOFTWARE.
 */
 #include <test_gpio.hpp>
 #include <mcu_ll.h>
+#include <board.hpp>
 
 
 testStatus_t testGpioOutHighSetup(void)
 {
+    IoconPinSetMode(LPC_IOCON, TEST_GPIO_IN_IOCON, PIN_MODE_INACTIVE);
+    GpioSetPinDir(LPC_GPIO_PORT, 0, TEST_GPIO_IN_GPIO, false);
     return testCompleted;
 }
 
 testStatus_t testGpioOutHighExec(void)
 {
-    return testCompleted;
+    if(GpioGetPinState(LPC_GPIO_PORT, 0, TEST_GPIO_IN_GPIO) == true)
+        return testCompleted;
+    else
+        return testFailed;
 }
 
 testStatus_t testGpioOutHighClean(void)
 {
+    // set to pulled up, as this is default reset behaviour.
+    IoconPinSetMode(LPC_IOCON, TEST_GPIO_IN_IOCON, PIN_MODE_PULLUP);
+    GpioSetPinDir(LPC_GPIO_PORT, 0, TEST_GPIO_IN_GPIO, false);
     return testCompleted;
 }

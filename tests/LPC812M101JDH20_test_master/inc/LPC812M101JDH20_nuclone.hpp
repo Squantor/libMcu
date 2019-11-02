@@ -46,8 +46,10 @@ SOFTWARE.
 #define TEST_SPI_MOSI   (16)
 #define TEST_SPI_MISO   (15)
 
-#define TEST_GPIO_OUT   (16)
-#define TEST_GPIO_IN    (15)
+#define TEST_GPIO_OUT_IOCON (IOCON_PIO16)
+#define TEST_GPIO_OUT_GPIO  (16)
+#define TEST_GPIO_IN_IOCON  (IOCON_PIO15)
+#define TEST_GPIO_IN_GPIO   (15)
 
 // how many ticks per second
 #define TICKS_PER_S     (100)
