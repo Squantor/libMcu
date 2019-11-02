@@ -1,4 +1,4 @@
-# update per change V0010
+# update per change V0011
 # get project settings
 include src/Makefile.mk
 # get platform settings
@@ -77,6 +77,7 @@ debug: export BUILD_TARGET := debug
 OBJECTS += $(C_SOURCES:%.c=$(BUILD_PATH)/%.c.o)
 OBJECTS += $(CXX_SOURCES:%.cpp=$(BUILD_PATH)/%.cpp.o)
 OBJECTS += $(S_SOURCES:%.s=$(BUILD_PATH)/%.s.o)
+
 # Set the dependency files that will be used to add header dependencies
 DEPS = $(OBJECTS:.o=.d)
 
@@ -103,7 +104,7 @@ all: $(BIN_PATH)/$(BIN_NAME).elf
 
 # create the executable
 $(BIN_PATH)/$(BIN_NAME).elf: $(OBJECTS)
-	$(TOOLCHAIN_PREFIX)$(CXX_COMPILER) $(LDFLAGS) $(OBJECTS) -Xlinker -Map="$@.map" -o $@ $(LIBS)
+	$(TOOLCHAIN_PREFIX)$(CXX_COMPILER) $(LDFLAGS) $(subst /..,,$(OBJECTS)) -Xlinker -Map="$@.map" -o $@ $(LIBS)
 	# dump size and log to file
 	$(TOOLCHAIN_PREFIX)$(SIZE) -x --format=SysV $@ 
 	date >> size$(BUILD_TARGET).log
@@ -121,16 +122,16 @@ $(BIN_PATH)/$(BIN_NAME).elf: $(OBJECTS)
 # if the source file is in a subdir, create this subdir in the build dir
 # additional dependency on Makefile and more importantly the include in src
 $(BUILD_PATH)/%.c.o: ./%.c Makefile ./src/Makefile.mk
-	$(MKDIR) -p $(dir $@) 
-	$(TOOLCHAIN_PREFIX)$(C_COMPILER) $(CFLAGS) $(INCLUDES) -MP -MMD -c $< -o $@
+	$(MKDIR) -p $(subst /..,,$(dir $@))
+	$(TOOLCHAIN_PREFIX)$(C_COMPILER) $(CFLAGS) $(INCLUDES) -MP -MMD -c $< -o $(subst /..,,$@)
 
 $(BUILD_PATH)/%.cpp.o: ./%.cpp Makefile ./src/Makefile.mk
-	$(MKDIR) -p $(dir $@) 
-	$(TOOLCHAIN_PREFIX)$(CXX_COMPILER) $(CXXFLAGS) $(INCLUDES) -MP -MMD -c $< -o $@
+	$(MKDIR) -p $(subst /..,,$(dir $@))
+	$(TOOLCHAIN_PREFIX)$(CXX_COMPILER) $(CXXFLAGS) $(INCLUDES) -MP -MMD -c $< -o $(subst /..,,$@)
 
 $(BUILD_PATH)/%.s.o: ./%.s Makefile ./src/Makefile.mk
-	$(MKDIR) -p $(dir $@) 
-	$(TOOLCHAIN_PREFIX)$(C_COMPILER) $(ASMFLAGS) $(INCLUDES) -MP -MMD -c $< -o $@
+	$(MKDIR) -p $(subst /..,,$(dir $@))
+	$(TOOLCHAIN_PREFIX)$(C_COMPILER) $(ASMFLAGS) $(INCLUDES) -MP -MMD -c $< -o $(subst /..,,$@)
 
 .PHONY: release debug dirs all clean clean_debug clean_release
 
