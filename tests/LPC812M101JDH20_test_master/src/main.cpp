@@ -39,15 +39,11 @@ const testEntry_t testList[] =
 void testsPassed(void)
 {
     __BKPT(0);
-    while(1)
-        ;
 }
 
 void testsFailed(void)
 {
     __BKPT(1);
-    while(1)
-        ;
 }
 
 int main()
@@ -57,16 +53,22 @@ int main()
     boardInit();
     // Setup test synchronisation pins
     testSyncInit();
-    
-    while(1)
+    testStatus_t testResult;
+    // we prepare by going to the ready state
+    testSyncRequestSetup();
+    int i = 0;
+    do
     {
-        timeDelayInit(testDelay, SEC2TICKS(0.1));
-        while(timeDelayCheck(testDelay) == delayNotReached)
-            ;
-        testSyncRequestSetup();
-        timeDelayInit(testDelay, SEC2TICKS(0.1));
-        while(timeDelayCheck(testDelay) == delayNotReached)
-            ;
+        // setup test
+        if(testList[i].setup() != testCompleted)
+            testsFailed();
         testSyncRequestStart();
-    }
+        if(testList[i].execute() != testCompleted)
+            testsFailed();
+        testSyncRequestSetup();
+        if(testList[i].cleanup() != testCompleted)
+            testsFailed();
+        i++;
+    } while(testList[i].setup != NULL);
+    testsPassed();
 }
