@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CodeLite_Project Name="LPC812M101JDH20_test_master" Version="11000" InternalType="">
+  <VirtualDirectory Name="common">
+    <VirtualDirectory Name="inc">
+      <File Name="../common/inc/hw_tests_common.hpp"/>
+      <File Name="../common/inc/test_sync.hpp"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="src">
+      <File Name="../common/src/test_sync.cpp"/>
+    </VirtualDirectory>
+  </VirtualDirectory>
   <VirtualDirectory Name="inc">
     <File Name="inc/test_gpio_master.hpp"/>
     <File Name="inc/board.hpp"/>
-    <File Name="inc/test_sync.hpp"/>
     <File Name="inc/LPC812M101JDH20_nuclone.hpp"/>
     <File Name="inc/systick.hpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="src">
-    <File Name="src/test_sync.cpp"/>
     <File Name="src/LPC812M101JDH20_nuclone.cpp"/>
     <File Name="src/systick.cpp"/>
     <File Name="src/main.cpp"/>
@@ -20,14 +27,6 @@
       <![CDATA[00020001N0005Debug0000000000000001N0007Release000000000000]]>
     </Plugin>
   </Plugins>
-  <VirtualDirectory Name="common">
-    <VirtualDirectory Name="inc">
-      <File Name="../common/inc/hw_tests_common.hpp"/>
-    </VirtualDirectory>
-    <VirtualDirectory Name="src">
-      <File Name="../common/src/test.cpp"/>
-    </VirtualDirectory>
-  </VirtualDirectory>
   <Reconciliation>
     <Regexes/>
     <Excludepaths/>

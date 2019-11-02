@@ -9,8 +9,8 @@ include src/$(BOARD).mk
 
 # project settings
 C_SOURCES +=
-CXX_SOURCES += src/startup.cpp src/main.cpp src/systick.cpp src/test_sync.cpp \
-../common/src/test.cpp \
+CXX_SOURCES += src/startup.cpp src/main.cpp src/systick.cpp \
+../common/src/test_sync.cpp \
 src/test_gpio_master.cpp
 S_SOURCES +=
 INCLUDES += -Iinc -I../common/inc
