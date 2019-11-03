@@ -32,10 +32,30 @@ testStatus_t testGpioOutHighExec(void);
 testStatus_t testGpioOutHighClean(void);
 
 // test output low operation
+testStatus_t testGpioOutLowSetup(void);
+testStatus_t testGpioOutLowExec(void);
+testStatus_t testGpioOutLowClean(void);
+
 // test input high operation
+testStatus_t testGpioInHighSetup(void);
+testStatus_t testGpioInHighExec(void);
+testStatus_t testGpioInHighClean(void);
+
 // test input low operation
+testStatus_t testGpioInLowSetup(void);
+testStatus_t testGpioInLowExec(void);
+testStatus_t testGpioInLowClean(void);
+
 // test input high pull up operation
+testStatus_t testGpioPullHighSetup(void);
+testStatus_t testGpioPullHighExec(void);
+testStatus_t testGpioPullHighClean(void);
+
 // test input low pull up operation
+testStatus_t testGpioPullLowSetup(void);
+testStatus_t testGpioPullLowExec(void);
+testStatus_t testGpioPullLowClean(void);
+
 // test output high glitch operation
 
 #endif
