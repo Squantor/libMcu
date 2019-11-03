@@ -46,7 +46,7 @@ testSyncResult_t testSyncRequestSetup(void)
     // request that we go to setup state
     syncOutSet(true);
     // wait for acknowledge
-    while(syncInGet() == true)
+    while(syncInGet() != true)
         ;
     return testSyncReady;
 }
@@ -56,7 +56,7 @@ testSyncResult_t testSyncRequestStart(void)
     // request that we go to test state
     syncOutSet(false);
     // wait for acknowledge/timeout
-    while(syncInGet() == false)
+    while(syncInGet() != false)
         ;
     return testSyncReady;
 }
