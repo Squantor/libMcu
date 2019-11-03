@@ -3,7 +3,7 @@
 PLATFORM = LPC812
 MCU = MCU_LPC812M101JDH20
 C_SOURCES +=
-CXX_SOURCES += src/$(BOARD).cpp
+CXX_SOURCES += ../common/src/$(BOARD).cpp
 S_SOURCES +=
 DEFINES += -D$(BOARD) -D$(MCU)
 INCLUDES += -Iinc -I../../inc
