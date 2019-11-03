@@ -26,23 +26,81 @@ SOFTWARE.
 #include <board.hpp>
 
 
-testStatus_t testGpioOutHighSetup(void)
+static testStatus_t cleanupGpioTests(void)
 {
-    IoconPinSetMode(LPC_IOCON, TEST_GPIO_OUT_IOCON, PIN_MODE_INACTIVE);
-    GpioSetPinDir(LPC_GPIO_PORT, 0, TEST_GPIO_OUT_IOCON, true);
-    GpioSetPinState(LPC_GPIO_PORT, 0, TEST_GPIO_OUT_IOCON, true);
+    // set to pulled up, as this is default reset behaviour.
+    IoconPinSetMode(LPC_IOCON, TEST_GPIO_IN_IOCON, PIN_MODE_PULLUP);
+    IoconPinSetMode(LPC_IOCON, TEST_GPIO_OUT_IOCON, PIN_MODE_PULLUP);
+    GpioSetPinDir(LPC_GPIO_PORT, 0, TEST_GPIO_IN_GPIO, false);
+    GpioSetPinDir(LPC_GPIO_PORT, 0, TEST_GPIO_OUT_GPIO, false);
     return testCompleted;
 }
 
+static testStatus_t outSetup(PIN_MODE_T mode,bool output, bool setting)
+{
+    IoconPinSetMode(LPC_IOCON, TEST_GPIO_OUT_IOCON, mode);
+    GpioSetPinDir(LPC_GPIO_PORT, 0, TEST_GPIO_OUT_GPIO, output);
+    GpioSetPinState(LPC_GPIO_PORT, 0, TEST_GPIO_OUT_GPIO, setting);
+    return testCompleted;
+}
+
+testStatus_t testGpioOutHighSetup(void)
+{   
+    
+    return outSetup(PIN_MODE_INACTIVE, true, true);
+}
+
 testStatus_t testGpioOutHighExec(void)
+{    
+
+}
+
+testStatus_t testGpioOutHighClean(void)
+{    
+    return cleanupGpioTests();
+}
+
+testStatus_t testGpioOutLowSetup(void)
+{
+    return outSetup(PIN_MODE_INACTIVE, true, false);
+}
+
+testStatus_t testGpioOutLowExec(void)
 {
     
 }
 
-testStatus_t testGpioOutHighClean(void)
+testStatus_t testGpioOutLowClean(void)
 {
-    GpioSetPinDir(LPC_GPIO_PORT, 0, TEST_GPIO_IN_GPIO, false);
-    // set to pulled up, as this is default reset behaviour.
-    IoconPinSetMode(LPC_IOCON, TEST_GPIO_IN_IOCON, PIN_MODE_PULLUP);
-    return testCompleted;
+    return cleanupGpioTests();
+}
+
+testStatus_t testGpioPullHighSetup(void)
+{
+    return outSetup(PIN_MODE_PULLUP, false, true);
+}
+
+testStatus_t testGpioPullHighExec(void)
+{
+
+}
+
+testStatus_t testGpioPullHighClean(void)
+{
+    return cleanupGpioTests();
+}
+
+testStatus_t testGpioPullLowSetup(void)
+{
+    return outSetup(PIN_MODE_PULLDN, false, true);
+}
+
+testStatus_t testGpioPullLowExec(void)
+{
+
+}
+
+testStatus_t testGpioPullLowClean(void)
+{
+    return cleanupGpioTests();
 }
