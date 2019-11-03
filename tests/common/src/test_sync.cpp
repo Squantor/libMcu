@@ -64,7 +64,7 @@ testSyncResult_t testSyncRequestStart(void)
 testSyncResult_t testSyncWaitSetup(void)
 {
     // wait for test setup
-    while(syncInGet() == true)
+    while(syncInGet() != true)
         ;
     // acknowledge we are ready to go to setup
     syncOutSet(true);
@@ -74,7 +74,7 @@ testSyncResult_t testSyncWaitSetup(void)
 testSyncResult_t testSyncWaitStart(void)
 {
     // wait for test start
-    while(syncInGet() == false)
+    while(syncInGet() != false)
         ;
     // acknowledge we are ready to start
     syncOutSet(false);
