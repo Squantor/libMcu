@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CodeLite_Project Name="LPC812M101JDH20_test_master" Version="11000" InternalType="">
+  <Plugins>
+    <Plugin Name="qmake">
+      <![CDATA[00020001N0005Debug0000000000000001N0007Release000000000000]]>
+    </Plugin>
+  </Plugins>
   <VirtualDirectory Name="inc">
     <File Name="inc/test_gpio_master.hpp"/>
     <File Name="inc/systick.hpp"/>
@@ -10,11 +15,6 @@
     <File Name="src/test_gpio_master.cpp"/>
     <File Name="src/startup.cpp"/>
   </VirtualDirectory>
-  <Plugins>
-    <Plugin Name="qmake">
-      <![CDATA[00020001N0005Debug0000000000000001N0007Release000000000000]]>
-    </Plugin>
-  </Plugins>
   <VirtualDirectory Name="common">
     <VirtualDirectory Name="inc">
       <File Name="../common/inc/board.hpp"/>
@@ -50,7 +50,7 @@
   <Dependencies/>
   <Dependencies Name="Debug"/>
   <Dependencies Name="Release"/>
-  <Settings Type="Dynamic Library">
+  <Settings Type="Executable">
     <GlobalSettings>
       <Compiler Options="" C_Options="" Assembler="">
         <IncludePath Value="."/>
@@ -82,7 +82,8 @@ set mem inaccessible-by-default off
 set {int}0x40048000 = 2
 load bin/debug/LPC812M101JDH20_test_master.elf
 set {int}0x40048000 = 2
-compare-sections</PostConnectCommands>
+compare-sections
+b main</PostConnectCommands>
         <StartupCommands/>
       </Debugger>
       <PreBuild/>

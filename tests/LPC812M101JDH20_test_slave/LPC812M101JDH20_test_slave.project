@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CodeLite_Project Name="LPC812M101JDH20_test_slave" Version="11000" InternalType="">
+  <Plugins>
+    <Plugin Name="qmake">
+      <![CDATA[00020001N0005Debug0000000000000001N0007Release000000000000]]>
+    </Plugin>
+  </Plugins>
   <VirtualDirectory Name="src">
     <File Name="src/test_gpio_slave.cpp"/>
     <File Name="src/LPC812M101JDH20_nuclone.cpp"/>
@@ -7,11 +12,6 @@
     <File Name="src/main_test_slave.cpp"/>
     <File Name="src/startup.cpp"/>
   </VirtualDirectory>
-  <Plugins>
-    <Plugin Name="qmake">
-      <![CDATA[00020001N0005Debug0000000000000001N0007Release000000000000]]>
-    </Plugin>
-  </Plugins>
   <VirtualDirectory Name="inc">
     <File Name="inc/board.hpp"/>
     <File Name="inc/test_gpio_slave.hpp"/>
@@ -50,7 +50,7 @@
   <Dependencies/>
   <Dependencies Name="Debug"/>
   <Dependencies Name="Release"/>
-  <Settings Type="Dynamic Library">
+  <Settings Type="Executable">
     <GlobalSettings>
       <Compiler Options="" C_Options="" Assembler="">
         <IncludePath Value="."/>
