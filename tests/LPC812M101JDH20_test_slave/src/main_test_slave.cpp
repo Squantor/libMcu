@@ -65,6 +65,10 @@ int main()
         if(testListMaster[i].cleanup() != testCompleted)
             testsFailed();
         i++;
-    } while(testListMaster[i].setup != NULL);
-    testsPassed();
+        if(testListMaster[i].setup == NULL)
+            i = 0;
+    // for testing purposes, lets go for an infinite loop, okay?
+    } while(1);
+    //} while(testListMaster[i].setup != NULL);
+    //testsPassed();
 }
