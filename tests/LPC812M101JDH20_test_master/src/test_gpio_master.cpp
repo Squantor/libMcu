@@ -25,23 +25,24 @@ SOFTWARE.
 #include <mcu_ll.h>
 #include <board.hpp>
 
-static void cleanupGpioTests(void)
+static testStatus_t cleanupGpioTests(void)
 {
     // set to pulled up, as this is default reset behaviour.
     IoconPinSetMode(LPC_IOCON, TEST_GPIO_IN_IOCON, PIN_MODE_PULLUP);
     IoconPinSetMode(LPC_IOCON, TEST_GPIO_OUT_IOCON, PIN_MODE_PULLUP);
     GpioSetPinDir(LPC_GPIO_PORT, 0, TEST_GPIO_IN_GPIO, false);
     GpioSetPinDir(LPC_GPIO_PORT, 0, TEST_GPIO_OUT_GPIO, false);
+    return testCompleted;
 }
 
-testStatus_t testGpioOutHighSetup(void)
+static testStatus_t outSetup(void)
 {
     IoconPinSetMode(LPC_IOCON, TEST_GPIO_IN_IOCON, PIN_MODE_INACTIVE);
     GpioSetPinDir(LPC_GPIO_PORT, 0, TEST_GPIO_IN_GPIO, false);
     return testCompleted;
 }
 
-testStatus_t testGpioOutHighExec(void)
+static testStatus_t outTestHigh(void)
 {
     if(GpioGetPinState(LPC_GPIO_PORT, 0, TEST_GPIO_IN_GPIO) == true)
         return testCompleted;
@@ -49,20 +50,7 @@ testStatus_t testGpioOutHighExec(void)
         return testFailed;
 }
 
-testStatus_t testGpioOutHighClean(void)
-{
-    cleanupGpioTests();
-    return testCompleted;
-}
-
-testStatus_t testGpioOutLowSetup(void)
-{
-    IoconPinSetMode(LPC_IOCON, TEST_GPIO_IN_IOCON, PIN_MODE_INACTIVE);
-    GpioSetPinDir(LPC_GPIO_PORT, 0, TEST_GPIO_IN_GPIO, false);
-    return testCompleted;
-}
-
-testStatus_t testGpioOutLowExec(void)
+static testStatus_t outTestLow(void)
 {
     if(GpioGetPinState(LPC_GPIO_PORT, 0, TEST_GPIO_IN_GPIO) == false)
         return testCompleted;
@@ -70,8 +58,62 @@ testStatus_t testGpioOutLowExec(void)
         return testFailed;
 }
 
+testStatus_t testGpioOutHighSetup(void)
+{   
+    return outSetup();
+}
+
+testStatus_t testGpioOutHighExec(void)
+{    
+    return outTestHigh();
+}
+
+testStatus_t testGpioOutHighClean(void)
+{    
+    return cleanupGpioTests();
+}
+
+testStatus_t testGpioOutLowSetup(void)
+{
+    return outSetup();
+}
+
+testStatus_t testGpioOutLowExec(void)
+{
+    return outTestLow();
+}
+
 testStatus_t testGpioOutLowClean(void)
 {
-    cleanupGpioTests();
-    return testCompleted;
+    return cleanupGpioTests();
+}
+
+testStatus_t testGpioPullHighSetup(void)
+{
+    return outSetup();
+}
+
+testStatus_t testGpioPullHighExec(void)
+{
+    return outTestHigh();
+}
+
+testStatus_t testGpioPullHighClean(void)
+{
+    return cleanupGpioTests();
+}
+
+testStatus_t testGpioPullLowSetup(void)
+{
+    return outSetup();
+}
+
+testStatus_t testGpioPullLowExec(void)
+{
+    return outTestLow();
+}
+
+testStatus_t testGpioPullLowClean(void)
+{
+    return cleanupGpioTests();
 }

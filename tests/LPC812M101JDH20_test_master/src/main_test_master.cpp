@@ -32,6 +32,9 @@ SOFTWARE.
 const testEntry_t testListMaster[] = 
 {
     {testGpioOutHighSetup,  testGpioOutHighExec,    testGpioOutHighClean},
+    {testGpioOutLowSetup,   testGpioOutLowExec,     testGpioOutLowClean},
+    {testGpioPullHighSetup, testGpioPullHighExec,   testGpioPullHighClean},
+    {testGpioPullLowSetup,  testGpioPullLowExec,    testGpioPullLowClean},
     {NULL, NULL, NULL}
 };
 
