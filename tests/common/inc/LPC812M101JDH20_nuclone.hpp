@@ -35,6 +35,10 @@ SOFTWARE.
 #define TEST_SYNC_OUT_GPIO  (17)
 #define TEST_SYNC_IN_IOCON  (IOCON_PIO14)
 #define TEST_SYNC_IN_GPIO   (14)
+// reset the other controller
+#define RESET_OTHER_IOCON   (IOCON_PIO4)
+#define RESET_OTHER_GPIO    (4)
+
 
 // pins used for testing
 #define TEST_UART_TXD   (16)
@@ -73,6 +77,10 @@ static inline bool syncInGet(void)
     return GpioGetPinState(LPC_GPIO_PORT, 0, TEST_SYNC_IN_GPIO);
 }
 
+static inline void resetPinSet(bool level)
+{
+    GpioSetPinState(LPC_GPIO_PORT, 0, RESET_OTHER_GPIO, level);
+}
 
 void boardInit(void);
 

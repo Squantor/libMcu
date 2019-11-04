@@ -78,9 +78,12 @@ void boardInit(void)
     // setup pins for crystal oscillator
     IoconPinSetMode(LPC_IOCON, IOCON_PIO8, PIN_MODE_INACTIVE);
     IoconPinSetMode(LPC_IOCON, IOCON_PIO9, PIN_MODE_INACTIVE);
-    ClockDisablePeriphClock(SYSCTL_CLOCK_IOCON);
+    IoconPinSetMode(LPC_IOCON, RESET_OTHER_IOCON, PIN_MODE_INACTIVE);
     // GPIO pins setup
     GpioInit(LPC_GPIO_PORT);
+    GpioSetPinDir(LPC_GPIO_PORT, 0, RESET_OTHER_GPIO, true);
+    GpioSetPinOutLow(LPC_GPIO_PORT, 0, RESET_OTHER_GPIO);
+    // setup clocking
     SetupXtalClocking();
     SystemCoreClock = ClockGetSystemClockRate();
     // systick configuration
