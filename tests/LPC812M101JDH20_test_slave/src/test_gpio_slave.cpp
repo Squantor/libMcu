@@ -46,7 +46,6 @@ static testStatus_t outSetup(PIN_MODE_T mode,bool output, bool setting)
 
 testStatus_t testGpioOutHighSetup(void)
 {   
-    
     return outSetup(PIN_MODE_INACTIVE, true, true);
 }
 

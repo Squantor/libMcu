@@ -61,6 +61,10 @@ int main()
     while(timeDelayCheck(resetTimer) != delayNotReached)
         ;
     resetPinSet(false);
+    // wait again
+    timeDelayInit(resetTimer, 100);
+    while(timeDelayCheck(resetTimer) != delayNotReached)
+        ;
     // we prepare by going to the ready state
     // so we can enter the loop ready to setup
     testSyncRequestSetup();
