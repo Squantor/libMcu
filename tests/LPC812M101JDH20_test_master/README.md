@@ -38,6 +38,8 @@ Testing peripherals would require connections too:
 * To test an ADC, a PWM output from the master would need to be filtered to create a variable voltage.
 # HSI
 Hardware Software interface
+## Reset synchronisation
+The master when starting up has to reset the slave, as we cant be 100% sure in what state it is when it also starts. This is accomplished by putting ```GPIO0_4``` high for a short duration. this GPIO is connected to a BSS138 N channel mosfet that is pulled down with a 4.7K ohm resistor. This pulldown will overrule the reset mode pullup of a LPC812.
 ## Test sychronisation pins
 Two GPIOS are present for communication between master and slave: ```test_sync_out``` and ```test_sync_in``` respectivly. On the LPC812 test pins ```GPIO0_17``` and ```GPIO0_14``` are allocated for this purpose. The whole synchronisation process is as follows:
 1. Both pins are low value when a test in progress. When the master is done with the test, it will first cleanup the test then it will set its test_sync_out to high. 
@@ -65,6 +67,7 @@ This process will repeats until all tests have been executed.
 * ```PIO0_6```: VDDCMP, connected to 3.3V as reference for the comparator
 * ```PIO0_0```: ACMP_I1, comparator input, connected to PWM DAC of the slave
 * ```PIO0_7```: PWM_DAC, PWM output, filtered with 1K 10uF capacitor, creating a 10mS filtering constant
+* ```PIO0_4```: Reset synchronizer, connected to small signal mosfet and resets slave microcontroller, output, pulled down
 
 # Software
 ## Tests
