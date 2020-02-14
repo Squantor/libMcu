@@ -47,7 +47,7 @@
   <Dependencies/>
   <Dependencies Name="Debug"/>
   <Dependencies Name="Release"/>
-  <Settings Type="Executable">
+  <Settings Type="Dynamic Library">
     <GlobalSettings>
       <Compiler Options="" C_Options="" Assembler="">
         <IncludePath Value="."/>
@@ -68,7 +68,7 @@
       <Environment EnvVarSetName="Default" DbgSetName="&lt;Use Defaults&gt;">
         <![CDATA[export PATH="$HOME/programs/gcc-arm-none-eabi-9-2019-q4-major/bin:$PATH"]]>
       </Environment>
-      <Debugger IsRemote="yes" RemoteHostName="/dev/ttyBmpGdb0" RemoteHostPort="" DebuggerPath="../../../../../../../usr/bin/arm-none-eabi-gdb" IsExtended="yes">
+      <Debugger IsRemote="yes" RemoteHostName="/dev/ttyBmpGdb0" RemoteHostPort="" DebuggerPath="../../../../../programs/gcc-arm-none-eabi-9-2019-q4-major/bin/arm-none-eabi-gdb" IsExtended="yes">
         <DebuggerSearchPaths/>
         <PostConnectCommands>file bin/debug/LPC812M101JDH20_test_slave.elf
 target extended-remote /dev/ttyBmpGdb0
@@ -117,7 +117,7 @@ b main</PostConnectCommands>
       <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
         <![CDATA[]]>
       </Environment>
-      <Debugger IsRemote="yes" RemoteHostName="/dev/ttyBmpGdb0" RemoteHostPort="" DebuggerPath="../../../../../../../usr/bin/arm-none-eabi-gdb" IsExtended="yes">
+      <Debugger IsRemote="yes" RemoteHostName="/dev/ttyBmpGdb0" RemoteHostPort="" DebuggerPath="../../../../../programs/gcc-arm-none-eabi-9-2019-q4-major/bin/arm-none-eabi-gdb" IsExtended="yes">
         <DebuggerSearchPaths/>
         <PostConnectCommands>file bin/release/LPC812M101JDH20_test_slave.elf
 target extended-remote /dev/ttyBmpGdb0
