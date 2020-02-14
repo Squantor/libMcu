@@ -68,8 +68,8 @@
       <ResourceCompiler Options="" Required="no"/>
       <General OutputFile="./bin/debug/example_LPC812MAX.elf" IntermediateDirectory="./build/debug" Command="./bin/debug/example_LPC812MAX.elf" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="." PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
       <BuildSystem Name="Default"/>
-      <Environment EnvVarSetName="Default" DbgSetName="&lt;Use Defaults&gt;">
-        <![CDATA[]]>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[PATH="$HOME/programs/gcc-arm-none-eabi-9-2019-q4-major/bin:$PATH"]]>
       </Environment>
       <Debugger IsRemote="yes" RemoteHostName="/dev/ttyBmpGdb0" RemoteHostPort="" DebuggerPath="../../../../../../../usr/bin/arm-none-eabi-gdb" IsExtended="yes">
         <DebuggerSearchPaths/>

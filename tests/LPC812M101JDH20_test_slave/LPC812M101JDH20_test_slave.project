@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CodeLite_Project Name="LPC812M101JDH20_test_slave" Version="11000" InternalType="">
+  <Plugins>
+    <Plugin Name="qmake">
+      <![CDATA[00020001N0005Debug0000000000000001N0007Release000000000000]]>
+    </Plugin>
+  </Plugins>
   <VirtualDirectory Name="inc">
     <File Name="inc/test_gpio_slave.hpp"/>
     <File Name="inc/systick.hpp"/>
@@ -10,11 +15,6 @@
     <File Name="src/main_test_slave.cpp"/>
     <File Name="src/startup.cpp"/>
   </VirtualDirectory>
-  <Plugins>
-    <Plugin Name="qmake">
-      <![CDATA[00020001N0005Debug0000000000000001N0007Release000000000000]]>
-    </Plugin>
-  </Plugins>
   <VirtualDirectory Name="common">
     <VirtualDirectory Name="inc">
       <File Name="../common/inc/hw_tests_common.hpp"/>
@@ -66,7 +66,7 @@
       <General OutputFile="./bin/debug/example_LPC812MAX.elf" IntermediateDirectory="./build/debug" Command="./bin/debug/example_LPC812MAX.elf" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="." PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
       <BuildSystem Name="Default"/>
       <Environment EnvVarSetName="Default" DbgSetName="&lt;Use Defaults&gt;">
-        <![CDATA[]]>
+        <![CDATA[export PATH="$HOME/programs/gcc-arm-none-eabi-9-2019-q4-major/bin:$PATH"]]>
       </Environment>
       <Debugger IsRemote="yes" RemoteHostName="/dev/ttyBmpGdb0" RemoteHostPort="" DebuggerPath="../../../../../../../usr/bin/arm-none-eabi-gdb" IsExtended="yes">
         <DebuggerSearchPaths/>
