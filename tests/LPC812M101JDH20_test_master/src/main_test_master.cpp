@@ -56,11 +56,11 @@ int main()
     timeDelay_t resetTimer;
     // reset the other side controller
     timeDelayInit(resetTimer, 10);
-    resetPinSet(true);
+    resetPinSet(false);
     // wait
     while(timeDelayCheck(resetTimer) != delayNotReached)
         ;
-    resetPinSet(false);
+    resetPinSet(true);
     // wait again
     timeDelayInit(resetTimer, 100);
     while(timeDelayCheck(resetTimer) != delayNotReached)
