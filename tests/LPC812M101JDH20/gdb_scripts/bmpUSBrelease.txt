@@ -1,11 +1,11 @@
-file bin/release/example_LPC812test.elf
+file bin/release/LPC812M101JDH20_test.elf
 target extended-remote /dev/ttyBmpGdb0
 shell sleep 1
 monitor swdp_scan
 attach 1
 set mem inaccessible-by-default off
 set {int}0x40048000 = 2
-load bin/release/example_LPC812test.elf
+load bin/release/LPC812M101JDH20_test.elf
 set {int}0x40048000 = 2
 compare-sections
 b main
