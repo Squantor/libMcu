@@ -6,11 +6,11 @@
     </Plugin>
   </Plugins>
   <VirtualDirectory Name="inc">
-    <File Name="inc/test_gpio_slave.hpp"/>
+    <File Name="inc/slave_test_gpio.hpp"/>
     <File Name="inc/systick.hpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="src">
-    <File Name="src/test_gpio_slave.cpp"/>
+    <File Name="src/slave_test_gpio.cpp"/>
     <File Name="src/systick.cpp"/>
     <File Name="src/main_test_slave.cpp"/>
     <File Name="src/startup.cpp"/>

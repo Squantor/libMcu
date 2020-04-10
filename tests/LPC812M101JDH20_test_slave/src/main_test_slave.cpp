@@ -26,14 +26,16 @@ SOFTWARE.
 #include <board.hpp>
 #include <systick.hpp>
 #include <test_sync.hpp>
-#include <test_gpio_slave.hpp>
+#include <slave_test_gpio.hpp>
 
 const testEntry_t testListSlave[] = 
 {
-    {testGpioOutHighSetup,  testGpioOutHighExec,    testGpioOutHighClean},
-    {testGpioOutLowSetup,   testGpioOutLowExec,     testGpioOutLowClean},
-    {testGpioPullHighSetup, testGpioPullHighExec,   testGpioPullHighClean},
-    {testGpioPullLowSetup,  testGpioPullLowExec,    testGpioPullLowClean},
+    // check if we can set a low level and sense it
+    {slaveTestGpioLowSetup, slaveTestGpioLowExec, slaveTestGpioLowClean},
+    // check if we can set high level and sense it
+    {slaveTestGpioHighSetup, slaveTestGpioHighExec, slaveTestGpioHighClean},
+    // check if we can pull up and sense it
+    // check if we can pull down and sense it
     {NULL, NULL, NULL}
 };
 

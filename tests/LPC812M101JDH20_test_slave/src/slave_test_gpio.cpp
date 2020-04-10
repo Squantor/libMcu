@@ -21,12 +21,12 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-#include <test_gpio_slave.hpp>
+#include <slave_test_gpio.hpp>
 #include <mcu_ll.h>
 #include <board.hpp>
+#include <systick.hpp>
 
-
-static testStatus_t cleanupGpioTests(void)
+static testStatus_t slaveTestGpioCleanup(void)
 {
     // set to pulled up, as this is default reset behaviour.
     IoconPinSetMode(LPC_IOCON, TEST_GPIO_IN_IOCON, PIN_MODE_PULLUP);
@@ -36,70 +36,44 @@ static testStatus_t cleanupGpioTests(void)
     return testCompleted;
 }
 
-static testStatus_t outSetup(PIN_MODE_T mode,bool output, bool setting)
+static testStatus_t slaveTestGpioOutSetup()
 {
-    IoconPinSetMode(LPC_IOCON, TEST_GPIO_OUT_IOCON, mode);
-    GpioSetPinDir(LPC_GPIO_PORT, 0, TEST_GPIO_OUT_GPIO, output);
-    GpioSetPinState(LPC_GPIO_PORT, 0, TEST_GPIO_OUT_GPIO, setting);
+    IoconPinSetMode(LPC_IOCON, TEST_GPIO_IN_IOCON, PIN_MODE_INACTIVE);
+    GpioSetPinDir(LPC_GPIO_PORT, 0, TEST_GPIO_IN_GPIO, false);
     return testCompleted;
 }
 
-testStatus_t testGpioOutHighSetup(void)
-{   
-    return outSetup(PIN_MODE_INACTIVE, true, true);
-}
-
-testStatus_t testGpioOutHighExec(void)
-{    
-
-}
-
-testStatus_t testGpioOutHighClean(void)
-{    
-    return cleanupGpioTests();
-}
-
-testStatus_t testGpioOutLowSetup(void)
+testStatus_t slaveTestGpioLowSetup(void)
 {
-    return outSetup(PIN_MODE_INACTIVE, true, false);
+    return slaveTestGpioOutSetup();
 }
 
-testStatus_t testGpioOutLowExec(void)
+testStatus_t slaveTestGpioLowExec(void)
 {
-    
+    // set output low so it can be sensed by the master
+    GpioSetPinDir(LPC_GPIO_PORT, 0, TEST_GPIO_OUT_GPIO, true);
+    GpioSetPinState(LPC_GPIO_PORT, 0, TEST_GPIO_OUT_GPIO, false);
+    return testCompleted;
 }
 
-testStatus_t testGpioOutLowClean(void)
+testStatus_t slaveTestGpioLowClean(void)
 {
-    return cleanupGpioTests();
+    return slaveTestGpioCleanup();
 }
 
-testStatus_t testGpioPullHighSetup(void)
+testStatus_t slaveTestGpioHighSetup(void)
 {
-    return outSetup(PIN_MODE_PULLUP, false, true);
+    return slaveTestGpioOutSetup();
 }
 
-testStatus_t testGpioPullHighExec(void)
+testStatus_t slaveTestGpioHighExec(void)
 {
-
+    // set output low so it can be sensed by the master
+    GpioSetPinDir(LPC_GPIO_PORT, 0, TEST_GPIO_OUT_GPIO, true);
+    GpioSetPinState(LPC_GPIO_PORT, 0, TEST_GPIO_OUT_GPIO, true);
 }
 
-testStatus_t testGpioPullHighClean(void)
+testStatus_t slaveTestGpioHighClean(void)
 {
-    return cleanupGpioTests();
-}
-
-testStatus_t testGpioPullLowSetup(void)
-{
-    return outSetup(PIN_MODE_PULLDN, false, true);
-}
-
-testStatus_t testGpioPullLowExec(void)
-{
-
-}
-
-testStatus_t testGpioPullLowClean(void)
-{
-    return cleanupGpioTests();
+    return slaveTestGpioCleanup();
 }

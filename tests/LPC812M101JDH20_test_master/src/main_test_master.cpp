@@ -67,7 +67,7 @@ int main()
         ;
     resetPinSet(true);
     // wait again
-    timeDelayInit(resetTimer, 100);
+    timeDelayInit(resetTimer, 10);
     while(timeDelayCheck(resetTimer) != delayNotReached)
         ;
     // we prepare by going to the ready state

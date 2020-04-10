@@ -26,28 +26,11 @@ SOFTWARE.
 
 #include <hw_tests_common.hpp>
 
-// test output high operation
-testStatus_t testGpioOutHighSetup(void);
-testStatus_t testGpioOutHighExec(void);
-testStatus_t testGpioOutHighClean(void);
-
-// test output low operation
-testStatus_t testGpioOutLowSetup(void);
-testStatus_t testGpioOutLowExec(void);
-testStatus_t testGpioOutLowClean(void);
-
-// test input high operation
-// test input low operation
-// not needed as both code paths are tested by master and slave
-
-// test input high pull up operation
-testStatus_t testGpioPullHighSetup(void);
-testStatus_t testGpioPullHighExec(void);
-testStatus_t testGpioPullHighClean(void);
-
-// test input low pull up operation
-testStatus_t testGpioPullLowSetup(void);
-testStatus_t testGpioPullLowExec(void);
-testStatus_t testGpioPullLowClean(void);
+testStatus_t slaveTestGpioLowSetup(void);
+testStatus_t slaveTestGpioLowExec(void);
+testStatus_t slaveTestGpioLowClean(void);
+testStatus_t slaveTestGpioHighSetup(void);
+testStatus_t slaveTestGpioHighExec(void);
+testStatus_t slaveTestGpioHighClean(void);
 
 #endif
