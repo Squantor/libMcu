@@ -59,17 +59,17 @@ int main()
     do
     {
         // setup test
-        if(testListMaster[i].setup() != testCompleted)
-            testsFailed();
+        //if(testListMaster[i].setup() != testCompleted)
+        //    testsFailed();
         testSyncWaitStart();
-        if(testListMaster[i].execute() != testCompleted)
-            testsFailed();
+        //if(testListMaster[i].execute() != testCompleted)
+        //    testsFailed();
         testSyncWaitSetup();
-        if(testListMaster[i].cleanup() != testCompleted)
-            testsFailed();
-        i++;
-        if(testListMaster[i].setup == NULL)
-            i = 0;
+        //if(testListMaster[i].cleanup() != testCompleted)
+        //    testsFailed();
+        //i++;
+        //if(testListMaster[i].setup == NULL)
+        //    i = 0;
     // for testing purposes, lets go for an infinite loop, okay?
     } while(1);
     //} while(testListMaster[i].setup != NULL);
