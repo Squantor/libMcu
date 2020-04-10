@@ -26,30 +26,21 @@ SOFTWARE.
 
 #include <hw_tests_common.hpp>
 
-// test output high operation
-testStatus_t testGpioOutHighSetup(void);
-testStatus_t testGpioOutHighExec(void);
-testStatus_t testGpioOutHighClean(void);
+// check if we can set a low level and sense it
+testStatus_t masterTestGpioLowSetup(void);
+testStatus_t masterTestGpioLowExec(void);
+testStatus_t masterTestGpioLowClean(void);
 
-// test output low operation
-testStatus_t testGpioOutLowSetup(void);
-testStatus_t testGpioOutLowExec(void);
-testStatus_t testGpioOutLowClean(void);
+// check if we can set high level and sense it
+testStatus_t masterTestGpioHighSetup(void);
+testStatus_t masterTestGpioHighExec(void);
+testStatus_t masterTestGpioHighClean(void);
 
-// test input high operation
-// test input low operation
-// not needed as both code paths are tested by master and slave
 
-// test input high pull up operation
-testStatus_t testGpioPullHighSetup(void);
-testStatus_t testGpioPullHighExec(void);
-testStatus_t testGpioPullHighClean(void);
 
-// test input low pull up operation
-testStatus_t testGpioPullLowSetup(void);
-testStatus_t testGpioPullLowExec(void);
-testStatus_t testGpioPullLowClean(void);
+// check if we can pull up and sense it
+// check if we can pull down and sense it
+// see datasheet/includes what we can test more like glitches
 
-// test output high glitch operation
 
 #endif

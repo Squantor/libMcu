@@ -29,12 +29,15 @@ SOFTWARE.
 #include <hw_tests_common.hpp>
 #include <test_gpio_master.hpp>
 
+/*
+The functions are being tested by both the slave and master
+ */
 const testEntry_t testListMaster[] = 
 {
-    {testGpioOutHighSetup,  testGpioOutHighExec,    testGpioOutHighClean},
-    {testGpioOutLowSetup,   testGpioOutLowExec,     testGpioOutLowClean},
-    {testGpioPullHighSetup, testGpioPullHighExec,   testGpioPullHighClean},
-    {testGpioPullLowSetup,  testGpioPullLowExec,    testGpioPullLowClean},
+    // check if we can set high level and sense it
+    // check if we can set a low level and sense it
+    // check if we can pull up and sense it
+    // check if we can pull down and sense it
     {NULL, NULL, NULL}
 };
 
@@ -72,18 +75,18 @@ int main()
     do
     {
         // setup test
-        //if(testListMaster[i].setup() != testCompleted)
-        //    testsFailed();
+        if(testListMaster[i].setup() != testCompleted)
+            testsFailed();
         testSyncRequestStart();
-        //if(testListMaster[i].execute() != testCompleted)
-        //    testsFailed();
+        if(testListMaster[i].execute() != testCompleted)
+            testsFailed();
         testSyncRequestSetup();
-        //if(testListMaster[i].cleanup() != testCompleted)
-        //    testsFailed();
-        //i++;
+        if(testListMaster[i].cleanup() != testCompleted)
+            testsFailed();
+        i++;
     // infinite loop just to test
-    } while(1);
-    //} while(testListMaster[i].setup != NULL);
+    //} while(1);
+    } while(testListMaster[i].setup != NULL);
     
     testsPassed();
 }

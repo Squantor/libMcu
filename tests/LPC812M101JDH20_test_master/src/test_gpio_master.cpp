@@ -25,7 +25,7 @@ SOFTWARE.
 #include <mcu_ll.h>
 #include <board.hpp>
 
-static testStatus_t cleanupGpioTests(void)
+static testStatus_t masterTestGpioCleanup(void)
 {
     // set to pulled up, as this is default reset behaviour.
     IoconPinSetMode(LPC_IOCON, TEST_GPIO_IN_IOCON, PIN_MODE_PULLUP);
@@ -35,85 +35,56 @@ static testStatus_t cleanupGpioTests(void)
     return testCompleted;
 }
 
-static testStatus_t outSetup(void)
+static testStatus_t masterTestGpioOutSetup(void)
 {
     IoconPinSetMode(LPC_IOCON, TEST_GPIO_IN_IOCON, PIN_MODE_INACTIVE);
     GpioSetPinDir(LPC_GPIO_PORT, 0, TEST_GPIO_IN_GPIO, false);
     return testCompleted;
 }
 
-static testStatus_t outTestHigh(void)
+
+testStatus_t masterTestGpioLowSetup(void)
 {
-    if(GpioGetPinState(LPC_GPIO_PORT, 0, TEST_GPIO_IN_GPIO) == true)
-        return testCompleted;
-    else
-        return testFailed;
+    return masterTestGpioOutSetup();
 }
 
-static testStatus_t outTestLow(void)
+testStatus_t masterTestGpioLowExec(void)
 {
+    // wait and sense if the input is low
+    timeDelay_t lowWait;
+    timeDelayInit(lowWait, 10);
+    while(timeDelayCheck(lowWait) != delayNotReached)
+        ;
     if(GpioGetPinState(LPC_GPIO_PORT, 0, TEST_GPIO_IN_GPIO) == false)
         return testCompleted;
     else
         return testFailed;
 }
 
-testStatus_t testGpioOutHighSetup(void)
-{   
-    return outSetup();
-}
-
-testStatus_t testGpioOutHighExec(void)
-{    
-    return outTestHigh();
-}
-
-testStatus_t testGpioOutHighClean(void)
-{    
-    return cleanupGpioTests();
-}
-
-testStatus_t testGpioOutLowSetup(void)
+testStatus_t masterTestGpioLowClean(void)
 {
-    return outSetup();
+    return masterTestGpioCleanup;
 }
 
-testStatus_t testGpioOutLowExec(void)
+testStatus_t masterTestGpioHighSetup(void)
 {
-    return outTestLow();
+    return masterTestGpioOutSetup();
 }
 
-testStatus_t testGpioOutLowClean(void)
+testStatus_t masterTestGpioHighExec(void)
 {
-    return cleanupGpioTests();
+    // wait and sense if the input is high
+    timeDelay_t lowWait;
+    timeDelayInit(lowWait, 10);
+    while(timeDelayCheck(lowWait) != delayNotReached)
+        ;
+    if(GpioGetPinState(LPC_GPIO_PORT, 0, TEST_GPIO_IN_GPIO) == true)
+        return testCompleted;
+    else
+        return testFailed;
 }
 
-testStatus_t testGpioPullHighSetup(void)
+testStatus_t masterTestGpioHighClean(void)
 {
-    return outSetup();
-}
-
-testStatus_t testGpioPullHighExec(void)
-{
-    return outTestHigh();
-}
-
-testStatus_t testGpioPullHighClean(void)
-{
-    return cleanupGpioTests();
-}
-
-testStatus_t testGpioPullLowSetup(void)
-{
-    return outSetup();
-}
-
-testStatus_t testGpioPullLowExec(void)
-{
-    return outTestLow();
-}
-
-testStatus_t testGpioPullLowClean(void)
-{
-    return cleanupGpioTests();
+    return masterTestGpioCleanup;
 }

@@ -28,7 +28,7 @@ SOFTWARE.
 #include <test_sync.hpp>
 #include <test_gpio_slave.hpp>
 
-const testEntry_t testListMaster[] = 
+const testEntry_t testListSlave[] = 
 {
     {testGpioOutHighSetup,  testGpioOutHighExec,    testGpioOutHighClean},
     {testGpioOutLowSetup,   testGpioOutLowExec,     testGpioOutLowClean},
@@ -59,19 +59,19 @@ int main()
     do
     {
         // setup test
-        //if(testListMaster[i].setup() != testCompleted)
-        //    testsFailed();
+        if(testListSlave[i].setup() != testCompleted)
+            testsFailed();
         testSyncWaitStart();
-        //if(testListMaster[i].execute() != testCompleted)
-        //    testsFailed();
+        if(testListSlave[i].execute() != testCompleted)
+            testsFailed();
         testSyncWaitSetup();
-        //if(testListMaster[i].cleanup() != testCompleted)
-        //    testsFailed();
-        //i++;
-        //if(testListMaster[i].setup == NULL)
-        //    i = 0;
+        if(testListSlave[i].cleanup() != testCompleted)
+            testsFailed();
+        i++;
+        if(testListSlave[i].setup == NULL)
+            i = 0;
     // for testing purposes, lets go for an infinite loop, okay?
-    } while(1);
-    //} while(testListMaster[i].setup != NULL);
+    //} while(1);
+    } while(testListSlave[i].setup != NULL);
     //testsPassed();
 }
