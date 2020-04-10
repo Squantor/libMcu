@@ -21,9 +21,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-#include <test_gpio_master.hpp>
+#include <master_test_gpio.hpp>
 #include <mcu_ll.h>
 #include <board.hpp>
+#include <systick.hpp>
 
 static testStatus_t masterTestGpioCleanup(void)
 {
@@ -63,7 +64,7 @@ testStatus_t masterTestGpioLowExec(void)
 
 testStatus_t masterTestGpioLowClean(void)
 {
-    return masterTestGpioCleanup;
+    return masterTestGpioCleanup();
 }
 
 testStatus_t masterTestGpioHighSetup(void)
@@ -86,5 +87,5 @@ testStatus_t masterTestGpioHighExec(void)
 
 testStatus_t masterTestGpioHighClean(void)
 {
-    return masterTestGpioCleanup;
+    return masterTestGpioCleanup();
 }

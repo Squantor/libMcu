@@ -27,15 +27,17 @@ SOFTWARE.
 #include <systick.hpp>
 #include <test_sync.hpp>
 #include <hw_tests_common.hpp>
-#include <test_gpio_master.hpp>
+#include <master_test_gpio.hpp>
 
 /*
 The functions are being tested by both the slave and master
  */
 const testEntry_t testListMaster[] = 
 {
-    // check if we can set high level and sense it
     // check if we can set a low level and sense it
+    {masterTestGpioLowSetup, masterTestGpioLowExec, masterTestGpioLowClean},
+    // check if we can set high level and sense it
+    {masterTestGpioHighSetup, masterTestGpioHighExec, masterTestGpioHighClean},
     // check if we can pull up and sense it
     // check if we can pull down and sense it
     {NULL, NULL, NULL}
