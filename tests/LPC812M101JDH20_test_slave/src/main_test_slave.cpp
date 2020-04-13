@@ -54,6 +54,18 @@ int main()
 {
     boardInit();
     testSyncInit();
+    timeDelay_t resetTimer;
+    // reset the other side controller
+    timeDelayInit(resetTimer, 10);
+    resetPinSet(false);
+    // wait
+    while(timeDelayCheck(resetTimer) != delayNotReached)
+        ;
+    resetPinSet(true);
+    // wait again
+    timeDelayInit(resetTimer, 10);
+    while(timeDelayCheck(resetTimer) != delayNotReached)
+        ;
     // we prepare by going to the ready state
     // so we can enter the loop ready to setup
     testSyncWaitSetup();
