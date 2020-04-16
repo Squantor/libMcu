@@ -38,21 +38,21 @@ static testStatus_t slaveTestGpioCleanup(void)
 
 static testStatus_t slaveTestGpioOutSetup()
 {
-    IoconPinSetMode(LPC_IOCON, TEST_GPIO_IN_IOCON, PIN_MODE_INACTIVE);
-    GpioSetPinDir(LPC_GPIO_PORT, 0, TEST_GPIO_IN_GPIO, false);
+    IoconPinSetMode(LPC_IOCON, TEST_GPIO_OUT_IOCON, PIN_MODE_INACTIVE);
     return testCompleted;
 }
 
 testStatus_t slaveTestGpioLowSetup(void)
 {
-    return slaveTestGpioOutSetup();
+    IoconPinSetMode(LPC_IOCON, TEST_GPIO_OUT_IOCON, PIN_MODE_INACTIVE);
+    GpioSetPinState(LPC_GPIO_PORT, 0, TEST_GPIO_OUT_GPIO, false);
+    GpioSetPinDir(LPC_GPIO_PORT, 0, TEST_GPIO_OUT_IOCON, true);
+    return testCompleted;
 }
 
 testStatus_t slaveTestGpioLowExec(void)
 {
-    // set output low so it can be sensed by the master
-    GpioSetPinDir(LPC_GPIO_PORT, 0, TEST_GPIO_OUT_GPIO, true);
-    GpioSetPinState(LPC_GPIO_PORT, 0, TEST_GPIO_OUT_GPIO, false);
+    // already set by setup
     return testCompleted;
 }
 
@@ -63,14 +63,16 @@ testStatus_t slaveTestGpioLowClean(void)
 
 testStatus_t slaveTestGpioHighSetup(void)
 {
-    return slaveTestGpioOutSetup();
+    IoconPinSetMode(LPC_IOCON, TEST_GPIO_OUT_IOCON, PIN_MODE_INACTIVE);
+    GpioSetPinState(LPC_GPIO_PORT, 0, TEST_GPIO_OUT_GPIO, true);
+    GpioSetPinDir(LPC_GPIO_PORT, 0, TEST_GPIO_OUT_IOCON, true);
+    return testCompleted;
 }
 
 testStatus_t slaveTestGpioHighExec(void)
 {
-    // set output low so it can be sensed by the master
-    GpioSetPinDir(LPC_GPIO_PORT, 0, TEST_GPIO_OUT_GPIO, true);
-    GpioSetPinState(LPC_GPIO_PORT, 0, TEST_GPIO_OUT_GPIO, true);
+    // already set by setup
+    return testCompleted;
 }
 
 testStatus_t slaveTestGpioHighClean(void)
