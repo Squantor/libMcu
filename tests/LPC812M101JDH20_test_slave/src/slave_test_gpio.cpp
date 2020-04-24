@@ -46,7 +46,7 @@ testStatus_t slaveTestGpioLowSetup(void)
 {
     IoconPinSetMode(LPC_IOCON, TEST_GPIO_OUT_IOCON, PIN_MODE_INACTIVE);
     GpioSetPinState(LPC_GPIO_PORT, 0, TEST_GPIO_OUT_GPIO, false);
-    GpioSetPinDir(LPC_GPIO_PORT, 0, TEST_GPIO_OUT_IOCON, true);
+    GpioSetPinDir(LPC_GPIO_PORT, 0, TEST_GPIO_OUT_GPIO, true);
     return testCompleted;
 }
 
@@ -65,7 +65,7 @@ testStatus_t slaveTestGpioHighSetup(void)
 {
     IoconPinSetMode(LPC_IOCON, TEST_GPIO_OUT_IOCON, PIN_MODE_INACTIVE);
     GpioSetPinState(LPC_GPIO_PORT, 0, TEST_GPIO_OUT_GPIO, true);
-    GpioSetPinDir(LPC_GPIO_PORT, 0, TEST_GPIO_OUT_IOCON, true);
+    GpioSetPinDir(LPC_GPIO_PORT, 0, TEST_GPIO_OUT_GPIO, true);
     return testCompleted;
 }
 

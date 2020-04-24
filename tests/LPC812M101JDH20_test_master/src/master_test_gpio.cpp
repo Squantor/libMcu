@@ -43,7 +43,6 @@ static testStatus_t masterTestGpioOutSetup(void)
     return testCompleted;
 }
 
-
 testStatus_t masterTestGpioLowSetup(void)
 {
     return masterTestGpioOutSetup();
