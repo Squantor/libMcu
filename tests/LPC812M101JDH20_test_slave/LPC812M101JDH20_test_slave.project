@@ -1,26 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CodeLite_Project Name="LPC812M101JDH20_test_slave" Version="11000" InternalType="">
+  <VirtualDirectory Name="platform">
+    <File Name="platform/STM32F103C8.cpp"/>
+    <File Name="platform/LPC824.cpp"/>
+    <File Name="platform/cortexm_irqs_lpc.cpp"/>
+    <File Name="platform/LPC812.cpp"/>
+    <File Name="platform/isr_STM32F103C8.cpp"/>
+    <File Name="platform/isr_lpc81X.cpp"/>
+    <File Name="platform/isr_lpc82X.cpp"/>
+    <File Name="platform/cortexm_irqs_standard.cpp"/>
+  </VirtualDirectory>
+  <VirtualDirectory Name="inc">
+    <File Name="inc/slave_test_gpio.hpp"/>
+  </VirtualDirectory>
+  <VirtualDirectory Name="src">
+    <File Name="src/slave_test_gpio.cpp"/>
+    <File Name="src/main_test_slave.cpp"/>
+    <File Name="src/startup.cpp"/>
+  </VirtualDirectory>
   <Plugins>
     <Plugin Name="qmake">
       <![CDATA[00020001N0005Debug0000000000000001N0007Release000000000000]]>
     </Plugin>
   </Plugins>
-  <VirtualDirectory Name="inc">
-    <File Name="inc/slave_test_gpio.hpp"/>
-    <File Name="inc/systick.hpp"/>
-  </VirtualDirectory>
-  <VirtualDirectory Name="src">
-    <File Name="src/slave_test_gpio.cpp"/>
-    <File Name="src/systick.cpp"/>
-    <File Name="src/main_test_slave.cpp"/>
-    <File Name="src/startup.cpp"/>
-  </VirtualDirectory>
   <VirtualDirectory Name="common">
     <VirtualDirectory Name="inc">
-      <File Name="../common/inc/hw_tests_common.hpp"/>
+      <File Name="../common/inc/systick.hpp"/>
+      <File Name="../common/inc/LPC812M101JDH20_nuclone.hpp"/>
+      <File Name="../common/inc/board.hpp"/>
       <File Name="../common/inc/test_sync.hpp"/>
+      <File Name="../common/inc/hw_tests_common.hpp"/>
     </VirtualDirectory>
     <VirtualDirectory Name="src">
+      <File Name="../common/src/systick.cpp"/>
+      <File Name="../common/src/LPC812M101JDH20_nuclone.cpp"/>
       <File Name="../common/src/test_sync.cpp"/>
     </VirtualDirectory>
   </VirtualDirectory>
@@ -33,16 +46,6 @@
     </Extensions>
     <Topleveldir>/home/abilos/projects/my_public/libMcuLL/examples/LPC812MAX</Topleveldir>
   </Reconciliation>
-  <VirtualDirectory Name="platform">
-    <File Name="platform/isr_lpc82X.cpp"/>
-    <File Name="platform/isr_STM32F103C8.cpp"/>
-    <File Name="platform/STM32F103C8.cpp"/>
-    <File Name="platform/LPC824.cpp"/>
-    <File Name="platform/LPC812.cpp"/>
-    <File Name="platform/cortexm_irqs_lpc.cpp"/>
-    <File Name="platform/cortexm_irqs_standard.cpp"/>
-    <File Name="platform/isr_lpc81X.cpp"/>
-  </VirtualDirectory>
   <Description/>
   <Dependencies/>
   <Dependencies Name="Debug"/>
