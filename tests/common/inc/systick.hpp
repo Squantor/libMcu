@@ -48,5 +48,7 @@ extern volatile timeTicks ticks;
 void timeDelayInit(timeDelay_t &delayData, timeTicks delay);
 // non blocking check if we have a reached a time interval
 resultDelay_t timeDelayCheck(timeDelay_t &delayData);
+// blocking delay
+void timeDelaySimple(timeTicks delay);
 
 #endif

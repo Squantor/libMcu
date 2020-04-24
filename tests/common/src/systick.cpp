@@ -56,3 +56,11 @@ resultDelay_t timeDelayCheck(timeDelay_t &delayData)
         return delayExceeded;
     }
 }
+
+void timeDelaySimple(timeTicks delay)
+{
+    timeDelay_t simpleDelay;
+    timeDelayInit(simpleDelay, delay);
+    while(timeDelayCheck(simpleDelay) == delayNotReached)
+        ;
+}
