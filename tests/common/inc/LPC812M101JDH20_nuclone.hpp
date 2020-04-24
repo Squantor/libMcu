@@ -62,7 +62,7 @@ static inline void syncSetupGpio(void)
 {
     IoconPinSetMode(LPC_IOCON, TEST_SYNC_OUT_IOCON, PIN_MODE_INACTIVE);
     IoconPinSetMode(LPC_IOCON, TEST_SYNC_IN_IOCON, PIN_MODE_INACTIVE);
-    GpioSetPinOutLow(LPC_GPIO_PORT, 0, TEST_SYNC_OUT_GPIO);
+    GpioSetPinOutHigh(LPC_GPIO_PORT, 0, TEST_SYNC_OUT_GPIO);
     GpioSetPinDir(LPC_GPIO_PORT, 0, TEST_SYNC_OUT_GPIO, true);
     GpioSetPinDir(LPC_GPIO_PORT, 0, TEST_SYNC_IN_GPIO, false);
 }
