@@ -58,18 +58,10 @@ int main()
 {
     boardInit();
     testSyncInit();
-    timeDelay_t resetTimer;
-    // reset the other side controller
-    timeDelayInit(resetTimer, 10);
     resetPinSet(false);
-    // wait
-    while(timeDelayCheck(resetTimer) != delayNotReached)
-        ;
+    timeDelaySimple(10);
     resetPinSet(true);
-    // wait again
-    timeDelayInit(resetTimer, 10);
-    while(timeDelayCheck(resetTimer) != delayNotReached)
-        ;
+    timeDelaySimple(10);
     int i = 0;
     do
     {

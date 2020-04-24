@@ -51,11 +51,7 @@ testStatus_t masterTestGpioLowSetup(void)
 
 testStatus_t masterTestGpioLowExec(void)
 {
-    // wait and sense if the input is low
-    timeDelay_t lowWait;
-    timeDelayInit(lowWait, 10);
-    while(timeDelayCheck(lowWait) != delayNotReached)
-        ;
+    timeDelaySimple(10);
     if(GpioGetPinState(LPC_GPIO_PORT, 0, TEST_GPIO_IN_GPIO) == false)
         return testCompleted;
     else
@@ -74,11 +70,7 @@ testStatus_t masterTestGpioHighSetup(void)
 
 testStatus_t masterTestGpioHighExec(void)
 {
-    // wait and sense if the input is high
-    timeDelay_t lowWait;
-    timeDelayInit(lowWait, 10);
-    while(timeDelayCheck(lowWait) != delayNotReached)
-        ;
+    timeDelaySimple(10);
     if(GpioGetPinState(LPC_GPIO_PORT, 0, TEST_GPIO_IN_GPIO) == true)
         return testCompleted;
     else
