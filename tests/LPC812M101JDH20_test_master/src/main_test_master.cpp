@@ -73,19 +73,18 @@ int main()
     int i = 0;
     do
     {
-        // setup test
-//        if(testListMaster[i].setup() != testCompleted)
-//            testsFailed();
+        if(testListMaster[i].setup() != testCompleted)
+            testsFailed();
         testSyncRequestStart();
-//        if(testListMaster[i].execute() != testCompleted)
-//            testsFailed();
+        if(testListMaster[i].execute() != testCompleted)
+            testsFailed();
         testSyncRequestSetup();
-//        if(testListMaster[i].cleanup() != testCompleted)
-//            testsFailed();
-//        i++;
+        if(testListMaster[i].cleanup() != testCompleted)
+            testsFailed();
+        i++;
     // infinite loop just to test
-    } while(1);
-    //} while(testListMaster[i].setup != NULL);
+    //} while(1);
+    } while(testListMaster[i].setup != NULL);
     
     testsPassed();
 }

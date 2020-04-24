@@ -69,19 +69,19 @@ int main()
     int i = 0;
     do
     {
-//        if(testListSlave[i].setup() != testCompleted)
-//            testsFailed();
+        if(testListSlave[i].setup() != testCompleted)
+            testsFailed();
         testSyncRequestStart();
-//        if(testListSlave[i].execute() != testCompleted)
-//            testsFailed();
+        if(testListSlave[i].execute() != testCompleted)
+            testsFailed();
         testSyncRequestSetup();
-//        if(testListSlave[i].cleanup() != testCompleted)
-//            testsFailed();
-//        i++;
-//        if(testListSlave[i].setup == NULL)
-//            i = 0;
+        if(testListSlave[i].cleanup() != testCompleted)
+            testsFailed();
+        i++;
+        if(testListSlave[i].setup == NULL)
+            i = 0;
     // for testing purposes, lets go for an infinite loop, okay?
-    } while(1);
-    //} while(testListSlave[i].setup != NULL);
+    //} while(1);
+    } while(testListSlave[i].setup != NULL);
     //testsPassed();
 }

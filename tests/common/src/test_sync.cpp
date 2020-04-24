@@ -61,22 +61,22 @@ testSyncResult_t testSyncRequestStart(void)
     return testSyncReady;
 }
 
-testSyncResult_t testSyncWaitSetup(void)
-{
-    // wait for test setup
-    while(syncInGet() != true)
-        ;
-    // acknowledge we are ready to go to setup
-    syncOutSet(true);
-    return testSyncReady;
-}
+//testSyncResult_t testSyncWaitSetup(void)
+//{
+//    // wait for test setup
+//    while(syncInGet() != true)
+//        ;
+//    // acknowledge we are ready to go to setup
+//    syncOutSet(true);
+//    return testSyncReady;
+//}
 
-testSyncResult_t testSyncWaitStart(void)
-{
-    // wait for test start
-    while(syncInGet() != false)
-        ;
-    // acknowledge we are ready to start
-    syncOutSet(false);
-    return testSyncReady;
-}
+//testSyncResult_t testSyncWaitStart(void)
+//{
+//    // wait for test start
+//    while(syncInGet() != false)
+//        ;
+//    // acknowledge we are ready to start
+//    syncOutSet(false);
+//    return testSyncReady;
+//}
