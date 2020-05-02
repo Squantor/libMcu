@@ -73,9 +73,9 @@ typedef enum SWM_PIN_MOVABLE  {
     SWM_CTOUT_3_O,              /* PINASSIGN7 - CTOUT3 Output */
     SWM_I2C_SDA_IO,             /* PINASSIGN7 - I2C SDA I/O */
     SWM_I2C_SCL_IO = 0x80,      /* PINASSIGN8 - I2C SCL I/O */
-    SWM_ACMP_O_O,               /* PINASSIGN8 - I2C ACMP Output */
-    SWM_CLKOUT_O,               /* PINASSIGN8 - I2C CLKOUT Output */
-    SWM_GPIO_INT_BMAT_O,        /* PINASSIGN8 - I2C GPIO INT BMAT Output */
+    SWM_ACMP_O_O,               /* PINASSIGN8 - ACMP Output */
+    SWM_CLKOUT_O,               /* PINASSIGN8 - CLKOUT Output */
+    SWM_GPIO_INT_BMAT_O,        /* PINASSIGN8 - GPIO INT BMAT Output */
 } SWM_PIN_MOVABLE_T;
 
 typedef enum SWM_PIN_FIXED    {
