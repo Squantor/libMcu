@@ -89,7 +89,7 @@ static inline uint8_t IapPreSectorForReadWrite(uint32_t strSector, uint32_t endS
     return result[0];
 }
 
-static inline uint8_t IapCopyRamToFlash(uint32_t dstAdd, uint32_t *srcAdd, uint32_t byteswrt)
+static inline uint8_t IapCopyRamToFlash(uint32_t dstAdd, uint32_t *srcAdd, uint32_t byteswrt, const uint32_t SystemCoreClock)
 {
     uint32_t command[5], result[5];
 
@@ -103,7 +103,7 @@ static inline uint8_t IapCopyRamToFlash(uint32_t dstAdd, uint32_t *srcAdd, uint3
     return result[0];
 }
 
-static inline uint8_t IapEraseSector(uint32_t strSector, uint32_t endSector)
+static inline uint8_t IapEraseSector(uint32_t strSector, uint32_t endSector, const uint32_t SystemCoreClock)
 {
     uint32_t command[5], result[5];
 
@@ -185,7 +185,7 @@ static inline uint32_t IapReadUID(uint32_t* uid)
     return result[0];
 }
 
-static inline uint8_t IapErasePage(uint32_t strPage, uint32_t endPage)
+static inline uint8_t IapErasePage(uint32_t strPage, uint32_t endPage, const uint32_t SystemCoreClock)
 {
     uint32_t command[5], result[5];
 
