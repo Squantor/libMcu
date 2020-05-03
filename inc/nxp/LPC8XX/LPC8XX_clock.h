@@ -30,6 +30,26 @@ LPC800 series common clocking registers, defines and functions.
 #ifndef LPC8XX_CLOCK_H
 #define LPC8XX_CLOCK_H
 
+/* 
+Warn about some clock configuration options not being set.
+Usually these settings are part of a board configuration.
+*/
+#ifndef CLOCK_XTAL
+    #warning Crystal oscillator frequency not defined
+#endif
+#ifndef CLOCK_EXT_IN
+    #warning External Clock input frequency not defined
+#endif
+#ifndef CLOCK_CPU
+    #warning CPU clock frequency not defined
+#endif
+#ifndef CLOCK_AHB
+    #warning AHB clock frequency not defined
+#endif
+#ifndef CLOCK_MAIN
+    #warning Main clock frequency not defined
+#endif
+
 /* Internal oscillator frequency */
 #define SYSCTL_IRC_FREQ     (12000000)
 #ifndef MAX_CLOCK_FREQ
@@ -122,11 +142,11 @@ static inline uint32_t ClockGetSystemPLLInClockRate(void)
         break;
 
     case SYSCTL_PLLCLKSRC_SYSOSC:
-        clkRate = XTAL_FREQ;
+        clkRate = CLOCK_XTAL;
         break;
     
     case SYSCTL_PLLCLKSRC_EXT_CLKIN:
-        clkRate = EXT_CLK_FREQ;
+        clkRate = CLOCK_EXT_IN;
         break;
 
     default:
@@ -197,24 +217,45 @@ static inline uint32_t ClockGetSystemPLLOutClockRate(void)
 static inline uint32_t ClockGetMainClockRate(void)
 {
 	uint32_t clkRate = 0;
+    #ifdef CLOCK_MAIN_SOURCE
+    switch (CLOCK_MAIN_SOURCE) 
+    {
+        case SYSCTL_MAINCLKSRC_IRC:
+            clkRate = ClockGetIntOscRate();
+            break;
 
-	switch ((SYSCTL_MAINCLKSRC_T) (LPC_SYSCTL->MAINCLKSEL & 0x3)) {
-	case SYSCTL_MAINCLKSRC_IRC:
-		clkRate = ClockGetIntOscRate();
-		break;
+        case SYSCTL_MAINCLKSRC_PLLIN:
+            clkRate = ClockGetSystemPLLInClockRate();
+            break;
 
-	case SYSCTL_MAINCLKSRC_PLLIN:
-		clkRate = ClockGetSystemPLLInClockRate();
-		break;
+        case SYSCTL_MAINCLKSRC_WDTOSC:
+            clkRate = ClockGetWDTOSCRate();
+            break;
 
-	case SYSCTL_MAINCLKSRC_WDTOSC:
-		clkRate = ClockGetWDTOSCRate();
-		break;
+        case SYSCTL_MAINCLKSRC_PLLOUT:
+            clkRate = ClockGetSystemPLLOutClockRate();
+            break;
+    }
+    #else
+    switch ((SYSCTL_MAINCLKSRC_T) (LPC_SYSCTL->MAINCLKSEL & 0x3)) 
+    {
+        case SYSCTL_MAINCLKSRC_IRC:
+            clkRate = ClockGetIntOscRate();
+            break;
 
-	case SYSCTL_MAINCLKSRC_PLLOUT:
-		clkRate = ClockGetSystemPLLOutClockRate();
-		break;
-	}
+        case SYSCTL_MAINCLKSRC_PLLIN:
+            clkRate = ClockGetSystemPLLInClockRate();
+            break;
+
+        case SYSCTL_MAINCLKSRC_WDTOSC:
+            clkRate = ClockGetWDTOSCRate();
+            break;
+
+        case SYSCTL_MAINCLKSRC_PLLOUT:
+            clkRate = ClockGetSystemPLLOutClockRate();
+            break;
+    }
+    #endif
 
 	return clkRate;
 }
