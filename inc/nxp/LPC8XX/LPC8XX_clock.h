@@ -194,7 +194,7 @@ static inline uint32_t ClockGetSystemPLLOutClockRate(void)
         );
 }
 
-uint32_t ClockGetMainClockRate(void)
+static inline uint32_t ClockGetMainClockRate(void)
 {
 	uint32_t clkRate = 0;
 
@@ -284,7 +284,7 @@ static inline uint32_t SysctlGetUSARTFRGMultiplier(void)
     return LPC_SYSCTL->UARTFRGMULT & ~SYSCTL_UARTFRGMULT_RESERVED;
 }
 
-uint32_t ClockGetUSARTNBaseClockRate(void)
+static inline uint32_t ClockGetUSARTNBaseClockRate(void)
 {
     uint64_t inclk;
 	uint32_t div;
@@ -313,7 +313,7 @@ uint32_t ClockGetUSARTNBaseClockRate(void)
 	return (uint32_t) inclk;
 }
 
-uint32_t ClockSetUSARTNBaseClockRate(uint32_t rate, bool fEnable)
+static inline uint32_t ClockSetUSARTNBaseClockRate(uint32_t rate, bool fEnable)
 {
 	uint32_t div, inclk;
 
