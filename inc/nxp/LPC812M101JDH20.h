@@ -156,6 +156,8 @@ typedef enum PINx {
     IOCON_PIO17 =  0x00,
 } PINx_T;
 
+// default configuration options, override with your own!
+#include "nxp/LPC8XX/LPC81X_default.h"
 // Peripheral definition includes, ordering matters
 #include "nxp/LPC8XX/LPC81X_syscon.h"
 #include "nxp/LPC8XX/LPC8XX_clock.h"
