@@ -1,0 +1,48 @@
+/*
+This is free and unencumbered software released into the public domain.
+
+Anyone is free to copy, modify, publish, use, compile, sell, or
+distribute this software, either in source code form or as a compiled
+binary, for any purpose, commercial or non-commercial, and by any
+means.
+
+In jurisdictions that recognize copyright laws, the author or authors
+of this software dedicate any and all copyright interest in the
+software to the public domain. We make this dedication for the benefit
+of the public at large and to the detriment of our heirs and
+successors. We intend this dedication to be an overt act of
+relinquishment in perpetuity of all present and future rights to this
+software under copyright law.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+
+For more information, please refer to <http://unlicense.org>
+*/
+/* 
+LPC820 series default configuration used by libMcuLL
+*/
+
+#ifndef LPC82X_DEFAULT_H
+#define LPC82X_DEFAULT_H
+
+#if !defined(CLOCK_XTAL) && !defined(CLOCK_EXT_IN) && \
+!defined(CLOCK_CPU) && !defined(CLOCK_AHB) && \
+!defined(CLOCK_MAIN)
+    #warning default configuration is loaded!
+    // default clock configuration
+    #define CLOCK_XTAL          (12000000u)
+    #define CLOCK_EXT_IN        (0u)
+    #define CLOCK_CPU           (30000000u)
+    #define CLOCK_AHB           (30000000u)
+    #define CLOCK_MAIN          (60000000u)
+    // predefine main clock source, reduce code size
+    // #define CLOCK_MAIN_SOURCE   SYSCTL_MAINCLKSRC_IRC
+#endif
+
+#endif
