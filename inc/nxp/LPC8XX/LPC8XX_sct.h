@@ -238,26 +238,66 @@ typedef struct {
 #define SCT_RES_CLEAR_OUTPUT            (2)
 #define SCT_RES_TOGGLE_OUTPUT           (3)
 
+/*
+ * Defines for the SCT event control register
+ */
+#define SCT_EV_CTRL_MATCHSEL(x)     (((x) & 0x0F) << 0)
+#define SCT_EV_CTRL_H_EVENT         (1 << 4)
+#define SCT_EV_CTRL_INSEL           (0 << 5)
+#define SCT_EV_CTRL_OUTSEL          (1 << 5)
+#define SCT_EV_CTRL_IOSEL(x)        (((x) & 0x0F) << 6)
+#define SCT_IOCOND_LOW              (0)
+#define SCT_IOCOND_RISE             (1)
+#define SCT_IOCOND_FALL             (2)
+#define SCT_IOCODN_HIGH             (3)
+#define SCT_EV_CTRL_IOCOND(x)       (((x) & 0x03) << 10)
+#define SCT_COMBMODE_OR             (0)
+#define SCT_COMBMODE_MATCH          (1)
+#define SCT_COMBMODE_IO             (2)
+#define SCT_COMBMODE_AND            (3)
+#define SCT_EV_CTRL_COMBMODE(x)     (((x) & 0x03) << 12)
+#define SCT_EV_CTRL_STATELD_ADD     (0 << 14)
+#define SCT_EV_CTRL_STATELD_LOAD    (1 << 14)
+#define SCT_EV_CTRL_STATEV(x)       (((x) & 0x1F) << 19)
+#define SCT_EV_CTRL_MATCHMEM        (1<<20)
+#define SCT_EV_CTRL_DIRECTION_IND   (0)
+#define SCT_EV_CTRL_DIRECTION_UP    (1)
+#define SCT_EV_CTRL_DIRECTION_DOWN  (2)
+#define SCT_EV_CTRL_DIRECTION(x)    (((x) & 0x03) << 21)
+
 /**
- * SCT Match register values enum
+ * SCT Match register values enum, TODO: move to device specifics
  */
 typedef enum SCT_MATCH_REG {
-    SCT_MATCH_0 = 0,    /*!< SCT Match register 0 */
-    SCT_MATCH_1 = 1,    /*!< SCT Match register 1 */
-    SCT_MATCH_2 = 2,    /*!< SCT Match register 2 */
-    SCT_MATCH_3 = 3,    /*!< SCT Match register 3 */
-    SCT_MATCH_4 = 4        /*!< SCT Match register 4 */
+    SCT_MATCH_0 = 0,    /* SCT Match register 0 */
+    SCT_MATCH_1 = 1,    /* SCT Match register 1 */
+    SCT_MATCH_2 = 2,    /* SCT Match register 2 */
+    SCT_MATCH_3 = 3,    /* SCT Match register 3 */
+    SCT_MATCH_4 = 4     /* SCT Match register 4 */
 } SCT_MATCH_REG_T;
 
 /**
- * SCT Event values enum
+ * SCT Event indexes enum, TODO: move to device specifics
+ */
+typedef enum SCT_EVENT_IDX {
+    SCT_EVT_0_IDX  = 0,    /* Event 0 */
+    SCT_EVT_1_IDX  = 1,    /* Event 1 */
+    SCT_EVT_2_IDX  = 2,    /* Event 2 */
+    SCT_EVT_3_IDX  = 3,    /* Event 3 */
+    SCT_EVT_4_IDX  = 4,    /* Event 4 */
+    SCT_EVT_5_IDX  = 5,    /* Event 4 */
+} SCT_EVENT_IDX_T;
+
+/**
+ * SCT Event values enum, TODO: move to device specific sct definitions
  */
 typedef enum SCT_EVENT {
-    SCT_EVT_0  = (1 << 0),    /*!< Event 0 */
-    SCT_EVT_1  = (1 << 1),    /*!< Event 1 */
-    SCT_EVT_2  = (1 << 2),    /*!< Event 2 */
-    SCT_EVT_3  = (1 << 3),    /*!< Event 3 */
-    SCT_EVT_4  = (1 << 4)    /*!< Event 4 */
+    SCT_EVT_0  = (1 << 0),    /* Event 0 */
+    SCT_EVT_1  = (1 << 1),    /* Event 1 */
+    SCT_EVT_2  = (1 << 2),    /* Event 2 */
+    SCT_EVT_3  = (1 << 3),    /* Event 3 */
+    SCT_EVT_4  = (1 << 4),    /* Event 4 */
+    SCT_EVT_5  = (1 << 5)     /* Event 5 */
 } SCT_EVENT_T;
 
 static inline void SctConfig(LPC_SCT_T *pSCT, uint32_t value)
@@ -329,6 +369,16 @@ static inline void SctSetConflictResolution(LPC_SCT_T *pSCT, uint8_t outnum, uin
     
     tem = pSCT->RES & ~((0x03 << (2 * outnum))|SCT_RES_RESERVED);
     pSCT->RES = tem | (value << (2 * outnum));
+}
+
+static inline void SctSetEventStateMask(LPC_SCT_T *sct, SCT_EVENT_IDX_T evt, uint32_t stateMask)
+{
+    sct->EV[evt].STATE = stateMask;
+}
+
+static inline void SctSetEventControl(LPC_SCT_T *sct, SCT_EVENT_IDX_T evt, uint32_t value)
+{
+    sct->EV[evt].STATE = value;
 }
 
 #pragma GCC diagnostic ignored "-Wunused-parameter"
