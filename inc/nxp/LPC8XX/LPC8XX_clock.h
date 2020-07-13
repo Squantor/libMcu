@@ -30,26 +30,6 @@ LPC800 series common clocking registers, defines and functions.
 #ifndef LPC8XX_CLOCK_H
 #define LPC8XX_CLOCK_H
 
-/* 
-Warn about some clock configuration options not being set.
-Usually these settings are part of a board configuration.
-*/
-#ifndef CLOCK_XTAL
-    #warning Crystal oscillator frequency not defined
-#endif
-#ifndef CLOCK_EXT_IN
-    #warning External Clock input frequency not defined
-#endif
-#ifndef CLOCK_CPU
-    #warning CPU clock frequency not defined
-#endif
-#ifndef CLOCK_AHB
-    #warning AHB clock frequency not defined
-#endif
-#ifndef CLOCK_MAIN
-    #warning Main clock frequency not defined
-#endif
-
 /* Internal oscillator frequency */
 #define SYSCTL_IRC_FREQ     (12000000)
 #ifndef MAX_CLOCK_FREQ
