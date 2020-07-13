@@ -36,8 +36,6 @@ Most information here derived/copied over from the LPCopen libraries.
 extern "C" {
 #endif
 
-#warning "Microcontroller LPC812M101JDH20 support is WIP"
-
 /* Configuration of the Cortex-M0+ Processor and Core Peripherals */
 #define __CM0PLUS_REV             0x0001
 #define __MPU_PRESENT             0
