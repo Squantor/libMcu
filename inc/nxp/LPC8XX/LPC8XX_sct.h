@@ -342,6 +342,7 @@ static inline void SctDisableEventInt(LPC_SCT_T *pSCT, SCT_EVENT_T evt)
 
 static inline void SctClearEventFlag(LPC_SCT_T *pSCT, SCT_EVENT_T evt)
 {
+    // TODO, is this OR needed here? Writing a one will clear the bit
     pSCT->EVFLAG = evt | (pSCT->EVFLAG & ~SCT_EVFLAG_RESERVED);
 }
 
