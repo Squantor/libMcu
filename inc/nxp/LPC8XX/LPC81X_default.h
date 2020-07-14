@@ -34,7 +34,7 @@ LPC810 series default configuration used by libMcuLL
 #if !defined(CLOCK_XTAL) && !defined(CLOCK_EXT_IN) && \
 !defined(CLOCK_CPU) && !defined(CLOCK_AHB) && \
 !defined(CLOCK_MAIN)
-    #warning default configuration is loaded!
+    #warning default clock configuration is loaded!
     // default clock configuration
     #define CLOCK_XTAL          (12000000u)
     #define CLOCK_EXT_IN        (0u)
