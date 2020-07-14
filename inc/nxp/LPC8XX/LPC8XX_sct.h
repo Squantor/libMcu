@@ -258,7 +258,7 @@ typedef struct {
 #define SCT_EV_CTRL_COMBMODE(x)     (((x) & 0x03) << 12)
 #define SCT_EV_CTRL_STATELD_ADD     (0 << 14)
 #define SCT_EV_CTRL_STATELD_LOAD    (1 << 14)
-#define SCT_EV_CTRL_STATEV(x)       (((x) & 0x1F) << 19)
+#define SCT_EV_CTRL_STATEV(x)       (((x) & 0x1F) << 15)
 #define SCT_EV_CTRL_MATCHMEM        (1<<20)
 #define SCT_EV_CTRL_DIRECTION_IND   (0)
 #define SCT_EV_CTRL_DIRECTION_UP    (1)
@@ -279,30 +279,62 @@ typedef enum SCT_MATCH_REG {
 /**
  * SCT Event indexes enum, TODO: move to device specifics
  */
-typedef enum SCT_EVENT_IDX {
-    SCT_EVT_0_IDX  = 0,    /* Event 0 */
-    SCT_EVT_1_IDX  = 1,    /* Event 1 */
-    SCT_EVT_2_IDX  = 2,    /* Event 2 */
-    SCT_EVT_3_IDX  = 3,    /* Event 3 */
-    SCT_EVT_4_IDX  = 4,    /* Event 4 */
-    SCT_EVT_5_IDX  = 5,    /* Event 4 */
-} SCT_EVENT_IDX_T;
+typedef enum SCT_EVENT_VAL {
+    SCT_EVT_0_VAL  = 0,    /* Event 0 */
+    SCT_EVT_1_VAL  = 1,    /* Event 1 */
+    SCT_EVT_2_VAL  = 2,    /* Event 2 */
+    SCT_EVT_3_VAL  = 3,    /* Event 3 */
+    SCT_EVT_4_VAL  = 4,    /* Event 4 */
+    SCT_EVT_5_VAL  = 5,    /* Event 4 */
+} SCT_EVENT_VAL_T;
 
 /**
  * SCT Event values enum, TODO: move to device specific sct definitions
  */
 typedef enum SCT_EVENT {
-    SCT_EVT_0  = (1 << 0),    /* Event 0 */
-    SCT_EVT_1  = (1 << 1),    /* Event 1 */
-    SCT_EVT_2  = (1 << 2),    /* Event 2 */
-    SCT_EVT_3  = (1 << 3),    /* Event 3 */
-    SCT_EVT_4  = (1 << 4),    /* Event 4 */
-    SCT_EVT_5  = (1 << 5)     /* Event 5 */
+    SCT_EVT_0_BIT  = (1 << 0),    /* Event 0 */
+    SCT_EVT_1_BIT  = (1 << 1),    /* Event 1 */
+    SCT_EVT_2_BIT  = (1 << 2),    /* Event 2 */
+    SCT_EVT_3_BIT  = (1 << 3),    /* Event 3 */
+    SCT_EVT_4_BIT  = (1 << 4),    /* Event 4 */
+    SCT_EVT_5_BIT  = (1 << 5)     /* Event 5 */
 } SCT_EVENT_T;
+
+typedef enum SCT_STATE_BIT {
+    SCT_STATE_0_BIT = (1 << 0),
+    SCT_STATE_1_BIT = (1 << 1),
+} SCT_STATE_BIT_T;
+
+typedef enum SCT_STATE_VALUE {
+    SCT_STATE_0_VAL = 0,
+    SCT_STATE_1_VAL = 1,
+} SCT_STATE_VALUE_T;
+
+typedef enum SCT_OUT_VALUE {
+    SCT_OUT_0_VALUE = 0,
+    SCT_OUT_1_VALUE = 1,
+    SCT_OUT_2_VALUE = 2,
+    SCT_OUT_3_VALUE = 3,
+} SCT_OUT_VALUE_T;
 
 static inline void SctConfig(LPC_SCT_T *pSCT, uint32_t value)
 {
     pSCT->CONFIG = value;
+}
+
+static inline void SctSetLimitU(LPC_SCT_T *sct, uint32_t value)
+{
+    sct->LIMIT_U = value;
+}
+
+static inline void SctSetLimitL(LPC_SCT_T *sct, uint16_t value)
+{
+    sct->LIMIT_L = value;
+}
+
+static inline void SctSetLimitH(LPC_SCT_T *sct, uint16_t value)
+{
+    sct->LIMIT_H = value;
 }
 
 static inline void SctSetCount(LPC_SCT_T *pSCT, uint32_t count)
@@ -377,14 +409,24 @@ static inline void SctSetConflictResolution(LPC_SCT_T *pSCT, uint8_t outnum, uin
     pSCT->RES = tem | (value << (2 * outnum));
 }
 
-static inline void SctSetEventStateMask(LPC_SCT_T *sct, SCT_EVENT_IDX_T evt, uint32_t stateMask)
+static inline void SctSetEventStateMask(LPC_SCT_T *sct, SCT_EVENT_VAL_T evt, uint32_t stateMask)
 {
     sct->EV[evt].STATE = stateMask;
 }
 
-static inline void SctSetEventControl(LPC_SCT_T *sct, SCT_EVENT_IDX_T evt, uint32_t value)
+static inline void SctSetEventControl(LPC_SCT_T *sct, SCT_EVENT_VAL_T evt, uint32_t value)
 {
     sct->EV[evt].CTRL = value;
+}
+
+static inline void SctSetOutputSet(LPC_SCT_T *sct, SCT_OUT_VALUE_T output, uint32_t value)
+{
+    sct->OUT[output].SET = value;
+}
+
+static inline void SctSetOutputClear(LPC_SCT_T *sct, SCT_OUT_VALUE_T output, uint32_t value)
+{
+    sct->OUT[output].CLR = value;
 }
 
 #pragma GCC diagnostic ignored "-Wunused-parameter"
