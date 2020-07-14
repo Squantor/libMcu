@@ -340,6 +340,11 @@ static inline void SctDisableEventInt(LPC_SCT_T *pSCT, SCT_EVENT_T evt)
     pSCT->EVEN &= ~(evt | SCT_EVEN_RESERVED);
 }
 
+static inline void SctSetEventInt(LPC_SCT_T *sct, uint32_t value)
+{
+    sct->EVEN = value;
+}
+
 static inline void SctClearEventFlag(LPC_SCT_T *pSCT, SCT_EVENT_T evt)
 {
     // TODO, is this OR needed here? Writing a one will clear the bit
@@ -379,7 +384,7 @@ static inline void SctSetEventStateMask(LPC_SCT_T *sct, SCT_EVENT_IDX_T evt, uin
 
 static inline void SctSetEventControl(LPC_SCT_T *sct, SCT_EVENT_IDX_T evt, uint32_t value)
 {
-    sct->EV[evt].STATE = value;
+    sct->EV[evt].CTRL = value;
 }
 
 #pragma GCC diagnostic ignored "-Wunused-parameter"
