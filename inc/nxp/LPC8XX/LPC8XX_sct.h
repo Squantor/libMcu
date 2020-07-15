@@ -174,6 +174,8 @@ typedef struct {
 /* Reserved bits masks for registers */
 #define SCT_CONFIG_RESERVED             0xfff80000
 #define SCT_CTRL_RESERVED               ((7<<13)|(7u<<29))
+#define SCT_CTRL_L_RESERVED             (7<<13)
+#define SCT_CTRL_H_RESERVED             (7<<13)
 #define SCT_LIMIT_RESERVED              (~(0x3f|(0x3f<<16))
 #define SCT_HALT_RESERVED               (~(0x3f|(0x3f<<16))
 #define SCT_STOP_RESERVED               (~(0x3f|(0x3f<<16))
@@ -217,10 +219,15 @@ typedef struct {
 #define COUNTUP_TO LIMIT_THEN_COUNTDOWN_TO_ZERO 1
 
 #define SCT_CTRL_STOP_L                 (1 << 1)                /* Stop low counter */
+#define SCT_CTRL_STOP_U                 (1 << 1)                /* Stop low counter */
 #define SCT_CTRL_HALT_L                 (1 << 2)                /* Halt low counter */
+#define SCT_CTRL_HALT_U                 (1 << 2)                /* Halt low counter */
 #define SCT_CTRL_CLRCTR_L               (1 << 3)                /* Clear low or unified counter */
+#define SCT_CTRL_CLRCTR_U               (1 << 3)                /* Clear low or unified counter */
 #define SCT_CTRL_BIDIR_L(x)             (((x) & 0x01) << 4)        /* Bidirectional bit */
+#define SCT_CTRL_BIDIR_U(x)             (((x) & 0x01) << 4)        /* Bidirectional bit */
 #define SCT_CTRL_PRE_L(x)               (((x) & 0xFF) << 5)        /* Prescale clock for low or unified counter */
+#define SCT_CTRL_PRE_U(x)               (((x) & 0xFF) << 5)        /* Prescale clock for low or unified counter */
 
 #define COUNTUP_TO_LIMIT_THEN_CLEAR_TO_ZERO     0                /* Direction for high counter */
 #define COUNTUP_TO LIMIT_THEN_COUNTDOWN_TO_ZERO 1
@@ -229,14 +236,6 @@ typedef struct {
 #define SCT_CTRL_CLRCTR_H               (1 << 19)                /* Clear high counter */
 #define SCT_CTRL_BIDIR_H(x)             (((x) & 0x01) << 20)
 #define SCT_CTRL_PRE_H(x)               (((x) & 0xFF) << 21)    /* Prescale clock for high counter */
-
-/*
- * Macro defines for SCT Conflict resolution register
- */
-#define SCT_RES_NOCHANGE                (0)
-#define SCT_RES_SET_OUTPUT              (1)
-#define SCT_RES_CLEAR_OUTPUT            (2)
-#define SCT_RES_TOGGLE_OUTPUT           (3)
 
 /*
  * Defines for the SCT event control register
@@ -264,6 +263,15 @@ typedef struct {
 #define SCT_EV_CTRL_DIRECTION_UP    (1)
 #define SCT_EV_CTRL_DIRECTION_DOWN  (2)
 #define SCT_EV_CTRL_DIRECTION(x)    (((x) & 0x03) << 21)
+
+/*
+Definitions for the output conflict resolution register
+ */
+#define SCT_RES_NONE    (0)
+#define SCT_RES_SET     (1)
+#define SCT_RES_CLEAR   (2)
+#define SCT_RES_TOGGLE  (3)
+#define SCT_RES(n,x) ((x) << ((n) * 2))
 
 /**
  * SCT Match register values enum, TODO: move to device specifics
@@ -322,79 +330,124 @@ static inline void SctConfig(LPC_SCT_T *pSCT, uint32_t value)
     pSCT->CONFIG = value;
 }
 
-static inline void SctSetLimitU(LPC_SCT_T *sct, uint32_t value)
+static inline void SctControlU(LPC_SCT_T *sct, uint32_t value)
+{
+    sct->CTRL_U = value;
+}
+
+static inline void SctControlL(LPC_SCT_T *sct, uint16_t value)
+{
+    sct->CTRL_L = value;
+}
+
+static inline void SctControlH(LPC_SCT_T *sct, uint16_t value)
+{
+    sct->CTRL_H = value;
+}
+
+static inline void SctSetControlU(LPC_SCT_T *pSCT, uint32_t value)
+{
+    pSCT->CTRL_U = value | (pSCT->CTRL_U & ~SCT_CTRL_RESERVED);
+}
+
+static inline void SctSetControlL(LPC_SCT_T *pSCT, uint16_t value)
+{
+    pSCT->CTRL_L = value | (pSCT->CTRL_L & ~SCT_CTRL_L_RESERVED);
+}
+
+static inline void SctSetControlH(LPC_SCT_T *pSCT, uint16_t value)
+{
+    pSCT->CTRL_H = value | (pSCT->CTRL_H & ~SCT_CTRL_H_RESERVED);
+}
+
+static inline void SctClearControlU(LPC_SCT_T *pSCT, uint32_t value)
+{
+    pSCT->CTRL_U &= ~(value | SCT_CTRL_RESERVED);
+}
+
+static inline void SctClearControlH(LPC_SCT_T *pSCT, uint16_t value)
+{
+    pSCT->CTRL_H &= ~(value | SCT_CTRL_H_RESERVED);
+}
+
+static inline void SctClearControlL(LPC_SCT_T *pSCT, uint16_t value)
+{
+    pSCT->CTRL_L &= ~(value | SCT_CTRL_L_RESERVED);
+}
+
+static inline void SctLimitU(LPC_SCT_T *sct, uint32_t value)
 {
     sct->LIMIT_U = value;
 }
 
-static inline void SctSetLimitL(LPC_SCT_T *sct, uint16_t value)
+static inline void SctLimitL(LPC_SCT_T *sct, uint16_t value)
 {
     sct->LIMIT_L = value;
 }
 
-static inline void SctSetLimitH(LPC_SCT_T *sct, uint16_t value)
+static inline void SctLimitH(LPC_SCT_T *sct, uint16_t value)
 {
     sct->LIMIT_H = value;
 }
 
-static inline void SctSetCountU(LPC_SCT_T *pSCT, uint32_t count)
+static inline void SctCountU(LPC_SCT_T *pSCT, uint32_t count)
 {
     pSCT->COUNT_U = count;
 }
 
-static inline void SctSetCountL(LPC_SCT_T *pSCT, uint16_t count)
+static inline void SctCountL(LPC_SCT_T *pSCT, uint16_t count)
 {
     pSCT->COUNT_L = count;
 }
 
-static inline void SctSetCountH(LPC_SCT_T *pSCT, uint16_t count)
+static inline void SctCountH(LPC_SCT_T *pSCT, uint16_t count)
 {
     pSCT->COUNT_H = count;
 }
 
-static inline void SctSetMatchCountU(LPC_SCT_T *pSCT, SCT_MATCH_REG_T n, uint32_t value)
+static inline void SctMatchCountU(LPC_SCT_T *pSCT, SCT_MATCH_REG_T n, uint32_t value)
 {
     pSCT->MATCH[n].U = value;
 }
 
-static inline void SctSetMatchCountL(LPC_SCT_T *pSCT, SCT_MATCH_REG_T n, uint16_t value)
+static inline void SctMatchCountL(LPC_SCT_T *pSCT, SCT_MATCH_REG_T n, uint16_t value)
 {
     pSCT->MATCH[n].L = value;
 }
 
-static inline void SctSetMatchCountH(LPC_SCT_T *pSCT, SCT_MATCH_REG_T n, uint16_t value)
+static inline void SctMatchCountH(LPC_SCT_T *pSCT, SCT_MATCH_REG_T n, uint16_t value)
 {
     pSCT->MATCH[n].H = value;
 }
 
-static inline void SctSetMatchReloadU(LPC_SCT_T *pSCT, SCT_MATCH_REG_T n, uint32_t value)
+static inline void SctMatchReloadU(LPC_SCT_T *pSCT, SCT_MATCH_REG_T n, uint32_t value)
 {
     pSCT->MATCHREL[n].U = value;
 }
 
-static inline void SctSetMatchReloadL(LPC_SCT_T *pSCT, SCT_MATCH_REG_T n, uint16_t value)
+static inline void SctMatchReloadL(LPC_SCT_T *pSCT, SCT_MATCH_REG_T n, uint16_t value)
 {
     pSCT->MATCHREL[n].L = value;
 }
 
-static inline void SctSetMatchReloadH(LPC_SCT_T *pSCT, SCT_MATCH_REG_T n, uint16_t value)
+static inline void SctMatchReloadH(LPC_SCT_T *pSCT, SCT_MATCH_REG_T n, uint16_t value)
 {
     pSCT->MATCHREL[n].H = value;
 }
 
-static inline void SctEnableEventInt(LPC_SCT_T *pSCT, SCT_EVENT_BIT_T evt)
+static inline void SctEventInt(LPC_SCT_T *pSCT, uint32_t value)
+{
+    pSCT->EVEN = value & ~SCT_EVEN_RESERVED;
+}
+
+static inline void SctSetEventInt(LPC_SCT_T *pSCT, SCT_EVENT_BIT_T evt)
 {
     pSCT->EVEN = evt | (pSCT->EVEN & ~SCT_EVEN_RESERVED);
 }
 
-static inline void SctDisableEventInt(LPC_SCT_T *pSCT, SCT_EVENT_BIT_T evt)
+static inline void SctClearEventInt(LPC_SCT_T *pSCT, SCT_EVENT_BIT_T evt)
 {
     pSCT->EVEN &= ~(evt | SCT_EVEN_RESERVED);
-}
-
-static inline void SctSetEventInt(LPC_SCT_T *sct, uint32_t value)
-{
-    sct->EVEN = value;
 }
 
 static inline void SctClearEventFlag(LPC_SCT_T *pSCT, SCT_EVENT_BIT_T evt)
@@ -403,30 +456,17 @@ static inline void SctClearEventFlag(LPC_SCT_T *pSCT, SCT_EVENT_BIT_T evt)
     pSCT->EVFLAG = evt | (pSCT->EVFLAG & ~SCT_EVFLAG_RESERVED);
 }
 
-static inline void SctSetControl(LPC_SCT_T *pSCT, uint32_t value)
-{
-    pSCT->CTRL_U = value | (pSCT->CTRL_U & ~SCT_CTRL_RESERVED);
-}
-
-static inline void SctClearControl(LPC_SCT_T *pSCT, uint32_t value)
-{
-    pSCT->CTRL_U &= ~(value | SCT_CTRL_RESERVED);
-}
-
-static inline void SctSetClrControl(LPC_SCT_T *pSCT, uint32_t value, bool ena)
-{
-    if(ena == true) 
-        SctSetControl(pSCT, value);
-    else
-        SctClearControl(pSCT, value);
-}
-
 static inline void SctSetConflictResolution(LPC_SCT_T *pSCT, uint8_t outnum, uint8_t value)
 {
     uint32_t tem;
     
     tem = pSCT->RES & ~((0x03 << (2 * outnum))|SCT_RES_RESERVED);
     pSCT->RES = tem | (value << (2 * outnum));
+}
+
+static inline void SctSetupConflictResolution(LPC_SCT_T *sct, const uint32_t value)
+{
+    sct->RES = value;
 }
 
 static inline void SctSetEventStateMask(LPC_SCT_T *sct, SCT_EVENT_VAL_T evt, uint32_t stateMask)
