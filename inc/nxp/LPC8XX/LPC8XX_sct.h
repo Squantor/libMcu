@@ -330,49 +330,19 @@ static inline void SctConfig(LPC_SCT_T *pSCT, uint32_t value)
     pSCT->CONFIG = value;
 }
 
-static inline void SctControlU(LPC_SCT_T *sct, uint32_t value)
+static inline void SctControl(LPC_SCT_T *sct, uint32_t value)
 {
     sct->CTRL_U = value;
 }
 
-static inline void SctControlL(LPC_SCT_T *sct, uint16_t value)
-{
-    sct->CTRL_L = value;
-}
-
-static inline void SctControlH(LPC_SCT_T *sct, uint16_t value)
-{
-    sct->CTRL_H = value;
-}
-
-static inline void SctSetControlU(LPC_SCT_T *pSCT, uint32_t value)
+static inline void SctSetControl(LPC_SCT_T *pSCT, uint32_t value)
 {
     pSCT->CTRL_U = value | (pSCT->CTRL_U & ~SCT_CTRL_RESERVED);
 }
 
-static inline void SctSetControlL(LPC_SCT_T *pSCT, uint16_t value)
-{
-    pSCT->CTRL_L = value | (pSCT->CTRL_L & ~SCT_CTRL_L_RESERVED);
-}
-
-static inline void SctSetControlH(LPC_SCT_T *pSCT, uint16_t value)
-{
-    pSCT->CTRL_H = value | (pSCT->CTRL_H & ~SCT_CTRL_H_RESERVED);
-}
-
-static inline void SctClearControlU(LPC_SCT_T *pSCT, uint32_t value)
+static inline void SctClearControl(LPC_SCT_T *pSCT, uint32_t value)
 {
     pSCT->CTRL_U &= ~(value | SCT_CTRL_RESERVED);
-}
-
-static inline void SctClearControlH(LPC_SCT_T *pSCT, uint16_t value)
-{
-    pSCT->CTRL_H &= ~(value | SCT_CTRL_H_RESERVED);
-}
-
-static inline void SctClearControlL(LPC_SCT_T *pSCT, uint16_t value)
-{
-    pSCT->CTRL_L &= ~(value | SCT_CTRL_L_RESERVED);
 }
 
 static inline void SctLimitU(LPC_SCT_T *sct, uint32_t value)
