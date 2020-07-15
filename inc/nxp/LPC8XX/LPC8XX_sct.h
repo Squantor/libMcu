@@ -280,25 +280,25 @@ typedef enum SCT_MATCH_REG {
  * SCT Event indexes enum, TODO: move to device specifics
  */
 typedef enum SCT_EVENT_VAL {
-    SCT_EVT_0_VAL  = 0,    /* Event 0 */
-    SCT_EVT_1_VAL  = 1,    /* Event 1 */
-    SCT_EVT_2_VAL  = 2,    /* Event 2 */
-    SCT_EVT_3_VAL  = 3,    /* Event 3 */
-    SCT_EVT_4_VAL  = 4,    /* Event 4 */
-    SCT_EVT_5_VAL  = 5,    /* Event 4 */
+    SCT_EVENT_0_VAL  = 0,    /* Event 0 */
+    SCT_EVENT_1_VAL  = 1,    /* Event 1 */
+    SCT_EVENT_2_VAL  = 2,    /* Event 2 */
+    SCT_EVENT_3_VAL  = 3,    /* Event 3 */
+    SCT_EVENT_4_VAL  = 4,    /* Event 4 */
+    SCT_EVENT_5_VAL  = 5,    /* Event 4 */
 } SCT_EVENT_VAL_T;
 
 /**
  * SCT Event values enum, TODO: move to device specific sct definitions
  */
-typedef enum SCT_EVENT {
-    SCT_EVT_0_BIT  = (1 << 0),    /* Event 0 */
-    SCT_EVT_1_BIT  = (1 << 1),    /* Event 1 */
-    SCT_EVT_2_BIT  = (1 << 2),    /* Event 2 */
-    SCT_EVT_3_BIT  = (1 << 3),    /* Event 3 */
-    SCT_EVT_4_BIT  = (1 << 4),    /* Event 4 */
-    SCT_EVT_5_BIT  = (1 << 5)     /* Event 5 */
-} SCT_EVENT_T;
+typedef enum SCT_EVENT_BIT {
+    SCT_EVENT_0_BIT  = (1 << 0),    /* Event 0 */
+    SCT_EVENT_1_BIT  = (1 << 1),    /* Event 1 */
+    SCT_EVENT_2_BIT  = (1 << 2),    /* Event 2 */
+    SCT_EVENT_3_BIT  = (1 << 3),    /* Event 3 */
+    SCT_EVENT_4_BIT  = (1 << 4),    /* Event 4 */
+    SCT_EVENT_5_BIT  = (1 << 5)     /* Event 5 */
+} SCT_EVENT_BIT_T;
 
 typedef enum SCT_STATE_BIT {
     SCT_STATE_0_BIT = (1 << 0),
@@ -310,12 +310,12 @@ typedef enum SCT_STATE_VALUE {
     SCT_STATE_1_VAL = 1,
 } SCT_STATE_VALUE_T;
 
-typedef enum SCT_OUT_VALUE {
-    SCT_OUT_0_VALUE = 0,
-    SCT_OUT_1_VALUE = 1,
-    SCT_OUT_2_VALUE = 2,
-    SCT_OUT_3_VALUE = 3,
-} SCT_OUT_VALUE_T;
+typedef enum SCT_OUTPUT_VALUE {
+    SCT_OUTPUT_0_VALUE = 0,
+    SCT_OUTPUT_1_VALUE = 1,
+    SCT_OUTPUT_2_VALUE = 2,
+    SCT_OUTPUT_3_VALUE = 3,
+} SCT_OUTPUT_VALUE_T;
 
 static inline void SctConfig(LPC_SCT_T *pSCT, uint32_t value)
 {
@@ -337,7 +337,7 @@ static inline void SctSetLimitH(LPC_SCT_T *sct, uint16_t value)
     sct->LIMIT_H = value;
 }
 
-static inline void SctSetCount(LPC_SCT_T *pSCT, uint32_t count)
+static inline void SctSetCountU(LPC_SCT_T *pSCT, uint32_t count)
 {
     pSCT->COUNT_U = count;
 }
@@ -352,22 +352,42 @@ static inline void SctSetCountH(LPC_SCT_T *pSCT, uint16_t count)
     pSCT->COUNT_H = count;
 }
 
-static inline void SctSetMatchCount(LPC_SCT_T *pSCT, SCT_MATCH_REG_T n, uint32_t value)
+static inline void SctSetMatchCountU(LPC_SCT_T *pSCT, SCT_MATCH_REG_T n, uint32_t value)
 {
     pSCT->MATCH[n].U = value;
 }
 
-static inline void SctSetMatchReload(LPC_SCT_T *pSCT, SCT_MATCH_REG_T n, uint32_t value)
+static inline void SctSetMatchCountL(LPC_SCT_T *pSCT, SCT_MATCH_REG_T n, uint16_t value)
+{
+    pSCT->MATCH[n].L = value;
+}
+
+static inline void SctSetMatchCountH(LPC_SCT_T *pSCT, SCT_MATCH_REG_T n, uint16_t value)
+{
+    pSCT->MATCH[n].H = value;
+}
+
+static inline void SctSetMatchReloadU(LPC_SCT_T *pSCT, SCT_MATCH_REG_T n, uint32_t value)
 {
     pSCT->MATCHREL[n].U = value;
 }
 
-static inline void SctEnableEventInt(LPC_SCT_T *pSCT, SCT_EVENT_T evt)
+static inline void SctSetMatchReloadL(LPC_SCT_T *pSCT, SCT_MATCH_REG_T n, uint16_t value)
+{
+    pSCT->MATCHREL[n].L = value;
+}
+
+static inline void SctSetMatchReloadH(LPC_SCT_T *pSCT, SCT_MATCH_REG_T n, uint16_t value)
+{
+    pSCT->MATCHREL[n].H = value;
+}
+
+static inline void SctEnableEventInt(LPC_SCT_T *pSCT, SCT_EVENT_BIT_T evt)
 {
     pSCT->EVEN = evt | (pSCT->EVEN & ~SCT_EVEN_RESERVED);
 }
 
-static inline void SctDisableEventInt(LPC_SCT_T *pSCT, SCT_EVENT_T evt)
+static inline void SctDisableEventInt(LPC_SCT_T *pSCT, SCT_EVENT_BIT_T evt)
 {
     pSCT->EVEN &= ~(evt | SCT_EVEN_RESERVED);
 }
@@ -377,7 +397,7 @@ static inline void SctSetEventInt(LPC_SCT_T *sct, uint32_t value)
     sct->EVEN = value;
 }
 
-static inline void SctClearEventFlag(LPC_SCT_T *pSCT, SCT_EVENT_T evt)
+static inline void SctClearEventFlag(LPC_SCT_T *pSCT, SCT_EVENT_BIT_T evt)
 {
     // TODO, is this OR needed here? Writing a one will clear the bit
     pSCT->EVFLAG = evt | (pSCT->EVFLAG & ~SCT_EVFLAG_RESERVED);
@@ -419,12 +439,12 @@ static inline void SctSetEventControl(LPC_SCT_T *sct, SCT_EVENT_VAL_T evt, uint3
     sct->EV[evt].CTRL = value;
 }
 
-static inline void SctSetOutputSet(LPC_SCT_T *sct, SCT_OUT_VALUE_T output, uint32_t value)
+static inline void SctSetOutputSet(LPC_SCT_T *sct, SCT_OUTPUT_VALUE_T output, uint32_t value)
 {
     sct->OUT[output].SET = value;
 }
 
-static inline void SctSetOutputClear(LPC_SCT_T *sct, SCT_OUT_VALUE_T output, uint32_t value)
+static inline void SctSetOutputClear(LPC_SCT_T *sct, SCT_OUTPUT_VALUE_T output, uint32_t value)
 {
     sct->OUT[output].CLR = value;
 }
