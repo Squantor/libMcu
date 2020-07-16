@@ -325,148 +325,148 @@ typedef enum SCT_OUTPUT_VALUE {
     SCT_OUTPUT_3_VALUE = 3,
 } SCT_OUTPUT_VALUE_T;
 
-static inline void SctConfig(LPC_SCT_T *pSCT, uint32_t value)
+static inline void SctConfig(LPC_SCT_T *sct, const uint32_t value)
 {
-    pSCT->CONFIG = value;
+    sct->CONFIG = value;
 }
 
-static inline void SctControl(LPC_SCT_T *sct, uint32_t value)
+static inline void SctControl(LPC_SCT_T *sct, const uint32_t value)
 {
     sct->CTRL_U = value;
 }
 
-static inline void SctSetControl(LPC_SCT_T *pSCT, uint32_t value)
+static inline void SctSetControl(LPC_SCT_T *sct, const uint32_t value)
 {
-    pSCT->CTRL_U = value | (pSCT->CTRL_U & ~SCT_CTRL_RESERVED);
+    sct->CTRL_U = value | (sct->CTRL_U & ~SCT_CTRL_RESERVED);
 }
 
-static inline void SctClearControl(LPC_SCT_T *pSCT, uint32_t value)
+static inline void SctClearControl(LPC_SCT_T *sct, const uint32_t value)
 {
-    pSCT->CTRL_U &= ~(value | SCT_CTRL_RESERVED);
+    sct->CTRL_U &= ~(value | SCT_CTRL_RESERVED);
 }
 
-static inline void SctLimitU(LPC_SCT_T *sct, uint32_t value)
+static inline void SctLimitU(LPC_SCT_T *sct, const uint32_t value)
 {
     sct->LIMIT_U = value;
 }
 
-static inline void SctLimitL(LPC_SCT_T *sct, uint16_t value)
+static inline void SctLimitL(LPC_SCT_T *sct, const uint16_t value)
 {
     sct->LIMIT_L = value;
 }
 
-static inline void SctLimitH(LPC_SCT_T *sct, uint16_t value)
+static inline void SctLimitH(LPC_SCT_T *sct, const uint16_t value)
 {
     sct->LIMIT_H = value;
 }
 
-static inline void SctCountU(LPC_SCT_T *pSCT, uint32_t count)
+static inline void SctCountU(LPC_SCT_T *sct, const uint32_t count)
 {
-    pSCT->COUNT_U = count;
+    sct->COUNT_U = count;
 }
 
-static inline void SctCountL(LPC_SCT_T *pSCT, uint16_t count)
+static inline void SctCountL(LPC_SCT_T *sct, const uint16_t count)
 {
-    pSCT->COUNT_L = count;
+    sct->COUNT_L = count;
 }
 
-static inline void SctCountH(LPC_SCT_T *pSCT, uint16_t count)
+static inline void SctCountH(LPC_SCT_T *sct, const uint16_t count)
 {
-    pSCT->COUNT_H = count;
+    sct->COUNT_H = count;
 }
 
-static inline void SctMatchCountU(LPC_SCT_T *pSCT, SCT_MATCH_REG_T n, uint32_t value)
+static inline void SctMatchCountU(LPC_SCT_T *sct, const SCT_MATCH_REG_T n, const uint32_t value)
 {
-    pSCT->MATCH[n].U = value;
+    sct->MATCH[n].U = value;
 }
 
-static inline void SctMatchCountL(LPC_SCT_T *pSCT, SCT_MATCH_REG_T n, uint16_t value)
+static inline void SctMatchCountL(LPC_SCT_T *sct, const SCT_MATCH_REG_T n, const uint16_t value)
 {
-    pSCT->MATCH[n].L = value;
+    sct->MATCH[n].L = value;
 }
 
-static inline void SctMatchCountH(LPC_SCT_T *pSCT, SCT_MATCH_REG_T n, uint16_t value)
+static inline void SctMatchCountH(LPC_SCT_T *sct, const SCT_MATCH_REG_T n, const uint16_t value)
 {
-    pSCT->MATCH[n].H = value;
+    sct->MATCH[n].H = value;
 }
 
-static inline void SctMatchReloadU(LPC_SCT_T *pSCT, SCT_MATCH_REG_T n, uint32_t value)
+static inline void SctMatchReloadU(LPC_SCT_T *sct, const SCT_MATCH_REG_T n, const uint32_t value)
 {
-    pSCT->MATCHREL[n].U = value;
+    sct->MATCHREL[n].U = value;
 }
 
-static inline void SctMatchReloadL(LPC_SCT_T *pSCT, SCT_MATCH_REG_T n, uint16_t value)
+static inline void SctMatchReloadL(LPC_SCT_T *sct, const SCT_MATCH_REG_T n, const uint16_t value)
 {
-    pSCT->MATCHREL[n].L = value;
+    sct->MATCHREL[n].L = value;
 }
 
-static inline void SctMatchReloadH(LPC_SCT_T *pSCT, SCT_MATCH_REG_T n, uint16_t value)
+static inline void SctMatchReloadH(LPC_SCT_T *sct, const SCT_MATCH_REG_T n, const uint16_t value)
 {
-    pSCT->MATCHREL[n].H = value;
+    sct->MATCHREL[n].H = value;
 }
 
-static inline void SctEventInt(LPC_SCT_T *pSCT, uint32_t value)
+static inline void SctEventInt(LPC_SCT_T *sct, const uint32_t value)
 {
-    pSCT->EVEN = value & ~SCT_EVEN_RESERVED;
+    sct->EVEN = value & ~SCT_EVEN_RESERVED;
 }
 
-static inline void SctSetEventInt(LPC_SCT_T *pSCT, SCT_EVENT_BIT_T evt)
+static inline void SctSetEventInt(LPC_SCT_T *sct, const SCT_EVENT_BIT_T evt)
 {
-    pSCT->EVEN = evt | (pSCT->EVEN & ~SCT_EVEN_RESERVED);
+    sct->EVEN = evt | (sct->EVEN & ~SCT_EVEN_RESERVED);
 }
 
-static inline void SctClearEventInt(LPC_SCT_T *pSCT, SCT_EVENT_BIT_T evt)
+static inline void SctClearEventInt(LPC_SCT_T *sct, const SCT_EVENT_BIT_T evt)
 {
-    pSCT->EVEN &= ~(evt | SCT_EVEN_RESERVED);
+    sct->EVEN &= ~(evt | SCT_EVEN_RESERVED);
 }
 
-static inline void SctClearEventFlag(LPC_SCT_T *pSCT, SCT_EVENT_BIT_T evt)
+static inline void SctClearEventFlag(LPC_SCT_T *sct, const SCT_EVENT_BIT_T evt)
 {
     // TODO, is this OR needed here? Writing a one will clear the bit
-    pSCT->EVFLAG = evt | (pSCT->EVFLAG & ~SCT_EVFLAG_RESERVED);
+    sct->EVFLAG = evt | (sct->EVFLAG & ~SCT_EVFLAG_RESERVED);
 }
 
-static inline void SctSetConflictResolution(LPC_SCT_T *pSCT, uint8_t outnum, uint8_t value)
+static inline void SctSetConflictResolution(LPC_SCT_T *sct, const uint8_t outnum, const uint8_t value)
 {
     uint32_t tem;
     
-    tem = pSCT->RES & ~((0x03 << (2 * outnum))|SCT_RES_RESERVED);
-    pSCT->RES = tem | (value << (2 * outnum));
+    tem = sct->RES & ~((0x03 << (2 * outnum))|SCT_RES_RESERVED);
+    sct->RES = tem | (value << (2 * outnum));
 }
 
-static inline void SctSetupConflictResolution(LPC_SCT_T *sct, const uint32_t value)
+static inline void SctConflictResolution(LPC_SCT_T *sct, const uint32_t value)
 {
-    sct->RES = value;
+    sct->RES = value & SCT_RES_RESERVED;
 }
 
-static inline void SctSetEventStateMask(LPC_SCT_T *sct, SCT_EVENT_VAL_T evt, uint32_t stateMask)
+static inline void SctSetEventStateMask(LPC_SCT_T *sct, const SCT_EVENT_VAL_T evt, const uint32_t stateMask)
 {
     sct->EV[evt].STATE = stateMask;
 }
 
-static inline void SctSetEventControl(LPC_SCT_T *sct, SCT_EVENT_VAL_T evt, uint32_t value)
+static inline void SctSetEventControl(LPC_SCT_T *sct, const SCT_EVENT_VAL_T evt, const uint32_t value)
 {
     sct->EV[evt].CTRL = value;
 }
 
-static inline void SctSetOutputSet(LPC_SCT_T *sct, SCT_OUTPUT_VALUE_T output, uint32_t value)
+static inline void SctSetOutputSet(LPC_SCT_T *sct, const SCT_OUTPUT_VALUE_T output, const uint32_t value)
 {
     sct->OUT[output].SET = value;
 }
 
-static inline void SctSetOutputClear(LPC_SCT_T *sct, SCT_OUTPUT_VALUE_T output, uint32_t value)
+static inline void SctSetOutputClear(LPC_SCT_T *sct, const SCT_OUTPUT_VALUE_T output, const uint32_t value)
 {
     sct->OUT[output].CLR = value;
 }
 
 #pragma GCC diagnostic ignored "-Wunused-parameter"
-static inline void SctInit(LPC_SCT_T *pSCT)
+static inline void SctInit(LPC_SCT_T *sct)
 {
     ClockEnablePeriphClock(SYSCTL_CLOCK_SCT);
     SysctlPeriphReset(RESET_SCT);
 }
 
-static inline void SctDeInit(LPC_SCT_T *pSCT)
+static inline void SctDeInit(LPC_SCT_T *sct)
 {
     ClockDisablePeriphClock(SYSCTL_CLOCK_SCT);
 }
