@@ -449,12 +449,12 @@ static inline void SctSetEventControl(LPC_SCT_T *sct, const SCT_EVENT_VAL_T evt,
     sct->EV[evt].CTRL = value;
 }
 
-static inline void SctSetOutputSet(LPC_SCT_T *sct, const SCT_OUTPUT_VALUE_T output, const uint32_t value)
+static inline void SctOutputSet(LPC_SCT_T *sct, const SCT_OUTPUT_VALUE_T output, const uint32_t value)
 {
     sct->OUT[output].SET = value;
 }
 
-static inline void SctSetOutputClear(LPC_SCT_T *sct, const SCT_OUTPUT_VALUE_T output, const uint32_t value)
+static inline void SctOutputClear(LPC_SCT_T *sct, const SCT_OUTPUT_VALUE_T output, const uint32_t value)
 {
     sct->OUT[output].CLR = value;
 }
