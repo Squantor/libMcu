@@ -248,7 +248,7 @@ typedef struct {
 #define SCT_IOCOND_LOW              (0)
 #define SCT_IOCOND_RISE             (1)
 #define SCT_IOCOND_FALL             (2)
-#define SCT_IOCODN_HIGH             (3)
+#define SCT_IOCOND_HIGH             (3)
 #define SCT_EV_CTRL_IOCOND(x)       (((x) & 0x03) << 10)
 #define SCT_COMBMODE_OR             (0)
 #define SCT_COMBMODE_MATCH          (1)
