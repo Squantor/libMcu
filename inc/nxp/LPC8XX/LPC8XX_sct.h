@@ -459,6 +459,11 @@ static inline void SctOutputClear(LPC_SCT_T *sct, const SCT_OUTPUT_VALUE_T outpu
     sct->OUT[output].CLR = value;
 }
 
+static inline void SctOutput(LPC_SCT_T *sct, const uint32_t value)
+{
+    sct->OUTPUT = value;
+}
+
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 static inline void SctInit(LPC_SCT_T *sct)
 {
