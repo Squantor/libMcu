@@ -273,6 +273,14 @@ Definitions for the output conflict resolution register
 #define SCT_RES_TOGGLE  (3)
 #define SCT_RES(n,x) ((x) << ((n) * 2))
 
+/*
+Definitions for the output direction control register
+*/
+#define SCT_OUTPUTDIRCTRL_ANY   (0) /* Any, set and clear do not depend on counter */
+#define SCT_OUTPUTDIRCTRL_L     (1) /* L counting down, set and clear are reversed when L is counting down */
+#define SCT_OUTPUTDIRCTRL_H     (2) /* H counting down, set and clear are reversed when H is counting down */
+#define SCT_OUTPUTDIRCTRL(n,x)  ((x) << ((n) * 2))  /* set output direction control for channel n */
+
 /**
  * SCT Match register values enum, TODO: move to device specifics
  */
