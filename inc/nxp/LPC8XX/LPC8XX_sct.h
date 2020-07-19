@@ -373,6 +373,51 @@ static inline void SctLimitH(LPC_SCT_T *sct, const uint16_t value)
     sct->LIMIT_H = value;
 }
 
+static inline void SctHaltU(LPC_SCT_T *sct, const uint32_t value)
+{
+    sct->HALT_U = value;
+}
+
+static inline void SctHaltL(LPC_SCT_T *sct, const uint16_t value)
+{
+    sct->HALT_L = value;
+}
+
+static inline void SctHaltH(LPC_SCT_T *sct, const uint16_t value)
+{
+    sct->HALT_H = value;
+}
+
+static inline void SctStopU(LPC_SCT_T *sct, const uint32_t value)
+{
+    sct->STOP_U = value;
+}
+
+static inline void SctStopL(LPC_SCT_T *sct, const uint16_t value)
+{
+    sct->STOP_L = value;
+}
+
+static inline void SctStopH(LPC_SCT_T *sct, const uint16_t value)
+{
+    sct->STOP_H = value;
+}
+
+static inline void SctStartU(LPC_SCT_T *sct, const uint32_t value)
+{
+    sct->START_U = value;
+}
+
+static inline void SctStartL(LPC_SCT_T *sct, const uint16_t value)
+{
+    sct->START_L = value;
+}
+
+static inline void SctStartH(LPC_SCT_T *sct, const uint16_t value)
+{
+    sct->START_H = value;
+}
+
 static inline void SctCountU(LPC_SCT_T *sct, const uint32_t count)
 {
     sct->COUNT_U = count;
