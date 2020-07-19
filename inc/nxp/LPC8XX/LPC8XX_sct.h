@@ -267,11 +267,11 @@ typedef struct {
 /*
 Definitions for the output conflict resolution register
  */
-#define SCT_RES_NONE    (0)
-#define SCT_RES_SET     (1)
-#define SCT_RES_CLEAR   (2)
-#define SCT_RES_TOGGLE  (3)
-#define SCT_RES(n,x) ((x) << ((n) * 2))
+#define SCT_CONFLICTRES_NONE    (0)
+#define SCT_CONFLICTRES_SET     (1)
+#define SCT_CONFLICTRES_CLEAR   (2)
+#define SCT_CONFLICTRES_TOGGLE  (3)
+#define SCT_CONFLICTRES(n,x)    ((x) << ((n) * 2))
 
 /*
 Definitions for the output direction control register
