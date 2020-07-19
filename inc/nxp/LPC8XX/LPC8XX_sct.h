@@ -172,7 +172,7 @@ typedef struct {
 } LPC_SCT_T;
 
 /* Reserved bits masks for registers */
-#define SCT_CONFIG_RESERVED             0xfff80000
+#define SCT_CONFIG_RESERVED             (0xfff80000)
 #define SCT_CTRL_RESERVED               ((7<<13)|(7u<<29))
 #define SCT_CTRL_L_RESERVED             (7<<13)
 #define SCT_CTRL_H_RESERVED             (7<<13)
@@ -340,7 +340,17 @@ typedef enum SCT_OUTPUT_VALUE {
 
 static inline void SctConfig(LPC_SCT_T *sct, const uint32_t value)
 {
-    sct->CONFIG = value;
+    sct->CONFIG = value & ~SCT_CONFIG_RESERVED;
+}
+
+static inline void SctSetConfig(LPC_SCT_T *sct, const uint32_t value)
+{
+    sct->CONFIG = value | sct->CONFIG;
+}
+
+static inline void SctClearConfig(LPC_SCT_T *sct, const uint32_t value)
+{
+    sct->CONFIG &= ~(value | SCT_CONFIG_RESERVED);
 }
 
 static inline void SctControl(LPC_SCT_T *sct, const uint32_t value)
