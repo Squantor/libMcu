@@ -281,6 +281,11 @@ Definitions for the output direction control register
 #define SCT_OUTPUTDIRCTRL_H     (2) /* H counting down, set and clear are reversed when H is counting down */
 #define SCT_OUTPUTDIRCTRL(n,x)  ((x) << ((n) * 2))  /* set output direction control for channel n */
 
+/*
+Definitions for the SCT output register
+*/
+#define SCT_OUTPUT_STATE(n,x)   ((x) << (n))
+
 /**
  * SCT Match register values enum, TODO: move to device specifics
  */
