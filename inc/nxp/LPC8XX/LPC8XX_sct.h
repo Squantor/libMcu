@@ -484,17 +484,9 @@ static inline void SctClearEventFlag(LPC_SCT_T *sct, const SCT_EVENT_BIT_T evt)
     sct->EVFLAG = evt | (sct->EVFLAG & ~SCT_EVFLAG_RESERVED);
 }
 
-static inline void SctSetConflictResolution(LPC_SCT_T *sct, const uint8_t outnum, const uint8_t value)
-{
-    uint32_t tem;
-    
-    tem = sct->RES & ~((0x03 << (2 * outnum))|SCT_RES_RESERVED);
-    sct->RES = tem | (value << (2 * outnum));
-}
-
 static inline void SctConflictResolution(LPC_SCT_T *sct, const uint32_t value)
 {
-    sct->RES = value & SCT_RES_RESERVED;
+    sct->RES = value;
 }
 
 static inline void SctSetEventStateMask(LPC_SCT_T *sct, const SCT_EVENT_VAL_T evt, const uint32_t stateMask)
