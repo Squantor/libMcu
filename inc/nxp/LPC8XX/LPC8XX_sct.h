@@ -284,7 +284,7 @@ Definitions for the output direction control register
 /*
 Definitions for the SCT output register
 */
-#define SCT_OUTPUT_STATE(n,x)   ((x) << (n))
+#define SCT_OUTPUT_SET(n)   ((1) << (n)) /** Set the SCT output, used with SctOutputSet and SctOutputClear*/
 
 /**
  * SCT Match register values enum, TODO: move to device specifics
