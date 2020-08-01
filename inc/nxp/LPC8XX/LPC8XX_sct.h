@@ -443,17 +443,17 @@ static inline void SctCountH(LPC_SCT_T *sct, const uint16_t count)
     sct->COUNT_H = count;
 }
 
-static inline void SctMatchCountU(LPC_SCT_T *sct, const SCT_MATCH_REG_T n, const uint32_t value)
+static inline void SctMatchU(LPC_SCT_T *sct, const SCT_MATCH_REG_T n, const uint32_t value)
 {
     sct->MATCH[n].U = value;
 }
 
-static inline void SctMatchCountL(LPC_SCT_T *sct, const SCT_MATCH_REG_T n, const uint16_t value)
+static inline void SctMatchL(LPC_SCT_T *sct, const SCT_MATCH_REG_T n, const uint16_t value)
 {
     sct->MATCH[n].L = value;
 }
 
-static inline void SctMatchCountH(LPC_SCT_T *sct, const SCT_MATCH_REG_T n, const uint16_t value)
+static inline void SctMatchH(LPC_SCT_T *sct, const SCT_MATCH_REG_T n, const uint16_t value)
 {
     sct->MATCH[n].H = value;
 }
