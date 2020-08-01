@@ -490,8 +490,7 @@ static inline void SctClearEventInt(LPC_SCT_T *sct, const SCT_EVENT_BIT_T evt)
 
 static inline void SctClearEventFlag(LPC_SCT_T *sct, const SCT_EVENT_BIT_T evt)
 {
-    // TODO, is this OR needed here? Writing a one will clear the bit
-    sct->EVFLAG = evt | (sct->EVFLAG & ~SCT_EVFLAG_RESERVED);
+    sct->EVFLAG = evt;
 }
 
 static inline void SctConflictResolution(LPC_SCT_T *sct, const uint32_t value)
