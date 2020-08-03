@@ -298,6 +298,17 @@ typedef enum SCT_MATCH_REG {
 } SCT_MATCH_REG_T;
 
 /**
+ * SCT Capture register values enum, TODO: move to device specifics
+ */
+typedef enum SCT_CAPTURE_REG {
+    SCT_CAPTURE_0 = 0,    /** SCT capture register 0 */
+    SCT_CAPTURE_1 = 1,    /** SCT capture register 1 */
+    SCT_CAPTURE_2 = 2,    /** SCT capture register 2 */
+    SCT_CAPTURE_3 = 3,    /** SCT capture register 3 */
+    SCT_CAPTURE_4 = 4     /** SCT capture register 4 */
+} SCT_CAPTURE_REG_T;
+
+/**
  * SCT Event indexes enum, TODO: move to device specifics
  */
 typedef enum SCT_EVENT_VAL {
@@ -465,6 +476,21 @@ static inline void SctMatchH(LPC_SCT_T *sct, const SCT_MATCH_REG_T n, const uint
     sct->MATCH[n].H = value;
 }
 
+static inline void SctCaptureU(LPC_SCT_T *sct, const SCT_CAPTURE_REG_T n, uint32_t *value)
+{
+    *value = sct->CAP[n].U;
+}
+
+static inline void SctCaptureL(LPC_SCT_T *sct, const SCT_CAPTURE_REG_T n, uint16_t *value)
+{
+    *value = sct->CAP[n].L;
+}
+
+static inline void SctCaptureH(LPC_SCT_T *sct, const SCT_CAPTURE_REG_T n, uint16_t *value)
+{
+    *value = sct->CAP[n].H;
+}
+
 static inline void SctMatchReloadU(LPC_SCT_T *sct, const SCT_MATCH_REG_T n, const uint32_t value)
 {
     sct->MATCHREL[n].U = value;
@@ -478,6 +504,21 @@ static inline void SctMatchReloadL(LPC_SCT_T *sct, const SCT_MATCH_REG_T n, cons
 static inline void SctMatchReloadH(LPC_SCT_T *sct, const SCT_MATCH_REG_T n, const uint16_t value)
 {
     sct->MATCHREL[n].H = value;
+}
+
+static inline void SctCaptureControlU(LPC_SCT_T *sct, const SCT_CAPTURE_REG_T n, const uint32_t value)
+{
+    sct->CAPCTRL[n].U = value;
+}
+
+static inline void SctCaptureControlL(LPC_SCT_T *sct, const SCT_CAPTURE_REG_T n, const uint16_t value)
+{
+    sct->CAPCTRL[n].L = value;
+}
+
+static inline void SctCaptureControlH(LPC_SCT_T *sct, const SCT_CAPTURE_REG_T n, const uint16_t value)
+{
+    sct->CAPCTRL[n].H = value;
 }
 
 static inline void SctEventInt(LPC_SCT_T *sct, const uint32_t value)
