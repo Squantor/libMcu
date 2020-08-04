@@ -196,6 +196,10 @@ typedef struct {
 #define SCT_OUTn_SET_RESERVED           (~0x3f)
 #define SCT_OUTn_CLR_RESERVED           (~0x3f)
 
+/*
+ * Macro defines for SCT configuration register
+ */
+
 #define SCT_CONFIG_16BIT_COUNTER        0x00000000                /* Operate as 2 16-bit counters */
 #define SCT_CONFIG_32BIT_COUNTER        0x00000001                /* Operate as 1 32-bit counter */
 
@@ -263,6 +267,16 @@ typedef struct {
 #define SCT_EV_CTRL_DIRECTION_UP    (1)
 #define SCT_EV_CTRL_DIRECTION_DOWN  (2)
 #define SCT_EV_CTRL_DIRECTION(x)    (((x) & 0x03) << 21)
+
+/**
+Definitions for the Match/Compare mode register
+ */
+#define SCT_REGMODE_MATCH   (0)
+#define SCT_REGMODE_CAPTURE (1)
+#define SCT_REGMODE_U(n,x)  ((x) << (n))
+#define SCT_REGMODE_L(n,x)  ((x) << (n))
+#define SCT_REGMODE_H(n,x)  ((x) << ((n) + 15))
+
 
 /*
 Definitions for the output conflict resolution register
@@ -459,6 +473,21 @@ static inline void SctCountL(LPC_SCT_T *sct, const uint16_t count)
 static inline void SctCountH(LPC_SCT_T *sct, const uint16_t count)
 {
     sct->COUNT_H = count;
+}
+
+static inline void SctRegmodeU(LPC_SCT_T *sct, const uint32_t value)
+{
+    sct->REGMODE_U = value;
+}
+
+static inline void SctRegmodeL(LPC_SCT_T *sct, const uint16_t value)
+{
+    sct->REGMODE_L = value;
+}
+
+static inline void SctRegmodeH(LPC_SCT_T *sct, const uint16_t value)
+{
+    sct->REGMODE_H = value;
 }
 
 static inline void SctMatchU(LPC_SCT_T *sct, const SCT_MATCH_REG_T n, const uint32_t value)
