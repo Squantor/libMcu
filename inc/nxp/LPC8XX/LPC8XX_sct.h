@@ -475,17 +475,17 @@ static inline void SctCountH(LPC_SCT_T *sct, const uint16_t count)
     sct->COUNT_H = count;
 }
 
-static inline void SctRegmodeU(LPC_SCT_T *sct, const uint32_t value)
+static inline void SctRegisterModeU(LPC_SCT_T *sct, const uint32_t value)
 {
     sct->REGMODE_U = value;
 }
 
-static inline void SctRegmodeL(LPC_SCT_T *sct, const uint16_t value)
+static inline void SctRegisterModeL(LPC_SCT_T *sct, const uint16_t value)
 {
     sct->REGMODE_L = value;
 }
 
-static inline void SctRegmodeH(LPC_SCT_T *sct, const uint16_t value)
+static inline void SctRegisterModeH(LPC_SCT_T *sct, const uint16_t value)
 {
     sct->REGMODE_H = value;
 }
