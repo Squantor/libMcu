@@ -1,28 +1,7 @@
 /*
-This is free and unencumbered software released into the public domain.
-
-Anyone is free to copy, modify, publish, use, compile, sell, or
-distribute this software, either in source code form or as a compiled
-binary, for any purpose, commercial or non-commercial, and by any
-means.
-
-In jurisdictions that recognize copyright laws, the author or authors
-of this software dedicate any and all copyright interest in the
-software to the public domain. We make this dedication for the benefit
-of the public at large and to the detriment of our heirs and
-successors. We intend this dedication to be an overt act of
-relinquishment in perpetuity of all present and future rights to this
-software under copyright law.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
-OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-OTHER DEALINGS IN THE SOFTWARE.
-
-For more information, please refer to <http://unlicense.org>
+SPDX-License-Identifier: Unlicense
+Copyright (c) 2020 Bart Bilos
+For conditions of distribution and use, see LICENSE file
 */
 /* 
 LPC800 series common analog comparator registers,definitions and 
@@ -36,18 +15,16 @@ typedef struct {            /* ACMP Structure */
     __IO uint32_t  LAD;     /* Voltage ladder register */
 } LPC_CMP_T;
 
-/* Reserved bits masks for registers */
-#define ACMP_CTRL_RESERVED  (7|(1<<5)|(1<<7)|(0x3f<<14)|(1<<22)|(1<<24)|(0x1fu<<27))
-#define ACMP_LAD_RESERVED   (~0x7f)
+/*
+Definitions for the Analog comparator control register
+*/
+#define ACMP_CTRL_RESERVED      (7|(1<<5)|(1<<7)|(0x3f<<14)|(1<<22)|(1<<24)|(0x1fu<<27))
+#define ACMP_CTRL_COMPSA_DIR    (0 << 6)    /* Comparator output directly used*/
+#define ACMP_CTRL_COMPSA_SYNC   (1 << 6)    /* Comparator output synchronized to bus clock */
+#define ACMP_EDGECLR_BIT        (1 << 20)   /* Interrupt clear bit */
+#define ACMP_COMPSTAT_BIT       (1 << 21)   /* Comparator status, reflects the state of the comparator output */
+#define ACMP_COMPEDGE_BIT       (1 << 23)   /* Comparator edge-detect status */
 
-#define ACMP_COMPSA_BIT     (1 << 6)    /* Comparator output control bit */
-#define ACMP_COMPSTAT_BIT   (1 << 21)   /* Comparator status, reflects the state of the comparator output */
-#define ACMP_COMPEDGE_BIT   (1 << 23)   /* Comparator edge-detect status */
-#define ACMP_LADENAB_BIT    (1 << 0)    /* Voltage ladder enable bit */
-
-/* EDGECLR interrupt clear bit, write 1, then 0 */
-#define ACMP_EDGECLR_BIT        (1 << 20)
-#define ACMP_EDGESEL_MASK       (0x3 << 3)
 #define ACMP_COMPVPSEL_MASK     (0x7 << 8)
 #define ACMP_COMPVMSEL_MASK     (0x7 << 11)
 #define ACMP_HYSTERESIS_MASK    (0x3 << 25)
@@ -69,21 +46,53 @@ typedef enum {
     ACMP_HYS_20MV = (3 << 25)   /* 20mV hysteresis */
 } ACMP_HYS_T;
 
+/*
+Definitions for the Analog comparator resistor ladder register
+*/
+#define ACMP_LAD_RESERVED   (~0x7f)
+#define ACMP_LAD_ENABLE     (1<<0)      /* Resistor ladder enable */
+#define ACMP_LADSEL(x)      ((x) << 1)  /* Resistor ladder tap setting */
+#define ACMP_LADREF_VDD     (0 << 6)    /* Resistor ladder reference is VDD */
+#define ACMP_LADREF_VDDCMP  (1 << 6)    /* Resistor ladder reference is VDDCMP */
+
+
 static inline void AcmpInit(void)
 {
     SysctlPowerUp(SYSCTL_SLPWAKE_ACMP_PD);
     ClockEnablePeriphClock(SYSCTL_CLOCK_ACOMP);
+    SysctlDeassertPeriphReset(RESET_ACMP);
 }
 
 static inline void AcmpDeinit(void)
 {
+    SysctlAssertPeriphReset(RESET_ACMP);
     ClockDisablePeriphClock(SYSCTL_CLOCK_ACOMP);
     SysctlPowerDown(SYSCTL_SLPWAKE_ACMP_PD);
 }
 
-static inline uint32_t AcmpGetCompStatus(LPC_CMP_T *pACMP)
+static inline void AcmpControl(LPC_CMP_T *acmp, uint32_t value)
 {
-    return pACMP->CTRL & (ACMP_COMPSTAT_BIT | ACMP_COMPEDGE_BIT);
+    acmp->CTRL = value;
+}
+
+static inline uint32_t AcmpControlGet(LPC_CMP_T *acmp)
+{
+    return acmp->CTRL;
+}
+
+static inline void AcmpControlSet(LPC_CMP_T *acmp, uint32_t value)
+{
+    acmp->CTRL = value | acmp->CTRL;
+}
+
+static inline void AcmpControlClr(LPC_CMP_T *acmp, uint32_t value)
+{
+    acmp->CTRL &= ~value;
+}
+
+static inline void AcmpLadder(LPC_CMP_T *acmp, uint32_t value)
+{
+    acmp->LAD = value;
 }
 
 static inline void AcmpEdgeClear(LPC_CMP_T *pACMP)
@@ -91,22 +100,6 @@ static inline void AcmpEdgeClear(LPC_CMP_T *pACMP)
     uint32_t reg = pACMP->CTRL & ~ACMP_CTRL_RESERVED;
     pACMP->CTRL = reg | ACMP_EDGECLR_BIT;
     pACMP->CTRL = reg & ~ACMP_EDGECLR_BIT;
-}
-
-static inline void AcmpSetEdgeSelection(LPC_CMP_T *pACMP, ACMP_EDGESEL_T edgeSel)
-{
-    uint32_t reg = pACMP->CTRL & ~(ACMP_EDGESEL_MASK | ACMP_CTRL_RESERVED);
-    pACMP->CTRL = reg | (uint32_t) edgeSel;
-}
-
-static inline void AcmpEnableSyncCompOut(LPC_CMP_T *pACMP)
-{
-    pACMP->CTRL = ACMP_COMPSA_BIT | (pACMP->CTRL & ~ACMP_CTRL_RESERVED);
-}
-
-static inline void AcmpDisableSyncCompOut(LPC_CMP_T *pACMP)
-{
-    pACMP->CTRL &= ~(ACMP_COMPSA_BIT | ACMP_CTRL_RESERVED);
 }
 
 static inline void AcmpSetPosVoltRef(LPC_CMP_T *pACMP, ACMP_POS_INPUT_T Posinput)
@@ -127,32 +120,12 @@ static inline void AcmpSetHysteresis(LPC_CMP_T *pACMP, ACMP_HYS_T hys)
     pACMP->CTRL = reg | (uint32_t) hys;
 }
 
-static inline void AcmpSetupAMCPRefs(LPC_CMP_T *pACMP, ACMP_EDGESEL_T edgeSel,
-                             ACMP_POS_INPUT_T Posinput, ACMP_NEG_INPUT_T Neginput,
-                             ACMP_HYS_T hys)
-{
-    uint32_t reg = pACMP->CTRL & ~(ACMP_HYSTERESIS_MASK | ACMP_CTRL_RESERVED |
-                                   ACMP_COMPVMSEL_MASK | ACMP_COMPVPSEL_MASK | ACMP_EDGESEL_MASK);
-    pACMP->CTRL = reg | (uint32_t) edgeSel | (uint32_t) Posinput |
-                  (uint32_t) Neginput | (uint32_t) hys;
-}
-
 static inline void AcmpSetupVoltLadder(LPC_CMP_T *pACMP, uint32_t ladsel, bool ladrefVDDCMP)
 {
     uint32_t reg = pACMP->LAD & ~(ACMP_LADSEL_MASK | ACMP_LADREF_MASK | ACMP_LAD_RESERVED);
     if(ladrefVDDCMP)
         reg |= ACMP_LADREF_MASK;
     pACMP->LAD = reg | (ladsel << 1);
-}
-
-static inline void AcmpEnableVoltLadder(LPC_CMP_T *pACMP)
-{
-    pACMP->LAD = ACMP_LADENAB_BIT | (pACMP->LAD & ~ACMP_LAD_RESERVED);
-}
-
-static inline void AcmpDisableVoltLadder(LPC_CMP_T *pACMP)
-{
-    pACMP->LAD &= ~(ACMP_LADENAB_BIT | ACMP_LAD_RESERVED);
 }
 
 #endif
