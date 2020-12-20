@@ -32,8 +32,6 @@ For more information, please refer to <http://unlicense.org>
 extern "C" {
 #endif
 
-#warning "Microcontroller LPC824M201JHI33 support is WIP"
-
 /* Configuration of the Cortex-M0+ Processor and Core Peripherals */
 #define __CM0PLUS_REV             0x0001
 #define __MPU_PRESENT             0
