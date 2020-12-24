@@ -123,17 +123,16 @@ typedef struct {                    /* SPI Structure */
 /*
  * Macro defines for SPI Transmitter Data and Control register
  */
-#define SPI_TXDATCTL_BITMASK        (0xF71FFFF)                /* SPI TXDATCTL Register BitMask */
-#define SPI_TXDATCTL_DATA(n)        ((n) & 0xFFFF)            /* SPI Transmit Data */
-#define SPI_TXDATCTL_CTRLMASK       (0xF710000)                /* SPI TXDATCTL Register BitMask for control bits only */
-#define SPI_TXDATCTL_ASSERT_SSEL    (0 << 16)                /* Assert SSEL0 pin */
-#define SPI_TXDATCTL_DEASSERT_SSEL  (1 << 16)                /* Deassert SSEL0 pin */
-#define SPI_TXDATCTL_DEASSERTNUM_SSEL(n)    (1 << ((n) + 16))    /* Deassert SSELN pin */
-#define SPI_TXDATCTL_DEASSERT_ALL   (0xF << 16)                /* Deassert all SSEL pins */
-#define SPI_TXDATCTL_EOT            (1 << 20)                /* End of Transfer flag (TRANSFER_DELAY is applied after sending the current frame) */
-#define SPI_TXDATCTL_EOF            (1 << 21)                /* End of Frame flag (FRAME_DELAY is applied after sending the current part) */
-#define SPI_TXDATCTL_RXIGNORE       (1 << 22)                /* Receive Ignore Flag */
-#define SPI_TXDATCTL_FLEN(n)        (((n) & 0x0F) << 24)    /* Frame length - 1 */
+#define SPI_TXDATCTL_BITMASK                (0xF71FFFF)         /*!< SPI TXDATCTL Register BitMask */
+#define SPI_TXDATCTL_DATA(n)                ((n) & 0xFFFF)      /*!< SPI Transmit Data */
+#define SPI_TXDATCTL_CTRLMASK               (0xF710000)         /*!< SPI TXDATCTL Register BitMask for control bits only */
+#define SPI_TXDATCTL_ASSERTNUM_SSEL(n)      (~(1 << ((n) + 16)))/*!< Assert SSELN pin */
+#define SPI_TXDATCTL_DEASSERTNUM_SSEL(n)    (1 << ((n) + 16))   /*!< Deassert SSELN pin */
+#define SPI_TXDATCTL_DEASSERT_ALL           (0xF << 16)         /*!< Deassert all SSEL pins */
+#define SPI_TXDATCTL_EOT                    (1 << 20)           /*!< End of Transfer flag (TRANSFER_DELAY is applied after sending the current frame) */
+#define SPI_TXDATCTL_EOF                    (1 << 21)           /*!< End of Frame flag (FRAME_DELAY is applied after sending the current part) */
+#define SPI_TXDATCTL_RXIGNORE               (1 << 22)           /*!< Receive Ignore Flag */
+#define SPI_TXDATCTL_FLEN(n)                (((n) & 0x0F) << 24)/*!< Frame length - 1 */
 
 /* Macro defines for SPI Transmitter Data Register */
 #define SPI_TXDAT_DATA(n)           ((n) & 0xFFFF)            /* SPI Transmit Data */
@@ -311,6 +310,16 @@ static inline uint32_t SpiReadRXData(LPC_SPI_T *pSPI)
 static inline void SpiWriteTXData(LPC_SPI_T *pSPI, uint16_t data)
 {
     pSPI->TXDAT = (uint32_t) data;
+}
+
+/** \brief Spi transmit with additional control bits
+ *  @param pSPI SPI peripheral instance
+ *  @param control TXDATCTL bits
+ *  @param data SPI data to transmit 
+ */
+static inline void SpiWriteTXDataAndCtrl(LPC_SPI_T *pSPI, uint32_t control, uint16_t data)
+{
+    pSPI->TXDATCTL = control | (uint32_t) data;
 }
 
 static inline void SpiSetTXCTRLRegBits(LPC_SPI_T *pSPI, uint32_t bits)
