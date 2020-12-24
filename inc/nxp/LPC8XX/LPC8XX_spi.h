@@ -150,7 +150,7 @@ typedef struct {                    /* SPI Structure */
 #define SPI_TXCTL_FLENMASK          (0xF << 24)                /* Frame length mask */
 
 /* Macro defines for SPI Divider register */
-#define SPI_DIV_VAL(n)          ((n) & 0xFFFF)                /* Rate divider value mask (In Master Mode only)*/
+#define SPI_DIV_VAL(n)          ((n) & 0xFFFF)              /*!< Rate divider value mask (In Master Mode only)*/
 
 /* Macro defines for SPI Interrupt Status register */
 #define SPI_INTSTAT_BITMASK         (0x3F)                    /* SPI INTSTAT Register Bitmask */
@@ -346,6 +346,16 @@ static inline void SpiSetXferSize(LPC_SPI_T *pSPI, uint32_t ctrlBits)
 {
     SpiClearTXCTRLRegBits(pSPI, SPI_TXCTL_FLENMASK);
     SpiSetTXCTRLRegBits(pSPI, SPI_TXCTL_FLEN(ctrlBits));
+}
+
+static inline void SpiSetDivider(LPC_SPI_T *pSPI, uint32_t dividerBits)
+{
+    pSPI->DIV = dividerBits;
+}
+
+static inline void SpiSetDelay(LPC_SPI_T *pSPI, uint32_t delayBits)
+{
+    pSPI->DLY = delayBits;
 }
 
 #endif
