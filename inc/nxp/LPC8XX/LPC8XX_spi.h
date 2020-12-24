@@ -65,8 +65,8 @@ typedef struct {                    /* SPI Structure */
 #define SPI_CFG_SPI_DIS         (1 << 0)        /*!< SPI Disable */
 #define SPI_CFG_SLAVE_EN        (0 << 2)        /*!< SPI Slave mode */
 #define SPI_CFG_MASTER_EN       (1 << 2)        /*!< SPI Master mode */
-#define SPI_CFG_MSB_FIRST_EN    (0 << 3)        /*!< SPI LSB First mode */
-#define SPI_CFG_LSB_FIRST_EN    (1 << 3)        /*!< SPI MSB first mode */
+#define SPI_CFG_MSB_FIRST_EN    (0 << 3)        /*!< SPI MSB First mode */
+#define SPI_CFG_LSB_FIRST_EN    (1 << 3)        /*!< SPI LSB first mode */
 #define SPI_CFG_CPHA0           (0 << 4)        /*!< SPI Clock Polarity Change first*/
 #define SPI_CFG_CPHA1           (1 << 4)        /*!< SPI Clock Polarity Capture first*/
 #define SPI_CFG_CPOL0           (0 << 5)        /*!< SPI Clock idle low */
