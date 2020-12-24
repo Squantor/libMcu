@@ -60,30 +60,30 @@ typedef struct {                    /* SPI Structure */
 #define SPI_INTSTAT_RESERVED        (~0x3f)
 
 /* Macro defines for SPI Configuration register */
-#define SPI_CFG_BITMASK         (0x1BD)                        /* SPI register bit mask */
-#define SPI_CFG_SPI_EN          (1 << 0)                    /* SPI Slave Mode Select */
-#define SPI_CFG_SLAVE_EN        (0 << 0)                    /* SPI Master Mode Select */
-#define SPI_CFG_MASTER_EN       (1 << 2)                    /* SPI MSB First mode enable */
-#define SPI_CFG_MSB_FIRST_EN    (0 << 3)                    /* SPI LSB First mode enable */
-#define SPI_CFG_LSB_FIRST_EN    (1 << 3)                    /* SPI Clock Phase Select */
-#define SPI_CFG_CPHA_FIRST      (0 << 4)                    /* Capture data on the first edge, Change data on the following edge */
-#define SPI_CFG_CPHA_SECOND     (1 << 4)                    /* SPI Clock Polarity Select */
-#define SPI_CFG_CPOL_LO         (0 << 5)                    /* The rest state of the clock (between frames) is low. */
-#define SPI_CFG_CPOL_HI         (1 << 5)                    /* The rest state of the clock (between frames) is high. */
-#define SPI_CFG_LBM_EN          (1 << 7)                    /* SPI control 1 loopback mode enable */
-#define SPI_CFG_SPOL_LO         (0 << 8)                    /* SPI SSEL0 Polarity Select */
-#define SPI_CFG_SPOL_HI         (1 << 8)                    /* SSEL0 is active High */
-#define SPI_CFG_SPOLNUM_HI(n)   (1 << ((n) + 8))            /* SSELN is active High, selects 0 - 3 */
+#define SPI_CFG_BITMASK         (0x1BD)         /*!< SPI register bit mask */
+#define SPI_CFG_SPI_EN          (1 << 0)        /*!< SPI Enable */
+#define SPI_CFG_SPI_DIS         (1 << 0)        /*!< SPI Disable */
+#define SPI_CFG_SLAVE_EN        (0 << 2)        /*!< SPI Slave mode */
+#define SPI_CFG_MASTER_EN       (1 << 2)        /*!< SPI Master mode */
+#define SPI_CFG_MSB_FIRST_EN    (0 << 3)        /*!< SPI LSB First mode */
+#define SPI_CFG_LSB_FIRST_EN    (1 << 3)        /*!< SPI MSB first mode */
+#define SPI_CFG_CPHA0           (0 << 4)        /*!< SPI Clock Polarity Change first*/
+#define SPI_CFG_CPHA1           (1 << 4)        /*!< SPI Clock Polarity Capture first*/
+#define SPI_CFG_CPOL0           (0 << 5)        /*!< SPI Clock idle low */
+#define SPI_CFG_CPOL1           (1 << 5)        /*!< SPI Clock idle high */
+#define SPI_CFG_LOOP_DIS        (0 << 7)        /*!< SPI Loopback disable */
+#define SPI_CFG_LOOP_EN         (1 << 7)        /*!< SPI Loopback enable */
+#define SPI_CFG_SPOLNUM_HI(n)   (1 << ((n) + 8))/*!< SSELn is active High, selects 0 - 3 */
 
 /* Macro defines for SPI Delay register */
-#define  SPI_DLY_BITMASK            (0xFFFF)                /* SPI DLY Register Mask */
-#define  SPI_DLY_PRE_DELAY(n)       (((n) & 0x0F) << 0)        /* Time in SPI clocks between SSEL assertion and the beginning of a data frame */
-#define  SPI_DLY_POST_DELAY(n)      (((n) & 0x0F) << 4)        /* Time in SPI clocks between the end of a data frame and SSEL deassertion. */
-#define  SPI_DLY_FRAME_DELAY(n)     (((n) & 0x0F) << 8)        /* Minimum time in SPI clocks between adjacent data frames. */
-#define  SPI_DLY_TRANSFER_DELAY(n)  (((n) & 0x0F) << 12)    /* Minimum time in SPI clocks that the SSEL is deasserted between transfers. */
+#define  SPI_DLY_BITMASK            (0xFFFF)                /*!< SPI DLY Register Mask */
+#define  SPI_DLY_PRE_DELAY(n)       (((n) & 0x0F) << 0)     /*!< Time in SPI clocks between SSEL assertion and the beginning of a data frame */
+#define  SPI_DLY_POST_DELAY(n)      (((n) & 0x0F) << 4)     /*!< Time in SPI clocks between the end of a data frame and SSEL deassertion. */
+#define  SPI_DLY_FRAME_DELAY(n)     (((n) & 0x0F) << 8)     /*!< Minimum time in SPI clocks between adjacent data frames. */
+#define  SPI_DLY_TRANSFER_DELAY(n)  (((n) & 0x0F) << 12)    /*!< Minimum time in SPI clocks that the SSEL is deasserted between transfers. */
 
 /* Macro defines for SPI Status register */
-#define SPI_STAT_BITMASK            (0x1FF)                    /* SPI STAT Register BitMask */
+#define SPI_STAT_BITMASK            (0x1FF)                 /* SPI STAT Register BitMask */
 #define SPI_STAT_RXRDY              (1 << 0)                /* Receiver Ready Flag */
 #define SPI_STAT_TXRDY              (1 << 1)                /* Transmitter Ready Flag */
 #define SPI_STAT_RXOV               (1 << 2)                /* Receiver Overrun interrupt flag */
