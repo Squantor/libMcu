@@ -238,7 +238,7 @@ static inline void SpiEnableMSBFirst(LPC_SPI_T *pSPI)
 
 static inline void SpiSetSPIMode(LPC_SPI_T *pSPI, uint32_t mode)
 {
-    SpiClearCFGRegBits(pSPI, (SPI_CFG_CPOL_HI | SPI_CFG_CPHA_SECOND));
+    SpiClearCFGRegBits(pSPI, (SPI_CFG_CPHA1 | SPI_CFG_CPOL1));
     SpiSetCFGRegBits(pSPI, (uint32_t) mode);
 }
 
@@ -255,7 +255,7 @@ static inline void SpiSetCSPolLow(LPC_SPI_T *pSPI, uint8_t csNum)
 static inline void SpiConfigureSPI(LPC_SPI_T *pSPI, uint32_t config)
 {
     SpiClearCFGRegBits(pSPI, SPI_CFG_MASTER_EN | SPI_CFG_LSB_FIRST_EN |
-            SPI_CFG_CPHA_SECOND | SPI_CFG_CPOL_HI);
+            SPI_CFG_CPHA1 | SPI_CFG_CPOL1);
     SpiSetCFGRegBits(pSPI, config);
 
     /* Deassert all chip selects, only in master mode */
