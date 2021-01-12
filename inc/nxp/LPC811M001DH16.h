@@ -1,32 +1,13 @@
 /*
-This is free and unencumbered software released into the public domain.
+ * SPDX-License-Identifier: Unlicense
+ *
+ * Copyright (c) 2021 Bart Bilos
+ * For conditions of distribution and use, see LICENSE file
+ */
 
-Anyone is free to copy, modify, publish, use, compile, sell, or
-distribute this software, either in source code form or as a compiled
-binary, for any purpose, commercial or non-commercial, and by any
-means.
-
-In jurisdictions that recognize copyright laws, the author or authors
-of this software dedicate any and all copyright interest in the
-software to the public domain. We make this dedication for the benefit
-of the public at large and to the detriment of our heirs and
-successors. We intend this dedication to be an overt act of
-relinquishment in perpetuity of all present and future rights to this
-software under copyright law.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
-OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-OTHER DEALINGS IN THE SOFTWARE.
-
-For more information, please refer to <http://unlicense.org>
-*/
-/* Main entry point for the LPC812M101JD20 microcontroller definitions */
-#ifndef LPC812M101JD20_H
-#define LPC812M101JD20_H
+/* Main entry point for the LPC811M001DH16 microcontroller definitions */
+#ifndef LPC811M001DH16_H
+#define LPC811M001DH16_H
 
 /*
 Most information here derived/copied over from the LPCopen libraries.
@@ -36,7 +17,7 @@ Most information here derived/copied over from the LPCopen libraries.
 extern "C" {
 #endif
 
-#warning "Microcontroller LPC812M101JD20 support is WIP"
+#warning "Microcontroller LPC811M001JDH16 support is WIP"
 
 /* Configuration of the Cortex-M0+ Processor and Core Peripherals */
 #define __CM0PLUS_REV             0x0001
@@ -148,10 +129,6 @@ typedef enum PINx {
     IOCON_PIO11 =  0x07,
     IOCON_PIO12 =  0x02,
     IOCON_PIO13 =  0x01,
-    IOCON_PIO14 =  0x12,
-    IOCON_PIO15 =  0x0A,
-    IOCON_PIO16 =  0x09,
-    IOCON_PIO17 =  0x00,
 } PINx_T;
 
 // default configuration options, override with your own!

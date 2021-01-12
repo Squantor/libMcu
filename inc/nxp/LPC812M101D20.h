@@ -1,36 +1,12 @@
 /*
-This is free and unencumbered software released into the public domain.
-
-Anyone is free to copy, modify, publish, use, compile, sell, or
-distribute this software, either in source code form or as a compiled
-binary, for any purpose, commercial or non-commercial, and by any
-means.
-
-In jurisdictions that recognize copyright laws, the author or authors
-of this software dedicate any and all copyright interest in the
-software to the public domain. We make this dedication for the benefit
-of the public at large and to the detriment of our heirs and
-successors. We intend this dedication to be an overt act of
-relinquishment in perpetuity of all present and future rights to this
-software under copyright law.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
-OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-OTHER DEALINGS IN THE SOFTWARE.
-
-For more information, please refer to <http://unlicense.org>
-*/
-/* Main entry point for the LPC812M101JTB16 microcontroller definitions */
-#ifndef LPC812M101JTB16_H
-#define LPC812M101JTB16_H
-
-#ifdef __cplusplus
-extern "C" {
-#endif
+ * SPDX-License-Identifier: Unlicense
+ *
+ * Copyright (c) 2021 Bart Bilos
+ * For conditions of distribution and use, see LICENSE file
+ */
+/* Main entry point for the LPC812M101D20 microcontroller definitions */
+#ifndef LPC812M101D20_H
+#define LPC812M101D20_H
 
 /*
 Most information here derived/copied over from the LPCopen libraries.
@@ -40,7 +16,7 @@ Most information here derived/copied over from the LPCopen libraries.
 extern "C" {
 #endif
 
-#warning "Microcontroller LPC812M101JTB16 support is WIP"
+#warning "Microcontroller LPC812M101D20 support is WIP"
 
 /* Configuration of the Cortex-M0+ Processor and Core Peripherals */
 #define __CM0PLUS_REV             0x0001
@@ -120,10 +96,8 @@ typedef enum {
 // Define peripherals
 #define LPC_WWDT        ((LPC_WWDT_T    *) LPC_WWDT_BASE)
 #define LPC_SPI0        ((LPC_SPI_T     *) LPC_SPI0_BASE)
-#define LPC_SPI1        ((LPC_SPI_T     *) LPC_SPI1_BASE)
 #define LPC_USART0      ((LPC_USART_T   *) LPC_USART0_BASE)
 #define LPC_USART1      ((LPC_USART_T   *) LPC_USART1_BASE)
-#define LPC_USART2      ((LPC_USART_T   *) LPC_USART2_BASE)
 #define LPC_WKT         ((LPC_WKT_T     *) LPC_WKT_BASE)
 #define LPC_PMU         ((LPC_PMU_T     *) LPC_PMU_BASE)
 #define LPC_CRC         ((LPC_CRC_T     *) LPC_CRC_BASE)
@@ -154,6 +128,10 @@ typedef enum PINx {
     IOCON_PIO11 =  0x07,
     IOCON_PIO12 =  0x02,
     IOCON_PIO13 =  0x01,
+    IOCON_PIO14 =  0x12,
+    IOCON_PIO15 =  0x0A,
+    IOCON_PIO16 =  0x09,
+    IOCON_PIO17 =  0x00,
 } PINx_T;
 
 // default configuration options, override with your own!
@@ -178,10 +156,6 @@ typedef enum PINx {
 #include "nxp/LPC8XX/LPC81X_uart.h"
 #include "nxp/LPC8XX/LPC8XX_spi.h"
 #include "nxp/LPC8XX/LPC81X_i2c.h"
-
-#ifdef __cplusplus
-}
-#endif
 
 #ifdef __cplusplus
 }
