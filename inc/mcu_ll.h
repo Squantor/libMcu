@@ -23,18 +23,18 @@ extern "C" {
 #if defined(MCU_LPC810M021FN8)
 #include <nxp/LPC810M021FN8.h>
 #elif defined(MCU_LPC811M001DH16)
-#include <nxp/LPC811M001JDH16.h>
+#include <nxp/LPC811M001DH16.h>
 #elif defined(MCU_LPC812M101D20)
-#include <nxp/LPC812M101JD20.h>
+#include <nxp/LPC812M101D20.h>
 #elif defined(MCU_LPC812M101DH16)
-#include <nxp/LPC812M101JDH16.h>
+#include <nxp/LPC812M101DH16.h>
 #elif defined(MCU_LPC812M101DH20)
-#include <nxp/LPC812M101JDH20.h>
+#include <nxp/LPC812M101DH20.h>
 #elif defined(MCU_LPC812M101TB16)
-#include <nxp/LPC812M101JTB16.h>
+#include <nxp/LPC812M101TB16.h>
 // LPC824 devices
 #elif defined(MCU_LPC824M201HI33)
-#include <nxp/LPC824M201JHI33.h>
+#include <nxp/LPC824M201HI33.h>
 #elif defined(MCU_LPC824M201DH20)
 #include <nxp/LPC824M201DH20.h>
 #else
