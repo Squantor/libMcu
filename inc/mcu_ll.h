@@ -37,6 +37,8 @@ extern "C" {
 #include <nxp/LPC824M201HI33.h>
 #elif defined(MCU_LPC824M201DH20)
 #include <nxp/LPC824M201DH20.h>
+#elif defined(MCU_LPC845M301BD48)
+#include <nxp/LPC845M301BD48.h>
 #else
 #error "Unknown or unsupported microcontroller defined, use MCU_Microcontroller"
 #endif
