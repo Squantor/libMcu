@@ -110,6 +110,7 @@ typedef enum dmaRequestSource
 #define APB0_BASE       (0x40000000u)
 #define AHB_BASE        (0x50000000u)
 
+
 /* APB peripherals, see UM11029 2.2.1 */
 #define WWDT_BASE           (0x40000000u)
 #define MRT0_BASE           (0x40004000u)
@@ -120,6 +121,17 @@ typedef enum dmaRequestSource
 #define DAC1_BASE           (0x40018000u)
 #define ADC0_BASE           (0x4001C000u)
 #define PMU_BASE            (0x40020000u)
+#define ACOMP_BASE          (0x40024000u)
+#define INPUTMUX_BASE       (0x4002C000u)
+#define I2C2_BASE           (0x40030000u)
+#define I2C3_BASE           (0x40034000u)
+#define CTIMER0_BASE        (0x40038000u)
+#define FLASH_CTRL_BASE     (0x40040000u)
+#define IOCON_BASE          (0x40044000u)
+#define SYSCON_BASE         (0x40048000u)
+#define I2C0_BASE           (0x40050000u)
+#define I2C1_BASE           (0x40054000u)
+
 /* AHB peripherals, see UM11029 2.2.1 */
 
 
