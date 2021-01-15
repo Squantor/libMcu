@@ -209,30 +209,10 @@ typedef enum PINx {
 } PINx_T;
 
 // default configuration options, override with your own!
-#include "nxp/LPC8XX/LPC82X_default.h"
+#include "nxp/LPC8XX/LPC84X_default.h"
 // Peripheral definition includes, ordering matters
-#include "nxp/LPC8XX/LPC82X_syscon.h"
-#include "nxp/LPC8XX/LPC8XX_clock.h"
-#include "nxp/LPC8XX/LPC82X_swm.h"
-#include "nxp/LPC8XX/LPC82X_gpio.h"
-#include "nxp/LPC8XX/LPC8XX_iocon.h"
-#include "nxp/LPC8XX/LPC8XX_wwdt.h"
-#include "nxp/LPC8XX/LPC8XX_wkt.h"
-#include "nxp/LPC8XX/LPC8XX_sct.h"
-#include "nxp/LPC8XX/LPC8XX_ROM.h"
-#include "nxp/LPC8XX/LPC8XX_pmu.h"
-#include "nxp/LPC8XX/LPC8XX_pinint.h"
-#include "nxp/LPC8XX/LPC8XX_mrt.h"
-#include "nxp/LPC8XX/LPC8XX_fmc.h"
-#include "nxp/LPC8XX/LPC8XX_irc.h"
-#include "nxp/LPC8XX/LPC8XX_crc.h"
-#include "nxp/LPC8XX/LPC82X_acmp.h"
-#include "nxp/LPC8XX/LPC82X_uart.h"
-#include "nxp/LPC8XX/LPC8XX_spi.h"
-#include "nxp/LPC8XX/LPC82X_i2c.h"
-#include "nxp/LPC8XX/LPC82X_adc.h"
-#include "nxp/LPC8XX/LPC82X_dma.h"
-#include "nxp/LPC8XX/LPC82X_inmux.h"
+#include "nxp/LPC8XX/LPC84X_syscon.h"
+
 
 #ifdef __cplusplus
 }
