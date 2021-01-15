@@ -19,8 +19,6 @@ extern "C" {
 #define __NVIC_PRIO_BITS          2
 #define __Vendor_SysTickConfig    0
 
-#include <CMSIS/core_cm0plus.h>     /* Core Peripheral Access Layer */
-
 /** Interrupt Number Definitions */
 #define NUMBER_OF_INT_VECTORS 48    /**< Number of interrupts in the Vector table */
 
@@ -66,42 +64,8 @@ typedef enum {
     PIN_INT7_USART4_IRQn    = 31    /**< Pin interrupt 7 or pattern match engine slice 7 interrupt or UART4 interrupt */
 } IRQn_Type;
 
-/*!
- * @brief Structure for the DMA hardware request
- *
- * Defines the structure for the DMA hardware request collections. The user can configure the
- * hardware request to trigger the DMA transfer accordingly. The index
- * of the hardware request varies according  to the to SoC.
- */
-typedef enum dmaRequestSource
-{
-    kDmaRequestUSART0_RX_DMA        = 0U,          /**< USART0 RX DMA  */
-    kDmaRequestUSART0_TX_DMA        = 1U,          /**< USART0 TX DMA  */
-    kDmaRequestUSART1_RX_DMA        = 2U,          /**< USART1 RX DMA  */
-    kDmaRequestUSART1_TX_DMA        = 3U,          /**< USART1 TX DMA  */
-    kDmaRequestUSART2_RX_DMA        = 4U,          /**< USART2 RX DMA  */
-    kDmaRequestUSART2_TX_DMA        = 5U,          /**< USART2 TX DMA  */
-    kDmaRequestUSART3_RX_DMA        = 6U,          /**< USART3 RX DMA  */
-    kDmaRequestUSART3_TX_DMA        = 7U,          /**< USART3 TX DMA  */
-    kDmaRequestUSART4_RX_DMA        = 8U,          /**< USART4 RX DMA  */
-    kDmaRequestUSART4_TX_DMA        = 9U,          /**< USART4 TX DMA  */
-    kDmaRequestSPI0_RX_DMA          = 10U,         /**< SPI0 RX DMA  */
-    kDmaRequestSPI0_TX_DMA          = 11U,         /**< SPI0 TX DMA  */
-    kDmaRequestSPI1_RX_DMA          = 12U,         /**< SPI1 RX DMA  */
-    kDmaRequestSPI1_TX_DMA          = 13U,         /**< SPI1 TX DMA  */
-    kDmaRequestI2C0_SLV_DMA         = 14U,         /**< I2C0 SLAVE DMA  */
-    kDmaRequestI2C0_MST_DMA         = 15U,         /**< I2C0 MASTER DMA  */
-    kDmaRequestI2C1_SLV_DMA         = 16U,         /**< I2C1 SLAVE DMA  */
-    kDmaRequestI2C1_MST_DMA         = 17U,         /**< I2C1 MASTER DMA  */
-    kDmaRequestI2C2_SLV_DMA         = 18U,         /**< I2C2 SLAVE DMA  */
-    kDmaRequestI2C2_MST_DMA         = 19U,         /**< I2C2 MASTER DMA  */
-    kDmaRequestI2C3_SLV_DMA         = 20U,         /**< I2C3 SLAVE DMA  */
-    kDmaRequestI2C3_MST_DMA         = 21U,         /**< I2C3 MASTER DMA  */
-    kDmaRequestDAC0_DMAREQ          = 22U,         /**< DAC0 DMA REQUEST  */
-    kDmaRequestDAC1_DMAREQ          = 23U,         /**< DAC1 DMA REQUEST  */
-    kDmaRequestCAPT_DMA             = 24U,         /**< CAPT DMA  */
-} dmaRequestSource_t;
 
+#include <CMSIS/core_cm0plus.h>     /* Core Peripheral Access Layer */
 
 /* Base addresses */
 #define FLASH_BASE      (0x00000000u)
@@ -176,7 +140,49 @@ typedef enum dmaRequestSource
 #define DMA0       ((struct DMA0_Type       *) DMA0_BASE)
 #define MTB_SFR    ((struct MTB_SFR_Type    *) MTB_SFR_BASE)
 
-typedef enum PINx {
+/*!
+ * @brief Enumeration for the DMA hardware request
+ *
+ * Defines the structure for the DMA hardware request collections. The user can configure the
+ * hardware request to trigger the DMA transfer accordingly. The index
+ * of the hardware request varies according  to the to SoC.
+ */
+typedef enum dmaRequestSource
+{
+    kDmaRequestUSART0_RX_DMA        = 0U,          /**< USART0 RX DMA  */
+    kDmaRequestUSART0_TX_DMA        = 1U,          /**< USART0 TX DMA  */
+    kDmaRequestUSART1_RX_DMA        = 2U,          /**< USART1 RX DMA  */
+    kDmaRequestUSART1_TX_DMA        = 3U,          /**< USART1 TX DMA  */
+    kDmaRequestUSART2_RX_DMA        = 4U,          /**< USART2 RX DMA  */
+    kDmaRequestUSART2_TX_DMA        = 5U,          /**< USART2 TX DMA  */
+    kDmaRequestUSART3_RX_DMA        = 6U,          /**< USART3 RX DMA  */
+    kDmaRequestUSART3_TX_DMA        = 7U,          /**< USART3 TX DMA  */
+    kDmaRequestUSART4_RX_DMA        = 8U,          /**< USART4 RX DMA  */
+    kDmaRequestUSART4_TX_DMA        = 9U,          /**< USART4 TX DMA  */
+    kDmaRequestSPI0_RX_DMA          = 10U,         /**< SPI0 RX DMA  */
+    kDmaRequestSPI0_TX_DMA          = 11U,         /**< SPI0 TX DMA  */
+    kDmaRequestSPI1_RX_DMA          = 12U,         /**< SPI1 RX DMA  */
+    kDmaRequestSPI1_TX_DMA          = 13U,         /**< SPI1 TX DMA  */
+    kDmaRequestI2C0_SLV_DMA         = 14U,         /**< I2C0 SLAVE DMA  */
+    kDmaRequestI2C0_MST_DMA         = 15U,         /**< I2C0 MASTER DMA  */
+    kDmaRequestI2C1_SLV_DMA         = 16U,         /**< I2C1 SLAVE DMA  */
+    kDmaRequestI2C1_MST_DMA         = 17U,         /**< I2C1 MASTER DMA  */
+    kDmaRequestI2C2_SLV_DMA         = 18U,         /**< I2C2 SLAVE DMA  */
+    kDmaRequestI2C2_MST_DMA         = 19U,         /**< I2C2 MASTER DMA  */
+    kDmaRequestI2C3_SLV_DMA         = 20U,         /**< I2C3 SLAVE DMA  */
+    kDmaRequestI2C3_MST_DMA         = 21U,         /**< I2C3 MASTER DMA  */
+    kDmaRequestDAC0_DMAREQ          = 22U,         /**< DAC0 DMA REQUEST  */
+    kDmaRequestDAC1_DMAREQ          = 23U,         /**< DAC1 DMA REQUEST  */
+    kDmaRequestCAPT_DMA             = 24U,         /**< CAPT DMA  */
+} dmaRequestSource_t;
+
+
+/*!
+ * @brief Translation table from GPIO pin name to IOCON index
+ *
+ * This table contains the translation of GPIO pin to IOCON index.
+ */
+typedef enum IOCON_PIN {
     IOCON_PIO0_17 =  0,
     IOCON_PIO0_13 =  1,
     IOCON_PIO0_12 =  2,
@@ -231,7 +237,7 @@ typedef enum PINx {
     IOCON_PIO1_21 = 53,
     IOCON_PIO1_11 = 54,
     IOCON_PIO1_10 = 55
-} PINx_T;
+} IOCON_PIN_Type;
 
 // default configuration options, override with your own!
 #include "nxp/LPC8XX/LPC84X_default.h"
