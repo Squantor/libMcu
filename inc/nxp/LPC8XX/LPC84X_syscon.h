@@ -5,8 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /* 
-LPC840 series common system control registers, defines and functions.
-*/
+ * LPC84X series system control registers, defines and functions.
+ */
 #ifndef LPC84X_SYSCON_H
 #define LPC84X_SYSCON_H
 

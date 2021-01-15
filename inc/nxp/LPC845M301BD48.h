@@ -145,74 +145,118 @@ typedef enum dmaRequestSource
 #define DMA0_BASE       (0x50008000u)
 #define MTB_SFR_BASE    (0x5000C000u)
 
-#define WWDT       ((struct WWDT_T      *) WWDT_BASE)
-#define MRT0       ((struct MRT0_T      *) MRT0_BASE)
-#define WKT        ((struct WKT_T       *) WKT_BASE)
-#define SWM0       ((struct SWM0_T      *) SWM0_BASE)
-#define FAIM       ((struct FAIM_T      *) FAIM_BASE)
-#define DAC0       ((struct DAC0_T      *) DAC0_BASE)
-#define DAC1       ((struct DAC1_T      *) DAC1_BASE)
-#define ADC0       ((struct ADC0_T      *) ADC0_BASE)
-#define PMU        ((struct PMU_T       *) PMU_BASE)
-#define ACOMP      ((struct ACOMP_T     *) ACOMP_BASE)
-#define INPUTMUX   ((struct INPUTMUX_T  *) INPUTMUX_BASE)
-#define I2C2       ((struct I2C2_T      *) I2C2_BASE)
-#define I2C3       ((struct I2C3_T      *) I2C3_BASE)
-#define CTIMER0    ((struct CTIMER0_T   *) CTIMER0_BASE)
-#define FLASH_CTRL ((struct FLASH_CTRL_T*) FLASH_CTRL_BASE)
-#define IOCON      ((struct IOCON_T     *) IOCON_BASE)
-#define SYSCON     ((struct SYSCON_T    *) SYSCON_BASE)
-#define I2C0       ((struct I2C0_T      *) I2C0_BASE)
-#define I2C1       ((struct I2C1_T      *) I2C1_BASE)
-#define SPI0       ((struct SPI0_T      *) SPI0_BASE)
-#define SPI1       ((struct SPI1_T      *) SPI1_BASE)
-#define CAPT       ((struct CAPT_T      *) CAPT_BASE)
-#define USART0     ((struct USART0_T    *) USART0_BASE)
-#define USART1     ((struct USART1_T    *) USART1_BASE)
-#define USART2     ((struct USART2_T    *) USART2_BASE)
-#define USART3     ((struct USART3_T    *) USART3_BASE)
-#define CRC        ((struct CRC_T       *) CRC_BASE)
-#define SCT0       ((struct SCT0_T      *) SCT0)_BASE
-#define DMA0       ((struct DMA0_T      *) DMA0_BASE)
-#define MTB_SFR    ((struct MTB_SFR_T   *) MTB_SFR_BASE)
+#define WWDT       ((struct WWDT_Type       *) WWDT_BASE)
+#define MRT0       ((struct MRT0_Type       *) MRT0_BASE)
+#define WKT        ((struct WKT_Type        *) WKT_BASE)
+#define SWM0       ((struct SWM0_Type       *) SWM0_BASE)
+#define FAIM       ((struct FAIM_Type       *) FAIM_BASE)
+#define DAC0       ((struct DAC0_Type       *) DAC0_BASE)
+#define DAC1       ((struct DAC1_Type       *) DAC1_BASE)
+#define ADC0       ((struct ADC0_Type       *) ADC0_BASE)
+#define PMU        ((struct PMU_Type        *) PMU_BASE)
+#define ACOMP      ((struct ACOMP_Type      *) ACOMP_BASE)
+#define INPUTMUX   ((struct INPUTMUX_Type   *) INPUTMUX_BASE)
+#define I2C2       ((struct I2C2_Type       *) I2C2_BASE)
+#define I2C3       ((struct I2C3_Type       *) I2C3_BASE)
+#define CTIMER0    ((struct CTIMER0_Type    *) CTIMER0_BASE)
+#define FLASH_CTRL ((struct FLASH_CTRL_Type *) FLASH_CTRL_BASE)
+#define IOCON      ((struct IOCON_Type      *) IOCON_BASE)
+#define SYSCON     ((struct SYSCON_Type     *) SYSCON_BASE)
+#define I2C0       ((struct I2C0_Type       *) I2C0_BASE)
+#define I2C1       ((struct I2C1_Type       *) I2C1_BASE)
+#define SPI0       ((struct SPI0_Type       *) SPI0_BASE)
+#define SPI1       ((struct SPI1_Type       *) SPI1_BASE)
+#define CAPT       ((struct CAPT_Type       *) CAPT_BASE)
+#define USART0     ((struct USART0_Type     *) USART0_BASE)
+#define USART1     ((struct USART1_Type     *) USART1_BASE)
+#define USART2     ((struct USART2_Type     *) USART2_BASE)
+#define USART3     ((struct USART3_Type     *) USART3_BASE)
+#define CRC        ((struct CRC_Type        *) CRC_BASE)
+#define SCT0       ((struct SCT0_Type       *) SCT0)_BASE
+#define DMA0       ((struct DMA0_Type       *) DMA0_BASE)
+#define MTB_SFR    ((struct MTB_SFR_Type    *) MTB_SFR_BASE)
 
 typedef enum PINx {
-    IOCON_PIO0  =  0x11,
-    IOCON_PIO1  =  0x0B,
-    IOCON_PIO2  =  0x06,
-    IOCON_PIO3  =  0x05,
-    IOCON_PIO4  =  0x04,
-    IOCON_PIO5  =  0x03,
-    IOCON_PIO6  =  0x10,
-    IOCON_PIO7  =  0x0F,
-    IOCON_PIO8  =  0x0E,
-    IOCON_PIO9  =  0x0D,
-    IOCON_PIO10 =  0x08,
-    IOCON_PIO11 =  0x07,
-    IOCON_PIO12 =  0x02,
-    IOCON_PIO13 =  0x01,
-    IOCON_PIO14 =  0x12,
-    IOCON_PIO15 =  0x0A,
-    IOCON_PIO16 =  0x09,
-    IOCON_PIO17 =  0x00,
-    IOCON_PIO18 =  0x1E,
-    IOCON_PIO19 =  0x1D,
-    IOCON_PIO20 =  0x1C,
-    IOCON_PIO21 =  0x1B,
-    IOCON_PIO22 =  0x1A,
-    IOCON_PIO23 =  0x19,
-    IOCON_PIO24 =  0x18,
-    IOCON_PIO25 =  0x17,
-    IOCON_PIO26 =  0x16,
-    IOCON_PIO27 =  0x15,
-    IOCON_PIO28 =  0x14,
+    IOCON_PIO0_17 =  0,
+    IOCON_PIO0_13 =  1,
+    IOCON_PIO0_12 =  2,
+    IOCON_PIO0_5  =  3,
+    IOCON_PIO0_4  =  4,
+    IOCON_PIO0_3  =  5,
+    IOCON_PIO0_2  =  6,
+    IOCON_PIO0_11 =  7,
+    IOCON_PIO0_10 =  8,
+    IOCON_PIO0_16 =  9,
+    IOCON_PIO0_15 = 10,
+    IOCON_PIO0_1  = 11,
+    IOCON_PIO0_9  = 13,
+    IOCON_PIO0_8  = 14,
+    IOCON_PIO0_7  = 15,
+    IOCON_PIO0_6  = 16,
+    IOCON_PIO0_0  = 17,
+    IOCON_PIO0_14 = 18,
+    IOCON_PIO0_28 = 20,
+    IOCON_PIO0_27 = 21,
+    IOCON_PIO0_26 = 22,
+    IOCON_PIO0_25 = 23,
+    IOCON_PIO0_24 = 24,
+    IOCON_PIO0_23 = 25,
+    IOCON_PIO0_22 = 26,
+    IOCON_PIO0_21 = 27,
+    IOCON_PIO0_20 = 28,
+    IOCON_PIO0_19 = 29,
+    IOCON_PIO0_18 = 30,
+    IOCON_PIO1_8  = 31,
+    IOCON_PIO1_9  = 32,
+    IOCON_PIO1_12 = 33,
+    IOCON_PIO1_13 = 34,
+    IOCON_PIO0_31 = 35,
+    IOCON_PIO1_0  = 36,
+    IOCON_PIO1_1  = 37,
+    IOCON_PIO1_2  = 38,
+    IOCON_PIO1_14 = 39,
+    IOCON_PIO1_15 = 40,
+    IOCON_PIO1_3  = 41,
+    IOCON_PIO1_4  = 42,
+    IOCON_PIO1_5  = 43,
+    IOCON_PIO1_16 = 44,
+    IOCON_PIO1_17 = 45,
+    IOCON_PIO1_6  = 46,
+    IOCON_PIO1_18 = 47,
+    IOCON_PIO1_19 = 48,
+    IOCON_PIO1_7  = 49,
+    IOCON_PIO0_29 = 50,
+    IOCON_PIO0_30 = 51,
+    IOCON_PIO1_20 = 52,
+    IOCON_PIO1_21 = 53,
+    IOCON_PIO1_11 = 54,
+    IOCON_PIO1_10 = 55
 } PINx_T;
 
 // default configuration options, override with your own!
 #include "nxp/LPC8XX/LPC84X_default.h"
-// Peripheral definition includes, ordering matters
+// Peripheral specific includes
+#include "nxp/LPC8XX/LPC84X_wwdt.h"
+#include "nxp/LPC8XX/LPC84X_mrt.h"
+#include "nxp/LPC8XX/LPC84X_wkt.h"
+#include "nxp/LPC8XX/LPC84X_swm.h"
+#include "nxp/LPC8XX/LPC84X_dac.h"
+#include "nxp/LPC8XX/LPC84X_adc.h"
+#include "nxp/LPC8XX/LPC84X_pmu.h"
+#include "nxp/LPC8XX/LPC84X_acomp.h"
+#include "nxp/LPC8XX/LPC84X_inputmux.h"
+#include "nxp/LPC8XX/LPC84X_i2c.h"
+#include "nxp/LPC8XX/LPC84X_ctimer.h"
+#include "nxp/LPC8XX/LPC84X_flash_ctrl.h"
+#include "nxp/LPC8XX/LPC84X_iocon.h"
 #include "nxp/LPC8XX/LPC84X_syscon.h"
-
+#include "nxp/LPC8XX/LPC84X_spi.h"
+#include "nxp/LPC8XX/LPC84X_capt.h"
+#include "nxp/LPC8XX/LPC84X_usart.h"
+#include "nxp/LPC8XX/LPC84X_crc.h"
+#include "nxp/LPC8XX/LPC84X_sct.h"
+#include "nxp/LPC8XX/LPC84X_dma.h"
+#include "nxp/LPC8XX/LPC84X_mtb.h"
 
 #ifdef __cplusplus
 }
