@@ -85,6 +85,7 @@ typedef struct {
 
 /** Clock control 0 peripheral list */
 typedef enum {
+    CLKCTRL0_NONE       = 0,            /**< Empty clock enable */
     CLKCTRL0_ROM        = (1 << 1),     /**< ROM clock enable */
     CLKCTRL0_RAM0_1     = (1 << 2),     /**< RAM 0 and 1 clock enable */
     CLKCTRL0_FLASH      = (1 << 4),     /**< Flash clock enable */
@@ -119,8 +120,9 @@ typedef enum {
 
 /** Clock control 1 peripheral list */
 typedef enum {
-    CLKCTRL1_CAPT       = (1 << 0),    /**< CAPT clock enable */
-    CLKCTRL1_DAC1       = (1 << 1),    /**< DAC1 clock enable */
+    CLKCTRL1_NONE       = 0,        /**< Empty clock enable */    
+    CLKCTRL1_CAPT       = (1 << 0), /**< CAPT clock enable */
+    CLKCTRL1_DAC1       = (1 << 1), /**< DAC1 clock enable */
 } SYSCON_CLKCTRL1_Type;
 
 /** reset control 0 peripheral list */
