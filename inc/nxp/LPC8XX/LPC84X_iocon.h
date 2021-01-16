@@ -15,7 +15,7 @@ typedef struct {
 } IOCON_Type;
 
 #define IOCON_RESERVED_PRESET   (0x00000080u)   /**< Default setting for IOCON register, some reserved bits are set. */
-#define IOCON_RESERVED_MASK     (0x0001FC78u)   /**< Masking off reserved pins so they do not accidentaly get set */
+#define IOCON_RESERVED_MASK     (0x0001FF78u)   /**< Masking off reserved pins so they do not accidentaly get set */
 
 /* Iocon pin setting enumerations */
 typedef enum {
