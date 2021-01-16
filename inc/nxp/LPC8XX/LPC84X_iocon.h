@@ -25,7 +25,7 @@ typedef enum {
     IOCON_MODE_REPEATER = 3,    /**< Repeater mode */
 } IOCON_MODE_Type;
 
-#define IOCON_MODE(x)   ((x & 0x03) << 2)   /**< IOCON mode setup */
+#define IOCON_MODE(x)   ((x & 0x03) << 3)   /**< IOCON mode setup */
 #define IOCON_HYST_EN   (1 << 5)            /**< Enable hysterhesis */
 #define IOCON_INVERT_IN (1 << 6)            /**< Invert input enable */
 
@@ -59,7 +59,7 @@ typedef enum {
     IOCONCLKDIV6 = 6,   /**< select IOCONCLKDIV6 */
 } IOCON_CLK_DIV_Type;
 
-#define IOCON_CLK_DIV(x) ((x & 0x03) << 11)
+#define IOCON_CLK_DIV(x) ((x & 0x03) << 13)
 #define IOCON_DAC_ENABLE    (1 << 16)
 
 /**
