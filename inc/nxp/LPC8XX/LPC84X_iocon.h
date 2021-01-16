@@ -28,6 +28,14 @@ typedef enum {
 #define IOCON_MODE(x)   ((x & 0x03) << 2)   /**< IOCON mode setup */
 #define IOCON_HYST_EN   (1 << 5)            /**< Enable hysterhesis */
 #define IOCON_INVERT_IN (1 << 6)            /**< Invert input enable */
+
+typedef enum {
+    IOCON_I2CMODE_STD = 0,  /**< Standard mode/Fast mode I2C */
+    IOCON_I2CMODE_GPIO = 1,  /**< GPIO mode */
+    IOCON_I2CMODE_FAST = 2,  /**< Fast-mode Plus I2C */
+} IOCON_I2CMODE_Type;
+
+#define IOCON_I2CMODE   ((x & 0x03) << 8)   /**< dedicated I2C pin mode */
 #define IOCON_OD        (1 << 10)           /**< Open drain mode */
 
 /* Iocon input filter settings */
@@ -54,9 +62,16 @@ typedef enum {
 #define IOCON_CLK_DIV(x) ((x & 0x03) << 11)
 #define IOCON_DAC_ENABLE    (1 << 16)
 
-static inline void ioconSetPin(IOCON_Type *peripheralIocon, const IOCON_PIN_Type pin, const uint32_t setting)
+/**
+ * @brief   Setup IOCON pin setting in one go
+ * @param   peripheralIocon : base address of IOCON peripheral
+ * @param   pin             : IOCON pin index
+ * @param   settings        : Settings to apply to IOCON pin
+ * @return  Nothing
+ */
+static inline void ioconSetupPin(IOCON_Type *peripheralIocon, const IOCON_PIN_Type pin, const uint32_t settings)
 {
-    peripheralIocon->PIO[pin] = (setting & IOCON_RESERVED_MASK) | IOCON_RESERVED_PRESET;
+    peripheralIocon->PIO[pin] = (settings & IOCON_RESERVED_MASK) | IOCON_RESERVED_PRESET;
 }
 
 #endif
