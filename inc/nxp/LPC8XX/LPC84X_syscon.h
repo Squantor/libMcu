@@ -83,6 +83,7 @@ typedef struct {
     __I  uint32_t DEVICE_ID;         /**< Part ID register, offset: 0x3F8 */
 } SYSCON_Type;
 
+/** Clock control 0 peripheral list */
 typedef enum {
     CLKCTRL0_ROM        = (1 << 1),     /**< ROM clock enable */
     CLKCTRL0_RAM0_1     = (1 << 2),     /**< RAM 0 and 1 clock enable */
@@ -116,10 +117,59 @@ typedef enum {
     CLKCTRL0_UART4      = (1 << 31),    /**< UART4 clock enable */
 } SYSCON_CLKCTRL0_Type;
 
+/** Clock control 1 peripheral list */
 typedef enum {
     CLKCTRL1_CAPT       = (1 << 0),    /**< CAPT clock enable */
     CLKCTRL1_DAC1       = (1 << 1),    /**< DAC1 clock enable */
 } SYSCON_CLKCTRL1_Type;
+
+/** reset control 0 peripheral list */
+typedef enum {
+    RESETCTRL0_FLASH      = (1 << 4),     /**< Flash reset clear */
+    RESETCTRL0_I2C0       = (1 << 5),     /**< I2C0 reset clear */
+    RESETCTRL0_GPIO0      = (1 << 6),     /**< GPIO0 reset clear */
+    RESETCTRL0_SWM        = (1 << 7),     /**< SWM reset clear */
+    RESETCTRL0_SCT        = (1 << 8),     /**< SCT reset clear */
+    RESETCTRL0_WKT        = (1 << 9),     /**< WKT reset clear */
+    RESETCTRL0_MRT        = (1 << 10),    /**< MRT reset clear */
+    RESETCTRL0_SPI0       = (1 << 11),    /**< SPI0 reset clear */
+    RESETCTRL0_SPI1       = (1 << 12),    /**< SPI1 reset clear */
+    RESETCTRL0_CRC        = (1 << 13),    /**< CRC reset clear */
+    RESETCTRL0_UART0      = (1 << 14),    /**< UART0 reset clear */
+    RESETCTRL0_UART1      = (1 << 15),    /**< UART1 reset clear */
+    RESETCTRL0_UART2      = (1 << 16),    /**< UART2 reset clear */
+    RESETCTRL0_IOCON      = (1 << 18),    /**< IOCON reset clear */
+    RESETCTRL0_ACMP       = (1 << 19),    /**< ACMP reset clear */
+    RESETCTRL0_GPIO1      = (1 << 20),    /**< GPIO1 reset clear */
+    RESETCTRL0_I2C1       = (1 << 21),    /**< I2C1 reset clear */
+    RESETCTRL0_I2C2       = (1 << 22),    /**< I2C2 reset clear */
+    RESETCTRL0_I2C3       = (1 << 23),    /**< I2C3 reset clear */
+    RESETCTRL0_ADC        = (1 << 24),    /**< ADC reset clear */
+    RESETCTRL0_CTIMER0    = (1 << 25),    /**< CTIMER0 reset clear */
+    RESETCTRL0_DAC0       = (1 << 27),    /**< MTB reset clear */
+    RESETCTRL0_GPIO_INT   = (1 << 28),    /**< GPIO_INT reset clear */
+    RESETCTRL0_DMA        = (1 << 29),    /**< DMA reset clear */
+    RESETCTRL0_UART3      = (1 << 30),    /**< UART3 reset clear */
+    RESETCTRL0_UART4      = (1 << 31),    /**< UART4 reset clear */
+} SYSCON_RESETCTRL0_Type;
+
+/** reset control 1 peripheral list */
+typedef enum {
+    RESETCTRL1_CAPT       = (1 << 0),    /**< CAPT reset clear */
+    RESETCTRL1_DAC1       = (1 << 1),    /**< DAC1 reset clear */
+    RESETCTRL1_FRG0       = (1 << 3),    /**< Fractional baud rate generator 0 reset clear */
+    RESETCTRL1_FRG1       = (1 << 4),    /**< Fractional baud rate generator 1 reset clear */
+} SYSCON_RESETCTRL1_Type;
+
+typedef enum {
+    CLKOUT_FRO          = 0, /**< output FRO clock */
+    CLKOUT_MAIN         = 1, /**< output main clock */
+    CLKOUT_SYS_PLL      = 2, /**< output PLL clock */
+    CLKOUT_EXT_CLK      = 3, /**< output external clock */
+    CLKOUT_WATCHDOG_CLK = 4, /**< output watchdog clock */
+} CLKOUT_SOURCE_Type;
+
+#define CLKOUT_RESERVED_MASK    (0x00000007)
 
 /**
  * @brief   Enables clocks to various peripherals
@@ -128,7 +178,7 @@ typedef enum {
  * @param   enables1    : Settings for clock control 1 register, see CLKCTRL1 enum
  * @return  Nothing
  */
-static inline void sysctlEnableClocks(SYSCON_Type *peripheral, uint32_t setting0, uint32_t setting1)
+static inline void sysconlEnableClocks(SYSCON_Type *peripheral, uint32_t setting0, uint32_t setting1)
 {
     peripheral->SYSAHBCLKCTRL0 = setting0 | peripheral->SYSAHBCLKCTRL0;
     peripheral->SYSAHBCLKCTRL1 = setting1 | peripheral->SYSAHBCLKCTRL1;
@@ -141,10 +191,47 @@ static inline void sysctlEnableClocks(SYSCON_Type *peripheral, uint32_t setting0
  * @param   enables1    : Settings for clock control 1 register, see CLKCTRL1 enum
  * @return  Nothing
  */
-static inline void sysctlDisableClocks(SYSCON_Type *peripheral, uint32_t setting0, uint32_t setting1)
+static inline void sysconlDisableClocks(SYSCON_Type *peripheral, uint32_t setting0, uint32_t setting1)
 {
     peripheral->SYSAHBCLKCTRL0 = ~setting0 & peripheral->SYSAHBCLKCTRL0;
     peripheral->SYSAHBCLKCTRL1 = ~setting1 & peripheral->SYSAHBCLKCTRL1;
+}
+
+/**
+ * @brief   Enables reset signal to various peripherals
+ * @param   peripheral  : base address of SYSCON peripheral
+ * @param   resets0     : Settings for reset control 0 register, see RESETCTRL0 enum
+ * @param   resets1     : Settings for reset control 1 register, see RESETCTRL1 enum
+ * @return  Nothing
+ */
+static inline void sysconlEnableResets(SYSCON_Type *peripheral, uint32_t resets0, uint32_t resets1)
+{
+    peripheral->SYSAHBCLKCTRL0 = resets0 | peripheral->SYSAHBCLKCTRL0;
+    peripheral->SYSAHBCLKCTRL1 = resets1 | peripheral->SYSAHBCLKCTRL1;
+}
+
+/**
+ * @brief   Disables reset signal to various peripherals
+ * @param   peripheral  : base address of SYSCON peripheral
+ * @param   resets0     : Settings for reset control 0 register, see RESETCTRL0 enum
+ * @param   resets1     : Settings for reset control 1 register, see RESETCTRL1 enum
+ * @return  Nothing
+ */
+static inline void sysconlDisableResets(SYSCON_Type *peripheral, uint32_t resets0, uint32_t resets1)
+{
+    peripheral->SYSAHBCLKCTRL0 = ~resets0 & peripheral->SYSAHBCLKCTRL0;
+    peripheral->SYSAHBCLKCTRL1 = ~resets1 & peripheral->SYSAHBCLKCTRL1;
+}
+
+/**
+ * @brief   Select clock source to output on CLKOUT pin
+ * @param   peripheral  : base address of SYSCON peripheral
+ * @param   source      : clock source, see CLKOUT_SOURCE_Type enum
+ * @return  Nothing
+ */
+static inline void sysconlClkoutSource(SYSCON_Type *peripheral, CLKOUT_SOURCE_Type source)
+{
+    peripheral->CLKOUTSEL = source & CLKOUT_RESERVED_MASK;
 }
 
 #endif
