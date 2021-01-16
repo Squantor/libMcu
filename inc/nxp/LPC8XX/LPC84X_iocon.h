@@ -64,14 +64,14 @@ typedef enum {
 
 /**
  * @brief   Setup IOCON pin setting in one go
- * @param   peripheralIocon : base address of IOCON peripheral
- * @param   pin             : IOCON pin index
- * @param   settings        : Settings to apply to IOCON pin
+ * @param   peripheral  : base address of IOCON peripheral
+ * @param   pin         : IOCON pin index
+ * @param   settings    : Settings to apply to IOCON pin
  * @return  Nothing
  */
-static inline void ioconSetupPin(IOCON_Type *peripheralIocon, const IOCON_PIN_Type pin, const uint32_t settings)
+static inline void ioconSetupPin(IOCON_Type *peripheral, const IOCON_PIN_Type pin, const uint32_t settings)
 {
-    peripheralIocon->PIO[pin] = (settings & IOCON_RESERVED_MASK) | IOCON_RESERVED_PRESET;
+    peripheral->PIO[pin] = (settings & IOCON_RESERVED_MASK) | IOCON_RESERVED_PRESET;
 }
 
 #endif
