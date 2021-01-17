@@ -233,7 +233,7 @@ static inline void SwmMovablePinAssign(SWM_MOVABLE_Type function, SWM_PORTPIN_Ty
  * @param   setting1 : setting for PINENABLE1 register
  * @return  Nothing
  */
-static inline void swmEnableFixedPin(SWM_FIXED_Type setting0, SWM_FIXED_Type setting1)
+static inline void swmEnableFixedPin(uint32_t setting0, uint32_t setting1)
 {
     SWM0->PINENABLE0 = SWM0->PINENABLE0 & ~setting0;
     SWM0->PINENABLE1 = SWM0->PINENABLE1 & ~setting1;
@@ -245,7 +245,7 @@ static inline void swmEnableFixedPin(SWM_FIXED_Type setting0, SWM_FIXED_Type set
  * @param   setting1 : setting for PINENABLE1 register
  * @return  Nothing
  */
-static inline void swmDisableFixedPin(SWM_FIXED_Type setting0, SWM_FIXED_Type setting1)
+static inline void swmDisableFixedPin(uint32_t setting0, uint32_t setting1)
 {
     SWM0->PINENABLE0 = SWM0->PINENABLE0 | setting0;
     SWM0->PINENABLE1 = SWM0->PINENABLE1 | setting1;
