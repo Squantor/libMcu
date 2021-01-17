@@ -221,6 +221,12 @@ typedef enum
 
 #endif
 
+static inline void SwmMovablePinAssign(SWM_MOVABLE_Type function, SWM_PORTPIN_Type pin)
+{
+    int index = function >> 2;
+    SWM0->PINASSIGN_DATA[index] = pin << (function & 0x3 << 3);
+}
+
 /**
  * @brief   Enable fixed SWM pin functions
  * @param   setting0 : setting for PINENABLE0 register
