@@ -176,6 +176,7 @@ typedef enum
 /** SWM fixed pin selection, group 0 */
 typedef enum
 {
+    SWM_EN0_NONE = 0,               /*!< No change for enable 0 */
     SWM_EN0_ACMP_INPUT1 = (1 << 0), /*!< Fixed-pin function as ACMP_INPUT1. */
     SWM_EN0_ACMP_INPUT2 = (1 << 1), /*!< Fixed-pin function as ACMP_INPUT2. */
     SWM_EN0_ACMP_INPUT3 = (1 << 2), /*!< Fixed-pin function as ACMP_INPUT3. */
@@ -208,14 +209,38 @@ typedef enum
     SWM_EN0_CAPT_X1 = (1 << 29),    /*!< Fixed-pin function as CAPT_X1. */
     SWM_EN0_CAPT_X2 = (1 << 30),    /*!< Fixed-pin function as CAPT_X2. */
     SWM_EN0_CAPT_X3 = (1 << 31),    /*!< Fixed-pin function as CAPT_X3. */
-
-    SWM_EN1_CAPT_X4 = (1 << 0), /*!< Fixed-pin function as CAPT_X4. */
-    SWM_EN1_CAPT_X5 = (1 << 1), /*!< Fixed-pin function as CAPT_X5. */
-    SWM_EN1_CAPT_X6 = (1 << 2), /*!< Fixed-pin function as CAPT_X6. */
-    SWM_EN1_CAPT_X7 = (1 << 3), /*!< Fixed-pin function as CAPT_X7. */
-    SWM_EN1_CAPT_X8 = (1 << 4), /*!< Fixed-pin function as CAPT_X8. */
-    SWM_EN1_CAPT_YL = (1 << 5), /*!< Fixed-pin function as CAPT_YL. */
-    SWM_EN1_CAPT_YH = (1 << 6), /*!< Fixed-pin function as CAPT_YH. */
+    SWM_EN1_NONE = 0,               /*!< No change for enable 1 */
+    SWM_EN1_CAPT_X4 = (1 << 0),     /*!< Fixed-pin function as CAPT_X4. */
+    SWM_EN1_CAPT_X5 = (1 << 1),     /*!< Fixed-pin function as CAPT_X5. */
+    SWM_EN1_CAPT_X6 = (1 << 2),     /*!< Fixed-pin function as CAPT_X6. */
+    SWM_EN1_CAPT_X7 = (1 << 3),     /*!< Fixed-pin function as CAPT_X7. */
+    SWM_EN1_CAPT_X8 = (1 << 4),     /*!< Fixed-pin function as CAPT_X8. */
+    SWM_EN1_CAPT_YL = (1 << 5),     /*!< Fixed-pin function as CAPT_YL. */
+    SWM_EN1_CAPT_YH = (1 << 6),     /*!< Fixed-pin function as CAPT_YH. */
 } SWM_FIXED_Type;
 
 #endif
+
+/**
+ * @brief   Enable fixed SWM pin functions
+ * @param   setting0 : setting for PINENABLE0 register
+ * @param   setting1 : setting for PINENABLE1 register
+ * @return  Nothing
+ */
+static inline void swmEnableFixedPin(SWM_FIXED_Type setting0, SWM_FIXED_Type setting1)
+{
+    SWM0->PINENABLE0 = SWM0->PINENABLE0 & ~setting0;
+    SWM0->PINENABLE1 = SWM0->PINENABLE1 & ~setting1;
+}
+
+/**
+ * @brief   Disable fixed SWM pin functions
+ * @param   setting0 : setting for PINENABLE0 register
+ * @param   setting1 : setting for PINENABLE1 register
+ * @return  Nothing
+ */
+static inline void swmDisableFixedPin(SWM_FIXED_Type setting0, SWM_FIXED_Type setting1)
+{
+    SWM0->PINENABLE0 = SWM0->PINENABLE0 | setting0;
+    SWM0->PINENABLE1 = SWM0->PINENABLE1 | setting1;
+}
