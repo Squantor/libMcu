@@ -7,8 +7,8 @@
 /* 
  * LPC84X series Pin interrupt registers, defines and functions.
  */
-#ifndef LPC84X_PININT_H
-#define LPC84X_PININT_H
+#ifndef LPC84X_PINT_H
+#define LPC84X_PINT_H
 
 /** PINT - Register Layout Typedef */
 typedef struct {

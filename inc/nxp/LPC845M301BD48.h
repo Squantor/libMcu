@@ -270,7 +270,7 @@ typedef enum IOCON_PIN {
 #include "nxp/LPC8XX/LPC84X_dma.h"
 #include "nxp/LPC8XX/LPC84X_mtb.h"
 #include "nxp/LPC8XX/LPC84X_gpio.h"
-#include "nxp/LPC8XX/LPC84X_pinint.h" 
+#include "nxp/LPC8XX/LPC84X_pint.h" 
 
 #ifdef __cplusplus
 }
