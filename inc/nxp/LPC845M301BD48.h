@@ -109,36 +109,42 @@ typedef enum {
 #define DMA0_BASE       (0x50008000u)
 #define MTB_SFR_BASE    (0x5000C000u)
 
-#define WWDT       ((WWDT_Type          *) WWDT_BASE)
-#define MRT0       ((MRT_Type           *) MRT0_BASE)
-#define WKT        ((WKT_Type           *) WKT_BASE)
-#define SWM0       ((SWM_Type           *) SWM0_BASE)
-#define FAIM       ((FAIM_Type          *) FAIM_BASE)
-#define DAC0       ((DAC_Type           *) DAC0_BASE)
-#define DAC1       ((DAC_Type           *) DAC1_BASE)
-#define ADC0       ((ADC_Type           *) ADC0_BASE)
-#define PMU        ((PMU_Type           *) PMU_BASE)
-#define ACOMP      ((ACOMP_Type         *) ACOMP_BASE)
-#define INPUTMUX   ((INPUTMUX_Type      *) INPUTMUX_BASE)
-#define I2C2       ((I2C_Type           *) I2C2_BASE)
-#define I2C3       ((I2C_Type           *) I2C3_BASE)
-#define CTIMER0    ((CTIMER_Type        *) CTIMER0_BASE)
-#define FLASH_CTRL ((FLASH_CTRL_Type    *) FLASH_CTRL_BASE)
-#define IOCON      ((IOCON_Type         *) IOCON_BASE)
-#define SYSCON     ((SYSCON_Type        *) SYSCON_BASE)
-#define I2C0       ((I2C_Type           *) I2C0_BASE)
-#define I2C1       ((I2C_Type           *) I2C1_BASE)
-#define SPI0       ((SPI_Type           *) SPI0_BASE)
-#define SPI1       ((SPI_Type           *) SPI1_BASE)
-#define CAPT       ((CAPT_Type          *) CAPT_BASE)
-#define USART0     ((USART_Type         *) USART0_BASE)
-#define USART1     ((USART_Type         *) USART1_BASE)
-#define USART2     ((USART_Type         *) USART2_BASE)
-#define USART3     ((USART_Type         *) USART3_BASE)
-#define CRC        ((CRC_Type           *) CRC_BASE)
-#define SCT0       ((SCT_Type           *) SCT0)_BASE
-#define DMA0       ((DMA_Type           *) DMA0_BASE)
-#define MTB_SFR    ((MTB_SFR_Type       *) MTB_SFR_BASE)
+/* Other peripheral section */
+#define GPIO_BASE       (0xA0000000u)
+#define PINT_BASE       (0xA0004000u)
+
+#define WWDT        ((WWDT_Type         *) WWDT_BASE)
+#define MRT0        ((MRT_Type          *) MRT0_BASE)
+#define WKT         ((WKT_Type          *) WKT_BASE)
+#define SWM0        ((SWM_Type          *) SWM0_BASE)
+#define FAIM        ((FAIM_Type         *) FAIM_BASE)
+#define DAC0        ((DAC_Type          *) DAC0_BASE)
+#define DAC1        ((DAC_Type          *) DAC1_BASE)
+#define ADC0        ((ADC_Type          *) ADC0_BASE)
+#define PMU         ((PMU_Type          *) PMU_BASE)
+#define ACOMP       ((ACOMP_Type        *) ACOMP_BASE)
+#define INPUTMUX    ((INPUTMUX_Type     *) INPUTMUX_BASE)
+#define I2C2        ((I2C_Type          *) I2C2_BASE)
+#define I2C3        ((I2C_Type          *) I2C3_BASE)
+#define CTIMER0     ((CTIMER_Type       *) CTIMER0_BASE)
+#define FLASH_CTRL  ((FLASH_CTRL_Type   *) FLASH_CTRL_BASE)
+#define IOCON       ((IOCON_Type        *) IOCON_BASE)
+#define SYSCON      ((SYSCON_Type       *) SYSCON_BASE)
+#define I2C0        ((I2C_Type          *) I2C0_BASE)
+#define I2C1        ((I2C_Type          *) I2C1_BASE)
+#define SPI0        ((SPI_Type          *) SPI0_BASE)
+#define SPI1        ((SPI_Type          *) SPI1_BASE)
+#define CAPT        ((CAPT_Type         *) CAPT_BASE)
+#define USART0      ((USART_Type        *) USART0_BASE)
+#define USART1      ((USART_Type        *) USART1_BASE)
+#define USART2      ((USART_Type        *) USART2_BASE)
+#define USART3      ((USART_Type        *) USART3_BASE)
+#define CRC         ((CRC_Type          *) CRC_BASE)
+#define SCT0        ((SCT_Type          *) SCT0)_BASE
+#define DMA0        ((DMA_Type          *) DMA0_BASE)
+#define MTB_SFR     ((MTB_SFR_Type      *) MTB_SFR_BASE)
+#define GPIO        ((GPIO_Type         *) GPIO_BASE)
+#define PINT        ((PINT_Type         *) PINT_BASE)
 
 /*!
  * @brief Enumeration for the DMA hardware request
@@ -263,6 +269,8 @@ typedef enum IOCON_PIN {
 #include "nxp/LPC8XX/LPC84X_sct.h"
 #include "nxp/LPC8XX/LPC84X_dma.h"
 #include "nxp/LPC8XX/LPC84X_mtb.h"
+#include "nxp/LPC8XX/LPC84X_gpio.h"
+#include "nxp/LPC8XX/LPC84X_pinint.h" 
 
 #ifdef __cplusplus
 }
