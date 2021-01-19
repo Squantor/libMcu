@@ -43,31 +43,85 @@ typedef enum {
     GPIO_PORT1 = 0x1u,
 } GPIO_PORT_Type;
 
+/*!
+ * @brief Set the port pin to output mode
+ *
+ * @param peripheral    GPIO peripheral peripheral pointer
+ * @param port          GPIO port number
+ * @param pin           GPIO pin number to set as output
+ */
 static inline void gpioSetPinDIROutput(GPIO_Type *peripheral, GPIO_PORT_Type port, uint8_t pin)
 {
     peripheral->DIR[port] |= 1UL << pin;
 }
 
+/*!
+ * @brief Set the port pin to input mode
+ *
+ * @param peripheral    GPIO peripheral peripheral pointer
+ * @param port          GPIO port number
+ * @param pin           GPIO pin number to set as input
+ */
 static inline void gpioSetPinDIRInput(GPIO_Type *peripheral, GPIO_PORT_Type port, uint8_t pin)
 {
     peripheral->DIR[port] &= ~(1UL << pin);
 }
 
+/*!
+ * @brief Toggle the port pin direction
+ *
+ * @param peripheral    GPIO peripheral peripheral pointer
+ * @param port          GPIO port number
+ * @param pin           GPIO pin number to direction toggle
+ */
 static inline void gpioTogglePinDIR(GPIO_Type *peripheral, GPIO_PORT_Type port, uint8_t pin)
 {
     peripheral->DIR[port] ^= 1UL << pin;
 }
 
+/*!
+ * @brief Set the port direction register
+ *
+ * @param peripheral    GPIO peripheral peripheral pointer
+ * @param port          GPIO port number
+ * @param reg           direction register setting
+ */
+static inline void gpioSetPortDir(GPIO_Type *peripheral, GPIO_PORT_Type port, uint32_t reg)
+{
+    peripheral->DIR[port] = reg;
+}
+
+/*!
+ * @brief Set the port register to outputs
+ *
+ * @param peripheral    GPIO peripheral peripheral pointer
+ * @param port          GPIO port number
+ * @param pinMask       direction register output setting
+ */
 static inline void gpioSetPortDIROutput(GPIO_Type *peripheral, GPIO_PORT_Type port, uint32_t pinMask)
 {
     peripheral->DIR[port] |= pinMask;
 }
 
+/*!
+ * @brief Set the port register to inputs
+ *
+ * @param peripheral    GPIO peripheral peripheral pointer
+ * @param port          GPIO port number
+ * @param pinMask       direction register input setting
+ */
 static inline void gpioSetPortDIRInput(GPIO_Type *peripheral, GPIO_PORT_Type port, uint32_t pinMask)
 {
     peripheral->DIR[port] &= ~pinMask;
 }
 
+/*!
+ * @brief Toggle the port register direct
+ *
+ * @param peripheral    GPIO peripheral peripheral pointer
+ * @param port          GPIO port number
+ * @param pinMask       direction register input setting
+ */
 static inline void gpioTogglePortDIR(GPIO_Type *peripheral, GPIO_PORT_Type port, uint32_t pinMask)
 {
     peripheral->DIR[port] ^= pinMask;
