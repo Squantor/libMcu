@@ -272,7 +272,7 @@ static inline void sysconlClkoutDivider(SYSCON_Type *peripheral, uint8_t divider
  */
 static inline void sysconlPowerEnable(SYSCON_Type *peripheral, uint32_t powerEnables)
 {
-    peripheral->CLKOUTDIV = peripheral->CLKOUTDIV & ~(powerEnables & ~PDRUNCFG_RESERVED_MASK);
+    peripheral->PDRUNCFG = peripheral->PDRUNCFG & ~(powerEnables & ~PDRUNCFG_RESERVED_MASK);
 }
 
 /**
@@ -283,7 +283,7 @@ static inline void sysconlPowerEnable(SYSCON_Type *peripheral, uint32_t powerEna
  */
 static inline void sysconlPowerDisable(SYSCON_Type *peripheral, uint32_t powerDisables)
 {
-    peripheral->CLKOUTDIV = peripheral->CLKOUTDIV | (powerDisables & ~PDRUNCFG_RESERVED_MASK);
+    peripheral->PDRUNCFG = peripheral->PDRUNCFG | (powerDisables & ~PDRUNCFG_RESERVED_MASK);
 }
 
 
