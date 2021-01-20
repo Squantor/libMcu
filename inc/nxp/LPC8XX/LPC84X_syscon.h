@@ -176,8 +176,8 @@ typedef enum {
 /**
  * @brief   Enables clocks to various peripherals
  * @param   peripheral  : base address of SYSCON peripheral
- * @param   enables0    : Settings for clock control 0 register, see CLKCTRL0 enum
- * @param   enables1    : Settings for clock control 1 register, see CLKCTRL1 enum
+ * @param   setting0    Settings for clock control 0 register, see CLKCTRL0 enum
+ * @param   setting1    Settings for clock control 1 register, see CLKCTRL1 enum
  * @return  Nothing
  */
 static inline void sysconlEnableClocks(SYSCON_Type *peripheral, uint32_t setting0, uint32_t setting1)
@@ -188,9 +188,9 @@ static inline void sysconlEnableClocks(SYSCON_Type *peripheral, uint32_t setting
 
 /**
  * @brief   Disables clocks to various peripherals
- * @param   peripheral  : base address of SYSCON peripheral
- * @param   enables0    : Settings for clock control 0 register, see CLKCTRL0 enum
- * @param   enables1    : Settings for clock control 1 register, see CLKCTRL1 enum
+ * @param   peripheral  base address of SYSCON peripheral
+ * @param   setting0    Settings for clock control 0 register, see CLKCTRL0 enum
+ * @param   setting1    Settings for clock control 1 register, see CLKCTRL1 enum
  * @return  Nothing
  */
 static inline void sysconlDisableClocks(SYSCON_Type *peripheral, uint32_t setting0, uint32_t setting1)
@@ -201,9 +201,9 @@ static inline void sysconlDisableClocks(SYSCON_Type *peripheral, uint32_t settin
 
 /**
  * @brief   Enables reset signal to various peripherals
- * @param   peripheral  : base address of SYSCON peripheral
- * @param   resets0     : Settings for reset control 0 register, see RESETCTRL0 enum
- * @param   resets1     : Settings for reset control 1 register, see RESETCTRL1 enum
+ * @param   peripheral  base address of SYSCON peripheral
+ * @param   resets0     Settings for reset control 0 register, see RESETCTRL0 enum
+ * @param   resets1     Settings for reset control 1 register, see RESETCTRL1 enum
  * @return  Nothing
  */
 static inline void sysconlEnableResets(SYSCON_Type *peripheral, uint32_t resets0, uint32_t resets1)
@@ -214,9 +214,9 @@ static inline void sysconlEnableResets(SYSCON_Type *peripheral, uint32_t resets0
 
 /**
  * @brief   Disables reset signal to various peripherals
- * @param   peripheral  : base address of SYSCON peripheral
- * @param   resets0     : Settings for reset control 0 register, see RESETCTRL0 enum
- * @param   resets1     : Settings for reset control 1 register, see RESETCTRL1 enum
+ * @param   peripheral  base address of SYSCON peripheral
+ * @param   resets0     Settings for reset control 0 register, see RESETCTRL0 enum
+ * @param   resets1     Settings for reset control 1 register, see RESETCTRL1 enum
  * @return  Nothing
  */
 static inline void sysconlDisableResets(SYSCON_Type *peripheral, uint32_t resets0, uint32_t resets1)
@@ -227,13 +227,24 @@ static inline void sysconlDisableResets(SYSCON_Type *peripheral, uint32_t resets
 
 /**
  * @brief   Select clock source to output on CLKOUT pin
- * @param   peripheral  : base address of SYSCON peripheral
- * @param   source      : clock source, see CLKOUT_SOURCE_Type enum
+ * @param   peripheral  base address of SYSCON peripheral
+ * @param   source      clock source, see CLKOUT_SOURCE_Type enum
  * @return  Nothing
  */
 static inline void sysconlClkoutSource(SYSCON_Type *peripheral, CLKOUT_SOURCE_Type source)
 {
     peripheral->CLKOUTSEL = source & CLKOUT_RESERVED_MASK;
+}
+
+/**
+ * @brief   Select clock source to output on CLKOUT pin
+ * @param   peripheral  base address of SYSCON peripheral
+ * @param   divider     clock source, see CLKOUT_SOURCE_Type enum
+ * @return  Nothing
+ */
+static inline void sysconlClkoutDivider(SYSCON_Type *peripheral, uint8_t divider)
+{
+    peripheral->CLKOUTDIV = divider;
 }
 
 #endif
