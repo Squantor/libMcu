@@ -219,34 +219,43 @@ typedef enum
     SWM_EN1_CAPT_YH = (1 << 6),     /*!< Fixed-pin function as CAPT_YH. */
 } SWM_FIXED_Type;
 
-#endif
-
-static inline void SwmMovablePinAssign(SWM_MOVABLE_Type function, SWM_PORTPIN_Type pin)
+/**
+ * @brief   Enable fixed SWM pin functions
+ * @param   peripheral  SWM peripheral to use
+ * @param   function    Function to assign
+ * @param   pin         Pin to assign the function to
+ * @return  Nothing
+ */
+static inline void SwmMovablePinAssign(SWM_Type *peripheral, SWM_MOVABLE_Type function, SWM_PORTPIN_Type pin)
 {
     int index = function >> 2;
-    SWM0->PINASSIGN_DATA[index] = pin << (function & 0x3 << 3);
+    peripheral->PINASSIGN_DATA[index] = pin << (function & 0x3 << 3);
 }
 
 /**
  * @brief   Enable fixed SWM pin functions
- * @param   setting0 : setting for PINENABLE0 register
- * @param   setting1 : setting for PINENABLE1 register
+ * @param   peripheral  SWM peripheral to use
+ * @param   setting0    setting for PINENABLE0 register
+ * @param   setting1    setting for PINENABLE1 register
  * @return  Nothing
  */
-static inline void swmEnableFixedPin(uint32_t setting0, uint32_t setting1)
+static inline void swmEnableFixedPin(SWM_Type *peripheral, uint32_t setting0, uint32_t setting1)
 {
-    SWM0->PINENABLE0 = SWM0->PINENABLE0 & ~setting0;
-    SWM0->PINENABLE1 = SWM0->PINENABLE1 & ~setting1;
+    peripheral->PINENABLE0 = peripheral->PINENABLE0 & ~setting0;
+    peripheral->PINENABLE1 = peripheral->PINENABLE1 & ~setting1;
 }
 
 /**
  * @brief   Disable fixed SWM pin functions
- * @param   setting0 : setting for PINENABLE0 register
- * @param   setting1 : setting for PINENABLE1 register
+ * @param   peripheral  SWM peripheral to use
+ * @param   setting0    setting for PINENABLE0 register
+ * @param   setting1    setting for PINENABLE1 register
  * @return  Nothing
  */
-static inline void swmDisableFixedPin(uint32_t setting0, uint32_t setting1)
+static inline void swmDisableFixedPin(SWM_Type *peripheral, uint32_t setting0, uint32_t setting1)
 {
-    SWM0->PINENABLE0 = SWM0->PINENABLE0 | setting0;
-    SWM0->PINENABLE1 = SWM0->PINENABLE1 | setting1;
+    peripheral->PINENABLE0 = peripheral->PINENABLE0 | setting0;
+    peripheral->PINENABLE1 = peripheral->PINENABLE1 | setting1;
 }
+
+#endif
