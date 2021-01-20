@@ -173,6 +173,23 @@ typedef enum {
 
 #define CLKOUT_RESERVED_MASK    (0x00000007)
 
+typedef enum {
+    PDRUNCFG_FROOUT    = (1 << 0),
+    PDRUNCFG_FRO       = (1 << 1),
+    PDRUNCFG_FLASH     = (1 << 2),
+    PDRUNCFG_BOD       = (1 << 3),
+    PDRUNCFG_ADC       = (1 << 4),
+    PDRUNCFG_SYSOSC    = (1 << 5),
+    PDRUNCFG_WDTOSC    = (1 << 6),
+    PDRUNCFG_SYSPLL    = (1 << 7),
+    PDRUNCFG_DAC0      = (1 << 13),
+    PDRUNCFG_DAC1      = (1 << 14),
+    PDRUNCFG_ACMP      = (1 << 15),
+} PDCFG_Type;
+
+#define PDRUNCFG_DEFAULT        0x0000EDF8  /**< Default configuration for Powerdown register */
+#define PDRUNCFG_RESERVED_MASK  0x00001F00  /**< Default configuration for Powerdown register */
+
 /**
  * @brief   Enables clocks to various peripherals
  * @param   peripheral  : base address of SYSCON peripheral
@@ -246,5 +263,28 @@ static inline void sysconlClkoutDivider(SYSCON_Type *peripheral, uint8_t divider
 {
     peripheral->CLKOUTDIV = divider;
 }
+
+/**
+ * @brief   Select clock source to output on CLKOUT pin
+ * @param   peripheral      base address of SYSCON peripheral
+ * @param   powerEnables    set of peripherals to give power
+ * @return  Nothing
+ */
+static inline void sysconlPowerEnable(SYSCON_Type *peripheral, uint32_t powerEnables)
+{
+    peripheral->CLKOUTDIV = peripheral->CLKOUTDIV & ~(powerEnables & ~PDRUNCFG_RESERVED_MASK);
+}
+
+/**
+ * @brief   Select clock source to output on CLKOUT pin
+ * @param   peripheral      base address of SYSCON peripheral
+ * @param   powerDisables   set of peripherals to remove power
+ * @return  Nothing
+ */
+static inline void sysconlPowerDisable(SYSCON_Type *peripheral, uint32_t powerDisables)
+{
+    peripheral->CLKOUTDIV = peripheral->CLKOUTDIV | (powerDisables & ~PDRUNCFG_RESERVED_MASK);
+}
+
 
 #endif
