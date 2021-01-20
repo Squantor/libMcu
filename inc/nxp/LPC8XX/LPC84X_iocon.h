@@ -17,17 +17,12 @@ typedef struct {
 #define IOCON_RESERVED_PRESET   (0x00000080u)   /**< Default setting for IOCON register, some reserved bits are set. */
 #define IOCON_RESERVED_MASK     (0x0001FF78u)   /**< Masking off reserved pins so they do not accidentaly get set */
 
-/* Iocon pin setting enumerations */
-typedef enum {
-    IOCON_MODE_INACTIVE = 0,    /**< Pin inactive, no pullup/down resistor enabled */
-    IOCON_MODE_PULLDOWN = 1,    /**< Pulldown resistor enabled */
-    IOCON_MODE_PULLUP = 2,      /**< Pullup resistor enabled */
-    IOCON_MODE_REPEATER = 3,    /**< Repeater mode */
-} IOCON_MODE_Type;
-
-#define IOCON_MODE(x)   ((x & 0x03) << 3)   /**< IOCON mode setup */
-#define IOCON_HYST_EN   (1 << 5)            /**< Enable hysterhesis */
-#define IOCON_INVERT_IN (1 << 6)            /**< Invert input enable */
+#define IOCON_MODE_INACTIVE (0 << 3)    /**< Pin inactive, no pullup/down resistor enabled */
+#define IOCON_MODE_PULLDOWN (1 << 3)    /**< Pulldown resistor enabled */
+#define IOCON_MODE_PULLUP   (2 << 3)    /**< Pullup resistor enabled */
+#define IOCON_MODE_REPEATER (3 << 3)    /**< Repeater mode */
+#define IOCON_HYST_EN       (1 << 5)    /**< Enable hysterhesis */
+#define IOCON_INVERT_IN     (1 << 6)    /**< Invert input enable */
 
 typedef enum {
     IOCON_I2CMODE_STD = 0,  /**< Standard mode/Fast mode I2C */
