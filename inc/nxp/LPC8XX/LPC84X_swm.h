@@ -101,74 +101,74 @@ typedef enum
 /** SWM movable functions table */
 typedef enum
 {
-    SWM_USART0_TXD = 0U,        /*!< movable functionUSART0_TXD. */
-    SWM_USART0_RXD = 1U,        /*!< movable functionUSART0_RXD. */
-    SWM_USART0_RTS = 2U,        /*!< movable functionUSART0_RTS. */
-    SWM_USART0_CTS = 3U,        /*!< movable functionUSART0_CTS. */
-    SWM_USART0_SCLK = 4U,       /*!< movable functionUSART0_SCLK. */
+    SWM_USART0_TXD = 0U,        /*!< movable function USART0_TXD. */
+    SWM_USART0_RXD = 1U,        /*!< movable function USART0_RXD. */
+    SWM_USART0_RTS = 2U,        /*!< movable function USART0_RTS. */
+    SWM_USART0_CTS = 3U,        /*!< movable function USART0_CTS. */
+    SWM_USART0_SCLK = 4U,       /*!< movable function USART0_SCLK. */
 
-    SWM_USART1_TXD = 5U,        /*!< movable functionUSART1_TXD. */
-    SWM_USART1_RXD = 6U,        /*!< movable functionUSART1_RXD. */
-    SWM_USART1_RTS = 7U,        /*!< movable functionUSART1_RTS. */
-    SWM_USART1_CTS = 8U,        /*!< movable functionUSART1_CTS. */
-    SWM_USART1_SCLK = 9U,       /*!< movable functionUSART1_SCLK. */
+    SWM_USART1_TXD = 5U,        /*!< movable function USART1_TXD. */
+    SWM_USART1_RXD = 6U,        /*!< movable function USART1_RXD. */
+    SWM_USART1_RTS = 7U,        /*!< movable function USART1_RTS. */
+    SWM_USART1_CTS = 8U,        /*!< movable function USART1_CTS. */
+    SWM_USART1_SCLK = 9U,       /*!< movable function USART1_SCLK. */
 
-    SWM_USART2_TXD = 10U,       /*!< movable functionUSART2_TXD. */
-    SWM_USART2_RXD = 11U,       /*!< movable functionUSART2_RXD. */
-    SWM_USART2_RTS = 12U,       /*!< movable functionUSART2_RTS. */
-    SWM_USART2_CTS = 13U,       /*!< movable functionUSART2_CTS. */
-    SWM_USART2_SCLK = 14U,      /*!< movable functionUSART2_SCLK. */
+    SWM_USART2_TXD = 10U,       /*!< movable function USART2_TXD. */
+    SWM_USART2_RXD = 11U,       /*!< movable function USART2_RXD. */
+    SWM_USART2_RTS = 12U,       /*!< movable function USART2_RTS. */
+    SWM_USART2_CTS = 13U,       /*!< movable function USART2_CTS. */
+    SWM_USART2_SCLK = 14U,      /*!< movable function USART2_SCLK. */
 
-    SWM_SPI0_SCK = 15U,         /*!< movable functionSPI0_SCK. */
-    SWM_SPI0_MOSI = 16U,        /*!< movable functionSPI0_MOSI. */
-    SWM_SPI0_MISO = 17U,        /*!< movable functionSPI0_MISO. */
-    SWM_SPI0_SSEL0 = 18U,       /*!< movable functionSPI0_SSEL0. */
-    SWM_SPI0_SSEL1 = 19U,       /*!< movable functionSPI0_SSEL1. */
-    SWM_SPI0_SSEL2 = 20U,       /*!< movable functionSPI0_SSEL2. */
-    SWM_SPI0_SSEL3 = 21U,       /*!< movable functionSPI0_SSEL3. */
+    SWM_SPI0_SCK = 15U,         /*!< movable function SPI0_SCK. */
+    SWM_SPI0_MOSI = 16U,        /*!< movable function SPI0_MOSI. */
+    SWM_SPI0_MISO = 17U,        /*!< movable function SPI0_MISO. */
+    SWM_SPI0_SSEL0 = 18U,       /*!< movable function SPI0_SSEL0. */
+    SWM_SPI0_SSEL1 = 19U,       /*!< movable function SPI0_SSEL1. */
+    SWM_SPI0_SSEL2 = 20U,       /*!< movable function SPI0_SSEL2. */
+    SWM_SPI0_SSEL3 = 21U,       /*!< movable function SPI0_SSEL3. */
 
-    SWM_SPI1_SCK = 22U,         /*!< movable functionSPI1_SCK. */
-    SWM_SPI1_MOSI = 23U,        /*!< movable functionSPI1_MOSI. */
-    SWM_SPI1_MISO = 24U,        /*!< movable functionSPI1_MISO. */
-    SWM_SPI1_SSEL0 = 25U,       /*!< movable functionSPI1_SSEL0. */
-    SWM_SPI1_SSEL1 = 26U,       /*!< movable functionSPI1_SSEL1. */
+    SWM_SPI1_SCK = 22U,         /*!< movable function SPI1_SCK. */
+    SWM_SPI1_MOSI = 23U,        /*!< movable function SPI1_MOSI. */
+    SWM_SPI1_MISO = 24U,        /*!< movable function SPI1_MISO. */
+    SWM_SPI1_SSEL0 = 25U,       /*!< movable function SPI1_SSEL0. */
+    SWM_SPI1_SSEL1 = 26U,       /*!< movable function SPI1_SSEL1. */
 
-    SWM_SCT_PIN0 = 27U,         /*!< movable functionSCT_PIN0. */
-    SWM_SCT_PIN1 = 28U,         /*!< movable functionSCT_PIN1. */
-    SWM_SCT_PIN2 = 29U,         /*!< movable functionSCT_PIN2. */
-    SWM_SCT_PIN3 = 30U,         /*!< movable functionSCT_PIN3. */
-    SWM_SCT_OUT0 = 31U,         /*!< movable functionSCT_OUT0. */
-    SWM_SCT_OUT1 = 32U,         /*!< movable functionSCT_OUT1. */
-    SWM_SCT_OUT2 = 33U,         /*!< movable functionSCT_OUT2. */
-    SWM_SCT_OUT3 = 34U,         /*!< movable functionSCT_OUT3. */
-    SWM_SCT_OUT4 = 35U,         /*!< movable functionSCT_OUT4. */
-    SWM_SCT_OUT5 = 36U,         /*!< movable functionSCT_OUT5. */
-    SWM_SCT_OUT6 = 37U,         /*!< movable functionSCT_OUT6. */
+    SWM_SCT_PIN0 = 27U,         /*!< movable function SCT_PIN0. */
+    SWM_SCT_PIN1 = 28U,         /*!< movable function SCT_PIN1. */
+    SWM_SCT_PIN2 = 29U,         /*!< movable function SCT_PIN2. */
+    SWM_SCT_PIN3 = 30U,         /*!< movable function SCT_PIN3. */
+    SWM_SCT_OUT0 = 31U,         /*!< movable function SCT_OUT0. */
+    SWM_SCT_OUT1 = 32U,         /*!< movable function SCT_OUT1. */
+    SWM_SCT_OUT2 = 33U,         /*!< movable function SCT_OUT2. */
+    SWM_SCT_OUT3 = 34U,         /*!< movable function SCT_OUT3. */
+    SWM_SCT_OUT4 = 35U,         /*!< movable function SCT_OUT4. */
+    SWM_SCT_OUT5 = 36U,         /*!< movable function SCT_OUT5. */
+    SWM_SCT_OUT6 = 37U,         /*!< movable function SCT_OUT6. */
 
-    SWM_I2C1_SDA = 38U,         /*!< movable functionI2C1_SDA. */
-    SWM_I2C1_SCL = 39U,         /*!< movable functionI2C1_SCL. */
-    SWM_I2C2_SDA = 40U,         /*!< movable functionI2C2_SDA. */
-    SWM_I2C2_SCL = 41U,         /*!< movable functionI2C2_SCL. */
-    SWM_I2C3_SDA = 42U,         /*!< movable functionI2C3_SDA. */
-    SWM_I2C3_SCL = 43U,         /*!< movable functionI2C3_SCL. */
+    SWM_I2C1_SDA = 38U,         /*!< movable function I2C1_SDA. */
+    SWM_I2C1_SCL = 39U,         /*!< movable function I2C1_SCL. */
+    SWM_I2C2_SDA = 40U,         /*!< movable function I2C2_SDA. */
+    SWM_I2C2_SCL = 41U,         /*!< movable function I2C2_SCL. */
+    SWM_I2C3_SDA = 42U,         /*!< movable function I2C3_SDA. */
+    SWM_I2C3_SCL = 43U,         /*!< movable function I2C3_SCL. */
 
-    SWM_ACMP_OUT = 44U,         /*!< movable functionACMP_OUT. */
-    SWM_CLKOUT = 45U,           /*!< movable functionCLKOUT. */
-    SWM_GPIO_INT_BMAT = 46U,    /*!< movable functionGPIO_INT_BMAT. */
+    SWM_ACMP_OUT = 44U,         /*!< movable function ACMP_OUT. */
+    SWM_CLKOUT = 45U,           /*!< movable function CLKOUT. */
+    SWM_GPIO_INT_BMAT = 46U,    /*!< movable function GPIO_INT_BMAT. */
 
-    SWM_USART3_TXD = 47U,       /*!< movable functionUSART3_TXD. */
-    SWM_USART3_RXD = 48U,       /*!< movable functionUSART3_RXD. */
-    SWM_USART3_SCLK = 49U,      /*!< movable functionUSART3_SCLK. */
-    SWM_USART4_TXD = 50U,       /*!< movable functionUSART4_TXD. */
-    SWM_USART4_RXD = 51U,       /*!< movable functionUSART4_RXD. */
-    SWM_USART4_SCLK = 52U,      /*!< movable functionUSART4_SCLK. */
-    SWM_T0_MAT_CHN0 = 53U,      /*!< movable functionTimer Match Channel 0. */
-    SWM_T0_MAT_CHN1 = 54U,      /*!< movable functionTimer Match Channel 1. */
-    SWM_T0_MAT_CHN2 = 55U,      /*!< movable functionTimer Match Channel 2. */
-    SWM_T0_MAT_CHN3 = 56U,      /*!< movable functionTimer Match Channel 3. */
-    SWM_T0_CAP_CHN0 = 57U,      /*!< movable functionTimer Capture Channel 0. */
-    SWM_T0_CAP_CHN1 = 58U,      /*!< movable functionTimer Capture Channel 1. */
-    SWM_T0_CAP_CHN2 = 59U,      /*!< movable functionTimer Capture Channel 2. */
+    SWM_USART3_TXD = 47U,       /*!< movable function USART3_TXD. */
+    SWM_USART3_RXD = 48U,       /*!< movable function USART3_RXD. */
+    SWM_USART3_SCLK = 49U,      /*!< movable function USART3_SCLK. */
+    SWM_USART4_TXD = 50U,       /*!< movable function USART4_TXD. */
+    SWM_USART4_RXD = 51U,       /*!< movable function USART4_RXD. */
+    SWM_USART4_SCLK = 52U,      /*!< movable function USART4_SCLK. */
+    SWM_T0_MAT_CHN0 = 53U,      /*!< movable function Timer Match Channel 0. */
+    SWM_T0_MAT_CHN1 = 54U,      /*!< movable function Timer Match Channel 1. */
+    SWM_T0_MAT_CHN2 = 55U,      /*!< movable function Timer Match Channel 2. */
+    SWM_T0_MAT_CHN3 = 56U,      /*!< movable function Timer Match Channel 3. */
+    SWM_T0_CAP_CHN0 = 57U,      /*!< movable function Timer Capture Channel 0. */
+    SWM_T0_CAP_CHN1 = 58U,      /*!< movable function Timer Capture Channel 1. */
+    SWM_T0_CAP_CHN2 = 59U,      /*!< movable function Timer Capture Channel 2. */
 
     SWM_MOVABLE_NUM_FUNCS = 60U,/*!< Movable function number. */
 } SWM_MOVABLE_Type;
