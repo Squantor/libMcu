@@ -197,7 +197,7 @@ typedef enum {
  * @param   setting1    Settings for clock control 1 register, see CLKCTRL1 enum
  * @return  Nothing
  */
-static inline void sysconEnableClocks(SYSCON_Type *peripheral, uint32_t setting0, uint32_t setting1)
+static inline void sysconlEnableClocks(SYSCON_Type *peripheral, uint32_t setting0, uint32_t setting1)
 {
     peripheral->SYSAHBCLKCTRL0 = setting0 | peripheral->SYSAHBCLKCTRL0;
     peripheral->SYSAHBCLKCTRL1 = setting1 | peripheral->SYSAHBCLKCTRL1;

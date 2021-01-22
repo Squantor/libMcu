@@ -229,7 +229,8 @@ typedef enum
 static inline void SwmMovablePinAssign(SWM_Type *peripheral, SWM_MOVABLE_Type function, SWM_PORTPIN_Type pin)
 {
     int index = function >> 2;
-    peripheral->PINASSIGN_DATA[index] = pin << (function & 0x3 << 3);
+    uint32_t mask = ~(0xFF << (function & 0x3 << 3));
+    peripheral->PINASSIGN_DATA[index] = (peripheral->PINASSIGN_DATA[index] & mask) | (pin << (function & 0x3 << 3));;
 }
 
 /**
@@ -241,8 +242,8 @@ static inline void SwmMovablePinAssign(SWM_Type *peripheral, SWM_MOVABLE_Type fu
  */
 static inline void swmEnableFixedPin(SWM_Type *peripheral, uint32_t setting0, uint32_t setting1)
 {
-    peripheral->PINENABLE0 = peripheral->PINENABLE0 & ~setting0;
-    peripheral->PINENABLE1 = peripheral->PINENABLE1 & ~setting1;
+    peripheral->PINENABLE0 &= ~setting0;
+    peripheral->PINENABLE1 &= ~setting1;
 }
 
 /**
@@ -254,8 +255,8 @@ static inline void swmEnableFixedPin(SWM_Type *peripheral, uint32_t setting0, ui
  */
 static inline void swmDisableFixedPin(SWM_Type *peripheral, uint32_t setting0, uint32_t setting1)
 {
-    peripheral->PINENABLE0 = peripheral->PINENABLE0 | setting0;
-    peripheral->PINENABLE1 = peripheral->PINENABLE1 | setting1;
+    peripheral->PINENABLE0 |= setting0;
+    peripheral->PINENABLE1 |= setting1;
 }
 
 #endif
