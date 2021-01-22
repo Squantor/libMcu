@@ -197,7 +197,7 @@ typedef enum {
  * @param   setting1    Settings for clock control 1 register, see CLKCTRL1 enum
  * @return  Nothing
  */
-static inline void sysconlEnableClocks(SYSCON_Type *peripheral, uint32_t setting0, uint32_t setting1)
+static inline void sysconEnableClocks(SYSCON_Type *peripheral, uint32_t setting0, uint32_t setting1)
 {
     peripheral->SYSAHBCLKCTRL0 = setting0 | peripheral->SYSAHBCLKCTRL0;
     peripheral->SYSAHBCLKCTRL1 = setting1 | peripheral->SYSAHBCLKCTRL1;
@@ -210,7 +210,7 @@ static inline void sysconlEnableClocks(SYSCON_Type *peripheral, uint32_t setting
  * @param   setting1    Settings for clock control 1 register, see CLKCTRL1 enum
  * @return  Nothing
  */
-static inline void sysconlDisableClocks(SYSCON_Type *peripheral, uint32_t setting0, uint32_t setting1)
+static inline void sysconDisableClocks(SYSCON_Type *peripheral, uint32_t setting0, uint32_t setting1)
 {
     peripheral->SYSAHBCLKCTRL0 = ~setting0 & peripheral->SYSAHBCLKCTRL0;
     peripheral->SYSAHBCLKCTRL1 = ~setting1 & peripheral->SYSAHBCLKCTRL1;
@@ -223,7 +223,7 @@ static inline void sysconlDisableClocks(SYSCON_Type *peripheral, uint32_t settin
  * @param   resets1     Settings for reset control 1 register, see RESETCTRL1 enum
  * @return  Nothing
  */
-static inline void sysconlEnableResets(SYSCON_Type *peripheral, uint32_t resets0, uint32_t resets1)
+static inline void sysconEnableResets(SYSCON_Type *peripheral, uint32_t resets0, uint32_t resets1)
 {
     peripheral->SYSAHBCLKCTRL0 = resets0 | peripheral->SYSAHBCLKCTRL0;
     peripheral->SYSAHBCLKCTRL1 = resets1 | peripheral->SYSAHBCLKCTRL1;
@@ -236,7 +236,7 @@ static inline void sysconlEnableResets(SYSCON_Type *peripheral, uint32_t resets0
  * @param   resets1     Settings for reset control 1 register, see RESETCTRL1 enum
  * @return  Nothing
  */
-static inline void sysconlDisableResets(SYSCON_Type *peripheral, uint32_t resets0, uint32_t resets1)
+static inline void sysconDisableResets(SYSCON_Type *peripheral, uint32_t resets0, uint32_t resets1)
 {
     peripheral->SYSAHBCLKCTRL0 = ~resets0 & peripheral->SYSAHBCLKCTRL0;
     peripheral->SYSAHBCLKCTRL1 = ~resets1 & peripheral->SYSAHBCLKCTRL1;
@@ -248,7 +248,7 @@ static inline void sysconlDisableResets(SYSCON_Type *peripheral, uint32_t resets
  * @param   source      clock source, see CLKOUT_SOURCE_Type enum
  * @return  Nothing
  */
-static inline void sysconlClkoutSource(SYSCON_Type *peripheral, CLKOUT_SOURCE_Type source)
+static inline void sysconClkoutSource(SYSCON_Type *peripheral, CLKOUT_SOURCE_Type source)
 {
     peripheral->CLKOUTSEL = source & CLKOUT_RESERVED_MASK;
 }
@@ -259,7 +259,7 @@ static inline void sysconlClkoutSource(SYSCON_Type *peripheral, CLKOUT_SOURCE_Ty
  * @param   divider     division value
  * @return  Nothing
  */
-static inline void sysconlClkoutDivider(SYSCON_Type *peripheral, uint8_t divider)
+static inline void sysconClkoutDivider(SYSCON_Type *peripheral, uint8_t divider)
 {
     peripheral->CLKOUTDIV = divider;
 }
@@ -270,18 +270,18 @@ static inline void sysconlClkoutDivider(SYSCON_Type *peripheral, uint8_t divider
  * @param   powerEnables    set of peripherals to give power
  * @return  Nothing
  */
-static inline void sysconlPowerEnable(SYSCON_Type *peripheral, uint32_t powerEnables)
+static inline void sysconPowerEnable(SYSCON_Type *peripheral, uint32_t powerEnables)
 {
     peripheral->PDRUNCFG = peripheral->PDRUNCFG & ~(powerEnables & ~PDRUNCFG_RESERVED_MASK);
 }
-
+ 
 /**
  * @brief   Disable power to various peripherals
  * @param   peripheral      base address of SYSCON peripheral
  * @param   powerDisables   set of peripherals to remove power
  * @return  Nothing
  */
-static inline void sysconlPowerDisable(SYSCON_Type *peripheral, uint32_t powerDisables)
+static inline void sysconPowerDisable(SYSCON_Type *peripheral, uint32_t powerDisables)
 {
     peripheral->PDRUNCFG = peripheral->PDRUNCFG | (powerDisables & ~PDRUNCFG_RESERVED_MASK);
 }
