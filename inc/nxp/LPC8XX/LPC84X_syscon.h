@@ -83,39 +83,62 @@ typedef struct {
     __I  uint32_t DEVICE_ID;         /**< Part ID register, offset: 0x3F8 */
 } SYSCON_Type;
 
+#define SYSOSCCTRL_MASK             0xFFFFFFFC  /**< Reserved bits of System oscillator control register */
+#define SYSOSCCTRL_BYPASS           (1<<0)      /**< Oscillator is bypassed, used with external oscillator */
+#define SYSOSCCTRL_FREQ_1_20MHZ     (0<<1)      /**< Oscillator frequency range from 1 to 20MHz */
+#define SYSOSCCTRL_FREQ_15_25MHZ    (1<<1)      /**< Oscillator frequency range from 15 to 25MHz */
+
+
+typedef enum {
+    EXTCLKSEL_SYSOSC = 0u,  /**< System oscillator (crystal oscillator) */
+    EXTCLKSEL_CLK_IN = 1u,  /**< CLK_IN pin */
+} EXTCLKSEL_Type;
+
+#define MAINCLKSEL_MASK       0xFFFFFFF8  /**< Reserved bits of the main clock source select register */
+typedef enum {
+    MAINCLKSEL_FRO = 0u,      /**< System oscillator (crystal oscillator) */
+    MAINCLKSEL_EXTCLK = 1u,   /**< External clock network */
+    MAINCLKSEL_WATCHDOG = 2u, /**< Watchdog oscillator */
+    MAINCLKSEL_FRO_DIV = 3u   /**< FRO divided by two */
+} MAINCLOCKSEL_Type;
+
+#define MAINCLKUEN_MASK       0xFFFFFFFE  /**< Reserved bits of the main clock source update register */
+#define MAINCLKUEN_UPDATE     (1<<0)      /**< Update main clock source */
+
+
 /** Clock control 0 peripheral list */
 typedef enum {
-    CLKCTRL0_NONE       = 0,            /**< Empty clock enable */
-    CLKCTRL0_ROM        = (1 << 1),     /**< ROM clock enable */
-    CLKCTRL0_RAM0_1     = (1 << 2),     /**< RAM 0 and 1 clock enable */
-    CLKCTRL0_FLASH      = (1 << 4),     /**< Flash clock enable */
-    CLKCTRL0_I2C0       = (1 << 5),     /**< I2C0 clock enable */
-    CLKCTRL0_GPIO0      = (1 << 6),     /**< GPIO0 clock enable */
-    CLKCTRL0_SWM        = (1 << 7),     /**< SWM clock enable */
-    CLKCTRL0_SCT        = (1 << 8),     /**< SCT clock enable */
-    CLKCTRL0_WKT        = (1 << 9),     /**< WKT clock enable */
-    CLKCTRL0_MRT        = (1 << 10),    /**< MRT clock enable */
-    CLKCTRL0_SPI0       = (1 << 11),    /**< SPI0 clock enable */
-    CLKCTRL0_SPI1       = (1 << 12),    /**< SPI1 clock enable */
-    CLKCTRL0_CRC        = (1 << 13),    /**< CRC clock enable */
-    CLKCTRL0_UART0      = (1 << 14),    /**< UART0 clock enable */
-    CLKCTRL0_UART1      = (1 << 15),    /**< UART1 clock enable */
-    CLKCTRL0_UART2      = (1 << 16),    /**< UART2 clock enable */
-    CLKCTRL0_WWDT       = (1 << 17),    /**< WWDT clock enable */
-    CLKCTRL0_IOCON      = (1 << 18),    /**< IOCON clock enable */
-    CLKCTRL0_ACMP       = (1 << 19),    /**< ACMP clock enable */
-    CLKCTRL0_GPIO1      = (1 << 20),    /**< GPIO1 clock enable */
-    CLKCTRL0_I2C1       = (1 << 21),    /**< I2C1 clock enable */
-    CLKCTRL0_I2C2       = (1 << 22),    /**< I2C2 clock enable */
-    CLKCTRL0_I2C3       = (1 << 23),    /**< I2C3 clock enable */
-    CLKCTRL0_ADC        = (1 << 24),    /**< ADC clock enable */
-    CLKCTRL0_CTIMER0    = (1 << 25),    /**< CTIMER0 clock enable */
-    CLKCTRL0_MTB        = (1 << 26),    /**< MTB clock enable */
-    CLKCTRL0_DAC0       = (1 << 27),    /**< MTB clock enable */
-    CLKCTRL0_GPIO_INT   = (1 << 28),    /**< GPIO_INT clock enable */
-    CLKCTRL0_DMA        = (1 << 29),    /**< DMA clock enable */
-    CLKCTRL0_UART3      = (1 << 30),    /**< UART3 clock enable */
-    CLKCTRL0_UART4      = (1 << 31),    /**< UART4 clock enable */
+    CLKCTRL0_NONE = 0,              /**< Empty clock enable */
+    CLKCTRL0_ROM = (1 << 1),        /**< ROM clock enable */
+    CLKCTRL0_RAM0_1 = (1 << 2),     /**< RAM 0 and 1 clock enable */
+    CLKCTRL0_FLASH = (1 << 4),      /**< Flash clock enable */
+    CLKCTRL0_I2C0 = (1 << 5),       /**< I2C0 clock enable */
+    CLKCTRL0_GPIO0 = (1 << 6),      /**< GPIO0 clock enable */
+    CLKCTRL0_SWM = (1 << 7),        /**< SWM clock enable */
+    CLKCTRL0_SCT = (1 << 8),        /**< SCT clock enable */
+    CLKCTRL0_WKT = (1 << 9),        /**< WKT clock enable */
+    CLKCTRL0_MRT = (1 << 10),       /**< MRT clock enable */
+    CLKCTRL0_SPI0 = (1 << 11),      /**< SPI0 clock enable */
+    CLKCTRL0_SPI1 = (1 << 12),      /**< SPI1 clock enable */
+    CLKCTRL0_CRC = (1 << 13),       /**< CRC clock enable */
+    CLKCTRL0_UART0 = (1 << 14),     /**< UART0 clock enable */
+    CLKCTRL0_UART1 = (1 << 15),     /**< UART1 clock enable */
+    CLKCTRL0_UART2 = (1 << 16),     /**< UART2 clock enable */
+    CLKCTRL0_WWDT = (1 << 17),      /**< WWDT clock enable */
+    CLKCTRL0_IOCON = (1 << 18),     /**< IOCON clock enable */
+    CLKCTRL0_ACMP = (1 << 19),      /**< ACMP clock enable */
+    CLKCTRL0_GPIO1 = (1 << 20),     /**< GPIO1 clock enable */
+    CLKCTRL0_I2C1 = (1 << 21),      /**< I2C1 clock enable */
+    CLKCTRL0_I2C2 = (1 << 22),      /**< I2C2 clock enable */
+    CLKCTRL0_I2C3 = (1 << 23),      /**< I2C3 clock enable */
+    CLKCTRL0_ADC = (1 << 24),       /**< ADC clock enable */
+    CLKCTRL0_CTIMER0 = (1 << 25),   /**< CTIMER0 clock enable */
+    CLKCTRL0_MTB = (1 << 26),       /**< MTB clock enable */
+    CLKCTRL0_DAC0 = (1 << 27),      /**< MTB clock enable */
+    CLKCTRL0_GPIO_INT = (1 << 28),  /**< GPIO_INT clock enable */
+    CLKCTRL0_DMA = (1 << 29),       /**< DMA clock enable */
+    CLKCTRL0_UART3 = (1 << 30),     /**< UART3 clock enable */
+    CLKCTRL0_UART4 = (1 << 31),     /**< UART4 clock enable */
 } SYSCON_CLKCTRL0_Type;
 
 /** Clock control 1 peripheral list */
@@ -191,13 +214,48 @@ typedef enum {
 #define PDRUNCFG_RESERVED_MASK  0x00001F00  /**< Default configuration for Powerdown register */
 
 /**
+ * @brief   Sets up system oscillator
+ * @param   peripheral  base address of SYSCON peripheral
+ * @param   setting     Setting for the system oscillator
+ * @return  Nothing
+ */
+static inline void sysconSysOscControl(SYSCON_Type *peripheral, uint32_t setting)
+{
+    peripheral->SYSOSCCTRL = (peripheral->SYSOSCCTRL & SYSOSCCTRL_MASK ) | setting;
+}
+
+/**
+ * @brief   Select main clock source
+ * @param   peripheral  base address of SYSCON peripheral
+ * @param   source      Clock source of the main clock network
+ * @return  Nothing
+ */
+static inline void sysconMainClockSelect(SYSCON_Type *peripheral, MAINCLOCKSEL_Type setting)
+{
+    peripheral->MAINCLKSEL = (peripheral->MAINCLKSEL & MAINCLKSEL_MASK) | setting;
+    peripheral->MAINCLKUEN = peripheral->MAINCLKUEN & MAINCLKUEN_MASK;
+    peripheral->MAINCLKUEN = peripheral->MAINCLKUEN | MAINCLKUEN_UPDATE;
+}
+
+/**
+ * @brief   Select external clock source
+ * @param   peripheral  base address of SYSCON peripheral
+ * @param   source      Clock source of the external clock network
+ * @return  Nothing
+ */
+static inline void sysconExternalClockSelect(SYSCON_Type *peripheral, EXTCLKSEL_Type setting)
+{
+    peripheral->EXTCLKSEL = setting;
+}
+
+/**
  * @brief   Enables clocks to various peripherals
  * @param   peripheral  : base address of SYSCON peripheral
  * @param   setting0    Settings for clock control 0 register, see CLKCTRL0 enum
  * @param   setting1    Settings for clock control 1 register, see CLKCTRL1 enum
  * @return  Nothing
  */
-static inline void sysconlEnableClocks(SYSCON_Type *peripheral, uint32_t setting0, uint32_t setting1)
+static inline void sysconEnableClocks(SYSCON_Type *peripheral, uint32_t setting0, uint32_t setting1)
 {
     peripheral->SYSAHBCLKCTRL0 = setting0 | peripheral->SYSAHBCLKCTRL0;
     peripheral->SYSAHBCLKCTRL1 = setting1 | peripheral->SYSAHBCLKCTRL1;
@@ -256,7 +314,7 @@ static inline void sysconClkoutSource(SYSCON_Type *peripheral, CLKOUT_SOURCE_Typ
 /**
  * @brief   set CLKOUT divider
  * @param   peripheral  base address of SYSCON peripheral
- * @param   divider     division value
+ * @param   divider     division value, 0 means divider disabled, 1 is divide by 1
  * @return  Nothing
  */
 static inline void sysconClkoutDivider(SYSCON_Type *peripheral, uint8_t divider)
