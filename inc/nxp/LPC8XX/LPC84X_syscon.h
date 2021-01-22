@@ -254,9 +254,9 @@ static inline void sysconlClkoutSource(SYSCON_Type *peripheral, CLKOUT_SOURCE_Ty
 }
 
 /**
- * @brief   Select clock source to output on CLKOUT pin
+ * @brief   set CLKOUT divider
  * @param   peripheral  base address of SYSCON peripheral
- * @param   divider     clock source, see CLKOUT_SOURCE_Type enum
+ * @param   divider     division value
  * @return  Nothing
  */
 static inline void sysconlClkoutDivider(SYSCON_Type *peripheral, uint8_t divider)
@@ -265,7 +265,7 @@ static inline void sysconlClkoutDivider(SYSCON_Type *peripheral, uint8_t divider
 }
 
 /**
- * @brief   Select clock source to output on CLKOUT pin
+ * @brief   Enable power to various peripherals
  * @param   peripheral      base address of SYSCON peripheral
  * @param   powerEnables    set of peripherals to give power
  * @return  Nothing
@@ -276,7 +276,7 @@ static inline void sysconlPowerEnable(SYSCON_Type *peripheral, uint32_t powerEna
 }
 
 /**
- * @brief   Select clock source to output on CLKOUT pin
+ * @brief   Disable power to various peripherals
  * @param   peripheral      base address of SYSCON peripheral
  * @param   powerDisables   set of peripherals to remove power
  * @return  Nothing
@@ -285,6 +285,5 @@ static inline void sysconlPowerDisable(SYSCON_Type *peripheral, uint32_t powerDi
 {
     peripheral->PDRUNCFG = peripheral->PDRUNCFG | (powerDisables & ~PDRUNCFG_RESERVED_MASK);
 }
-
 
 #endif
