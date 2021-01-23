@@ -83,28 +83,48 @@ typedef struct {
     __I  uint32_t DEVICE_ID;         /**< Part ID register, offset: 0x3F8 */
 } SYSCON_Type;
 
-#define SYSOSCCTRL_MASK             0xFFFFFFFC  /**< Reserved bits of System oscillator control register */
-#define SYSOSCCTRL_BYPASS           (1<<0)      /**< Oscillator is bypassed, used with external oscillator */
-#define SYSOSCCTRL_FREQ_1_20MHZ     (0<<1)      /**< Oscillator frequency range from 1 to 20MHz */
-#define SYSOSCCTRL_FREQ_15_25MHZ    (1<<1)      /**< Oscillator frequency range from 15 to 25MHz */
+#define SYSPLLCTRL_MASK             0xFFFFFF80  /**< Reserved bits of the System PLL control register */
 
+#define SYSOSCCTRL_MASK             0xFFFFFFFC  /**< Reserved bits of System oscillator control register */
+#define SYSOSCCTRL_BYPASS           (1 << 0)    /**< Oscillator is bypassed, used with external oscillator */
+#define SYSOSCCTRL_FREQ_1_20MHZ     (0 << 1)    /**< Oscillator frequency range from 1 to 20MHz */
+#define SYSOSCCTRL_FREQ_15_25MHZ    (1 << 1)    /**< Oscillator frequency range from 15 to 25MHz */
+
+#define SYSPLLCLKSEL_MASK       0xFFFFFFFC   /**< Reserved bits of the Main clock pll select register */
+typedef enum {
+    SYSPLLCLKSEL_FRO = 0u,      /**< System oscillator (crystal oscillator) */
+    SYSPLLCLKSEL_EXTCLK = 1u,   /**< External clock network */
+    SYSPLLCLKSEL_WATCHDOG = 2u, /**< Watchdog oscillator */
+    SYSPLLCLKSEL_FRO_DIV = 3u   /**< FRO divided by two */
+} SYSPLLCLKSEL_Type;
+
+#define SYSPLLCLKUEN_MASK       0xFFFFFFFE  /**< Reserved bits of the main clock pll select update register */
+#define SYSPLLCLKUEN_UPDATE     (1 << 0)    /**< Update main clock pll select */
+
+#define MAINCLKPLLSEL_MASK      0xFFFFFFFC  /**< Reserved bits of the Main clock pll select register */
+typedef enum {
+    MAINCLKPLLSEL_PREPLL = 0u,  /**< Pre PLL */
+    MAINCLKPLLSEL_SYSPLL = 1u,  /**< System PLL */
+} MAINCLKPLLSEL_Type;
+
+#define MAINCLKPLLUEN_MASK      0xFFFFFFFE  /**< Reserved bits of the main clock pll select update register */
+#define MAINCLKPLLUEN_UPDATE    (1 << 0)    /**< Update main clock pll select */
+
+#define MAINCLKSEL_MASK         0xFFFFFFF8  /**< Reserved bits of the main clock source select register */
+typedef enum {
+    MAINCLKSEL_FRO = 0u,        /**< System oscillator (crystal oscillator) */
+    MAINCLKSEL_EXTCLK = 1u,     /**< External clock network */
+    MAINCLKSEL_WATCHDOG = 2u,   /**< Watchdog oscillator */
+    MAINCLKSEL_FRO_DIV = 3u     /**< FRO divided by two */
+} MAINCLOCKSEL_Type;
+
+#define MAINCLKUEN_MASK         0xFFFFFFFE  /**< Reserved bits of the main clock source update register */
+#define MAINCLKUEN_UPDATE       (1 << 0)    /**< Update main clock source */
 
 typedef enum {
     EXTCLKSEL_SYSOSC = 0u,  /**< System oscillator (crystal oscillator) */
     EXTCLKSEL_CLK_IN = 1u,  /**< CLK_IN pin */
 } EXTCLKSEL_Type;
-
-#define MAINCLKSEL_MASK       0xFFFFFFF8  /**< Reserved bits of the main clock source select register */
-typedef enum {
-    MAINCLKSEL_FRO = 0u,      /**< System oscillator (crystal oscillator) */
-    MAINCLKSEL_EXTCLK = 1u,   /**< External clock network */
-    MAINCLKSEL_WATCHDOG = 2u, /**< Watchdog oscillator */
-    MAINCLKSEL_FRO_DIV = 3u   /**< FRO divided by two */
-} MAINCLOCKSEL_Type;
-
-#define MAINCLKUEN_MASK       0xFFFFFFFE  /**< Reserved bits of the main clock source update register */
-#define MAINCLKUEN_UPDATE     (1<<0)      /**< Update main clock source */
-
 
 /** Clock control 0 peripheral list */
 typedef enum {
@@ -143,39 +163,39 @@ typedef enum {
 
 /** Clock control 1 peripheral list */
 typedef enum {
-    CLKCTRL1_NONE       = 0,        /**< Empty clock enable */    
-    CLKCTRL1_CAPT       = (1 << 0), /**< CAPT clock enable */
-    CLKCTRL1_DAC1       = (1 << 1), /**< DAC1 clock enable */
+    CLKCTRL1_NONE = 0,          /**< Empty clock enable */    
+    CLKCTRL1_CAPT = (1 << 0),   /**< CAPT clock enable */
+    CLKCTRL1_DAC1 = (1 << 1),   /**< DAC1 clock enable */
 } SYSCON_CLKCTRL1_Type;
 
 /** reset control 0 peripheral list */
 typedef enum {
-    RESETCTRL0_FLASH      = (1 << 4),     /**< Flash reset clear */
-    RESETCTRL0_I2C0       = (1 << 5),     /**< I2C0 reset clear */
-    RESETCTRL0_GPIO0      = (1 << 6),     /**< GPIO0 reset clear */
-    RESETCTRL0_SWM        = (1 << 7),     /**< SWM reset clear */
-    RESETCTRL0_SCT        = (1 << 8),     /**< SCT reset clear */
-    RESETCTRL0_WKT        = (1 << 9),     /**< WKT reset clear */
-    RESETCTRL0_MRT        = (1 << 10),    /**< MRT reset clear */
-    RESETCTRL0_SPI0       = (1 << 11),    /**< SPI0 reset clear */
-    RESETCTRL0_SPI1       = (1 << 12),    /**< SPI1 reset clear */
-    RESETCTRL0_CRC        = (1 << 13),    /**< CRC reset clear */
-    RESETCTRL0_UART0      = (1 << 14),    /**< UART0 reset clear */
-    RESETCTRL0_UART1      = (1 << 15),    /**< UART1 reset clear */
-    RESETCTRL0_UART2      = (1 << 16),    /**< UART2 reset clear */
-    RESETCTRL0_IOCON      = (1 << 18),    /**< IOCON reset clear */
-    RESETCTRL0_ACMP       = (1 << 19),    /**< ACMP reset clear */
-    RESETCTRL0_GPIO1      = (1 << 20),    /**< GPIO1 reset clear */
-    RESETCTRL0_I2C1       = (1 << 21),    /**< I2C1 reset clear */
-    RESETCTRL0_I2C2       = (1 << 22),    /**< I2C2 reset clear */
-    RESETCTRL0_I2C3       = (1 << 23),    /**< I2C3 reset clear */
-    RESETCTRL0_ADC        = (1 << 24),    /**< ADC reset clear */
-    RESETCTRL0_CTIMER0    = (1 << 25),    /**< CTIMER0 reset clear */
-    RESETCTRL0_DAC0       = (1 << 27),    /**< MTB reset clear */
-    RESETCTRL0_GPIO_INT   = (1 << 28),    /**< GPIO_INT reset clear */
-    RESETCTRL0_DMA        = (1 << 29),    /**< DMA reset clear */
-    RESETCTRL0_UART3      = (1 << 30),    /**< UART3 reset clear */
-    RESETCTRL0_UART4      = (1 << 31),    /**< UART4 reset clear */
+    RESETCTRL0_FLASH = (1 << 4),        /**< Flash reset clear */
+    RESETCTRL0_I2C0 = (1 << 5),         /**< I2C0 reset clear */
+    RESETCTRL0_GPIO0 = (1 << 6),        /**< GPIO0 reset clear */
+    RESETCTRL0_SWM = (1 << 7),          /**< SWM reset clear */
+    RESETCTRL0_SCT = (1 << 8),          /**< SCT reset clear */
+    RESETCTRL0_WKT = (1 << 9),          /**< WKT reset clear */
+    RESETCTRL0_MRT = (1 << 10),         /**< MRT reset clear */
+    RESETCTRL0_SPI0 = (1 << 11),        /**< SPI0 reset clear */
+    RESETCTRL0_SPI1 = (1 << 12),        /**< SPI1 reset clear */
+    RESETCTRL0_CRC = (1 << 13),         /**< CRC reset clear */
+    RESETCTRL0_UART0 = (1 << 14),       /**< UART0 reset clear */
+    RESETCTRL0_UART1 = (1 << 15),       /**< UART1 reset clear */
+    RESETCTRL0_UART2 = (1 << 16),       /**< UART2 reset clear */
+    RESETCTRL0_IOCON = (1 << 18),       /**< IOCON reset clear */
+    RESETCTRL0_ACMP = (1 << 19),        /**< ACMP reset clear */
+    RESETCTRL0_GPIO1 = (1 << 20),       /**< GPIO1 reset clear */
+    RESETCTRL0_I2C1 = (1 << 21),        /**< I2C1 reset clear */
+    RESETCTRL0_I2C2 = (1 << 22),        /**< I2C2 reset clear */
+    RESETCTRL0_I2C3 = (1 << 23),        /**< I2C3 reset clear */
+    RESETCTRL0_ADC = (1 << 24),         /**< ADC reset clear */
+    RESETCTRL0_CTIMER0 = (1 << 25),     /**< CTIMER0 reset clear */
+    RESETCTRL0_DAC0 = (1 << 27),        /**< MTB reset clear */
+    RESETCTRL0_GPIO_INT = (1 << 28),    /**< GPIO_INT reset clear */
+    RESETCTRL0_DMA = (1 << 29),         /**< DMA reset clear */
+    RESETCTRL0_UART3 = (1 << 30),       /**< UART3 reset clear */
+    RESETCTRL0_UART4 = (1 << 31),       /**< UART4 reset clear */
 } SYSCON_RESETCTRL0_Type;
 
 /** reset control 1 peripheral list */
@@ -210,8 +230,30 @@ typedef enum {
     PDRUNCFG_ACMP      = (1 << 15),
 } PDCFG_Type;
 
-#define PDRUNCFG_DEFAULT        0x0000EDF8  /**< Default configuration for Powerdown register */
-#define PDRUNCFG_RESERVED_MASK  0x00001F00  /**< Default configuration for Powerdown register */
+#define PDRUNCFG_DEFAULT    0x0000EDF8  /**< Default configuration for Powerdown register */
+#define PDRUNCFG_MASK       0xFFFF1F00  /**< Default configuration for Powerdown register */
+
+/**
+ * @brief   Sets up system PLL
+ * @param   peripheral  base address of SYSCON peripheral
+ * @param   msel        Feedback divider value
+ * @param   psel        Post divider ratio
+ * @return  Nothing
+ */
+static inline void sysconPllControl(SYSCON_Type *peripheral, uint32_t msel, uint32_t psel)
+{
+    peripheral->SYSPLLCTRL = (peripheral->SYSPLLCTRL & SYSPLLCTRL_MASK) | msel | (psel << 5);
+}
+
+/**
+ * @brief   Sets up system PLL
+ * @param   peripheral  base address of SYSCON peripheral
+ * @return  PLL status, zero is not locked, one is locked
+ */
+static inline uint32_t sysconPllStatus(SYSCON_Type *peripheral)
+{
+    return peripheral->SYSPLLSTAT;
+}
 
 /**
  * @brief   Sets up system oscillator
@@ -225,6 +267,32 @@ static inline void sysconSysOscControl(SYSCON_Type *peripheral, uint32_t setting
 }
 
 /**
+ * @brief   Select System clock clock source
+ * @param   peripheral  base address of SYSCON peripheral
+ * @param   source      Clock source of the main clock network
+ * @return  Nothing
+ */
+static inline void sysconSysPllClockSelect(SYSCON_Type *peripheral, SYSPLLCLKSEL_Type setting)
+{
+    peripheral->SYSPLLCLKSEL = (peripheral->MAINCLKSEL & SYSPLLCLKSEL_MASK) | setting;
+    peripheral->SYSPLLCLKUEN = peripheral->MAINCLKUEN & ~SYSPLLCLKUEN_UPDATE;
+    peripheral->SYSPLLCLKUEN = peripheral->MAINCLKUEN | SYSPLLCLKUEN_UPDATE;
+}
+
+/**
+ * @brief   Select system pll clock source
+ * @param   peripheral  base address of SYSCON peripheral
+ * @param   source      Clock source of the main clock network
+ * @return  Nothing
+ */
+static inline void sysconMainClockPllSelect(SYSCON_Type *peripheral, MAINCLKPLLSEL_Type setting)
+{
+    peripheral->MAINCLKPLLSEL = (peripheral->MAINCLKSEL & MAINCLKPLLSEL_MASK) | setting;
+    peripheral->MAINCLKPLLUEN = peripheral->MAINCLKUEN & ~MAINCLKPLLUEN_UPDATE;
+    peripheral->MAINCLKPLLUEN = peripheral->MAINCLKUEN | MAINCLKPLLUEN_UPDATE;
+}
+
+/**
  * @brief   Select main clock source
  * @param   peripheral  base address of SYSCON peripheral
  * @param   source      Clock source of the main clock network
@@ -233,7 +301,7 @@ static inline void sysconSysOscControl(SYSCON_Type *peripheral, uint32_t setting
 static inline void sysconMainClockSelect(SYSCON_Type *peripheral, MAINCLOCKSEL_Type setting)
 {
     peripheral->MAINCLKSEL = (peripheral->MAINCLKSEL & MAINCLKSEL_MASK) | setting;
-    peripheral->MAINCLKUEN = peripheral->MAINCLKUEN & MAINCLKUEN_MASK;
+    peripheral->MAINCLKUEN = peripheral->MAINCLKUEN & ~MAINCLKUEN_UPDATE;
     peripheral->MAINCLKUEN = peripheral->MAINCLKUEN | MAINCLKUEN_UPDATE;
 }
 
@@ -330,7 +398,7 @@ static inline void sysconClkoutDivider(SYSCON_Type *peripheral, uint8_t divider)
  */
 static inline void sysconPowerEnable(SYSCON_Type *peripheral, uint32_t powerEnables)
 {
-    peripheral->PDRUNCFG = peripheral->PDRUNCFG & ~(powerEnables & ~PDRUNCFG_RESERVED_MASK);
+    peripheral->PDRUNCFG = peripheral->PDRUNCFG & (~powerEnables | PDRUNCFG_MASK);
 }
  
 /**
@@ -341,7 +409,7 @@ static inline void sysconPowerEnable(SYSCON_Type *peripheral, uint32_t powerEnab
  */
 static inline void sysconPowerDisable(SYSCON_Type *peripheral, uint32_t powerDisables)
 {
-    peripheral->PDRUNCFG = peripheral->PDRUNCFG | (powerDisables & ~PDRUNCFG_RESERVED_MASK);
+    peripheral->PDRUNCFG = peripheral->PDRUNCFG | (powerDisables & ~PDRUNCFG_MASK);
 }
 
 #endif
