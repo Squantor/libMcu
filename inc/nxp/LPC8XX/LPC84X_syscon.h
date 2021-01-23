@@ -83,6 +83,13 @@ typedef struct {
     __I  uint32_t DEVICE_ID;         /**< Part ID register, offset: 0x3F8 */
 } SYSCON_Type;
 
+typedef enum {
+    SYSPLLCTRL_POSTDIV_2 = 0u,  /**< Post PLL division ratio of two */
+    SYSPLLCTRL_POSTDIV_4 = 1u,  /**< Post PLL division ratio of two */
+    SYSPLLCTRL_POSTDIV_8 = 2u,  /**< Post PLL division ratio of two */
+    SYSPLLCTRL_POSTDIV_16 = 3u, /**< Post PLL division ratio of two */
+} SYSPLLCTRL_PSEL_Type;
+
 #define SYSPLLCTRL_MASK             0xFFFFFF80  /**< Reserved bits of the System PLL control register */
 
 #define SYSOSCCTRL_MASK             0xFFFFFFFC  /**< Reserved bits of System oscillator control register */
@@ -120,6 +127,8 @@ typedef enum {
 
 #define MAINCLKUEN_MASK         0xFFFFFFFE  /**< Reserved bits of the main clock source update register */
 #define MAINCLKUEN_UPDATE       (1 << 0)    /**< Update main clock source */
+
+#define SYSAHBCLKDIV_MASK       0xFFFFFF00  /**< Reserved bits of the system clock divider register */
 
 typedef enum {
     EXTCLKSEL_SYSOSC = 0u,  /**< System oscillator (crystal oscillator) */
@@ -240,7 +249,7 @@ typedef enum {
  * @param   psel        Post divider ratio
  * @return  Nothing
  */
-static inline void sysconPllControl(SYSCON_Type *peripheral, uint32_t msel, uint32_t psel)
+static inline void sysconPllControl(SYSCON_Type *peripheral, uint32_t msel, SYSPLLCTRL_PSEL_Type psel)
 {
     peripheral->SYSPLLCTRL = (peripheral->SYSPLLCTRL & SYSPLLCTRL_MASK) | msel | (psel << 5);
 }
@@ -303,6 +312,17 @@ static inline void sysconMainClockSelect(SYSCON_Type *peripheral, MAINCLOCKSEL_T
     peripheral->MAINCLKSEL = (peripheral->MAINCLKSEL & MAINCLKSEL_MASK) | setting;
     peripheral->MAINCLKUEN = peripheral->MAINCLKUEN & ~MAINCLKUEN_UPDATE;
     peripheral->MAINCLKUEN = peripheral->MAINCLKUEN | MAINCLKUEN_UPDATE;
+}
+
+/**
+ * @brief   Set main clock divider
+ * @param   peripheral  base address of SYSCON peripheral
+ * @param   divider     Divider value, 0 is disable, 1 is divide by 1
+ * @return  Nothing
+ */
+static inline void sysconMainClockDivider(SYSCON_Type *peripheral, uint32_t divider)
+{
+    peripheral->SYSAHBCLKDIV = (peripheral->SYSAHBCLKDIV & MAINCLKSEL_MASK) | divider;
 }
 
 /**
