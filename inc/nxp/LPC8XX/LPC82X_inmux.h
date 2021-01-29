@@ -31,46 +31,42 @@ functions.
 #ifndef LPC82X_INMUX_H
 #define LPC82X_INMUX_H
 
-/** @defgroup INMUX_8XX CHIP: LPC8xx INPUT Mux Controller driver
- * @ingroup CHIP_8XX_Drivers
- * @{
- */
 typedef struct {
-    __IO uint32_t  DMA_INMUX_INMUX[2];    /* DMA Trigger Input 20 & 21 PINMUX 0-1 */
-    __O  uint32_t  RESERVED[6];           /* Reserved; Should not be used */
-    __IO uint32_t  SCT0_INMUX[4];         /* Input mux register for SCT0; INPUT0-3 */
+    __IO uint32_t  DMA_INMUX_INMUX[2];    /**< DMA Trigger Input 20 & 21 PINMUX 0-1 */
+    __O  uint32_t  RESERVED[6];           /**< Reserved; Should not be used */
+    __IO uint32_t  SCT0_INMUX[4];         /**< Input mux register for SCT0; INPUT0-3 */
 } LPC_INMUX_T;
 
 /**
- * @brief    DMA INPUT MUX Index see Chip_INMUX_SetDMAOTrig()
+ * @brief    DMA INPUT MUX Index see inmuxSetDMAOTrig()
  */
 typedef enum {
-    DMA_INMUX_0,  /* MUX for DMA input trigger 20 */
-    DMA_INMUX_1,  /* MUX for DMA input trigger 21 */
+    DMA_INMUX_0,  /**< MUX for DMA input trigger 20 */
+    DMA_INMUX_1,  /**< MUX for DMA input trigger 21 */
 }DMA_INMUX_T;
 
 /**
- * @brief    SCT Input Mux Index; See Chip_INMUX_SetSCTInMux()
+ * @brief    SCT Input Mux Index; See inmuxSetSCTInMux()
  */
 typedef enum {
-    SCT_INMUX_0,   /* Input mux for SCT0; INPUT 0 */
-    SCT_INMUX_1,   /* Input mux for SCT0; INPUT 1 */
-    SCT_INMUX_2,   /* Input mux for SCT0; INPUT 2 */
-    SCT_INMUX_3,   /* Input mux for SCT0; INPUT 3 */
+    SCT_INMUX_0,   /**< Input mux for SCT0; INPUT 0 */
+    SCT_INMUX_1,   /**< Input mux for SCT0; INPUT 1 */
+    SCT_INMUX_2,   /**< Input mux for SCT0; INPUT 2 */
+    SCT_INMUX_3,   /**< Input mux for SCT0; INPUT 3 */
 } SCT_INMUX_T;
 
 /**
  * @brief    SCT INPUT triggers
  */
 typedef enum {
-    SCT_INP_IN0,                /* SCT0_IN0 selected by Pin Matrix */ /* FIXME: UM hints about changes */
-    SCT_INP_IN1,                /* SCT0_IN1 selected by Pin Matrix */
-    SCT_INP_IN2,                /* SCT0_IN2 selected by Pin Matrix */
-    SCT_INP_IN3,                /* SCT0_IN3 selected by Pin Matrix */
-    SCT_INP_ADC_THCMP_IRQ,      /* ADC Threshold compare IRQ */
-    SCT_INP_ACMP_O,             /* Analog comparator output */
-    SCT_INP_ARM_TXEV,           /* ARM TX Event */
-    SCT_INP_DEBUG_HALTED,       /* Debug halted event */
+    SCT_INP_IN0             = 0x00, /**< SCT0_IN0 selected by Pin Matrix */
+    SCT_INP_IN1             = 0x01, /**< SCT0_IN1 selected by Pin Matrix */
+    SCT_INP_IN2             = 0x02, /**< SCT0_IN2 selected by Pin Matrix */
+    SCT_INP_IN3             = 0x03, /**< SCT0_IN3 selected by Pin Matrix */
+    SCT_INP_ADC_THCMP_IRQ   = 0x04, /**< ADC Threshold compare IRQ */
+    SCT_INP_ACMP_O          = 0x05, /**< Analog comparator output */
+    SCT_INP_ARM_TXEV        = 0x06, /**< ARM TX Event */
+    SCT_INP_DEBUG_HALTED    = 0x07, /**< Debug halted event */
 } SCT_INP_T;
 
 /**
@@ -80,7 +76,7 @@ typedef enum {
  * @param    ch        : DMA channel ID
  * @return    Nothing
  */
-static inline void Chip_INMUX_SetDMAOTrig(LPC_INMUX_T *pINMUX, DMA_INMUX_T imux, DMA_CHID_T ch)
+static inline void inmuxSetDMAOTrig(LPC_INMUX_T *pINMUX, DMA_INMUX_T imux, DMA_CHID_T ch)
 {
     pINMUX->DMA_INMUX_INMUX[imux] = ch;
 }
@@ -92,14 +88,10 @@ static inline void Chip_INMUX_SetDMAOTrig(LPC_INMUX_T *pINMUX, DMA_INMUX_T imux,
  * @param    trig    : SCT Input function that will cause the trigger
  * @return    Nothing
  */
-static inline void Chip_INMUX_SetSCTInMux(LPC_INMUX_T *pINMUX, SCT_INMUX_T isct, SCT_INP_T trig)
+static inline void inmuxSetSCTInMux(LPC_INMUX_T *pINMUX, SCT_INMUX_T isct, SCT_INP_T trig)
 {
     pINMUX->SCT0_INMUX[isct] = trig;
 }
-
-/** @defgroup DMATRIGMUX_8XX CHIP: LPC8xx DMA trigger selection driver
- * @{
- */
 
 /**
  * @brief DMA trigger pin muxing structure
@@ -110,15 +102,15 @@ typedef struct {                    /* DMA trigger pin muxing register structure
 
 /* DMA triggers that can mapped to DMA channels */
 typedef enum {
-    DMATRIG_ADC_SEQA_IRQ = 0,            /* ADC0 sequencer A interrupt as trigger */
-    DMATRIG_ADC_SEQB_IRQ,                /* ADC0 sequencer B interrupt as trigger */
-    DMATRIG_SCT0_DMA0,                    /* SCT 0, DMA 0 as trigger */
-    DMATRIG_SCT0_DMA1,                    /* SCT 1, DMA 1 as trigger */
-    DMATRIG_ACMP_O,                        /* Analog comparator output */
-    DMATRIG_PINT0,                        /* Pin interrupt 0 as trigger */
-    DMATRIG_PINT1,                        /* Pin interrupt 1 as trigger */
-    DMATRIG_DMA_INMUX0,                    /* DMA Trigger MUX0 */
-    DMATRIG_DMA_INMUX1,                    /* DMA Trigger MUX1 */
+    DMATRIG_ADC_SEQA_IRQ = 0,   /* ADC0 sequencer A interrupt as trigger */
+    DMATRIG_ADC_SEQB_IRQ,       /* ADC0 sequencer B interrupt as trigger */
+    DMATRIG_SCT0_DMA0,          /* SCT 0, DMA 0 as trigger */
+    DMATRIG_SCT0_DMA1,          /* SCT 1, DMA 1 as trigger */
+    DMATRIG_ACMP_O,             /* Analog comparator output */
+    DMATRIG_PINT0,              /* Pin interrupt 0 as trigger */
+    DMATRIG_PINT1,              /* Pin interrupt 1 as trigger */
+    DMATRIG_DMA_INMUX0,         /* DMA Trigger MUX0 */
+    DMATRIG_DMA_INMUX1,         /* DMA Trigger MUX1 */
 } DMA_TRIGSRC_T;
 
 /**
@@ -131,7 +123,7 @@ typedef enum {
  *            for hardware trigger mode (when Chip_DMA_SetupChannelConfig() is
  *            called with DMA_CFG_HWTRIGEN as OR'ed option).
  */
-static inline void Chip_DMATRIGMUX_SetInputTrig(LPC_DMATRIGMUX_T *pDMATRIG, DMA_CHID_T ch, DMA_TRIGSRC_T trig)
+static inline void dmaTrigMuxSetInputTrig(LPC_DMATRIGMUX_T *pDMATRIG, DMA_CHID_T ch, DMA_TRIGSRC_T trig)
 {
     pDMATRIG->DMA_ITRIG_INMUX[ch] = (uint32_t) trig;
 }
