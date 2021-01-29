@@ -200,21 +200,24 @@ typedef struct {
  * Macro defines for SCT configuration register
  */
 
-#define SCT_CONFIG_16BIT_COUNTER        0x00000000                /* Operate as 2 16-bit counters */
-#define SCT_CONFIG_32BIT_COUNTER        0x00000001                /* Operate as 1 32-bit counter */
+#define SCT_CONFIG_16BIT_COUNTER        0x00000000      /* Operate as 2 16-bit counters */
+#define SCT_CONFIG_32BIT_COUNTER        0x00000001      /* Operate as 1 32-bit counter */
 
-#define SCT_CONFIG_CLKMODE_BUSCLK       (0x0 << 1)                /* Bus clock */
-#define SCT_CONFIG_CLKMODE_SCTCLK       (0x1 << 1)                /* SCT clock */
-#define SCT_CONFIG_CLKMODE_INCLK        (0x2 << 1)                /* Input clock selected in CLKSEL field */
-#define SCT_CONFIG_CLKMODE_INEDGECLK    (0x3 << 1)                /* Input clock edge selected in CLKSEL field */
+#define SCT_CONFIG_CLKMODE_BUSCLK       (0x0 << 1)      /* Bus clock */
+#define SCT_CONFIG_CLKMODE_SCTCLK       (0x1 << 1)      /* SCT clock */
+#define SCT_CONFIG_CLKMODE_INCLK        (0x2 << 1)      /* Input clock selected in CLKSEL field */
+#define SCT_CONFIG_CLKMODE_INEDGECLK    (0x3 << 1)      /* Input clock edge selected in CLKSEL field */
 
-#define SCT_CONFIG_NORELOAD_U           (0x1 << 7)                /* Prevent match register reload */
-#define SCT_CONFIG_NORELOAD_L           (0x1 << 7)                /* Prevent lower match register reload */
-#define SCT_CONFIG_NORELOAD_H           (0x1 << 8)                /* Prevent upper match register reload */
-
-#define SCT_CONFIG_AUTOLIMIT_U          (0x1 << 17)                /* Limits counter(unified) based on MATCH0 */
-#define SCT_CONFIG_AUTOLIMIT_L          (0x1 << 17)                /* Limits counter(L) based on MATCH0 */
-#define SCT_CONFIG_AUTOLIMIT_H          (0x1 << 18)                /* Limits counter(L) based on MATCH0 */
+#define SCT_CONFIG_NORELOAD_U           (0x1 << 7)      /* Prevent match register reload */
+#define SCT_CONFIG_NORELOAD_L           (0x1 << 7)      /* Prevent lower match register reload */
+#define SCT_CONFIG_NORELOAD_H           (0x1 << 8)      /* Prevent upper match register reload */
+#define SCT_CONFIG_INSYNC_IN0           (1u << 9)       /**< Enable input synchronizer for input 0 */
+#define SCT_CONFIG_INSYNC_IN1           (1u << 10)      /**< Enable input synchronizer for input 1 */
+#define SCT_CONFIG_INSYNC_IN2           (1u << 11)      /**< Enable input synchronizer for input 2 */
+#define SCT_CONFIG_INSYNC_IN3           (1u << 12)      /**< Enable input synchronizer for input 3 */
+#define SCT_CONFIG_AUTOLIMIT_U          (0x1 << 17)     /* Limits counter(unified) based on MATCH0 */
+#define SCT_CONFIG_AUTOLIMIT_L          (0x1 << 17)     /* Limits counter(L) based on MATCH0 */
+#define SCT_CONFIG_AUTOLIMIT_H          (0x1 << 18)     /* Limits counter(L) based on MATCH0 */
 
 /*
  * Macro defines for SCT control register
@@ -392,12 +395,12 @@ static inline void SctControl(LPC_SCT_T *sct, const uint32_t value)
 
 static inline void SctSetControl(LPC_SCT_T *sct, const uint32_t value)
 {
-    sct->CTRL_U = value | (sct->CTRL_U & ~SCT_CTRL_RESERVED);
+    sct->CTRL_U |= value;
 }
 
 static inline void SctClearControl(LPC_SCT_T *sct, const uint32_t value)
 {
-    sct->CTRL_U &= ~(value | SCT_CTRL_RESERVED);
+    sct->CTRL_U &= ~value;
 }
 
 static inline void SctLimitU(LPC_SCT_T *sct, const uint32_t value)
