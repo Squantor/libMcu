@@ -194,26 +194,35 @@ static inline void AdcSetClockRate(LPC_ADC_T *pADC, uint32_t rate)
     AdcSetDivider(pADC, (uint8_t) (ClockGetSystemClockRate() / rate) - 1);
 }
 
-/*
-Calibration is not done as part of ADC_Init(), but
-is required after the call to ADC_Init() or after returning
-from a power-down state. Calibration may alter the ADC_CR_ASYNMODE
-and ADC_CR_LPWRMODEBIT flags ni the CTRL register.
-*/
-static inline void AdcStartCalibration(LPC_ADC_T *pADC)
+/**
+ * @brief   Starts the calibration according to the datasheet
+ * 
+ * Calibration is not done as part of ADC_Init(), but
+ * is required after the call to ADC_Init() or after returning
+ * from a power-down state. Calibration may alter the ADC_CR_ASYNMODE
+ * and ADC_CR_LPWRMODEBIT flags in the CTRL register. Make sure you
+ * preset the divider to a 500KHz ADC clock before calling this function!
+ * 
+ * @param   peripheral  base address of ADC peripheral
+ * @return  Nothing
+ */
+
+static inline void AdcStartCalibration(LPC_ADC_T *peripheral)
 {
-    pADC->CTRL |= ADC_CR_CALMODEEN;
-    pADC->CTRL &= ~ADC_CR_ASYNMODE;
-
-    /* Setup ADC for about 500KHz (per UM) */
-    AdcSetClockRate(pADC, 500000);
-
-    pADC->CTRL &= ~ADC_CR_LPWRMODEEN;
+    uint32_t temp = peripheral->CTRL;
+    temp |= ADC_CR_CALMODEEN;
+    temp &= ~ADC_CR_LPWRMODEEN;
+    peripheral->CTRL = temp;
 }
 
-static inline bool AdcIsCalibrationDone(LPC_ADC_T *pADC)
+/**
+ * @brief   Returns ADC calibration status
+ * @param   peripheral  base address of ADC peripheral
+ * @return  true if the calibration is done
+ */
+static inline bool AdcIsCalibrationDone(LPC_ADC_T *peripheral)
 {
-    return (bool) ((pADC->CTRL & ADC_CR_CALMODEEN) == 0);
+    return (peripheral->CTRL & ADC_CR_CALMODEEN) == 0;
 }
 
 /*
