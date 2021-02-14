@@ -52,17 +52,15 @@ typedef struct {                                /* ADCn Structure */
     __IO uint32_t TRM;                          /* A/D Trim Register. */
 } LPC_ADC_T;
 
-#define ADC_MAX_SAMPLE_RATE 30000000
+#define ADC_MAX_SAMPLE_RATE (30000000u)
+#define ADC_CAL_CLOCK       (500000u)
 
-#define ADC_CR_CLKDIV_MASK      (0xFF << 0)             /* Mask for Clock divider value */
-#define ADC_CR_CLKDIV_BITPOS    (0)                     /* Bit position for Clock divider value */
-#define ADC_CR_ASYNMODE         (1 << 8)                /* Asynchronous mode enable bit */
-#define ADC_CR_MODE10BIT        (1 << 9)                /* 10-bit mode enable bit */
-#define ADC_CR_LPWRMODEBIT      (1 << 10)               /* Low power mode enable bit */
-#define ADC_CR_CALMODEBIT       (1 << 30)               /* Self calibration cycle enable bit */
-#define ADC_CR_BITACC(n)        ((((n) & 0x1) << 9))    /* 12-bit or 10-bit ADC accuracy */
-#define ADC_CR_CLKDIV(n)        ((((n) & 0xFF) << 0))   /* The APB clock (PCLK) is divided by (this value plus one) to produce the clock for the A/D */
-#define ADC_SAMPLE_RATE_CONFIG_MASK (ADC_CR_CLKDIV(0xFF) | ADC_CR_BITACC(0x01))
+#define ADC_CR_MASK         (0xBFFFFB00)            /**< ADC CTRL register reserved bit mask*/
+#define ADC_CR_CLKDIV(n)    ((((n) & 0xFF) << 0))   /**< The APB clock (PCLK) is divided by (this value plus one) to produce the clock for the A/D */
+#define ADC_CR_ASYNMODE     (1 << 8)                /**< Asynchronous mode enable bit, undocumented in datasheet */
+#define ADC_CR_LPWRMODEEN   (1 << 10)               /**< Low power mode enable bit */
+#define ADC_CR_CALMODEEN    (1 << 30)               /**< Self calibration cycle enable bit */
+
 
 #define ADC_SEQ_CTRL_CHANSEL(n)   (1 << (n))            /* Channel select macro */
 #define ADC_SEQ_CTRL_CHANSEL_MASK (0xFFF)               /* Channel select mask */
@@ -147,8 +145,6 @@ typedef struct {                                /* ADCn Structure */
 #define ADC_SEQ_CTRL_RES    ((7 << 15) | (0x3F << 20))
 
 /* 
-To select low-power ADC mode, enable the ADC_CR_LPWRMODEBIT flag.
-To select 10-bit conversion mode, enable the ADC_CR_MODE10BIT flag.<br>
 Example: ADC_Init(LPC_ADC, (ADC_CR_MODE10BIT | ADC_CR_LPWRMODEBIT));
 */
 static inline void AdcInit(LPC_ADC_T *pADC, uint32_t flags)
@@ -157,7 +153,7 @@ static inline void AdcInit(LPC_ADC_T *pADC, uint32_t flags)
     ClockEnablePeriphClock(SYSCTL_CLOCK_ADC);
 
     pADC->INTEN = 0;
-    pADC->CTRL = flags;
+    pADC->CTRL = ~ADC_CR_MASK & flags;
 }
 
 static inline void ADC_DeInit(LPC_ADC_T *pADC)
@@ -183,7 +179,7 @@ static inline void AdcSetDivider(LPC_ADC_T *pADC, uint8_t div)
 {
     uint32_t temp;
 
-    temp = pADC->CTRL & ~(ADC_CR_CLKDIV_MASK);
+    temp = pADC->CTRL & ~(ADC_CR_MASK);
     pADC->CTRL = temp | (uint32_t) div;
 }
 
@@ -199,17 +195,6 @@ static inline void AdcSetClockRate(LPC_ADC_T *pADC, uint32_t rate)
 }
 
 /*
-This function returns the divider that is used to generate the
-ADC frequency. The returned value must be incremented by 1. The
-frequency can be determined with the following function:
-adc_freq = Clock_GetSystemClockRate() / (ADC_GetDivider(LPC_ADC) + 1);
-*/
-static inline uint8_t AdcGetDivider(LPC_ADC_T *pADC)
-{
-    return pADC->CTRL & ADC_CR_CLKDIV_MASK;
-}
-
-/*
 Calibration is not done as part of ADC_Init(), but
 is required after the call to ADC_Init() or after returning
 from a power-down state. Calibration may alter the ADC_CR_ASYNMODE
@@ -217,18 +202,18 @@ and ADC_CR_LPWRMODEBIT flags ni the CTRL register.
 */
 static inline void AdcStartCalibration(LPC_ADC_T *pADC)
 {
-    pADC->CTRL |= ADC_CR_CALMODEBIT;
+    pADC->CTRL |= ADC_CR_CALMODEEN;
     pADC->CTRL &= ~ADC_CR_ASYNMODE;
 
     /* Setup ADC for about 500KHz (per UM) */
     AdcSetClockRate(pADC, 500000);
 
-    pADC->CTRL &= ~ADC_CR_LPWRMODEBIT;
+    pADC->CTRL &= ~ADC_CR_LPWRMODEEN;
 }
 
 static inline bool AdcIsCalibrationDone(LPC_ADC_T *pADC)
 {
-    return (bool) ((pADC->CTRL & ADC_CR_CALMODEBIT) == 0);
+    return (bool) ((pADC->CTRL & ADC_CR_CALMODEEN) == 0);
 }
 
 /*
