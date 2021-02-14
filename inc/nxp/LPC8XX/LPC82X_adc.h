@@ -262,7 +262,7 @@ static inline void AdcSetupSequencer(LPC_ADC_T *pADC, ADC_SEQ_IDX_T seqIndex, ui
     pADC->SEQ_CTRL[seqIndex] = options;
 }
 
-static inline void ADC_EnableSequencer(LPC_ADC_T *pADC, ADC_SEQ_IDX_T seqIndex)
+static inline void AdcEnableSequencer(LPC_ADC_T *pADC, ADC_SEQ_IDX_T seqIndex)
 {
     AdcSetSequencerBits(pADC, seqIndex, ADC_SEQ_CTRL_SEQ_ENA);
 }
