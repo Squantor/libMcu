@@ -65,17 +65,13 @@ typedef struct {                                /* ADCn Structure */
 #define ADC_SEQ_CTRL_CHANSEL(n)   (1 << (n))            /* Channel select macro */
 #define ADC_SEQ_CTRL_CHANSEL_MASK (0xFFF)               /* Channel select mask */
 
-#define ADC_SEQ_CTRL_HWTRIG_ARM_TXEV     (0 << 12)      /* HW trigger input - ARM TXEV */
-#define ADC_SEQ_CTRL_HWTRIG_CT32B0_MAT0  (1 << 12)      /* HW trigger input - Match output 0 of CT32B0 */
-#define ADC_SEQ_CTRL_HWTRIG_CT32B0_MAT1  (2 << 12)      /* HW trigger input - Match output 1 of CT32B1 or SCT_OUT0 */
-#define ADC_SEQ_CTRL_HWTRIG_SCT_OUT0     (2 << 12)      /* HW trigger input - Match output 1 of CT32B1 or SCT_OUT0 */
-#define ADC_SEQ_CTRL_HWTRIG_CT16B0_MAT0  (3 << 12)      /* HW trigger input - Match output 0 of CT16B0 */
-#define ADC_SEQ_CTRL_HWTRIG_CT16B0_MAT1  (4 << 12)      /* HW trigger input - Match output 1 of CT16B1 or SCT_OUT1 */
-#define ADC_SEQ_CTRL_HWTRIG_SCT_OUT1     (4 << 12)      /* HW trigger input - Match output 1 of CT16B1 or SCT_OUT1 */
-#define ADC_SEQ_CTRL_HWTRIG_CT16B0_CAP0  (5 << 12)      /* HW trigger input - Capture input 0 of CT16B0 */
-#define ADC_SEQ_CTRL_HWTRIG_CT16B1_CAP0  (6 << 12)      /* HW trigger input - Capture input 0 of CT16B1 */
-#define ADC_SEQ_CTRL_HWTRIG_CT32B0_CAP0  (7 << 12)      /* HW trigger input - Capture input 0 of CT32B1 */
-#define ADC_SEQ_CTRL_HWTRIG_MASK         (0x3F << 12)   /* HW trigger input bitfield mask */
+#define ADC_SEQ_CTRL_HWTRIG_HIGH        (0 << 12)   /**< HW trigger input - Always logic high */
+#define ADC_SEQ_CTRL_HWTRIG_PINTRIG0    (1 << 12)   /**< HW trigger input - ADC pin trigger 0, connect via SWM */
+#define ADC_SEQ_CTRL_HWTRIG_PINTRIG1    (2 << 12)   /**< HW trigger input - ADC pin trigger 1, connect via SWM */
+#define ADC_SEQ_CTRL_HWTRIG_SCT0_OUT3   (3 << 12)   /**< HW trigger input - SCT0 output 3 */
+#define ADC_SEQ_CTRL_HWTRIG_ACMP_O      (4 << 12)   /**< HW trigger input - Analog comparator output */
+#define ADC_SEQ_CTRL_HWTRIG_ARM_TXEV    (5 << 12)   /**< HW trigger input - ARM core TXEV event */
+#define ADC_SEQ_CTRL_HWTRIG_MASK        (0x7 << 12) /**< HW trigger input bitfield mask */
 
 #define ADC_SEQ_CTRL_HWTRIG_POLPOS       (1 << 18)      /* HW trigger polarity - positive edge */
 #define ADC_SEQ_CTRL_HWTRIG_SYNCBYPASS   (1 << 19)      /* HW trigger bypass synchronisation */
