@@ -194,6 +194,18 @@ static inline void gpioPortToggle(GPIO_Type *peripheral, GPIO_PORT_Type port, ui
 }
 
 /*!
+ * @brief Sets the output level of the GPIO port
+ *
+ * @param peripheral    GPIO peripheral peripheral pointer(Typically GPIO)
+ * @param port          GPIO port number
+ * @param output        GPIO port output value.
+ */
+static inline void gpioPortWrite(GPIO_Type *peripheral, GPIO_PORT_Type port, uint32_t output)
+{
+    peripheral->PIN[port] = output;
+}
+
+/*!
  * @brief Reads the current input value of the whole GPIO port.
  *
  * @param peripheral    GPIO peripheral peripheral pointer(Typically GPIO)
