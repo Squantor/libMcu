@@ -130,7 +130,7 @@ static inline void gpioTogglePortDIR(GPIO_Type *peripheral, GPIO_PORT_Type port,
 /*!
  * @brief Sets the output level of the one GPIO pin to the logic 1 or 0.
  *
- * @param peripheral    GPIO peripheral peripheral pointer(Typically GPIO)
+ * @param peripheral    GPIO peripheral peripheral pointer
  * @param port          GPIO port number
  * @param pin           GPIO pin number
  * @param output        GPIO pin output logic level.
@@ -145,7 +145,7 @@ static inline void gpioPinWrite(GPIO_Type *peripheral, GPIO_PORT_Type port, uint
 /*!
  * @brief Reads the current input value of the GPIO PIN.
  *
- * @param peripheral    GPIO peripheral peripheral pointer(Typically GPIO)
+ * @param peripheral    GPIO peripheral peripheral pointer
  * @param port          GPIO port number
  * @param pin           GPIO pin number
  * @retval              GPIO port input value
@@ -160,9 +160,9 @@ static inline uint32_t gpioPinRead(GPIO_Type *peripheral, GPIO_PORT_Type port, u
 /*!
  * @brief Sets the output level of the multiple GPIO pins to the logic 1.
  *
- * @param peripheral    GPIO peripheral peripheral pointer(Typically GPIO)
+ * @param peripheral    GPIO peripheral peripheral pointer
  * @param port          GPIO port number
- * @param mask          GPIO pin number macro
+ * @param mask          GPIO pins to set
  */
 static inline void gpioPortSet(GPIO_Type *peripheral, GPIO_PORT_Type port, uint32_t mask)
 {
@@ -172,9 +172,9 @@ static inline void gpioPortSet(GPIO_Type *peripheral, GPIO_PORT_Type port, uint3
 /*!
  * @brief Sets the output level of the multiple GPIO pins to the logic 0.
  *
- * @param peripheral    GPIO peripheral peripheral pointer(Typically GPIO)
+ * @param peripheral    GPIO peripheral peripheral pointer
  * @param port          GPIO port number
- * @param mask          GPIO pin number macro
+ * @param mask          GPIO pins to clear
  */
 static inline void gpioPortClear(GPIO_Type *peripheral, GPIO_PORT_Type port, uint32_t mask)
 {
@@ -184,9 +184,9 @@ static inline void gpioPortClear(GPIO_Type *peripheral, GPIO_PORT_Type port, uin
 /*!
  * @brief Reverses current output logic of the multiple GPIO pins.
  *
- * @param peripheral    GPIO peripheral peripheral pointer(Typically GPIO)
+ * @param peripheral    GPIO peripheral peripheral pointer
  * @param port          GPIO port number
- * @param mask          GPIO pin number macro
+ * @param mask          GPIO pins to toggle
  */
 static inline void gpioPortToggle(GPIO_Type *peripheral, GPIO_PORT_Type port, uint32_t mask)
 {
@@ -196,7 +196,7 @@ static inline void gpioPortToggle(GPIO_Type *peripheral, GPIO_PORT_Type port, ui
 /*!
  * @brief Sets the output level of the GPIO port
  *
- * @param peripheral    GPIO peripheral peripheral pointer(Typically GPIO)
+ * @param peripheral    GPIO peripheral peripheral pointer
  * @param port          GPIO port number
  * @param output        GPIO port output value.
  */
@@ -208,7 +208,7 @@ static inline void gpioPortWrite(GPIO_Type *peripheral, GPIO_PORT_Type port, uin
 /*!
  * @brief Reads the current input value of the whole GPIO port.
  *
- * @param peripheral    GPIO peripheral peripheral pointer(Typically GPIO)
+ * @param peripheral    GPIO peripheral peripheral pointer
  * @param port          GPIO port number
  */
 static inline uint32_t gpioPortRead(GPIO_Type *peripheral, GPIO_PORT_Type port)
@@ -219,7 +219,7 @@ static inline uint32_t gpioPortRead(GPIO_Type *peripheral, GPIO_PORT_Type port)
 /*!
  * @brief Sets port mask, 0 - enable pin, 1 - disable pin.
  *
- * @param peripheral    GPIO peripheral peripheral pointer(Typically GPIO)
+ * @param peripheral    GPIO peripheral peripheral pointer
  * @param port          GPIO port number
  * @param mask          GPIO pin number macro
  */
@@ -231,7 +231,7 @@ static inline void gpioPortMaskedSet(GPIO_Type *peripheral, GPIO_PORT_Type port,
 /*!
  * @brief Sets the output level of the masked GPIO port. Only pins enabled by GPIO_SetPortMask() will be affected.
  *
- * @param peripheral    GPIO peripheral peripheral pointer(Typically GPIO)
+ * @param peripheral    GPIO peripheral peripheral pointer
  * @param port          GPIO port number
  * @param output        GPIO port output value.
  */
