@@ -32,7 +32,6 @@ extern "C" {
 #include <nxp/LPC812M101DH20.h>
 #elif defined(MCU_LPC812M101TB16)
 #include <nxp/LPC812M101TB16.h>
-// LPC824 devices
 #elif defined(MCU_LPC824M201HI33)
 #include <nxp/LPC824M201HI33.h>
 #elif defined(MCU_LPC824M201DH20)

@@ -117,7 +117,6 @@ typedef enum {
 #define MRT0        ((MRT_Type          *) MRT0_BASE)
 #define WKT         ((WKT_Type          *) WKT_BASE)
 #define SWM0        ((SWM_Type          *) SWM0_BASE)
-#define FAIM        ((FAIM_Type         *) FAIM_BASE)
 #define DAC0        ((DAC_Type          *) DAC0_BASE)
 #define DAC1        ((DAC_Type          *) DAC1_BASE)
 #define ADC0        ((ADC_Type          *) ADC0_BASE)
@@ -142,7 +141,7 @@ typedef enum {
 #define CRC         ((CRC_Type          *) CRC_BASE)
 #define SCT0        ((SCT_Type          *) SCT0)_BASE
 #define DMA0        ((DMA_Type          *) DMA0_BASE)
-#define MTB_SFR     ((MTB_SFR_Type      *) MTB_SFR_BASE)
+#define MTB_SFR     ((MTB_Type          *) MTB_SFR_BASE)
 #define GPIO        ((GPIO_Type         *) GPIO_BASE)
 #define PINT        ((PINT_Type         *) PINT_BASE)
 
@@ -155,31 +154,31 @@ typedef enum {
  */
 typedef enum dmaRequestSource
 {
-    kDmaRequestUSART0_RX_DMA        = 0U,          /**< USART0 RX DMA  */
-    kDmaRequestUSART0_TX_DMA        = 1U,          /**< USART0 TX DMA  */
-    kDmaRequestUSART1_RX_DMA        = 2U,          /**< USART1 RX DMA  */
-    kDmaRequestUSART1_TX_DMA        = 3U,          /**< USART1 TX DMA  */
-    kDmaRequestUSART2_RX_DMA        = 4U,          /**< USART2 RX DMA  */
-    kDmaRequestUSART2_TX_DMA        = 5U,          /**< USART2 TX DMA  */
-    kDmaRequestUSART3_RX_DMA        = 6U,          /**< USART3 RX DMA  */
-    kDmaRequestUSART3_TX_DMA        = 7U,          /**< USART3 TX DMA  */
-    kDmaRequestUSART4_RX_DMA        = 8U,          /**< USART4 RX DMA  */
-    kDmaRequestUSART4_TX_DMA        = 9U,          /**< USART4 TX DMA  */
-    kDmaRequestSPI0_RX_DMA          = 10U,         /**< SPI0 RX DMA  */
-    kDmaRequestSPI0_TX_DMA          = 11U,         /**< SPI0 TX DMA  */
-    kDmaRequestSPI1_RX_DMA          = 12U,         /**< SPI1 RX DMA  */
-    kDmaRequestSPI1_TX_DMA          = 13U,         /**< SPI1 TX DMA  */
-    kDmaRequestI2C0_SLV_DMA         = 14U,         /**< I2C0 SLAVE DMA  */
-    kDmaRequestI2C0_MST_DMA         = 15U,         /**< I2C0 MASTER DMA  */
-    kDmaRequestI2C1_SLV_DMA         = 16U,         /**< I2C1 SLAVE DMA  */
-    kDmaRequestI2C1_MST_DMA         = 17U,         /**< I2C1 MASTER DMA  */
-    kDmaRequestI2C2_SLV_DMA         = 18U,         /**< I2C2 SLAVE DMA  */
-    kDmaRequestI2C2_MST_DMA         = 19U,         /**< I2C2 MASTER DMA  */
-    kDmaRequestI2C3_SLV_DMA         = 20U,         /**< I2C3 SLAVE DMA  */
-    kDmaRequestI2C3_MST_DMA         = 21U,         /**< I2C3 MASTER DMA  */
-    kDmaRequestDAC0_DMAREQ          = 22U,         /**< DAC0 DMA REQUEST  */
-    kDmaRequestDAC1_DMAREQ          = 23U,         /**< DAC1 DMA REQUEST  */
-    kDmaRequestCAPT_DMA             = 24U,         /**< CAPT DMA  */
+    kDmaRequestUSART0_RX_DMA    = 0U,   /**< USART0 RX DMA  */
+    kDmaRequestUSART0_TX_DMA    = 1U,   /**< USART0 TX DMA  */
+    kDmaRequestUSART1_RX_DMA    = 2U,   /**< USART1 RX DMA  */
+    kDmaRequestUSART1_TX_DMA    = 3U,   /**< USART1 TX DMA  */
+    kDmaRequestUSART2_RX_DMA    = 4U,   /**< USART2 RX DMA  */
+    kDmaRequestUSART2_TX_DMA    = 5U,   /**< USART2 TX DMA  */
+    kDmaRequestUSART3_RX_DMA    = 6U,   /**< USART3 RX DMA  */
+    kDmaRequestUSART3_TX_DMA    = 7U,   /**< USART3 TX DMA  */
+    kDmaRequestUSART4_RX_DMA    = 8U,   /**< USART4 RX DMA  */
+    kDmaRequestUSART4_TX_DMA    = 9U,   /**< USART4 TX DMA  */
+    kDmaRequestSPI0_RX_DMA      = 10U,  /**< SPI0 RX DMA  */
+    kDmaRequestSPI0_TX_DMA      = 11U,  /**< SPI0 TX DMA  */
+    kDmaRequestSPI1_RX_DMA      = 12U,  /**< SPI1 RX DMA  */
+    kDmaRequestSPI1_TX_DMA      = 13U,  /**< SPI1 TX DMA  */
+    kDmaRequestI2C0_SLV_DMA     = 14U,  /**< I2C0 SLAVE DMA  */
+    kDmaRequestI2C0_MST_DMA     = 15U,  /**< I2C0 MASTER DMA  */
+    kDmaRequestI2C1_SLV_DMA     = 16U,  /**< I2C1 SLAVE DMA  */
+    kDmaRequestI2C1_MST_DMA     = 17U,  /**< I2C1 MASTER DMA  */
+    kDmaRequestI2C2_SLV_DMA     = 18U,  /**< I2C2 SLAVE DMA  */
+    kDmaRequestI2C2_MST_DMA     = 19U,  /**< I2C2 MASTER DMA  */
+    kDmaRequestI2C3_SLV_DMA     = 20U,  /**< I2C3 SLAVE DMA  */
+    kDmaRequestI2C3_MST_DMA     = 21U,  /**< I2C3 MASTER DMA  */
+    kDmaRequestDAC0_DMAREQ      = 22U,  /**< DAC0 DMA REQUEST  */
+    kDmaRequestDAC1_DMAREQ      = 23U,  /**< DAC1 DMA REQUEST  */
+    kDmaRequestCAPT_DMA         = 24U,  /**< CAPT DMA  */
 } dmaRequestSource_t;
 
 

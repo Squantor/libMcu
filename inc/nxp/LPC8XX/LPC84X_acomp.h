@@ -11,9 +11,9 @@
 #define LPC84X_ACOMP_H
 
 /** ACOMP - Register Layout Typedef */
-typedef struct {
-  __IO uint32_t CTRL;   /**< Comparator control register, offset: 0x0 */
-  __IO uint32_t LAD;    /**< Voltage ladder register, offset: 0x4 */
+typedef volatile struct {
+    uint32_t CTRL;  /**< Comparator control register, offset: 0x0 */
+    uint32_t LAD;   /**< Voltage ladder register, offset: 0x4 */
 } ACOMP_Type;
 
 #endif

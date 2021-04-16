@@ -11,30 +11,30 @@
 #define LPC84X_GPIO_H
 
 /** GPIO - Register Layout Typedef */
-typedef struct {
-  __IO uint8_t B[2][32];            /**< Byte pin registers for all port 0 and 1 GPIO pins, array offset: 0x0, array step: index*0x20, index2*0x1 */
-       uint8_t RESERVED_0[4032];
-  __IO uint32_t W[2][32];           /**< Word pin registers for all port 0 and 1 GPIO pins, array offset: 0x1000, array step: index*0x80, index2*0x4 */
-       uint8_t RESERVED_1[3840];
-  __IO uint32_t DIR[2];             /**< Direction registers, array offset: 0x2000, array step: 0x4 */
-       uint8_t RESERVED_2[120];
-  __IO uint32_t MASK[2];            /**< Mask register, array offset: 0x2080, array step: 0x4 */
-       uint8_t RESERVED_3[120];
-  __IO uint32_t PIN[2];             /**< Port pin register, array offset: 0x2100, array step: 0x4 */
-       uint8_t RESERVED_4[120];
-  __IO uint32_t MPIN[2];            /**< Masked port register, array offset: 0x2180, array step: 0x4 */
-       uint8_t RESERVED_5[120];
-  __IO uint32_t SET[2];             /**< Write: Set register for port Read: output bits for port, array offset: 0x2200, array step: 0x4 */
-       uint8_t RESERVED_6[120];
-  __O  uint32_t CLR[2];             /**< Clear port, array offset: 0x2280, array step: 0x4 */
-       uint8_t RESERVED_7[120];
-  __O  uint32_t NOT[2];             /**< Toggle port, array offset: 0x2300, array step: 0x4 */
-       uint8_t RESERVED_8[120];
-  __O  uint32_t DIRSET[2];          /**< Set pin direction bits for port, array offset: 0x2380, array step: 0x4 */
-       uint8_t RESERVED_9[120];
-  __O  uint32_t DIRCLR[2];          /**< Clear pin direction bits for port, array offset: 0x2400, array step: 0x4 */
-       uint8_t RESERVED_10[120];
-  __O  uint32_t DIRNOT[2];          /**< Toggle pin direction bits for port, array offset: 0x2480, array step: 0x4 */
+typedef volatile struct {
+    uint8_t B[2][32];            /**< Byte pin registers for all port 0 and 1 GPIO pins, array offset: 0x0, array step: index*0x20, index2*0x1 */
+    uint8_t RESERVED_0[4032];
+    uint32_t W[2][32];           /**< Word pin registers for all port 0 and 1 GPIO pins, array offset: 0x1000, array step: index*0x80, index2*0x4 */
+    uint8_t RESERVED_1[3840];
+    uint32_t DIR[2];             /**< Direction registers, array offset: 0x2000, array step: 0x4 */
+    uint8_t RESERVED_2[120];
+    uint32_t MASK[2];            /**< Mask register, array offset: 0x2080, array step: 0x4 */
+    uint8_t RESERVED_3[120];
+    uint32_t PIN[2];             /**< Port pin register, array offset: 0x2100, array step: 0x4 */
+    uint8_t RESERVED_4[120];
+    uint32_t MPIN[2];            /**< Masked port register, array offset: 0x2180, array step: 0x4 */
+    uint8_t RESERVED_5[120];
+    uint32_t SET[2];             /**< Write: Set register for port Read: output bits for port, array offset: 0x2200, array step: 0x4 */
+    uint8_t RESERVED_6[120];
+    uint32_t CLR[2];             /**< Clear port, array offset: 0x2280, array step: 0x4 */
+    uint8_t RESERVED_7[120];
+    uint32_t NOT[2];             /**< Toggle port, array offset: 0x2300, array step: 0x4 */
+    uint8_t RESERVED_8[120];
+    uint32_t DIRSET[2];          /**< Set pin direction bits for port, array offset: 0x2380, array step: 0x4 */
+    uint8_t RESERVED_9[120];
+    uint32_t DIRCLR[2];          /**< Clear pin direction bits for port, array offset: 0x2400, array step: 0x4 */
+    uint8_t RESERVED_10[120];
+    uint32_t DIRNOT[2];          /**< Toggle pin direction bits for port, array offset: 0x2480, array step: 0x4 */
 } GPIO_Type;
 
 /** GPIO - available ports on LPC84X */
@@ -42,42 +42,6 @@ typedef enum {
     GPIO_PORT0 = 0x0u,
     GPIO_PORT1 = 0x1u,
 } GPIO_PORT_Type;
-
-/*!
- * @brief Set the port pin to output mode
- *
- * @param peripheral    GPIO peripheral peripheral pointer
- * @param port          GPIO port number
- * @param pin           GPIO pin number to set as output
- */
-static inline void gpioSetPinDIROutput(GPIO_Type *peripheral, GPIO_PORT_Type port, uint8_t pin)
-{
-    peripheral->DIR[port] |= 1UL << pin;
-}
-
-/*!
- * @brief Set the port pin to input mode
- *
- * @param peripheral    GPIO peripheral peripheral pointer
- * @param port          GPIO port number
- * @param pin           GPIO pin number to set as input
- */
-static inline void gpioSetPinDIRInput(GPIO_Type *peripheral, GPIO_PORT_Type port, uint8_t pin)
-{
-    peripheral->DIR[port] &= ~(1UL << pin);
-}
-
-/*!
- * @brief Toggle the port pin direction
- *
- * @param peripheral    GPIO peripheral peripheral pointer
- * @param port          GPIO port number
- * @param pin           GPIO pin number to direction toggle
- */
-static inline void gpioTogglePinDIR(GPIO_Type *peripheral, GPIO_PORT_Type port, uint8_t pin)
-{
-    peripheral->DIR[port] ^= 1UL << pin;
-}
 
 /*!
  * @brief Set the port direction register
@@ -92,6 +56,48 @@ static inline void gpioSetPortDir(GPIO_Type *peripheral, GPIO_PORT_Type port, ui
 }
 
 /*!
+ * @brief Set the port pin to output mode
+ *
+ * @param peripheral    GPIO peripheral peripheral pointer
+ * @param port          GPIO port number
+ * @param pin           GPIO pin number to set as output
+ */
+static inline void gpioSetPinDIROutput(GPIO_Type *peripheral, GPIO_PORT_Type port, uint8_t pin)
+{
+    uint32_t pins = peripheral->DIR[port];
+    pins |= 1UL << pin;
+    peripheral->DIR[port] = pins;
+}
+
+/*!
+ * @brief Set the port pin to input mode
+ *
+ * @param peripheral    GPIO peripheral peripheral pointer
+ * @param port          GPIO port number
+ * @param pin           GPIO pin number to set as input
+ */
+static inline void gpioSetPinDIRInput(GPIO_Type *peripheral, GPIO_PORT_Type port, uint8_t pin)
+{
+    uint32_t pins = peripheral->DIR[port];
+    pins &= ~(1UL << pin);
+    peripheral->DIR[port] = pins;
+}
+
+/*!
+ * @brief Toggle the port pin direction
+ *
+ * @param peripheral    GPIO peripheral peripheral pointer
+ * @param port          GPIO port number
+ * @param pin           GPIO pin number to direction toggle
+ */
+static inline void gpioTogglePinDIR(GPIO_Type *peripheral, GPIO_PORT_Type port, uint8_t pin)
+{
+    uint32_t pins = peripheral->DIR[port];
+    pins ^= 1UL << pin;
+    peripheral->DIR[port] = pins;
+}
+
+/*!
  * @brief Set the port register to outputs
  *
  * @param peripheral    GPIO peripheral peripheral pointer
@@ -100,7 +106,9 @@ static inline void gpioSetPortDir(GPIO_Type *peripheral, GPIO_PORT_Type port, ui
  */
 static inline void gpioSetPortDIROutput(GPIO_Type *peripheral, GPIO_PORT_Type port, uint32_t pinMask)
 {
-    peripheral->DIR[port] |= pinMask;
+    uint32_t pins = peripheral->DIR[port];
+    pins |= pinMask;
+    peripheral->DIR[port] = pins;
 }
 
 /*!
@@ -112,7 +120,9 @@ static inline void gpioSetPortDIROutput(GPIO_Type *peripheral, GPIO_PORT_Type po
  */
 static inline void gpioSetPortDIRInput(GPIO_Type *peripheral, GPIO_PORT_Type port, uint32_t pinMask)
 {
-    peripheral->DIR[port] &= ~pinMask;
+    uint32_t pins = peripheral->DIR[port];
+    pins &= ~pinMask;
+    peripheral->DIR[port] = pins;
 }
 
 /*!
@@ -124,7 +134,9 @@ static inline void gpioSetPortDIRInput(GPIO_Type *peripheral, GPIO_PORT_Type por
  */
 static inline void gpioTogglePortDIR(GPIO_Type *peripheral, GPIO_PORT_Type port, uint32_t pinMask)
 {
-    peripheral->DIR[port] ^= pinMask;
+    uint32_t pins = peripheral->DIR[port];
+    pins ^= pinMask;
+    peripheral->DIR[port] = pins;
 }
 
 /*!
