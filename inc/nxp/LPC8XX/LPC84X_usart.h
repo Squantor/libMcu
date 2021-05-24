@@ -26,4 +26,99 @@ typedef volatile struct {
     uint32_t ADDR;              /**< Address register for automatic address matching., offset: 0x2C */
 } USART_Type;
 
+#define USART_CFG_RESERVED      (0xFF032582)    /**< USART Config register reserved bits */
+#define USART_CFG_ENABLE        (0x01 << 0)     /**< USART enable */
+#define USART_CFG_DATALEN_7     (0x00 << 2)     /**< USART 7 bit length mode */
+#define USART_CFG_DATALEN_8     (0x01 << 2)     /**< USART 8 bit length mode */
+#define USART_CFG_DATALEN_9     (0x02 << 2)     /**< USART 9 bit length mode */
+#define USART_CFG_PARITY_NONE   (0x00 << 4)     /**< No parity */
+#define USART_CFG_PARITY_EVEN   (0x02 << 4)     /**< Even parity */
+#define USART_CFG_PARITY_ODD    (0x03 << 4)     /**< Odd parity */
+#define USART_CFG_STOPLEN_1     (0x00 << 6)     /**< USART One Stop Bit Select */
+#define USART_CFG_STOPLEN_2     (0x01 << 6)     /**< USART Two Stop Bits Select */
+#define USART_CFG_CTSEN         (0x01 << 9)     /**< CTS enable bit */
+#define USART_CFG_SYNCEN        (0x01 << 11)    /**< Synchronous mode enable bit */
+#define USART_CFG_CLKPOL        (0x01 << 12)    /**< Un_RXD rising edge sample enable bit */
+#define USART_CFG_SYNCMST       (0x01 << 14)    /**< Select master mode (synchronous mode) enable bit */
+#define USART_CFG_LOOP          (0x01 << 15)    /**< Loopback mode enable bit */
+
+#define USART_CTL_RESERVED      (0xFFFEFCB9)    /**< USART Control register reserved bits */
+#define USART_CTL_TXBRKEN       (0x01 << 1)     /**< Break enable */
+#define USART_CTL_ADDRDET       (0x01 << 2)     /**< Enable address detect mode */
+#define USART_CTL_TXDIS         (0x01 << 6)     /**< Transmit disable */
+#define USART_CTL_CC            (0x01 << 8)     /**< Continuous clock generation */
+#define USART_CTL_CLRCCONRX     (0x01 << 9)     /**< Clear continuous clock */
+#define USART_CTL_AUTOBAUD      (0x01 << 16)    /**< Autobaud enable */
+
+/**
+ * @brief   TODO
+ * @param   peripheral  base address of USART peripheral
+ */
+static inline void usartEnable(USART_Type *peripheral)
+{
+    uint32_t cfgRegister = USART_CFG_ENABLE | (peripheral->CFG & ~USART_CFG_RESERVED);
+    peripheral->CFG = cfgRegister;
+}
+
+/**
+ * @brief   TODO
+ * @param   peripheral  base address of USART peripheral
+ */
+static inline void usartDisable(USART_Type *peripheral)
+{
+    uint32_t cfgRegister = peripheral->CFG & ~(USART_CFG_RESERVED | USART_CFG_ENABLE);
+    peripheral->CFG = cfgRegister;
+}
+
+/**
+ * @brief   TODO
+ * @param   peripheral  base address of USART peripheral
+ */
+static inline void usartTXEnable(USART_Type *peripheral)
+{
+    uint32_t ctlRegister = peripheral->CTL & ~(USART_CTL_RESERVED | USART_CTL_TXDIS);
+    peripheral->CTL = ctlRegister;
+}
+
+/**
+ * @brief   TODO
+ * @param   peripheral  base address of USART peripheral
+ */
+static inline void usartTXDisable(USART_Type *peripheral)
+{
+    peripheral->CTL = USART_CTL_TXDIS | (peripheral->CTL & ~USART_CTL_RESERVED);
+}
+
+/**
+ * @brief   TODO
+ * @param   peripheral  base address of USART peripheral
+ */
+static inline void usartSendByte(USART_Type *peripheral, uint16_t data)
+{
+    peripheral->TXDAT = (uint32_t) (data & 0x000001FF);
+}
+
+/**
+ * @brief   TODO
+ * @param   peripheral  base address of USART peripheral
+ */
+static inline uint32_t usartReadByte(USART_Type *peripheral)
+{
+    return (uint32_t) (peripheral->RXDAT & 0x000001FF);
+}
+
+/**
+ * @brief   set the baud rate
+ * @param   peripheral  base address of USART peripheral
+ * @param   baseClock   base clock of the USART peripheral
+ * @param   baudRate    wanted baud rate
+ * @return  computed baud rate
+ */
+static inline uint32_t usartSetBaud(USART_Type *peripheral, uint32_t baseClock, uint32_t baudRate)
+{
+    uint32_t baudDivider = baseClock / (baudRate * 16);
+    peripheral->BRG = baudDivider;
+    return baseClock / 16 / baudDivider;
+}
+
 #endif
