@@ -371,8 +371,8 @@ static inline void sysconDisableClocks(SYSCON_Type *peripheral, uint32_t setting
  */
 static inline void sysconEnableResets(SYSCON_Type *peripheral, uint32_t resets0, uint32_t resets1)
 {
-    peripheral->SYSAHBCLKCTRL0 = resets0 | peripheral->SYSAHBCLKCTRL0;
-    peripheral->SYSAHBCLKCTRL1 = resets1 | peripheral->SYSAHBCLKCTRL1;
+    peripheral->PRESETCTRL0 = resets0 | peripheral->SYSAHBCLKCTRL0;
+    peripheral->PRESETCTRL1 = resets1 | peripheral->SYSAHBCLKCTRL1;
 }
 
 /**
@@ -384,8 +384,8 @@ static inline void sysconEnableResets(SYSCON_Type *peripheral, uint32_t resets0,
  */
 static inline void sysconDisableResets(SYSCON_Type *peripheral, uint32_t resets0, uint32_t resets1)
 {
-    peripheral->SYSAHBCLKCTRL0 = ~resets0 & peripheral->SYSAHBCLKCTRL0;
-    peripheral->SYSAHBCLKCTRL1 = ~resets1 & peripheral->SYSAHBCLKCTRL1;
+    peripheral->PRESETCTRL0 = ~resets0 & peripheral->SYSAHBCLKCTRL0;
+    peripheral->PRESETCTRL1 = ~resets1 & peripheral->SYSAHBCLKCTRL1;
 }
 
 /**
