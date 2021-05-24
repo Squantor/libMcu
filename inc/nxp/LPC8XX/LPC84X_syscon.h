@@ -233,12 +233,12 @@ typedef enum {
 } SYSCON_CLKSEL_Type;
 
 typedef enum {
-    SYSCON_CLKSRC_FRO       = 0x0, /**< FRO clock source */
-    SYSCON_CLKSRC_MAIN      = 0x1, /**< Main clock clock source */
-    SYSCON_CLKSRC_FRG0      = 0x2, /**< FRG0 clock clock source */
-    SYSCON_CLKSRC_FRG1      = 0x3, /**< FRG0 clock clock source */
-    SYSCON_CLKSRC_FRO_DIV   = 0x4, /**< FRO/2 clock source */
-    SYSCON_CLKSRC_NONE      = 0x7, /**< No clock source */
+    CLKSRC_FRO      = 0x0, /**< FRO clock source */
+    CLKSRC_MAIN     = 0x1, /**< Main clock clock source */
+    CLKSRC_FRG0     = 0x2, /**< FRG0 clock clock source */
+    CLKSRC_FRG1     = 0x3, /**< FRG0 clock clock source */
+    CLKSRC_FRO_DIV  = 0x4, /**< FRO/2 clock source */
+    CLKSRC_NONE     = 0x7, /**< No clock source */
 } SYSCON_CLKSRC_Type;
 
 typedef enum {
