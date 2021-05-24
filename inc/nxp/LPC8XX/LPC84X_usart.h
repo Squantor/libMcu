@@ -42,6 +42,23 @@ typedef volatile struct {
 #define USART_CFG_SYNCMST       (0x01 << 14)    /**< Select master mode (synchronous mode) enable bit */
 #define USART_CFG_LOOP          (0x01 << 15)    /**< Loopback mode enable bit */
 
+typedef enum {
+    DATALEN_7   = USART_CFG_DATALEN_7,  /**< USART 7 bit length mode */
+    DATALEN_8   = USART_CFG_DATALEN_8,  /**< USART 8 bit length mode */
+    DATALEN_9   = USART_CFG_DATALEN_9,  /**< USART 9 bit length mode */
+} USART_DATALEN_Type;
+
+typedef enum {
+    PARITY_NONE = USART_CFG_PARITY_NONE,    /**< No parity */
+    PARITY_EVEN = USART_CFG_PARITY_EVEN,    /**< Even parity */
+    PARITY_ODD  = USART_CFG_PARITY_ODD,     /**< Odd parity */
+} USART_PARITY_Type;
+
+typedef enum {
+    STOPLEN_1   = USART_CFG_STOPLEN_1,  /**< USART One Stop Bit Select */
+    STOPLEN_2   = USART_CFG_STOPLEN_2,  /**< USART Two Stop Bits Select */
+} USART_STOPLEN_Type;
+
 #define USART_CTL_RESERVED      (0xFFFEFCB9)    /**< USART Control register reserved bits */
 #define USART_CTL_TXBRKEN       (0x01 << 1)     /**< Break enable */
 #define USART_CTL_ADDRDET       (0x01 << 2)     /**< Enable address detect mode */
@@ -51,13 +68,21 @@ typedef volatile struct {
 #define USART_CTL_AUTOBAUD      (0x01 << 16)    /**< Autobaud enable */
 
 /**
- * @brief   TODO
+ * @brief   setup USART control register
  * @param   peripheral  base address of USART peripheral
+ * @param   dataLength  
+ * @param   parity
+ * @param   stopBits
+ * @param   options
  */
-static inline void usartEnable(USART_Type *peripheral)
+static inline void usartSetConfig(
+    USART_Type *peripheral, 
+    USART_DATALEN_Type dataLength, 
+    USART_PARITY_Type parity, 
+    USART_STOPLEN_Type stopBits, 
+    uint32_t options)
 {
-    uint32_t cfgRegister = USART_CFG_ENABLE | (peripheral->CFG & ~USART_CFG_RESERVED);
-    peripheral->CFG = cfgRegister;
+    peripheral->CFG = USART_CFG_ENABLE | dataLength | parity | stopBits | options;
 }
 
 /**
@@ -66,7 +91,7 @@ static inline void usartEnable(USART_Type *peripheral)
  */
 static inline void usartDisable(USART_Type *peripheral)
 {
-    uint32_t cfgRegister = peripheral->CFG & ~(USART_CFG_RESERVED | USART_CFG_ENABLE);
+    uint32_t cfgRegister = peripheral->CFG & ~(USART_CFG_ENABLE);
     peripheral->CFG = cfgRegister;
 }
 
@@ -76,7 +101,7 @@ static inline void usartDisable(USART_Type *peripheral)
  */
 static inline void usartTXEnable(USART_Type *peripheral)
 {
-    uint32_t ctlRegister = peripheral->CTL & ~(USART_CTL_RESERVED | USART_CTL_TXDIS);
+    uint32_t ctlRegister = peripheral->CTL & ~(USART_CTL_TXDIS);
     peripheral->CTL = ctlRegister;
 }
 
@@ -86,7 +111,7 @@ static inline void usartTXEnable(USART_Type *peripheral)
  */
 static inline void usartTXDisable(USART_Type *peripheral)
 {
-    peripheral->CTL = USART_CTL_TXDIS | (peripheral->CTL & ~USART_CTL_RESERVED);
+    peripheral->CTL = USART_CTL_TXDIS | peripheral->CTL;
 }
 
 /**
