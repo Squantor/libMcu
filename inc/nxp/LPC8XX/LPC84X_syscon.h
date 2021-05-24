@@ -47,9 +47,9 @@ typedef volatile struct {
     uint32_t FCLKSEL[11];           /**< peripheral clock source select register. FCLK0SEL~FCLK4SEL are for UART0~UART4 clock source select register. FCLK5SEL~FCLK8SEL are for I2C0~I2C3 clock source select register. FCLK9SEL~FCLK10SEL are for SPI0~SPI1 clock source select register., array offset: 0x90, array step: 0x4 */
     uint8_t RESERVED_7[20];
     struct {                        /* offset: 0xD0, array step: 0x10 */
-        uint32_t FRGDIV;            /**< fractional generator N divider value register, array offset: 0xD0, array step: 0x10 */
-        uint32_t FRGMULT;           /**< fractional generator N multiplier value register, array offset: 0xD4, array step: 0x10 */
-        uint32_t FRGCLKSEL;         /**< FRG N clock source select register, array offset: 0xD8, array step: 0x10 */
+        uint32_t DIV;               /**< fractional generator N divider value register, array offset: 0xD0, array step: 0x10 */
+        uint32_t MULT;              /**< fractional generator N multiplier value register, array offset: 0xD4, array step: 0x10 */
+        uint32_t CLKSEL;            /**< FRG N clock source select register, array offset: 0xD8, array step: 0x10 */
         uint8_t RESERVED_0[4];
     } FRG[2];
     uint32_t CLKOUTSEL;             /**< CLKOUT clock source select register, offset: 0xF0 */
@@ -215,6 +215,44 @@ typedef enum {
     RESETCTRL1_FRG1       = (1 << 4),    /**< Fractional baud rate generator 1 reset clear */
 } SYSCON_RESETCTRL1_Type;
 
+
+/** peripheral list for clock source selection, translation happens in function */
+/** TODO: make difference between LPC844 and LPC845 as they have different peripherals */
+typedef enum {
+    UART0CLKSEL = 0,    /**< UART0 clock source select */
+    UART1CLKSEL = 1,    /**< UART1 clock source select */
+    UART2CLKSEL = 2,    /**< UART2 clock source select */
+    UART3CLKSEL = 3,    /**< UART3 clock source select */
+    UART4CLKSEL = 4,    /**< UART4 clock source select */
+    I2C0CLKSEL = 5,     /**< I2C0 clock source select */
+    I2C1CLKSEL = 6,     /**< I2C1 clock source select */
+    I2C2CLKSEL = 7,     /**< I2C2 clock source select */
+    I2C3CLKSEL = 8,     /**< I2C2 clock source select */
+    SPI0CLKSEL = 9,     /**< SPI0 clock source select */
+    SPI1CLKSEL = 10,    /**< SPI1 clock source select */
+} SYSCON_CLKSEL_Type;
+
+typedef enum {
+    SYSCON_CLKSRC_FRO       = 0x0, /**< FRO clock source */
+    SYSCON_CLKSRC_MAIN      = 0x1, /**< Main clock clock source */
+    SYSCON_CLKSRC_FRG0      = 0x2, /**< FRG0 clock clock source */
+    SYSCON_CLKSRC_FRG1      = 0x3, /**< FRG0 clock clock source */
+    SYSCON_CLKSRC_FRO_DIV   = 0x4, /**< FRO/2 clock source */
+    SYSCON_CLKSRC_NONE      = 0x7, /**< No clock source */
+} SYSCON_CLKSRC_Type;
+
+typedef enum {
+    FRG0 = 0,   /**< Fractional Rate generator 0 */
+    FRG1 = 1,   /**< Fractional Rate generator 1 */
+} SYSCON_FRGSEL_Type;
+
+typedef enum {
+    FRGSRC_FRO      = 0x0,  /**< FRO clock source for FRG */
+    FRGSRC_MAIN     = 0x1,  /**< Main clock source for FRG */
+    FRGSRC_SYSPLL   = 0x2,  /**< System PLL clock source for FRG */
+    FRGSRC_NONE     = 0x3,  /**< No clock source for FRG */
+} SYSCON_FRGSRC_Type;
+
 typedef enum {
     CLKOUT_FRO          = 0, /**< output FRO clock */
     CLKOUT_MAIN         = 1, /**< output main clock */
@@ -371,8 +409,8 @@ static inline void sysconDisableClocks(SYSCON_Type *peripheral, uint32_t setting
  */
 static inline void sysconEnableResets(SYSCON_Type *peripheral, uint32_t resets0, uint32_t resets1)
 {
-    peripheral->PRESETCTRL0 = resets0 | peripheral->SYSAHBCLKCTRL0;
-    peripheral->PRESETCTRL1 = resets1 | peripheral->SYSAHBCLKCTRL1;
+    peripheral->PRESETCTRL0 = resets0 | peripheral->PRESETCTRL0;
+    peripheral->PRESETCTRL1 = resets1 | peripheral->PRESETCTRL1;
 }
 
 /**
@@ -384,8 +422,34 @@ static inline void sysconEnableResets(SYSCON_Type *peripheral, uint32_t resets0,
  */
 static inline void sysconDisableResets(SYSCON_Type *peripheral, uint32_t resets0, uint32_t resets1)
 {
-    peripheral->PRESETCTRL0 = ~resets0 & peripheral->SYSAHBCLKCTRL0;
-    peripheral->PRESETCTRL1 = ~resets1 & peripheral->SYSAHBCLKCTRL1;
+    peripheral->PRESETCTRL0 = ~resets0 & peripheral->PRESETCTRL0;
+    peripheral->PRESETCTRL1 = ~resets1 & peripheral->PRESETCTRL1;
+}
+
+/**
+ * @brief   Select the clock input for a peripheral
+ * @param   peripheral  base address of SYSCON peripheral
+ * @param   select      Peripheral to setup the clock for
+ * @param   source      Clock source to connect to the peripheral
+ */
+static inline void sysconPeripheralClockSelect(SYSCON_Type *peripheral, SYSCON_CLKSEL_Type select, SYSCON_CLKSRC_Type source)
+{
+    peripheral->FCLKSEL[select] = (peripheral->FCLKSEL[select] & 0xFFFFFFF8) | source;
+}
+
+/**
+ * @brief   Setup Fractional clock generator
+ * @param   peripheral  base address of SYSCON peripheral
+ * @param   frg         FRG to configure
+ * @param   divider     DIV value for FRG
+ * @param   multiplier  MULT value for FRG
+ * @param   source      source for the FRG
+ */
+static inline void sysconFrg0Setup(SYSCON_Type *peripheral, SYSCON_FRGSEL_Type frg, uint8_t divider, uint8_t multiplier, SYSCON_FRGSRC_Type source)
+{
+    peripheral->FRG[frg].DIV = divider;
+    peripheral->FRG[frg].MULT = multiplier;
+    peripheral->FRG[frg].CLKSEL = source;
 }
 
 /**
