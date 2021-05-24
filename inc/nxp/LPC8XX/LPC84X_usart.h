@@ -91,8 +91,7 @@ static inline void usartSetConfig(
  */
 static inline void usartDisable(USART_Type *peripheral)
 {
-    uint32_t cfgRegister = peripheral->CFG & ~(USART_CFG_ENABLE);
-    peripheral->CFG = cfgRegister;
+    peripheral->CFG = 0x00000000;
 }
 
 /**
