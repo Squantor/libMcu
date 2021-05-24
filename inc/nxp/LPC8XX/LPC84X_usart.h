@@ -67,6 +67,9 @@ typedef enum {
 #define USART_CTL_CLRCCONRX     (0x01 << 9)     /**< Clear continuous clock */
 #define USART_CTL_AUTOBAUD      (0x01 << 16)    /**< Autobaud enable */
 
+#define USART_STAT_RESERVED     (0xFFFE0280)    /**< USART status register reserved bits */
+#define USART_STAT_CLEAR        (0x0001F920)    /**< clear bits with 1's per datasheet */
+
 /**
  * @brief   setup USART control register
  * @param   peripheral  base address of USART peripheral
@@ -92,6 +95,8 @@ static inline void usartSetConfig(
 static inline void usartDisable(USART_Type *peripheral)
 {
     peripheral->CFG = 0x00000000;
+    peripheral->CTL = 0x00000000;
+    peripheral->STAT = USART_STAT_CLEAR;
 }
 
 /**
