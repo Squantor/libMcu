@@ -179,6 +179,7 @@ typedef enum {
 
 /** reset control 0 peripheral list */
 typedef enum {
+    RESETCTRL0_NONE = 0,                /*!< No reset 0 clear */
     RESETCTRL0_FLASH = (1 << 4),        /**< Flash reset clear */
     RESETCTRL0_I2C0 = (1 << 5),         /**< I2C0 reset clear */
     RESETCTRL0_GPIO0 = (1 << 6),        /**< GPIO0 reset clear */
@@ -209,10 +210,11 @@ typedef enum {
 
 /** reset control 1 peripheral list */
 typedef enum {
-    RESETCTRL1_CAPT       = (1 << 0),    /**< CAPT reset clear */
-    RESETCTRL1_DAC1       = (1 << 1),    /**< DAC1 reset clear */
-    RESETCTRL1_FRG0       = (1 << 3),    /**< Fractional baud rate generator 0 reset clear */
-    RESETCTRL1_FRG1       = (1 << 4),    /**< Fractional baud rate generator 1 reset clear */
+    RESETCTRL1_NONE       = (0),        /*!< no reset clear */
+    RESETCTRL1_CAPT       = (1 << 0),   /**< CAPT reset clear */
+    RESETCTRL1_DAC1       = (1 << 1),   /**< DAC1 reset clear */
+    RESETCTRL1_FRG0       = (1 << 3),   /**< Fractional baud rate generator 0 reset clear */
+    RESETCTRL1_FRG1       = (1 << 4),   /**< Fractional baud rate generator 1 reset clear */
 } SYSCON_RESETCTRL1_Type;
 
 
