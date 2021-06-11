@@ -95,8 +95,9 @@ typedef volatile struct {
 #define SPI_DIV_RESERVED            (0xFFFF0000)        /*!< SPI clock divider register reserved bits */
 
 /**
- * @brief   TODO
+ * @brief   Setup the SPI configuration
  * @param   peripheral  base address of USART peripheral
+ * @param   config      configuration bits to set, use the SPI_CFG defines for this
  */
 static inline void spiSetConfig(SPI_Type *peripheral, uint32_t config)
 {
@@ -104,9 +105,9 @@ static inline void spiSetConfig(SPI_Type *peripheral, uint32_t config)
 } 
 
 /**
- * @brief   TODO
+ * @brief   Setup the SPI delays
  * @param   peripheral  base address of USART peripheral
- * @param   delays      Values of delays, use the SPI_DLY_ class macros
+ * @param   delays      Values of delays, use the SPI_DLY_ defines for this
  */
 static inline void spiSetDelays(SPI_Type *peripheral, uint32_t delays)
 {
@@ -114,9 +115,9 @@ static inline void spiSetDelays(SPI_Type *peripheral, uint32_t delays)
 }
 
 /**
- * @brief   TODO
+ * @brief   Set and get the SPI peripheral status
  * @param   peripheral  base address of USART peripheral
- * @param   statuses    Status bits to clear
+ * @param   statuses    Status bits to clear, use the SPI_STAT_ defines for this
  * @return  SPI status register
  */
 static inline uint32_t spiSetGetStatus(SPI_Type *peripheral, uint32_t statuses)
