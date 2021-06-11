@@ -44,14 +44,47 @@ typedef volatile struct {
 #define SPI_DLY_FRAME(delay)    ((delay & 0xF) << 8)    /*!< delay between frames */
 #define SPI_DLY_TRANSFER(delay) ((delay & 0xF) << 12)   /*!< delay between transfers and SSEL deassert and assert */
 
+#define SPI_STAT_RESERVED       (0xFFFFFE00)    /*!< SPI status register reserved bits */
+#define SPI_STAT_CLEAR          (0x000000BC)    /*!< SPI status register write 1 to clear bits */
+#define SPI_STAT_RXRDY          (1 << 0)        /*!< Receiver ready flag */
+#define SPI_STAT_TXRDY          (1 << 1)        /*!< Transmitter ready flag */
+#define SPI_STAT_RXOV           (1 << 2)        /*!< Receiver Overrunt interrupt flag */
+#define SPI_STAT_TXUR           (1 << 3)        /*!< Transmitter underrun interrupt flag */
+#define SPI_STAT_SSA            (1 << 4)        /*!< Slave Select Assert */
+#define SPI_STAT_SSD            (1 << 5)        /*!< Slave Select Deassert */
+#define SPI_STAT_STALLED        (1 << 6)        /*!< Stalled status flag */
+#define SPI_STAT_ENDTRANSFER    (1 << 7)        /*!< End transfer control bit */
+#define SPI_STAT_MSTIDLE        (1 << 8)        /*!< Master idle status flag */
+
+/**
+ * @brief   TODO
+ * @param   peripheral  base address of USART peripheral
+ */
 static inline void spiSetConfig(SPI_Type *peripheral, uint32_t config)
 {
     peripheral->CFG = config & ~SPI_CFG_RESERVED;
 } 
 
+/**
+ * @brief   TODO
+ * @param   peripheral  base address of USART peripheral
+ * @param   delays      Values of delays, use the SPI_DLY_ class macros
+ */
 static inline void spiSetDelays(SPI_Type *peripheral, uint32_t delays)
 {
     peripheral->DLY = delays;
+}
+
+/**
+ * @brief   TODO
+ * @param   peripheral  base address of USART peripheral
+ * @param   statuses    Status bits to clear
+ * @return  SPI status register
+ */
+static inline uint32_t spiSetGetStatus(SPI_Type *peripheral, uint32_t statuses)
+{
+    peripheral->STAT = statuses & SPI_STAT_CLEAR;
+    return peripheral->STAT;
 }
 
 #endif
