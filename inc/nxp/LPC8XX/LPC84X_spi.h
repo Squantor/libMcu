@@ -56,6 +56,38 @@ typedef volatile struct {
 #define SPI_STAT_ENDTRANSFER    (1 << 7)        /*!< End transfer control bit */
 #define SPI_STAT_MSTIDLE        (1 << 8)        /*!< Master idle status flag */
 
+#define SPI_RXDAT_RESERVED      (0x00000000)    /*!< SPI Receive data register reserved bits */
+#define SPI_RXDAT_DATA(reg)     (reg & 0xFFFF)  /*!< extract data from RXDAT */
+#define SPI_RXDAT_RXSSEL0_N     (1 << 16)       /*!< Slave select 0 for receive */
+#define SPI_RXDAT_RXSSEL1_N     (1 << 17)       /*!< Slave select 0 for receive */
+#define SPI_RXDAT_RXSSEL2_N     (1 << 18)       /*!< Slave select 0 for receive */
+#define SPI_RXDAT_RXSSEL3_N     (1 << 19)       /*!< Slave select 0 for receive */
+#define SPI_SOT                 (1 << 20)       /*!< Start of transfer flag */
+
+#define SPI_TXDATCTL_RESERVED       (0xF0800000)        /*!< SPI Transmit data and control register reserved bits */
+#define SPI_TXDATCTL_TXDAT(data)    (data & 0xFFFF)     /*!< data to transmit */
+#define SPI_TXDATCTL_TXSSEL0_N      (1 << 16)           /*!< Transmit slave select 0 */
+#define SPI_TXDATCTL_TXSSEL1_N      (1 << 17)           /*!< Transmit slave select 0 */
+#define SPI_TXDATCTL_TXSSEL2_N      (1 << 18)           /*!< Transmit slave select 0 */
+#define SPI_TXDATCTL_TXSSEL3_N      (1 << 19)           /*!< Transmit slave select 0 */
+#define SPI_TXDATCTL_EOT            (1 << 20)           /*!< End of transfer */
+#define SPI_TXDATCTL_EOF            (1 << 21)           /*!< End of Frame */
+#define SPI_TXDATCTL_RXIGNORE       (1 << 22)           /*!< Receive ignore */
+#define SPI_TXDATCTL_LEN(n)         ((n & 0xF) << 24)   /*!< Data length */
+
+#define SPI_TXDAT_RESERVED          (0xFFFF0000)        /*!< SPI transmit data register reserved bits */
+#define SPI_TXDA_TXDAT(data)        (data & 0xFFFF)     /*!< data to transmit */
+
+#define SPI_TXCTL_RESERVED          (0xF080FFFF)        /*!< SPI transmit control register reserved bits */
+#define SPI_TXCTL_TXSSEL0_N         (1 << 16)           /*!< Transmit slave select 0 */
+#define SPI_TXCTL_TXSSEL1_N         (1 << 17)           /*!< Transmit slave select 0 */
+#define SPI_TXCTL_TXSSEL2_N         (1 << 18)           /*!< Transmit slave select 0 */
+#define SPI_TXCTL_TXSSEL3_N         (1 << 19)           /*!< Transmit slave select 0 */
+#define SPI_TXCTL_EOT               (1 << 20)           /*!< End of transfer */
+#define SPI_TXCTL_EOF               (1 << 21)           /*!< End of Frame */
+#define SPI_TXCTL_RXIGNORE          (1 << 22)           /*!< Receive ignore */
+#define SPI_TXCTL_LEN(n)            ((n & 0xF) << 24)   /*!< Data length */
+
 /**
  * @brief   TODO
  * @param   peripheral  base address of USART peripheral
@@ -86,5 +118,46 @@ static inline uint32_t spiSetGetStatus(SPI_Type *peripheral, uint32_t statuses)
     peripheral->STAT = statuses & SPI_STAT_CLEAR;
     return peripheral->STAT;
 }
+
+/**
+ * @brief   Get receiver data
+ * @param   peripheral  base address of USART peripheral
+ * @return  received SPI data
+ */
+static inline uint32_t spiGetRxData(SPI_Type *peripheral)
+{
+    return peripheral->RXDAT;
+}
+
+/**
+ * @brief   Set Transmit data and control
+ * @param   peripheral  base address of USART peripheral
+ * @param   transfer    Data and control information
+ */
+static inline void spiSetTxCtrlData(SPI_Type *peripheral, uint32_t transfer)
+{
+    peripheral->TXDATCTL = transfer & ~SPI_TXDATCTL_RESERVED;
+}
+
+/**
+ * @brief   Set Transmit data
+ * @param   peripheral  base address of USART peripheral
+ * @param   data        Data to transmit
+ */
+static inline void spiSetTxData(SPI_Type *peripheral, uint32_t data)
+{
+    peripheral->TXDAT = data & ~SPI_TXDAT_RESERVED;
+}
+
+/**
+ * @brief   Set Transmit control
+ * @param   peripheral  base address of USART peripheral
+ * @param   transfer    Data and control information
+ */
+static inline void spiSetTxCtl(SPI_Type *peripheral, uint32_t control)
+{
+    peripheral->TXCTL = control & ~SPI_TXCTL_RESERVED;
+}
+
 
 #endif
