@@ -88,6 +88,8 @@ typedef volatile struct {
 #define SPI_TXCTL_RXIGNORE          (1 << 22)           /*!< Receive ignore */
 #define SPI_TXCTL_LEN(n)            ((n & 0xF) << 24)   /*!< Data length */
 
+#define SPI_DIV_RESERVED            (0xFFFF0000)        /*!< SPI clock divider register reserved bits */
+
 /**
  * @brief   TODO
  * @param   peripheral  base address of USART peripheral
@@ -159,5 +161,14 @@ static inline void spiSetTxCtl(SPI_Type *peripheral, uint32_t control)
     peripheral->TXCTL = control & ~SPI_TXCTL_RESERVED;
 }
 
+/**
+ * @brief   Set divider value
+ * @param   peripheral  base address of USART peripheral
+ * @param   divider     Rate divider value
+ */
+static inline void spiSetDivider(SPI_Type *peripheral, uint32_t divider)
+{
+    peripheral->DIV = divider & ~SPI_DIV_RESERVED;
+}
 
 #endif
