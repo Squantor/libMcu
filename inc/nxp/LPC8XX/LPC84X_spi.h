@@ -58,35 +58,39 @@ typedef volatile struct {
 
 #define SPI_RXDAT_RESERVED      (0x00000000)    /*!< SPI Receive data register reserved bits */
 #define SPI_RXDAT_DATA(reg)     (reg & 0xFFFF)  /*!< extract data from RXDAT */
-#define SPI_RXDAT_RXSSEL0_N     (1 << 16)       /*!< Slave select 0 for receive */
-#define SPI_RXDAT_RXSSEL1_N     (1 << 17)       /*!< Slave select 0 for receive */
-#define SPI_RXDAT_RXSSEL2_N     (1 << 18)       /*!< Slave select 0 for receive */
-#define SPI_RXDAT_RXSSEL3_N     (1 << 19)       /*!< Slave select 0 for receive */
+#define SPI_RXDAT_RXSSEL0_N     (1 << 16)       /*!< Slave select 0 for receive inverted*/
+#define SPI_RXDAT_RXSSEL1_N     (1 << 17)       /*!< Slave select 1 for receive inverted*/
+#define SPI_RXDAT_RXSSEL2_N     (1 << 18)       /*!< Slave select 2 for receive inverted*/
+#define SPI_RXDAT_RXSSEL3_N     (1 << 19)       /*!< Slave select 3 for receive inverted*/
 #define SPI_SOT                 (1 << 20)       /*!< Start of transfer flag */
 
 #define SPI_TXDATCTL_RESERVED       (0xF0800000)        /*!< SPI Transmit data and control register reserved bits */
 #define SPI_TXDATCTL_TXDAT(data)    (data & 0xFFFF)     /*!< data to transmit */
-#define SPI_TXDATCTL_TXSSEL0_N      (1 << 16)           /*!< Transmit slave select 0 */
-#define SPI_TXDATCTL_TXSSEL1_N      (1 << 17)           /*!< Transmit slave select 0 */
-#define SPI_TXDATCTL_TXSSEL2_N      (1 << 18)           /*!< Transmit slave select 0 */
-#define SPI_TXDATCTL_TXSSEL3_N      (1 << 19)           /*!< Transmit slave select 0 */
+#define SPI_TXDATCTL_TXSSEL0_N      (1 << 16)           /*!< Transmit slave select 0 inverted */
+#define SPI_TXDATCTL_TXSSEL0        (0xe << 16)         /*!< Transmit slave select 0 masked */
+#define SPI_TXDATCTL_TXSSEL1_N      (1 << 17)           /*!< Transmit slave select 1 inverted */
+#define SPI_TXDATCTL_TXSSEL1        (0xd << 16)         /*!< Transmit slave select 1 masked */
+#define SPI_TXDATCTL_TXSSEL2_N      (1 << 18)           /*!< Transmit slave select 2 inverted */
+#define SPI_TXDATCTL_TXSSEL2        (0xb << 16)         /*!< Transmit slave select 2 masked */
+#define SPI_TXDATCTL_TXSSEL3_N      (1 << 19)           /*!< Transmit slave select 3 inverted */
+#define SPI_TXDATCTL_TXSSEL3        (0x7 << 16)         /*!< Transmit slave select 3 masked */
 #define SPI_TXDATCTL_EOT            (1 << 20)           /*!< End of transfer */
 #define SPI_TXDATCTL_EOF            (1 << 21)           /*!< End of Frame */
 #define SPI_TXDATCTL_RXIGNORE       (1 << 22)           /*!< Receive ignore */
-#define SPI_TXDATCTL_LEN(n)         ((n & 0xF) << 24)   /*!< Data length */
+#define SPI_TXDATCTL_LEN(n)         (((n - 1) & 0xF) << 24) /*!< Data length */
 
 #define SPI_TXDAT_RESERVED          (0xFFFF0000)        /*!< SPI transmit data register reserved bits */
 #define SPI_TXDA_TXDAT(data)        (data & 0xFFFF)     /*!< data to transmit */
 
 #define SPI_TXCTL_RESERVED          (0xF080FFFF)        /*!< SPI transmit control register reserved bits */
-#define SPI_TXCTL_TXSSEL0_N         (1 << 16)           /*!< Transmit slave select 0 */
-#define SPI_TXCTL_TXSSEL1_N         (1 << 17)           /*!< Transmit slave select 0 */
-#define SPI_TXCTL_TXSSEL2_N         (1 << 18)           /*!< Transmit slave select 0 */
-#define SPI_TXCTL_TXSSEL3_N         (1 << 19)           /*!< Transmit slave select 0 */
+#define SPI_TXCTL_TXSSEL0_N         (1 << 16)           /*!< Transmit slave select 0 inverted */
+#define SPI_TXCTL_TXSSEL1_N         (1 << 17)           /*!< Transmit slave select 1 inverted */
+#define SPI_TXCTL_TXSSEL2_N         (1 << 18)           /*!< Transmit slave select 2 inverted */
+#define SPI_TXCTL_TXSSEL3_N         (1 << 19)           /*!< Transmit slave select 3 inverted */
 #define SPI_TXCTL_EOT               (1 << 20)           /*!< End of transfer */
 #define SPI_TXCTL_EOF               (1 << 21)           /*!< End of Frame */
 #define SPI_TXCTL_RXIGNORE          (1 << 22)           /*!< Receive ignore */
-#define SPI_TXCTL_LEN(n)            ((n & 0xF) << 24)   /*!< Data length */
+#define SPI_TXCTL_LEN(n)            (((n - 1) & 0xF) << 24) /*!< Data length */
 
 #define SPI_DIV_RESERVED            (0xFFFF0000)        /*!< SPI clock divider register reserved bits */
 
