@@ -57,7 +57,8 @@ static inline void MrtSetEnabled(LPC_MRT_CH_T *pMRT)
 
 static inline void MrtSetDisabled(LPC_MRT_CH_T *pMRT)
 {
-    pMRT->CTRL &= ~(MRT_CTRL_INTEN_MASK | MRT_CTRL_RESERVED);
+    uint32_t ctrlRegister = pMRT->CTRL & ~(MRT_CTRL_INTEN_MASK | MRT_CTRL_RESERVED);
+    pMRT->CTRL = ctrlRegister;
 }
 
 static inline MRT_MODE_T MrtGetMode(LPC_MRT_CH_T *pMRT)
@@ -67,10 +68,9 @@ static inline MRT_MODE_T MrtGetMode(LPC_MRT_CH_T *pMRT)
 
 static inline void MrtSetMode(LPC_MRT_CH_T *pMRT, MRT_MODE_T mode)
 {
-    uint32_t reg;
-
-    reg = pMRT->CTRL & ~(MRT_CTRL_MODE_MASK | MRT_CTRL_RESERVED);
-    pMRT->CTRL = reg | (uint32_t) mode;
+    uint32_t ctrlRegister;
+    ctrlRegister = pMRT->CTRL & ~(MRT_CTRL_MODE_MASK | MRT_CTRL_RESERVED);
+    pMRT->CTRL = ctrlRegister | (uint32_t) mode;
 }
 
 static inline bool MrtIsRepeatMode(LPC_MRT_CH_T *pMRT)

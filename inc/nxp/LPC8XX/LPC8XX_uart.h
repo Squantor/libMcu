@@ -106,17 +106,20 @@ static inline void UartEnable(LPC_USART_T *pUART)
 
 static inline void UartDisable(LPC_USART_T *pUART)
 {
-    pUART->CFG &= ~(UART_CFG_RESERVED | UART_CFG_ENABLE);
+    uint32_t cfgRegister = pUART->CFG & ~(UART_CFG_RESERVED | UART_CFG_ENABLE);
+    pUART->CFG = cfgRegister;
 }
 
 static inline void UartTXEnable(LPC_USART_T *pUART)
 {
-    pUART->CTRL &= ~(UART_CTRL_RESERVED | UART_CTRL_TXDIS);
+    uint32_t ctrlRegister = pUART->CTRL & ~(UART_CTRL_RESERVED | UART_CTRL_TXDIS);
+    pUART->CTRL = ctrlRegister;
 }
 
 static inline void UartTXDisable(LPC_USART_T *pUART)
 {
-    pUART->CTRL = UART_CTRL_TXDIS | (pUART->CTRL & ~UART_CTRL_RESERVED);
+    uint32_t ctrlRegister = UART_CTRL_TXDIS | (pUART->CTRL & ~UART_CTRL_RESERVED);
+    pUART->CTRL = ctrlRegister;
 }
 
 static inline void UartSendByte(LPC_USART_T *pUART, uint8_t data)
@@ -151,9 +154,9 @@ static inline uint32_t UartGetIntStatus(LPC_USART_T *pUART)
 
 static inline void UartConfigData(LPC_USART_T *pUART, uint32_t config)
 {
-    uint32_t reg;
-    reg = pUART->CFG & ~((0x3 << 2) | (0x3 << 4) | (0x1 << 6) | UART_CFG_RESERVED);
-    pUART->CFG = reg | config;
+    uint32_t cfgRegister;
+    cfgRegister = pUART->CFG & ~((0x3 << 2) | (0x3 << 4) | (0x1 << 6) | UART_CFG_RESERVED);
+    pUART->CFG = cfgRegister | config;
 }
 
 static inline uint32_t UartGetStatus(LPC_USART_T *pUART)

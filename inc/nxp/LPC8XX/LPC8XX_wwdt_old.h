@@ -49,12 +49,14 @@ static inline void WwdtSetWindow(LPC_WWDT_T *pWWDT, uint32_t timeout)
 
 static inline void WwdtSetOption(LPC_WWDT_T *pWWDT, uint32_t options)
 {
-    pWWDT->MOD = options | (pWWDT->MOD & ~WWDT_MOD_RESERVED);
+    uint32_t modRegister = options | (pWWDT->MOD & ~WWDT_MOD_RESERVED);
+    pWWDT->MOD = modRegister;
 }
 
 static inline void WwdtUnsetOption(LPC_WWDT_T *pWWDT, uint32_t options)
 {
-    pWWDT->MOD &= (~options) & WWDT_WDMOD_BITMASK;
+    uint32_t modRegister = pWWDT->MOD & (~options) & WWDT_WDMOD_BITMASK;
+    pWWDT->MOD = modRegister;
 }
 
 static inline void WwdtStart(LPC_WWDT_T *pWWDT)
@@ -70,11 +72,13 @@ static inline uint32_t WwdtGetStatus(LPC_WWDT_T *pWWDT)
 
 static inline void WwdtClearStatusFlag(LPC_WWDT_T *pWWDT, uint32_t status)
 {
+    uint32_t modRegister;
     if(status & WWDT_WDMOD_WDTOF) 
-        pWWDT->MOD &= (~WWDT_WDMOD_WDTOF) & WWDT_WDMOD_BITMASK;
+        modRegister = pWWDT->MOD & (~WWDT_WDMOD_WDTOF) & WWDT_WDMOD_BITMASK;
 
     if(status & WWDT_WDMOD_WDINT)
-        pWWDT->MOD = WWDT_WDMOD_WDINT | (pWWDT->MOD & ~WWDT_MOD_RESERVED);
+        modRegister = WWDT_WDMOD_WDINT | (pWWDT->MOD & ~WWDT_MOD_RESERVED);
+    pWWDT->MOD = modRegister;
 }
 
 static inline uint32_t WwdtGetCurrentCount(LPC_WWDT_T *pWWDT)

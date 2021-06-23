@@ -87,7 +87,8 @@ static inline void AcmpControlSet(LPC_CMP_T *acmp, uint32_t value)
 
 static inline void AcmpControlClr(LPC_CMP_T *acmp, uint32_t value)
 {
-    acmp->CTRL &= ~value;
+    uint32_t ctrlRegister = acmp->CTRL & ~value;
+    acmp->CTRL = ctrlRegister;
 }
 
 static inline void AcmpLadder(LPC_CMP_T *acmp, uint32_t value)

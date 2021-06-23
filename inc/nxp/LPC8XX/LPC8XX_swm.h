@@ -46,7 +46,8 @@ static inline void SwmDeinit(void)
 
 static inline void SwmEnableFixedPin(SWM_PIN_FIXED_T pin)
 {
-    LPC_SWM->PINENABLE0 &= ~((1 << (uint32_t) pin) | SWM_PINENABLE0_RESERVED);
+    uint32_t pinenable0Register = LPC_SWM->PINENABLE0 & ~((1 << (uint32_t) pin) | SWM_PINENABLE0_RESERVED);
+    LPC_SWM->PINENABLE0 = pinenable0Register;
 }
 
 static inline void SwmDisableFixedPin(SWM_PIN_FIXED_T pin)

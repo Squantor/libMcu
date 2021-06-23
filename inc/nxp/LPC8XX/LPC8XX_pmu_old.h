@@ -82,17 +82,20 @@ static inline uint32_t PmuGetSleepFlags(LPC_PMU_T *pPMU)
 
 static inline void PmuClearSleepFlags(LPC_PMU_T *pPMU, uint32_t flags)
 {
-    pPMU->PCON |= (flags & (~PMU_PCON_RESERVED));
+    uint32_t pconRegister = pPMU->PCON | (flags & (~PMU_PCON_RESERVED));
+    pPMU->PCON = pconRegister;
 }
 
 static inline void PmuSetPowerDownControl(LPC_PMU_T *pPMU, uint32_t flags)
 {
-    pPMU->DPDCTRL = flags | (pPMU->DPDCTRL & ~PMU_DPDCTRL_RESERVED);
+    uint32_t dpdctrlRegister = flags | (pPMU->DPDCTRL & ~PMU_DPDCTRL_RESERVED);
+    pPMU->DPDCTRL = dpdctrlRegister;
 }
 
 static inline void PmuClearPowerDownControl(LPC_PMU_T *pPMU, uint32_t flags)
 {
-    pPMU->DPDCTRL &= ~(flags | PMU_DPDCTRL_RESERVED);
+    uint32_t dpdctrlRegister = pPMU->DPDCTRL & ~(flags | PMU_DPDCTRL_RESERVED);
+    pPMU->DPDCTRL = dpdctrlRegister;
 }
 
 #endif

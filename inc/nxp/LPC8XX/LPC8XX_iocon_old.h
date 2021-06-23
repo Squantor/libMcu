@@ -26,19 +26,21 @@ static inline void IoconSetPinMuxing(LPC_IOCON_T *pIOCON, const PINMUX_GRP_T* pi
 
 static inline void IoconPinSetMode(LPC_IOCON_T *pIOCON, PINx_T pin, PIN_MODE_T mode)
 {
-    uint32_t reg;
-    reg = pIOCON->PIO0[pin] & ~(PIN_MODE_MASK);
-    pIOCON->PIO0[pin] = reg | (mode << PIN_MODE_BITNUM);
+    uint32_t pio0Register;
+    pio0Register = pIOCON->PIO0[pin] & ~(PIN_MODE_MASK);
+    pIOCON->PIO0[pin] = pio0Register | (mode << PIN_MODE_BITNUM);
 }
 
 static inline void IoconPinEnableHysteresis(LPC_IOCON_T *pIOCON, PINx_T pin)
 {
-    pIOCON->PIO0[pin] |= PIN_HYS_MASK;
+    uint32_t pio0Register = pIOCON->PIO0[pin] | PIN_HYS_MASK;
+    pIOCON->PIO0[pin] = pio0Register;
 }
 
 static inline void IoconPinDisableHysteresis(LPC_IOCON_T *pIOCON, PINx_T pin)
 {
-    pIOCON->PIO0[pin] &= ~PIN_HYS_MASK;
+    uint32_t pio0Register = pIOCON->PIO0[pin] & ~PIN_HYS_MASK;
+    pIOCON->PIO0[pin] = pio0Register;
 }
 
 static inline void IoconPinSetHysteresis(LPC_IOCON_T *pIOCON, PINx_T pin, bool enable)
@@ -51,12 +53,14 @@ static inline void IoconPinSetHysteresis(LPC_IOCON_T *pIOCON, PINx_T pin, bool e
 
 static inline void IoconPinEnableInputInverted(LPC_IOCON_T *pIOCON, PINx_T pin)
 {
-    pIOCON->PIO0[pin] |= PIN_INV_MASK;
+    uint32_t pio0Register = pIOCON->PIO0[pin] | PIN_INV_MASK;
+    pIOCON->PIO0[pin] = pio0Register;
 }
 
 static inline void IoconPinDisableInputInverted(LPC_IOCON_T *pIOCON, PINx_T pin)
 {
-    pIOCON->PIO0[pin] &= ~PIN_INV_MASK;
+    uint32_t pio0Register = pIOCON->PIO0[pin] & ~PIN_INV_MASK;
+    pIOCON->PIO0[pin] = pio0Register;
 }
 
 static inline void IoconPinSetInputInverted(LPC_IOCON_T *pIOCON, PINx_T pin, bool invert)
@@ -69,12 +73,14 @@ static inline void IoconPinSetInputInverted(LPC_IOCON_T *pIOCON, PINx_T pin, boo
 
 static inline void IoconPinEnableOpenDrainMode(LPC_IOCON_T *pIOCON, PINx_T pin)
 {
-    pIOCON->PIO0[pin] |= PIN_OD_MASK;
+    uint32_t pio0Register = pIOCON->PIO0[pin] | PIN_OD_MASK;
+    pIOCON->PIO0[pin] = pio0Register;
 }
 
 static inline void IoconPinDisableOpenDrainMode(LPC_IOCON_T *pIOCON, PINx_T pin)
 {
-    pIOCON->PIO0[pin] &= ~PIN_OD_MASK;
+    uint32_t pio0Register = pIOCON->PIO0[pin] & ~PIN_OD_MASK;
+    pIOCON->PIO0[pin] = pio0Register;
 }
 
 static inline void IoconPinSetOpenDrainMode(LPC_IOCON_T *pIOCON, PINx_T pin, bool open_drain)
@@ -87,23 +93,23 @@ static inline void IoconPinSetOpenDrainMode(LPC_IOCON_T *pIOCON, PINx_T pin, boo
 
 static inline void IoconPinSetSampleMode(LPC_IOCON_T *pIOCON, PINx_T pin, PIN_SMODE_T smode)
 {
-    uint32_t reg;
-    reg = pIOCON->PIO0[pin] & ~(PIN_SMODE_MASK);
-    pIOCON->PIO0[pin] = reg | (smode << PIN_SMODE_BITNUM);
+    uint32_t pio0Register;
+    pio0Register = pIOCON->PIO0[pin] & ~(PIN_SMODE_MASK);
+    pIOCON->PIO0[pin] = pio0Register | (smode << PIN_SMODE_BITNUM);
 }
 
 static inline void IoconPinSetClockDivisor(LPC_IOCON_T *pIOCON, PINx_T pin, PIN_CLKDIV_T clkdiv)
 {
-    uint32_t reg;
-    reg = pIOCON->PIO0[pin] & ~(PIN_CLKDIV_MASK);
-    pIOCON->PIO0[pin] = reg | (clkdiv << PIN_CLKDIV_BITNUM);
+    uint32_t pio0Register;
+    pio0Register = pIOCON->PIO0[pin] & ~(PIN_CLKDIV_MASK);
+    pIOCON->PIO0[pin] = pio0Register | (clkdiv << PIN_CLKDIV_BITNUM);
 }
 
 static inline void IoconPinSetI2CMode(LPC_IOCON_T *pIOCON, PINx_T pin, PIN_I2CMODE_T mode)
 {
-    uint32_t reg;
-    reg = pIOCON->PIO0[pin] & ~(PIN_I2CMODE_MASK);
-    pIOCON->PIO0[pin] = reg | (mode << PIN_I2CMODE_BITNUM);
+    uint32_t pio0Register;
+    pio0Register = pIOCON->PIO0[pin] & ~(PIN_I2CMODE_MASK);
+    pIOCON->PIO0[pin] = pio0Register | (mode << PIN_I2CMODE_BITNUM);
 }
 
 #endif

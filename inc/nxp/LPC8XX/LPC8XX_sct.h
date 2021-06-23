@@ -365,7 +365,8 @@ static inline void SctSetConfig(LPC_SCT_T *sct, const uint32_t value)
 
 static inline void SctClearConfig(LPC_SCT_T *sct, const uint32_t value)
 {
-    sct->CONFIG &= ~(value | SCT_CONFIG_RESERVED);
+    uint32_t configRegister = sct->CONFIG & ~(value | SCT_CONFIG_RESERVED);
+    sct->CONFIG = configRegister;
 }
 
 static inline void SctControl(LPC_SCT_T *sct, const uint32_t value)
@@ -375,12 +376,14 @@ static inline void SctControl(LPC_SCT_T *sct, const uint32_t value)
 
 static inline void SctSetControl(LPC_SCT_T *sct, const uint32_t value)
 {
-    sct->CTRL_U |= value;
+    uint32_t ctrl_uRegister = sct->CTRL_U | value;
+    sct->CTRL_U = ctrl_uRegister;
 }
 
 static inline void SctClearControl(LPC_SCT_T *sct, const uint32_t value)
 {
-    sct->CTRL_U &= ~value;
+    uint32_t ctrl_uRegister = sct->CTRL_U & ~value;
+    sct->CTRL_U = ctrl_uRegister;
 }
 
 static inline void SctLimitU(LPC_SCT_T *sct, const uint32_t value)
@@ -545,7 +548,8 @@ static inline void SctSetEventInt(LPC_SCT_T *sct, const SCT_EVENT_BIT_T evt)
 
 static inline void SctClearEventInt(LPC_SCT_T *sct, const SCT_EVENT_BIT_T evt)
 {
-    sct->EVEN &= ~(evt | SCT_EVEN_RESERVED);
+    uint32_t evenRegister = sct->EVEN & ~(evt | SCT_EVEN_RESERVED);
+    sct->EVEN = evenRegister;
 }
 
 static inline void SctClearEventFlag(LPC_SCT_T *sct, const SCT_EVENT_BIT_T evt)

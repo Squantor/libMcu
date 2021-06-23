@@ -252,7 +252,8 @@ static inline void ClockEnablePeriphClock(SYSCTL_CLOCK_T clk)
 
 static inline void ClockDisablePeriphClock(SYSCTL_CLOCK_T clk)
 {
-    LPC_SYSCTL->SYSAHBCLKCTRL &= ~((1 << clk) | SYSCTL_SYSAHBCLKCTRL_RESERVED);
+    uint32_t sysahbclkctrlRegister = LPC_SYSCTL->SYSAHBCLKCTRL & ~((1 << clk) | SYSCTL_SYSAHBCLKCTRL_RESERVED);
+    LPC_SYSCTL->SYSAHBCLKCTRL = sysahbclkctrlRegister;
 }
 
 static inline void ClockSetUARTClockDiv(uint32_t div)

@@ -161,7 +161,8 @@ static inline void SysctlMap(SYSCTL_BOOT_MODE_REMAP_T remap)
 
 static inline void SysctlAssertPeriphReset(SYSCTL_PERIPH_RESET_T periph)
 {
-    LPC_SYSCTL->PRESETCTRL &= ~((1 << (uint32_t) periph) | SYSCTL_PRESETCTRL_RESERVED);
+    uint32_t presetctrlRegister = LPC_SYSCTL->PRESETCTRL & ~((1 << (uint32_t) periph) | SYSCTL_PRESETCTRL_RESERVED);
+    LPC_SYSCTL->PRESETCTRL = presetctrlRegister;
 }
 
 static inline void SysctlDeassertPeriphReset(SYSCTL_PERIPH_RESET_T periph)
@@ -203,7 +204,8 @@ static inline void SysctlEnableBODReset(void)
 
 static inline void SysctlDisableBODReset(void)
 {
-    LPC_SYSCTL->BODCTRL &= ~((1 << 4) | SYSCTL_BODCTRL_RESERVED);
+    uint32_t bodctrlRegister = LPC_SYSCTL->BODCTRL & ~((1 << 4) | SYSCTL_BODCTRL_RESERVED);
+    LPC_SYSCTL->BODCTRL = bodctrlRegister;
 }
 
 static inline void SysctlSetSYSTCKCAL(uint32_t sysCalVal)
@@ -224,7 +226,8 @@ static inline uint32_t SysctlGetIRQLatency(void)
 static inline void SysctlSetNMISource(uint32_t intsrc)
 {
     /* Disable NMI first */
-    LPC_SYSCTL->NMISRC &= ~(SYSCTL_NMISRC_ENABLE | SYSCTL_NMISRC_RESERVED);
+    uint32_t nmisrcRegister = LPC_SYSCTL->NMISRC & ~(SYSCTL_NMISRC_ENABLE | SYSCTL_NMISRC_RESERVED);
+    LPC_SYSCTL->NMISRC = nmisrcRegister;
     
     /* Set new NMI source. */
     LPC_SYSCTL->NMISRC = intsrc;
@@ -237,7 +240,8 @@ static inline void SysctlEnableNMISource(void)
 
 static inline void SysctlDisableNMISource(void)
 {
-    LPC_SYSCTL->NMISRC &= ~(SYSCTL_NMISRC_ENABLE | SYSCTL_NMISRC_RESERVED);
+    uint32_t nmisrcRegister = LPC_SYSCTL->NMISRC & ~(SYSCTL_NMISRC_ENABLE | SYSCTL_NMISRC_RESERVED);
+    LPC_SYSCTL->NMISRC = nmisrcRegister;
 }
 
 static inline void SysctlSetPinInterrupt(uint32_t intno, uint32_t pin)
@@ -247,12 +251,14 @@ static inline void SysctlSetPinInterrupt(uint32_t intno, uint32_t pin)
 
 static inline void SysctlEnablePINTWakeup(uint32_t pin)
 {
-    LPC_SYSCTL->STARTERP0 = (1 << pin) | (LPC_SYSCTL->STARTERP0 & ~SYSCTL_STARTERP0_RESERVED);
+    uint32_t starterp0Register = (1 << pin) | (LPC_SYSCTL->STARTERP0 & ~SYSCTL_STARTERP0_RESERVED);
+    LPC_SYSCTL->STARTERP0 = starterp0Register;
 }
 
 static inline void SysctlDisablePINTWakeup(uint32_t pin)
 {
-    LPC_SYSCTL->STARTERP0 &= ~((1 << pin) | SYSCTL_STARTERP0_RESERVED);
+    uint32_t starterp0Register = LPC_SYSCTL->STARTERP0 & ~((1 << pin) | SYSCTL_STARTERP0_RESERVED);
+    LPC_SYSCTL->STARTERP0 = starterp0Register;
 }
 
 static inline void SysctlEnablePeriphWakeup(uint32_t periphmask)
@@ -262,7 +268,8 @@ static inline void SysctlEnablePeriphWakeup(uint32_t periphmask)
 
 static inline void SysctlDisablePeriphWakeup(uint32_t periphmask)
 {
-    LPC_SYSCTL->STARTERP1 &= ~(periphmask | SYSCTL_STARTERP1_RESERVED);
+    uint32_t starterp1Register = LPC_SYSCTL->STARTERP1 & ~(periphmask | SYSCTL_STARTERP1_RESERVED);
+    LPC_SYSCTL->STARTERP1 = starterp1Register;
 }
 
 static inline uint32_t SysctlGetDeepSleepPD(void)

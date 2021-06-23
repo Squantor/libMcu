@@ -17,10 +17,12 @@ static inline WKT_CLKSRC_T WktGetClockSource(LPC_WKT_T *pWKT)
 
 static inline void WktSetClockSource(LPC_WKT_T *pWKT, WKT_CLKSRC_T clkSrc)
 {
+    uint32_t ctrlRegister;
     if (clkSrc == WKT_CLKSRC_10KHZ)
-        pWKT->CTRL |= WKT_CTRL_CLKSEL;    /* using Low Power clock 10kHz */
+        ctrlRegister = pWKT->CTRL | WKT_CTRL_CLKSEL;    /* using Low Power clock 10kHz */
     else
-        pWKT->CTRL &= ~WKT_CTRL_CLKSEL;    /* using Divided IRC clock 750kHz */
+        ctrlRegister = pWKT->CTRL & ~WKT_CTRL_CLKSEL;    /* using Divided IRC clock 750kHz */
+    pWKT->CTRL = ctrlRegister;
 }
 
 static inline uint32_t WktGetClockRate(LPC_WKT_T *pWKT)

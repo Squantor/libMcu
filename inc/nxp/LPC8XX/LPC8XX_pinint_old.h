@@ -17,7 +17,8 @@ static inline void PinintDeInit(void) {}
 
 static inline void PinintSetPinModeEdge(LPC_PIN_INT_T *pPININT, uint32_t pins)
 {
-    pPININT->ISEL &= ~(pins | PININT_ISEL_RESERVED);
+    uint32_t iselRegister = pPININT->ISEL & ~(pins | PININT_ISEL_RESERVED);
+    pPININT->ISEL = iselRegister;
 }
 
 static inline void PinintSetPinModeLevel(LPC_PIN_INT_T *pPININT, uint32_t pins)
@@ -119,7 +120,8 @@ static inline void PinintEnablePatternMatch(LPC_PIN_INT_T *pPININT)
 
 static inline void PinintDisablePatternMatch(LPC_PIN_INT_T *pPININT)
 {
-    pPININT->PMCTRL &= ~(PININT_PMCTRL_PMATCH_SEL | PININT_PMCTRL_RESERVED);
+    uint32_t pmctrlRegister = pPININT->PMCTRL & ~(PININT_PMCTRL_PMATCH_SEL | PININT_PMCTRL_RESERVED);
+    pPININT->PMCTRL = pmctrlRegister;
 }
 
 static inline void PinintEnablePatternMatchRxEv(LPC_PIN_INT_T *pPININT)
@@ -129,7 +131,8 @@ static inline void PinintEnablePatternMatchRxEv(LPC_PIN_INT_T *pPININT)
 
 static inline void PinintDisablePatternMatchRxEv(LPC_PIN_INT_T *pPININT)
 {
-    pPININT->PMCTRL &= ~(PININT_PMCTRL_RXEV_ENA | PININT_PMCTRL_RESERVED);
+    uint32_t pmctrlRegister = pPININT->PMCTRL & ~(PININT_PMCTRL_RXEV_ENA | PININT_PMCTRL_RESERVED);
+    pPININT->PMCTRL = pmctrlRegister;
 }
 
 #endif

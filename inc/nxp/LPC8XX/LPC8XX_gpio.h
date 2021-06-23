@@ -66,13 +66,16 @@ static inline bool GpioGetPinState(LPC_GPIO_T *pGPIO, uint8_t port, uint8_t pin)
 
 static inline void GpioWriteDirBit(LPC_GPIO_T *pGPIO, uint32_t port, uint8_t pin, bool setting)
 {
+    uint32_t dirRegister;
     if(setting)
     {
-        pGPIO->DIR[port] |= 1UL << pin;
+        dirRegister = pGPIO->DIR[port] | 1UL << pin;
+        pGPIO->DIR[port] = dirRegister;
     }
     else
     {
-        pGPIO->DIR[port] &= ~(1UL << pin);
+        dirRegister = pGPIO->DIR[port] & ~(1UL << pin);
+        pGPIO->DIR[port] = dirRegister;
     }
 }
 

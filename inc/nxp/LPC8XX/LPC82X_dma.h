@@ -431,7 +431,8 @@ static inline void DmaClearTranBits(LPC_DMA_T *pDMA, DMA_CHID_T ch, uint32_t mas
 {
     /* Read and write values may not be the same, write 0 to
        undefined bits */
-    pDMA->DMACH[ch].XFERCFG &= ~(DMA_XFERCFG_RESERVED | mask);
+    uint32_t xfercfgRegister = pDMA->DMACH[ch].XFERCFG & ~(DMA_XFERCFG_RESERVED | mask);
+    pDMA->DMACH[ch].XFERCFG = xfercfgRegister;
 }
 
 static inline void DmaSetupChannelTransferSize(LPC_DMA_T *pDMA, DMA_CHID_T ch, uint32_t trans)
