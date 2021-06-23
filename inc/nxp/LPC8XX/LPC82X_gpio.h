@@ -46,37 +46,4 @@ typedef struct {
     __O  uint32_t DIRNOT[32];   /* Toggle Direction */
 } LPC_GPIO_T;
 
-static inline void GpioSetPinDIROutput(LPC_GPIO_T *pGPIO, uint8_t port, uint8_t pin)
-{
-    pGPIO->DIRSET[port] = 1UL << pin;
-}
-
-static inline void GpioSetPinDIRInput(LPC_GPIO_T *pGPIO, uint8_t port, uint8_t pin)
-{
-    pGPIO->DIRCLR[port] = 1UL << pin;
-}
-
-static inline void GpioTogglePinDIR(LPC_GPIO_T *pGPIO, uint8_t port, uint8_t pin)
-{
-    pGPIO->DIRNOT[port] = 1UL << pin;
-}
-
-static inline void GpioSetPortDIROutput(LPC_GPIO_T *pGPIO, uint8_t port, uint32_t pinMask)
-{
-    pGPIO->DIRSET[port] = pinMask;
-}
-
-static inline void GpioSetPortDIRInput(LPC_GPIO_T *pGPIO, uint8_t port, uint32_t pinMask)
-{
-    pGPIO->DIRCLR[port] = pinMask;
-}
-
-static inline void GpioTogglePortDIR(LPC_GPIO_T *pGPIO, uint8_t port, uint32_t pinMask)
-{
-    pGPIO->DIRNOT[port] = pinMask;
-}
-
-// include common functions
-#include <nxp/LPC8XX/LPC8XX_gpio.h>
-
 #endif
