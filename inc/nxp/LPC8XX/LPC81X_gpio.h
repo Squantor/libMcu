@@ -31,46 +31,52 @@ LPC810 series GPIO registers, defines and functions.
 #ifndef LPC81X_GPIO_H
 #define LPC81X_GPIO_H
 
-typedef struct {
-    __IO uint8_t B[128][32];    /* Byte pin registers ports 0 to n; pins PIOn_0 to PIOn_31 */
-    __IO uint32_t W[32][32];    /* Word pin registers port 0 to n */
-    __IO uint32_t DIR[32];      /* Direction registers port n */
-    __IO uint32_t MASK[32];     /* Mask register port n */
-    __IO uint32_t PIN[32];      /* Portpin register port n */
-    __IO uint32_t MPIN[32];     /* Masked port register port n */
-    __IO uint32_t SET[32];      /* Write: Set register for port n Read: output bits for port n */
-    __O uint32_t CLR[32];       /* Clear port n */
-    __O uint32_t NOT[32];       /* Toggle port n */
+typedef volatile struct {
+    uint8_t B[128][32];    /* Byte pin registers ports 0 to n; pins PIOn_0 to PIOn_31 */
+    uint32_t W[32][32];    /* Word pin registers port 0 to n */
+    uint32_t DIR[32];      /* Direction registers port n */
+    uint32_t MASK[32];     /* Mask register port n */
+    uint32_t PIN[32];      /* Portpin register port n */
+    uint32_t MPIN[32];     /* Masked port register port n */
+    uint32_t SET[32];      /* Write: Set register for port n Read: output bits for port n */
+    uint32_t CLR[32];       /* Clear port n */
+    uint32_t NOT[32];       /* Toggle port n */
 } LPC_GPIO_T;
 
 static inline void GpioSetPinDIROutput(LPC_GPIO_T *pGPIO, uint8_t port, uint8_t pin)
 {
-    pGPIO->DIR[port] |= 1UL << pin;
+    uint32_t dirRegister = pGPIO->DIR[port] | 1UL << pin;
+    pGPIO->DIR[port] = dirRegister;
 }
 
 static inline void GpioSetPinDIRInput(LPC_GPIO_T *pGPIO, uint8_t port, uint8_t pin)
 {
-    pGPIO->DIR[port] &= ~(1UL << pin);
+    uint32_t dirRegister = pGPIO->DIR[port] & ~(1UL << pin);
+    pGPIO->DIR[port] = dirRegister;
 }
 
 static inline void GpioTogglePinDIR(LPC_GPIO_T *pGPIO, uint8_t port, uint8_t pin)
 {
-    pGPIO->DIR[port] ^= 1UL << pin;
+    uint32_t dirRegister = pGPIO->DIR[port] ^ 1UL << pin;
+    pGPIO->DIR[port] = dirRegister;
 }
 
 static inline void GpioSetPortDIROutput(LPC_GPIO_T *pGPIO, uint8_t port, uint32_t pinMask)
 {
-    pGPIO->DIR[port] |= pinMask;
+    uint32_t dirRegister = pGPIO->DIR[port] | pinMask;
+    pGPIO->DIR[port] = dirRegister;
 }
 
 static inline void GpioSetPortDIRInput(LPC_GPIO_T *pGPIO, uint8_t port, uint32_t pinMask)
 {
-    pGPIO->DIR[port] &= ~pinMask;
+    uint32_t dirRegister = pGPIO->DIR[port] & ~pinMask;
+    pGPIO->DIR[port] = dirRegister;
 }
 
 static inline void GpioTogglePortDIR(LPC_GPIO_T *pGPIO, uint8_t port, uint32_t pinMask)
 {
-    pGPIO->DIR[port] ^= pinMask;
+    uint32_t dirRegister = pGPIO->DIR[port] ^ pinMask;
+    pGPIO->DIR[port] = dirRegister;
 }
 
 // include common functions
