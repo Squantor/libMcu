@@ -134,7 +134,7 @@ typedef enum PINx {
     IOCON_PIO11 =  0x07,
     IOCON_PIO12 =  0x02,
     IOCON_PIO13 =  0x01,
-} PINx_T;
+} IOCON_PIN_Type;
 
 // default configuration options, override with your own!
 #include "nxp/LPC8XX/LPC81X_default.h"
