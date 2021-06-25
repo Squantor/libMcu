@@ -19,7 +19,7 @@ typedef struct {
 
 typedef volatile struct {
     uint32_t PIO0[NUM_IOCON_PIO + 2]; /* 2 added for reserved register */
-} LPC_IOCON_T;
+} IOCON_Type;
 
 /**
  * @brief IOCON Register bit definitions
@@ -71,5 +71,7 @@ typedef enum PIN_I2CMODE {
     PIN_I2CMODE_GPIO = 1,
     PIN_I2CMODE_FASTPLUS = 2
 } PIN_I2CMODE_T;
+
+#include "nxp/LPC8XX/LPC8XX_iocon_old.h"
 
 #endif

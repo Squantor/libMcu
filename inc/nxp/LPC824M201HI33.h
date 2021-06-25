@@ -82,7 +82,7 @@ typedef enum {
 #define LPC_DMATIRGMUX_BASE (0x40028000UL)
 #define LPC_INMUX_BASE      (0x4002C000UL)
 #define LPC_FMC_BASE        (0x40040000UL)
-#define LPC_IOCON_BASE      (0x40044000UL)
+#define IOCON_BASE          (0x40044000UL)
 #define SYSCON_BASE         (0x40048000UL)
 #define LPC_I2C0_BASE       (0x40050000UL)
 #define LPC_I2C1_BASE       (0x40054000UL)
@@ -114,7 +114,7 @@ typedef enum {
 #define LPC_SCT         ((LPC_SCT_T         *) LPC_SCT_BASE)
 #define LPC_GPIO_PORT   ((LPC_GPIO_T        *) LPC_GPIO_PORT_BASE)
 #define LPC_PININT      ((LPC_PIN_INT_T     *) LPC_PIN_INT_BASE)
-#define LPC_IOCON       ((LPC_IOCON_T       *) LPC_IOCON_BASE)
+#define IOCON           ((IOCON_Type        *) IOCON_BASE)
 #define LPC_SWM         ((LPC_SWM_T         *) LPC_SWM_BASE)
 #define SYSCON          ((SYSCON_Type       *) SYSCON_BASE)
 #define LPC_CMP         ((LPC_CMP_T         *) LPC_CMP_BASE)
@@ -130,35 +130,35 @@ typedef enum {
 #define LPC_INMUX       ((LPC_INMUX_T       *) LPC_INMUX_BASE)
 
 typedef enum PINx {
-    IOCON_PIO0  =  0x11,
-    IOCON_PIO1  =  0x0B,
-    IOCON_PIO2  =  0x06,
-    IOCON_PIO3  =  0x05,
-    IOCON_PIO4  =  0x04,
-    IOCON_PIO5  =  0x03,
-    IOCON_PIO6  =  0x10,
-    IOCON_PIO7  =  0x0F,
-    IOCON_PIO8  =  0x0E,
-    IOCON_PIO9  =  0x0D,
-    IOCON_PIO10 =  0x08,
-    IOCON_PIO11 =  0x07,
-    IOCON_PIO12 =  0x02,
-    IOCON_PIO13 =  0x01,
-    IOCON_PIO14 =  0x12,
-    IOCON_PIO15 =  0x0A,
-    IOCON_PIO16 =  0x09,
-    IOCON_PIO17 =  0x00,
-    IOCON_PIO18 =  0x1E,
-    IOCON_PIO19 =  0x1D,
-    IOCON_PIO20 =  0x1C,
-    IOCON_PIO21 =  0x1B,
-    IOCON_PIO22 =  0x1A,
-    IOCON_PIO23 =  0x19,
-    IOCON_PIO24 =  0x18,
-    IOCON_PIO25 =  0x17,
-    IOCON_PIO26 =  0x16,
-    IOCON_PIO27 =  0x15,
-    IOCON_PIO28 =  0x14,
+    IOCON_PIO0_0  =  0x11,
+    IOCON_PIO0_1  =  0x0B,
+    IOCON_PIO0_2  =  0x06,
+    IOCON_PIO0_3  =  0x05,
+    IOCON_PIO0_4  =  0x04,
+    IOCON_PIO0_5  =  0x03,
+    IOCON_PIO0_6  =  0x10,
+    IOCON_PIO0_7  =  0x0F,
+    IOCON_PIO0_8  =  0x0E,
+    IOCON_PIO0_9  =  0x0D,
+    IOCON_PIO0_10 =  0x08,
+    IOCON_PIO0_11 =  0x07,
+    IOCON_PIO0_12 =  0x02,
+    IOCON_PIO0_13 =  0x01,
+    IOCON_PIO0_14 =  0x12,
+    IOCON_PIO0_15 =  0x0A,
+    IOCON_PIO0_16 =  0x09,
+    IOCON_PIO0_17 =  0x00,
+    IOCON_PIO0_18 =  0x1E,
+    IOCON_PIO0_19 =  0x1D,
+    IOCON_PIO0_20 =  0x1C,
+    IOCON_PIO0_21 =  0x1B,
+    IOCON_PIO0_22 =  0x1A,
+    IOCON_PIO0_23 =  0x19,
+    IOCON_PIO0_24 =  0x18,
+    IOCON_PIO0_25 =  0x17,
+    IOCON_PIO0_26 =  0x16,
+    IOCON_PIO0_27 =  0x15,
+    IOCON_PIO0_28 =  0x14,
 } PINx_T;
 
 // default configuration options, override with your own!
@@ -170,7 +170,6 @@ typedef enum PINx {
 #include "nxp/LPC8XX/LPC82X_gpio.h"
 #include "nxp/LPC8XX/LPC82X_gpio_old.h"
 #include "nxp/LPC8XX/LPC8XX_iocon.h"
-#include "nxp/LPC8XX/LPC8XX_iocon_old.h"
 #include "nxp/LPC8XX/LPC8XX_wwdt.h"
 #include "nxp/LPC8XX/LPC8XX_wwdt_old.h"
 #include "nxp/LPC8XX/LPC8XX_wkt.h"
