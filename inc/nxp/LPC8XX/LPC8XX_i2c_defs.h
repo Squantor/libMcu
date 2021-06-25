@@ -31,25 +31,25 @@ LPC800 series common I2C bus registers, defines and functions.
 #define LPC8XX_I2C_DEFS_H
 
 /* I2C register block structure */
-typedef struct {                /* I2C0 Structure */
-    __IO uint32_t CFG;          /* I2C Configuration Register common for Master, Slave and Monitor */
-    __IO uint32_t STAT;         /* I2C Status Register common for Master, Slave and Monitor */
-    __IO uint32_t INTENSET;     /* I2C Interrupt Enable Set Register common for Master, Slave and Monitor */
-    __O  uint32_t INTENCLR;     /* I2C Interrupt Enable Clear Register common for Master, Slave and Monitor */
-    __IO uint32_t TIMEOUT;      /* I2C Timeout value Register */
-    __IO uint32_t CLKDIV;       /* I2C Clock Divider Register */
-    __I  uint32_t INTSTAT;      /* I2C Interrupt Status Register */
-    __I  uint32_t RESERVED0;        
-    __IO uint32_t MSTCTL;       /* I2C Master Control Register */
-    __IO uint32_t MSTTIME;      /* I2C Master Time Register for SCL */
-    __IO uint32_t MSTDAT;       /* I2C Master Data Register */
-    __I  uint32_t RESERVED1[5];     
-    __IO uint32_t SLVCTL;       /* I2C Slave Control Register */
-    __IO uint32_t SLVDAT;       /* I2C Slave Data Register */
-    __IO uint32_t SLVADR[4];    /* I2C Slave Address Registers */
-    __IO uint32_t SLVQUAL0;     /* I2C Slave Address Qualifier 0 Register */
-    __I  uint32_t RESERVED2[9];     
-    __I  uint32_t MONRXDAT;     /* I2C Monitor Data Register */
+typedef volatile struct {       /* I2C0 Structure */
+    uint32_t CFG;               /* I2C Configuration Register common for Master, Slave and Monitor */
+    uint32_t STAT;              /* I2C Status Register common for Master, Slave and Monitor */
+    uint32_t INTENSET;          /* I2C Interrupt Enable Set Register common for Master, Slave and Monitor */
+    uint32_t INTENCLR;          /* I2C Interrupt Enable Clear Register common for Master, Slave and Monitor */
+    uint32_t TIMEOUT;           /* I2C Timeout value Register */
+    uint32_t CLKDIV;            /* I2C Clock Divider Register */
+    const uint32_t INTSTAT;     /* I2C Interrupt Status Register */
+    const uint32_t RESERVED0;        
+    uint32_t MSTCTL;            /* I2C Master Control Register */
+    uint32_t MSTTIME;           /* I2C Master Time Register for SCL */
+    uint32_t MSTDAT;            /* I2C Master Data Register */
+    const uint32_t RESERVED1[5];     
+    uint32_t SLVCTL;            /* I2C Slave Control Register */
+    uint32_t SLVDAT;            /* I2C Slave Data Register */
+    uint32_t SLVADR[4];         /* I2C Slave Address Registers */
+    uint32_t SLVQUAL0;          /* I2C Slave Address Qualifier 0 Register */
+    const uint32_t RESERVED2[9];     
+    const uint32_t MONRXDAT;    /* I2C Monitor Data Register */
 } LPC_I2C_T;
 
 /* Reserved bits masks for registers */
@@ -74,7 +74,7 @@ typedef struct {                /* I2C0 Structure */
 #define I2C_CFG_MONEN               (1 << 2)            /* Monitor Enable/Disable Bit */
 #define I2C_CFG_TIMEOUTEN           (1 << 3)            /* Timeout Enable/Disable Bit */
 #define I2C_CFG_MONCLKSTR           (1 << 4)            /* Monitor Clock Stretching Bit */
-#define I2C_CFG_MASK                ((uint32_t) 0x1F)    /* Configuration register Mask */
+#define I2C_CFG_MASK                ((uint32_t) 0x1F)   /* Configuration register Mask */
 
 /* I2C Status register Bit definition */
 #define I2C_STAT_MSTPENDING         (1 << 0)            /* Master Pending Status Bit */

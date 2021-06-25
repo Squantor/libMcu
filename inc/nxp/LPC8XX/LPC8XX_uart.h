@@ -33,32 +33,32 @@ LPC800 series common UART registers, defines and functions.
 /**
  * @brief UART register block structure
  */
-typedef struct {
-    __IO uint32_t  CFG;            /* Configuration register */
-    __IO uint32_t  CTRL;        /* Control register */
-    __IO uint32_t  STAT;        /* Status register */
-    __IO uint32_t  INTENSET;    /* Interrupt Enable read and set register */
-    __O  uint32_t  INTENCLR;    /* Interrupt Enable clear register */
-    __I  uint32_t  RXDATA;        /* Receive Data register */
-    __I  uint32_t  RXDATA_STAT;    /* Receive Data with status register */
-    __IO uint32_t  TXDATA;        /* Transmit data register */
-    __IO uint32_t  BRG;            /* Baud Rate Generator register */
-    __IO uint32_t  INTSTAT;        /* Interrupt status register */
-    __IO uint32_t  OSR;         /* Oversampling Selection regiser */
-    __IO uint32_t  ADDR;        /* Address register for automatic address matching */
+typedef volatile struct {
+    uint32_t  CFG;                  /* Configuration register */
+    uint32_t  CTRL;                 /* Control register */
+    uint32_t  STAT;                 /* Status register */
+    uint32_t  INTENSET;             /* Interrupt Enable read and set register */
+    uint32_t  INTENCLR;             /* Interrupt Enable clear register */
+    const uint32_t  RXDATA;         /* Receive Data register */
+    const uint32_t  RXDATA_STAT;    /* Receive Data with status register */
+    uint32_t  TXDATA;               /* Transmit data register */
+    uint32_t  BRG;                  /* Baud Rate Generator register */
+    uint32_t  INTSTAT;              /* Interrupt status register */
+    uint32_t  OSR;                  /* Oversampling Selection regiser */
+    uint32_t  ADDR;                 /* Address register for automatic address matching */
 } LPC_USART_T;
 
 /* UART CFG register definitions */
 #define UART_CFG_ENABLE         (0x01 << 0)
-#define UART_CFG_DATALEN_7      (0x00 << 2)        /* UART 7 bit length mode */
-#define UART_CFG_DATALEN_8      (0x01 << 2)        /* UART 8 bit length mode */
-#define UART_CFG_DATALEN_9      (0x02 << 2)        /* UART 9 bit length mode */
-#define UART_CFG_PARITY_NONE    (0x00 << 4)        /* No parity */
-#define UART_CFG_PARITY_EVEN    (0x02 << 4)        /* Even parity */
-#define UART_CFG_PARITY_ODD     (0x03 << 4)        /* Odd parity */
-#define UART_CFG_STOPLEN_1      (0x00 << 6)        /* UART One Stop Bit Select */
-#define UART_CFG_STOPLEN_2      (0x01 << 6)        /* UART Two Stop Bits Select */
-#define UART_CFG_CTSEN          (0x01 << 9)        /* CTS enable bit */
+#define UART_CFG_DATALEN_7      (0x00 << 2)     /* UART 7 bit length mode */
+#define UART_CFG_DATALEN_8      (0x01 << 2)     /* UART 8 bit length mode */
+#define UART_CFG_DATALEN_9      (0x02 << 2)     /* UART 9 bit length mode */
+#define UART_CFG_PARITY_NONE    (0x00 << 4)     /* No parity */
+#define UART_CFG_PARITY_EVEN    (0x02 << 4)     /* Even parity */
+#define UART_CFG_PARITY_ODD     (0x03 << 4)     /* Odd parity */
+#define UART_CFG_STOPLEN_1      (0x00 << 6)     /* UART One Stop Bit Select */
+#define UART_CFG_STOPLEN_2      (0x01 << 6)     /* UART Two Stop Bits Select */
+#define UART_CFG_CTSEN          (0x01 << 9)     /* CTS enable bit */
 #define UART_CFG_SYNCEN         (0x01 << 11)    /* Synchronous mode enable bit */
 #define UART_CFG_CLKPOL         (0x01 << 12)    /* Un_RXD rising edge sample enable bit */
 #define UART_CFG_SYNCMST        (0x01 << 14)    /* Select master mode (synchronous mode) enable bit */

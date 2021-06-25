@@ -17,19 +17,19 @@ typedef enum {
     ADC_SEQB_IDX
 } ADC_SEQ_IDX_T;
 
-typedef struct {                                /* ADCn Structure */
-    __IO uint32_t CTRL;                         /* A/D Control Register. The AD0CR register must be written to select the operating mode before A/D conversion can occur. */
-    __I  uint32_t RESERVED0;
-    __IO uint32_t SEQ_CTRL[ADC_SEQB_IDX + 1];   /* A/D Sequence A & B Control Register. Controls triggering and channel selection for sonversion sequence. */
-    __IO uint32_t SEQ_GDAT[ADC_SEQB_IDX + 1];   /* A/D Sequence A & B Global Data Register. Contains the result of the most recent A/D conversion for sequence. */
-    __I  uint32_t RESERVED1[2];
-    __I  uint32_t DR[12];                       /* A/D Channel Data Register. This register contains the result of the most recent conversion completed on channel n. */
-    __IO uint32_t THR_LOW[2];                   /* A/D Low Compare Threshold Register 0 & 1. Contains the lower threshold level for automatic threshold comparison. */
-    __IO uint32_t THR_HIGH[2];                  /* A/D High Compare Threshold Register 0 & 1. Contains the higher threshold level for automatic threshold comparison. */
-    __IO uint32_t CHAN_THRSEL;                  /* A/D Channel Threshold Select Register. Specifies which set of threshold compare registers to use. */
-    __IO uint32_t INTEN;                        /* A/D Interrupt Enable Register. This register contains enable bits that enable sequence-A, sequence-B, threshold compare and overrun interrupts. */
-    __IO uint32_t FLAGS;                        /* A/D Flags Register. This register contains interrupt flags. - To be checked */
-    __IO uint32_t TRM;                          /* A/D Trim Register. */
+typedef volatile struct {                   /* ADCn Structure */
+    uint32_t CTRL;                          /* A/D Control Register. The AD0CR register must be written to select the operating mode before A/D conversion can occur. */
+    const uint32_t RESERVED0;
+    uint32_t SEQ_CTRL[ADC_SEQB_IDX + 1];    /* A/D Sequence A & B Control Register. Controls triggering and channel selection for sonversion sequence. */
+    uint32_t SEQ_GDAT[ADC_SEQB_IDX + 1];    /* A/D Sequence A & B Global Data Register. Contains the result of the most recent A/D conversion for sequence. */
+    const uint32_t RESERVED1[2];
+    const uint32_t DR[12];                  /* A/D Channel Data Register. This register contains the result of the most recent conversion completed on channel n. */
+    uint32_t THR_LOW[2];                    /* A/D Low Compare Threshold Register 0 & 1. Contains the lower threshold level for automatic threshold comparison. */
+    uint32_t THR_HIGH[2];                   /* A/D High Compare Threshold Register 0 & 1. Contains the higher threshold level for automatic threshold comparison. */
+    uint32_t CHAN_THRSEL;                   /* A/D Channel Threshold Select Register. Specifies which set of threshold compare registers to use. */
+    uint32_t INTEN;                         /* A/D Interrupt Enable Register. This register contains enable bits that enable sequence-A, sequence-B, threshold compare and overrun interrupts. */
+    uint32_t FLAGS;                         /* A/D Flags Register. This register contains interrupt flags. - To be checked */
+    uint32_t TRM;                           /* A/D Trim Register. */
 } LPC_ADC_T;
 
 #define ADC_MAX_SAMPLE_RATE (30000000u)

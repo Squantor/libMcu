@@ -14,10 +14,10 @@ functions.
 /**
  * LPC8xx Power Management Unit register block structure
  */
-typedef struct {
-    __IO uint32_t PCON;        /* Power control Register (R/W) */
-    __IO uint32_t GPREG[4];    /* General purpose Registers 0..3 (R/W) */
-    __IO uint32_t DPDCTRL;    /* Deep power-down control register (R/W) */
+typedef volatile struct {
+    uint32_t PCON;          /**< Power control Register (R/W) */
+    uint32_t GPREG[4];      /**< General purpose Registers 0..3 (R/W) */
+    uint32_t DPDCTRL;       /**< Deep power-down control register (R/W) */
 } LPC_PMU_T;
 
 /* Reserved bits masks for registers */

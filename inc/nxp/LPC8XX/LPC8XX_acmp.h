@@ -10,9 +10,9 @@ functions.
 #ifndef LPC8XX_ACMP_H
 #define LPC8XX_ACMP_H
 
-typedef struct {            /* ACMP Structure */
-    __IO uint32_t  CTRL;    /* Comparator control register */
-    __IO uint32_t  LAD;     /* Voltage ladder register */
+typedef volatile struct {   /* ACMP Structure */
+    uint32_t  CTRL;         /* Comparator control register */
+    uint32_t  LAD;          /* Voltage ladder register */
 } LPC_CMP_T;
 
 /*

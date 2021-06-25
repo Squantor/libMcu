@@ -11,10 +11,10 @@ functions.
 #ifndef LPC82X_SWM_H
 #define LPC82X_SWM_H
 
-typedef struct {
-    __IO uint32_t PINASSIGN[12];    /* Pin Assign register array */
-    __I  uint32_t RESERVED0[100];
-    __IO uint32_t PINENABLE0;       /* Pin Enable register */
+typedef volatile struct {
+    uint32_t PINASSIGN[12];     /* Pin Assign register array */
+    const uint32_t RESERVED0[100];
+    uint32_t PINENABLE0;        /* Pin Enable register */
 } LPC_SWM_T;
 
 #define SWM_PINENABLE0_RESERVED  (~0x1ffffff)

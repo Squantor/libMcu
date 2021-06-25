@@ -11,10 +11,10 @@ functions.
 #ifndef LPC82X_INMUX_H
 #define LPC82X_INMUX_H
 
-typedef struct {
-    __IO uint32_t  DMA_INMUX_INMUX[2];    /**< DMA Trigger Input 20 & 21 PINMUX 0-1 */
-    __O  uint32_t  RESERVED[6];           /**< Reserved; Should not be used */
-    __IO uint32_t  SCT0_INMUX[4];         /**< Input mux register for SCT0; INPUT0-3 */
+typedef volatile struct {
+    uint32_t  DMA_INMUX_INMUX[2];    /**< DMA Trigger Input 20 & 21 PINMUX 0-1 */
+    uint32_t  RESERVED[6];           /**< Reserved; Should not be used */
+    uint32_t  SCT0_INMUX[4];         /**< Input mux register for SCT0; INPUT0-3 */
 } LPC_INMUX_T;
 
 /**
@@ -77,7 +77,7 @@ static inline void inmuxSetSCTInMux(LPC_INMUX_T *pINMUX, SCT_INMUX_T isct, SCT_I
  * @brief DMA trigger pin muxing structure
  */
 typedef struct {                    /* DMA trigger pin muxing register structure */
-    __IO uint32_t  DMA_ITRIG_INMUX[MAX_DMA_CHANNEL];    /* Trigger input select register for DMA channels */
+    uint32_t  DMA_ITRIG_INMUX[MAX_DMA_CHANNEL];    /* Trigger input select register for DMA channels */
 } LPC_DMATRIGMUX_T;
 
 /* DMA triggers that can mapped to DMA channels */

@@ -12,18 +12,18 @@ and functions.
 #define LPC8XX_SPI_H
 
 /* SPI register block structure */
-typedef struct {                    /* SPI Structure */
-    __IO uint32_t  CFG;                /* SPI Configuration register */
-    __IO uint32_t  DLY;                /* SPI Delay register */
-    __IO uint32_t  STAT;            /* SPI Status register */
-    __IO uint32_t  INTENSET;        /* SPI Interrupt Enable Set register */
-    __O  uint32_t  INTENCLR;        /* SPI Interrupt Enable Clear register */
-    __I  uint32_t  RXDAT;            /* SPI Receive Data register */
-    __IO uint32_t  TXDATCTL;        /* SPI Transmit Data with Control register */
-    __IO uint32_t  TXDAT;            /* SPI Transmit Data register */
-    __IO uint32_t  TXCTRL;            /* SPI Transmit Control register */
-    __IO uint32_t  DIV;                /* SPI clock Divider register */
-    __I  uint32_t  INTSTAT;            /* SPI Interrupt Status register */
+typedef volatile struct {       /* SPI Structure */
+    uint32_t  CFG;              /* SPI Configuration register */
+    uint32_t  DLY;              /* SPI Delay register */
+    uint32_t  STAT;             /* SPI Status register */
+    uint32_t  INTENSET;         /* SPI Interrupt Enable Set register */
+    uint32_t  INTENCLR;         /* SPI Interrupt Enable Clear register */
+    const uint32_t  RXDAT;      /* SPI Receive Data register */
+    uint32_t  TXDATCTL;         /* SPI Transmit Data with Control register */
+    uint32_t  TXDAT;            /* SPI Transmit Data register */
+    uint32_t  TXCTRL;           /* SPI Transmit Control register */
+    uint32_t  DIV;              /* SPI clock Divider register */
+    const uint32_t  INTSTAT;    /* SPI Interrupt Status register */
 } LPC_SPI_T;
 
 /* Reserved bits masks for registers */

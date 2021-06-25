@@ -10,37 +10,37 @@ LPC820 series common DMA registers, defines and functions.
 #ifndef LPC82X_DMA_H
 #define LPC82X_DMA_H
 
-typedef struct {                /* DMA shared registers structure */
-    __IO uint32_t  ENABLESET;   /* DMA Channel Enable read and Set for all DMA channels */
-    __I  uint32_t  RESERVED0;
-    __O  uint32_t  ENABLECLR;   /* DMA Channel Enable Clear for all DMA channels */
-    __I  uint32_t  RESERVED1;
-    __I  uint32_t  ACTIVE;      /* DMA Channel Active status for all DMA channels */
-    __I  uint32_t  RESERVED2;
-    __I  uint32_t  BUSY;        /* DMA Channel Busy status for all DMA channels */
-    __I  uint32_t  RESERVED3;
-    __IO uint32_t  ERRINT;      /* DMA Error Interrupt status for all DMA channels */
-    __I  uint32_t  RESERVED4;
-    __IO uint32_t  INTENSET;    /* DMA Interrupt Enable read and Set for all DMA channels */
-    __I  uint32_t  RESERVED5;
-    __O  uint32_t  INTENCLR;    /* DMA Interrupt Enable Clear for all DMA channels */
-    __I  uint32_t  RESERVED6;
-    __IO uint32_t  INTA;        /* DMA Interrupt A status for all DMA channels */
-    __I  uint32_t  RESERVED7;
-    __IO uint32_t  INTB;        /* DMA Interrupt B status for all DMA channels */
-    __I  uint32_t  RESERVED8;
-    __O  uint32_t  SETVALID;    /* DMA Set ValidPending control bits for all DMA channels */
-    __I  uint32_t  RESERVED9;
-    __O  uint32_t  SETTRIG;     /* DMA Set Trigger control bits for all DMA channels */
-    __I  uint32_t  RESERVED10;
-    __O  uint32_t  ABORT;       /* DMA Channel Abort control for all DMA channels */
+typedef volatile struct {       /* DMA shared registers structure */
+    uint32_t  ENABLESET;        /* DMA Channel Enable read and Set for all DMA channels */
+    const uint32_t  RESERVED0;
+    uint32_t  ENABLECLR;        /* DMA Channel Enable Clear for all DMA channels */
+    const uint32_t  RESERVED1;
+    const uint32_t  ACTIVE;     /* DMA Channel Active status for all DMA channels */
+    const uint32_t  RESERVED2;
+    const uint32_t  BUSY;       /* DMA Channel Busy status for all DMA channels */
+    const uint32_t  RESERVED3;
+    uint32_t  ERRINT;           /* DMA Error Interrupt status for all DMA channels */
+    const uint32_t  RESERVED4;
+    uint32_t  INTENSET;         /* DMA Interrupt Enable read and Set for all DMA channels */
+    const uint32_t  RESERVED5;
+    uint32_t  INTENCLR;         /* DMA Interrupt Enable Clear for all DMA channels */
+    const uint32_t  RESERVED6;
+    uint32_t  INTA;             /* DMA Interrupt A status for all DMA channels */
+    const uint32_t  RESERVED7;
+    uint32_t  INTB;             /* DMA Interrupt B status for all DMA channels */
+    const uint32_t  RESERVED8;
+    uint32_t  SETVALID;         /* DMA Set ValidPending control bits for all DMA channels */
+    const uint32_t  RESERVED9;
+    uint32_t  SETTRIG;          /* DMA Set Trigger control bits for all DMA channels */
+    const uint32_t  RESERVED10;
+    uint32_t  ABORT;            /* DMA Channel Abort control for all DMA channels */
 } LPC_DMA_COMMON_T;
 
-typedef struct {                /* DMA channel register structure */
-    __IO uint32_t  CFG;         /* DMA Configuration register */
-    __I  uint32_t  CTLSTAT;     /* DMA Control and status register */
-    __IO uint32_t  XFERCFG;     /* DMA Transfer configuration register */
-    __I  uint32_t  RESERVED;
+typedef volatile struct {       /* DMA channel register structure */
+    uint32_t  CFG;              /* DMA Configuration register */
+    const uint32_t  CTLSTAT;    /* DMA Control and status register */
+    uint32_t  XFERCFG;          /* DMA Transfer configuration register */
+    const uint32_t  RESERVED;
 } LPC_DMA_CHANNEL_T;
 
 #define DMA_CFG_RESERVED            ((3<<2)|(1<<7)|(3<<12)|0xfffc0000)
@@ -105,12 +105,12 @@ typedef enum {
 #define DMA_ABORT_RESERVED            DMA_COMMON_RESERVED
 
 typedef struct {                    /* DMA Structure */
-    __IO uint32_t  CTRL;            /* DMA control register */
-    __I  uint32_t  INTSTAT;         /* DMA Interrupt status register */
-    __IO uint32_t  SRAMBASE;        /* DMA SRAM address of the channel configuration table */
-    __I  uint32_t  RESERVED2[5];
+    uint32_t  CTRL;            /* DMA control register */
+    const uint32_t  INTSTAT;         /* DMA Interrupt status register */
+    uint32_t  SRAMBASE;        /* DMA SRAM address of the channel configuration table */
+    const uint32_t  RESERVED2[5];
     LPC_DMA_COMMON_T DMACOMMON[1];  /* DMA shared channel (common) registers */
-    __I  uint32_t  RESERVED0[225];
+    const uint32_t  RESERVED0[225];
     LPC_DMA_CHANNEL_T DMACH[MAX_DMA_CHANNEL];   /* DMA channel registers */
 } LPC_DMA_T;
 

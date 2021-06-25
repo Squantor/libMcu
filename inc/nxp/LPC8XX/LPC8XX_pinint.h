@@ -12,20 +12,20 @@ defines and functions.
 #define LPC8XX_PININT_H
 
 /* LPC8xx Pin Interrupt and Pattern Match register block structure */
-typedef struct {            
-    __IO uint32_t ISEL;     /* Pin Interrupt Mode register */
-    __IO uint32_t IENR;     /* Pin Interrupt Enable (Rising) register */
-    __IO uint32_t SIENR;    /* Set Pin Interrupt Enable (Rising) register */
-    __IO uint32_t CIENR;    /* Clear Pin Interrupt Enable (Rising) register */
-    __IO uint32_t IENF;     /* Pin Interrupt Enable Falling Edge / Active Level register */
-    __IO uint32_t SIENF;    /* Set Pin Interrupt Enable Falling Edge / Active Level register */
-    __IO uint32_t CIENF;    /* Clear Pin Interrupt Enable Falling Edge / Active Level address */
-    __IO uint32_t RISE;     /* Pin Interrupt Rising Edge register */
-    __IO uint32_t FALL;     /* Pin Interrupt Falling Edge register */
-    __IO uint32_t IST;      /* Pin Interrupt Status register */
-    __IO uint32_t PMCTRL;   /* GPIO pattern match interrupt control register          */
-    __IO uint32_t PMSRC;    /* GPIO pattern match interrupt bit-slice source register */
-    __IO uint32_t PMCFG;    /* GPIO pattern match interrupt bit slice configuration register */
+typedef volatile struct {            
+    uint32_t ISEL;     /**< Pin Interrupt Mode register */
+    uint32_t IENR;     /**< Pin Interrupt Enable (Rising) register */
+    uint32_t SIENR;    /**< Set Pin Interrupt Enable (Rising) register */
+    uint32_t CIENR;    /**< Clear Pin Interrupt Enable (Rising) register */
+    uint32_t IENF;     /**< Pin Interrupt Enable Falling Edge / Active Level register */
+    uint32_t SIENF;    /**< Set Pin Interrupt Enable Falling Edge / Active Level register */
+    uint32_t CIENF;    /**< Clear Pin Interrupt Enable Falling Edge / Active Level address */
+    uint32_t RISE;     /**< Pin Interrupt Rising Edge register */
+    uint32_t FALL;     /**< Pin Interrupt Falling Edge register */
+    uint32_t IST;      /**< Pin Interrupt Status register */
+    uint32_t PMCTRL;   /**< GPIO pattern match interrupt control register */
+    uint32_t PMSRC;    /**< GPIO pattern match interrupt bit-slice source register */
+    uint32_t PMCFG;    /**< GPIO pattern match interrupt bit slice configuration register */
 } LPC_PIN_INT_T;
 
 /* Reserved bits masks for registers */

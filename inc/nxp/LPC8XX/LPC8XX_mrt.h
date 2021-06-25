@@ -16,19 +16,19 @@ LPC800 series common multi rate timer registers, defines and functions.
 #define MRT_NO_IDLE_CHANNEL   (0x40)
 
 /* MRT register block structure */
-typedef struct {
-    __IO uint32_t INTVAL;   /* Timer interval register */
-    __O  uint32_t TIMER;    /* Timer register */
-    __IO uint32_t CTRL;     /* Timer control register */
-    __IO uint32_t STAT;     /* Timer status register */
+typedef volatile struct {
+    uint32_t INTVAL;   /* Timer interval register */
+    uint32_t TIMER;    /* Timer register */
+    uint32_t CTRL;     /* Timer control register */
+    uint32_t STAT;     /* Timer status register */
 } LPC_MRT_CH_T;
 
 /* MRT register block structure */
-typedef struct {
+typedef volatile struct {
     LPC_MRT_CH_T CHANNEL[MRT_CHANNELS_NUM];
     uint32_t unused[45];
-    __O  uint32_t IDLE_CH;
-    __IO uint32_t IRQ_FLAG;
+    uint32_t IDLE_CH;
+    uint32_t IRQ_FLAG;
 } LPC_MRT_T;
 
 /* Reserved bits masks for registers */

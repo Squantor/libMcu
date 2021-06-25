@@ -12,14 +12,14 @@ and functions.
 #define LPC8XX_FMC_H
 
 /* FLASH Memory Controller Unit register block structure */
-typedef struct {
-    __I  uint32_t RESERVED1[4];
-    __IO uint32_t FLASHCFG;        /*!< Flash Configuration register */
-    __I  uint32_t RESERVED2[3];
-    __IO uint32_t FMSSTART;        /*!< Signature start address register */
-    __IO uint32_t FMSSTOP;            /*!< Signature stop address register */
-    __I  uint32_t RESERVED3;
-    __I  uint32_t FMSW[1];            /*!< Signature word regsiter */
+typedef volatile struct {
+    const uint32_t RESERVED1[4];
+    uint32_t FLASHCFG;              /*!< Flash Configuration register */
+    const uint32_t RESERVED2[3];
+    uint32_t FMSSTART;              /*!< Signature start address register */
+    uint32_t FMSSTOP;               /*!< Signature stop address register */
+    const uint32_t RESERVED3;
+    const uint32_t FMSW[1];         /*!< Signature word regsiter */
 } LPC_FMC_T;
 
 /* Reserved bits masks for registers */
@@ -29,8 +29,8 @@ typedef struct {
 
 /* FLASH Access time definitions */
 typedef enum {
-    FLASHTIM_20MHZ_CPU = 0,        /* Flash accesses use 1 CPU clocks. Use for up to 20 MHz CPU clock*/
-    FLASHTIM_30MHZ_CPU = 1,     /* Flash accesses use 2 CPU clocks. Use for up to 30 MHz CPU clock*/
+    FLASHTIM_20MHZ_CPU = 0, /* Flash accesses use 1 CPU clocks. Use for up to 20 MHz CPU clock*/
+    FLASHTIM_30MHZ_CPU = 1, /* Flash accesses use 2 CPU clocks. Use for up to 30 MHz CPU clock*/
 } FMC_FLASHTIM_T;
 
 static inline void FmcSetFlashAccess(FMC_FLASHTIM_T clks)

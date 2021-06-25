@@ -12,14 +12,14 @@ functions.
 #define LPC8XX_CRC_H
 
 /* CRC register block structure */
-typedef struct {                
-    __IO uint32_t MODE;         /* CRC Mode Register */
-    __IO uint32_t SEED;         /* CRC SEED Register */
+typedef volatile struct {                
+    uint32_t MODE;          /* CRC Mode Register */
+    uint32_t SEED;          /* CRC SEED Register */
     union {
-        __I uint32_t SUM;       /* CRC Checksum Register. */
-        __O uint32_t WRDATA32;  /* CRC Data Register: write size 32-bit */
-        __O uint16_t WRDATA16;  /* CRC Data Register: write size 16-bit */
-        __O uint8_t  WRDATA8;   /* CRC Data Register: write size 8-bit */
+        const uint32_t SUM; /* CRC Checksum Register. */
+        uint32_t WRDATA32;  /* CRC Data Register: write size 32-bit */
+        uint16_t WRDATA16;  /* CRC Data Register: write size 16-bit */
+        uint8_t  WRDATA8;   /* CRC Data Register: write size 8-bit */
     };
 } LPC_CRC_T;
 
