@@ -60,7 +60,7 @@ typedef volatile struct {
     uint32_t PDRUNCFG;         /* Power-down configuration Register (R/W) */
     uint32_t RESERVED14[111];
     const uint32_t DEVICEID;   /* Device ID (R/ ) */
-} LPC_SYSCTL_T;
+} SYSCON_Type;
 
 /** Clock control 0 peripheral list */
 typedef enum {
@@ -91,6 +91,28 @@ typedef enum {
     CLKCTRL_MTB = (1 << 26),        /**< MTB clock enable */
     CLKCTRL_DMA = (1 << 29),       /**< DMA clock enable */
 } SYSCON_CLKCTRL_Type;
+
+/**
+ * @brief   Enables clocks to various peripherals
+ * @param   peripheral  base address of SYSCON peripheral
+ * @param   setting     Settings for clock control 0 register, see SYSCON_CLKCTRL_Type enum
+ * @return  Nothing
+ */
+static inline void sysconEnableClocks(SYSCON_Type *peripheral, uint32_t setting)
+{
+    peripheral->SYSAHBCLKCTRL = setting | peripheral->SYSAHBCLKCTRL;
+}
+
+/**
+ * @brief   Disables clocks to various peripherals
+ * @param   peripheral  base address of SYSCON peripheral
+ * @param   setting     Settings for clock control 0 register, see SYSCON_CLKCTRL_Type enum
+ * @return  Nothing
+ */
+static inline void sysconDisableClocks(SYSCON_Type *peripheral, uint32_t setting)
+{
+    peripheral->SYSAHBCLKCTRL = ~setting & peripheral->SYSAHBCLKCTRL;
+}
 
 #include "nxp/LPC8XX/LPC82X_syscon_old.h"
 #include "nxp/LPC8XX/LPC8XX_syscon.h"
