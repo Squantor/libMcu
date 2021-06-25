@@ -62,6 +62,36 @@ typedef volatile struct {
     const uint32_t DEVICEID;   /* Device ID (R/ ) */
 } LPC_SYSCTL_T;
 
+/** Clock control 0 peripheral list */
+typedef enum {
+    CLKCTRL_NONE = 0,               /**< Empty clock enable */
+    CLKCTRL_ROM = (1 << 1),         /**< ROM clock enable */
+    CLKCTRL_RAM0_1 = (1 << 2),      /**< RAM 0 and 1 clock enable */
+    CLKCTRL_FLASHREG = (1 << 3),    /**< Flash clock enable */
+    CLKCTRL_FLASH = (1 << 4),       /**< Flash clock enable */
+    CLKCTRL_I2C0 = (1 << 5),        /**< I2C0 clock enable */
+    CLKCTRL_GPIO = (1 << 6),        /**< GPIO clock enable */
+    CLKCTRL_SWM = (1 << 7),         /**< SWM clock enable */
+    CLKCTRL_SCT = (1 << 8),         /**< SCT clock enable */
+    CLKCTRL_WKT = (1 << 9),         /**< WKT clock enable */
+    CLKCTRL_MRT = (1 << 10),        /**< MRT clock enable */
+    CLKCTRL_SPI0 = (1 << 11),       /**< SPI0 clock enable */
+    CLKCTRL_SPI1 = (1 << 12),       /**< SPI1 clock enable */
+    CLKCTRL_CRC = (1 << 13),        /**< CRC clock enable */
+    CLKCTRL_UART0 = (1 << 14),      /**< UART0 clock enable */
+    CLKCTRL_UART1 = (1 << 15),      /**< UART1 clock enable */
+    CLKCTRL_UART2 = (1 << 16),      /**< UART2 clock enable */
+    CLKCTRL_WWDT = (1 << 17),       /**< WWDT clock enable */
+    CLKCTRL_IOCON = (1 << 18),      /**< IOCON clock enable */
+    CLKCTRL_ACMP = (1 << 19),       /**< ACMP clock enable */
+    CLKCTRL_I2C1 = (1 << 21),       /**< I2C1 clock enable */
+    CLKCTRL_I2C2 = (1 << 22),       /**< I2C2 clock enable */
+    CLKCTRL_I2C3 = (1 << 23),       /**< I2C3 clock enable */
+    CLKCTRL_ADC = (1 << 24),        /**< ADC clock enable */
+    CLKCTRL_MTB = (1 << 26),        /**< MTB clock enable */
+    CLKCTRL_DMA = (1 << 29),       /**< DMA clock enable */
+} SYSCON_CLKCTRL_Type;
+
 #include "nxp/LPC8XX/LPC82X_syscon_old.h"
 #include "nxp/LPC8XX/LPC8XX_syscon.h"
 #include "nxp/LPC8XX/LPC8XX_syscon_old.h"
