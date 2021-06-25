@@ -45,6 +45,6 @@ typedef enum {
     RESET_I2C3,
 } SYSCTL_PERIPH_RESET_T;
 
-#include "nxp/LPC8XX/LPC8XX_syscon.h"
+#include "nxp/LPC8XX/LPC8XX_syscon_old.h"
 
 #endif

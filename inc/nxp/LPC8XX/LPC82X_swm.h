@@ -98,6 +98,7 @@ typedef enum SWM_PIN_FIXED    {
     SWM_FIXED_ADC11   = 24,   /* ADC11 */
 } SWM_PIN_FIXED_T;
 
+#include "nxp/LPC8XX/LPC82X_swm_old.h"
 #include "nxp/LPC8XX/LPC8XX_swm.h"
 
 #endif

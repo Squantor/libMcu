@@ -62,4 +62,8 @@ typedef volatile struct {
     const uint32_t DEVICEID;   /* Device ID (R/ ) */
 } LPC_SYSCTL_T;
 
+#include "nxp/LPC8XX/LPC82X_syscon_old.h"
+#include "nxp/LPC8XX/LPC8XX_syscon.h"
+#include "nxp/LPC8XX/LPC8XX_syscon_old.h"
+
 #endif
