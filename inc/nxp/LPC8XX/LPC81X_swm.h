@@ -35,7 +35,7 @@ typedef struct {
     __IO uint32_t PINASSIGN[9];         /* Pin Assign register array */
     __I  uint32_t RESERVED0[103];
     __IO uint32_t PINENABLE0;           /* Pin Enable register */
-} LPC_SWM_T;
+} SWM_Type;
 
 #define SWM_PINENABLE0_RESERVED  (~0x1ff)
 
