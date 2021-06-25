@@ -163,7 +163,7 @@ typedef enum {
     CLKCTRL0_ADC = (1 << 24),       /**< ADC clock enable */
     CLKCTRL0_CTIMER0 = (1 << 25),   /**< CTIMER0 clock enable */
     CLKCTRL0_MTB = (1 << 26),       /**< MTB clock enable */
-    CLKCTRL0_DAC0 = (1 << 27),      /**< MTB clock enable */
+    CLKCTRL0_DAC0 = (1 << 27),      /**< DAC clock enable */
     CLKCTRL0_GPIO_INT = (1 << 28),  /**< GPIO_INT clock enable */
     CLKCTRL0_DMA = (1 << 29),       /**< DMA clock enable */
     CLKCTRL0_UART3 = (1 << 30),     /**< UART3 clock enable */
