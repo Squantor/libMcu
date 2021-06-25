@@ -62,6 +62,32 @@ typedef volatile struct {
     const uint32_t DEVICEID;   /* Device ID (R/ ) */
 } SYSCON_Type;
 
+#define SYSOSCCTRL_MASK             0xFFFFFFFC  /**< used bits of System oscillator control register */
+#define SYSOSCCTRL_BYPASS           (1 << 0)    /**< Oscillator is bypassed, used with external oscillator */
+#define SYSOSCCTRL_FREQ_1_20MHZ     (0 << 1)    /**< Oscillator frequency range from 1 to 20MHz */
+#define SYSOSCCTRL_FREQ_15_25MHZ    (1 << 1)    /**< Oscillator frequency range from 15 to 25MHz */
+
+#define SYSPLLCLKSEL_MASK       0xFFFFFFFC   /**< Reserved bits of the Main clock pll select register */
+typedef enum {
+    SYSPLLCLKSEL_IRC = 0u,      /**< Internal resonant crystal oscillator */
+    SYSPLLCLKSEL_SYSOSC = 1u,   /**< Crystal oscillator (SYSOSC) */
+    SYSPLLCLKSEL_CLKIN = 3u     /**< CLKIN. External clock input */
+} SYSPLLCLKSEL_Type;
+
+#define SYSPLLCLKUEN_MASK       0xFFFFFFFE  /**< Reserved bits of the main clock pll select update register */
+#define SYSPLLCLKUEN_UPDATE     (1 << 0)    /**< Update main clock pll select */
+
+#define MAINCLKSEL_MASK         0xFFFFFFFC  /**< Reserved bits of the main clock source select register */
+typedef enum {
+    MAINCLKSEL_IRC = 0u,        /**< Internal resonant crystal oscillator */
+    MAINCLKSEL_PLL_IN = 1u,     /**< PLL input */
+    MAINCLKSEL_WATCHDOG = 2u,   /**< Watchdog oscillator */
+    MAINCLKSEL_PLL_OUT = 3u     /**< PLL output */
+} MAINCLOCKSEL_Type;
+
+#define MAINCLKUEN_MASK         0xFFFFFFFE  /**< Reserved bits of the main clock source update register */
+#define MAINCLKUEN_UPDATE       (1 << 0)    /**< Update main clock source */
+
 /** Clock control 0 peripheral list */
 typedef enum {
     CLKCTRL_NONE = 0,               /**< Empty clock enable */
@@ -92,6 +118,70 @@ typedef enum {
     CLKCTRL_DMA = (1 << 29),       /**< DMA clock enable */
 } SYSCON_CLKCTRL_Type;
 
+typedef enum {
+    CLKOUT_IRC          = 0, /**< output IRC clock */
+    CLKOUT_SYSOSC       = 1, /**< output System oscillator (crystal oscillator) clock */
+    CLKOUT_WATCHDOG     = 2, /**< output watchdog */
+    CLKOUT_MAINCLOCK    = 3, /**< output main clock */
+} CLKOUT_SOURCE_Type;
+
+#define CLKOUT_RESERVED_MASK    (0xFFFFFFFC)
+
+#define MAINCLKUEN_MASK         0xFFFFFFFE  /**< Reserved bits of the main clock source update register */
+#define MAINCLKUEN_UPDATE       (1 << 0)    /**< Update main clock source */
+
+typedef enum {
+    PDRUNCFG_IRCOUT     = (1 << 0),
+    PDRUNCFG_IRC        = (1 << 1),
+    PDRUNCFG_FLASH      = (1 << 2),
+    PDRUNCFG_BOD        = (1 << 3),
+    PDRUNCFG_ADC        = (1 << 4),
+    PDRUNCFG_SYSOSC     = (1 << 5),
+    PDRUNCFG_WDTOSC     = (1 << 6),
+    PDRUNCFG_SYSPLL     = (1 << 7),
+    PDRUNCFG_ACMP       = (1 << 15),
+} PDCFG_Type;
+
+#define PDRUNCFG_DEFAULT    0x0000EDF0  /**< Default configuration for Powerdown register */
+#define PDRUNCFG_MASK       0xFFFF7F00  /**< Reserved bits */
+
+/**
+ * @brief   Sets up system oscillator
+ * @param   peripheral  base address of SYSCON peripheral
+ * @param   setting     Setting for the system oscillator
+ * @return  Nothing
+ */
+static inline void sysconSysOscControl(SYSCON_Type *peripheral, uint32_t setting)
+{
+    peripheral->SYSOSCCTRL = setting & ~SYSOSCCTRL_MASK;
+}
+
+/**
+ * @brief   Select System clock clock source
+ * @param   peripheral  base address of SYSCON peripheral
+ * @param   source      Clock source of the main clock network
+ * @return  Nothing
+ */
+static inline void sysconSysPllClockSelect(SYSCON_Type *peripheral, SYSPLLCLKSEL_Type setting)
+{
+    peripheral->SYSPLLCLKSEL = (peripheral->MAINCLKSEL & SYSPLLCLKSEL_MASK) | setting;
+    peripheral->SYSPLLCLKUEN = peripheral->MAINCLKUEN & ~SYSPLLCLKUEN_UPDATE;
+    peripheral->SYSPLLCLKUEN = peripheral->MAINCLKUEN | SYSPLLCLKUEN_UPDATE;
+}
+
+/**
+ * @brief   Select main clock source
+ * @param   peripheral  base address of SYSCON peripheral
+ * @param   source      Clock source of the main clock network
+ * @return  Nothing
+ */
+static inline void sysconMainClockSelect(SYSCON_Type *peripheral, MAINCLOCKSEL_Type setting)
+{
+    peripheral->MAINCLKSEL = (peripheral->MAINCLKSEL & MAINCLKSEL_MASK) | setting;
+    peripheral->MAINCLKUEN = peripheral->MAINCLKUEN & ~MAINCLKUEN_UPDATE;
+    peripheral->MAINCLKUEN = peripheral->MAINCLKUEN | MAINCLKUEN_UPDATE;
+}
+
 /**
  * @brief   Enables clocks to various peripherals
  * @param   peripheral  base address of SYSCON peripheral
@@ -112,6 +202,41 @@ static inline void sysconEnableClocks(SYSCON_Type *peripheral, uint32_t setting)
 static inline void sysconDisableClocks(SYSCON_Type *peripheral, uint32_t setting)
 {
     peripheral->SYSAHBCLKCTRL = ~setting & peripheral->SYSAHBCLKCTRL;
+}
+
+/**
+ * @brief   Select clock source to output on CLKOUT pin
+ * @param   peripheral  base address of SYSCON peripheral
+ * @param   source      clock source, see CLKOUT_SOURCE_Type enum
+ * @return  Nothing
+ */
+static inline void sysconClkoutSource(SYSCON_Type *peripheral, CLKOUT_SOURCE_Type source)
+{
+    peripheral->CLKOUTSEL = source & CLKOUT_RESERVED_MASK;
+    peripheral->CLKOUTUEN = peripheral->CLKOUTUEN & ~MAINCLKUEN_UPDATE;
+    peripheral->CLKOUTUEN = peripheral->CLKOUTUEN | MAINCLKUEN_UPDATE;
+}
+
+/**
+ * @brief   set CLKOUT divider
+ * @param   peripheral  base address of SYSCON peripheral
+ * @param   divider     division value, 0 means divider disabled, 1 is divide by 1
+ * @return  Nothing
+ */
+static inline void sysconClkoutDivider(SYSCON_Type *peripheral, uint8_t divider)
+{
+    peripheral->CLKOUTDIV = divider;
+}
+
+/**
+ * @brief   Enable power to various peripherals
+ * @param   peripheral      base address of SYSCON peripheral
+ * @param   powerEnables    set of peripherals to give power
+ * @return  Nothing
+ */
+static inline void sysconPowerEnable(SYSCON_Type *peripheral, uint32_t powerEnables)
+{
+    peripheral->PDRUNCFG = peripheral->PDRUNCFG & (~powerEnables | PDRUNCFG_MASK);
 }
 
 #include "nxp/LPC8XX/LPC82X_syscon_old.h"
