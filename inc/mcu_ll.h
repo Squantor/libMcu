@@ -40,6 +40,16 @@ extern "C" {
 #include <nxp/LPC845M301BD48.h>
 #elif defined(MCU_LPC844M201BD64)
 #include <nxp/LPC844M201BD64.h>
+#elif defined(MCU_CortexM0)
+#include <generic/CortexM0.h>
+#elif defined(MCU_CortexM0plus)
+#include <generic/CortexM0plus.h>
+#elif defined(MCU_CortexM3)
+#include <generic/CortexM3.h>
+#elif defined(MCU_CortexM4)
+#include <generic/CortexM4.h>
+#elif defined(MCU_CortexM7)
+#include <generic/CortexM7.h>
 
 #else
 #error "Unknown or unsupported microcontroller defined, use MCU_Microcontroller"
