@@ -85,9 +85,9 @@ typedef volatile struct {
 
 typedef enum {
     SYSPLLCTRL_POSTDIV_2 = 0u,  /**< Post PLL division ratio of two */
-    SYSPLLCTRL_POSTDIV_4 = 1u,  /**< Post PLL division ratio of two */
-    SYSPLLCTRL_POSTDIV_8 = 2u,  /**< Post PLL division ratio of two */
-    SYSPLLCTRL_POSTDIV_16 = 3u, /**< Post PLL division ratio of two */
+    SYSPLLCTRL_POSTDIV_4 = 1u,  /**< Post PLL division ratio of four */
+    SYSPLLCTRL_POSTDIV_8 = 2u,  /**< Post PLL division ratio of eight */
+    SYSPLLCTRL_POSTDIV_16 = 3u, /**< Post PLL division ratio of sixteen */
 } SYSPLLCTRL_PSEL_Type;
 
 #define SYSPLLCTRL_MASK             0xFFFFFF80  /**< Reserved bits of the System PLL control register */
