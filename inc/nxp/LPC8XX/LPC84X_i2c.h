@@ -85,6 +85,21 @@ typedef enum {
 
 #define I2C_CLKDIV_RESERVED     (0xFFFF0000)    /*!< I2C clock divide register reserved bits */
 
+#define I2C_SLVCTL_RESERVED     (0xFFFFFFF4)    /*!< I2C slave control register reserved bits */
+#define I2C_SLVCTL_SLVCONTINUE  (1 << 0)        /*!< I2C slave continue operation */
+#define I2C_SLVCTL_SLVNACK      (1 << 1)        /*!< I2C slave not acknowledge */
+#define I2C_SLVCTL_SLVDMA       (1 << 3)        /*!< I2C slave DMA enable */
+
+#define I2C_SLVADR_RESERVED     (0xFFFFFF00)    /*!< I2C slave address match register reserved bits */
+#define I2C_SLVADR_IGNORE       (1 << 0)        /*!< I2C slave adress match ignore flag */
+typedef enum {
+    I2C_SLVADR_0    = 0,    /*!< I2C slave address match index 0 */
+    I2C_SLVADR_1    = 1,    /*!< I2C slave address match index 1 */
+    I2C_SLVADR_2    = 2,    /*!< I2C slave address match index 2 */
+    I2C_SLVADR_3    = 3,    /*!< I2C slave address match index 3 */
+} I2C_SLVADR_INDEX_Type;
+
+#define I2C_SLVDAT_RESERVED     (0xFFFFFF00)    /*!< I2C slave data register reserved bits */
 
 /**
  * @brief   Set I2C configuration register
@@ -104,6 +119,16 @@ static inline uint32_t i2cGetStatus(I2C_Type *peripheral)
 {
     return peripheral->STAT & ~I2C_STAT_RESERVED;
 }
+
+/**
+ * @brief   Set clock division ratio
+ * @param   peripheral  base address of I2C peripheral
+ * @param   divider     divider value, 0 is passthrough
+ */
+static inline void i2cSetClockDivider(I2C_Type *peripheral, uint32_t divider)
+{
+    peripheral->CLKDIV = divider & ~I2C_CLKDIV_RESERVED;
+} 
 
 /**
  * @brief   Set I2C master control register
@@ -126,13 +151,52 @@ static inline void i2cSetMasterData(I2C_Type *peripheral, uint32_t data)
 } 
 
 /**
- * @brief   Set clock division ratio
+ * @brief   Get I2C master data register
  * @param   peripheral  base address of I2C peripheral
- * @param   divider     divider value, 0 is passthrough
  */
-static inline void i2cSetClockDivider(I2C_Type *peripheral, uint32_t divider)
+static inline uint32_t i2cGetMasterData(I2C_Type *peripheral)
 {
-    peripheral->CLKDIV = divider & ~I2C_CLKDIV_RESERVED;
+    return peripheral->MSTDAT & ~I2C_MSDAT_RESERVED;
+}
+
+/**
+ * @brief   Set I2C slave control register
+ * @param   peripheral  base address of I2C peripheral
+ * @param   control     control bits to set for slave mode
+ */
+static inline void i2cSetSlaveControl(I2C_Type *peripheral, uint32_t control)
+{
+    peripheral->SLVCTL = control & ~I2C_SLVCTL_RESERVED;
+} 
+
+/**
+ * @brief   Set I2C slave data register
+ * @param   peripheral  base address of I2C peripheral
+ * @param   data        data to write to I2C slave peripheral
+ */
+static inline void i2cSetSlaveData(I2C_Type *peripheral, uint32_t data)
+{
+    peripheral->SLVDAT = data & ~I2C_SLVDAT_RESERVED;
+} 
+
+/**
+ * @brief   Get I2C slave data register
+ * @param   peripheral  base address of I2C peripheral
+ */
+static inline uint32_t i2cGetSlaveData(I2C_Type *peripheral)
+{
+    return peripheral->SLVDAT & ~I2C_SLVDAT_RESERVED;
+} 
+
+/**
+ * @brief   Set I2C slave address match register
+ * @param   peripheral  base address of I2C peripheral
+ * @param   index       Which match register to set
+ * @param   address     I2C address for the slave to respond to
+ */
+static inline void i2cSetSlaveAddress(I2C_Type *peripheral, I2C_SLVADR_INDEX_Type index, uint32_t address)
+{
+    peripheral->SLVADR[index] = address & ~I2C_SLVADR_RESERVED;
 } 
 
 #endif
