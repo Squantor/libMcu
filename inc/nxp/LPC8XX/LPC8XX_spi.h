@@ -12,7 +12,7 @@ and functions.
 #define LPC8XX_SPI_H
 
 /* SPI register block structure */
-typedef volatile struct LPC_SPI {
+typedef volatile struct LPC_SPI_T {
     uint32_t  CFG;              /* SPI Configuration register */
     uint32_t  DLY;              /* SPI Delay register */
     uint32_t  STAT;             /* SPI Status register */
