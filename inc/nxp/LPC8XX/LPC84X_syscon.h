@@ -11,7 +11,7 @@
 #define LPC84X_SYSCON_H
 
 /** SYSCON - Register Layout Typedef */
-typedef volatile struct {
+typedef volatile struct SYSCON_Struct {
     uint32_t SYSMEMREMAP;           /**< System Remap register, offset: 0x0 */
     uint8_t RESERVED_0[4];
     uint32_t SYSPLLCTRL;            /**< PLL control, offset: 0x8 */

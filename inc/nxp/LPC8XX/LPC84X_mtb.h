@@ -11,7 +11,7 @@
 #define LPC84X_MTB_H
 
 /** MTB - Register Layout Typedef */
-typedef volatile struct {
+typedef volatile struct MTB_Struct {
     uint32_t POSITION;      /**< POSITION Register, offset: 0x0 */
     uint32_t MASTER;        /**< MASTER Register, offset: 0x4 */
     uint32_t FLOW;          /**< FLOW Register, offset: 0x8 */

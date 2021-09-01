@@ -11,7 +11,7 @@
 #define LPC84X_SPI_H
 
 /** SPI - Register Layout Typedef */
-typedef volatile struct {
+typedef volatile struct SPI_Struct {
     uint32_t CFG;           /*!< SPI Configuration register, offset: 0x0 */
     uint32_t DLY;           /*!< SPI Delay register, offset: 0x4 */
     uint32_t STAT;          /*!< SPI Status. Some status flags can be cleared by writing a 1 to that bit position, offset: 0x8 */

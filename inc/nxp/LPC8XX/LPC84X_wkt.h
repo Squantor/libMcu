@@ -11,7 +11,7 @@
 #define LPC84X_WKT_H
 
 /** WKT - Register Layout Typedef */
-typedef volatile struct {
+typedef volatile struct WKT_Struct {
     uint32_t CTRL;         /**< Self wake-up timer control register., offset: 0x0 */
     uint8_t RESERVED_0[8];
     uint32_t COUNT;        /**< Counter register., offset: 0xC */

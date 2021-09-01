@@ -11,7 +11,7 @@
 #define LPC84X_DMA_H
 
 /** DMA - Register Layout Typedef */
-typedef volatile struct {
+typedef volatile struct DMA_Struct {
     uint32_t CTRL;              /**< DMA control., offset: 0x0 */
     const uint32_t INTSTAT;     /**< Interrupt status., offset: 0x4 */
     uint32_t SRAMBASE;          /**< SRAM address of the channel configuration table., offset: 0x8 */

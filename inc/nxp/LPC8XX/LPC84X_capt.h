@@ -11,7 +11,7 @@
 #define LPC84X_CAPT_H
 
 /** CAPT - Register Layout Typedef */
-typedef volatile struct {
+typedef volatile struct CAPT_Struct {
     uint32_t CTRL;              /**< Configuration and control to setup the functional clock, the rules, and the pin selections and rules., offset: 0x0 */
     uint32_t STATUS;            /**< Status from triggers and time-outs including if in a poll now. Some are used for interrupts., offset: 0x4 */
     uint32_t POLL_TCNT;         /**< This sets up the polling counter and measurement counter rules., offset: 0x8 */

@@ -11,7 +11,7 @@
 #define LPC84X_GPIO_H
 
 /** GPIO - Register Layout Typedef */
-typedef volatile struct {
+typedef volatile struct GPIO_Struct {
     uint8_t B[2][32];            /**< Byte pin registers for all port 0 and 1 GPIO pins, array offset: 0x0, array step: index*0x20, index2*0x1 */
     uint8_t RESERVED_0[4032];
     uint32_t W[2][32];           /**< Word pin registers for all port 0 and 1 GPIO pins, array offset: 0x1000, array step: index*0x80, index2*0x4 */

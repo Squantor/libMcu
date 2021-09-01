@@ -11,7 +11,7 @@
 #define LPC84X_ADC_H
 
 /** ADC - Register Layout Typedef */
-typedef volatile struct {
+typedef volatile struct ADC_Struct {
     uint32_t CTRL;              /**< ADC Control register. Contains the clock divide value, resolution selection, sampling time selection, and mode controls., offset: 0x0 */
     uint8_t RESERVED_0[4];
     uint32_t SEQ_CTRL[2];       /**< ADC Conversion Sequence-n control register: Controls triggering and channel selection for conversion sequence-n. Also specifies interrupt mode for sequence-n., array offset: 0x8, array step: 0x4 */

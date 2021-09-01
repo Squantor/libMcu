@@ -11,7 +11,7 @@
 #define LPC84X_PINT_H
 
 /** PINT - Register Layout Typedef */
-typedef volatile struct {
+typedef volatile struct PINT_Struct {
     uint32_t ISEL;          /**< Pin Interrupt Mode register, offset: 0x0 */
     uint32_t IENR;          /**< Pin interrupt level or rising edge interrupt enable register, offset: 0x4 */
     const uint32_t SIENR;   /**< Pin interrupt level or rising edge interrupt set register, offset: 0x8 */

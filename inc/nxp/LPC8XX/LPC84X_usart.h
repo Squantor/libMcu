@@ -11,7 +11,7 @@
 #define LPC84X_USART_H
 
 /** USART - Register Layout Typedef */
-typedef volatile struct {
+typedef volatile struct USART_Struct {
     uint32_t CFG;               /*!< USART Configuration register. Basic USART configuration settings that typically are not changed during operation., offset: 0x0 */
     uint32_t CTL;               /*!< USART Control register. USART control settings that are more likely to change during operation., offset: 0x4 */
     uint32_t STAT;              /*!< USART Status register. The complete status value can be read here. Writing ones clears some bits in the register. Some bits can be cleared by writing a 1 to them., offset: 0x8 */

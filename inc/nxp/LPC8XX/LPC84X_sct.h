@@ -11,7 +11,7 @@
 #define LPC84X_SCT_H
 
 /** SCT - Register Layout Typedef */
-typedef volatile struct {
+typedef volatile struct SCT_Struct {
     uint32_t CONFIG;                    /**< SCT configuration register, offset: 0x0 */
     union {                             /* offset: 0x4 */
         struct {                        /* offset: 0x4 */

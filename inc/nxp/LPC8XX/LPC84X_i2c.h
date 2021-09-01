@@ -11,7 +11,7 @@
 #define LPC84X_I2C_H
 
 /** I2C - Register Layout Typedef */
-typedef volatile struct {
+typedef volatile struct I2C_Struct {
     uint32_t CFG;               /*!< Configuration for shared functions., offset: 0x0 */
     uint32_t STAT;              /*!< Status register for Master, Slave, and Monitor functions., offset: 0x4 */
     uint32_t INTENSET;          /*!< Interrupt Enable Set and read register., offset: 0x8 */

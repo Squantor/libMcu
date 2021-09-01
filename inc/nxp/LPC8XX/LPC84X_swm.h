@@ -11,7 +11,7 @@
 #define LPC84X_SWM_H
 
 /** SWM - Register Layout Typedef */
-typedef volatile struct {
+typedef volatile struct SWM_Struct {
     union {                         /* offset: 0x0 */
         struct {                    /* offset: 0x0 */
             uint32_t PINASSIGN0;    /**< Pin assign register 0. Assign movable functions U0_TXD, U0_RXD, U0_RTS, U0_CTS., offset: 0x0 */

@@ -11,7 +11,7 @@
 #define LPC84X_CRC_H
 
 /** CRC - Register Layout Typedef */
-typedef volatile struct {
+typedef volatile struct CRC_Struct {
     uint32_t MODE;          /**< CRC mode register, offset: 0x0 */
     uint32_t SEED;          /**< CRC seed register, offset: 0x4 */
     union {                 /* offset: 0x8 */

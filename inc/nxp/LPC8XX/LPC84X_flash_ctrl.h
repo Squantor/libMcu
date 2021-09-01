@@ -11,7 +11,7 @@
 #define LPC84X_FLASH_CTRL_H
 
 /** FLASH_CTRL - Register Layout Typedef */
-typedef volatile struct {
+typedef volatile struct FLASH_CTRL_Struct {
     uint8_t RESERVED_0[16];
     uint32_t FLASHCFG;      /**< Flash configuration register, offset: 0x10 */
     uint8_t RESERVED_1[12];
