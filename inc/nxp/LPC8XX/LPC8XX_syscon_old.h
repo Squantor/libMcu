@@ -10,6 +10,32 @@ LPC800 series common system control registers, defines and functions.
 #ifndef LPC8XX_SYSCON_OLD_H
 #define LPC8XX_SYSCON_OLD_H
 
+/* Reserved bits masks for registers */
+#define SYSCTL_PRESETCTRL_RESERVED      0xffffe000
+#define SYSCTL_SYSAHBCLKCTRL_RESERVED   0xfff00000
+#define SYSCTL_PIOPORCAP0_RESERVED      0xffffc000
+#define SYSCTL_STARTERP1_RESERVED       ((1<<2)|(3<<6)|(7<<9)|(1<<14)|(0x1f<<16)|0xff800000)
+
+/* PDWAKECFG and PDRUNCFG register masks */
+#define PDWAKEUPWRMASK  (0x00006D10)
+#define PDWAKEUPDATMASK (0x000080EF)
+
+typedef enum {
+    RESET_SPI0,
+    RESET_SPI1,
+    RESET_UARTFBRG,
+    RESET_USART0,
+    RESET_USART1,
+    RESET_USART2,
+    RESET_I2C0,
+    RESET_MRT,
+    RESET_SCT,
+    RESET_WKT,
+    RESET_GPIO,
+    RESET_FLASH,
+    RESET_ACMP,
+} SYSCTL_PERIPH_RESET_T;
+
 /**
  * System reset status values
  */

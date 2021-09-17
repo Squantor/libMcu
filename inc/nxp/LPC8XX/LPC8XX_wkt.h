@@ -14,7 +14,7 @@ typedef volatile struct {
     uint32_t  CTRL;    /* Alarm/Wakeup Timer Control register */
     uint32_t  Reserved[2];
     uint32_t  COUNT;   /* Alarm/Wakeup Timer Counter register */
-} LPC_WKT_T;
+} WKT_Type;
 
 #define WKT_CTRL_RESERVED (~7)
 

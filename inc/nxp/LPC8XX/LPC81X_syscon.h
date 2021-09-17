@@ -81,31 +81,53 @@ typedef volatile struct {
     const uint32_t DEVICEID;   /* Device ID (R/ ) */
 } SYSCON_Type;
 
-/* Reserved bits masks for registers */
-#define SYSCTL_PRESETCTRL_RESERVED      0xffffe000
-#define SYSCTL_SYSAHBCLKCTRL_RESERVED   0xfff00000
-#define SYSCTL_PIOPORCAP0_RESERVED      0xffffc000
-#define SYSCTL_STARTERP1_RESERVED       ((1<<2)|(3<<6)|(7<<9)|(1<<14)|(0x1f<<16)|0xff800000)
+#define SYSAHBCLKCTRL_MASK       0xFFF00000  /**< Reserved bits of the system clock control register */
 
-/* PDWAKECFG and PDRUNCFG register masks */
-#define PDWAKEUPWRMASK  (0x00006D10)
-#define PDWAKEUPDATMASK (0x000080EF)
-
+/** Clock control 0 peripheral list */
 typedef enum {
-    RESET_SPI0,
-    RESET_SPI1,
-    RESET_UARTFBRG,
-    RESET_USART0,
-    RESET_USART1,
-    RESET_USART2,
-    RESET_I2C0,
-    RESET_MRT,
-    RESET_SCT,
-    RESET_WKT,
-    RESET_GPIO,
-    RESET_FLASH,
-    RESET_ACMP,
-} SYSCTL_PERIPH_RESET_T;
+    CLKCTRL_NONE = 0,               /**< Empty clock enable */
+    CLKCTRL_ROM = (1 << 1),         /**< ROM clock enable */
+    CLKCTRL_RAM = (1 << 2),         /**< RAM lock enable */
+    CLKCTRL_FLASHREG = (1 << 4),    /**< Flash register interface clock enable */
+    CLKCTRL_FLASH = (1 << 4),       /**< Flash clock enable */
+    CLKCTRL_I2C0 = (1 << 5),        /**< I2C0 clock enable */
+    CLKCTRL_GPIO0 = (1 << 6),       /**< GPIO0 clock enable */
+    CLKCTRL_SWM = (1 << 7),         /**< SWM clock enable */
+    CLKCTRL_SCT = (1 << 8),         /**< SCT clock enable */
+    CLKCTRL_WKT = (1 << 9),         /**< WKT clock enable */
+    CLKCTRL_MRT = (1 << 10),        /**< MRT clock enable */
+    CLKCTRL_SPI0 = (1 << 11),       /**< SPI0 clock enable */
+    CLKCTRL_SPI1 = (1 << 12),       /**< SPI1 clock enable */
+    CLKCTRL_CRC = (1 << 13),        /**< CRC clock enable */
+    CLKCTRL_UART0 = (1 << 14),      /**< UART0 clock enable */
+    CLKCTRL_UART1 = (1 << 15),      /**< UART1 clock enable */
+    CLKCTRL_UART2 = (1 << 16),      /**< UART2 clock enable */
+    CLKCTRL_WWDT = (1 << 17),       /**< WWDT clock enable */
+    CLKCTRL_IOCON = (1 << 18),      /**< IOCON clock enable */
+    CLKCTRL_ACMP = (1 << 19),       /**< ACMP clock enable */
+} SYSCON_CLKCTRL_Type;
+
+/**
+ * @brief   Enables clocks to various peripherals
+ * @param   peripheral  base address of SYSCON peripheral
+ * @param   setting     Settings for clock control 0 register, see SYSCON_CLKCTRL_Type enum
+ * @return  Nothing
+ */
+static inline void sysconEnableClocks(SYSCON_Type *peripheral, uint32_t setting)
+{
+    peripheral->SYSAHBCLKCTRL = setting | peripheral->SYSAHBCLKCTRL;
+}
+
+/**
+ * @brief   Disables clocks to various peripherals
+ * @param   peripheral  base address of SYSCON peripheral
+ * @param   setting     Settings for clock control 0 register, see SYSCON_CLKCTRL_Type enum
+ * @return  Nothing
+ */
+static inline void sysconDisableClocks(SYSCON_Type *peripheral, uint32_t setting)
+{
+    peripheral->SYSAHBCLKCTRL = ~setting & peripheral->SYSAHBCLKCTRL;
+}
 
 #include "nxp/LPC8XX/LPC8XX_syscon.h"
 #include "nxp/LPC8XX/LPC8XX_syscon_old.h"

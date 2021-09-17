@@ -41,39 +41,39 @@ typedef volatile struct {
     uint32_t SET[32];      /* Write: Set register for port n Read: output bits for port n */
     uint32_t CLR[32];       /* Clear port n */
     uint32_t NOT[32];       /* Toggle port n */
-} LPC_GPIO_T;
+} GPIO_Type;
 
-static inline void GpioSetPinDIROutput(LPC_GPIO_T *pGPIO, uint8_t port, uint8_t pin)
+static inline void GpioSetPinDIROutput(GPIO_Type *pGPIO, uint8_t port, uint8_t pin)
 {
     uint32_t dirRegister = pGPIO->DIR[port] | 1UL << pin;
     pGPIO->DIR[port] = dirRegister;
 }
 
-static inline void GpioSetPinDIRInput(LPC_GPIO_T *pGPIO, uint8_t port, uint8_t pin)
+static inline void GpioSetPinDIRInput(GPIO_Type *pGPIO, uint8_t port, uint8_t pin)
 {
     uint32_t dirRegister = pGPIO->DIR[port] & ~(1UL << pin);
     pGPIO->DIR[port] = dirRegister;
 }
 
-static inline void GpioTogglePinDIR(LPC_GPIO_T *pGPIO, uint8_t port, uint8_t pin)
+static inline void GpioTogglePinDIR(GPIO_Type *pGPIO, uint8_t port, uint8_t pin)
 {
     uint32_t dirRegister = pGPIO->DIR[port] ^ 1UL << pin;
     pGPIO->DIR[port] = dirRegister;
 }
 
-static inline void GpioSetPortDIROutput(LPC_GPIO_T *pGPIO, uint8_t port, uint32_t pinMask)
+static inline void GpioSetPortDIROutput(GPIO_Type *pGPIO, uint8_t port, uint32_t pinMask)
 {
     uint32_t dirRegister = pGPIO->DIR[port] | pinMask;
     pGPIO->DIR[port] = dirRegister;
 }
 
-static inline void GpioSetPortDIRInput(LPC_GPIO_T *pGPIO, uint8_t port, uint32_t pinMask)
+static inline void GpioSetPortDIRInput(GPIO_Type *pGPIO, uint8_t port, uint32_t pinMask)
 {
     uint32_t dirRegister = pGPIO->DIR[port] & ~pinMask;
     pGPIO->DIR[port] = dirRegister;
 }
 
-static inline void GpioTogglePortDIR(LPC_GPIO_T *pGPIO, uint8_t port, uint32_t pinMask)
+static inline void GpioTogglePortDIR(GPIO_Type *pGPIO, uint8_t port, uint32_t pinMask)
 {
     uint32_t dirRegister = pGPIO->DIR[port] ^ pinMask;
     pGPIO->DIR[port] = dirRegister;

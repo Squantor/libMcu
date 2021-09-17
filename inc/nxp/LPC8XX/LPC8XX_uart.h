@@ -46,7 +46,7 @@ typedef volatile struct {
     uint32_t  INTSTAT;              /* Interrupt status register */
     uint32_t  OSR;                  /* Oversampling Selection regiser */
     uint32_t  ADDR;                 /* Address register for automatic address matching */
-} LPC_USART_T;
+} USART_Type;
 
 /* UART CFG register definitions */
 #define UART_CFG_ENABLE         (0x01 << 0)
@@ -99,88 +99,88 @@ typedef volatile struct {
 #define UART_INTEN_PARITYERR    (0x01 << 14)        /* Parity error interrupt */
 #define UART_INTEN_RXNOISE      (0x01 << 15)        /* Received noise interrupt */
 
-static inline void UartEnable(LPC_USART_T *pUART)
+static inline void UartEnable(USART_Type *pUART)
 {
     pUART->CFG = UART_CFG_ENABLE | (pUART->CFG & ~UART_CFG_RESERVED);
 }
 
-static inline void UartDisable(LPC_USART_T *pUART)
+static inline void UartDisable(USART_Type *pUART)
 {
     uint32_t cfgRegister = pUART->CFG & ~(UART_CFG_RESERVED | UART_CFG_ENABLE);
     pUART->CFG = cfgRegister;
 }
 
-static inline void UartTXEnable(LPC_USART_T *pUART)
+static inline void UartTXEnable(USART_Type *pUART)
 {
     uint32_t ctrlRegister = pUART->CTRL & ~(UART_CTRL_RESERVED | UART_CTRL_TXDIS);
     pUART->CTRL = ctrlRegister;
 }
 
-static inline void UartTXDisable(LPC_USART_T *pUART)
+static inline void UartTXDisable(USART_Type *pUART)
 {
     uint32_t ctrlRegister = UART_CTRL_TXDIS | (pUART->CTRL & ~UART_CTRL_RESERVED);
     pUART->CTRL = ctrlRegister;
 }
 
-static inline void UartSendByte(LPC_USART_T *pUART, uint8_t data)
+static inline void UartSendByte(USART_Type *pUART, uint8_t data)
 {
     pUART->TXDATA = (uint32_t) data;
 }
 
-static inline uint32_t UartReadByte(LPC_USART_T *pUART)
+static inline uint32_t UartReadByte(USART_Type *pUART)
 {
     return (uint32_t) (pUART->RXDATA & 0x000001FF);
 }
 
-static inline void UartIntEnable(LPC_USART_T *pUART, uint32_t intMask)
+static inline void UartIntEnable(USART_Type *pUART, uint32_t intMask)
 {
     pUART->INTENSET = intMask;
 }
 
-static inline void UartIntDisable(LPC_USART_T *pUART, uint32_t intMask)
+static inline void UartIntDisable(USART_Type *pUART, uint32_t intMask)
 {
     pUART->INTENCLR = intMask;
 }
 
-static inline uint32_t UartGetIntsEnabled(LPC_USART_T *pUART)
+static inline uint32_t UartGetIntsEnabled(USART_Type *pUART)
 {
     return (pUART->INTENSET & ~UART_INTEN_RESERVED);
 }
 
-static inline uint32_t UartGetIntStatus(LPC_USART_T *pUART)
+static inline uint32_t UartGetIntStatus(USART_Type *pUART)
 {
     return (pUART->INTSTAT & ~UART_INTSTAT_RESERVED);
 }
 
-static inline void UartConfigData(LPC_USART_T *pUART, uint32_t config)
+static inline void UartConfigData(USART_Type *pUART, uint32_t config)
 {
     uint32_t cfgRegister;
     cfgRegister = pUART->CFG & ~((0x3 << 2) | (0x3 << 4) | (0x1 << 6) | UART_CFG_RESERVED);
     pUART->CFG = cfgRegister | config;
 }
 
-static inline uint32_t UartGetStatus(LPC_USART_T *pUART)
+static inline uint32_t UartGetStatus(USART_Type *pUART)
 {
     return (pUART->STAT & ~UART_STAT_RESERVED);
 }
 
-static inline void UartClearStatus(LPC_USART_T *pUART, uint32_t stsMask)
+static inline void UartClearStatus(USART_Type *pUART, uint32_t stsMask)
 {
     pUART->STAT = stsMask;
 }
 
-static inline void UartSetOSR(LPC_USART_T *pUART, uint32_t ovrVal)
+static inline void UartSetOSR(USART_Type *pUART, uint32_t ovrVal)
 {
     pUART->OSR = ovrVal - 1;
 }
 
-static inline void UartSetAddr(LPC_USART_T *pUART, uint32_t addr)
+static inline void UartSetAddr(USART_Type *pUART, uint32_t addr)
 {
     pUART->ADDR = addr;
 }
 
 /* Return UART clock ID from the UART register address */
-static inline SYSCTL_CLOCK_T getUARTClockID(LPC_USART_T *pUART)
+static inline SYSCTL_CLOCK_T getUARTClockID(USART_Type *pUART)
 {
     if (pUART == LPC_USART0) {
         return SYSCTL_CLOCK_UART0;
@@ -192,7 +192,7 @@ static inline SYSCTL_CLOCK_T getUARTClockID(LPC_USART_T *pUART)
     return SYSCTL_CLOCK_UART2;
 }
 
-static inline void UartInit(LPC_USART_T *pUART)
+static inline void UartInit(USART_Type *pUART)
 {
     /* Enable USART clock */
     ClockEnablePeriphClock(getUARTClockID(pUART));
@@ -209,12 +209,12 @@ static inline void UartInit(LPC_USART_T *pUART)
         SysctlPeriphReset(RESET_USART2);
 }
 
-static inline void UartDeInit(LPC_USART_T *pUART)
+static inline void UartDeInit(USART_Type *pUART)
 {
     ClockDisablePeriphClock(getUARTClockID(pUART));
 }
 
-static inline void UartSetBaud(LPC_USART_T *pUART, uint32_t baudrate)
+static inline void UartSetBaud(USART_Type *pUART, uint32_t baudrate)
 {
     uint32_t baudRateGenerator;
     baudRateGenerator = ClockGetUSARTNBaseClockRate() / (16 * baudrate);

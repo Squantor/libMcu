@@ -149,7 +149,7 @@ typedef volatile struct {
         uint32_t CLR;                   /* Output n Clear Register */
     } OUT[CONFIG_SCT_nOU];
 
-} LPC_SCT_T;
+} SCT_Type;
 
 /* Reserved bits masks for registers */
 #define SCT_CONFIG_RESERVED             (0xfff80000)
@@ -353,253 +353,253 @@ typedef enum SCT_OUTPUT_VALUE {
     SCT_OUTPUT_3_VALUE = 3,
 } SCT_OUTPUT_VALUE_T;
 
-static inline void SctConfig(LPC_SCT_T *sct, const uint32_t value)
+static inline void SctConfig(SCT_Type *sct, const uint32_t value)
 {
     sct->CONFIG = value & ~SCT_CONFIG_RESERVED;
 }
 
-static inline void SctSetConfig(LPC_SCT_T *sct, const uint32_t value)
+static inline void SctSetConfig(SCT_Type *sct, const uint32_t value)
 {
     sct->CONFIG = value | sct->CONFIG;
 }
 
-static inline void SctClearConfig(LPC_SCT_T *sct, const uint32_t value)
+static inline void SctClearConfig(SCT_Type *sct, const uint32_t value)
 {
     uint32_t configRegister = sct->CONFIG & ~(value | SCT_CONFIG_RESERVED);
     sct->CONFIG = configRegister;
 }
 
-static inline void SctControl(LPC_SCT_T *sct, const uint32_t value)
+static inline void SctControl(SCT_Type *sct, const uint32_t value)
 {
     sct->CTRL_U = value;
 }
 
-static inline void SctSetControl(LPC_SCT_T *sct, const uint32_t value)
+static inline void SctSetControl(SCT_Type *sct, const uint32_t value)
 {
     uint32_t ctrl_uRegister = sct->CTRL_U | value;
     sct->CTRL_U = ctrl_uRegister;
 }
 
-static inline void SctClearControl(LPC_SCT_T *sct, const uint32_t value)
+static inline void SctClearControl(SCT_Type *sct, const uint32_t value)
 {
     uint32_t ctrl_uRegister = sct->CTRL_U & ~value;
     sct->CTRL_U = ctrl_uRegister;
 }
 
-static inline void SctLimitU(LPC_SCT_T *sct, const uint32_t value)
+static inline void SctLimitU(SCT_Type *sct, const uint32_t value)
 {
     sct->LIMIT_U = value;
 }
 
-static inline void SctLimitL(LPC_SCT_T *sct, const uint16_t value)
+static inline void SctLimitL(SCT_Type *sct, const uint16_t value)
 {
     sct->LIMIT_L = value;
 }
 
-static inline void SctLimitH(LPC_SCT_T *sct, const uint16_t value)
+static inline void SctLimitH(SCT_Type *sct, const uint16_t value)
 {
     sct->LIMIT_H = value;
 }
 
-static inline void SctHaltU(LPC_SCT_T *sct, const uint32_t value)
+static inline void SctHaltU(SCT_Type *sct, const uint32_t value)
 {
     sct->HALT_U = value;
 }
 
-static inline void SctHaltL(LPC_SCT_T *sct, const uint16_t value)
+static inline void SctHaltL(SCT_Type *sct, const uint16_t value)
 {
     sct->HALT_L = value;
 }
 
-static inline void SctHaltH(LPC_SCT_T *sct, const uint16_t value)
+static inline void SctHaltH(SCT_Type *sct, const uint16_t value)
 {
     sct->HALT_H = value;
 }
 
-static inline void SctStopU(LPC_SCT_T *sct, const uint32_t value)
+static inline void SctStopU(SCT_Type *sct, const uint32_t value)
 {
     sct->STOP_U = value;
 }
 
-static inline void SctStopL(LPC_SCT_T *sct, const uint16_t value)
+static inline void SctStopL(SCT_Type *sct, const uint16_t value)
 {
     sct->STOP_L = value;
 }
 
-static inline void SctStopH(LPC_SCT_T *sct, const uint16_t value)
+static inline void SctStopH(SCT_Type *sct, const uint16_t value)
 {
     sct->STOP_H = value;
 }
 
-static inline void SctStartU(LPC_SCT_T *sct, const uint32_t value)
+static inline void SctStartU(SCT_Type *sct, const uint32_t value)
 {
     sct->START_U = value;
 }
 
-static inline void SctStartL(LPC_SCT_T *sct, const uint16_t value)
+static inline void SctStartL(SCT_Type *sct, const uint16_t value)
 {
     sct->START_L = value;
 }
 
-static inline void SctStartH(LPC_SCT_T *sct, const uint16_t value)
+static inline void SctStartH(SCT_Type *sct, const uint16_t value)
 {
     sct->START_H = value;
 }
 
-static inline void SctCountU(LPC_SCT_T *sct, const uint32_t count)
+static inline void SctCountU(SCT_Type *sct, const uint32_t count)
 {
     sct->COUNT_U = count;
 }
 
-static inline void SctCountL(LPC_SCT_T *sct, const uint16_t count)
+static inline void SctCountL(SCT_Type *sct, const uint16_t count)
 {
     sct->COUNT_L = count;
 }
 
-static inline void SctCountH(LPC_SCT_T *sct, const uint16_t count)
+static inline void SctCountH(SCT_Type *sct, const uint16_t count)
 {
     sct->COUNT_H = count;
 }
 
-static inline void SctRegisterModeU(LPC_SCT_T *sct, const uint32_t value)
+static inline void SctRegisterModeU(SCT_Type *sct, const uint32_t value)
 {
     sct->REGMODE_U = value;
 }
 
-static inline void SctRegisterModeL(LPC_SCT_T *sct, const uint16_t value)
+static inline void SctRegisterModeL(SCT_Type *sct, const uint16_t value)
 {
     sct->REGMODE_L = value;
 }
 
-static inline void SctRegisterModeH(LPC_SCT_T *sct, const uint16_t value)
+static inline void SctRegisterModeH(SCT_Type *sct, const uint16_t value)
 {
     sct->REGMODE_H = value;
 }
 
-static inline void SctMatchU(LPC_SCT_T *sct, const SCT_MATCH_REG_T n, const uint32_t value)
+static inline void SctMatchU(SCT_Type *sct, const SCT_MATCH_REG_T n, const uint32_t value)
 {
     sct->MATCH[n].U = value;
 }
 
-static inline void SctMatchL(LPC_SCT_T *sct, const SCT_MATCH_REG_T n, const uint16_t value)
+static inline void SctMatchL(SCT_Type *sct, const SCT_MATCH_REG_T n, const uint16_t value)
 {
     sct->MATCH[n].L = value;
 }
 
-static inline void SctMatchH(LPC_SCT_T *sct, const SCT_MATCH_REG_T n, const uint16_t value)
+static inline void SctMatchH(SCT_Type *sct, const SCT_MATCH_REG_T n, const uint16_t value)
 {
     sct->MATCH[n].H = value;
 }
 
-static inline void SctCaptureU(LPC_SCT_T *sct, const SCT_CAPTURE_REG_T n, uint32_t *value)
+static inline void SctCaptureU(SCT_Type *sct, const SCT_CAPTURE_REG_T n, uint32_t *value)
 {
     *value = sct->CAP[n].U;
 }
 
-static inline void SctCaptureL(LPC_SCT_T *sct, const SCT_CAPTURE_REG_T n, uint16_t *value)
+static inline void SctCaptureL(SCT_Type *sct, const SCT_CAPTURE_REG_T n, uint16_t *value)
 {
     *value = sct->CAP[n].L;
 }
 
-static inline void SctCaptureH(LPC_SCT_T *sct, const SCT_CAPTURE_REG_T n, uint16_t *value)
+static inline void SctCaptureH(SCT_Type *sct, const SCT_CAPTURE_REG_T n, uint16_t *value)
 {
     *value = sct->CAP[n].H;
 }
 
-static inline void SctMatchReloadU(LPC_SCT_T *sct, const SCT_MATCH_REG_T n, const uint32_t value)
+static inline void SctMatchReloadU(SCT_Type *sct, const SCT_MATCH_REG_T n, const uint32_t value)
 {
     sct->MATCHREL[n].U = value;
 }
 
-static inline void SctMatchReloadL(LPC_SCT_T *sct, const SCT_MATCH_REG_T n, const uint16_t value)
+static inline void SctMatchReloadL(SCT_Type *sct, const SCT_MATCH_REG_T n, const uint16_t value)
 {
     sct->MATCHREL[n].L = value;
 }
 
-static inline void SctMatchReloadH(LPC_SCT_T *sct, const SCT_MATCH_REG_T n, const uint16_t value)
+static inline void SctMatchReloadH(SCT_Type *sct, const SCT_MATCH_REG_T n, const uint16_t value)
 {
     sct->MATCHREL[n].H = value;
 }
 
-static inline void SctCaptureControlU(LPC_SCT_T *sct, const SCT_CAPTURE_REG_T n, const uint32_t value)
+static inline void SctCaptureControlU(SCT_Type *sct, const SCT_CAPTURE_REG_T n, const uint32_t value)
 {
     sct->CAPCTRL[n].U = value;
 }
 
-static inline void SctCaptureControlL(LPC_SCT_T *sct, const SCT_CAPTURE_REG_T n, const uint16_t value)
+static inline void SctCaptureControlL(SCT_Type *sct, const SCT_CAPTURE_REG_T n, const uint16_t value)
 {
     sct->CAPCTRL[n].L = value;
 }
 
-static inline void SctCaptureControlH(LPC_SCT_T *sct, const SCT_CAPTURE_REG_T n, const uint16_t value)
+static inline void SctCaptureControlH(SCT_Type *sct, const SCT_CAPTURE_REG_T n, const uint16_t value)
 {
     sct->CAPCTRL[n].H = value;
 }
 
-static inline void SctEventInt(LPC_SCT_T *sct, const uint32_t value)
+static inline void SctEventInt(SCT_Type *sct, const uint32_t value)
 {
     sct->EVEN = value & ~SCT_EVEN_RESERVED;
 }
 
-static inline void SctSetEventInt(LPC_SCT_T *sct, const SCT_EVENT_BIT_T evt)
+static inline void SctSetEventInt(SCT_Type *sct, const SCT_EVENT_BIT_T evt)
 {
     sct->EVEN = evt | (sct->EVEN & ~SCT_EVEN_RESERVED);
 }
 
-static inline void SctClearEventInt(LPC_SCT_T *sct, const SCT_EVENT_BIT_T evt)
+static inline void SctClearEventInt(SCT_Type *sct, const SCT_EVENT_BIT_T evt)
 {
     uint32_t evenRegister = sct->EVEN & ~(evt | SCT_EVEN_RESERVED);
     sct->EVEN = evenRegister;
 }
 
-static inline void SctClearEventFlag(LPC_SCT_T *sct, const SCT_EVENT_BIT_T evt)
+static inline void SctClearEventFlag(SCT_Type *sct, const SCT_EVENT_BIT_T evt)
 {
     sct->EVFLAG = evt;
 }
 
-static inline void SctConflictResolution(LPC_SCT_T *sct, const uint32_t value)
+static inline void SctConflictResolution(SCT_Type *sct, const uint32_t value)
 {
     sct->RES = value;
 }
 
-static inline void SctSetEventStateMask(LPC_SCT_T *sct, const SCT_EVENT_VAL_T evt, const uint32_t stateMask)
+static inline void SctSetEventStateMask(SCT_Type *sct, const SCT_EVENT_VAL_T evt, const uint32_t stateMask)
 {
     sct->EV[evt].STATE = stateMask;
 }
 
-static inline void SctSetEventControl(LPC_SCT_T *sct, const SCT_EVENT_VAL_T evt, const uint32_t value)
+static inline void SctSetEventControl(SCT_Type *sct, const SCT_EVENT_VAL_T evt, const uint32_t value)
 {
     sct->EV[evt].CTRL = value;
 }
 
-static inline void SctOutputSet(LPC_SCT_T *sct, const SCT_OUTPUT_VALUE_T output, const uint32_t value)
+static inline void SctOutputSet(SCT_Type *sct, const SCT_OUTPUT_VALUE_T output, const uint32_t value)
 {
     sct->OUT[output].SET = value;
 }
 
-static inline void SctOutputClear(LPC_SCT_T *sct, const SCT_OUTPUT_VALUE_T output, const uint32_t value)
+static inline void SctOutputClear(SCT_Type *sct, const SCT_OUTPUT_VALUE_T output, const uint32_t value)
 {
     sct->OUT[output].CLR = value;
 }
 
-static inline void SctOutput(LPC_SCT_T *sct, const uint32_t value)
+static inline void SctOutput(SCT_Type *sct, const uint32_t value)
 {
     sct->OUTPUT = value;
 }
 
-static inline void SctOutputDirCtrl(LPC_SCT_T *sct, const uint32_t value)
+static inline void SctOutputDirCtrl(SCT_Type *sct, const uint32_t value)
 {
     sct->OUTPUTDIRCTRL = value;
 }
 
 #pragma GCC diagnostic ignored "-Wunused-parameter"
-static inline void SctInit(LPC_SCT_T *sct)
+static inline void SctInit(SCT_Type *sct)
 {
     ClockEnablePeriphClock(SYSCTL_CLOCK_SCT);
     SysctlPeriphReset(RESET_SCT);
 }
 
-static inline void SctDeInit(LPC_SCT_T *sct)
+static inline void SctDeInit(SCT_Type *sct)
 {
     ClockDisablePeriphClock(SYSCTL_CLOCK_SCT);
 }

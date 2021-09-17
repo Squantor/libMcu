@@ -20,7 +20,7 @@ typedef volatile struct {
     uint32_t FMSSTOP;               /*!< Signature stop address register */
     const uint32_t RESERVED3;
     const uint32_t FMSW[1];         /*!< Signature word regsiter */
-} LPC_FMC_T;
+} FMC_Type;
 
 /* Reserved bits masks for registers */
 #define FMC_FLASHCFG_RESERVED       (~3)
@@ -35,10 +35,10 @@ typedef enum {
 
 static inline void FmcSetFlashAccess(FMC_FLASHTIM_T clks)
 {
-    uint32_t tmp = LPC_FMC->FLASHCFG & (~((0x3)|FMC_FLASHCFG_RESERVED));
+    uint32_t tmp = FMC->FLASHCFG & (~((0x3)|FMC_FLASHCFG_RESERVED));
 
     /* Don't alter upper bits */
-    LPC_FMC->FLASHCFG = tmp | clks;
+    FMC->FLASHCFG = tmp | clks;
 }
 
 /* Flash signature start and busy status bit */
@@ -46,8 +46,8 @@ static inline void FmcSetFlashAccess(FMC_FLASHTIM_T clks)
 
 static inline void FmcComputeSignature(uint32_t start, uint32_t stop)
 {
-    LPC_FMC->FMSSTART = (start >> 4);
-    LPC_FMC->FMSSTOP = (stop >> 4) | FMC_FLASHSIG_BUSY;
+    FMC->FMSSTART = (start >> 4);
+    FMC->FMSSTOP = (stop >> 4) | FMC_FLASHSIG_BUSY;
 }
 
 static inline void FmcComputeSignatureBlocks(uint32_t start, uint32_t blocks)
@@ -57,12 +57,12 @@ static inline void FmcComputeSignatureBlocks(uint32_t start, uint32_t blocks)
 
 static inline bool FmcIsSignatureBusy(void)
 {
-    return (bool) ((LPC_FMC->FMSSTOP & FMC_FLASHSIG_BUSY) != 0);
+    return (bool) ((FMC->FMSSTOP & FMC_FLASHSIG_BUSY) != 0);
 }
 
 static inline uint32_t FmcGetSignature(int index)
 {
-    return LPC_FMC->FMSW[index];
+    return FMC->FMSW[index];
 }
 
 #endif

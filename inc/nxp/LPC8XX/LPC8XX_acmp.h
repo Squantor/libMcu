@@ -13,7 +13,7 @@ functions.
 typedef volatile struct {   /* ACMP Structure */
     uint32_t  CTRL;         /* Comparator control register */
     uint32_t  LAD;          /* Voltage ladder register */
-} LPC_CMP_T;
+} CMP_Type;
 
 /*
 Definitions for the Analog comparator control register
@@ -70,58 +70,58 @@ static inline void AcmpDeinit(void)
     SysctlPowerDown(SYSCTL_SLPWAKE_ACMP_PD);
 }
 
-static inline void AcmpControl(LPC_CMP_T *acmp, uint32_t value)
+static inline void AcmpControl(CMP_Type *acmp, uint32_t value)
 {
     acmp->CTRL = value;
 }
 
-static inline uint32_t AcmpControlGet(LPC_CMP_T *acmp)
+static inline uint32_t AcmpControlGet(CMP_Type *acmp)
 {
     return acmp->CTRL;
 }
 
-static inline void AcmpControlSet(LPC_CMP_T *acmp, uint32_t value)
+static inline void AcmpControlSet(CMP_Type *acmp, uint32_t value)
 {
     acmp->CTRL = value | acmp->CTRL;
 }
 
-static inline void AcmpControlClr(LPC_CMP_T *acmp, uint32_t value)
+static inline void AcmpControlClr(CMP_Type *acmp, uint32_t value)
 {
     uint32_t ctrlRegister = acmp->CTRL & ~value;
     acmp->CTRL = ctrlRegister;
 }
 
-static inline void AcmpLadder(LPC_CMP_T *acmp, uint32_t value)
+static inline void AcmpLadder(CMP_Type *acmp, uint32_t value)
 {
     acmp->LAD = value;
 }
 
-static inline void AcmpEdgeClear(LPC_CMP_T *pACMP)
+static inline void AcmpEdgeClear(CMP_Type *pACMP)
 {
     uint32_t reg = pACMP->CTRL & ~ACMP_CTRL_RESERVED;
     pACMP->CTRL = reg | ACMP_EDGECLR_BIT;
     pACMP->CTRL = reg & ~ACMP_EDGECLR_BIT;
 }
 
-static inline void AcmpSetPosVoltRef(LPC_CMP_T *pACMP, ACMP_POS_INPUT_T Posinput)
+static inline void AcmpSetPosVoltRef(CMP_Type *pACMP, ACMP_POS_INPUT_T Posinput)
 {
     uint32_t reg = pACMP->CTRL & ~(ACMP_COMPVPSEL_MASK | ACMP_CTRL_RESERVED);
     pACMP->CTRL = reg | (uint32_t) Posinput;
 }
 
-static inline void AcmpSetNegVoltRef(LPC_CMP_T *pACMP, ACMP_NEG_INPUT_T Neginput)
+static inline void AcmpSetNegVoltRef(CMP_Type *pACMP, ACMP_NEG_INPUT_T Neginput)
 {
     uint32_t reg = pACMP->CTRL & ~(ACMP_COMPVMSEL_MASK | ACMP_CTRL_RESERVED);
     pACMP->CTRL = reg | (uint32_t) Neginput;
 }
 
-static inline void AcmpSetHysteresis(LPC_CMP_T *pACMP, ACMP_HYS_T hys)
+static inline void AcmpSetHysteresis(CMP_Type *pACMP, ACMP_HYS_T hys)
 {
     uint32_t reg = pACMP->CTRL & ~(ACMP_HYSTERESIS_MASK | ACMP_CTRL_RESERVED);
     pACMP->CTRL = reg | (uint32_t) hys;
 }
 
-static inline void AcmpSetupVoltLadder(LPC_CMP_T *pACMP, uint32_t ladsel, bool ladrefVDDCMP)
+static inline void AcmpSetupVoltLadder(CMP_Type *pACMP, uint32_t ladsel, bool ladrefVDDCMP)
 {
     uint32_t reg = pACMP->LAD & ~(ACMP_LADSEL_MASK | ACMP_LADREF_MASK | ACMP_LAD_RESERVED);
     if(ladrefVDDCMP)

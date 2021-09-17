@@ -29,7 +29,7 @@ typedef volatile struct {
     uint32_t unused[45];
     uint32_t IDLE_CH;
     uint32_t IRQ_FLAG;
-} LPC_MRT_T;
+} MRT_Type;
 
 /* Reserved bits masks for registers */
 // TODO: move to controller definitions?

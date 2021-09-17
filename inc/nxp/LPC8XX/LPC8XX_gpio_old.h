@@ -32,39 +32,39 @@ LPC800 series common GPIO registers, defines and functions.
 
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 /* GPIO initilisation function */
-static inline void GpioInit(LPC_GPIO_T *pGPIO)
+static inline void GpioInit(GPIO_Type *pGPIO)
 {
     ClockEnablePeriphClock(SYSCTL_CLOCK_GPIO);
 }
 
 /* GPIO deinitialisation function */
-static inline void GpioDeInit(LPC_GPIO_T *pGPIO)
+static inline void GpioDeInit(GPIO_Type *pGPIO)
 {
     ClockDisablePeriphClock(SYSCTL_CLOCK_GPIO);
 }
 #pragma GCC diagnostic pop
 
-static inline void GpioWritePortBit(LPC_GPIO_T *pGPIO, uint32_t port, uint8_t pin, bool setting)
+static inline void GpioWritePortBit(GPIO_Type *pGPIO, uint32_t port, uint8_t pin, bool setting)
 {
     pGPIO->B[port][pin] = setting;
 }
 
-static inline void GpioSetPinState(LPC_GPIO_T *pGPIO, uint8_t port, uint8_t pin, bool setting)
+static inline void GpioSetPinState(GPIO_Type *pGPIO, uint8_t port, uint8_t pin, bool setting)
 {
     pGPIO->B[port][pin] = setting;
 }
 
-static inline bool GpioReadPortBit(LPC_GPIO_T *pGPIO, uint32_t port, uint8_t pin)
+static inline bool GpioReadPortBit(GPIO_Type *pGPIO, uint32_t port, uint8_t pin)
 {
     return (bool) pGPIO->B[port][pin];
 }
 
-static inline bool GpioGetPinState(LPC_GPIO_T *pGPIO, uint8_t port, uint8_t pin)
+static inline bool GpioGetPinState(GPIO_Type *pGPIO, uint8_t port, uint8_t pin)
 {
     return (bool) pGPIO->B[port][pin];
 }
 
-static inline void GpioWriteDirBit(LPC_GPIO_T *pGPIO, uint32_t port, uint8_t pin, bool setting)
+static inline void GpioWriteDirBit(GPIO_Type *pGPIO, uint32_t port, uint8_t pin, bool setting)
 {
     uint32_t dirRegister;
     if(setting)
@@ -79,7 +79,7 @@ static inline void GpioWriteDirBit(LPC_GPIO_T *pGPIO, uint32_t port, uint8_t pin
     }
 }
 
-static inline void GpioSetPinDir(LPC_GPIO_T *pGPIO, uint8_t port, uint8_t pin, bool output)
+static inline void GpioSetPinDir(GPIO_Type *pGPIO, uint8_t port, uint8_t pin, bool output)
 {
     if (output) {
         GpioSetPinDIROutput(pGPIO, port, pin);
@@ -89,17 +89,17 @@ static inline void GpioSetPinDir(LPC_GPIO_T *pGPIO, uint8_t port, uint8_t pin, b
     }
 }
 
-static inline bool GpioReadDirBit(LPC_GPIO_T *pGPIO, uint32_t port, uint8_t bit)
+static inline bool GpioReadDirBit(GPIO_Type *pGPIO, uint32_t port, uint8_t bit)
 {
     return (bool) (((pGPIO->DIR[port]) >> bit) & 1);
 }
 
-static inline bool GpioGetPinDIR(LPC_GPIO_T *pGPIO, uint8_t port, uint8_t pin)
+static inline bool GpioGetPinDIR(GPIO_Type *pGPIO, uint8_t port, uint8_t pin)
 {
     return GpioReadDirBit(pGPIO, port, pin);
 }
 
-static inline void GpioSetPortDIR(LPC_GPIO_T *pGPIO, uint8_t port, uint32_t pinMask, bool outSet)
+static inline void GpioSetPortDIR(GPIO_Type *pGPIO, uint8_t port, uint32_t pinMask, bool outSet)
 {
     if(outSet) 
     {
@@ -111,88 +111,88 @@ static inline void GpioSetPortDIR(LPC_GPIO_T *pGPIO, uint8_t port, uint32_t pinM
     }
 }
 
-static inline void GpioSetPortDIRMask(LPC_GPIO_T *pGPIO, uint8_t port, uint32_t pinMask, uint32_t outMask)
+static inline void GpioSetPortDIRMask(GPIO_Type *pGPIO, uint8_t port, uint32_t pinMask, uint32_t outMask)
 {
     GpioSetPortDIRInput(pGPIO, port, pinMask & ~outMask);
     GpioSetPortDIROutput(pGPIO, port, pinMask & outMask);
 }
 
-static inline uint32_t GpioGetPortDIR(LPC_GPIO_T *pGPIO, uint8_t port)
+static inline uint32_t GpioGetPortDIR(GPIO_Type *pGPIO, uint8_t port)
 {
     return pGPIO->DIR[port];
 }
 
-static inline void GpioSetPortMask(LPC_GPIO_T *pGPIO, uint8_t port, uint32_t mask)
+static inline void GpioSetPortMask(GPIO_Type *pGPIO, uint8_t port, uint32_t mask)
 {
     pGPIO->MASK[port] = mask;
 }
 
-static inline uint32_t GpioGetPortMask(LPC_GPIO_T *pGPIO, uint8_t port)
+static inline uint32_t GpioGetPortMask(GPIO_Type *pGPIO, uint8_t port)
 {
     return pGPIO->MASK[port];
 }
 
-static inline void GpioSetPortValue(LPC_GPIO_T *pGPIO, uint8_t port, uint32_t value)
+static inline void GpioSetPortValue(GPIO_Type *pGPIO, uint8_t port, uint32_t value)
 {
     pGPIO->PIN[port] = value;
 }
 
-static inline uint32_t GpioGetPortValue(LPC_GPIO_T *pGPIO, uint8_t port)
+static inline uint32_t GpioGetPortValue(GPIO_Type *pGPIO, uint8_t port)
 {
     return pGPIO->PIN[port];
 }
 
-static inline void GpioSetMaskedPortValue(LPC_GPIO_T *pGPIO, uint8_t port, uint32_t value)
+static inline void GpioSetMaskedPortValue(GPIO_Type *pGPIO, uint8_t port, uint32_t value)
 {
     pGPIO->MPIN[port] = value;
 }
 
-static inline uint32_t GpioGetMaskedPortValue(LPC_GPIO_T *pGPIO, uint8_t port)
+static inline uint32_t GpioGetMaskedPortValue(GPIO_Type *pGPIO, uint8_t port)
 {
     return pGPIO->MPIN[port];
 }
 
-static inline void GpioSetValue(LPC_GPIO_T *pGPIO, uint8_t portNum, uint32_t bitValue)
+static inline void GpioSetValue(GPIO_Type *pGPIO, uint8_t portNum, uint32_t bitValue)
 {
     pGPIO->SET[portNum] = bitValue;
 }
 
-static inline void GpioSetPortOutHigh(LPC_GPIO_T *pGPIO, uint8_t port, uint32_t pins)
+static inline void GpioSetPortOutHigh(GPIO_Type *pGPIO, uint8_t port, uint32_t pins)
 {
     pGPIO->SET[port] = pins;
 }
 
-static inline void GpioSetPinOutHigh(LPC_GPIO_T *pGPIO, uint8_t port, uint8_t pin)
+static inline void GpioSetPinOutHigh(GPIO_Type *pGPIO, uint8_t port, uint8_t pin)
 {
     pGPIO->SET[port] = (1 << pin);
 }
 
-static inline void GpioClearValue(LPC_GPIO_T *pGPIO, uint8_t portNum, uint32_t bitValue)
+static inline void GpioClearValue(GPIO_Type *pGPIO, uint8_t portNum, uint32_t bitValue)
 {
     pGPIO->CLR[portNum] = bitValue;
 }
 
-static inline void GpioSetPortOutLow(LPC_GPIO_T *pGPIO, uint8_t port, uint32_t pins)
+static inline void GpioSetPortOutLow(GPIO_Type *pGPIO, uint8_t port, uint32_t pins)
 {
     pGPIO->CLR[port] = pins;
 }
 
-static inline void GpioSetPinOutLow(LPC_GPIO_T *pGPIO, uint8_t port, uint8_t pin)
+static inline void GpioSetPinOutLow(GPIO_Type *pGPIO, uint8_t port, uint8_t pin)
 {
     pGPIO->CLR[port] = (1 << pin);
 }
 
-static inline void GpioSetPortToggle(LPC_GPIO_T *pGPIO, uint8_t port, uint32_t pins)
+static inline void GpioSetPortToggle(GPIO_Type *pGPIO, uint8_t port, uint32_t pins)
 {
     pGPIO->NOT[port] = pins;
 }
 
-static inline void GpioSetPinToggle(LPC_GPIO_T *pGPIO, uint8_t port, uint8_t pin)
+static inline void GpioSetPinToggle(GPIO_Type *pGPIO, uint8_t port, uint8_t pin)
 {
     pGPIO->NOT[port] = (1 << pin);
 }
 
-static inline uint32_t GpioReadValue(LPC_GPIO_T *pGPIO, uint8_t portNum)
+static inline uint32_t GpioReadValue(GPIO_Type *pGPIO, uint8_t portNum)
 {
     return pGPIO->PIN[portNum];
 }

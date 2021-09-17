@@ -10,7 +10,7 @@ LPC800 series common windowed watchdog registers, defines and functions.
 #ifndef LPC8XX_WWDT_OLD_H
 #define LPC8XX_WWDT_OLD_H
 
-static inline void WwdtInit(LPC_WWDT_T *pWWDT)
+static inline void WwdtInit(WWDT_Type *pWWDT)
 {
     ClockEnablePeriphClock(SYSCTL_CLOCK_WWDT);
 
@@ -26,51 +26,51 @@ static inline void WwdtDeInit(void)
     ClockDisablePeriphClock(SYSCTL_CLOCK_WWDT);
 }
 
-static inline void WwdtSetTimeOut(LPC_WWDT_T *pWWDT, uint32_t timeout)
+static inline void WwdtSetTimeOut(WWDT_Type *pWWDT, uint32_t timeout)
 {
     pWWDT->TC = timeout;
 }
 
-static inline void WwdtFeed(LPC_WWDT_T *pWWDT)
+static inline void WwdtFeed(WWDT_Type *pWWDT)
 {
     pWWDT->FEED = 0xAA;
     pWWDT->FEED = 0x55;
 }
 
-static inline void WwdtSetWarning(LPC_WWDT_T *pWWDT, uint32_t timeout)
+static inline void WwdtSetWarning(WWDT_Type *pWWDT, uint32_t timeout)
 {
     pWWDT->WARNINT = timeout;
 }
 
-static inline void WwdtSetWindow(LPC_WWDT_T *pWWDT, uint32_t timeout)
+static inline void WwdtSetWindow(WWDT_Type *pWWDT, uint32_t timeout)
 {
     pWWDT->WINDOW = timeout;
 }
 
-static inline void WwdtSetOption(LPC_WWDT_T *pWWDT, uint32_t options)
+static inline void WwdtSetOption(WWDT_Type *pWWDT, uint32_t options)
 {
     uint32_t modRegister = options | (pWWDT->MOD & ~WWDT_MOD_RESERVED);
     pWWDT->MOD = modRegister;
 }
 
-static inline void WwdtUnsetOption(LPC_WWDT_T *pWWDT, uint32_t options)
+static inline void WwdtUnsetOption(WWDT_Type *pWWDT, uint32_t options)
 {
     uint32_t modRegister = pWWDT->MOD & (~options) & WWDT_WDMOD_BITMASK;
     pWWDT->MOD = modRegister;
 }
 
-static inline void WwdtStart(LPC_WWDT_T *pWWDT)
+static inline void WwdtStart(WWDT_Type *pWWDT)
 {
     WwdtSetOption(pWWDT, WWDT_WDMOD_WDEN);
     WwdtFeed(pWWDT);
 }
 
-static inline uint32_t WwdtGetStatus(LPC_WWDT_T *pWWDT)
+static inline uint32_t WwdtGetStatus(WWDT_Type *pWWDT)
 {
     return pWWDT->MOD;
 }
 
-static inline void WwdtClearStatusFlag(LPC_WWDT_T *pWWDT, uint32_t status)
+static inline void WwdtClearStatusFlag(WWDT_Type *pWWDT, uint32_t status)
 {
     uint32_t modRegister;
     if(status & WWDT_WDMOD_WDTOF) 
@@ -81,7 +81,7 @@ static inline void WwdtClearStatusFlag(LPC_WWDT_T *pWWDT, uint32_t status)
     pWWDT->MOD = modRegister;
 }
 
-static inline uint32_t WwdtGetCurrentCount(LPC_WWDT_T *pWWDT)
+static inline uint32_t WwdtGetCurrentCount(WWDT_Type *pWWDT)
 {
     return pWWDT->TV;
 }

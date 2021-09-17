@@ -21,7 +21,7 @@ typedef volatile struct {
     const uint32_t  RESERVED0;
     uint32_t  WARNINT;          /* contains the Watchdog warning interrupt value */
     uint32_t  WINDOW;           /* contains the Watchdog window value. */
-} LPC_WWDT_T;
+} WWDT_Type;
 
 /* Reserved bits masks for registers */
 #define WWDT_MOD_RESERVED       (~0x3f)

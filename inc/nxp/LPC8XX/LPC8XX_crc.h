@@ -21,7 +21,7 @@ typedef volatile struct {
         uint16_t WRDATA16;  /* CRC Data Register: write size 16-bit */
         uint8_t  WRDATA8;   /* CRC Data Register: write size 8-bit */
     };
-} LPC_CRC_T;
+} CRC_Type;
 
 /* CRC MODE register description */
 #define CRC_MODE_POLY_BITMASK   ((0x03))    /** CRC polynomial Bit mask */

@@ -26,7 +26,7 @@ typedef volatile struct {
     uint32_t PMCTRL;   /**< GPIO pattern match interrupt control register */
     uint32_t PMSRC;    /**< GPIO pattern match interrupt bit-slice source register */
     uint32_t PMCFG;    /**< GPIO pattern match interrupt bit slice configuration register */
-} LPC_PIN_INT_T;
+} PIN_INT_Type;
 
 /* Reserved bits masks for registers */
 #define PININT_ISEL_RESERVED    (~0xff)

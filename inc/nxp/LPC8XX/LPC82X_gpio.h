@@ -24,6 +24,6 @@ typedef volatile struct {
     uint32_t DIRSET[32];    /* Set Direction */
     uint32_t DIRCLR[32];    /* Clear Direction */
     uint32_t DIRNOT[32];    /* Toggle Direction */
-} LPC_GPIO_T;
+} GPIO_Type;
 
 #endif

@@ -24,7 +24,7 @@ typedef volatile struct LPC_SPI {
     uint32_t  TXCTRL;           /* SPI Transmit Control register */
     uint32_t  DIV;              /* SPI clock Divider register */
     const uint32_t  INTSTAT;    /* SPI Interrupt Status register */
-} LPC_SPI_T;
+} SPI_Type;
 
 /* Reserved bits masks for registers */
 #define SPI_CFG_RESERVED            ((1<<1)|(1<<6)|0xfffffe00)
@@ -150,17 +150,17 @@ typedef volatile struct LPC_SPI {
 #define SPI_CLOCK_CPHA1_CPOL1 SPI_CFG_CPOL_HI | SPI_CFG_CPHA_SECOND        /*< CPHA = 1, CPOL = 1 */
 #define SPI_CLOCK_MODE3 SPI_CLOCK_CPHA1_CPOL1                            /*< Alias for CPHA = 1, CPOL = 1 */
 
-static inline void SpiSetCFGRegBits(LPC_SPI_T *pSPI, uint32_t bits)
+static inline void SpiSetCFGRegBits(SPI_Type *pSPI, uint32_t bits)
 {
     pSPI->CFG = bits | (pSPI->CFG & SPI_CFG_BITMASK);
 }
 
-static inline void SpiClearCFGRegBits(LPC_SPI_T *pSPI, uint32_t bits)
+static inline void SpiClearCFGRegBits(SPI_Type *pSPI, uint32_t bits)
 {
     pSPI->CFG = ~bits & (pSPI->CFG & SPI_CFG_BITMASK);
 }
 
-static inline void SpiInit(LPC_SPI_T *pSPI)
+static inline void SpiInit(SPI_Type *pSPI)
 {
     if (pSPI == LPC_SPI1) {
         ClockEnablePeriphClock(SYSCTL_CLOCK_SPI1);
@@ -171,12 +171,12 @@ static inline void SpiInit(LPC_SPI_T *pSPI)
     }
 }
 
-static inline void SpiDisable(LPC_SPI_T *pSPI)
+static inline void SpiDisable(SPI_Type *pSPI)
 {
     SpiClearCFGRegBits(pSPI, SPI_CFG_SPI_EN);
 }
 
-static inline void SpiDeInit(LPC_SPI_T *pSPI)
+static inline void SpiDeInit(SPI_Type *pSPI)
 {
     SpiDisable(pSPI);
     if (pSPI == LPC_SPI1) {
@@ -186,12 +186,12 @@ static inline void SpiDeInit(LPC_SPI_T *pSPI)
     }
 }
 
-static inline void SpiEnable(LPC_SPI_T *pSPI)
+static inline void SpiEnable(SPI_Type *pSPI)
 {
     SpiSetCFGRegBits(pSPI, SPI_CFG_SPI_EN);
 }
 
-static inline void SpiEnableMasterMode(LPC_SPI_T *pSPI)
+static inline void SpiEnableMasterMode(SPI_Type *pSPI)
 {
     SpiSetCFGRegBits(pSPI, SPI_CFG_MASTER_EN);
 
@@ -199,38 +199,38 @@ static inline void SpiEnableMasterMode(LPC_SPI_T *pSPI)
     pSPI->TXCTRL = SPI_TXDATCTL_DEASSERT_ALL;
 }
 
-static inline void SpiEnableSlaveMode(LPC_SPI_T *pSPI)
+static inline void SpiEnableSlaveMode(SPI_Type *pSPI)
 {
     SpiClearCFGRegBits(pSPI, SPI_CFG_MASTER_EN);
 }
 
-static inline void SpiEnableLSBFirst(LPC_SPI_T *pSPI)
+static inline void SpiEnableLSBFirst(SPI_Type *pSPI)
 {
     SpiSetCFGRegBits(pSPI, SPI_CFG_LSB_FIRST_EN);
 }
 
-static inline void SpiEnableMSBFirst(LPC_SPI_T *pSPI)
+static inline void SpiEnableMSBFirst(SPI_Type *pSPI)
 {
     SpiClearCFGRegBits(pSPI, SPI_CFG_LSB_FIRST_EN);
 }
 
-static inline void SpiSetSPIMode(LPC_SPI_T *pSPI, uint32_t mode)
+static inline void SpiSetSPIMode(SPI_Type *pSPI, uint32_t mode)
 {
     SpiClearCFGRegBits(pSPI, (SPI_CFG_CPHA1 | SPI_CFG_CPOL1));
     SpiSetCFGRegBits(pSPI, (uint32_t) mode);
 }
 
-static inline void SpiSetCSPolHigh(LPC_SPI_T *pSPI, uint8_t csNum)
+static inline void SpiSetCSPolHigh(SPI_Type *pSPI, uint8_t csNum)
 {
     SpiSetCFGRegBits(pSPI, SPI_CFG_SPOLNUM_HI(csNum));
 }
 
-static inline void SpiSetCSPolLow(LPC_SPI_T *pSPI, uint8_t csNum)
+static inline void SpiSetCSPolLow(SPI_Type *pSPI, uint8_t csNum)
 {
     SpiClearCFGRegBits(pSPI, SPI_CFG_SPOLNUM_HI(csNum));
 }
 
-static inline void SpiConfigureSPI(LPC_SPI_T *pSPI, uint32_t config)
+static inline void SpiConfigureSPI(SPI_Type *pSPI, uint32_t config)
 {
     SpiClearCFGRegBits(pSPI, SPI_CFG_MASTER_EN | SPI_CFG_LSB_FIRST_EN |
             SPI_CFG_CPHA1 | SPI_CFG_CPOL1);
@@ -240,53 +240,53 @@ static inline void SpiConfigureSPI(LPC_SPI_T *pSPI, uint32_t config)
     pSPI->TXCTRL = SPI_TXDATCTL_DEASSERT_ALL;
 }
 
-static inline uint32_t SpiGetStatus(LPC_SPI_T *pSPI)
+static inline uint32_t SpiGetStatus(SPI_Type *pSPI)
 {
     return pSPI->STAT & ~SPI_STAT_RESERVED;
 }
 
-static inline void SpiClearStatus(LPC_SPI_T *pSPI, uint32_t Flag)
+static inline void SpiClearStatus(SPI_Type *pSPI, uint32_t Flag)
 {
     pSPI->STAT = Flag;
 }
 
-static inline void SpiEnableInts(LPC_SPI_T *pSPI, uint32_t Flag)
+static inline void SpiEnableInts(SPI_Type *pSPI, uint32_t Flag)
 {
     pSPI->INTENSET = Flag;
 }
 
-static inline void SpiDisableInts(LPC_SPI_T *pSPI, uint32_t Flag)
+static inline void SpiDisableInts(SPI_Type *pSPI, uint32_t Flag)
 {
     pSPI->INTENCLR = Flag;
 }
 
-static inline uint32_t SpiGetEnabledInts(LPC_SPI_T *pSPI)
+static inline uint32_t SpiGetEnabledInts(SPI_Type *pSPI)
 {
     return pSPI->INTENSET & ~SPI_INTENSET_RESERVED;
 }
 
-static inline uint32_t SpiGetPendingInts(LPC_SPI_T *pSPI)
+static inline uint32_t SpiGetPendingInts(SPI_Type *pSPI)
 {
     return pSPI->INTSTAT & ~SPI_INTSTAT_RESERVED;
 }
 
-static inline void SpiFlushFifos(LPC_SPI_T *pSPI)
+static inline void SpiFlushFifos(SPI_Type *pSPI)
 {
     SpiDisable(pSPI);
     SpiEnable(pSPI);
 }
 
-static inline uint32_t SpiReadRawRXFifo(LPC_SPI_T *pSPI)
+static inline uint32_t SpiReadRawRXFifo(SPI_Type *pSPI)
 {
     return pSPI->RXDAT & ~SPI_RXDAT_RESERVED;
 }
 
-static inline uint32_t SpiReadRXData(LPC_SPI_T *pSPI)
+static inline uint32_t SpiReadRXData(SPI_Type *pSPI)
 {
     return pSPI->RXDAT & 0xFFFF;
 }
 
-static inline void SpiWriteTXData(LPC_SPI_T *pSPI, uint16_t data)
+static inline void SpiWriteTXData(SPI_Type *pSPI, uint16_t data)
 {
     pSPI->TXDAT = (uint32_t) data;
 }
@@ -296,49 +296,49 @@ static inline void SpiWriteTXData(LPC_SPI_T *pSPI, uint16_t data)
  *  @param control TXDATCTL bits
  *  @param data SPI data to transmit 
  */
-static inline void SpiWriteTXDataAndCtrl(LPC_SPI_T *pSPI, uint32_t control, uint16_t data)
+static inline void SpiWriteTXDataAndCtrl(SPI_Type *pSPI, uint32_t control, uint16_t data)
 {
     uint32_t reg = control | (uint32_t) data;
     pSPI->TXDATCTL = reg;
 }
 
-static inline void spiTxctrl(LPC_SPI_T *pSPI, uint32_t bits)
+static inline void spiTxctrl(SPI_Type *pSPI, uint32_t bits)
 {
     pSPI->TXCTRL = bits;
 }
 
-static inline void SpiSetTXCTRLRegBits(LPC_SPI_T *pSPI, uint32_t bits)
+static inline void SpiSetTXCTRLRegBits(SPI_Type *pSPI, uint32_t bits)
 {
     pSPI->TXCTRL = bits | (pSPI->TXCTRL & SPI_TXDATCTL_CTRLMASK);
 }
 
-static inline void SpiClearTXCTRLRegBits(LPC_SPI_T *pSPI, uint32_t bits)
+static inline void SpiClearTXCTRLRegBits(SPI_Type *pSPI, uint32_t bits)
 {
     pSPI->TXCTRL = ~bits & (pSPI->TXCTRL & SPI_TXDATCTL_CTRLMASK);
 }
 
-static inline void SpiSetTXCtl(LPC_SPI_T *pSPI, uint32_t ctrlBits)
+static inline void SpiSetTXCtl(SPI_Type *pSPI, uint32_t ctrlBits)
 {
     SpiSetTXCTRLRegBits(pSPI, ctrlBits);
 }
 
-static inline void SpiClearTXCtl(LPC_SPI_T *pSPI, uint32_t ctrlBits)
+static inline void SpiClearTXCtl(SPI_Type *pSPI, uint32_t ctrlBits)
 {
     SpiClearTXCTRLRegBits(pSPI, ctrlBits);
 }
 
-static inline void SpiSetXferSize(LPC_SPI_T *pSPI, uint32_t ctrlBits)
+static inline void SpiSetXferSize(SPI_Type *pSPI, uint32_t ctrlBits)
 {
     SpiClearTXCTRLRegBits(pSPI, SPI_TXCTL_FLENMASK);
     SpiSetTXCTRLRegBits(pSPI, SPI_TXCTL_FLEN(ctrlBits));
 }
 
-static inline void SpiSetDivider(LPC_SPI_T *pSPI, uint32_t dividerBits)
+static inline void SpiSetDivider(SPI_Type *pSPI, uint32_t dividerBits)
 {
     pSPI->DIV = dividerBits;
 }
 
-static inline void SpiSetDelay(LPC_SPI_T *pSPI, uint32_t delayBits)
+static inline void SpiSetDelay(SPI_Type *pSPI, uint32_t delayBits)
 {
     pSPI->DLY = delayBits;
 }

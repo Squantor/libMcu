@@ -35,12 +35,12 @@ LPC810 series common I2C bus registers, defines and functions.
 /* we cant avoid this pragma as this parameter is used for the LPC82X */
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 
-static inline SYSCTL_PERIPH_RESET_T I2cGetResetID(LPC_I2C_T *pI2C)
+static inline SYSCTL_PERIPH_RESET_T I2cGetResetID(I2C_Type *pI2C)
 {
     return RESET_I2C0;
 }
 
-static inline SYSCTL_CLOCK_T I2cGetClockID(LPC_I2C_T *pI2C)
+static inline SYSCTL_CLOCK_T I2cGetClockID(I2C_Type *pI2C)
 {
     return SYSCTL_CLOCK_I2C0;
 }

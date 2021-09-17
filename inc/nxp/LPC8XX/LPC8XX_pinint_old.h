@@ -15,78 +15,78 @@ static inline void PinintInit(void) {}
 
 static inline void PinintDeInit(void) {}
 
-static inline void PinintSetPinModeEdge(LPC_PIN_INT_T *pPININT, uint32_t pins)
+static inline void PinintSetPinModeEdge(PIN_INT_Type *pPININT, uint32_t pins)
 {
     uint32_t iselRegister = pPININT->ISEL & ~(pins | PININT_ISEL_RESERVED);
     pPININT->ISEL = iselRegister;
 }
 
-static inline void PinintSetPinModeLevel(LPC_PIN_INT_T *pPININT, uint32_t pins)
+static inline void PinintSetPinModeLevel(PIN_INT_Type *pPININT, uint32_t pins)
 {
     pPININT->ISEL = pins | (pPININT->ISEL & ~PININT_ISEL_RESERVED);
 }
 
-static inline uint32_t PinintGetHighEnabled(LPC_PIN_INT_T *pPININT)
+static inline uint32_t PinintGetHighEnabled(PIN_INT_Type *pPININT)
 {
     return pPININT->IENR & ~PININT_IENR_RESERVED;
 }
 
-static inline void PinintEnableIntHigh(LPC_PIN_INT_T *pPININT, uint32_t pins)
+static inline void PinintEnableIntHigh(PIN_INT_Type *pPININT, uint32_t pins)
 {
     pPININT->SIENR = pins;
 }
 
-static inline void PinintDisableIntHigh(LPC_PIN_INT_T *pPININT, uint32_t pins)
+static inline void PinintDisableIntHigh(PIN_INT_Type *pPININT, uint32_t pins)
 {
     pPININT->CIENR = pins;
 }
 
-static inline uint32_t PinintGetLowEnabled(LPC_PIN_INT_T *pPININT)
+static inline uint32_t PinintGetLowEnabled(PIN_INT_Type *pPININT)
 {
     return pPININT->IENF & ~PININT_IENF_RESERVED;
 }
 
-static inline void PinintEnableIntLow(LPC_PIN_INT_T *pPININT, uint32_t pins)
+static inline void PinintEnableIntLow(PIN_INT_Type *pPININT, uint32_t pins)
 {
     pPININT->SIENF = pins;
 }
 
-static inline void PinintDisableIntLow(LPC_PIN_INT_T *pPININT, uint32_t pins)
+static inline void PinintDisableIntLow(PIN_INT_Type *pPININT, uint32_t pins)
 {
     pPININT->CIENF = pins;
 }
 
-static inline uint32_t PinintGetRiseStates(LPC_PIN_INT_T *pPININT)
+static inline uint32_t PinintGetRiseStates(PIN_INT_Type *pPININT)
 {
     return pPININT->RISE & ~PININT_RISE_RESERVED;
 }
 
-static inline void PinintClearRiseStates(LPC_PIN_INT_T *pPININT, uint32_t pins)
+static inline void PinintClearRiseStates(PIN_INT_Type *pPININT, uint32_t pins)
 {
         pPININT->RISE = pins;
 }
 
-static inline uint32_t PinintGetFallStates(LPC_PIN_INT_T *pPININT)
+static inline uint32_t PinintGetFallStates(PIN_INT_Type *pPININT)
 {
     return pPININT->FALL & ~PININT_FALL_RESERVED;
 }
 
-static inline void PinintClearFallStates(LPC_PIN_INT_T *pPININT, uint32_t pins)
+static inline void PinintClearFallStates(PIN_INT_Type *pPININT, uint32_t pins)
 {
     pPININT->FALL = pins;
 }
 
-static inline uint32_t PinintGetIntStatus(LPC_PIN_INT_T *pPININT)
+static inline uint32_t PinintGetIntStatus(PIN_INT_Type *pPININT)
 {
     return pPININT->IST& ~PININT_IST_RESERVED;
 }
 
-static inline void PinintClearIntStatus(LPC_PIN_INT_T *pPININT, uint32_t pins)
+static inline void PinintClearIntStatus(PIN_INT_Type *pPININT, uint32_t pins)
 {
     pPININT->IST = pins;
 }
 
-static inline void PinintSetPatternMatchSrc(LPC_PIN_INT_T *pPININT, uint8_t chan, PININT_BITSLICE_T slice)
+static inline void PinintSetPatternMatchSrc(PIN_INT_Type *pPININT, uint8_t chan, PININT_BITSLICE_T slice)
 {
     uint32_t pmsrc_reg;
     
@@ -96,7 +96,7 @@ static inline void PinintSetPatternMatchSrc(LPC_PIN_INT_T *pPININT, uint8_t chan
     pPININT->PMSRC = pmsrc_reg | (chan << (PININT_SRC_BITSOURCE_START + (slice * 3)));
 }
 
-static inline void PinintSetPatternMatchConfig(LPC_PIN_INT_T *pPININT, PININT_BITSLICE_T slice, 
+static inline void PinintSetPatternMatchConfig(PIN_INT_Type *pPININT, PININT_BITSLICE_T slice, 
         PININT_BITSLICE_CFG_T slice_cfg, bool end_point)
 {
     uint32_t pmcfg_reg;
@@ -113,23 +113,23 @@ static inline void PinintSetPatternMatchConfig(LPC_PIN_INT_T *pPININT, PININT_BI
             pPININT->PMCFG = (0x1 << slice) | (pPININT->PMCFG & ~PININT_PMCFG_RESERVED);
 }
 
-static inline void PinintEnablePatternMatch(LPC_PIN_INT_T *pPININT)
+static inline void PinintEnablePatternMatch(PIN_INT_Type *pPININT)
 {
     pPININT->PMCTRL = PININT_PMCTRL_PMATCH_SEL | (pPININT->PMCTRL & ~PININT_PMCTRL_RESERVED);
 }
 
-static inline void PinintDisablePatternMatch(LPC_PIN_INT_T *pPININT)
+static inline void PinintDisablePatternMatch(PIN_INT_Type *pPININT)
 {
     uint32_t pmctrlRegister = pPININT->PMCTRL & ~(PININT_PMCTRL_PMATCH_SEL | PININT_PMCTRL_RESERVED);
     pPININT->PMCTRL = pmctrlRegister;
 }
 
-static inline void PinintEnablePatternMatchRxEv(LPC_PIN_INT_T *pPININT)
+static inline void PinintEnablePatternMatchRxEv(PIN_INT_Type *pPININT)
 {
     pPININT->PMCTRL = PININT_PMCTRL_RXEV_ENA | (pPININT->PMCTRL & ~PININT_PMCTRL_RESERVED);
 }
 
-static inline void PinintDisablePatternMatchRxEv(LPC_PIN_INT_T *pPININT)
+static inline void PinintDisablePatternMatchRxEv(PIN_INT_Type *pPININT)
 {
     uint32_t pmctrlRegister = pPININT->PMCTRL & ~(PININT_PMCTRL_RXEV_ENA | PININT_PMCTRL_RESERVED);
     pPININT->PMCTRL = pmctrlRegister;

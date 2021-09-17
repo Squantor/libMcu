@@ -18,7 +18,7 @@ typedef volatile struct {
     uint32_t PCON;          /**< Power control Register (R/W) */
     uint32_t GPREG[4];      /**< General purpose Registers 0..3 (R/W) */
     uint32_t DPDCTRL;       /**< Deep power-down control register (R/W) */
-} LPC_PMU_T;
+} PMU_Type;
 
 /* Reserved bits masks for registers */
 #define PMU_PCON_RESERVED      ((0xf<<4)|(0x6<<8)|0xfffff000)

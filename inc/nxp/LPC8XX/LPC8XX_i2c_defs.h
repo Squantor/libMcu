@@ -50,7 +50,7 @@ typedef volatile struct {       /* I2C0 Structure */
     uint32_t SLVQUAL0;          /* I2C Slave Address Qualifier 0 Register */
     const uint32_t RESERVED2[9];     
     const uint32_t MONRXDAT;    /* I2C Monitor Data Register */
-} LPC_I2C_T;
+} I2C_Type;
 
 /* Reserved bits masks for registers */
 #define I2C_CFG_RESERVED            (~0x1f)
