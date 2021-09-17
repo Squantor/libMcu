@@ -80,6 +80,6 @@ static inline void GpioTogglePortDIR(LPC_GPIO_T *pGPIO, uint8_t port, uint32_t p
 }
 
 // include common functions
-#include <nxp/LPC8XX/LPC8XX_gpio.h>
+#include <nxp/LPC8XX/LPC8XX_gpio_old.h>
 
 #endif
