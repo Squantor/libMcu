@@ -81,7 +81,7 @@ typedef volatile struct {
     const uint32_t DEVICEID;   /* Device ID (R/ ) */
 } SYSCON_Type;
 
-#define SYSAHBCLKCTRL_MASK       0xFFF00000  /**< Reserved bits of the system clock control register */
+#define SYSAHBCLKCTRL_MASK       0xFFF00000  /**< Reserved bits of the peripheral clock control register */
 
 /** Clock control 0 peripheral list */
 typedef enum {
@@ -91,7 +91,7 @@ typedef enum {
     CLKCTRL_FLASHREG = (1 << 4),    /**< Flash register interface clock enable */
     CLKCTRL_FLASH = (1 << 4),       /**< Flash clock enable */
     CLKCTRL_I2C0 = (1 << 5),        /**< I2C0 clock enable */
-    CLKCTRL_GPIO0 = (1 << 6),       /**< GPIO0 clock enable */
+    CLKCTRL_GPIO = (1 << 6),        /**< GPIO clock enable */
     CLKCTRL_SWM = (1 << 7),         /**< SWM clock enable */
     CLKCTRL_SCT = (1 << 8),         /**< SCT clock enable */
     CLKCTRL_WKT = (1 << 9),         /**< WKT clock enable */
@@ -106,6 +106,26 @@ typedef enum {
     CLKCTRL_IOCON = (1 << 18),      /**< IOCON clock enable */
     CLKCTRL_ACMP = (1 << 19),       /**< ACMP clock enable */
 } SYSCON_CLKCTRL_Type;
+
+#define PRESETCTRL_MASK       0xFFFFF000  /**< Reserved bits of the peripheral reset control register */
+
+/** reset control 0 peripheral list */
+typedef enum {
+    RESETCTRL_NONE = 0,             /*!< No reset 0 clear */
+    RESETCTRL_SPI0 = (1 << 0),      /**< SPI0 reset clear */
+    RESETCTRL_SPI1 = (1 << 1),      /**< SPI1 reset clear */
+    RESETCTRL_UARTFRG = (1 << 2),   /**< UART fractional baud rate generator reset clear */
+    RESETCTRL_UART0 = (1 << 3),     /**< UART0 reset clear */
+    RESETCTRL_UART1 = (1 << 4),     /**< UART1 reset clear */
+    RESETCTRL_UART2 = (1 << 5),     /**< UART2 reset clear */
+    RESETCTRL_I2C = (1 << 6),       /**< I2C reset clear */
+    RESETCTRL_MRT = (1 << 7),       /**< MRT reset clear */
+    RESETCTRL_SCT = (1 << 8),       /**< SCT reset clear */
+    RESETCTRL_WKT = (1 << 9),       /**< WKT reset clear */
+    RESETCTRL_GPIO = (1 << 10),     /**< GPIO reset clear */
+    RESETCTRL_FLASH = (1 << 11),    /**< Flash reset clear */
+    RESETCTRL_ACMP = (1 << 12),     /**< UART2 reset clear */
+} SYSCON_RESETCTRL_Type;
 
 /**
  * @brief   Enables clocks to various peripherals
@@ -127,6 +147,28 @@ static inline void sysconEnableClocks(SYSCON_Type *peripheral, uint32_t setting)
 static inline void sysconDisableClocks(SYSCON_Type *peripheral, uint32_t setting)
 {
     peripheral->SYSAHBCLKCTRL = ~setting & peripheral->SYSAHBCLKCTRL;
+}
+
+/**
+ * @brief   Enables reset signal to various peripherals
+ * @param   peripheral  base address of SYSCON peripheral
+ * @param   resets      Settings for reset control register, see SYSCON_RESETCTRL_Type enum
+ * @return  Nothing
+ */
+static inline void sysconClearResets(SYSCON_Type *peripheral, uint32_t setting)
+{
+    peripheral->PRESETCTRL = setting | peripheral->PRESETCTRL;
+}
+
+/**
+ * @brief   Disables reset signal to various peripherals
+ * @param   peripheral  base address of SYSCON peripheral
+ * @param   resets0     Settings for reset control register, see SYSCON_RESETCTRL_Type enum
+ * @return  Nothing
+ */
+static inline void sysconAssertResets(SYSCON_Type *peripheral, uint32_t setting)
+{
+    peripheral->PRESETCTRL = ~setting & peripheral->PRESETCTRL;
 }
 
 #include "nxp/LPC8XX/LPC8XX_syscon.h"
