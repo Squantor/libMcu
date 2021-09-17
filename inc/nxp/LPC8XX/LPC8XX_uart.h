@@ -182,10 +182,10 @@ static inline void UartSetAddr(USART_Type *pUART, uint32_t addr)
 /* Return UART clock ID from the UART register address */
 static inline SYSCTL_CLOCK_T getUARTClockID(USART_Type *pUART)
 {
-    if (pUART == LPC_USART0) {
+    if (pUART == USART0) {
         return SYSCTL_CLOCK_UART0;
     }
-    else if (pUART == LPC_USART1) {
+    else if (pUART == USART1) {
         return SYSCTL_CLOCK_UART1;
     }
 
@@ -198,10 +198,10 @@ static inline void UartInit(USART_Type *pUART)
     ClockEnablePeriphClock(getUARTClockID(pUART));
 
     /* UART reset */
-    if (pUART == LPC_USART0)
+    if (pUART == USART0)
         /* Peripheral reset control to USART0 */
         SysctlPeriphReset(RESET_USART0);
-    else if (pUART == LPC_USART1)
+    else if (pUART == USART1)
         /* Peripheral reset control to USART1 */
         SysctlPeriphReset(RESET_USART1);
     else

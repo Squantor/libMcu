@@ -62,7 +62,7 @@ typedef enum SYSCTL_CLOCK {
     SYSCTL_CLOCK_WKT,        /*!< Self wake-up timer clock */
     SYSCTL_CLOCK_MRT,        /*!< Multi-rate timer clock */
     SYSCTL_CLOCK_SPI0,        /*!< SPI0 clock */
-    SYSCTL_CLOCK_SPI1,        /*!< SPI01 clock */
+    SYSCTL_CLOCK_SPI1,        /*!< SPI1 clock */
     SYSCTL_CLOCK_CRC,        /*!< CRC clock */
     SYSCTL_CLOCK_UART0,        /*!< UART0 clock */
     SYSCTL_CLOCK_UART1,        /*!< UART1 clock */
