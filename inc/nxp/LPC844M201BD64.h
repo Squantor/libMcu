@@ -127,7 +127,7 @@ typedef enum {
 #define USART0      ((USART_Type        *) USART0_BASE)
 #define USART1      ((USART_Type        *) USART1_BASE)
 #define CRC         ((CRC_Type          *) CRC_BASE)
-#define SCT0        ((SCT_Type          *) SCT0)_BASE
+#define SCT0        ((SCT_Type          *) SCT0_BASE)
 #define DMA0        ((DMA_Type          *) DMA0_BASE)
 #define MTB_SFR     ((MTB_Type          *) MTB_SFR_BASE)
 #define GPIO        ((GPIO_Type         *) GPIO_BASE)
