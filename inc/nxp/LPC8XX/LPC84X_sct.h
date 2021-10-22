@@ -330,7 +330,7 @@ typedef enum SCT_STATE_BIT {
     SCT_STATE_5_BIT = (1 << 5),
     SCT_STATE_6_BIT = (1 << 6),
     SCT_STATE_7_BIT = (1 << 7),
-    SCT_STATE_ALL = (0xFF),
+    SCT_STATE_ALL_BIT = (0xFF),
 } SCT_STATE_BIT_T;
 
 typedef enum SCT_STATE_VALUE {
