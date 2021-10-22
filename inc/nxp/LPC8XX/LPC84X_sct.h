@@ -203,7 +203,7 @@ typedef enum {
 #define SCT_CTRL_STOP_H                 (1 << 17)               /*!< Stop high counter */
 #define SCT_CTRL_HALT_H                 (1 << 18)               /*!< Halt high counter */
 #define SCT_CTRL_CLRCTR_H               (1 << 19)               /*!< Clear high counter */
-#define SCT_CTRL_BIDIR_H(x)             (((x) & 0x01) << 20)    /*!< High counter bidirectional counting */
+#define SCT_CTRL_BIDIR_H                (1 << 20)               /*!< High counter bidirectional counting */
 #define SCT_CTRL_PRE_H(x)               (((x) & 0xFF) << 21)    /*!< Prescale clock for high counter */
 
 /*
@@ -273,7 +273,10 @@ typedef enum SCT_MATCH_REG {
     SCT_MATCH_1 = 1,    /* SCT Match register 1 */
     SCT_MATCH_2 = 2,    /* SCT Match register 2 */
     SCT_MATCH_3 = 3,    /* SCT Match register 3 */
-    SCT_MATCH_4 = 4     /* SCT Match register 4 */
+    SCT_MATCH_4 = 4,    /* SCT Match register 4 */
+    SCT_MATCH_5 = 5,    /* SCT Match register 5 */
+    SCT_MATCH_6 = 6,    /* SCT Match register 6 */
+    SCT_MATCH_7 = 7,    /* SCT Match register 7 */   
 } SCT_MATCH_REG_T;
 
 /**
@@ -284,7 +287,10 @@ typedef enum SCT_CAPTURE_REG {
     SCT_CAPTURE_1 = 1,    /** SCT capture register 1 */
     SCT_CAPTURE_2 = 2,    /** SCT capture register 2 */
     SCT_CAPTURE_3 = 3,    /** SCT capture register 3 */
-    SCT_CAPTURE_4 = 4     /** SCT capture register 4 */
+    SCT_CAPTURE_4 = 4,    /** SCT capture register 4 */
+    SCT_CAPTURE_5 = 5,    /** SCT capture register 2 */
+    SCT_CAPTURE_6 = 6,    /** SCT capture register 3 */
+    SCT_CAPTURE_7 = 7,    /** SCT capture register 4 */
 } SCT_CAPTURE_REG_T;
 
 /**
@@ -296,7 +302,9 @@ typedef enum SCT_EVENT_VAL {
     SCT_EVENT_2_VAL  = 2,    /* Event 2 */
     SCT_EVENT_3_VAL  = 3,    /* Event 3 */
     SCT_EVENT_4_VAL  = 4,    /* Event 4 */
-    SCT_EVENT_5_VAL  = 5,    /* Event 4 */
+    SCT_EVENT_5_VAL  = 5,    /* Event 5 */
+    SCT_EVENT_6_VAL  = 6,    /* Event 6 */
+    SCT_EVENT_7_VAL  = 7,    /* Event 7 */
 } SCT_EVENT_VAL_T;
 
 /**
@@ -308,17 +316,31 @@ typedef enum SCT_EVENT_BIT {
     SCT_EVENT_2_BIT  = (1 << 2),    /* Event 2 */
     SCT_EVENT_3_BIT  = (1 << 3),    /* Event 3 */
     SCT_EVENT_4_BIT  = (1 << 4),    /* Event 4 */
-    SCT_EVENT_5_BIT  = (1 << 5)     /* Event 5 */
+    SCT_EVENT_5_BIT  = (1 << 5),    /* Event 5 */
+    SCT_EVENT_6_BIT  = (1 << 6),    /* Event 6 */
+    SCT_EVENT_7_BIT  = (1 << 7),    /* Event 7 */
 } SCT_EVENT_BIT_T;
 
 typedef enum SCT_STATE_BIT {
     SCT_STATE_0_BIT = (1 << 0),
     SCT_STATE_1_BIT = (1 << 1),
+    SCT_STATE_2_BIT = (1 << 2),
+    SCT_STATE_3_BIT = (1 << 3),
+    SCT_STATE_4_BIT = (1 << 4),
+    SCT_STATE_5_BIT = (1 << 5),
+    SCT_STATE_6_BIT = (1 << 6),
+    SCT_STATE_7_BIT = (1 << 7),
 } SCT_STATE_BIT_T;
 
 typedef enum SCT_STATE_VALUE {
     SCT_STATE_0_VAL = 0,
     SCT_STATE_1_VAL = 1,
+    SCT_STATE_2_VAL = 2,
+    SCT_STATE_3_VAL = 3,
+    SCT_STATE_4_VAL = 4,
+    SCT_STATE_5_VAL = 5,
+    SCT_STATE_6_VAL = 6,
+    SCT_STATE_7_VAL = 7,
 } SCT_STATE_VALUE_T;
 
 typedef enum SCT_INPUT_VALUE {
@@ -326,6 +348,7 @@ typedef enum SCT_INPUT_VALUE {
     SCT_INPUT_1_VALUE = 1,
     SCT_INPUT_2_VALUE = 2,
     SCT_INPUT_3_VALUE = 3,
+    SCT_INPUT_4_VALUE = 4,
 } SCT_INPUT_VALUE_T;
 
 typedef enum SCT_OUTPUT_VALUE {
@@ -333,6 +356,9 @@ typedef enum SCT_OUTPUT_VALUE {
     SCT_OUTPUT_1_VALUE = 1,
     SCT_OUTPUT_2_VALUE = 2,
     SCT_OUTPUT_3_VALUE = 3,
+    SCT_OUTPUT_4_VALUE = 4,
+    SCT_OUTPUT_5_VALUE = 5,
+    SCT_OUTPUT_6_VALUE = 6,
 } SCT_OUTPUT_VALUE_T;
 
 static inline void SctConfig(SCT_Type *peripheral, const uint32_t value)
