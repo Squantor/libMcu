@@ -211,6 +211,7 @@ typedef enum {
  */
 #define SCT_EV_CTRL_MATCHSEL(x)     (((x) & 0x0F) << 0)
 #define SCT_EV_CTRL_H_EVENT         (1 << 4)
+#define SCT_EV_CTRL_L_EVENT         (0 << 4)
 #define SCT_EV_CTRL_INSEL           (0 << 5)
 #define SCT_EV_CTRL_OUTSEL          (1 << 5)
 #define SCT_EV_CTRL_IOSEL(x)        (((x) & 0x0F) << 6)
