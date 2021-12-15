@@ -592,17 +592,4 @@ static inline void SctOutputDirCtrl(SCT_Type *sct, const uint32_t value)
     sct->OUTPUTDIRCTRL = value;
 }
 
-#pragma GCC diagnostic ignored "-Wunused-parameter"
-static inline void SctInit(SCT_Type *sct)
-{
-    ClockEnablePeriphClock(SYSCTL_CLOCK_SCT);
-    SysctlPeriphReset(RESET_SCT);
-}
-
-static inline void SctDeInit(SCT_Type *sct)
-{
-    ClockDisablePeriphClock(SYSCTL_CLOCK_SCT);
-}
-#pragma GCC diagnostic pop
-
 #endif

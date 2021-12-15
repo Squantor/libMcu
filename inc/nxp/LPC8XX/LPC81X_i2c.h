@@ -24,28 +24,13 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 For more information, please refer to <http://unlicense.org>
 */
-/* 
+/*
 LPC810 series common I2C bus registers, defines and functions.
 */
 #ifndef LPC81X_I2C_H
 #define LPC81X_I2C_H
 
 #include "nxp/LPC8XX/LPC8XX_i2c_defs.h"
-
-/* we cant avoid this pragma as this parameter is used for the LPC82X */
-#pragma GCC diagnostic ignored "-Wunused-parameter"
-
-static inline SYSCTL_PERIPH_RESET_T I2cGetResetID(I2C_Type *pI2C)
-{
-    return RESET_I2C0;
-}
-
-static inline SYSCTL_CLOCK_T I2cGetClockID(I2C_Type *pI2C)
-{
-    return SYSCTL_CLOCK_I2C0;
-}
-
-#pragma GCC diagnostic pop
 
 #include "nxp/LPC8XX/LPC8XX_i2c_funcs.h"
 

@@ -60,8 +60,9 @@ typedef volatile struct {
 #define UART_CFG_STOPLEN_2 (0x01 << 6)   /* UART Two Stop Bits Select */
 #define UART_CFG_CTSEN (0x01 << 9)       /* CTS enable bit */
 #define UART_CFG_SYNCEN (0x01 << 11)     /* Synchronous mode enable bit */
-#define UART_CFG_CLKPOL (0x01 << 12) /* Un_RXD rising edge sample enable bit \
-                                      */
+#define UART_CFG_CLKPOL                                \
+  (0x01 << 12) /* Un_RXD rising edge sample enable bit \
+                */
 #define UART_CFG_SYNCMST \
   (0x01 << 14) /* Select master mode (synchronous mode) enable bit */
 #define UART_CFG_LOOP (0x01 << 15) /* Loopback mode enable bit */
@@ -167,36 +168,6 @@ static inline void UartSetOSR(USART_Type *pUART, uint32_t ovrVal) {
 
 static inline void UartSetAddr(USART_Type *pUART, uint32_t addr) {
   pUART->ADDR = addr;
-}
-
-/* Return UART clock ID from the UART register address */
-static inline SYSCTL_CLOCK_T getUARTClockID(USART_Type *pUART) {
-  if (pUART == USART0) {
-    return SYSCTL_CLOCK_UART0;
-  } else if (pUART == USART1) {
-    return SYSCTL_CLOCK_UART1;
-  }
-
-  return SYSCTL_CLOCK_UART2;
-}
-
-static inline void UartInit(USART_Type *pUART) {
-  /* Enable USART clock */
-  ClockEnablePeriphClock(getUARTClockID(pUART));
-
-  /* UART reset */
-  if (pUART == USART0) /* Peripheral reset control to USART0 */
-    SysctlPeriphReset(RESET_USART0);
-  else if (pUART == USART1)
-    /* Peripheral reset control to USART1 */
-    SysctlPeriphReset(RESET_USART1);
-  else
-    /* Peripheral reset control to USART2 */
-    SysctlPeriphReset(RESET_USART2);
-}
-
-static inline void UartDeInit(USART_Type *pUART) {
-  ClockDisablePeriphClock(getUARTClockID(pUART));
 }
 
 static inline void UartSetBaud(USART_Type *pUART, uint32_t baudrate) {

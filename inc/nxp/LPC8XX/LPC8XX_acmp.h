@@ -56,20 +56,6 @@ Definitions for the Analog comparator resistor ladder register
 #define ACMP_LADREF_VDDCMP  (1 << 6)    /* Resistor ladder reference is VDDCMP */
 
 
-static inline void AcmpInit(void)
-{
-    SysctlPowerUp(SYSCTL_SLPWAKE_ACMP_PD);
-    ClockEnablePeriphClock(SYSCTL_CLOCK_ACOMP);
-    SysctlDeassertPeriphReset(RESET_ACMP);
-}
-
-static inline void AcmpDeinit(void)
-{
-    SysctlAssertPeriphReset(RESET_ACMP);
-    ClockDisablePeriphClock(SYSCTL_CLOCK_ACOMP);
-    SysctlPowerDown(SYSCTL_SLPWAKE_ACMP_PD);
-}
-
 static inline void AcmpControl(CMP_Type *acmp, uint32_t value)
 {
     acmp->CTRL = value;

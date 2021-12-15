@@ -213,29 +213,6 @@ static inline void SpiClearCFGRegBits(SPI_Type *pSPI, uint32_t bits) {
   pSPI->CFG = ~bits & (pSPI->CFG & SPI_CFG_BITMASK);
 }
 
-static inline void SpiInit(SPI_Type *pSPI) {
-  if (pSPI == SPI1) {
-    ClockEnablePeriphClock(SYSCTL_CLOCK_SPI1);
-    SysctlPeriphReset(RESET_SPI1);
-  } else {
-    ClockEnablePeriphClock(SYSCTL_CLOCK_SPI0);
-    SysctlPeriphReset(RESET_SPI0);
-  }
-}
-
-static inline void SpiDisable(SPI_Type *pSPI) {
-  SpiClearCFGRegBits(pSPI, SPI_CFG_SPI_EN);
-}
-
-static inline void SpiDeInit(SPI_Type *pSPI) {
-  SpiDisable(pSPI);
-  if (pSPI == SPI1) {
-    ClockDisablePeriphClock(SYSCTL_CLOCK_SPI1);
-  } else {
-    ClockDisablePeriphClock(SYSCTL_CLOCK_SPI0);
-  }
-}
-
 static inline void SpiEnable(SPI_Type *pSPI) {
   SpiSetCFGRegBits(pSPI, SPI_CFG_SPI_EN);
 }

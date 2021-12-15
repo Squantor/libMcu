@@ -30,20 +30,6 @@ LPC800 series common GPIO registers, defines and functions.
 #ifndef LPC8XX_GPIO_H
 #define LPC8XX_GPIO_H
 
-#pragma GCC diagnostic ignored "-Wunused-parameter"
-/* GPIO initilisation function */
-static inline void GpioInit(GPIO_Type *pGPIO)
-{
-    ClockEnablePeriphClock(SYSCTL_CLOCK_GPIO);
-}
-
-/* GPIO deinitialisation function */
-static inline void GpioDeInit(GPIO_Type *pGPIO)
-{
-    ClockDisablePeriphClock(SYSCTL_CLOCK_GPIO);
-}
-#pragma GCC diagnostic pop
-
 static inline void GpioWritePortBit(GPIO_Type *pGPIO, uint32_t port, uint8_t pin, bool setting)
 {
     pGPIO->B[port][pin] = setting;

@@ -30,17 +30,6 @@ LPC800 series common I2C bus registers, defines and functions.
 #ifndef LPC8XX_I2C_FUNCS_H
 #define LPC8XX_I2C_FUNCS_H
 
-static inline void I2cInit(I2C_Type *pI2C)
-{
-    ClockEnablePeriphClock(I2cGetClockID(pI2C));
-    SysctlPeriphReset(I2cGetResetID(pI2C));    
-}
-
-static inline void I2cDeInit(I2C_Type *pI2C)
-{
-    ClockDisablePeriphClock(I2cGetClockID(pI2C));
-}
-
 static inline void I2cSetClockDiv(I2C_Type *pI2C, uint32_t clkdiv)
 {
     if ((clkdiv >= 1) && (clkdiv <= 65536)) {

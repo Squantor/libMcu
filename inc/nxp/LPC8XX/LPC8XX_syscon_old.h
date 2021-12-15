@@ -153,23 +153,6 @@ static inline void SysctlMap(SYSCTL_BOOT_MODE_REMAP_T remap) {
   SYSCON->SYSMEMREMAP = (uint32_t)remap;
 }
 
-static inline void SysctlAssertPeriphReset(SYSCTL_PERIPH_RESET_T periph) {
-  uint32_t presetctrlRegister =
-      SYSCON->PRESETCTRL &
-      ~((1 << (uint32_t)periph) | SYSCTL_PRESETCTRL_RESERVED);
-  SYSCON->PRESETCTRL = presetctrlRegister;
-}
-
-static inline void SysctlDeassertPeriphReset(SYSCTL_PERIPH_RESET_T periph) {
-  SYSCON->PRESETCTRL = (1 << (uint32_t)periph) |
-                       (SYSCON->PRESETCTRL & ~SYSCTL_PRESETCTRL_RESERVED);
-}
-
-static inline void SysctlPeriphReset(SYSCTL_PERIPH_RESET_T periph) {
-  SysctlAssertPeriphReset(periph);
-  SysctlDeassertPeriphReset(periph);
-}
-
 static inline uint32_t SysctlGetSystemRSTStatus(void) {
   return SYSCON->SYSRSTSTAT & ~SYSCTL_SYSRSTSTAT_RESERVED;
 }
