@@ -310,43 +310,6 @@ static inline uint32_t ClockGetUSARTNBaseClockRate(void) {
   return (uint32_t)inclk;
 }
 
-static inline uint32_t ClockSetUSARTNBaseClockRate(uint32_t rate,
-                                                   bool fEnable) {
-  uint32_t div, inclk;
-
-  inclk = ClockGetMainClockRate();
-
-  /* Get integer divider for coarse rate */
-  div = inclk / rate;
-  if (div == 0) {
-    div = 1;
-  }
-
-  /* Approximated rate with only integer divider */
-  ClockSetUARTClockDiv((uint8_t)div);
-
-  if (fEnable) {
-    uint32_t uart_fra_multiplier;
-
-    SysctlPeriphReset(RESET_UARTFBRG);
-
-    /* Enable fractional divider */
-    SysctlSetUSARTFRGDivider(0xFF);
-
-    /* Compute the fractional divisor (the lower byte is the
-       fractional portion) */
-    uart_fra_multiplier = ((inclk / div) * 256) / rate;
-
-    /* ...just the fractional portion (the lower byte) */
-    SysctlSetUSARTFRGMultiplier((uint8_t)uart_fra_multiplier);
-  } else {
-    /* Disable fractional generator and use integer divider only */
-    SysctlSetUSARTFRGDivider(0);
-  }
-
-  return ClockGetUSARTNBaseClockRate();
-}
-
 static inline void ClockSetSystemPLLSource(SYSCTL_PLLCLKSRC_T src) {
   SYSCON->SYSPLLCLKSEL = (uint32_t)src;
   SYSCON->SYSPLLCLKUEN = 0;

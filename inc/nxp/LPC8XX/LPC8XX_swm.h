@@ -24,11 +24,52 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 For more information, please refer to <http://unlicense.org>
 */
-/* 
-LPC800 series common switch matrix control registers, defines and 
+/*
+LPC800 series common switch matrix control registers, defines and
 functions.
 */
 #ifndef LPC8XX_SWM_H
 #define LPC8XX_SWM_H
+
+/**
+ * @brief   Enable fixed SWM pin functions
+ * @param   peripheral  SWM peripheral to use
+ * @param   function    Function to assign
+ * @param   pin         Pin to assign the function to
+ * @return  Nothing
+ */
+static inline void SwmMovablePinAssign(SWM_Type *peripheral,
+                                       SWM_MOVABLE_Type function,
+                                       SWM_PORTPIN_Type pin) {
+  int index = function >> 2;
+  int shiftIndex = ((function & 0x3) << 3);
+  uint32_t mask = ~(0xFF << shiftIndex);
+  peripheral->PINASSIGN[index] =
+      (peripheral->PINASSIGN[index] & mask) | (pin << shiftIndex);
+}
+
+/**
+ * @brief   Enable fixed SWM pin functions
+ * @param   peripheral  SWM peripheral to use
+ * @param   setting0    setting for PINENABLE0 register
+ * @return  Nothing
+ */
+static inline void swmEnableFixedPin(SWM_Type *peripheral, uint32_t setting0) {
+  uint32_t pinEnable0 = peripheral->PINENABLE0;
+  pinEnable0 &= ~setting0;
+  peripheral->PINENABLE0 = pinEnable0;
+}
+
+/**
+ * @brief   Disable fixed SWM pin functions
+ * @param   peripheral  SWM peripheral to use
+ * @param   setting0    setting for PINENABLE0 register
+ * @return  Nothing
+ */
+static inline void swmDisableFixedPin(SWM_Type *peripheral, uint32_t setting0) {
+  uint32_t pinEnable0 = peripheral->PINENABLE0;
+  pinEnable0 |= setting0;
+  peripheral->PINENABLE0 = pinEnable0;
+}
 
 #endif

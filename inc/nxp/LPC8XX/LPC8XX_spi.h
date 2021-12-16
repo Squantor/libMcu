@@ -282,11 +282,6 @@ static inline uint32_t SpiGetPendingInts(SPI_Type *pSPI) {
   return pSPI->INTSTAT & ~SPI_INTSTAT_RESERVED;
 }
 
-static inline void SpiFlushFifos(SPI_Type *pSPI) {
-  SpiDisable(pSPI);
-  SpiEnable(pSPI);
-}
-
 static inline uint32_t SpiReadRawRXFifo(SPI_Type *pSPI) {
   return pSPI->RXDAT & ~SPI_RXDAT_RESERVED;
 }

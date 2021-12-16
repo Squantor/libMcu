@@ -161,10 +161,6 @@ static inline void SysctlClearSystemRSTStatus(uint32_t reset) {
   SYSCON->SYSRSTSTAT = reset;
 }
 
-static inline uint32_t SysctlGetPORPIOStatus(void) {
-  return SYSCON->PIOPORCAP0 & ~SYSCTL_PIOPORCAP0_RESERVED;
-}
-
 static inline void SysctlSetBODLevels(SYSCTL_BODRSTLVL_T rstlvl,
                                       SYSCTL_BODRINTVAL_T intlvl) {
   SYSCON->BODCTRL = ((uint32_t)rstlvl) | (((uint32_t)intlvl) << 2);
@@ -234,12 +230,6 @@ static inline void SysctlEnablePeriphWakeup(uint32_t periphmask) {
       periphmask | (SYSCON->STARTERP0 & ~SYSCTL_STARTERP0_RESERVED);
 }
 
-static inline void SysctlDisablePeriphWakeup(uint32_t periphmask) {
-  uint32_t starterp1Register =
-      SYSCON->STARTERP1 & ~(periphmask | SYSCTL_STARTERP1_RESERVED);
-  SYSCON->STARTERP1 = starterp1Register;
-}
-
 static inline uint32_t SysctlGetDeepSleepPD(void) { return SYSCON->PDSLEEPCFG; }
 
 static inline uint32_t SysctlGetWakeup(void) { return SYSCON->PDAWAKECFG; }
@@ -250,37 +240,6 @@ static inline uint32_t SysctlGetDeviceID(void) { return SYSCON->DEVICEID; }
 
 static inline void SysctlSetDeepSleepPD(uint32_t sleepmask) {
   SYSCON->PDSLEEPCFG = PDSLEEPWRMASK | (sleepmask & PDSLEEPDATMASK);
-}
-
-static inline void SysctlSetWakeup(uint32_t wakeupmask) {
-  /* Update new value */
-  SYSCON->PDAWAKECFG = PDWAKEUPWRMASK | (wakeupmask & PDWAKEUPDATMASK);
-}
-
-static inline void SysctlPowerDown(uint32_t powerdownmask) {
-  uint32_t pdrun;
-
-  /* Get current power states */
-  pdrun = SYSCON->PDRUNCFG & PDWAKEUPDATMASK;
-
-  /* Disable peripheral states by setting high */
-  pdrun |= (powerdownmask & PDWAKEUPDATMASK);
-
-  /* Update power states with required register bits */
-  SYSCON->PDRUNCFG = (PDWAKEUPWRMASK | pdrun);
-}
-
-static inline void SysctlPowerUp(uint32_t powerupmask) {
-  uint32_t pdrun;
-
-  /* Get current power states */
-  pdrun = SYSCON->PDRUNCFG & PDWAKEUPDATMASK;
-
-  /* Enable peripheral states by setting low */
-  pdrun &= ~(powerupmask & PDWAKEUPDATMASK);
-
-  /* Update power states with required register bits */
-  SYSCON->PDRUNCFG = (PDWAKEUPWRMASK | pdrun);
 }
 
 #endif
