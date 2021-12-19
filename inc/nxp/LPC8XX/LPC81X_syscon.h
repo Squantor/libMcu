@@ -84,12 +84,25 @@ typedef volatile struct {
 
 #define SYSOSCCTRL_MASK \
   0xFFFFFFFC /**< Reserved bits of System oscillator control register */
-#define SYSOSCCTRL_BYPASS \
-  (1 << 0) /**< Oscillator is bypassed, used with external oscillator */
+#define SYSOSCCTRL_BYPASS(value) \
+  (value << 0) /**< Oscillator is bypassed, used with external oscillator */
 #define SYSOSCCTRL_FREQ_1_20MHZ \
   (0 << 1) /**< Oscillator frequency range from 1 to 20MHz */
 #define SYSOSCCTRL_FREQ_15_25MHZ \
   (1 << 1) /**< Oscillator frequency range from 15 to 25MHz */
+
+#define SYSPLLCLKSEL_MASK \
+  0xFFFFFFFC /**< Reserved bits of the Main clock pll select register */
+typedef enum {
+  SYSPLLCLKSEL_IRC = 0u,    /**< Internal resonant crystal oscillator */
+  SYSPLLCLKSEL_SYSOSC = 1u, /**< Crystal oscillator (SYSOSC) */
+  SYSPLLCLKSEL_CLKIN = 3u   /**< CLKIN. External clock input */
+} SYSPLLCLKSEL_Type;
+
+#define SYSPLLCLKUEN_MASK                                                    \
+  0xFFFFFFFE /**< Reserved bits of the main clock pll select update register \
+              */
+#define SYSPLLCLKUEN_UPDATE (1 << 0) /**< Update main clock pll select */
 
 #define SYSAHBCLKCTRL_MASK \
   0xFFF00000 /**< Reserved bits of the peripheral clock control register */
@@ -153,8 +166,9 @@ typedef enum {
 
 #define PDRUNCFG_DEFAULT \
   0x0000EDF0 /**< Default configuration for Powerdown register */
-#define PDRUNCFG_MASK 0xFFFF1F00 /**< Reserved bits of the Powerdown register \
-                                  */
+#define PDRUNCFG_MASK                                     \
+  0xFFFF1F00 /**< Reserved bits of the Powerdown register \
+              */
 
 /**
  * @brief   Enables clocks to various peripherals

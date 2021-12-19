@@ -158,31 +158,6 @@ typedef enum {
 #define PDRUNCFG_MASK 0xFFFF7F00 /**< Reserved bits */
 
 /**
- * @brief   Sets up system oscillator
- * @param   peripheral  base address of SYSCON peripheral
- * @param   setting     Setting for the system oscillator
- * @return  Nothing
- */
-static inline void sysconSysOscControl(SYSCON_Type *peripheral,
-                                       uint32_t setting) {
-  peripheral->SYSOSCCTRL = setting & ~SYSOSCCTRL_MASK;
-}
-
-/**
- * @brief   Select System clock clock source
- * @param   peripheral  base address of SYSCON peripheral
- * @param   source      Clock source of the main clock network
- * @return  Nothing
- */
-static inline void sysconSysPllClockSelect(SYSCON_Type *peripheral,
-                                           SYSPLLCLKSEL_Type setting) {
-  peripheral->SYSPLLCLKSEL =
-      (peripheral->MAINCLKSEL & SYSPLLCLKSEL_MASK) | setting;
-  peripheral->SYSPLLCLKUEN = peripheral->MAINCLKUEN & ~SYSPLLCLKUEN_UPDATE;
-  peripheral->SYSPLLCLKUEN = peripheral->MAINCLKUEN | SYSPLLCLKUEN_UPDATE;
-}
-
-/**
  * @brief   Select main clock source
  * @param   peripheral  base address of SYSCON peripheral
  * @param   source      Clock source of the main clock network
