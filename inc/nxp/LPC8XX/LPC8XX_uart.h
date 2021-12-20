@@ -170,10 +170,4 @@ static inline void UartSetAddr(USART_Type *pUART, uint32_t addr) {
   pUART->ADDR = addr;
 }
 
-static inline void UartSetBaud(USART_Type *pUART, uint32_t baudrate) {
-  uint32_t baudRateGenerator;
-  baudRateGenerator = ClockGetUSARTNBaseClockRate() / (16 * baudrate);
-  pUART->BRG = baudRateGenerator - 1; /* baud rate */
-}
-
 #endif

@@ -138,7 +138,7 @@ typedef enum PINx {
 #include "nxp/LPC8XX/LPC81X_default.h"
 // Peripheral definition includes, ordering matters
 #include "nxp/LPC8XX/LPC81X_syscon.h"
-#include "nxp/LPC8XX/LPC8XX_clock.h"
+//#include "nxp/LPC8XX/LPC8XX_clock.h"
 #include "nxp/LPC8XX/LPC81X_swm.h"
 #include "nxp/LPC8XX/LPC81X_gpio.h"
 #include "nxp/LPC8XX/LPC8XX_iocon.h"
