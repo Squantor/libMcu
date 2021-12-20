@@ -82,6 +82,16 @@ typedef volatile struct {
   const uint32_t DEVICEID;  /**< Device ID (R/ ) */
 } SYSCON_Type;
 
+typedef enum {
+  SYSPLLCTRL_POSTDIV_2 = 0u,  /**< Post PLL division ratio of two */
+  SYSPLLCTRL_POSTDIV_4 = 1u,  /**< Post PLL division ratio of four */
+  SYSPLLCTRL_POSTDIV_8 = 2u,  /**< Post PLL division ratio of eight */
+  SYSPLLCTRL_POSTDIV_16 = 3u, /**< Post PLL division ratio of sixteen */
+} SYSPLLCTRL_PSEL_Type;
+
+#define SYSPLLCTRL_MASK \
+  0xFFFFFF80 /**< Reserved bits of the System PLL control register */
+
 #define SYSOSCCTRL_MASK \
   0xFFFFFFFC /**< Reserved bits of System oscillator control register */
 #define SYSOSCCTRL_BYPASS(value) \
@@ -104,8 +114,47 @@ typedef enum {
               */
 #define SYSPLLCLKUEN_UPDATE (1 << 0) /**< Update main clock pll select */
 
+#define MAINCLKPLLUEN_MASK                                                   \
+  0xFFFFFFFE /**< Reserved bits of the main clock pll select update register \
+              */
+#define MAINCLKPLLUEN_UPDATE (1 << 0) /**< Update main clock pll select */
+
+#define MAINCLKSEL_MASK \
+  0xFFFFFFF8 /**< Reserved bits of the main clock source select register */
+typedef enum {
+  MAINCLKSEL_IRC = 0u,      /**< IRC oscillator */
+  MAINCLKSEL_PLL_IN = 1u,   /**< PLL input */
+  MAINCLKSEL_WATCHDOG = 2u, /**< Watchdog oscillator */
+  MAINCLKSEL_PLL_OUT = 3u   /**< PLL output */
+} MAINCLOCKSEL_Type;
+
+#define MAINCLKUEN_MASK \
+  0xFFFFFFFE /**< Reserved bits of the main clock source update register */
+#define MAINCLKUEN_UPDATE (1 << 0) /**< Update main clock source */
+
+#define SYSAHBCLKDIV_MASK \
+  0xFFFFFF00 /**< Reserved bits of the system clock divider register */
+
 #define SYSAHBCLKCTRL_MASK \
   0xFFF00000 /**< Reserved bits of the peripheral clock control register */
+
+typedef enum {
+  CLKOUT_IRC = 0,      /**< output IRC oscillator */
+  CLKOUT_SYSOSC = 1,   /**< output Crystal oscillator (SYSOSC) */
+  CLKOUT_WATCHDOG = 2, /**< output Watchdog Oscillator */
+  CLKOUT_MAIN = 3,     /**< output main clock */
+} CLKOUT_SOURCE_Type;
+
+#define CLKOUT_RESERVED_MASK \
+  0xFFFFFFF8 /**< Reserved bits of the clock out clock source */
+
+#define CLKOUTUEN_RESERVED_MASK                                               \
+  0xFFFFFFFE /**< Reserved bits of the clock out clock source update register \
+              */
+#define CLKOUTUEN_UPDATE(value) (value << 0) /**< Update main clock source */
+
+#define CLKOUTDIV_RESERVED_MASK \
+  0xFFFFFF00 /**< Reserved bits of the clock out divider */
 
 /** Clock control 0 peripheral list */
 typedef enum {
@@ -216,6 +265,31 @@ static inline void sysconClearResets(SYSCON_Type *peripheral,
 static inline void sysconAssertResets(SYSCON_Type *peripheral,
                                       uint32_t setting) {
   peripheral->PRESETCTRL = ~setting & peripheral->PRESETCTRL;
+}
+
+/**
+ * @brief   Select clock source to output on CLKOUT pin
+ * @param   peripheral  base address of SYSCON peripheral
+ * @param   source      clock source, see CLKOUT_SOURCE_Type enum
+ * @return  Nothing
+ */
+static inline void sysconClkoutSource(SYSCON_Type *peripheral,
+                                      CLKOUT_SOURCE_Type source) {
+  peripheral->CLKOUTSEL = source & ~CLKOUT_RESERVED_MASK;
+  peripheral->CLKOUTUEN = CLKOUTUEN_UPDATE(0);
+  peripheral->CLKOUTUEN = CLKOUTUEN_UPDATE(1);
+}
+
+/**
+ * @brief   set CLKOUT divider
+ * @param   peripheral  base address of SYSCON peripheral
+ * @param   divider     division value, 0 means divider disabled, 1 is divide by
+ * 1
+ * @return  Nothing
+ */
+static inline void sysconClkoutDivider(SYSCON_Type *peripheral,
+                                       uint8_t divider) {
+  peripheral->CLKOUTDIV = divider;
 }
 
 #include "nxp/LPC8XX/LPC8XX_syscon.h"

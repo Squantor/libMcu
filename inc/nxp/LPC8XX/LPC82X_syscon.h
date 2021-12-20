@@ -230,6 +230,29 @@ static inline void sysconPowerEnable(SYSCON_Type *peripheral,
   peripheral->PDRUNCFG = peripheral->PDRUNCFG & (~powerEnables | PDRUNCFG_MASK);
 }
 
+/**
+ * @brief   Select clock source to output on CLKOUT pin
+ * @param   peripheral  base address of SYSCON peripheral
+ * @param   source      clock source, see CLKOUT_SOURCE_Type enum
+ * @return  Nothing
+ */
+static inline void sysconClkoutSource(SYSCON_Type *peripheral,
+                                      CLKOUT_SOURCE_Type source) {
+  peripheral->CLKOUTSEL = source & CLKOUT_RESERVED_MASK;
+}
+
+/**
+ * @brief   set CLKOUT divider
+ * @param   peripheral  base address of SYSCON peripheral
+ * @param   divider     division value, 0 means divider disabled, 1 is divide by
+ * 1
+ * @return  Nothing
+ */
+static inline void sysconClkoutDivider(SYSCON_Type *peripheral,
+                                       uint8_t divider) {
+  peripheral->CLKOUTDIV = divider;
+}
+
 #include "nxp/LPC8XX/LPC82X_syscon_old.h"
 #include "nxp/LPC8XX/LPC8XX_syscon.h"
 #include "nxp/LPC8XX/LPC8XX_syscon_old.h"

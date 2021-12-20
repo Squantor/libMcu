@@ -373,7 +373,7 @@ static inline void sysconSysPllClockSelect(SYSCON_Type *peripheral,
 /**
  * @brief   Select system pll clock source
  * @param   peripheral  base address of SYSCON peripheral
- * @param   source      Clock source of the main clock network
+ * @param   source      Clock source of the PLL
  * @return  Nothing
  */
 static inline void sysconMainClockPllSelect(SYSCON_Type *peripheral,
@@ -406,7 +406,7 @@ static inline void sysconMainClockSelect(SYSCON_Type *peripheral,
 static inline void sysconMainClockDivider(SYSCON_Type *peripheral,
                                           uint32_t divider) {
   peripheral->SYSAHBCLKDIV =
-      (peripheral->SYSAHBCLKDIV & MAINCLKSEL_MASK) | divider;
+      (peripheral->SYSAHBCLKDIV & SYSAHBCLKDIV_MASK) | divider;
 }
 
 /**
