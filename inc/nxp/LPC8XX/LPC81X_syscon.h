@@ -267,32 +267,7 @@ static inline void sysconAssertResets(SYSCON_Type *peripheral,
   peripheral->PRESETCTRL = ~setting & peripheral->PRESETCTRL;
 }
 
-/**
- * @brief   Select clock source to output on CLKOUT pin
- * @param   peripheral  base address of SYSCON peripheral
- * @param   source      clock source, see CLKOUT_SOURCE_Type enum
- * @return  Nothing
- */
-static inline void sysconClkoutSource(SYSCON_Type *peripheral,
-                                      CLKOUT_SOURCE_Type source) {
-  peripheral->CLKOUTSEL = source & ~CLKOUT_RESERVED_MASK;
-  peripheral->CLKOUTUEN = CLKOUTUEN_UPDATE(0);
-  peripheral->CLKOUTUEN = CLKOUTUEN_UPDATE(1);
-}
-
-/**
- * @brief   set CLKOUT divider
- * @param   peripheral  base address of SYSCON peripheral
- * @param   divider     division value, 0 means divider disabled, 1 is divide by
- * 1
- * @return  Nothing
- */
-static inline void sysconClkoutDivider(SYSCON_Type *peripheral,
-                                       uint8_t divider) {
-  peripheral->CLKOUTDIV = divider;
-}
-
 #include "nxp/LPC8XX/LPC8XX_syscon.h"
-#include "nxp/LPC8XX/LPC8XX_syscon_old.h"
+//#include "nxp/LPC8XX/LPC8XX_syscon_old.h"
 
 #endif

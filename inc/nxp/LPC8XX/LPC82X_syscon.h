@@ -63,10 +63,20 @@ typedef volatile struct {
   const uint32_t DEVICEID; /* Device ID (R/ ) */
 } SYSCON_Type;
 
+typedef enum {
+  SYSPLLCTRL_POSTDIV_2 = 0u,  /**< Post PLL division ratio of two */
+  SYSPLLCTRL_POSTDIV_4 = 1u,  /**< Post PLL division ratio of four */
+  SYSPLLCTRL_POSTDIV_8 = 2u,  /**< Post PLL division ratio of eight */
+  SYSPLLCTRL_POSTDIV_16 = 3u, /**< Post PLL division ratio of sixteen */
+} SYSPLLCTRL_PSEL_Type;
+
+#define SYSPLLCTRL_MASK \
+  0xFFFFFF80 /**< Reserved bits of the System PLL control register */
+
 #define SYSOSCCTRL_MASK \
-  0xFFFFFFFC /**< used bits of System oscillator control register */
-#define SYSOSCCTRL_BYPASS \
-  (1 << 0) /**< Oscillator is bypassed, used with external oscillator */
+  0xFFFFFFFC /**< Reserved bits of System oscillator control register */
+#define SYSOSCCTRL_BYPASS(value) \
+  (value << 0) /**< Oscillator is bypassed, used with external oscillator */
 #define SYSOSCCTRL_FREQ_1_20MHZ \
   (0 << 1) /**< Oscillator frequency range from 1 to 20MHz */
 #define SYSOSCCTRL_FREQ_15_25MHZ \
@@ -131,8 +141,8 @@ typedef enum {
 typedef enum {
   CLKOUT_IRC = 0,    /**< output IRC clock */
   CLKOUT_SYSOSC = 1, /**< output System oscillator (crystal oscillator) clock */
-  CLKOUT_WATCHDOG = 2,  /**< output watchdog */
-  CLKOUT_MAINCLOCK = 3, /**< output main clock */
+  CLKOUT_WATCHDOG = 2, /**< output watchdog */
+  CLKOUT_MAIN = 3,     /**< output main clock */
 } CLKOUT_SOURCE_Type;
 
 #define CLKOUT_RESERVED_MASK (0xFFFFFFFC)
@@ -140,6 +150,12 @@ typedef enum {
 #define MAINCLKUEN_MASK \
   0xFFFFFFFE /**< Reserved bits of the main clock source update register */
 #define MAINCLKUEN_UPDATE (1 << 0) /**< Update main clock source */
+
+#define SYSAHBCLKDIV_MASK \
+  0xFFFFFF00 /**< Reserved bits of the system clock divider register */
+
+#define SYSAHBCLKCTRL_MASK \
+  0xDA100000 /**< Reserved bits of the peripheral clock control register */
 
 typedef enum {
   PDRUNCFG_IRCOUT = (1 << 0),
@@ -156,19 +172,6 @@ typedef enum {
 #define PDRUNCFG_DEFAULT \
   0x0000EDF0 /**< Default configuration for Powerdown register */
 #define PDRUNCFG_MASK 0xFFFF7F00 /**< Reserved bits */
-
-/**
- * @brief   Select main clock source
- * @param   peripheral  base address of SYSCON peripheral
- * @param   source      Clock source of the main clock network
- * @return  Nothing
- */
-static inline void sysconMainClockSelect(SYSCON_Type *peripheral,
-                                         MAINCLOCKSEL_Type setting) {
-  peripheral->MAINCLKSEL = (peripheral->MAINCLKSEL & MAINCLKSEL_MASK) | setting;
-  peripheral->MAINCLKUEN = peripheral->MAINCLKUEN & ~MAINCLKUEN_UPDATE;
-  peripheral->MAINCLKUEN = peripheral->MAINCLKUEN | MAINCLKUEN_UPDATE;
-}
 
 /**
  * @brief   Enables clocks to various peripherals
@@ -194,67 +197,8 @@ static inline void sysconDisableClocks(SYSCON_Type *peripheral,
   peripheral->SYSAHBCLKCTRL = ~setting & peripheral->SYSAHBCLKCTRL;
 }
 
-/**
- * @brief   Select clock source to output on CLKOUT pin
- * @param   peripheral  base address of SYSCON peripheral
- * @param   source      clock source, see CLKOUT_SOURCE_Type enum
- * @return  Nothing
- */
-static inline void sysconClkoutSource(SYSCON_Type *peripheral,
-                                      CLKOUT_SOURCE_Type source) {
-  peripheral->CLKOUTSEL = source & CLKOUT_RESERVED_MASK;
-  peripheral->CLKOUTUEN = peripheral->CLKOUTUEN & ~MAINCLKUEN_UPDATE;
-  peripheral->CLKOUTUEN = peripheral->CLKOUTUEN | MAINCLKUEN_UPDATE;
-}
-
-/**
- * @brief   set CLKOUT divider
- * @param   peripheral  base address of SYSCON peripheral
- * @param   divider     division value, 0 means divider disabled, 1 is divide by
- * 1
- * @return  Nothing
- */
-static inline void sysconClkoutDivider(SYSCON_Type *peripheral,
-                                       uint8_t divider) {
-  peripheral->CLKOUTDIV = divider;
-}
-
-/**
- * @brief   Enable power to various peripherals
- * @param   peripheral      base address of SYSCON peripheral
- * @param   powerEnables    set of peripherals to give power
- * @return  Nothing
- */
-static inline void sysconPowerEnable(SYSCON_Type *peripheral,
-                                     uint32_t powerEnables) {
-  peripheral->PDRUNCFG = peripheral->PDRUNCFG & (~powerEnables | PDRUNCFG_MASK);
-}
-
-/**
- * @brief   Select clock source to output on CLKOUT pin
- * @param   peripheral  base address of SYSCON peripheral
- * @param   source      clock source, see CLKOUT_SOURCE_Type enum
- * @return  Nothing
- */
-static inline void sysconClkoutSource(SYSCON_Type *peripheral,
-                                      CLKOUT_SOURCE_Type source) {
-  peripheral->CLKOUTSEL = source & CLKOUT_RESERVED_MASK;
-}
-
-/**
- * @brief   set CLKOUT divider
- * @param   peripheral  base address of SYSCON peripheral
- * @param   divider     division value, 0 means divider disabled, 1 is divide by
- * 1
- * @return  Nothing
- */
-static inline void sysconClkoutDivider(SYSCON_Type *peripheral,
-                                       uint8_t divider) {
-  peripheral->CLKOUTDIV = divider;
-}
-
-#include "nxp/LPC8XX/LPC82X_syscon_old.h"
+//#include "nxp/LPC8XX/LPC82X_syscon_old.h"
 #include "nxp/LPC8XX/LPC8XX_syscon.h"
-#include "nxp/LPC8XX/LPC8XX_syscon_old.h"
+//#include "nxp/LPC8XX/LPC8XX_syscon_old.h"
 
 #endif
