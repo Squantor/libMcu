@@ -91,15 +91,17 @@ typedef volatile struct { /* ADCn Structure */
 #define ADC_SEQ_GDAT_RESULT_MASK (0xFFF << 4)    /* Result value mask */
 #define ADC_SEQ_GDAT_RESULT_BITPOS (4)           /* Result start bit position */
 #define ADC_SEQ_GDAT_THCMPRANGE_MASK (0x3 << 16) /* Comparion range mask */
-#define ADC_SEQ_GDAT_THCMPRANGE_BITPOS (16) /* Comparison range bit position \
-                                             */
+#define ADC_SEQ_GDAT_THCMPRANGE_BITPOS  \
+  (16) /* Comparison range bit position \
+        */
 #define ADC_SEQ_GDAT_THCMPCROSS_MASK (0x3 << 18) /* Comparion cross mask */
-#define ADC_SEQ_GDAT_THCMPCROSS_BITPOS (18) /* Comparison cross bit position \
-                                             */
-#define ADC_SEQ_GDAT_CHAN_MASK (0xF << 26)  /* Channel number mask */
-#define ADC_SEQ_GDAT_CHAN_BITPOS (26)       /* Channel number bit position */
-#define ADC_SEQ_GDAT_OVERRUN (1 << 30)      /* Overrun bit */
-#define ADC_SEQ_GDAT_DATAVALID (1UL << 31)  /* Data valid bit */
+#define ADC_SEQ_GDAT_THCMPCROSS_BITPOS                                      \
+  (18)                                     /* Comparison cross bit position \
+                                            */
+#define ADC_SEQ_GDAT_CHAN_MASK (0xF << 26) /* Channel number mask */
+#define ADC_SEQ_GDAT_CHAN_BITPOS (26)      /* Channel number bit position */
+#define ADC_SEQ_GDAT_OVERRUN (1 << 30)     /* Overrun bit */
+#define ADC_SEQ_GDAT_DATAVALID (1UL << 31) /* Data valid bit */
 
 #define ADC_DR_RESULT(n) \
   ((((n) >> 4) & 0xFFF)) /* Macro for getting the ADC data value */
@@ -183,9 +185,10 @@ rate mentioned in @a rate is the sampling clock rate and not the frequency at
 at which the conversion will be done. Example setting at a rate to 30 MHz will
 get a sampling rate of 1.2M samples per second.
 */
+/*
 static inline void AdcSetClockRate(LPC_ADC_T *pADC, uint32_t rate) {
   AdcSetDivider(pADC, (uint8_t)(ClockGetSystemClockRate() / rate) - 1);
-}
+}*/
 
 /**
  * @brief   Starts the calibration according to the datasheet

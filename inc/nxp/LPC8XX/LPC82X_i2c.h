@@ -11,35 +11,6 @@ LPC820 series common I2C bus registers, defines and functions.
 #define LPC82X_I2C_H
 
 #include "nxp/LPC8XX/LPC8XX_i2c_defs.h"
-
-static inline SYSCTL_PERIPH_RESET_T I2cGetResetID(I2C_Type *pI2C) {
-  uint32_t base = (uint32_t)pI2C;
-  switch (base) {
-    case I2C1_BASE:
-      return RESET_I2C1;
-    case I2C2_BASE:
-      return RESET_I2C2;
-    case I2C3_BASE:
-      return RESET_I2C3;
-    default:
-      return RESET_I2C0;
-  }
-}
-
-static inline SYSCTL_CLOCK_T I2cGetClockID(I2C_Type *pI2C) {
-  uint32_t base = (uint32_t)pI2C;
-  switch (base) {
-    case I2C1_BASE:
-      return SYSCTL_CLOCK_I2C1;
-    case I2C2_BASE:
-      return SYSCTL_CLOCK_I2C2;
-    case I2C3_BASE:
-      return SYSCTL_CLOCK_I2C3;
-    default:
-      return SYSCTL_CLOCK_I2C0;
-  }
-}
-
 #include "nxp/LPC8XX/LPC8XX_i2c_funcs.h"
 
 #endif
