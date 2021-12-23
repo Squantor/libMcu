@@ -99,7 +99,7 @@ typedef enum {
 #define SCT_BASE (0x50004000UL)
 #define DMA_BASE (0x50008000UL)
 
-#define GPIO_PORT_BASE (0xA0000000UL)
+#define GPIO_BASE (0xA0000000UL)
 #define PIN_INT_BASE (0xA0004000UL)
 
 #define WWDT ((WWDT_Type *)WWDT_BASE)
@@ -112,7 +112,7 @@ typedef enum {
 #define PMU ((PMU_Type *)PMU_BASE)
 #define CRC ((CRC_Type *)CRC_BASE)
 #define SCT ((SCT_Type *)SCT_BASE)
-#define GPIO_PORT ((GPIO_Type *)GPIO_PORT_BASE)
+#define GPIO ((GPIO_Type *)GPIO_BASE)
 #define PININT ((PIN_INT_Type *)PIN_INT_BASE)
 #define IOCON ((IOCON_Type *)IOCON_BASE)
 #define SWM ((SWM_Type *)SWM_BASE)

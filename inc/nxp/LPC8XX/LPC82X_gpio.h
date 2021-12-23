@@ -28,6 +28,13 @@ typedef volatile struct {
   uint32_t DIRNOT[32]; /* Toggle Direction */
 } GPIO_Type;
 
+/** GPIO - available ports on LPC82X */
+typedef enum {
+  GPIO_PORT0 = 0x0u,
+} GPIO_PORT_Type;
+
 #include "nxp/LPC8XX/LPC82X_gpio_old.h"
+#include "nxp/LPC8XX/LPC8XX_gpio.h"
+#include "nxp/LPC8XX/LPC8XX_gpio_old.h"
 
 #endif
