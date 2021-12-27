@@ -99,7 +99,7 @@ typedef enum {
 #define SCT_BASE (0x50004000UL)
 #define DMA_BASE (0x50008000UL)
 
-#define GPIO_PORT_BASE (0xA0000000UL)
+#define GPIO_BASE (0xA0000000UL)
 #define PIN_INT_BASE (0xA0004000UL)
 
 #define WWDT (WWDT_Type *)WWDT_BASE)
@@ -112,7 +112,7 @@ typedef enum {
 #define PMU ((PMU_Type *)PMU_BASE)
 #define CRC ((CRC_Type *)CRC_BASE)
 #define SCT ((SCT_Type *)SCT_BASE)
-#define GPIO_PORT ((GPIO_Type *)GPIO_PORT_BASE)
+#define GPIO ((GPIO_Type *)GPIO_BASE)
 #define PININT ((PIN_INT_Type *)PIN_INT_BASE)
 #define IOCON ((IOCON_Type *)IOCON_BASE)
 #define SWM ((SWM_Type *)SWM_BASE)
@@ -165,43 +165,27 @@ typedef enum PINx {
 #include "nxp/LPC8XX/LPC82X_default.h"
 // Peripheral definition includes, ordering matters
 #include "nxp/LPC8XX/LPC82X_syscon.h"
-#include "nxp/LPC8XX/LPC8XX_clock.h"
+//#include "nxp/LPC8XX/LPC8XX_clock.h"
 #include "nxp/LPC8XX/LPC82X_acmp.h"
-#include "nxp/LPC8XX/LPC82X_acmp_old.h"
 #include "nxp/LPC8XX/LPC82X_adc.h"
-#include "nxp/LPC8XX/LPC82X_adc_old.h"
 #include "nxp/LPC8XX/LPC82X_dma.h"
-#include "nxp/LPC8XX/LPC82X_dma_old.h"
 #include "nxp/LPC8XX/LPC82X_gpio.h"
 #include "nxp/LPC8XX/LPC82X_i2c.h"
-#include "nxp/LPC8XX/LPC82X_i2c_old.h"
 #include "nxp/LPC8XX/LPC82X_inmux.h"
-#include "nxp/LPC8XX/LPC82X_inmux_old.h"
 #include "nxp/LPC8XX/LPC82X_swm.h"
 #include "nxp/LPC8XX/LPC82X_uart.h"
-#include "nxp/LPC8XX/LPC82X_uart_old.h"
 #include "nxp/LPC8XX/LPC8XX_ROM.h"
 #include "nxp/LPC8XX/LPC8XX_crc.h"
-#include "nxp/LPC8XX/LPC8XX_crc_old.h"
 #include "nxp/LPC8XX/LPC8XX_fmc.h"
-#include "nxp/LPC8XX/LPC8XX_fmc_old.h"
 #include "nxp/LPC8XX/LPC8XX_iocon.h"
 #include "nxp/LPC8XX/LPC8XX_irc.h"
-#include "nxp/LPC8XX/LPC8XX_irc_old.h"
 #include "nxp/LPC8XX/LPC8XX_mrt.h"
-#include "nxp/LPC8XX/LPC8XX_mrt_old.h"
 #include "nxp/LPC8XX/LPC8XX_pinint.h"
-#include "nxp/LPC8XX/LPC8XX_pinint_old.h"
 #include "nxp/LPC8XX/LPC8XX_pmu.h"
-#include "nxp/LPC8XX/LPC8XX_pmu_old.h"
 #include "nxp/LPC8XX/LPC8XX_sct.h"
-#include "nxp/LPC8XX/LPC8XX_sct_old.h"
 #include "nxp/LPC8XX/LPC8XX_spi.h"
-#include "nxp/LPC8XX/LPC8XX_spi_old.h"
 #include "nxp/LPC8XX/LPC8XX_wkt.h"
-#include "nxp/LPC8XX/LPC8XX_wkt_old.h"
 #include "nxp/LPC8XX/LPC8XX_wwdt.h"
-#include "nxp/LPC8XX/LPC8XX_wwdt_old.h"
 
 #ifdef __cplusplus
 }

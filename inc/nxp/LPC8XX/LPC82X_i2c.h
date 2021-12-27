@@ -12,5 +12,6 @@ LPC820 series common I2C bus registers, defines and functions.
 
 #include "nxp/LPC8XX/LPC8XX_i2c_defs.h"
 #include "nxp/LPC8XX/LPC8XX_i2c_funcs.h"
+#include "nxp/LPC8XX/LPC82X_i2c_old.h"
 
 #endif

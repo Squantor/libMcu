@@ -10,19 +10,6 @@ LPC800 series common multi rate timer registers, defines and functions.
 #ifndef LPC8XX_MRT_OLD_H
 #define LPC8XX_MRT_OLD_H
 
-static inline void MrtInit(void) {
-  /* Enable the clock to the register interface */
-  ClockEnablePeriphClock(SYSCTL_CLOCK_MRT);
-
-  /* Reset MRT */
-  SysctlPeriphReset(RESET_MRT);
-}
-
-static inline void MrtDeInit(void) {
-  /* Disable the clock to the MRT */
-  ClockDisablePeriphClock(SYSCTL_CLOCK_MRT);
-}
-
 static inline MRT_CH_Type *MrtGetRegPtr(uint8_t ch) { return MRT_CH(ch); }
 
 static inline uint32_t MrtGetInterval(MRT_CH_Type *pMRT) {

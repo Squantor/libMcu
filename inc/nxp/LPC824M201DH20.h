@@ -130,22 +130,22 @@ typedef enum {
 #define INMUX ((INMUX_Type *)INMUX_BASE)
 
 typedef enum PINx {
-  IOCON_PIO0 = 0x11,
-  IOCON_PIO1 = 0x0B,
-  IOCON_PIO2 = 0x06,
-  IOCON_PIO3 = 0x05,
-  IOCON_PIO4 = 0x04,
-  IOCON_PIO5 = 0x03,
-  IOCON_PIO8 = 0x0E,
-  IOCON_PIO9 = 0x0D,
-  IOCON_PIO10 = 0x08,
-  IOCON_PIO11 = 0x07,
-  IOCON_PIO12 = 0x02,
-  IOCON_PIO13 = 0x01,
-  IOCON_PIO14 = 0x12,
-  IOCON_PIO15 = 0x0A,
-  IOCON_PIO17 = 0x00,
-  IOCON_PIO23 = 0x19,
+  IOCON_PIO0_0 = 0x11,
+  IOCON_PIO0_1 = 0x0B,
+  IOCON_PIO0_2 = 0x06,
+  IOCON_PIO0_3 = 0x05,
+  IOCON_PIO0_4 = 0x04,
+  IOCON_PIO0_5 = 0x03,
+  IOCON_PIO0_8 = 0x0E,
+  IOCON_PIO0_9 = 0x0D,
+  IOCON_PIO0_10 = 0x08,
+  IOCON_PIO0_11 = 0x07,
+  IOCON_PIO0_12 = 0x02,
+  IOCON_PIO0_13 = 0x01,
+  IOCON_PIO0_14 = 0x12,
+  IOCON_PIO0_15 = 0x0A,
+  IOCON_PIO0_17 = 0x00,
+  IOCON_PIO0_23 = 0x19,
 } IOCON_PIN_Type;
 
 // default configuration options, override with your own!

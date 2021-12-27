@@ -12,5 +12,6 @@ functions.
 #define LPC8XX_IRC_H
 
 // TODO delete
+#include "nxp/LPC8XX/LPC8XX_irc_old.h"
 
 #endif

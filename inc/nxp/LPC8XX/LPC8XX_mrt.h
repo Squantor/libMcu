@@ -70,4 +70,6 @@ typedef enum MRT_MODE {
 #define MRT3_INTFLAG (8)
 #define MRTn_INTFLAG(ch) (1 << (ch))
 
+#include "nxp/LPC8XX/LPC8XX_mrt_old.h"
+
 #endif

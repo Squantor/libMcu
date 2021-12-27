@@ -428,4 +428,6 @@ static inline void AdcSetTrim(LPC_ADC_T *pADC, uint32_t trim) {
   pADC->TRM = trim;
 }
 
+#include "nxp/LPC8XX/LPC82X_adc_old.h"
+
 #endif

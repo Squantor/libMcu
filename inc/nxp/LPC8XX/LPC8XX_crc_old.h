@@ -11,12 +11,6 @@ functions.
 #ifndef LPC8XX_CRC_OLD_H
 #define LPC8XX_CRC_OLD_H
 
-static inline void CrcInit(void) { ClockEnablePeriphClock(SYSCTL_CLOCK_CRC); }
-
-static inline void CrcDeinit(void) {
-  ClockDisablePeriphClock(SYSCTL_CLOCK_CRC);
-}
-
 static inline void CrcSetPoly(CRC_POLY_T poly, uint32_t flags) {
   CRC->MODE = (uint32_t)poly | flags;
 }

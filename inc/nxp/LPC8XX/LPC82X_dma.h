@@ -494,4 +494,6 @@ static inline bool DmaSetupTranChannel(LPC_DMA_Type *pDMA, DMA_CHID_T ch,
   return true;
 }
 
+#include "nxp/LPC8XX/LPC82X_dma_old.h"
+
 #endif

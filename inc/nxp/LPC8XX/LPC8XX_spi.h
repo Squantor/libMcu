@@ -338,4 +338,6 @@ static inline void SpiSetDelay(SPI_Type *pSPI, uint32_t delayBits) {
   pSPI->DLY = delayBits;
 }
 
+#include "nxp/LPC8XX/LPC8XX_spi_old.h"
+
 #endif
