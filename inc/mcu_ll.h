@@ -6,7 +6,7 @@
  */
 /*
 Main entry point, one giant list of microcontroller targets that are supported.
-Keep this header as small as possible, warnings definitions keep them in the 
+Keep this header as small as possible, warnings definitions keep them in the
 MCU specific headers.
 */
 #ifndef MCU_LL_H
@@ -40,6 +40,8 @@ extern "C" {
 #include <nxp/LPC845M301BD48.h>
 #elif defined(MCU_LPC844M201BD64)
 #include <nxp/LPC844M201BD64.h>
+#elif defined(MCU_STM32F030K6)
+#include <st/STM32F030K6.h>
 #elif defined(MCU_CortexM0)
 #include <generic/CortexM0.h>
 #elif defined(MCU_CortexM0plus)
@@ -50,7 +52,6 @@ extern "C" {
 #include <generic/CortexM4.h>
 #elif defined(MCU_CortexM7)
 #include <generic/CortexM7.h>
-
 #else
 #error "Unknown or unsupported microcontroller defined, use MCU_Microcontroller"
 #endif
