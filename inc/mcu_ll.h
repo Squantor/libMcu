@@ -42,6 +42,8 @@ extern "C" {
 #include <nxp/LPC844M201BD64.h>
 #elif defined(MCU_STM32F030K6)
 #include <st/STM32F030K6.h>
+#elif defined(MCU_STM32F031K6)
+#include <st/STM32F031K6.h>
 #elif defined(MCU_CortexM0)
 #include <generic/CortexM0.h>
 #elif defined(MCU_CortexM0plus)
