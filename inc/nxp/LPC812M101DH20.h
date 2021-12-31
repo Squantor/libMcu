@@ -86,7 +86,7 @@ typedef enum {
 
 /* AHB peripherals */
 #define CRC_BASE (0x50000000UL)
-#define SCT_BASE (0x50004000UL)
+#define SCT0_BASE (0x50004000UL)
 
 #define GPIO_BASE (0xA0000000UL)
 #define PIN_INT_BASE (0xA0004000UL)
@@ -101,7 +101,7 @@ typedef enum {
 #define WKT ((WKT_Type *)WKT_BASE)
 #define PMU ((PMU_Type *)PMU_BASE)
 #define CRC ((CRC_Type *)CRC_BASE)
-#define SCT ((SCT_Type *)SCT_BASE)
+#define SCT0 ((SCT_Type *)SCT0_BASE)
 #define GPIO ((GPIO_Type *)GPIO_BASE)
 #define PININT ((PIN_INT_Type *)PIN_INT_BASE)
 #define IOCON ((IOCON_Type *)IOCON_BASE)
