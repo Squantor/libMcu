@@ -148,34 +148,8 @@ typedef volatile struct {
 
 } SCT_Type;
 
-/* Reserved bits masks for registers */
-//#define SCT_CONFIG_RESERVED (0xfff80000)
-//#define SCT_CTRL_RESERVED ((7 << 13) | (7u << 29))
-//#define SCT_CTRL_L_RESERVED (7 << 13)
-//#define SCT_CTRL_H_RESERVED (7 << 13)
-#define SCT_LIMIT_RESERVED              (~(0x3f|(0x3f<<16))
-#define SCT_HALT_RESERVED               (~(0x3f|(0x3f<<16))
-#define SCT_STOP_RESERVED               (~(0x3f|(0x3f<<16))
-#define SCT_START_RESERVED              (~(0x3f|(0x3f<<16))
-#define SCT_STATE_RESERVED              (~(0x1f|(0x1f<<16))
-#define SCT_INPUT_RESERVED              (~(0xf|(0xf<<16))
-#define SCT_REGMODE_RESERVED            (~(0x1f|(0x1f<<16))
-#define SCT_OUTPUT_RESERVED (~0xf)
-#define SCT_OUTPUTDIRCTRL_RESERVED (~0xff)
-#define SCT_RES_RESERVED (~0xff)
-#define SCT_EVEN_RESERVED (~0x3f)
-#define SCT_EVFLAG_RESERVED (~0x3f)
-#define SCT_CONEN_RESERVED (~0xf)
-#define SCT_CONFLAG_RESERVED (~(0xf | (3u << 30)))
-#define SCT_CAPCTRL_RESERVED (~(0x3f | (0x3f << 16)))
-#define SCT_EVn_STATE_RESERVED (~3)
-#define SCT_EVn_CTRL_RESERVED (0xff800000)
-#define SCT_OUTn_SET_RESERVED (~0x3f)
-#define SCT_OUTn_CLR_RESERVED (~0x3f)
+/* Macro defines for SCT configuration register */
 
-/*
- * Macro defines for SCT configuration register
- */
 #define SCT_CONFIG_RESERVED \
   (0xFFF9E000) /*!< Reserved bits of SCT config register */
 #define SCT_CONFIG_16BIT_COUNTER               \
@@ -190,20 +164,6 @@ typedef volatile struct {
   (0x2 << 1)                                /*!< SCTimer/PWM input clock mode \
                                              */
 #define SCT_CONFIG_CLKMODE_ASYNC (0x3 << 1) /*!< Asynchronous clock mode */
-typedef enum {
-  SCT_CONFIG_CKSEL_RISE_IN0 = 0x0, /*!< Rising edges on input0 */
-  SCT_CONFIG_CKSEL_FALL_IN0 = 0x1, /*!< Falling edges on input0 */
-  SCT_CONFIG_CKSEL_RISE_IN1 = 0x0, /*!< Rising edges on input1 */
-  SCT_CONFIG_CKSEL_FALL_IN1 = 0x1, /*!< Falling edges on input1 */
-  SCT_CONFIG_CKSEL_RISE_IN2 = 0x0, /*!< Rising edges on input2 */
-  SCT_CONFIG_CKSEL_FALL_IN2 = 0x1, /*!< Falling edges on input2 */
-  SCT_CONFIG_CKSEL_RISE_IN3 = 0x0, /*!< Rising edges on input3 */
-  SCT_CONFIG_CKSEL_FALL_IN3 = 0x1, /*!< Falling edges on input3 */
-  SCT_CONFIG_CKSEL_RISE_IN4 =
-      0x0, /*!< Rising edges on input4. Clock selected by SYSCON SCTCLKSEL */
-  SCT_CONFIG_CKSEL_FALL_IN4 =
-      0x1, /*!< Falling edges on input4. Clock selected by SYSCON SCTCLKSEL */
-} SCT_CONFIG_CKSEL_Type;
 #define SCT_CONFIG_CKSEL(clock) \
   ((clock) << 3) /*!< input to select for the clock mode */
 #define SCT_CONFIG_NORELOAD_U (0x1 << 7) /*!< Prevent match register reload */
@@ -226,9 +186,19 @@ typedef enum {
 #define SCT_CONFIG_AUTOLIMIT_H \
   (0x1 << 18) /*!< Limits counter(L) based on MATCH0 */
 
-/*
- * Macro defines for SCT control register
- */
+typedef enum {
+  SCT_CONFIG_CKSEL_RISE_IN0 = 0x0, /*!< Rising edges on input0 */
+  SCT_CONFIG_CKSEL_FALL_IN0 = 0x1, /*!< Falling edges on input0 */
+  SCT_CONFIG_CKSEL_RISE_IN1 = 0x2, /*!< Rising edges on input1 */
+  SCT_CONFIG_CKSEL_FALL_IN1 = 0x3, /*!< Falling edges on input1 */
+  SCT_CONFIG_CKSEL_RISE_IN2 = 0x4, /*!< Rising edges on input2 */
+  SCT_CONFIG_CKSEL_FALL_IN2 = 0x5, /*!< Falling edges on input2 */
+  SCT_CONFIG_CKSEL_RISE_IN3 = 0x6, /*!< Rising edges on input3 */
+  SCT_CONFIG_CKSEL_FALL_IN3 = 0x7, /*!< Falling edges on input3 */
+} SCT_CONFIG_CKSEL_Type;
+
+/* Macro defines for SCT control register */
+
 #define SCT_CTRL_RESERVED \
   (0xE000E000) /*!< Reserved bits of SCT Control register */
 #define SCT_CTRL_L_RESERVED \
@@ -258,69 +228,75 @@ typedef enum {
 #define SCT_CTRL_PRE_H(x) \
   (((x)&0xFF) << 21) /*!< Prescale clock for high counter */
 
-/*
- * Defines for the SCT event control register
- */
-#define SCT_EV_CTRL_MATCHSEL(x) (((x)&0x0F) << 0)
-#define SCT_EV_CTRL_H_EVENT (1 << 4)
-#define SCT_EV_CTRL_INSEL (0 << 5)
-#define SCT_EV_CTRL_OUTSEL (1 << 5)
-#define SCT_EV_CTRL_IOSEL(x) (((x)&0x0F) << 6)
-#define SCT_IOCOND_LOW (0)
-#define SCT_IOCOND_RISE (1)
-#define SCT_IOCOND_FALL (2)
-#define SCT_IOCOND_HIGH (3)
-#define SCT_EV_CTRL_IOCOND(x) (((x)&0x03) << 10)
-#define SCT_COMBMODE_OR (0)
-#define SCT_COMBMODE_MATCH (1)
-#define SCT_COMBMODE_IO (2)
-#define SCT_COMBMODE_AND (3)
-#define SCT_EV_CTRL_COMBMODE(x) (((x)&0x03) << 12)
-#define SCT_EV_CTRL_STATELD_ADD (0 << 14)
-#define SCT_EV_CTRL_STATELD_LOAD (1 << 14)
-#define SCT_EV_CTRL_STATEV(x) (((x)&0x1F) << 15)
-#define SCT_EV_CTRL_MATCHMEM (1 << 20)
-#define SCT_EV_CTRL_DIRECTION_IND (0)
-#define SCT_EV_CTRL_DIRECTION_UP (1)
-#define SCT_EV_CTRL_DIRECTION_DOWN (2)
-#define SCT_EV_CTRL_DIRECTION(x) (((x)&0x03) << 21)
-
-/**
-Definitions for the Match/Compare mode register
- */
+/* Defines for the SCT limit register */
+/* Defines for the SCT halt condition register */
+/* Defines for the SCT stop condition register */
+/* Defines for the SCT start condition register */
+/* Defines for the SCT count register */
+/* Defines for the SCT state register */
+/* Defines for the SCT input register */
+/* Defines for the SCT match/capture registers mode register */
+#define SCT_REGMODE_RESERVED (0xFFE0FFE0) /*!< Event control reserved bits */
 #define SCT_REGMODE_MATCH (0)
 #define SCT_REGMODE_CAPTURE (1)
 #define SCT_REGMODE_U(n, x) ((x) << (n))
 #define SCT_REGMODE_L(n, x) ((x) << (n))
 #define SCT_REGMODE_H(n, x) ((x) << ((n) + 15))
+/* Defines for the SCT output register */
+#define SCT_OUTPUT_STATE(n, x) ((x) << (n)) /*!< Set output n to state x */
+/* Defines for the SCT output counter direction control register */
+#define SCT_OUTPUTDIRCTRL(n, x) \
+  ((x) << ((n)*2)) /*!< set counter direction control for output channel n */
 
-/*
-Definitions for the output conflict resolution register
- */
+typedef enum {
+  SCT_OUTPUTDIRCTRL_ANY = 0x0,     /*!< no dependency on any counter */
+  SCT_OUTPUTDIRCTRL_L_COUNT = 0x1, /*!< L counting down */
+  SCT_OUTPUTDIRCTRL_H_COUNT = 0x2, /*!< H counting down */
+} SCT_OUTPUTDIRCTRL_Type;
+
+/* Defines for the SCT conflict resolution register */
 #define SCT_CONFLICTRES_NONE (0)
 #define SCT_CONFLICTRES_SET (1)
 #define SCT_CONFLICTRES_CLEAR (2)
 #define SCT_CONFLICTRES_TOGGLE (3)
 #define SCT_CONFLICTRES(n, x) ((x) << ((n)*2))
+/* Defines for the SCT event enable register */
+#define SCT_EVEN_RESERVED (0xFFFFFFE0) /*!< event flag enable reserved bits */
+/* Defines for the SCT event flag register */
+/* Defines for the SCT conflict enable register */
+/* Defines for the SCT conflict flag register */
+/* Defines for the SCT event state register */
+/* Defines for the SCT event control register */
+#define SCT_EV_CTRL_RESERVED (0xFF800000) /*!< Event control reserved bits */
+#define SCT_EV_CTRL_MATCHSEL(x) (((x)&0x0F) << 0)   /*!< */
+#define SCT_EV_CTRL_H_EVENT (1 << 4)                /*!< */
+#define SCT_EV_CTRL_INSEL (0 << 5)                  /*!< */
+#define SCT_EV_CTRL_OUTSEL (1 << 5)                 /*!< */
+#define SCT_EV_CTRL_IOSEL(x) (((x)&0x0F) << 6)      /*!< */
+#define SCT_EV_CTRL_IOCOND(x) (((x)&0x03) << 10)    /*!< */
+#define SCT_EV_CTRL_COMBMODE(x) (((x)&0x03) << 12)  /*!< */
+#define SCT_EV_CTRL_STATELD_ADD (0 << 14)           /*!< */
+#define SCT_EV_CTRL_STATELD_LOAD (1 << 14)          /*!< */
+#define SCT_EV_CTRL_STATEV(x) (((x)&0x1F) << 15)    /*!< */
+#define SCT_EV_CTRL_MATCHMEM (1 << 20)              /*!< */
+#define SCT_EV_CTRL_DIRECTION_IND (0)               /*!< */
+#define SCT_EV_CTRL_DIRECTION_UP (1)                /*!< */
+#define SCT_EV_CTRL_DIRECTION_DOWN (2)              /*!< */
+#define SCT_EV_CTRL_DIRECTION(x) (((x)&0x03) << 21) /*!< */
 
-/*
-Definitions for the output direction control register
-*/
-#define SCT_OUTPUTDIRCTRL_ANY \
-  (0) /* Any, set and clear do not depend on counter */
-#define SCT_OUTPUTDIRCTRL_L                                                  \
-  (1) /* L counting down, set and clear are reversed when L is counting down \
-       */
-#define SCT_OUTPUTDIRCTRL_H                                                  \
-  (2) /* H counting down, set and clear are reversed when H is counting down \
-       */
-#define SCT_OUTPUTDIRCTRL(n, x) \
-  ((x) << ((n)*2)) /* set output direction control for channel n */
+typedef enum {
+  SCT_EV_CTRL_IOCOND_LOW = 0x0,  /*!< I/O low level */
+  SCT_EV_CTRL_IOCOND_RISE = 0x1, /*!< I/O rising edge */
+  SCT_EV_CTRL_IOCOND_FALL = 0x2, /*!< I/O falling edge */
+  SCT_EV_CTRL_IOCOND_HIGH = 0x3, /*!< I/O high level */
+} SCT_EV_CTRL_IOCOND_Type;
 
-/*
-Definitions for the SCT output register
-*/
-#define SCT_OUTPUT_STATE(n, x) ((x) << (n))
+typedef enum {
+  SCT_EV_CTRL_COMBMODE_OR = 0x0,    /*!< Match or I/O */
+  SCT_EV_CTRL_COMBMODE_MATCH = 0x1, /*!< Match only */
+  SCT_EV_CTRL_COMBMODE_IO = 0x2,    /*!< I/O only */
+  SCT_EV_CTRL_COMBMODE_AND = 0x3,   /*!< Match and I/O */
+} SCT_EV_CTRL_COMBMODE_Type;
 
 /**
  * SCT Match register values enum, TODO: move to device specifics
