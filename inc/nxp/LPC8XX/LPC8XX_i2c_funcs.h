@@ -24,45 +24,38 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 For more information, please refer to <http://unlicense.org>
 */
-/* 
+/*
 LPC800 series common I2C bus registers, defines and functions.
 */
 #ifndef LPC8XX_I2C_FUNCS_H
 #define LPC8XX_I2C_FUNCS_H
 
-static inline void I2cSetClockDiv(I2C_Type *pI2C, uint32_t clkdiv)
-{
-    if ((clkdiv >= 1) && (clkdiv <= 65536)) {
-        pI2C->CLKDIV = clkdiv - 1;
-    }
-    else {
-        pI2C->CLKDIV = 0;
-    }
+static inline void I2cSetClockDiv(I2C_Type *pI2C, uint32_t clkdiv) {
+  if ((clkdiv >= 1) && (clkdiv <= 65536)) {
+    pI2C->CLKDIV = clkdiv - 1;
+  } else {
+    pI2C->CLKDIV = 0;
+  }
 }
 
-static inline uint32_t I2cGetClockDiv(I2C_Type *pI2C)
-{
-    return (pI2C->CLKDIV & 0xFFFF) + 1;
+static inline uint32_t I2cGetClockDiv(I2C_Type *pI2C) {
+  return (pI2C->CLKDIV & 0xFFFF) + 1;
 }
 
-static inline void I2cEnableInt(I2C_Type *pI2C, uint32_t intEn)
-{
-    pI2C->INTENSET = intEn;
+static inline void I2cEnableInt(I2C_Type *pI2C, uint32_t intEn) {
+  pI2C->INTENSET = intEn;
 }
 
-static inline void I2cDisableInt(I2C_Type *pI2C, uint32_t intClr)
-{
-    pI2C->INTENCLR = intClr;
+static inline void I2cDisableInt(I2C_Type *pI2C, uint32_t intClr) {
+  pI2C->INTENCLR = intClr;
 }
 
-static inline void I2cClearInt(I2C_Type *pI2C, uint32_t intClr)
-{
-    I2cDisableInt(pI2C, intClr);
+static inline void I2cClearInt(I2C_Type *pI2C, uint32_t intClr) {
+  I2cDisableInt(pI2C, intClr);
 }
 
-static inline uint32_t I2cGetPendingInt(I2C_Type *pI2C)
-{
-    return pI2C->INTSTAT & ~I2C_INTSTAT_RESERVED;
+static inline uint32_t I2cGetPendingInt(I2C_Type *pI2C) {
+  return pI2C->INTSTAT & ~I2C_INTSTAT_RESERVED;
 }
 
 #endif
