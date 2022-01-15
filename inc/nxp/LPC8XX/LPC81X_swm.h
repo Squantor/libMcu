@@ -63,50 +63,42 @@ typedef enum {
 } SWM_PORTPIN_Type;
 
 typedef enum SWM_PIN_MOVABLE {
-  SWM_USART0_TXD_O = 0U, /*!< UART0 TXD Output */
-  SWM_USART0_RXD_I = 1U, /*!< UART0 RXD Input */
-  SWM_USART0_RTS_O = 2U, /*!< UART0 RTS Output */
-  SWM_USART0_CTS_I = 3U, /*!< UART0 CTS Input */
-
-  SWM_USART0_SCLK_IO = 4U, /*!< UART0 SCLK I/O */
-  SWM_USART1_TXD_O = 5U,   /*!< UART1 TXD Output */
-  SWM_USART1_RXD_I = 6U,   /*!< UART1 RXD Input */
-  SWM_USART1_RTS_O = 7U,   /*!< UART1 RTS Output */
-
-  SWM_USART1_CTS_I = 8U,   /*!< UART1 CTS Input */
-  SWM_USART1_SCLK_IO = 9U, /*!< UART1 SCLK I/O */
-  SWM_USART2_TXD_O = 10U,  /*!< UART2 TXD Output */
-  SWM_USART2_RXD_I = 11U,  /*!< UART2 RXD Input */
-
-  SWM_USART2_RTS_O = 12U,   /*!< UART2 RTS Output */
-  SWM_USART2_CTS_I = 13U,   /*!< UART2 CTS Input */
-  SWM_USART2_SCLK_IO = 14U, /*!< UART2 SCLK I/O */
-  SWM_SPI0_SCK_IO = 15U,    /*!< SPI0 SCK I/O */
-
-  SWM_SPI0_MOSI_IO = 16U, /*!< SPI0 MOSI I/O */
-  SWM_SPI0_MISO_IO = 17U, /*!< SPI0 MISO I/O */
-  SWM_SPI0_SSEL_IO = 18U, /*!< SPI0 SSEL I/O */
-  SWM_SPI1_SCK_IO = 19U,  /*!< SPI1 SCK I/O */
-
-  SWM_SPI1_MOSI_IO = 20U, /*!< SPI1 MOSI I/O */
-  SWM_SPI1_MISO_IO = 21U, /*!< SPI1 MISO I/O */
-  SWM_SPI1_SSEL_IO = 22U, /*!< SPI1 SSEL I/O */
-  SWM_SCT_IN_0_I = 23U,   /*!< SCT Input 0*/
-
-  SWM_SCT_IN_1_I = 24U,  /*!< SCT Input 1*/
-  SWM_SCT_IN_2_I = 25U,  /*!< SCT Input 2*/
-  SWM_SCT_IN_3_I = 26U,  /*!< SCT Input 3*/
-  SWM_SCT_OUT_0_O = 27U, /*!< SCT Output 0*/
-
-  SWM_SCT_OUT_1_O = 28U, /*!< SCT Output 1*/
-  SWM_SCT_OUT_2_O = 29U, /*!< SCT Output 2*/
-  SWM_SCT_OUT_3_O = 30U, /*!< SCT Output 3*/
-  SWM_I2C_SDA_IO = 31U,  /*!< I2C SDA I/O */
-
-  SWM_I2C_SCL_IO = 32U,      /*!< I2C SCL I/O */
-  SWM_ACMP_O_O = 33U,        /*!< ACMP Output */
-  SWM_CLKOUT_O = 34U,        /*!< CLKOUT Output */
-  SWM_GPIO_INT_BMAT_O = 35U, /*!< GPIO INT BMAT Output */
+  SWM_USART0_TXD = 0U,     /*!< UART0 TXD Output */
+  SWM_USART0_RXD = 1U,     /*!< UART0 RXD Input */
+  SWM_USART0_RTS = 2U,     /*!< UART0 RTS Output */
+  SWM_USART0_CTS = 3U,     /*!< UART0 CTS Input */
+  SWM_USART0_SCLK = 4U,    /*!< UART0 SCLK I/O */
+  SWM_USART1_TXD = 5U,     /*!< UART1 TXD Output */
+  SWM_USART1_RXD = 6U,     /*!< UART1 RXD Input */
+  SWM_USART1_RTS = 7U,     /*!< UART1 RTS Output */
+  SWM_USART1_CTS = 8U,     /*!< UART1 CTS Input */
+  SWM_USART1_SCLK = 9U,    /*!< UART1 SCLK I/O */
+  SWM_USART2_TXD = 10U,    /*!< UART2 TXD Output */
+  SWM_USART2_RXD = 11U,    /*!< UART2 RXD Input */
+  SWM_USART2_RTS = 12U,    /*!< UART2 RTS Output */
+  SWM_USART2_CTS = 13U,    /*!< UART2 CTS Input */
+  SWM_USART2_SCLK = 14U,   /*!< UART2 SCLK I/O */
+  SWM_SPI0_SCK = 15U,      /*!< SPI0 SCK I/O */
+  SWM_SPI0_MOSI = 16U,     /*!< SPI0 MOSI I/O */
+  SWM_SPI0_MISO = 17U,     /*!< SPI0 MISO I/O */
+  SWM_SPI0_SSEL = 18U,     /*!< SPI0 SSEL I/O */
+  SWM_SPI1_SCK = 19U,      /*!< SPI1 SCK I/O */
+  SWM_SPI1_MOSI = 20U,     /*!< SPI1 MOSI I/O */
+  SWM_SPI1_MISO = 21U,     /*!< SPI1 MISO I/O */
+  SWM_SPI1_SSEL = 22U,     /*!< SPI1 SSEL I/O */
+  SWM_SCT0_IN_0 = 23U,     /*!< SCT Input 0*/
+  SWM_SCT0_IN_1 = 24U,     /*!< SCT Input 1*/
+  SWM_SCT0_IN_2 = 25U,     /*!< SCT Input 2*/
+  SWM_SCT0_IN_3 = 26U,     /*!< SCT Input 3*/
+  SWM_SCT0_OUT_0 = 27U,    /*!< SCT Output 0*/
+  SWM_SCT0_OUT_1 = 28U,    /*!< SCT Output 1*/
+  SWM_SCT0_OUT_2 = 29U,    /*!< SCT Output 2*/
+  SWM_SCT0_OUT_3 = 30U,    /*!< SCT Output 3*/
+  SWM_I2C0_SDA = 31U,      /*!< I2C SDA I/O */
+  SWM_I2C0_SCL = 32U,      /*!< I2C SCL I/O */
+  SWM_ACMP_O = 33U,        /*!< ACMP Output */
+  SWM_CLKOUT = 34U,        /*!< CLKOUT Output */
+  SWM_GPIO_INT_BMAT = 35U, /*!< GPIO INT BMAT Output */
 } SWM_MOVABLE_Type;
 
 typedef enum SWM_PIN_FIXED {
