@@ -10,20 +10,16 @@ LPC800 series common IOCON registers, defines and functions.
 #ifndef LPC8XX_IOCON_H
 #define LPC8XX_IOCON_H
 
-typedef volatile struct { uint32_t PIO[31]; } IOCON_Type;
+// typedef volatile struct { uint32_t PIO[31]; } IOCON_Type;
 
-#define IOCON_RESERVED_PRESET                                                 \
-  (0x00000080u) /**< Reserved settings for IOCON register, some reserved bits \
+#define IOCON_RESERVED_PRESET                                                  \
+  (0x00000080u) /**< Reserved settings for IOCON register, some reserved bits  \
                    are set. */
-#define IOCON_RESERVED_MASK                                                   \
-  (0x0000FF78u) /**< Masking off reserved pins so they do not accidentaly get \
-                   set */
-
 typedef enum {
-  PIN_INACTIVE = 0, /**< Pin inactive, no pullup/down resistor enabled */
-  PULLDOWN = 1,     /**< Pulldown resistor enabled */
-  PULLUP = 2,       /**< Pullup resistor enabled */
-  REPEATER = 3,     /**< Repeater mode */
+  IOCON_MODE_INACTIVE = 0, /**< Pin inactive, no pullup/down resistor enabled */
+  IOCON_MODE_PULLDOWN = 1, /**< Pulldown resistor enabled */
+  IOCON_MODE_PULLUP = 2,   /**< Pullup resistor enabled */
+  IOCON_MODE_REPEATER = 3, /**< Repeater mode */
 } IOCON_MODE_Type;
 #define IOCON_MODE(value) ((value & 3) << 2) /**< function mode select*/
 
@@ -36,7 +32,7 @@ typedef enum {
   IOCON_I2CMODE_FAST = 2, /**< Fast-mode Plus I2C */
 } IOCON_I2CMODE_Type;
 
-#define IOCON_I2CMODE(value) \
+#define IOCON_I2CMODE(value)                                                   \
   ((value & 0x03) << 8) /**< dedicated I2C pin mode */
 
 #define IOCON_OD(value) (value << 10) /**< Open drain mode */
@@ -49,7 +45,7 @@ typedef enum {
   IOCON_S_MODE_3CLOCK = 3, /**< Pulses shorter then 3 clocks are rejected */
 } IOCON_S_MODE_Type;
 
-#define IOCON_S_MODE(value) \
+#define IOCON_S_MODE(value)                                                    \
   ((value & 0x03) << 11) /**< Digital filter sample mode */
 
 /* Select peripheral clock divider for input filter sampling clock. */
@@ -63,7 +59,7 @@ typedef enum {
   IOCON_CLK_DIV_6 = 6, /**< Clock division of zero */
 } IOCON_CLK_DIV_Type;
 
-#define IOCON_CLK_DIV(value) \
+#define IOCON_CLK_DIV(value)                                                   \
   ((value & 0x03) << 13) /**< Clock divider select for input filter */
 
 /**

@@ -16,9 +16,6 @@ typedef volatile struct IOCON_Struct {
                   for pins PIO1_10, array offset: 0x0, array step: 0x4 */
 } IOCON_Type;
 
-#define IOCON_RESERVED_PRESET                                               \
-  (0x00000080u) /**< Default setting for IOCON register, some reserved bits \
-                   are set. */
 #define IOCON_RESERVED_MASK                                                   \
   (0x0001FF78u) /**< Masking off reserved pins so they do not accidentaly get \
                    set */

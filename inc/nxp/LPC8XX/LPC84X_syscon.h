@@ -123,19 +123,19 @@ typedef enum {
   SYSPLLCTRL_POSTDIV_16 = 3u, /**< Post PLL division ratio of sixteen */
 } SYSPLLCTRL_PSEL_Type;
 
-#define SYSPLLCTRL_MASK \
+#define SYSPLLCTRL_MASK                                                        \
   0xFFFFFF80 /**< Reserved bits of the System PLL control register */
 
-#define SYSOSCCTRL_MASK \
+#define SYSOSCCTRL_MASK                                                        \
   0xFFFFFFFC /**< Reserved bits of System oscillator control register */
-#define SYSOSCCTRL_BYPASS \
+#define SYSOSCCTRL_BYPASS                                                      \
   (1 << 0) /**< Oscillator is bypassed, used with external oscillator */
-#define SYSOSCCTRL_FREQ_1_20MHZ \
+#define SYSOSCCTRL_FREQ_1_20MHZ                                                \
   (0 << 1) /**< Oscillator frequency range from 1 to 20MHz */
-#define SYSOSCCTRL_FREQ_15_25MHZ \
+#define SYSOSCCTRL_FREQ_15_25MHZ                                               \
   (1 << 1) /**< Oscillator frequency range from 15 to 25MHz */
 
-#define SYSPLLCLKSEL_MASK \
+#define SYSPLLCLKSEL_MASK                                                      \
   0xFFFFFFFC /**< Reserved bits of the Main clock pll select register */
 typedef enum {
   SYSPLLCLKSEL_FRO = 0u,      /**< System oscillator (crystal oscillator) */
@@ -144,24 +144,24 @@ typedef enum {
   SYSPLLCLKSEL_FRO_DIV = 3u   /**< FRO divided by two */
 } SYSPLLCLKSEL_Type;
 
-#define SYSPLLCLKUEN_MASK                                                    \
-  0xFFFFFFFE /**< Reserved bits of the main clock pll select update register \
+#define SYSPLLCLKUEN_MASK                                                      \
+  0xFFFFFFFE /**< Reserved bits of the main clock pll select update register   \
               */
 #define SYSPLLCLKUEN_UPDATE (1 << 0) /**< Update main clock pll select */
 
-#define MAINCLKPLLSEL_MASK \
+#define MAINCLKPLLSEL_MASK                                                     \
   0xFFFFFFFC /**< Reserved bits of the Main clock pll select register */
 typedef enum {
   MAINCLKPLLSEL_PREPLL = 0u, /**< Pre PLL */
   MAINCLKPLLSEL_SYSPLL = 1u, /**< System PLL */
 } MAINCLKPLLSEL_Type;
 
-#define MAINCLKPLLUEN_MASK                                                   \
-  0xFFFFFFFE /**< Reserved bits of the main clock pll select update register \
+#define MAINCLKPLLUEN_MASK                                                     \
+  0xFFFFFFFE /**< Reserved bits of the main clock pll select update register   \
               */
 #define MAINCLKPLLUEN_UPDATE (1 << 0) /**< Update main clock pll select */
 
-#define MAINCLKSEL_MASK \
+#define MAINCLKSEL_MASK                                                        \
   0xFFFFFFF8 /**< Reserved bits of the main clock source select register */
 typedef enum {
   MAINCLKSEL_FRO = 0u,      /**< System oscillator (crystal oscillator) */
@@ -170,11 +170,11 @@ typedef enum {
   MAINCLKSEL_FRO_DIV = 3u   /**< FRO divided by two */
 } MAINCLOCKSEL_Type;
 
-#define MAINCLKUEN_MASK \
+#define MAINCLKUEN_MASK                                                        \
   0xFFFFFFFE /**< Reserved bits of the main clock source update register */
 #define MAINCLKUEN_UPDATE (1 << 0) /**< Update main clock source */
 
-#define SYSAHBCLKDIV_MASK \
+#define SYSAHBCLKDIV_MASK                                                      \
   0xFFFFFF00 /**< Reserved bits of the system clock divider register */
 
 typedef enum {
@@ -329,46 +329,10 @@ typedef enum {
   PDRUNCFG_ACMP = (1 << 15),
 } PDCFG_Type;
 
-#define PDRUNCFG_DEFAULT \
+#define PDRUNCFG_DEFAULT                                                       \
   0x0000EDF8 /**< Default configuration for Powerdown register */
-#define PDRUNCFG_MASK \
+#define PDRUNCFG_MASK                                                          \
   0xFFFF1F00 /**< Default configuration for Powerdown register */
-
-/**
- * @brief   Sets up system PLL
- * @param   peripheral  base address of SYSCON peripheral
- * @param   msel        Feedback divider value
- * @param   psel        Post divider ratio
- * @return  Nothing
- */
-static inline void sysconPllControl(SYSCON_Type *peripheral, uint32_t msel,
-                                    SYSPLLCTRL_PSEL_Type psel) {
-  peripheral->SYSPLLCTRL =
-      (peripheral->SYSPLLCTRL & SYSPLLCTRL_MASK) | msel | (psel << 5);
-}
-
-/**
- * @brief   Sets up system PLL
- * @param   peripheral  base address of SYSCON peripheral
- * @return  PLL status, zero is not locked, one is locked
- */
-static inline uint32_t sysconPllStatus(SYSCON_Type *peripheral) {
-  return peripheral->SYSPLLSTAT;
-}
-
-/**
- * @brief   Select System clock clock source
- * @param   peripheral  base address of SYSCON peripheral
- * @param   source      Clock source of the main clock network
- * @return  Nothing
- */
-static inline void sysconSysPllClockSelect(SYSCON_Type *peripheral,
-                                           SYSPLLCLKSEL_Type setting) {
-  peripheral->SYSPLLCLKSEL =
-      (peripheral->MAINCLKSEL & SYSPLLCLKSEL_MASK) | setting;
-  peripheral->SYSPLLCLKUEN = peripheral->MAINCLKUEN & ~SYSPLLCLKUEN_UPDATE;
-  peripheral->SYSPLLCLKUEN = peripheral->MAINCLKUEN | SYSPLLCLKUEN_UPDATE;
-}
 
 /**
  * @brief   Select system pll clock source
@@ -382,31 +346,6 @@ static inline void sysconMainClockPllSelect(SYSCON_Type *peripheral,
       (peripheral->MAINCLKSEL & MAINCLKPLLSEL_MASK) | setting;
   peripheral->MAINCLKPLLUEN = peripheral->MAINCLKUEN & ~MAINCLKPLLUEN_UPDATE;
   peripheral->MAINCLKPLLUEN = peripheral->MAINCLKUEN | MAINCLKPLLUEN_UPDATE;
-}
-
-/**
- * @brief   Select main clock source
- * @param   peripheral  base address of SYSCON peripheral
- * @param   source      Clock source of the main clock network
- * @return  Nothing
- */
-static inline void sysconMainClockSelect(SYSCON_Type *peripheral,
-                                         MAINCLOCKSEL_Type setting) {
-  peripheral->MAINCLKSEL = (peripheral->MAINCLKSEL & MAINCLKSEL_MASK) | setting;
-  peripheral->MAINCLKUEN = peripheral->MAINCLKUEN & ~MAINCLKUEN_UPDATE;
-  peripheral->MAINCLKUEN = peripheral->MAINCLKUEN | MAINCLKUEN_UPDATE;
-}
-
-/**
- * @brief   Set main clock divider
- * @param   peripheral  base address of SYSCON peripheral
- * @param   divider     Divider value, 0 is disable, 1 is divide by 1
- * @return  Nothing
- */
-static inline void sysconMainClockDivider(SYSCON_Type *peripheral,
-                                          uint32_t divider) {
-  peripheral->SYSAHBCLKDIV =
-      (peripheral->SYSAHBCLKDIV & SYSAHBCLKDIV_MASK) | divider;
 }
 
 /**
