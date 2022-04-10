@@ -12,8 +12,8 @@ LPC800 series common IOCON registers, defines and functions.
 
 // typedef volatile struct { uint32_t PIO[31]; } IOCON_Type;
 
-#define IOCON_RESERVED_PRESET                                                  \
-  (0x00000080u) /**< Reserved settings for IOCON register, some reserved bits  \
+#define IOCON_RESERVED_PRESET                                                 \
+  (0x00000080u) /**< Reserved settings for IOCON register, some reserved bits \
                    are set. */
 typedef enum {
   IOCON_MODE_INACTIVE = 0, /**< Pin inactive, no pullup/down resistor enabled */
@@ -32,10 +32,9 @@ typedef enum {
   IOCON_I2CMODE_FAST = 2, /**< Fast-mode Plus I2C */
 } IOCON_I2CMODE_Type;
 
-#define IOCON_I2CMODE(value)                                                   \
-  ((value & 0x03) << 8) /**< dedicated I2C pin mode */
+#define IOCON_I2CMODE(value) ((value & 0x03) << 8) /**< dedicated I2C pin mode */
 
-#define IOCON_OD(value) (value << 10) /**< Open drain mode */
+#define IOCON_OD(value) ((value & 1) << 10) /**< Open drain mode */
 
 /* Iocon input filter settings */
 typedef enum {
@@ -45,8 +44,7 @@ typedef enum {
   IOCON_S_MODE_3CLOCK = 3, /**< Pulses shorter then 3 clocks are rejected */
 } IOCON_S_MODE_Type;
 
-#define IOCON_S_MODE(value)                                                    \
-  ((value & 0x03) << 11) /**< Digital filter sample mode */
+#define IOCON_S_MODE(value) ((value & 0x03) << 11) /**< Digital filter sample mode */
 
 /* Select peripheral clock divider for input filter sampling clock. */
 typedef enum {
@@ -59,8 +57,7 @@ typedef enum {
   IOCON_CLK_DIV_6 = 6, /**< Clock division of zero */
 } IOCON_CLK_DIV_Type;
 
-#define IOCON_CLK_DIV(value)                                                   \
-  ((value & 0x03) << 13) /**< Clock divider select for input filter */
+#define IOCON_CLK_DIV(value) ((value & 0x03) << 13) /**< Clock divider select for input filter */
 
 /**
  * @brief   Setup IOCON pin setting in one go
@@ -69,11 +66,8 @@ typedef enum {
  * @param   settings    : Settings to apply to IOCON pin
  * @return  Nothing
  */
-static inline void ioconSetupPin(IOCON_Type *peripheral,
-                                 const IOCON_PIN_Type pin,
-                                 const uint32_t settings) {
-  peripheral->PIO[pin] =
-      (settings & IOCON_RESERVED_MASK) | IOCON_RESERVED_PRESET;
+static inline void ioconSetupPin(IOCON_Type *peripheral, const IOCON_PIN_Type pin, const uint32_t settings) {
+  peripheral->PIO[pin] = (settings & IOCON_RESERVED_MASK) | IOCON_RESERVED_PRESET;
 }
 
 #endif
