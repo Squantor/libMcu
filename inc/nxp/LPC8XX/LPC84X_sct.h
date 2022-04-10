@@ -10,6 +10,10 @@
 #ifndef LPC84X_SCT_H
 #define LPC84X_SCT_H
 
+#define CONFIG_SCT_nEV (8) /*!< Number of events */
+#define CONFIG_SCT_nRG (8) /*!< Number of match/compare registers */
+#define CONFIG_SCT_nOU (7) /*!< Number of outputs */
+
 /** SCT - Register Layout Typedef */
 typedef volatile struct SCT_Struct {
   uint32_t CONFIG; /**< SCT configuration register, offset: 0x0 */
