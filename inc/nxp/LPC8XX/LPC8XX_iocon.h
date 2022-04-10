@@ -21,7 +21,7 @@ typedef enum {
   IOCON_MODE_PULLUP = 2,   /**< Pullup resistor enabled */
   IOCON_MODE_REPEATER = 3, /**< Repeater mode */
 } IOCON_MODE_Type;
-#define IOCON_MODE(value) ((value & 3) << 2) /**< function mode select*/
+#define IOCON_MODE(value) ((value & 3) << 3) /**< function mode select*/
 
 #define IOCON_HYST(value) ((value & 1) << 5)   /**< Enable hysterhesis */
 #define IOCON_INVERT(value) ((value & 1) << 6) /**< Invert input enable */
