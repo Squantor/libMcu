@@ -38,7 +38,7 @@ static inline void SctClearControl(SCT_Type *peripheral, const uint32_t value) {
 }
 
 static inline void SctLimitU(SCT_Type *peripheral, const uint32_t value) {
-  peripheral->LIMIT_U = value;
+  peripheral->LIMIT = value;
 }
 
 static inline void SctLimitL(SCT_Type *peripheral, const uint16_t value) {
@@ -50,7 +50,7 @@ static inline void SctLimitH(SCT_Type *peripheral, const uint16_t value) {
 }
 
 static inline void SctHaltU(SCT_Type *peripheral, const uint32_t value) {
-  peripheral->HALT_U = value;
+  peripheral->HALT = value;
 }
 
 static inline void SctHaltL(SCT_Type *peripheral, const uint16_t value) {
@@ -62,7 +62,7 @@ static inline void SctHaltH(SCT_Type *peripheral, const uint16_t value) {
 }
 
 static inline void SctStopU(SCT_Type *peripheral, const uint32_t value) {
-  peripheral->STOP_U = value;
+  peripheral->STOP = value;
 }
 
 static inline void SctStopL(SCT_Type *peripheral, const uint16_t value) {
@@ -74,7 +74,7 @@ static inline void SctStopH(SCT_Type *peripheral, const uint16_t value) {
 }
 
 static inline void SctStartU(SCT_Type *peripheral, const uint32_t value) {
-  peripheral->START_U = value;
+  peripheral->START = value;
 }
 
 static inline void SctStartL(SCT_Type *peripheral, const uint16_t value) {
@@ -86,7 +86,7 @@ static inline void SctStartH(SCT_Type *peripheral, const uint16_t value) {
 }
 
 static inline void SctCountU(SCT_Type *peripheral, const uint32_t count) {
-  peripheral->COUNT_U = count;
+  peripheral->COUNT = count;
 }
 
 static inline void SctCountL(SCT_Type *peripheral, const uint16_t count) {
@@ -98,7 +98,7 @@ static inline void SctCountH(SCT_Type *peripheral, const uint16_t count) {
 }
 
 static inline void SctRegisterModeU(SCT_Type *peripheral, const uint32_t value) {
-  peripheral->REGMODE_U = value;
+  peripheral->REGMODE = value;
 }
 
 static inline void SctRegisterModeL(SCT_Type *peripheral, const uint16_t value) {
@@ -201,7 +201,5 @@ static inline void SctOutput(SCT_Type *peripheral, const uint32_t value) {
 static inline void SctOutputDirCtrl(SCT_Type *peripheral, const uint32_t value) {
   peripheral->OUTPUTDIRCTRL = value;
 }
-
-#include "nxp/LPC8XX/LPC8XX_sct_old.h"
 
 #endif

@@ -12,135 +12,129 @@
 
 /** SCT - Register Layout Typedef */
 typedef volatile struct SCT_Struct {
-  uint32_t CONFIG;    /**< SCT configuration register, offset: 0x0 */
-  union {             /* offset: 0x4 */
-    struct {          /* offset: 0x4 */
-      uint16_t CTRLL; /**< SCT_CTRLL register, offset: 0x4 */
-      uint16_t CTRLH; /**< SCT_CTRLH register, offset: 0x6 */
-    } CTRL_ACCESS16BIT;
-    uint32_t CTRL; /**< SCT control register, offset: 0x4 */
-  };
-  union {              /* offset: 0x8 */
-    struct {           /* offset: 0x8 */
-      int16_t LIMITL;  /**< SCT_LIMITL register, offset: 0x8 */
-      uint16_t LIMITH; /**< SCT_LIMITH register, offset: 0xA */
-    } LIMIT_ACCESS16BIT;
-    uint32_t LIMIT; /**< SCT limit event select register, offset: 0x8 */
-  };
-  union {             /* offset: 0xC */
-    struct {          /* offset: 0xC */
-      uint16_t HALTL; /**< SCT_HALTL register, offset: 0xC */
-      uint16_t HALTH; /**< SCT_HALTH register, offset: 0xE */
-    } HALT_ACCESS16BIT;
-    uint32_t HALT; /**< SCT halt event select register, offset: 0xC */
-  };
-  union {             /* offset: 0x10 */
-    struct {          /* offset: 0x10 */
-      uint16_t STOPL; /**< SCT_STOPL register, offset: 0x10 */
-      uint16_t STOPH; /**< SCT_STOPH register, offset: 0x12 */
-    } STOP_ACCESS16BIT;
-    uint32_t STOP; /**< SCT stop event select register, offset: 0x10 */
-  };
-  union {              /* offset: 0x14 */
-    struct {           /* offset: 0x14 */
-      uint16_t STARTL; /**< SCT_STARTL register, offset: 0x14 */
-      uint16_t STARTH; /**< SCT_STARTH register, offset: 0x16 */
-    } START_ACCESS16BIT;
-    uint32_t START; /**< SCT start event select register, offset: 0x14 */
-  };
-  uint8_t RESERVED_0[40];
-  union {              /* offset: 0x40 */
-    struct {           /* offset: 0x40 */
-      uint16_t COUNTL; /**< SCT_COUNTL register, offset: 0x40 */
-      uint16_t COUNTH; /**< SCT_COUNTH register, offset: 0x42 */
-    } COUNT_ACCESS16BIT;
-    uint32_t COUNT; /**< SCT counter register, offset: 0x40 */
-  };
-  union {              /* offset: 0x44 */
-    struct {           /* offset: 0x44 */
-      uint16_t STATEL; /**< SCT_STATEL register, offset: 0x44 */
-      uint16_t STATEH; /**< SCT_STATEH register, offset: 0x46 */
-    } STATE_ACCESS16BIT;
-    uint32_t STATE; /**< SCT state register, offset: 0x44 */
-  };
-  uint32_t INPUT;        /**< SCT input register, offset: 0x48 */
-  union {                /* offset: 0x4C */
-    struct {             /* offset: 0x4C */
-      uint16_t REGMODEL; /**< SCT_REGMODEL register, offset: 0x4C */
-      uint16_t REGMODEH; /**< SCT_REGMODEH register, offset: 0x4E */
-    } REGMODE_ACCESS16BIT;
-    uint32_t REGMODE; /**< SCT match/capture mode register, offset: 0x4C */
-  };
-  uint32_t OUTPUT;        /**< SCT output register, offset: 0x50 */
-  uint32_t OUTPUTDIRCTRL; /**< SCT output counter direction control register,
-                             offset: 0x54 */
-  uint32_t RES;           /**< SCT conflict resolution register, offset: 0x58 */
-  uint32_t DMAREQ0;       /**< SCT DMA request 0 register, offset: 0x5C */
-  uint32_t DMAREQ1;       /**< SCT DMA request 1 register, offset: 0x60 */
-  uint8_t RESERVED_1[140];
-  uint32_t EVEN;    /**< SCT event interrupt enable register, offset: 0xF0 */
-  uint32_t EVFLAG;  /**< SCT event flag register, offset: 0xF4 */
-  uint32_t CONEN;   /**< SCT conflict interrupt enable register, offset: 0xF8 */
-  uint32_t CONFLAG; /**< SCT conflict flag register, offset: 0xFC */
-  union {           /* offset: 0x100 */
-    union {         /* offset: 0x100, array step: 0x4 */
-      struct {      /* offset: 0x100, array step: 0x4 */
-        uint16_t CAPL; /**< SCT_CAPL register, array offset: 0x100, array step:
-                          0x4 */
-        uint16_t CAPH; /**< SCT_CAPH register, array offset: 0x102, array step:
-                          0x4 */
-      } CAP_ACCESS16BIT[8];
-      uint32_t CAP[8]; /**< SCT capture register of capture channel, array
-                          offset: 0x100, array step: 0x4 */
-    };
-    union {              /* offset: 0x100, array step: 0x4 */
-      struct {           /* offset: 0x100, array step: 0x4 */
-        uint16_t MATCHL; /**< SCT_MATCHL register, array offset: 0x100, array
-                            step: 0x4 */
-        uint16_t MATCHH; /**< SCT_MATCHH register, array offset: 0x102, array
-                            step: 0x4 */
-      } MATCH_ACCESS16BIT[8];
-      uint32_t MATCH[8]; /**< SCT match value register of match channels, array
-                            offset: 0x100, array step: 0x4 */
+  uint32_t CONFIG; /**< SCT configuration register, offset: 0x0 */
+  union {
+    uint32_t CTRL; /*!< SCT control register*/
+    struct {
+      uint16_t CTRLL; /*!< SCT_CTRLL register*/
+      uint16_t CTRLH; /*!< SCT_CTRLH register */
     };
   };
-  uint8_t RESERVED_2[224];
-  union {                  /* offset: 0x200 */
-    union {                /* offset: 0x200, array step: 0x4 */
-      struct {             /* offset: 0x200, array step: 0x4 */
-        uint16_t CAPCTRLL; /**< SCT_CAPCTRLL register, array offset: 0x200,
-                              array step: 0x4 */
-        uint16_t CAPCTRLH; /**< SCT_CAPCTRLH register, array offset: 0x202,
-                              array step: 0x4 */
-      } CAPCTRL_ACCESS16BIT[8];
-      uint32_t CAPCTRL[8]; /**< SCT capture control register, array offset:
-                              0x200, array step: 0x4 */
-    };
-    union {                 /* offset: 0x200, array step: 0x4 */
-      struct {              /* offset: 0x200, array step: 0x4 */
-        uint16_t MATCHRELL; /**< SCT_MATCHRELL register, array offset: 0x200,
-                               array step: 0x4 */
-        uint16_t MATCHRELH; /**< SCT_MATCHRELH register, array offset: 0x202,
-                               array step: 0x4 */
-      } MATCHREL_ACCESS16BIT[8];
-      uint32_t MATCHREL[8]; /**< SCT match reload value register, array offset:
-                               0x200, array step: 0x4 */
+  union {
+    uint32_t LIMIT; /* limit Register */
+    struct {
+      uint16_t LIMIT_L; /* limit register for counter L */
+      uint16_t LIMIT_H; /* limit register for counter H */
     };
   };
-  uint8_t RESERVED_3[224];
-  struct {          /* offset: 0x300, array step: 0x8 */
-    uint32_t STATE; /**< SCT event state register 0, array offset: 0x300, array
-                       step: 0x8 */
-    uint32_t CTRL; /**< SCT event control register 0, array offset: 0x304, array
-                      step: 0x8 */
-  } EV[8];
-  uint8_t RESERVED_4[448];
-  struct {        /* offset: 0x500, array step: 0x8 */
-    uint32_t SET; /**< SCT output 0 set register, array offset: 0x500, array
-                     step: 0x8 */
-    uint32_t CLR; /**< SCT output 0 clear register, array offset: 0x504, array
-                     step: 0x8 */
-  } OUT[7];
+  union {
+    uint32_t HALT; /* halt Register */
+    struct {
+      uint16_t HALT_L; /* halt register for counter L */
+      uint16_t HALT_H; /* halt register for counter H */
+    };
+  };
+  union {
+    uint32_t STOP; /* stop Register */
+    struct {
+      uint16_t STOP_L; /* stop register for counter L */
+      uint16_t STOP_H; /* stop register for counter H */
+    };
+  };
+  union {
+    uint32_t START; /* start Register */
+    struct {
+      uint16_t START_L; /* start register for counter L */
+      uint16_t START_H; /* start register for counter H */
+    };
+  };
+  uint32_t RESERVED1[10]; /* 0x018 - 0x03C reserved */
+
+  union {
+    uint32_t COUNT; /* counter register (offset 0x040)*/
+    struct {
+      uint16_t COUNT_L; /* counter register for counter L */
+      uint16_t COUNT_H; /* counter register for counter H */
+    };
+  };
+  union {
+    uint32_t STATE; /* State register */
+    struct {
+      uint16_t STATE_L; /* state register for counter L */
+      uint16_t STATE_H; /* state register for counter H */
+    };
+  };
+  const uint32_t INPUT; /* input register */
+  union {
+    uint32_t REGMODE; /* RegMode register */
+    struct {
+      uint16_t REGMODE_L; /* match - capture registers mode register L */
+      uint16_t REGMODE_H; /* match - capture registers mode register H */
+    };
+  };
+  uint32_t OUTPUT;        /* output register */
+  uint32_t OUTPUTDIRCTRL; /* output counter direction Control Register */
+  uint32_t RES;           /* conflict resolution register */
+  uint32_t DMAREQ0;       /* DMA0 Request Register */
+  uint32_t DMAREQ1;       /* DMA1 Request Register */
+
+  uint32_t RESERVED2[35]; /* 0x064 - 0x0EC reserved */
+
+  uint32_t EVEN;    /* event enable register (offset 0x0F0)*/
+  uint32_t EVFLAG;  /* event flag register */
+  uint32_t CONEN;   /* conflict enable register */
+  uint32_t CONFLAG; /* conflict flag register */
+  union {
+    union {       /* ... Match / Capture value */
+      uint32_t U; /*  MATCH[i].U  Unified 32-bit register */
+      struct {
+        uint16_t L; /*  MATCH[i].L  Access to L value */
+        uint16_t H; /*  MATCH[i].H  Access to H value */
+      };
+    } MATCH[CONFIG_SCT_nRG];
+
+    const union {
+      uint32_t U; /*  CAP[i].U  Unified 32-bit register */
+      struct {
+        uint16_t L; /*  CAP[i].L  Access to L value */
+        uint16_t H; /*  CAP[i].H  Access to H value */
+      };
+    } CAP[CONFIG_SCT_nRG];
+  };
+
+  uint32_t RESERVED3[56]; /* 0x120 - 0x1FC reserved */
+
+  union {
+    union {       /* ...Match Reload / Capture Control value (offset 0x200) */
+      uint32_t U; /*  MATCHREL[i].U  Unified 32-bit register */
+      struct {
+        uint16_t L; /*  MATCHREL[i].L  Access to L value */
+        uint16_t H; /*  MATCHREL[i].H  Access to H value */
+      };
+    } MATCHREL[CONFIG_SCT_nRG];
+
+    union {
+      uint32_t U; /*  CAPCTRL[i].U  Unified 32-bit register */
+      struct {
+        uint16_t L; /*  CAPCTRL[i].L  Access to L value */
+        uint16_t H; /*  CAPCTRL[i].H  Access to H value */
+      };
+    } CAPCTRL[CONFIG_SCT_nRG];
+  };
+
+  uint32_t RESERVED4[56]; /* 0x220 - 0x2FC reserved */
+
+  struct {          /* EV[i].STATE / EV[i].CTRL (offset 0x300) */
+    uint32_t STATE; /* Event State Register */
+    uint32_t CTRL;  /* Event Control Register */
+  } EV[CONFIG_SCT_nEV];
+
+  uint32_t RESERVED5[112]; /* 0x340 - 0x4FC reserved */
+
+  struct {        /* OUT[i].SET / OUT[i].CLR  (offset 0x500) */
+    uint32_t SET; /* Output n Set Register */
+    uint32_t CLR; /* Output n Clear Register */
+  } OUT[CONFIG_SCT_nOU];
 } SCT_Type;
 
 /* Reserved bits masks for registers */
@@ -168,8 +162,7 @@ typedef volatile struct SCT_Struct {
 /*
  * Macro defines for SCT configuration register
  */
-#define SCT_CONFIG_RESERVED \
-  (0xFFF9E000) /*!< Reserved bits of SCT config register */
+#define SCT_CONFIG_RESERVED (0xFFF9E000) /*!< Reserved bits of SCT config register */
 #define SCT_CONFIG_16BIT_COUNTER               \
   (0x0 << 0) /*!< Operate as 2 16-bit counters \
               */
@@ -191,42 +184,27 @@ typedef enum {
   SCT_CONFIG_CKSEL_FALL_IN2 = 0x1, /*!< Falling edges on input2 */
   SCT_CONFIG_CKSEL_RISE_IN3 = 0x0, /*!< Rising edges on input3 */
   SCT_CONFIG_CKSEL_FALL_IN3 = 0x1, /*!< Falling edges on input3 */
-  SCT_CONFIG_CKSEL_RISE_IN4 =
-      0x0, /*!< Rising edges on input4. Clock selected by SYSCON SCTCLKSEL */
-  SCT_CONFIG_CKSEL_FALL_IN4 =
-      0x1, /*!< Falling edges on input4. Clock selected by SYSCON SCTCLKSEL */
+  SCT_CONFIG_CKSEL_RISE_IN4 = 0x0, /*!< Rising edges on input4. Clock selected by SYSCON SCTCLKSEL */
+  SCT_CONFIG_CKSEL_FALL_IN4 = 0x1, /*!< Falling edges on input4. Clock selected by SYSCON SCTCLKSEL */
 } SCT_CONFIG_CKSEL_Type;
-#define SCT_CONFIG_CKSEL(clock) \
-  ((clock) << 3) /*!< input to select for the clock mode */
-#define SCT_CONFIG_NORELOAD_U (0x1 << 7) /*!< Prevent match register reload */
-#define SCT_CONFIG_NORELOAD_L \
-  (0x1 << 7) /*!< Prevent lower match register reload */
-#define SCT_CONFIG_NORELOAD_H \
-  (0x1 << 8) /*!< Prevent upper match register reload */
-#define SCT_CONFIG_INSYNC_IN0 \
-  (1u << 9) /*!< Enable input synchronizer for input 0 */
-#define SCT_CONFIG_INSYNC_IN1 \
-  (1u << 10) /*!< Enable input synchronizer for input 1 */
-#define SCT_CONFIG_INSYNC_IN2 \
-  (1u << 11) /*!< Enable input synchronizer for input 2 */
-#define SCT_CONFIG_INSYNC_IN3 \
-  (1u << 12) /*!< Enable input synchronizer for input 3 */
-#define SCT_CONFIG_AUTOLIMIT_U \
-  (0x1 << 17) /*!< Limits counter(unified) based on MATCH0 */
-#define SCT_CONFIG_AUTOLIMIT_L \
-  (0x1 << 17) /*!< Limits counter(L) based on MATCH0 */
-#define SCT_CONFIG_AUTOLIMIT_H \
-  (0x1 << 18) /*!< Limits counter(L) based on MATCH0 */
+#define SCT_CONFIG_CKSEL(clock) ((clock) << 3) /*!< input to select for the clock mode */
+#define SCT_CONFIG_NORELOAD_U (0x1 << 7)       /*!< Prevent match register reload */
+#define SCT_CONFIG_NORELOAD_L (0x1 << 7)       /*!< Prevent lower match register reload */
+#define SCT_CONFIG_NORELOAD_H (0x1 << 8)       /*!< Prevent upper match register reload */
+#define SCT_CONFIG_INSYNC_IN0 (1u << 9)        /*!< Enable input synchronizer for input 0 */
+#define SCT_CONFIG_INSYNC_IN1 (1u << 10)       /*!< Enable input synchronizer for input 1 */
+#define SCT_CONFIG_INSYNC_IN2 (1u << 11)       /*!< Enable input synchronizer for input 2 */
+#define SCT_CONFIG_INSYNC_IN3 (1u << 12)       /*!< Enable input synchronizer for input 3 */
+#define SCT_CONFIG_AUTOLIMIT_U (0x1 << 17)     /*!< Limits counter(unified) based on MATCH0 */
+#define SCT_CONFIG_AUTOLIMIT_L (0x1 << 17)     /*!< Limits counter(L) based on MATCH0 */
+#define SCT_CONFIG_AUTOLIMIT_H (0x1 << 18)     /*!< Limits counter(L) based on MATCH0 */
 
 /*
  * Macro defines for SCT control register
  */
-#define SCT_CTRL_RESERVED \
-  (0xE000E000) /*!< Reserved bits of SCT Control register */
-#define SCT_CTRL_L_RESERVED \
-  (0xE000) /*!< Reserved bits of Lower SCT Control register */
-#define SCT_CTRL_H_RESERVED \
-  (0xE000) /*!< Reserved bits of Higher SCT Control register */
+#define SCT_CTRL_RESERVED (0xE000E000) /*!< Reserved bits of SCT Control register */
+#define SCT_CTRL_L_RESERVED (0xE000)   /*!< Reserved bits of Lower SCT Control register */
+#define SCT_CTRL_H_RESERVED (0xE000)   /*!< Reserved bits of Higher SCT Control register */
 
 #define SCT_CTRL_STOP_U (1 << 1)   /*!< Stop counter */
 #define SCT_CTRL_STOP_L (1 << 1)   /*!< Stop low counter */
@@ -234,21 +212,18 @@ typedef enum {
 #define SCT_CTRL_HALT_L (1 << 2)   /*!< Halt low counter */
 #define SCT_CTRL_CLRCTR_U (1 << 3) /*!< Clear unified counter */
 #define SCT_CTRL_CLRCTR_L (1 << 3) /*!< Clear low counter */
-#define SCT_CTRL_BIDIR_U                                                      \
-  (1 << 4)                        /*!< Unified counter bidirectional counting \
-                                   */
-#define SCT_CTRL_BIDIR_L (1 << 4) /*!< Low counter bidirectional counting */
-#define SCT_CTRL_PRE_U(x) \
-  (((x)&0xFF) << 5) /*!< Prescale clock for unified counter */
-#define SCT_CTRL_PRE_L(x) \
-  (((x)&0xFF) << 5) /*!< Prescale clock for low counter */
+#define SCT_CTRL_BIDIR_U                                                                \
+  (1 << 4)                                  /*!< Unified counter bidirectional counting \
+                                             */
+#define SCT_CTRL_BIDIR_L (1 << 4)           /*!< Low counter bidirectional counting */
+#define SCT_CTRL_PRE_U(x) (((x)&0xFF) << 5) /*!< Prescale clock for unified counter */
+#define SCT_CTRL_PRE_L(x) (((x)&0xFF) << 5) /*!< Prescale clock for low counter */
 
-#define SCT_CTRL_STOP_H (1 << 17)   /*!< Stop high counter */
-#define SCT_CTRL_HALT_H (1 << 18)   /*!< Halt high counter */
-#define SCT_CTRL_CLRCTR_H (1 << 19) /*!< Clear high counter */
-#define SCT_CTRL_BIDIR_H (1 << 20)  /*!< High counter bidirectional counting */
-#define SCT_CTRL_PRE_H(x) \
-  (((x)&0xFF) << 21) /*!< Prescale clock for high counter */
+#define SCT_CTRL_STOP_H (1 << 17)            /*!< Stop high counter */
+#define SCT_CTRL_HALT_H (1 << 18)            /*!< Halt high counter */
+#define SCT_CTRL_CLRCTR_H (1 << 19)          /*!< Clear high counter */
+#define SCT_CTRL_BIDIR_H (1 << 20)           /*!< High counter bidirectional counting */
+#define SCT_CTRL_PRE_H(x) (((x)&0xFF) << 21) /*!< Prescale clock for high counter */
 
 /*
  * Defines for the SCT event control register
@@ -299,16 +274,14 @@ Definitions for the output conflict resolution register
 /*
 Definitions for the output direction control register
 */
-#define SCT_OUTPUTDIRCTRL_ANY \
-  (0) /* Any, set and clear do not depend on counter */
+#define SCT_OUTPUTDIRCTRL_ANY (0) /* Any, set and clear do not depend on counter */
 #define SCT_OUTPUTDIRCTRL_L                                                  \
   (1) /* L counting down, set and clear are reversed when L is counting down \
        */
-#define SCT_OUTPUTDIRCTRL_H                                                  \
-  (2) /* H counting down, set and clear are reversed when H is counting down \
-       */
-#define SCT_OUTPUTDIRCTRL(n, x) \
-  ((x) << ((n)*2)) /* set output direction control for channel n */
+#define SCT_OUTPUTDIRCTRL_H                                                                                             \
+  (2)                                            /* H counting down, set and clear are reversed when H is counting down \
+                                                  */
+#define SCT_OUTPUTDIRCTRL(n, x) ((x) << ((n)*2)) /* set output direction control for channel n */
 
 /*
 Definitions for the SCT output register

@@ -17,38 +17,35 @@ LPC820 series state configurable timer registers, defines and functions.
 typedef volatile struct {
   uint32_t CONFIG; /*!< configuration Register*/
   union {
-    struct {
-      uint16_t CTRLL; /*!< SCT_CTRLL register*/
-      uint16_t CTRLH; /*!< SCT_CTRLH register */
-    } CTRL_ACCESS16BIT;
     uint32_t CTRL; /*!< SCT control register*/
+    struct {
+      uint16_t CTRL_L; /*!< SCT_CTRL_L register*/
+      uint16_t CTRL_H; /*!< SCT_CTRL_H register */
+    };
   };
   union {
-    uint32_t LIMIT_U; /* limit Register */
+    uint32_t LIMIT; /* limit Register */
     struct {
       uint16_t LIMIT_L; /* limit register for counter L */
       uint16_t LIMIT_H; /* limit register for counter H */
     };
   };
-
   union {
-    uint32_t HALT_U; /* halt Register */
+    uint32_t HALT; /* halt Register */
     struct {
       uint16_t HALT_L; /* halt register for counter L */
       uint16_t HALT_H; /* halt register for counter H */
     };
   };
-
   union {
-    uint32_t STOP_U; /* stop Register */
+    uint32_t STOP; /* stop Register */
     struct {
       uint16_t STOP_L; /* stop register for counter L */
       uint16_t STOP_H; /* stop register for counter H */
     };
   };
-
   union {
-    uint32_t START_U; /* start Register */
+    uint32_t START; /* start Register */
     struct {
       uint16_t START_L; /* start register for counter L */
       uint16_t START_H; /* start register for counter H */
@@ -58,24 +55,22 @@ typedef volatile struct {
   uint32_t RESERVED1[10]; /* 0x018 - 0x03C reserved */
 
   union {
-    uint32_t COUNT_U; /* counter register (offset 0x040)*/
+    uint32_t COUNT; /* counter register (offset 0x040)*/
     struct {
       uint16_t COUNT_L; /* counter register for counter L */
       uint16_t COUNT_H; /* counter register for counter H */
     };
   };
-
   union {
-    uint32_t STATE_U; /* State register */
+    uint32_t STATE; /* State register */
     struct {
       uint16_t STATE_L; /* state register for counter L */
       uint16_t STATE_H; /* state register for counter H */
     };
   };
-
   const uint32_t INPUT; /* input register */
   union {
-    uint32_t REGMODE_U; /* RegMode register */
+    uint32_t REGMODE; /* RegMode register */
     struct {
       uint16_t REGMODE_L; /* match - capture registers mode register L */
       uint16_t REGMODE_H; /* match - capture registers mode register H */
