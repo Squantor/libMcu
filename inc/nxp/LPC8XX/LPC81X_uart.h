@@ -30,18 +30,11 @@ LPC810 series common UART registers, defines and functions.
 #ifndef LPC81X_UART_H
 #define LPC81X_UART_H
 
-/* UART CFG register definitions */
-#define UART_CFG_RESERVED       ((1<<1)|(1<<7)|(1<<8)|(1<<10)|(1<<13)|(0xffffu<<16))
+/* TODO: Not the same as LPC82X and LPC84X! check merge
+Seen differences in the control register.
+Seen differences in status (no autobaud)
+*/
 
-/* UART CTRL register definitions */
-#define UART_CTRL_RESERVED      (1|(7<<3)|(1<<7)|0xfffffc00u)
-
-/* UART STAT register definitions */
-#define UART_STAT_RESERVED      ((1<<7)|(1<<9)|(0xffffu<<16))
-
-/* UART INTENSET/INTENCLR register definitions */
-#define UART_INTEN_RESERVED     ((1<<1)|(3<<3)|(1<<7)|(3<<9)|(0xffffu<<16))
-#define UART_INTSTAT_RESERVED   ((1<<1)|(3<<3)|(1<<7)|(3<<9)|(0xffffu<<16))
 
 #include "nxp/LPC8XX/LPC8XX_uart.h"
 

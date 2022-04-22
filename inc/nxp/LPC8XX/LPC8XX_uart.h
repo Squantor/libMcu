@@ -30,144 +30,175 @@ LPC800 series common UART registers, defines and functions.
 #ifndef LPC8XX_UART_H
 #define LPC8XX_UART_H
 
-/**
- * @brief UART register block structure
- */
-typedef volatile struct {
-  uint32_t CFG;               /* Configuration register */
-  uint32_t CTRL;              /* Control register */
-  uint32_t STAT;              /* Status register */
-  uint32_t INTENSET;          /* Interrupt Enable read and set register */
-  uint32_t INTENCLR;          /* Interrupt Enable clear register */
-  const uint32_t RXDATA;      /* Receive Data register */
-  const uint32_t RXDATA_STAT; /* Receive Data with status register */
-  uint32_t TXDATA;            /* Transmit data register */
-  uint32_t BRG;               /* Baud Rate Generator register */
-  uint32_t INTSTAT;           /* Interrupt status register */
-  uint32_t OSR;               /* Oversampling Selection regiser */
-  uint32_t ADDR; /* Address register for automatic address matching */
+/** USART - Register Layout Typedef */
+typedef volatile struct USART_Struct {
+  uint32_t CFG; /*!< USART Configuration register. Basic USART configuration settings that typically are not changed during
+                   operation., offset: 0x0 */
+  uint32_t CTL; /*!< USART Control register. USART control settings that are more likely to change during operation., offset: 0x4 */
+  uint32_t STAT;     /*!< USART Status register. The complete status value can be read here. Writing ones clears some bits in the
+                        register. Some bits can be cleared by writing a 1 to them., offset: 0x8 */
+  uint32_t INTENSET; /*!< Interrupt Enable read and Set register. Contains an individual interrupt enable bit for each potential
+                        USART interrupt. A complete value may be read from this register. Writing a 1 to any implemented bit
+                        position causes that bit to be set., offset: 0xC */
+  uint32_t INTENCLR; /*!< Interrupt Enable Clear register. Allows clearing any combination of bits in the INTENSET register. Writing
+                        a 1 to any implemented bit position causes the corresponding bit to be cleared., offset: 0x10 */
+  const uint32_t RXDAT;     /*!< Receiver Data register. Contains the last character received., offset: 0x14 */
+  const uint32_t RXDATSTAT; /*!< Receiver Data with Status register. Combines the last character received with the current USART
+                               receive status. Allows DMA or software to recover incoming data and status together., offset: 0x18 */
+  uint32_t TXDAT;           /*!< Transmit Data register. Data to be transmitted is written here., offset: 0x1C */
+  uint32_t BRG;             /*!< Baud Rate Generator register. 16-bit integer baud rate divisor value., offset: 0x20 */
+  const uint32_t INTSTAT;   /*!< Interrupt status register. Reflects interrupts that are currently enabled., offset: 0x24 */
+  uint32_t OSR;             /*!< Oversample selection register for asynchronous communication., offset: 0x28 */
+  uint32_t ADDR;            /*!< Address register for automatic address matching., offset: 0x2C */
 } USART_Type;
 
-/* UART CFG register definitions */
-#define UART_CFG_ENABLE (0x01 << 0)
-#define UART_CFG_DATALEN_7 (0x00 << 2)   /* UART 7 bit length mode */
-#define UART_CFG_DATALEN_8 (0x01 << 2)   /* UART 8 bit length mode */
-#define UART_CFG_DATALEN_9 (0x02 << 2)   /* UART 9 bit length mode */
-#define UART_CFG_PARITY_NONE (0x00 << 4) /* No parity */
-#define UART_CFG_PARITY_EVEN (0x02 << 4) /* Even parity */
-#define UART_CFG_PARITY_ODD (0x03 << 4)  /* Odd parity */
-#define UART_CFG_STOPLEN_1 (0x00 << 6)   /* UART One Stop Bit Select */
-#define UART_CFG_STOPLEN_2 (0x01 << 6)   /* UART Two Stop Bits Select */
-#define UART_CFG_CTSEN (0x01 << 9)       /* CTS enable bit */
-#define UART_CFG_SYNCEN (0x01 << 11)     /* Synchronous mode enable bit */
-#define UART_CFG_CLKPOL                                \
-  (0x01 << 12) /* Un_RXD rising edge sample enable bit \
-                */
-#define UART_CFG_SYNCMST \
-  (0x01 << 14) /* Select master mode (synchronous mode) enable bit */
-#define UART_CFG_LOOP (0x01 << 15) /* Loopback mode enable bit */
+#define USART_CFG_RESERVED (0xFF032582)   /*!< USART Config register reserved bits */
+#define USART_CFG_ENABLE (0x01 << 0)      /*!< USART enable */
+#define USART_CFG_DATALEN_7 (0x00 << 2)   /*!< USART 7 bit length mode */
+#define USART_CFG_DATALEN_8 (0x01 << 2)   /*!< USART 8 bit length mode */
+#define USART_CFG_DATALEN_9 (0x02 << 2)   /*!< USART 9 bit length mode */
+#define USART_CFG_PARITY_NONE (0x00 << 4) /*!< No parity */
+#define USART_CFG_PARITY_EVEN (0x02 << 4) /*!< Even parity */
+#define USART_CFG_PARITY_ODD (0x03 << 4)  /*!< Odd parity */
+#define USART_CFG_STOPLEN_1 (0x00 << 6)   /*!< USART One Stop Bit Select */
+#define USART_CFG_STOPLEN_2 (0x01 << 6)   /*!< USART Two Stop Bits Select */
+#define USART_CFG_CTSEN (0x01 << 9)       /*!< CTS enable bit */
+#define USART_CFG_SYNCEN (0x01 << 11)     /*!< Synchronous mode enable bit */
+#define USART_CFG_CLKPOL (0x01 << 12)     /*!< Un_RXD rising edge sample enable bit */
+#define USART_CFG_SYNCMST (0x01 << 14)    /*!< Select master mode (synchronous mode) enable bit */
+#define USART_CFG_LOOP (0x01 << 15)       /*!< Loopback mode enable bit */
 
-/* UART CTRL register definitions */
-#define UART_CTRL_TXBRKEN (0x01 << 1) /* Continuous break enable bit */
-#define UART_CTRL_ADDRDET (0x01 << 2) /* Address detect mode enable bit */
-#define UART_CTRL_TXDIS (0x01 << 6)   /* Transmit disable bit */
-#define UART_CTRL_CC (0x01 << 8)      /* Continuous Clock mode enable bit */
-#define UART_CTRL_CLRCC (0x01 << 9)   /* Clear Continuous Clock bit */
+typedef enum {
+  DATALEN_7 = USART_CFG_DATALEN_7, /*!< USART 7 bit length mode */
+  DATALEN_8 = USART_CFG_DATALEN_8, /*!< USART 8 bit length mode */
+  DATALEN_9 = USART_CFG_DATALEN_9, /*!< USART 9 bit length mode */
+} USART_DATALEN_Type;
 
-/* UART STAT register definitions */
-#define UART_STAT_RXRDY (0x01 << 0)      /* Receiver ready */
-#define UART_STAT_RXIDLE (0x01 << 1)     /* Receiver idle */
-#define UART_STAT_TXRDY (0x01 << 2)      /* Transmitter ready for data */
-#define UART_STAT_TXIDLE (0x01 << 3)     /* Transmitter idle */
-#define UART_STAT_CTS (0x01 << 4)        /* Status of CTS signal */
-#define UART_STAT_DELTACTS (0x01 << 5)   /* Change in CTS state */
-#define UART_STAT_TXDISINT (0x01 << 6)   /* Transmitter disabled */
-#define UART_STAT_OVERRUNINT (0x01 << 8) /* Overrun Error interrupt flag. */
-#define UART_STAT_RXBRK (0x01 << 10)     /* Received break */
-#define UART_STAT_DELTARXBRK \
-  (0x01 << 11)                       /* Change in receive break detection */
-#define UART_STAT_START (0x01 << 12) /* Start detected */
-#define UART_STAT_FRM_ERRINT (0x01 << 13) /* Framing Error interrupt flag */
-#define UART_STAT_PAR_ERRINT (0x01 << 14) /* Parity Error interrupt flag */
-#define UART_STAT_RXNOISEINT (0x01 << 15) /* Received Noise interrupt flag */
+typedef enum {
+  PARITY_NONE = USART_CFG_PARITY_NONE, /*!< No parity */
+  PARITY_EVEN = USART_CFG_PARITY_EVEN, /*!< Even parity */
+  PARITY_ODD = USART_CFG_PARITY_ODD,   /*!< Odd parity */
+} USART_PARITY_Type;
 
-/* UART INTENSET/INTENCLR register definitions */
-#define UART_INTEN_RXRDY (0x01 << 0)    /* Receive Ready interrupt */
-#define UART_INTEN_TXRDY (0x01 << 2)    /* Transmit Ready interrupt */
-#define UART_INTEN_DELTACTS (0x01 << 5) /* Change in CTS state interrupt */
-#define UART_INTEN_TXDIS (0x01 << 6)    /* Transmitter disable interrupt */
-#define UART_INTEN_OVERRUN (0x01 << 8)  /* Overrun error interrupt */
-#define UART_INTEN_DELTARXBRK \
-  (0x01 << 11) /* Change in receiver break detection interrupt */
-#define UART_INTEN_START (0x01 << 12)     /* Start detect interrupt */
-#define UART_INTEN_FRAMERR (0x01 << 13)   /* Frame error interrupt */
-#define UART_INTEN_PARITYERR (0x01 << 14) /* Parity error interrupt */
-#define UART_INTEN_RXNOISE (0x01 << 15)   /* Received noise interrupt */
+typedef enum {
+  STOPLEN_1 = USART_CFG_STOPLEN_1, /*!< USART One Stop Bit Select */
+  STOPLEN_2 = USART_CFG_STOPLEN_2, /*!< USART Two Stop Bits Select */
+} USART_STOPLEN_Type;
 
-static inline void UartEnable(USART_Type *pUART) {
-  pUART->CFG = UART_CFG_ENABLE | (pUART->CFG & ~UART_CFG_RESERVED);
+#define USART_CTL_RESERVED (0xFFFEFCB9) /*!< USART Control register reserved bits */
+#define USART_CTL_TXBRKEN (0x01 << 1)   /*!< Break enable */
+#define USART_CTL_ADDRDET (0x01 << 2)   /*!< Enable address detect mode */
+#define USART_CTL_TXDIS (0x01 << 6)     /*!< Transmit disable */
+#define USART_CTL_CC (0x01 << 8)        /*!< Continuous clock generation */
+#define USART_CTL_CLRCCONRX (0x01 << 9) /*!< Clear continuous clock */
+#define USART_CTL_AUTOBAUD (0x01 << 16) /*!< Autobaud enable */
+
+#define USART_STAT_RESERVED (0xFFFE0280)  /*!< USART status register reserved bits */
+#define USART_STAT_CLEAR (0x0001F920)     /*!< clear bits with 1's per datasheet */
+#define USART_STAT_RXRDY (1 << 0)         /*!< Receiver ready flag*/
+#define USART_STAT_RXIDLE (1 << 1)        /*!< Receiver idle */
+#define USART_STAT_TXRDY (1 << 2)         /*!< Transmitter ready flag */
+#define USART_STAT_TXIDLE (1 << 3)        /*!< Transmitter idle */
+#define USART_STAT_CTS (1 << 4)           /*!< CTS signal status */
+#define USART_STAT_DELTACTS (1 << 5)      /*!< CTS changed flag */
+#define USART_STAT_TXDISSTAT (1 << 6)     /*!< Transmitter disabled interrupt flag */
+#define USART_STAT_OVERRUNINT (1 << 8)    /*!< Overrun interrupt flag */
+#define USART_STAT_RXBRK (1 << 10)        /*!< Received Break */
+#define USART_STAT_DELTARXBRK (1 << 11)   /*!< Received break changed flag */
+#define USART_STAT_START (1 << 12)        /*!< Start detected flag */
+#define USART_STAT_FRAMERRINT (1 << 13)   /*!< Framing error interrupt flag */
+#define USART_STAT_PARITYERRINT (1 << 14) /*!< Parity error interrupt flag */
+#define USART_STAT_RXNOISEINT (1 << 15)   /*!< Received noise interrupt flag */
+#define USART_STAT_ABERR (1 << 16)        /*!< Autobaud error */
+
+#define USART_RXDATSTAT_RESERVED (0x0000E1FF) /*!< USART RX data with status register reserved bits*/
+#define USART_RXDATSTAT_FRAMERR (1 << 13)     /*!< Framing error detected */
+#define USART_RXDATSTAT_PARITYERR (1 << 14)   /*!< Parity error detected */
+#define USART_RXDATSTAT_RXNOISE (1 << 15)     /*!< Received noise detected */
+
+/**
+ * @brief   setup USART control register
+ * @param   peripheral  base address of USART peripheral
+ * @param   dataLength
+ * @param   parity
+ * @param   stopBits
+ * @param   options
+ */
+static inline void usartSetConfig(USART_Type *peripheral, USART_DATALEN_Type dataLength, USART_PARITY_Type parity,
+                                  USART_STOPLEN_Type stopBits, uint32_t options) {
+  peripheral->CFG = USART_CFG_ENABLE | dataLength | parity | stopBits | options;
 }
 
-static inline void UartDisable(USART_Type *pUART) {
-  uint32_t cfgRegister = pUART->CFG & ~(UART_CFG_RESERVED | UART_CFG_ENABLE);
-  pUART->CFG = cfgRegister;
+/**
+ * @brief   TODO
+ * @param   peripheral  base address of USART peripheral
+ */
+static inline void usartDisable(USART_Type *peripheral) {
+  peripheral->CFG = 0x00000000;
+  peripheral->CTL = 0x00000000;
+  peripheral->STAT = USART_STAT_CLEAR;
 }
 
-static inline void UartTXEnable(USART_Type *pUART) {
-  uint32_t ctrlRegister = pUART->CTRL & ~(UART_CTRL_RESERVED | UART_CTRL_TXDIS);
-  pUART->CTRL = ctrlRegister;
+/**
+ * @brief   TODO
+ * @param   peripheral  base address of USART peripheral
+ */
+static inline void usartTXEnable(USART_Type *peripheral) {
+  uint32_t ctlRegister = peripheral->CTL & ~(USART_CTL_TXDIS);
+  peripheral->CTL = ctlRegister;
 }
 
-static inline void UartTXDisable(USART_Type *pUART) {
-  uint32_t ctrlRegister = UART_CTRL_TXDIS | (pUART->CTRL & ~UART_CTRL_RESERVED);
-  pUART->CTRL = ctrlRegister;
+/**
+ * @brief   TODO
+ * @param   peripheral  base address of USART peripheral
+ */
+static inline void usartTXDisable(USART_Type *peripheral) {
+  peripheral->CTL = USART_CTL_TXDIS | peripheral->CTL;
 }
 
-static inline void UartSendByte(USART_Type *pUART, uint8_t data) {
-  pUART->TXDATA = (uint32_t)data;
+/**
+ * @brief   TODO
+ * @param   peripheral  base address of USART peripheral
+ */
+static inline uint32_t usartGetStatus(USART_Type *peripheral) {
+  return peripheral->STAT;
 }
 
-static inline uint32_t UartReadByte(USART_Type *pUART) {
-  return (uint32_t)(pUART->RXDATA & 0x000001FF);
+/**
+ * @brief   TODO
+ * @param   peripheral  base address of USART peripheral
+ */
+static inline void usartSendData(USART_Type *peripheral, uint16_t data) {
+  peripheral->TXDAT = (uint32_t)(data & 0x000001FF);
 }
 
-static inline void UartIntEnable(USART_Type *pUART, uint32_t intMask) {
-  pUART->INTENSET = intMask;
+/**
+ * @brief   TODO
+ * @param   peripheral  base address of USART peripheral
+ */
+static inline uint32_t usartReadData(USART_Type *peripheral) {
+  return (uint32_t)(peripheral->RXDAT & 0x000001FF);
 }
 
-static inline void UartIntDisable(USART_Type *pUART, uint32_t intMask) {
-  pUART->INTENCLR = intMask;
+/**
+ * @brief   TODO
+ * @param   peripheral  base address of USART peripheral
+ */
+static inline uint32_t usartReadDataAndStatus(USART_Type *peripheral) {
+  return (uint32_t)(peripheral->RXDATSTAT & 0x0000E1FF);
 }
 
-static inline uint32_t UartGetIntsEnabled(USART_Type *pUART) {
-  return (pUART->INTENSET & ~UART_INTEN_RESERVED);
-}
-
-static inline uint32_t UartGetIntStatus(USART_Type *pUART) {
-  return (pUART->INTSTAT & ~UART_INTSTAT_RESERVED);
-}
-
-static inline void UartConfigData(USART_Type *pUART, uint32_t config) {
-  uint32_t cfgRegister;
-  cfgRegister =
-      pUART->CFG & ~((0x3 << 2) | (0x3 << 4) | (0x1 << 6) | UART_CFG_RESERVED);
-  pUART->CFG = cfgRegister | config;
-}
-
-static inline uint32_t UartGetStatus(USART_Type *pUART) {
-  return (pUART->STAT & ~UART_STAT_RESERVED);
-}
-
-static inline void UartClearStatus(USART_Type *pUART, uint32_t stsMask) {
-  pUART->STAT = stsMask;
-}
-
-static inline void UartSetOSR(USART_Type *pUART, uint32_t ovrVal) {
-  pUART->OSR = ovrVal - 1;
-}
-
-static inline void UartSetAddr(USART_Type *pUART, uint32_t addr) {
-  pUART->ADDR = addr;
+/**
+ * @brief   set the baud rate
+ * @param   peripheral  base address of USART peripheral
+ * @param   baseClock   base clock of the USART peripheral
+ * @param   baudRate    wanted baud rate
+ * @return  computed baud rate
+ */
+static inline uint32_t usartSetBaud(USART_Type *peripheral, uint32_t baseClock, uint32_t baudRate) {
+  uint32_t baudDivider = baseClock / (baudRate * 16);
+  peripheral->BRG = baudDivider;
+  return baseClock / 16 / baudDivider;
 }
 
 #endif

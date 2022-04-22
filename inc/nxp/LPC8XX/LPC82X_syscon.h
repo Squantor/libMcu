@@ -63,6 +63,31 @@ typedef volatile struct {
   const uint32_t DEVICEID; /* Device ID (R/ ) */
 } SYSCON_Type;
 
+/** reset control 0 peripheral list */
+typedef enum {
+  RESETCTRL_NONE = 0,           /*!< No reset 0 clear */
+  RESETCTRL_SPI0 = (1 << 0),    /**< SPI0 reset clear */
+  RESETCTRL_SPI1 = (1 << 1),    /**< SPI1 reset clear */
+  RESETCTRL_UARTFRG = (1 << 2), /**< UART fractional baud rate generator reset clear */
+  RESETCTRL_UART0 = (1 << 3),   /**< UART0 reset clear */
+  RESETCTRL_UART1 = (1 << 4),   /**< UART1 reset clear */
+  RESETCTRL_UART2 = (1 << 5),   /**< UART2 reset clear */
+  RESETCTRL_I2C0 = (1 << 6),    /**< I2C0 reset clear */
+  RESETCTRL_MRT = (1 << 7),     /**< MRT reset clear */
+  RESETCTRL_SCT = (1 << 8),     /**< SCT reset clear */
+  RESETCTRL_WKT = (1 << 9),     /**< WKT reset clear */
+  RESETCTRL_GPIO = (1 << 10),   /**< GPIO reset clear */
+  RESETCTRL_FLASH = (1 << 11),  /**< Flash reset clear */
+  RESETCTRL_ACMP = (1 << 12),   /**< UART2 reset clear */
+  RESETCTRL_I2C1 = (1 << 14),   /**< I2C0 reset clear */
+  RESETCTRL_I2C2 = (1 << 15),   /**< I2C0 reset clear */
+  RESETCTRL_I2C3 = (1 << 16),   /**< I2C0 reset clear */
+  RESETCTRL_ADC = (1 << 24),    /**< ADC reset clear */
+  RESETCTRL_DMA = (1 << 29),    /**< I2C0 reset clear */
+} SYSCON_RESETCTRL_Type;
+
+#define PRESETCTRL_MASK 0xDEFE2000 /**< Reserved bits of the Peripheral reset control register */
+
 typedef enum {
   SYSPLLCTRL_POSTDIV_2 = 0u,  /**< Post PLL division ratio of two */
   SYSPLLCTRL_POSTDIV_4 = 1u,  /**< Post PLL division ratio of four */
@@ -130,29 +155,6 @@ typedef enum {
   CLKCTRL_DMA = (1 << 29),     /**< DMA clock enable */
 } SYSCON_CLKCTRL_Type;
 
-/** reset control 0 peripheral list */
-typedef enum {
-  RESETCTRL_NONE = 0,           /*!< No reset 0 clear */
-  RESETCTRL_SPI0 = (1 << 0),    /**< SPI0 reset clear */
-  RESETCTRL_SPI1 = (1 << 1),    /**< SPI1 reset clear */
-  RESETCTRL_UARTFRG = (1 << 2), /**< UART fractional baud rate generator reset clear */
-  RESETCTRL_UART0 = (1 << 3),   /**< UART0 reset clear */
-  RESETCTRL_UART1 = (1 << 4),   /**< UART1 reset clear */
-  RESETCTRL_UART2 = (1 << 5),   /**< UART2 reset clear */
-  RESETCTRL_I2C0 = (1 << 6),    /**< I2C0 reset clear */
-  RESETCTRL_MRT = (1 << 7),     /**< MRT reset clear */
-  RESETCTRL_SCT = (1 << 8),     /**< SCT reset clear */
-  RESETCTRL_WKT = (1 << 9),     /**< WKT reset clear */
-  RESETCTRL_GPIO = (1 << 10),   /**< GPIO reset clear */
-  RESETCTRL_FLASH = (1 << 11),  /**< Flash reset clear */
-  RESETCTRL_ACMP = (1 << 12),   /**< UART2 reset clear */
-  RESETCTRL_I2C1 = (1 << 14),   /**< I2C0 reset clear */
-  RESETCTRL_I2C2 = (1 << 15),   /**< I2C0 reset clear */
-  RESETCTRL_I2C3 = (1 << 16),   /**< I2C0 reset clear */
-  RESETCTRL_ADC = (1 << 24),    /**< ADC reset clear */
-  RESETCTRL_DMA = (1 << 29),    /**< I2C0 reset clear */
-} SYSCON_RESETCTRL_Type;
-
 typedef enum {
   CLKOUT_IRC = 0,      /**< output IRC clock */
   CLKOUT_SYSOSC = 1,   /**< output System oscillator (crystal oscillator) clock */
@@ -169,6 +171,12 @@ typedef enum {
 
 #define SYSAHBCLKCTRL_MASK 0xDA100000 /**< Reserved bits of the peripheral clock control register */
 
+#define UARTCLKDIV_MASK 0xFFFFFF00 /**< Reserved bits of the USART clock divider register */
+
+#define UARTFRGDIV_MASK 0xFFFFFF00 /**< Reserved bits of the USART clock divider register */
+
+#define UARTFRGMULT_MASK 0xFFFFFF00 /**< Reserved bits of the USART clock divider register */
+
 typedef enum {
   PDRUNCFG_IRCOUT = (1 << 0),
   PDRUNCFG_IRC = (1 << 1),
@@ -183,6 +191,28 @@ typedef enum {
 
 #define PDRUNCFG_DEFAULT 0x0000EDF0 /**< Default configuration for Powerdown register */
 #define PDRUNCFG_MASK 0xFFFF7F00    /**< Reserved bits */
+
+/**
+ * @brief   Enables resets to various peripherals
+ * @param   peripheral  base address of SYSCON peripheral
+ * @param   setting     Settings for reset control register, see
+ * SYSCON_RESETCTRL_Type enum
+ * @return  Nothing
+ */
+static inline void sysconEnableResets(SYSCON_Type *peripheral, uint32_t setting) {
+  peripheral->PRESETCTRL = setting | peripheral->PRESETCTRL;
+}
+
+/**
+ * @brief   Disables resets to various peripherals
+ * @param   peripheral  base address of SYSCON peripheral
+ * @param   setting     Settings for reset control register, see
+ * SYSCON_RESETCTRL_Type enum
+ * @return  Nothing
+ */
+static inline void sysconDisableResets(SYSCON_Type *peripheral, uint32_t setting) {
+  peripheral->PRESETCTRL = ~setting & peripheral->PRESETCTRL;
+}
 
 /**
  * @brief   Enables clocks to various peripherals
@@ -207,25 +237,36 @@ static inline void sysconDisableClocks(SYSCON_Type *peripheral, uint32_t setting
 }
 
 /**
- * @brief   Enables resets to various peripherals
+ * @brief   Set the Uart baud rate generator clock divider
  * @param   peripheral  base address of SYSCON peripheral
- * @param   setting     Settings for reset control register, see
- * SYSCON_RESETCTRL_Type enum
+ * @param   setting     Settings for clock control register, see
+ * SYSCON_CLKCTRL_Type enum
  * @return  Nothing
  */
-static inline void sysconEnableResets(SYSCON_Type *peripheral, uint32_t setting) {
-  peripheral->PRESETCTRL = setting | peripheral->PRESETCTRL;
+static inline void sysconUartClockDiv(SYSCON_Type *peripheral, uint32_t setting) {
+  peripheral->UARTCLKDIV = setting & ~UARTCLKDIV_MASK;
 }
 
 /**
- * @brief   Disables resets to various peripherals
+ * @brief   Set the Uart fractional baud rate generator clock divider
  * @param   peripheral  base address of SYSCON peripheral
- * @param   setting     Settings for reset control register, see
- * SYSCON_RESETCTRL_Type enum
+ * @param   setting     Settings for clock control register, see
+ * SYSCON_CLKCTRL_Type enum
  * @return  Nothing
  */
-static inline void sysconDisableResets(SYSCON_Type *peripheral, uint32_t setting) {
-  peripheral->PRESETCTRL = ~setting & peripheral->PRESETCTRL;
+static inline void sysconUartFractionalDiv(SYSCON_Type *peripheral, uint32_t setting) {
+  peripheral->UARTFRGDIV = setting & ~UARTFRGDIV_MASK;
+}
+
+/**
+ * @brief   Set the Uart fractional baud rate generator clock divider
+ * @param   peripheral  base address of SYSCON peripheral
+ * @param   setting     Settings for clock control register, see
+ * SYSCON_CLKCTRL_Type enum
+ * @return  Nothing
+ */
+static inline void sysconUartFractionalMult(SYSCON_Type *peripheral, uint32_t setting) {
+  peripheral->UARTFRGMULT = setting & ~UARTFRGMULT_MASK;
 }
 
 #include "nxp/LPC8XX/LPC8XX_syscon.h"
