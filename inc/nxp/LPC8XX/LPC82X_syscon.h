@@ -70,33 +70,26 @@ typedef enum {
   SYSPLLCTRL_POSTDIV_16 = 3u, /**< Post PLL division ratio of sixteen */
 } SYSPLLCTRL_PSEL_Type;
 
-#define SYSPLLCTRL_MASK \
-  0xFFFFFF80 /**< Reserved bits of the System PLL control register */
+#define SYSPLLCTRL_MASK 0xFFFFFF80 /**< Reserved bits of the System PLL control register */
 
-#define SYSOSCCTRL_MASK \
-  0xFFFFFFFC /**< Reserved bits of System oscillator control register */
-#define SYSOSCCTRL_BYPASS(value) \
-  (value << 0) /**< Oscillator is bypassed, used with external oscillator */
-#define SYSOSCCTRL_FREQ_1_20MHZ \
-  (0 << 1) /**< Oscillator frequency range from 1 to 20MHz */
-#define SYSOSCCTRL_FREQ_15_25MHZ \
-  (1 << 1) /**< Oscillator frequency range from 15 to 25MHz */
+#define SYSOSCCTRL_MASK 0xFFFFFFFC            /**< Reserved bits of System oscillator control register */
+#define SYSOSCCTRL_BYPASS(value) (value << 0) /**< Oscillator is bypassed, used with external oscillator */
+#define SYSOSCCTRL_FREQ_1_20MHZ (0 << 1)      /**< Oscillator frequency range from 1 to 20MHz */
+#define SYSOSCCTRL_FREQ_15_25MHZ (1 << 1)     /**< Oscillator frequency range from 15 to 25MHz */
 
-#define SYSPLLCLKSEL_MASK \
-  0xFFFFFFFC /**< Reserved bits of the Main clock pll select register */
+#define SYSPLLCLKSEL_MASK 0xFFFFFFFC /**< Reserved bits of the Main clock pll select register */
 typedef enum {
   SYSPLLCLKSEL_IRC = 0u,    /**< Internal resonant crystal oscillator */
   SYSPLLCLKSEL_SYSOSC = 1u, /**< Crystal oscillator (SYSOSC) */
   SYSPLLCLKSEL_CLKIN = 3u   /**< CLKIN. External clock input */
 } SYSPLLCLKSEL_Type;
 
-#define SYSPLLCLKUEN_MASK                                                    \
-  0xFFFFFFFE /**< Reserved bits of the main clock pll select update register \
-              */
+#define SYSPLLCLKUEN_MASK                                                                            \
+  0xFFFFFFFE                         /**< Reserved bits of the main clock pll select update register \
+                                      */
 #define SYSPLLCLKUEN_UPDATE (1 << 0) /**< Update main clock pll select */
 
-#define MAINCLKSEL_MASK \
-  0xFFFFFFFC /**< Reserved bits of the main clock source select register */
+#define MAINCLKSEL_MASK 0xFFFFFFFC /**< Reserved bits of the main clock source select register */
 typedef enum {
   MAINCLKSEL_IRC = 0u,      /**< Internal resonant crystal oscillator */
   MAINCLKSEL_PLL_IN = 1u,   /**< PLL input */
@@ -104,8 +97,7 @@ typedef enum {
   MAINCLKSEL_PLL_OUT = 3u   /**< PLL output */
 } MAINCLOCKSEL_Type;
 
-#define MAINCLKUEN_MASK \
-  0xFFFFFFFE /**< Reserved bits of the main clock source update register */
+#define MAINCLKUEN_MASK 0xFFFFFFFE /**< Reserved bits of the main clock source update register */
 #define MAINCLKUEN_UPDATE (1 << 0) /**< Update main clock source */
 
 /** Clock control 0 peripheral list */
@@ -138,24 +130,44 @@ typedef enum {
   CLKCTRL_DMA = (1 << 29),     /**< DMA clock enable */
 } SYSCON_CLKCTRL_Type;
 
+/** reset control 0 peripheral list */
 typedef enum {
-  CLKOUT_IRC = 0,    /**< output IRC clock */
-  CLKOUT_SYSOSC = 1, /**< output System oscillator (crystal oscillator) clock */
+  RESETCTRL_NONE = 0,           /*!< No reset 0 clear */
+  RESETCTRL_SPI0 = (1 << 0),    /**< SPI0 reset clear */
+  RESETCTRL_SPI1 = (1 << 1),    /**< SPI1 reset clear */
+  RESETCTRL_UARTFRG = (1 << 2), /**< UART fractional baud rate generator reset clear */
+  RESETCTRL_UART0 = (1 << 3),   /**< UART0 reset clear */
+  RESETCTRL_UART1 = (1 << 4),   /**< UART1 reset clear */
+  RESETCTRL_UART2 = (1 << 5),   /**< UART2 reset clear */
+  RESETCTRL_I2C0 = (1 << 6),    /**< I2C0 reset clear */
+  RESETCTRL_MRT = (1 << 7),     /**< MRT reset clear */
+  RESETCTRL_SCT = (1 << 8),     /**< SCT reset clear */
+  RESETCTRL_WKT = (1 << 9),     /**< WKT reset clear */
+  RESETCTRL_GPIO = (1 << 10),   /**< GPIO reset clear */
+  RESETCTRL_FLASH = (1 << 11),  /**< Flash reset clear */
+  RESETCTRL_ACMP = (1 << 12),   /**< UART2 reset clear */
+  RESETCTRL_I2C1 = (1 << 14),   /**< I2C0 reset clear */
+  RESETCTRL_I2C2 = (1 << 15),   /**< I2C0 reset clear */
+  RESETCTRL_I2C3 = (1 << 16),   /**< I2C0 reset clear */
+  RESETCTRL_ADC = (1 << 24),    /**< ADC reset clear */
+  RESETCTRL_DMA = (1 << 29),    /**< I2C0 reset clear */
+} SYSCON_RESETCTRL_Type;
+
+typedef enum {
+  CLKOUT_IRC = 0,      /**< output IRC clock */
+  CLKOUT_SYSOSC = 1,   /**< output System oscillator (crystal oscillator) clock */
   CLKOUT_WATCHDOG = 2, /**< output watchdog */
   CLKOUT_MAIN = 3,     /**< output main clock */
 } CLKOUT_SOURCE_Type;
 
 #define CLKOUT_RESERVED_MASK (0xFFFFFFFC)
 
-#define MAINCLKUEN_MASK \
-  0xFFFFFFFE /**< Reserved bits of the main clock source update register */
+#define MAINCLKUEN_MASK 0xFFFFFFFE /**< Reserved bits of the main clock source update register */
 #define MAINCLKUEN_UPDATE (1 << 0) /**< Update main clock source */
 
-#define SYSAHBCLKDIV_MASK \
-  0xFFFFFF00 /**< Reserved bits of the system clock divider register */
+#define SYSAHBCLKDIV_MASK 0xFFFFFF00 /**< Reserved bits of the system clock divider register */
 
-#define SYSAHBCLKCTRL_MASK \
-  0xDA100000 /**< Reserved bits of the peripheral clock control register */
+#define SYSAHBCLKCTRL_MASK 0xDA100000 /**< Reserved bits of the peripheral clock control register */
 
 typedef enum {
   PDRUNCFG_IRCOUT = (1 << 0),
@@ -169,36 +181,53 @@ typedef enum {
   PDRUNCFG_ACMP = (1 << 15),
 } PDCFG_Type;
 
-#define PDRUNCFG_DEFAULT \
-  0x0000EDF0 /**< Default configuration for Powerdown register */
-#define PDRUNCFG_MASK 0xFFFF7F00 /**< Reserved bits */
+#define PDRUNCFG_DEFAULT 0x0000EDF0 /**< Default configuration for Powerdown register */
+#define PDRUNCFG_MASK 0xFFFF7F00    /**< Reserved bits */
 
 /**
  * @brief   Enables clocks to various peripherals
  * @param   peripheral  base address of SYSCON peripheral
- * @param   setting     Settings for clock control 0 register, see
+ * @param   setting     Settings for clock contro0 register, see
  * SYSCON_CLKCTRL_Type enum
  * @return  Nothing
  */
-static inline void sysconEnableClocks(SYSCON_Type *peripheral,
-                                      uint32_t setting) {
+static inline void sysconEnableClocks(SYSCON_Type *peripheral, uint32_t setting) {
   peripheral->SYSAHBCLKCTRL = setting | peripheral->SYSAHBCLKCTRL;
 }
 
 /**
  * @brief   Disables clocks to various peripherals
  * @param   peripheral  base address of SYSCON peripheral
- * @param   setting     Settings for clock control 0 register, see
+ * @param   setting     Settings for clock control register, see
  * SYSCON_CLKCTRL_Type enum
  * @return  Nothing
  */
-static inline void sysconDisableClocks(SYSCON_Type *peripheral,
-                                       uint32_t setting) {
+static inline void sysconDisableClocks(SYSCON_Type *peripheral, uint32_t setting) {
   peripheral->SYSAHBCLKCTRL = ~setting & peripheral->SYSAHBCLKCTRL;
 }
 
-//#include "nxp/LPC8XX/LPC82X_syscon_old.h"
+/**
+ * @brief   Enables resets to various peripherals
+ * @param   peripheral  base address of SYSCON peripheral
+ * @param   setting     Settings for reset control register, see
+ * SYSCON_RESETCTRL_Type enum
+ * @return  Nothing
+ */
+static inline void sysconEnableResets(SYSCON_Type *peripheral, uint32_t setting) {
+  peripheral->PRESETCTRL = setting | peripheral->PRESETCTRL;
+}
+
+/**
+ * @brief   Disables resets to various peripherals
+ * @param   peripheral  base address of SYSCON peripheral
+ * @param   setting     Settings for reset control register, see
+ * SYSCON_RESETCTRL_Type enum
+ * @return  Nothing
+ */
+static inline void sysconDisableResets(SYSCON_Type *peripheral, uint32_t setting) {
+  peripheral->PRESETCTRL = ~setting & peripheral->PRESETCTRL;
+}
+
 #include "nxp/LPC8XX/LPC8XX_syscon.h"
-//#include "nxp/LPC8XX/LPC8XX_syscon_old.h"
 
 #endif
