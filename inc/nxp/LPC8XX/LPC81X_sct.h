@@ -17,14 +17,14 @@ LPC800 series state configurable timer registers, defines and functions.
 typedef volatile struct {
   uint32_t CONFIG; /*!< configuration Register*/
   union {
+    uint32_t CTRL; /*!< SCT control register*/
     struct {
       uint16_t CTRLL; /*!< SCT_CTRLL register*/
       uint16_t CTRLH; /*!< SCT_CTRLH register */
-    } CTRL_ACCESS16BIT;
-    uint32_t CTRL; /*!< SCT control register*/
+    };
   };
   union {
-    uint32_t LIMIT_U; /* limit Register */
+    uint32_t LIMIT; /* limit Register */
     struct {
       uint16_t LIMIT_L; /* limit register for counter L */
       uint16_t LIMIT_H; /* limit register for counter H */
@@ -32,7 +32,7 @@ typedef volatile struct {
   };
 
   union {
-    uint32_t HALT_U; /* halt Register */
+    uint32_t HALT; /* halt Register */
     struct {
       uint16_t HALT_L; /* halt register for counter L */
       uint16_t HALT_H; /* halt register for counter H */
@@ -40,7 +40,7 @@ typedef volatile struct {
   };
 
   union {
-    uint32_t STOP_U; /* stop Register */
+    uint32_t STOP; /* stop Register */
     struct {
       uint16_t STOP_L; /* stop register for counter L */
       uint16_t STOP_H; /* stop register for counter H */
@@ -48,7 +48,7 @@ typedef volatile struct {
   };
 
   union {
-    uint32_t START_U; /* start Register */
+    uint32_t START; /* start Register */
     struct {
       uint16_t START_L; /* start register for counter L */
       uint16_t START_H; /* start register for counter H */
@@ -58,7 +58,7 @@ typedef volatile struct {
   uint32_t RESERVED1[10]; /* 0x018 - 0x03C reserved */
 
   union {
-    uint32_t COUNT_U; /* counter register (offset 0x040)*/
+    uint32_t COUNT; /* counter register (offset 0x040)*/
     struct {
       uint16_t COUNT_L; /* counter register for counter L */
       uint16_t COUNT_H; /* counter register for counter H */
@@ -66,7 +66,7 @@ typedef volatile struct {
   };
 
   union {
-    uint32_t STATE_U; /* State register */
+    uint32_t STATE; /* State register */
     struct {
       uint16_t STATE_L; /* state register for counter L */
       uint16_t STATE_H; /* state register for counter H */
@@ -75,7 +75,7 @@ typedef volatile struct {
 
   const uint32_t INPUT; /* input register */
   union {
-    uint32_t REGMODE_U; /* RegMode register */
+    uint32_t REGMODE; /* RegMode register */
     struct {
       uint16_t REGMODE_L; /* match - capture registers mode register L */
       uint16_t REGMODE_H; /* match - capture registers mode register H */
@@ -150,8 +150,7 @@ typedef volatile struct {
 
 /* Macro defines for SCT configuration register */
 
-#define SCT_CONFIG_RESERVED \
-  (0xFFF9E000) /*!< Reserved bits of SCT config register */
+#define SCT_CONFIG_RESERVED (0xFFF9E000) /*!< Reserved bits of SCT config register */
 #define SCT_CONFIG_16BIT_COUNTER               \
   (0x0 << 0) /*!< Operate as 2 16-bit counters \
               */
@@ -160,31 +159,21 @@ typedef volatile struct {
                                                */
 #define SCT_CONFIG_CLKMODE_SYSTEM (0x0 << 1)  /*!< System clock mode */
 #define SCT_CONFIG_CLKMODE_SAMPLED (0x1 << 1) /*!< Sampled clock mode */
-#define SCT_CONFIG_CLKMODE_INCLK                                              \
-  (0x2 << 1)                                /*!< SCTimer/PWM input clock mode \
-                                             */
-#define SCT_CONFIG_CLKMODE_ASYNC (0x3 << 1) /*!< Asynchronous clock mode */
-#define SCT_CONFIG_CKSEL(clock) \
-  ((clock) << 3) /*!< input to select for the clock mode */
-#define SCT_CONFIG_NORELOAD_U (0x1 << 7) /*!< Prevent match register reload */
-#define SCT_CONFIG_NORELOAD_L \
-  (0x1 << 7) /*!< Prevent lower match register reload */
-#define SCT_CONFIG_NORELOAD_H \
-  (0x1 << 8) /*!< Prevent upper match register reload */
-#define SCT_CONFIG_INSYNC_IN0 \
-  (1u << 9) /*!< Enable input synchronizer for input 0 */
-#define SCT_CONFIG_INSYNC_IN1 \
-  (1u << 10) /*!< Enable input synchronizer for input 1 */
-#define SCT_CONFIG_INSYNC_IN2 \
-  (1u << 11) /*!< Enable input synchronizer for input 2 */
-#define SCT_CONFIG_INSYNC_IN3 \
-  (1u << 12) /*!< Enable input synchronizer for input 3 */
-#define SCT_CONFIG_AUTOLIMIT_U \
-  (0x1 << 17) /*!< Limits counter(unified) based on MATCH0 */
-#define SCT_CONFIG_AUTOLIMIT_L \
-  (0x1 << 17) /*!< Limits counter(L) based on MATCH0 */
-#define SCT_CONFIG_AUTOLIMIT_H \
-  (0x1 << 18) /*!< Limits counter(L) based on MATCH0 */
+#define SCT_CONFIG_CLKMODE_INCLK                                                 \
+  (0x2 << 1)                                   /*!< SCTimer/PWM input clock mode \
+                                                */
+#define SCT_CONFIG_CLKMODE_ASYNC (0x3 << 1)    /*!< Asynchronous clock mode */
+#define SCT_CONFIG_CKSEL(clock) ((clock) << 3) /*!< input to select for the clock mode */
+#define SCT_CONFIG_NORELOAD_U (0x1 << 7)       /*!< Prevent match register reload */
+#define SCT_CONFIG_NORELOAD_L (0x1 << 7)       /*!< Prevent lower match register reload */
+#define SCT_CONFIG_NORELOAD_H (0x1 << 8)       /*!< Prevent upper match register reload */
+#define SCT_CONFIG_INSYNC_IN0 (1u << 9)        /*!< Enable input synchronizer for input 0 */
+#define SCT_CONFIG_INSYNC_IN1 (1u << 10)       /*!< Enable input synchronizer for input 1 */
+#define SCT_CONFIG_INSYNC_IN2 (1u << 11)       /*!< Enable input synchronizer for input 2 */
+#define SCT_CONFIG_INSYNC_IN3 (1u << 12)       /*!< Enable input synchronizer for input 3 */
+#define SCT_CONFIG_AUTOLIMIT_U (0x1 << 17)     /*!< Limits counter(unified) based on MATCH0 */
+#define SCT_CONFIG_AUTOLIMIT_L (0x1 << 17)     /*!< Limits counter(L) based on MATCH0 */
+#define SCT_CONFIG_AUTOLIMIT_H (0x1 << 18)     /*!< Limits counter(L) based on MATCH0 */
 
 typedef enum {
   SCT_CONFIG_CKSEL_RISE_IN0 = 0x0, /*!< Rising edges on input0 */
@@ -199,12 +188,9 @@ typedef enum {
 
 /* Macro defines for SCT control register */
 
-#define SCT_CTRL_RESERVED \
-  (0xE000E000) /*!< Reserved bits of SCT Control register */
-#define SCT_CTRL_L_RESERVED \
-  (0xE000) /*!< Reserved bits of Lower SCT Control register */
-#define SCT_CTRL_H_RESERVED \
-  (0xE000) /*!< Reserved bits of Higher SCT Control register */
+#define SCT_CTRL_RESERVED (0xE000E000) /*!< Reserved bits of SCT Control register */
+#define SCT_CTRL_L_RESERVED (0xE000)   /*!< Reserved bits of Lower SCT Control register */
+#define SCT_CTRL_H_RESERVED (0xE000)   /*!< Reserved bits of Higher SCT Control register */
 
 #define SCT_CTRL_STOP_U (1 << 1)   /*!< Stop counter */
 #define SCT_CTRL_STOP_L (1 << 1)   /*!< Stop low counter */
@@ -212,21 +198,18 @@ typedef enum {
 #define SCT_CTRL_HALT_L (1 << 2)   /*!< Halt low counter */
 #define SCT_CTRL_CLRCTR_U (1 << 3) /*!< Clear unified counter */
 #define SCT_CTRL_CLRCTR_L (1 << 3) /*!< Clear low counter */
-#define SCT_CTRL_BIDIR_U                                                      \
-  (1 << 4)                        /*!< Unified counter bidirectional counting \
-                                   */
-#define SCT_CTRL_BIDIR_L (1 << 4) /*!< Low counter bidirectional counting */
-#define SCT_CTRL_PRE_U(x) \
-  (((x)&0xFF) << 5) /*!< Prescale clock for unified counter */
-#define SCT_CTRL_PRE_L(x) \
-  (((x)&0xFF) << 5) /*!< Prescale clock for low counter */
+#define SCT_CTRL_BIDIR_U                                                                \
+  (1 << 4)                                  /*!< Unified counter bidirectional counting \
+                                             */
+#define SCT_CTRL_BIDIR_L (1 << 4)           /*!< Low counter bidirectional counting */
+#define SCT_CTRL_PRE_U(x) (((x)&0xFF) << 5) /*!< Prescale clock for unified counter */
+#define SCT_CTRL_PRE_L(x) (((x)&0xFF) << 5) /*!< Prescale clock for low counter */
 
-#define SCT_CTRL_STOP_H (1 << 17)   /*!< Stop high counter */
-#define SCT_CTRL_HALT_H (1 << 18)   /*!< Halt high counter */
-#define SCT_CTRL_CLRCTR_H (1 << 19) /*!< Clear high counter */
-#define SCT_CTRL_BIDIR_H (1 << 20)  /*!< High counter bidirectional counting */
-#define SCT_CTRL_PRE_H(x) \
-  (((x)&0xFF) << 21) /*!< Prescale clock for high counter */
+#define SCT_CTRL_STOP_H (1 << 17)            /*!< Stop high counter */
+#define SCT_CTRL_HALT_H (1 << 18)            /*!< Halt high counter */
+#define SCT_CTRL_CLRCTR_H (1 << 19)          /*!< Clear high counter */
+#define SCT_CTRL_BIDIR_H (1 << 20)           /*!< High counter bidirectional counting */
+#define SCT_CTRL_PRE_H(x) (((x)&0xFF) << 21) /*!< Prescale clock for high counter */
 
 /* Defines for the SCT limit register */
 /* Defines for the SCT halt condition register */
@@ -245,8 +228,7 @@ typedef enum {
 /* Defines for the SCT output register */
 #define SCT_OUTPUT_STATE(n, x) ((x) << (n)) /*!< Set output n to state x */
 /* Defines for the SCT output counter direction control register */
-#define SCT_OUTPUTDIRCTRL(n, x) \
-  ((x) << ((n)*2)) /*!< set counter direction control for output channel n */
+#define SCT_OUTPUTDIRCTRL(n, x) ((x) << ((n)*2)) /*!< set counter direction control for output channel n */
 
 typedef enum {
   SCT_OUTPUTDIRCTRL_ANY = 0x0,     /*!< no dependency on any counter */
@@ -267,7 +249,7 @@ typedef enum {
 /* Defines for the SCT conflict flag register */
 /* Defines for the SCT event state register */
 /* Defines for the SCT event control register */
-#define SCT_EV_CTRL_RESERVED (0xFF800000) /*!< Event control reserved bits */
+#define SCT_EV_CTRL_RESERVED (0xFF800000)           /*!< Event control reserved bits */
 #define SCT_EV_CTRL_MATCHSEL(x) (((x)&0x0F) << 0)   /*!< */
 #define SCT_EV_CTRL_H_EVENT (1 << 4)                /*!< */
 #define SCT_EV_CTRL_INSEL (0 << 5)                  /*!< */
