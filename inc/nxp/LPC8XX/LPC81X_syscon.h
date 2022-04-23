@@ -204,73 +204,7 @@ typedef enum {
   0xFFFF1F00 /**< Reserved bits of the Powerdown register \
               */
 
-/**
- * @brief   Enables resets to various peripherals
- * @param   peripheral  base address of SYSCON peripheral
- * @param   setting     Settings for reset control register, see
- * SYSCON_RESETCTRL_Type enum
- * @return  Nothing
- */
-static inline void sysconEnableResets(SYSCON_Type *peripheral, uint32_t setting) {
-  peripheral->PRESETCTRL = setting | peripheral->PRESETCTRL;
-}
-
-/**
- * @brief   Disables resets to various peripherals
- * @param   peripheral  base address of SYSCON peripheral
- * @param   setting     Settings for reset control register, see
- * SYSCON_RESETCTRL_Type enum
- * @return  Nothing
- */
-static inline void sysconDisableResets(SYSCON_Type *peripheral, uint32_t setting) {
-  peripheral->PRESETCTRL = ~setting & peripheral->PRESETCTRL;
-}
-
-/**
- * @brief   Enables clocks to various peripherals
- * @param   peripheral  base address of SYSCON peripheral
- * @param   setting     Settings for clock control 0 register, see
- * SYSCON_CLKCTRL_Type enum
- * @return  Nothing
- */
-static inline void sysconEnableClocks(SYSCON_Type *peripheral, uint32_t setting) {
-  peripheral->SYSAHBCLKCTRL = setting | peripheral->SYSAHBCLKCTRL;
-}
-
-/**
- * @brief   Disables clocks to various peripherals
- * @param   peripheral  base address of SYSCON peripheral
- * @param   setting     Settings for clock control 0 register, see
- * SYSCON_CLKCTRL_Type enum
- * @return  Nothing
- */
-static inline void sysconDisableClocks(SYSCON_Type *peripheral, uint32_t setting) {
-  peripheral->SYSAHBCLKCTRL = ~setting & peripheral->SYSAHBCLKCTRL;
-}
-
-/**
- * @brief   Enables reset signal to various peripherals
- * @param   peripheral  base address of SYSCON peripheral
- * @param   resets      Settings for reset control register, see
- * SYSCON_RESETCTRL_Type enum
- * @return  Nothing
- */
-static inline void sysconClearResets(SYSCON_Type *peripheral, uint32_t setting) {
-  peripheral->PRESETCTRL = setting | peripheral->PRESETCTRL;
-}
-
-/**
- * @brief   Disables reset signal to various peripherals
- * @param   peripheral  base address of SYSCON peripheral
- * @param   resets0     Settings for reset control register, see
- * SYSCON_RESETCTRL_Type enum
- * @return  Nothing
- */
-static inline void sysconAssertResets(SYSCON_Type *peripheral, uint32_t setting) {
-  peripheral->PRESETCTRL = ~setting & peripheral->PRESETCTRL;
-}
-
+#include "nxp/LPC8XX/LPC82X_81X_syscon.h"
 #include "nxp/LPC8XX/LPC8XX_syscon.h"
-//#include "nxp/LPC8XX/LPC8XX_syscon_old.h"
 
 #endif
