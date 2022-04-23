@@ -1,34 +1,14 @@
 /*
-This is free and unencumbered software released into the public domain.
-
-Anyone is free to copy, modify, publish, use, compile, sell, or
-distribute this software, either in source code form or as a compiled
-binary, for any purpose, commercial or non-commercial, and by any
-means.
-
-In jurisdictions that recognize copyright laws, the author or authors
-of this software dedicate any and all copyright interest in the
-software to the public domain. We make this dedication for the benefit
-of the public at large and to the detriment of our heirs and
-successors. We intend this dedication to be an overt act of
-relinquishment in perpetuity of all present and future rights to this
-software under copyright law.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
-OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-OTHER DEALINGS IN THE SOFTWARE.
-
-For more information, please refer to <http://unlicense.org>
-*/
+ * SPDX-License-Identifier: Unlicense
+ *
+ * Copyright (c) 2021 Bart Bilos
+ * For conditions of distribution and use, see LICENSE file
+ */
 /*
-LPC810 series common UART registers, defines and functions.
-*/
-#ifndef LPC81X_UART_H
-#define LPC81X_UART_H
+ * LPC84X and LPC82X series USART functions.
+ */
+#ifndef LPC84X_LPC82X_USART_H
+#define LPC84X_LPC82X_USART_H
 
 /** USART - Register Layout Typedef */
 typedef volatile struct USART_Struct {
@@ -48,6 +28,8 @@ typedef volatile struct USART_Struct {
   uint32_t TXDAT;           /*!< Transmit Data register. Data to be transmitted is written here., offset: 0x1C */
   uint32_t BRG;             /*!< Baud Rate Generator register. 16-bit integer baud rate divisor value., offset: 0x20 */
   const uint32_t INTSTAT;   /*!< Interrupt status register. Reflects interrupts that are currently enabled., offset: 0x24 */
+  uint32_t OSR;             /*!< Oversample selection register for asynchronous communication., offset: 0x28 */
+  uint32_t ADDR;            /*!< Address register for automatic address matching., offset: 0x2C */
 } USART_Type;
 
 #define USART_CFG_RESERVED (0xFF032582)   /*!< USART Config register reserved bits */
@@ -65,6 +47,28 @@ typedef volatile struct USART_Struct {
 #define USART_CFG_CLKPOL (0x01 << 12)     /*!< Un_RXD rising edge sample enable bit */
 #define USART_CFG_SYNCMST (0x01 << 14)    /*!< Select master mode (synchronous mode) enable bit */
 #define USART_CFG_LOOP (0x01 << 15)       /*!< Loopback mode enable bit */
+#define USART_CFG_OETA (0x01 << 18)       /*!< Output Enable Turnaround time enable bit */
+#define USART_CFG_AUTOADDR (0x01 << 19)   /*!< Automatic Address matching enable bit */
+#define USART_CFG_OESEL (0x01 << 20)      /*!< Output Enable Select bit */
+#define USART_CFG_OEPOL (0x01 << 21)      /*!< Output Enable Polarity bit */
+#define USART_CFG_RXPOL (0x01 << 22)      /*!< Receive data polarity bit */
+
+typedef enum {
+  DATALEN_7 = USART_CFG_DATALEN_7, /*!< USART 7 bit length mode */
+  DATALEN_8 = USART_CFG_DATALEN_8, /*!< USART 8 bit length mode */
+  DATALEN_9 = USART_CFG_DATALEN_9, /*!< USART 9 bit length mode */
+} USART_DATALEN_Type;
+
+typedef enum {
+  PARITY_NONE = USART_CFG_PARITY_NONE, /*!< No parity */
+  PARITY_EVEN = USART_CFG_PARITY_EVEN, /*!< Even parity */
+  PARITY_ODD = USART_CFG_PARITY_ODD,   /*!< Odd parity */
+} USART_PARITY_Type;
+
+typedef enum {
+  STOPLEN_1 = USART_CFG_STOPLEN_1, /*!< USART One Stop Bit Select */
+  STOPLEN_2 = USART_CFG_STOPLEN_2, /*!< USART Two Stop Bits Select */
+} USART_STOPLEN_Type;
 
 #define USART_CTL_RESERVED (0xFFFEFCB9) /*!< USART Control register reserved bits */
 #define USART_CTL_TXBRKEN (0x01 << 1)   /*!< Break enable */
@@ -72,6 +76,7 @@ typedef volatile struct USART_Struct {
 #define USART_CTL_TXDIS (0x01 << 6)     /*!< Transmit disable */
 #define USART_CTL_CC (0x01 << 8)        /*!< Continuous clock generation */
 #define USART_CTL_CLRCCONRX (0x01 << 9) /*!< Clear continuous clock */
+#define USART_CTL_AUTOBAUD (0x01 << 16) /*!< Autobaud enable */
 
 #define USART_STAT_RESERVED (0xFFFE0280)  /*!< USART status register reserved bits */
 #define USART_STAT_CLEAR (0x0001F920)     /*!< clear bits with 1's per datasheet */
@@ -89,12 +94,11 @@ typedef volatile struct USART_Struct {
 #define USART_STAT_FRAMERRINT (1 << 13)   /*!< Framing error interrupt flag */
 #define USART_STAT_PARITYERRINT (1 << 14) /*!< Parity error interrupt flag */
 #define USART_STAT_RXNOISEINT (1 << 15)   /*!< Received noise interrupt flag */
+#define USART_STAT_ABERR (1 << 16)        /*!< Autobaud error */
 
 #define USART_RXDATSTAT_RESERVED (0x0000E1FF) /*!< USART RX data with status register reserved bits*/
 #define USART_RXDATSTAT_FRAMERR (1 << 13)     /*!< Framing error detected */
 #define USART_RXDATSTAT_PARITYERR (1 << 14)   /*!< Parity error detected */
 #define USART_RXDATSTAT_RXNOISE (1 << 15)     /*!< Received noise detected */
-
-#include "nxp/LPC8XX/LPC8XX_uart.h"
 
 #endif
