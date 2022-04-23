@@ -11,6 +11,6 @@
 #define LPC84X_USART_H
 
 #include "nxp/LPC8XX/LPC84X_82X_usart.h"
-#include "nxp/LPC8XX/LPC8XX_uart.h"
+#include "nxp/LPC8XX/LPC8XX_usart.h"
 
 #endif

@@ -167,7 +167,7 @@ typedef enum PINx {
 #include "nxp/LPC8XX/LPC8XX_irc.h"
 #include "nxp/LPC8XX/LPC8XX_crc.h"
 #include "nxp/LPC8XX/LPC82X_acmp.h"
-#include "nxp/LPC8XX/LPC82X_uart.h"
+#include "nxp/LPC8XX/LPC82X_usart.h"
 #include "nxp/LPC8XX/LPC8XX_spi.h"
 #include "nxp/LPC8XX/LPC82X_i2c.h"
 #include "nxp/LPC8XX/LPC82X_adc.h"

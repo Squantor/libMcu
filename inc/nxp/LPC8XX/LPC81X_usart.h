@@ -27,8 +27,8 @@ For more information, please refer to <http://unlicense.org>
 /*
 LPC810 series common UART registers, defines and functions.
 */
-#ifndef LPC81X_UART_H
-#define LPC81X_UART_H
+#ifndef LPC81X_USART_H
+#define LPC81X_USART_H
 
 /** USART - Register Layout Typedef */
 typedef volatile struct USART_Struct {
@@ -66,6 +66,23 @@ typedef volatile struct USART_Struct {
 #define USART_CFG_SYNCMST (0x01 << 14)    /*!< Select master mode (synchronous mode) enable bit */
 #define USART_CFG_LOOP (0x01 << 15)       /*!< Loopback mode enable bit */
 
+typedef enum {
+  DATALEN_7 = USART_CFG_DATALEN_7, /*!< USART 7 bit length mode */
+  DATALEN_8 = USART_CFG_DATALEN_8, /*!< USART 8 bit length mode */
+  DATALEN_9 = USART_CFG_DATALEN_9, /*!< USART 9 bit length mode */
+} USART_DATALEN_Type;
+
+typedef enum {
+  PARITY_NONE = USART_CFG_PARITY_NONE, /*!< No parity */
+  PARITY_EVEN = USART_CFG_PARITY_EVEN, /*!< Even parity */
+  PARITY_ODD = USART_CFG_PARITY_ODD,   /*!< Odd parity */
+} USART_PARITY_Type;
+
+typedef enum {
+  STOPLEN_1 = USART_CFG_STOPLEN_1, /*!< USART One Stop Bit Select */
+  STOPLEN_2 = USART_CFG_STOPLEN_2, /*!< USART Two Stop Bits Select */
+} USART_STOPLEN_Type;
+
 #define USART_CTL_RESERVED (0xFFFEFCB9) /*!< USART Control register reserved bits */
 #define USART_CTL_TXBRKEN (0x01 << 1)   /*!< Break enable */
 #define USART_CTL_ADDRDET (0x01 << 2)   /*!< Enable address detect mode */
@@ -95,6 +112,6 @@ typedef volatile struct USART_Struct {
 #define USART_RXDATSTAT_PARITYERR (1 << 14)   /*!< Parity error detected */
 #define USART_RXDATSTAT_RXNOISE (1 << 15)     /*!< Received noise detected */
 
-#include "nxp/LPC8XX/LPC8XX_uart.h"
+#include "nxp/LPC8XX/LPC8XX_usart.h"
 
 #endif

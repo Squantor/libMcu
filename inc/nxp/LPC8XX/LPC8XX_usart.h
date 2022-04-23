@@ -27,8 +27,8 @@ For more information, please refer to <http://unlicense.org>
 /*
 LPC800 series common UART registers, defines and functions.
 */
-#ifndef LPC8XX_UART_H
-#define LPC8XX_UART_H
+#ifndef LPC8XX_USART_H
+#define LPC8XX_USART_H
 
 /**
  * @brief   setup USART control register
