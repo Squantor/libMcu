@@ -20,8 +20,7 @@ LPC800 series common GPIO registers, defines and functions.
  * @param port          GPIO port number
  * @param reg           direction register setting
  */
-static inline void gpioSetPortDir(GPIO_Type *peripheral, GPIO_PORT_Type port,
-                                  uint32_t reg) {
+static inline void gpioSetPortDir(GPIO_Type *peripheral, GPIO_PORT_Type port, uint32_t reg) {
   peripheral->DIR[port] = reg;
 }
 
@@ -32,8 +31,7 @@ static inline void gpioSetPortDir(GPIO_Type *peripheral, GPIO_PORT_Type port,
  * @param port          GPIO port number
  * @param pin           GPIO pin number to set as output
  */
-static inline void gpioSetPinDIROutput(GPIO_Type *peripheral,
-                                       GPIO_PORT_Type port, uint8_t pin) {
+static inline void gpioSetPinDIROutput(GPIO_Type *peripheral, GPIO_PORT_Type port, uint8_t pin) {
   uint32_t pins = peripheral->DIR[port];
   pins |= 1UL << pin;
   peripheral->DIR[port] = pins;
@@ -46,8 +44,7 @@ static inline void gpioSetPinDIROutput(GPIO_Type *peripheral,
  * @param port          GPIO port number
  * @param pin           GPIO pin number to set as input
  */
-static inline void gpioSetPinDIRInput(GPIO_Type *peripheral,
-                                      GPIO_PORT_Type port, uint8_t pin) {
+static inline void gpioSetPinDIRInput(GPIO_Type *peripheral, GPIO_PORT_Type port, uint8_t pin) {
   uint32_t pins = peripheral->DIR[port];
   pins &= ~(1UL << pin);
   peripheral->DIR[port] = pins;
@@ -60,8 +57,7 @@ static inline void gpioSetPinDIRInput(GPIO_Type *peripheral,
  * @param port          GPIO port number
  * @param pin           GPIO pin number to direction toggle
  */
-static inline void gpioTogglePinDIR(GPIO_Type *peripheral, GPIO_PORT_Type port,
-                                    uint8_t pin) {
+static inline void gpioTogglePinDIR(GPIO_Type *peripheral, GPIO_PORT_Type port, uint8_t pin) {
   uint32_t pins = peripheral->DIR[port];
   pins ^= 1UL << pin;
   peripheral->DIR[port] = pins;
@@ -74,8 +70,7 @@ static inline void gpioTogglePinDIR(GPIO_Type *peripheral, GPIO_PORT_Type port,
  * @param port          GPIO port number
  * @param pinMask       direction register output setting
  */
-static inline void gpioSetPortDIROutput(GPIO_Type *peripheral,
-                                        GPIO_PORT_Type port, uint32_t pinMask) {
+static inline void gpioSetPortDIROutput(GPIO_Type *peripheral, GPIO_PORT_Type port, uint32_t pinMask) {
   uint32_t pins = peripheral->DIR[port];
   pins |= pinMask;
   peripheral->DIR[port] = pins;
@@ -88,8 +83,7 @@ static inline void gpioSetPortDIROutput(GPIO_Type *peripheral,
  * @param port          GPIO port number
  * @param pinMask       direction register input setting
  */
-static inline void gpioSetPortDIRInput(GPIO_Type *peripheral,
-                                       GPIO_PORT_Type port, uint32_t pinMask) {
+static inline void gpioSetPortDIRInput(GPIO_Type *peripheral, GPIO_PORT_Type port, uint32_t pinMask) {
   uint32_t pins = peripheral->DIR[port];
   pins &= ~pinMask;
   peripheral->DIR[port] = pins;
@@ -102,8 +96,7 @@ static inline void gpioSetPortDIRInput(GPIO_Type *peripheral,
  * @param port          GPIO port number
  * @param pinMask       direction register input setting
  */
-static inline void gpioTogglePortDIR(GPIO_Type *peripheral, GPIO_PORT_Type port,
-                                     uint32_t pinMask) {
+static inline void gpioTogglePortDIR(GPIO_Type *peripheral, GPIO_PORT_Type port, uint32_t pinMask) {
   uint32_t pins = peripheral->DIR[port];
   pins ^= pinMask;
   peripheral->DIR[port] = pins;
@@ -119,8 +112,7 @@ static inline void gpioTogglePortDIR(GPIO_Type *peripheral, GPIO_PORT_Type port,
  *        - 0: corresponding pin output low-logic level.
  *        - 1: corresponding pin output high-logic level.
  */
-static inline void gpioPinWrite(GPIO_Type *peripheral, GPIO_PORT_Type port,
-                                uint32_t pin, uint8_t output) {
+static inline void gpioPinWrite(GPIO_Type *peripheral, GPIO_PORT_Type port, uint32_t pin, uint8_t output) {
   peripheral->B[port][pin] = output;
 }
 
@@ -134,8 +126,7 @@ static inline void gpioPinWrite(GPIO_Type *peripheral, GPIO_PORT_Type port,
  *        - 0: corresponding pin input low-logic level.
  *        - 1: corresponding pin input high-logic level.
  */
-static inline uint32_t gpioPinRead(GPIO_Type *peripheral, GPIO_PORT_Type port,
-                                   uint32_t pin) {
+static inline uint32_t gpioPinRead(GPIO_Type *peripheral, GPIO_PORT_Type port, uint32_t pin) {
   return (uint32_t)peripheral->B[port][pin];
 }
 
@@ -146,8 +137,7 @@ static inline uint32_t gpioPinRead(GPIO_Type *peripheral, GPIO_PORT_Type port,
  * @param port          GPIO port number
  * @param mask          GPIO pins to set
  */
-static inline void gpioPortSet(GPIO_Type *peripheral, GPIO_PORT_Type port,
-                               uint32_t mask) {
+static inline void gpioPortSet(GPIO_Type *peripheral, GPIO_PORT_Type port, uint32_t mask) {
   peripheral->SET[port] = mask;
 }
 
@@ -158,8 +148,7 @@ static inline void gpioPortSet(GPIO_Type *peripheral, GPIO_PORT_Type port,
  * @param port          GPIO port number
  * @param mask          GPIO pins to clear
  */
-static inline void gpioPortClear(GPIO_Type *peripheral, GPIO_PORT_Type port,
-                                 uint32_t mask) {
+static inline void gpioPortClear(GPIO_Type *peripheral, GPIO_PORT_Type port, uint32_t mask) {
   peripheral->CLR[port] = mask;
 }
 
@@ -170,8 +159,7 @@ static inline void gpioPortClear(GPIO_Type *peripheral, GPIO_PORT_Type port,
  * @param port          GPIO port number
  * @param mask          GPIO pins to toggle
  */
-static inline void gpioPortToggle(GPIO_Type *peripheral, GPIO_PORT_Type port,
-                                  uint32_t mask) {
+static inline void gpioPortToggle(GPIO_Type *peripheral, GPIO_PORT_Type port, uint32_t mask) {
   peripheral->NOT[port] = mask;
 }
 
@@ -182,8 +170,7 @@ static inline void gpioPortToggle(GPIO_Type *peripheral, GPIO_PORT_Type port,
  * @param port          GPIO port number
  * @param output        GPIO port output value.
  */
-static inline void gpioPortWrite(GPIO_Type *peripheral, GPIO_PORT_Type port,
-                                 uint32_t output) {
+static inline void gpioPortWrite(GPIO_Type *peripheral, GPIO_PORT_Type port, uint32_t output) {
   peripheral->PIN[port] = output;
 }
 
@@ -193,8 +180,7 @@ static inline void gpioPortWrite(GPIO_Type *peripheral, GPIO_PORT_Type port,
  * @param peripheral    GPIO peripheral peripheral pointer
  * @param port          GPIO port number
  */
-static inline uint32_t gpioPortRead(GPIO_Type *peripheral,
-                                    GPIO_PORT_Type port) {
+static inline uint32_t gpioPortRead(GPIO_Type *peripheral, GPIO_PORT_Type port) {
   return (uint32_t)peripheral->PIN[port];
 }
 
@@ -205,8 +191,7 @@ static inline uint32_t gpioPortRead(GPIO_Type *peripheral,
  * @param port          GPIO port number
  * @param mask          GPIO pin number macro
  */
-static inline void gpioPortMaskedSet(GPIO_Type *peripheral, GPIO_PORT_Type port,
-                                     uint32_t mask) {
+static inline void gpioPortMaskedSet(GPIO_Type *peripheral, GPIO_PORT_Type port, uint32_t mask) {
   peripheral->MASK[port] = mask;
 }
 
@@ -218,8 +203,7 @@ static inline void gpioPortMaskedSet(GPIO_Type *peripheral, GPIO_PORT_Type port,
  * @param port          GPIO port number
  * @param output        GPIO port output value.
  */
-static inline void gpioPortMaskedWrite(GPIO_Type *peripheral,
-                                       GPIO_PORT_Type port, uint32_t output) {
+static inline void gpioPortMaskedWrite(GPIO_Type *peripheral, GPIO_PORT_Type port, uint32_t output) {
   peripheral->MPIN[port] = output;
 }
 
