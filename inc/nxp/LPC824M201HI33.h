@@ -161,6 +161,38 @@ typedef enum PINx {
   IOCON_PIO0_28 = 20,
 } IOCON_PIN_Type;
 
+typedef enum {
+  GPIO_PIO0_0 = 0,
+  GPIO_PIO0_1 = 1,
+  GPIO_PIO0_2 = 2,
+  GPIO_PIO0_3 = 3,
+  GPIO_PIO0_4 = 4,
+  GPIO_PIO0_5 = 5,
+  GPIO_PIO0_6 = 6,
+  GPIO_PIO0_7 = 7,
+  GPIO_PIO0_8 = 8,
+  GPIO_PIO0_9 = 9,
+  GPIO_PIO0_10 = 10,
+  GPIO_PIO0_11 = 11,
+  GPIO_PIO0_12 = 12,
+  GPIO_PIO0_13 = 13,
+  GPIO_PIO0_14 = 14,
+  GPIO_PIO0_15 = 15,
+  GPIO_PIO0_16 = 16,
+  GPIO_PIO0_17 = 17,
+  GPIO_PIO0_18 = 18,
+  GPIO_PIO0_19 = 19,
+  GPIO_PIO0_20 = 20,
+  GPIO_PIO0_21 = 21,
+  GPIO_PIO0_22 = 22,
+  GPIO_PIO0_23 = 23,
+  GPIO_PIO0_24 = 24,
+  GPIO_PIO0_25 = 25,
+  GPIO_PIO0_26 = 26,
+  GPIO_PIO0_27 = 27,
+  GPIO_PIO0_28 = 28,
+} GPIO_PIN_Type;
+
 // default configuration options, override with your own!
 #include "nxp/LPC8XX/LPC82X_default.h"
 // Peripheral definition includes, ordering matters
