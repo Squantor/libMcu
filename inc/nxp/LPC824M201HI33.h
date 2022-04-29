@@ -129,6 +129,10 @@ typedef enum {
 #define DMATRIGMUX ((DMATRIGMUX_Type *)DMATIRGMUX_BASE)
 #define INMUX ((INMUX_Type *)INMUX_BASE)
 
+/**
+ * @brief Translation table from GPIO pin name to IOCON index
+ *
+ */
 typedef enum PINx {
   IOCON_PIO0_0 = 17,
   IOCON_PIO0_1 = 11,
@@ -161,6 +165,11 @@ typedef enum PINx {
   IOCON_PIO0_28 = 20,
 } IOCON_PIN_Type;
 
+/**
+ * @brief Translation table from GPIO name to GPIO pin number
+ *
+ * Used by pinint selection registers, it is device and package specific.
+ */
 typedef enum {
   GPIO_PIO0_0 = 0,
   GPIO_PIO0_1 = 1,

@@ -129,6 +129,10 @@ typedef enum {
 #define DMATRIGMUX ((DMATRIGMUX_Type *)DMATIRGMUX_BASE)
 #define INMUX ((INMUX_Type *)INMUX_BASE)
 
+/**
+ * @brief Translation table from GPIO pin name to IOCON index
+ *
+ */
 typedef enum PINx {
   IOCON_PIO0_0 = 0x11,
   IOCON_PIO0_1 = 0x0B,
@@ -147,6 +151,30 @@ typedef enum PINx {
   IOCON_PIO0_17 = 0x00,
   IOCON_PIO0_23 = 0x19,
 } IOCON_PIN_Type;
+
+/**
+ * @brief Translation table from GPIO name to GPIO pin number
+ *
+ * Used by pinint selection registers, it is device and package specific.
+ */
+typedef enum {
+  GPIO_PIO0_0 = 0,
+  GPIO_PIO0_1 = 1,
+  GPIO_PIO0_2 = 2,
+  GPIO_PIO0_3 = 3,
+  GPIO_PIO0_4 = 4,
+  GPIO_PIO0_5 = 5,
+  GPIO_PIO0_8 = 8,
+  GPIO_PIO0_9 = 9,
+  GPIO_PIO0_10 = 10,
+  GPIO_PIO0_11 = 11,
+  GPIO_PIO0_12 = 12,
+  GPIO_PIO0_13 = 13,
+  GPIO_PIO0_14 = 14,
+  GPIO_PIO0_15 = 15,
+  GPIO_PIO0_17 = 17,
+  GPIO_PIO0_23 = 23,
+} GPIO_PIN_Type;
 
 // default configuration options, override with your own!
 #include "nxp/LPC8XX/LPC82X_default.h"

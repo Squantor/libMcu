@@ -134,6 +134,31 @@ typedef enum PINx {
   IOCON_PIO0_17 = 0x00,
 } IOCON_PIN_Type;
 
+/**
+ * @brief Translation table from GPIO pin name to IOCON index
+ *
+ */
+typedef enum {
+  GPIO_PIO0_0 = 0,
+  GPIO_PIO0_1 = 1,
+  GPIO_PIO0_2 = 2,
+  GPIO_PIO0_3 = 3,
+  GPIO_PIO0_4 = 4,
+  GPIO_PIO0_5 = 5,
+  GPIO_PIO0_6 = 6,
+  GPIO_PIO0_7 = 7,
+  GPIO_PIO0_8 = 8,
+  GPIO_PIO0_9 = 9,
+  GPIO_PIO0_10 = 10,
+  GPIO_PIO0_11 = 11,
+  GPIO_PIO0_12 = 12,
+  GPIO_PIO0_13 = 13,
+  GPIO_PIO0_14 = 14,
+  GPIO_PIO0_15 = 15,
+  GPIO_PIO0_16 = 16,
+  GPIO_PIO0_17 = 17,
+} GPIO_PIN_Type;
+
 // default configuration options, override with your own!
 #include "nxp/LPC8XX/LPC81X_default.h"
 // Peripheral definition includes, ordering matters
