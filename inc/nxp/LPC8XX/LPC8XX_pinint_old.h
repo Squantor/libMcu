@@ -11,25 +11,6 @@ defines and functions.
 #ifndef LPC8XX_PININT_OLD_H
 #define LPC8XX_PININT_OLD_H
 
-/* Reserved bits masks for registers */
-#define PININT_ISEL_RESERVED (~0xff)
-#define PININT_IENR_RESERVED (~0xff)
-#define PININT_SIENR_RESERVED (~0xff)
-#define PININT_CIENR_RESERVED (~0xff)
-#define PININT_IENF_RESERVED (~0xff)
-#define PININT_SIENF_RESERVED (~0xff)
-#define PININT_CIENF_RESERVED (~0xff)
-#define PININT_RISE_RESERVED (~0xff)
-#define PININT_FALL_RESERVED (~0xff)
-#define PININT_IST_RESERVED (~0xff)
-#define PININT_PMCTRL_RESERVED (~0xff000003)
-#define PININT_PMSRC_RESERVED (0xff)
-#define PININT_PMCFG_RESERVED (1 << 7)
-
-/*
-LPC8xx Pin Interrupt and Pattern match engine register bit
-fields and macros
- */
 /* PININT interrupt control register */
 #define PININT_PMCTRL_PMATCH_SEL (1 << 0)
 #define PININT_PMCTRL_RXEV_ENA (1 << 1)
@@ -76,63 +57,6 @@ typedef enum PININT_BITSLICE_CFG {
   PININT_PATTERCONST0 = 0x6,          /*!< Never contributes for match */
   PININT_PATTEREVENT = 0x7            /*!< Match occurs on event */
 } PININT_BITSLICE_CFG_T;
-
-static inline void PinintSetPinModeEdge(PIN_INT_Type *pPININT, uint32_t pins) {
-  uint32_t iselRegister = pPININT->ISEL & ~(pins | PININT_ISEL_RESERVED);
-  pPININT->ISEL = iselRegister;
-}
-
-static inline void PinintSetPinModeLevel(PIN_INT_Type *pPININT, uint32_t pins) {
-  pPININT->ISEL = pins | (pPININT->ISEL & ~PININT_ISEL_RESERVED);
-}
-
-static inline uint32_t PinintGetHighEnabled(PIN_INT_Type *pPININT) {
-  return pPININT->IENR & ~PININT_IENR_RESERVED;
-}
-
-static inline void PinintEnableIntHigh(PIN_INT_Type *pPININT, uint32_t pins) {
-  pPININT->SIENR = pins;
-}
-
-static inline void PinintDisableIntHigh(PIN_INT_Type *pPININT, uint32_t pins) {
-  pPININT->CIENR = pins;
-}
-
-static inline uint32_t PinintGetLowEnabled(PIN_INT_Type *pPININT) {
-  return pPININT->IENF & ~PININT_IENF_RESERVED;
-}
-
-static inline void PinintEnableIntLow(PIN_INT_Type *pPININT, uint32_t pins) {
-  pPININT->SIENF = pins;
-}
-
-static inline void PinintDisableIntLow(PIN_INT_Type *pPININT, uint32_t pins) {
-  pPININT->CIENF = pins;
-}
-
-static inline uint32_t PinintGetRiseStates(PIN_INT_Type *pPININT) {
-  return pPININT->RISE & ~PININT_RISE_RESERVED;
-}
-
-static inline void PinintClearRiseStates(PIN_INT_Type *pPININT, uint32_t pins) {
-  pPININT->RISE = pins;
-}
-
-static inline uint32_t PinintGetFallStates(PIN_INT_Type *pPININT) {
-  return pPININT->FALL & ~PININT_FALL_RESERVED;
-}
-
-static inline void PinintClearFallStates(PIN_INT_Type *pPININT, uint32_t pins) {
-  pPININT->FALL = pins;
-}
-
-static inline uint32_t PinintGetIntStatus(PIN_INT_Type *pPININT) {
-  return pPININT->IST & ~PININT_IST_RESERVED;
-}
-
-static inline void PinintClearIntStatus(PIN_INT_Type *pPININT, uint32_t pins) {
-  pPININT->IST = pins;
-}
 
 static inline void PinintSetPatternMatchSrc(PIN_INT_Type *pPININT, uint8_t chan, PININT_BITSLICE_T slice) {
   uint32_t pmsrc_reg;
