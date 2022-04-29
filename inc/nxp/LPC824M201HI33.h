@@ -180,7 +180,7 @@ typedef enum PINx {
 #include "nxp/LPC8XX/LPC82X_iocon.h"
 #include "nxp/LPC8XX/LPC8XX_irc.h"
 #include "nxp/LPC8XX/LPC8XX_mrt.h"
-#include "nxp/LPC8XX/LPC8XX_pinint.h"
+#include "nxp/LPC8XX/LPC82X_pinint.h"
 #include "nxp/LPC8XX/LPC8XX_pmu.h"
 #include "nxp/LPC8XX/LPC82X_sct.h"
 #include "nxp/LPC8XX/LPC8XX_spi.h"
