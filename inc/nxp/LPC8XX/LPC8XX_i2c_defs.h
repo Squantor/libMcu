@@ -95,6 +95,10 @@ typedef enum {
 #define I2C_STAT_EVENTTIMEOUT (1 << 24) /*!< Event timeout flag */
 #define I2C_STAT_SCLTIMEOUT (1 << 25)   /*!< SCL timeout flag */
 
+#define I2C_TIMEOUT_RESERVED (0xFFFF000F) /*!< I2C clock divide register reserved bits */
+
+#define I2C_CLKDIV_RESERVED (0xFFFF0000) /*!< I2C clock divide register reserved bits */
+
 #define I2C_MSCTL_RESERVED (0xFFFFFFF0) /*!< I2C master data register reserved bits */
 #define I2C_MSCTL_MSTCONTINUE (1 << 0)  /*!< I2C master continue to next operation */
 #define I2C_MSCTL_MSTSTART (1 << 1)     /*!< I2C master generate start condition */
@@ -102,8 +106,6 @@ typedef enum {
 #define I2C_MSCTL_MSTDMA (1 << 3)       /*!< I2C master DMA generation enable */
 
 #define I2C_MSDAT_RESERVED (0xFFFFFF00) /*!< I2C master data register reserved bits */
-
-#define I2C_CLKDIV_RESERVED (0xFFFF0000) /*!< I2C clock divide register reserved bits */
 
 #define I2C_SLVCTL_RESERVED (0xFFFFFFF4) /*!< I2C slave control register reserved bits */
 #define I2C_SLVCTL_SLVCONTINUE (1 << 0)  /*!< I2C slave continue operation */

@@ -30,8 +30,8 @@ LPC800 series common I2C bus registers, defines and functions.
 #ifndef LPC8XX_I2C_FUNCS_H
 #define LPC8XX_I2C_FUNCS_H
 
-#define I2C_ADDR_READ (data)(data | 0x01)  /*!< Change address to a read address */
-#define I2C_ADDR_WRITE (data)(data & 0xFE) /*!< Change address to a write address */
+#define I2C_ADDR_READ(address) (address | 0x01)  /*!< Change address to a read address */
+#define I2C_ADDR_WRITE(address) (address & 0xFE) /*!< Change address to a write address */
 
 /**
  * @brief   Set I2C configuration register
@@ -48,6 +48,16 @@ static inline void i2cSetConfiguration(I2C_Type *peripheral, uint32_t config) {
  */
 static inline uint32_t i2cGetStatus(I2C_Type *peripheral) {
   return peripheral->STAT & ~I2C_STAT_RESERVED;
+}
+
+/**
+ * @brief Set I2C timeout register
+ *
+ * @param peripheral  base address of I2C peripheral
+ * @param timeout     Timeout value to set, 0 is 16 clocks, 1 is 32 clocks, max value 4095
+ */
+static inline void i2cSetTimeout(I2C_Type *peripheral, uint32_t timeout) {
+  peripheral->TIMEOUT = (timeout << 4) & ~I2C_TIMEOUT_RESERVED;
 }
 
 /**
