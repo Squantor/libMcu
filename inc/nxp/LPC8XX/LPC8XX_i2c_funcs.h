@@ -30,6 +30,9 @@ LPC800 series common I2C bus registers, defines and functions.
 #ifndef LPC8XX_I2C_FUNCS_H
 #define LPC8XX_I2C_FUNCS_H
 
+#define I2C_ADDR_READ (data)(data | 0x01)  /*!< Change address to a read address */
+#define I2C_ADDR_WRITE (data)(data & 0xFE) /*!< Change address to a write address */
+
 /**
  * @brief   Set I2C configuration register
  * @param   peripheral  base address of I2C peripheral
