@@ -22,10 +22,18 @@
 
 # libMcuLL library files and settings
 #
-# Version: 20201224
+# Version: 20220715
+
+# library settings
+NAME := squantorLibC
+
+# current makefile base dir relative to Makefile
+LIB_DIR := $(patsubst %/,%,$(dir $(lastword $(MAKEFILE_LIST))))
 
 # library files and includes
-FILES +=
+$(NAME)_LIB_FILES +=
 
-INCLUDES += -IlibMcuLL/inc
+$(NAME)_LIB_INCLUDES += -I$(LIB_DIR)/inc
 
+# --- nothing user definable below ---
+LIBRARIES += $(NAME)
