@@ -29,10 +29,8 @@ typedef volatile struct {
 
 /* FLASH Access time definitions */
 typedef enum {
-  FLASHTIM_20MHZ_CPU =
-      0, /* Flash accesses use 1 CPU clocks. Use for up to 20 MHz CPU clock*/
-  FLASHTIM_30MHZ_CPU =
-      1, /* Flash accesses use 2 CPU clocks. Use for up to 30 MHz CPU clock*/
+  FLASHTIM_20MHZ_CPU = 0, /* Flash accesses use 1 CPU clocks. Use for up to 20 MHz CPU clock*/
+  FLASHTIM_30MHZ_CPU = 1, /* Flash accesses use 2 CPU clocks. Use for up to 30 MHz CPU clock*/
 } FMC_FLASHTIM_T;
 
 static inline void FmcSetFlashAccess(FMC_FLASHTIM_T clks) {
@@ -58,7 +56,9 @@ static inline bool FmcIsSignatureBusy(void) {
   return (bool)((FMC->FMSSTOP & FMC_FLASHSIG_BUSY) != 0);
 }
 
-static inline uint32_t FmcGetSignature(int index) { return FMC->FMSW[index]; }
+static inline uint32_t FmcGetSignature(int index) {
+  return FMC->FMSW[index];
+}
 
 #include "nxp/LPC8XX/LPC8XX_fmc_old.h"
 

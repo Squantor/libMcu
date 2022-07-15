@@ -29,16 +29,13 @@ LPC800 series common system control registers, defines and functions.
 #define SYSCTL_WAKEUP_USART2INT (1 << 5) /*!< USART2 interrupt wake-up */
 #define SYSCTL_WAKEUP_I2C0INT (1 << 8)   /*!< I2C0 interrupt wake-up */
 #define SYSCTL_WAKEUP_WWDTINT (1 << 12)  /*!< WWDT interrupt wake-up */
-#define SYSCTL_WAKEUP_BODINT \
-  (1 << 13) /*!< Brown Out Detect (BOD) interrupt wake-up */
-#define SYSCTL_WAKEUP_WKTINT \
-  (1 << 15) /*!< Self wake-up timer interrupt wake-up */
+#define SYSCTL_WAKEUP_BODINT (1 << 13)   /*!< Brown Out Detect (BOD) interrupt wake-up */
+#define SYSCTL_WAKEUP_WKTINT (1 << 15)   /*!< Self wake-up timer interrupt wake-up */
 
 /**
  * Deep sleep setup values
  */
-#define SYSCTL_DEEPSLP_BOD_PD \
-  (1 << 3) /*!< BOD power-down control in Deep-sleep mode, powered down */
+#define SYSCTL_DEEPSLP_BOD_PD (1 << 3) /*!< BOD power-down control in Deep-sleep mode, powered down */
 #define SYSCTL_DEEPSLP_WDTOSC_PD                                              \
   (1 << 6) /*!< Watchdog oscillator power control in Deep-sleep, powered down \
             */
@@ -46,26 +43,19 @@ LPC800 series common system control registers, defines and functions.
 /**
  * Deep sleep to wakeup and power state setup values
  */
-#define SYSCTL_SLPWAKE_IRCOUT_PD \
-  (1 << 0) /*!< IRC oscillator output wake-up configuration */
-#define SYSCTL_SLPWAKE_IRC_PD \
-  (1 << 1) /*!< IRC oscillator power-down wake-up configuration */
-#define SYSCTL_SLPWAKE_FLASH_PD (1 << 2) /*!< Flash wake-up configuration */
-#define SYSCTL_SLPWAKE_BOD_PD (1 << 3)   /*!< BOD wake-up configuration */
-#define SYSCTL_SLPWAKE_SYSOSC_PD \
-  (1 << 5) /*!< System oscillator wake-up configuration */
-#define SYSCTL_SLPWAKE_WDTOSC_PD \
-  (1 << 6) /*!< Watchdog oscillator wake-up configuration */
-#define SYSCTL_SLPWAKE_SYSPLL_PD \
-  (1 << 7) /*!< System PLL wake-up configuration */
-#define SYSCTL_SLPWAKE_ACMP_PD \
-  (1 << 15) /*!< Analog comparator wake-up configuration */
+#define SYSCTL_SLPWAKE_IRCOUT_PD (1 << 0) /*!< IRC oscillator output wake-up configuration */
+#define SYSCTL_SLPWAKE_IRC_PD (1 << 1)    /*!< IRC oscillator power-down wake-up configuration */
+#define SYSCTL_SLPWAKE_FLASH_PD (1 << 2)  /*!< Flash wake-up configuration */
+#define SYSCTL_SLPWAKE_BOD_PD (1 << 3)    /*!< BOD wake-up configuration */
+#define SYSCTL_SLPWAKE_SYSOSC_PD (1 << 5) /*!< System oscillator wake-up configuration */
+#define SYSCTL_SLPWAKE_WDTOSC_PD (1 << 6) /*!< Watchdog oscillator wake-up configuration */
+#define SYSCTL_SLPWAKE_SYSPLL_PD (1 << 7) /*!< System PLL wake-up configuration */
+#define SYSCTL_SLPWAKE_ACMP_PD (1 << 15)  /*!< Analog comparator wake-up configuration */
 
 /**
  * Non-Maskable Interrupt Enable/Disable value
  */
-#define SYSCTL_NMISRC_ENABLE \
-  ((uint32_t)1 << 31) /*!< Enable the Non-Maskable Interrupt (NMI) source */
+#define SYSCTL_NMISRC_ENABLE ((uint32_t)1 << 31) /*!< Enable the Non-Maskable Interrupt (NMI) source */
 
 /* PDSLEEPCFG register mask */
 #define PDSLEEPWRMASK (0x0000FFB7)
@@ -123,10 +113,10 @@ typedef enum PIN_CLKDIV {
  */
 typedef enum SYSCTL_BOOT_MODE_REMAP {
   REMAP_BOOT_LOADER_MODE, /*!< Interrupt vectors are re-mapped to Boot ROM */
-  REMAP_USER_RAM_MODE,  /*!< Interrupt vectors are re-mapped to user Static RAM
-                         */
-  REMAP_USER_FLASH_MODE /*!< Interrupt vectors are not re-mapped and reside in
-                           Flash */
+  REMAP_USER_RAM_MODE,    /*!< Interrupt vectors are re-mapped to user Static RAM
+                           */
+  REMAP_USER_FLASH_MODE   /*!< Interrupt vectors are not re-mapped and reside in
+                             Flash */
 } SYSCTL_BOOT_MODE_REMAP_T;
 
 /**
@@ -161,8 +151,7 @@ static inline void SysctlClearSystemRSTStatus(uint32_t reset) {
   SYSCON->SYSRSTSTAT = reset;
 }
 
-static inline void SysctlSetBODLevels(SYSCTL_BODRSTLVL_T rstlvl,
-                                      SYSCTL_BODRINTVAL_T intlvl) {
+static inline void SysctlSetBODLevels(SYSCTL_BODRSTLVL_T rstlvl, SYSCTL_BODRINTVAL_T intlvl) {
   SYSCON->BODCTRL = ((uint32_t)rstlvl) | (((uint32_t)intlvl) << 2);
 }
 
@@ -171,8 +160,7 @@ static inline void SysctlEnableBODReset(void) {
 }
 
 static inline void SysctlDisableBODReset(void) {
-  uint32_t bodctrlRegister =
-      SYSCON->BODCTRL & ~((1 << 4) | SYSCTL_BODCTRL_RESERVED);
+  uint32_t bodctrlRegister = SYSCON->BODCTRL & ~((1 << 4) | SYSCTL_BODCTRL_RESERVED);
   SYSCON->BODCTRL = bodctrlRegister;
 }
 
@@ -190,8 +178,7 @@ static inline uint32_t SysctlGetIRQLatency(void) {
 
 static inline void SysctlSetNMISource(uint32_t intsrc) {
   /* Disable NMI first */
-  uint32_t nmisrcRegister =
-      SYSCON->NMISRC & ~(SYSCTL_NMISRC_ENABLE | SYSCTL_NMISRC_RESERVED);
+  uint32_t nmisrcRegister = SYSCON->NMISRC & ~(SYSCTL_NMISRC_ENABLE | SYSCTL_NMISRC_RESERVED);
   SYSCON->NMISRC = nmisrcRegister;
 
   /* Set new NMI source. */
@@ -199,13 +186,11 @@ static inline void SysctlSetNMISource(uint32_t intsrc) {
 }
 
 static inline void SysctlEnableNMISource(void) {
-  SYSCON->NMISRC =
-      SYSCTL_NMISRC_ENABLE | (SYSCON->NMISRC & ~SYSCTL_NMISRC_RESERVED);
+  SYSCON->NMISRC = SYSCTL_NMISRC_ENABLE | (SYSCON->NMISRC & ~SYSCTL_NMISRC_RESERVED);
 }
 
 static inline void SysctlDisableNMISource(void) {
-  uint32_t nmisrcRegister =
-      SYSCON->NMISRC & ~(SYSCTL_NMISRC_ENABLE | SYSCTL_NMISRC_RESERVED);
+  uint32_t nmisrcRegister = SYSCON->NMISRC & ~(SYSCTL_NMISRC_ENABLE | SYSCTL_NMISRC_RESERVED);
   SYSCON->NMISRC = nmisrcRegister;
 }
 
@@ -214,29 +199,34 @@ static inline void SysctlSetPinInterrupt(uint32_t intno, uint32_t pin) {
 }
 
 static inline void SysctlEnablePINTWakeup(uint32_t pin) {
-  uint32_t starterp0Register =
-      (1 << pin) | (SYSCON->STARTERP0 & ~SYSCTL_STARTERP0_RESERVED);
+  uint32_t starterp0Register = (1 << pin) | (SYSCON->STARTERP0 & ~SYSCTL_STARTERP0_RESERVED);
   SYSCON->STARTERP0 = starterp0Register;
 }
 
 static inline void SysctlDisablePINTWakeup(uint32_t pin) {
-  uint32_t starterp0Register =
-      SYSCON->STARTERP0 & ~((1 << pin) | SYSCTL_STARTERP0_RESERVED);
+  uint32_t starterp0Register = SYSCON->STARTERP0 & ~((1 << pin) | SYSCTL_STARTERP0_RESERVED);
   SYSCON->STARTERP0 = starterp0Register;
 }
 
 static inline void SysctlEnablePeriphWakeup(uint32_t periphmask) {
-  SYSCON->STARTERP1 =
-      periphmask | (SYSCON->STARTERP0 & ~SYSCTL_STARTERP0_RESERVED);
+  SYSCON->STARTERP1 = periphmask | (SYSCON->STARTERP0 & ~SYSCTL_STARTERP0_RESERVED);
 }
 
-static inline uint32_t SysctlGetDeepSleepPD(void) { return SYSCON->PDSLEEPCFG; }
+static inline uint32_t SysctlGetDeepSleepPD(void) {
+  return SYSCON->PDSLEEPCFG;
+}
 
-static inline uint32_t SysctlGetWakeup(void) { return SYSCON->PDAWAKECFG; }
+static inline uint32_t SysctlGetWakeup(void) {
+  return SYSCON->PDAWAKECFG;
+}
 
-static inline uint32_t SysctlGetPowerStates(void) { return SYSCON->PDRUNCFG; }
+static inline uint32_t SysctlGetPowerStates(void) {
+  return SYSCON->PDRUNCFG;
+}
 
-static inline uint32_t SysctlGetDeviceID(void) { return SYSCON->DEVICEID; }
+static inline uint32_t SysctlGetDeviceID(void) {
+  return SYSCON->DEVICEID;
+}
 
 static inline void SysctlSetDeepSleepPD(uint32_t sleepmask) {
   SYSCON->PDSLEEPCFG = PDSLEEPWRMASK | (sleepmask & PDSLEEPDATMASK);

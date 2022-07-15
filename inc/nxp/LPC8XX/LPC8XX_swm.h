@@ -38,14 +38,11 @@ functions.
  * @param   pin         Pin to assign the function to
  * @return  Nothing
  */
-static inline void SwmMovablePinAssign(SWM_Type *peripheral,
-                                       SWM_MOVABLE_Type function,
-                                       SWM_PORTPIN_Type pin) {
+static inline void SwmMovablePinAssign(SWM_Type *peripheral, SWM_MOVABLE_Type function, SWM_PORTPIN_Type pin) {
   int index = function >> 2;
   int shiftIndex = ((function & 0x3) << 3);
   uint32_t mask = ~(0xFF << shiftIndex);
-  peripheral->PINASSIGN[index] =
-      (peripheral->PINASSIGN[index] & mask) | (pin << shiftIndex);
+  peripheral->PINASSIGN[index] = (peripheral->PINASSIGN[index] & mask) | (pin << shiftIndex);
 }
 
 /**

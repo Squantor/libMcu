@@ -87,7 +87,9 @@ typedef enum SYSCTL_CLKOUTSRC {
   SYSCTL_CLKOUTSRC_MAINSYSCLK, /*!< Main system clock for CLKOUT */
 } SYSCTL_CLKOUTSRC_T;
 
-static inline uint32_t ClockGetIntOscRate(void) { return SYSCTL_IRC_FREQ; }
+static inline uint32_t ClockGetIntOscRate(void) {
+  return SYSCTL_IRC_FREQ;
+}
 
 static inline uint32_t ClockGetSystemPLLInClockRate(void) {
   uint32_t clkRate;
@@ -191,8 +193,7 @@ static inline uint32_t ClockGetPLLFreq(uint32_t PLLReg, uint32_t inputRate) {
 }
 
 static inline uint32_t ClockGetSystemPLLOutClockRate(void) {
-  return ClockGetPLLFreq((SYSCON->SYSPLLCTRL & ~SYSCTL_SYSPLLCTRL_RESERVED),
-                         ClockGetSystemPLLInClockRate());
+  return ClockGetPLLFreq((SYSCON->SYSPLLCTRL & ~SYSCTL_SYSPLLCTRL_RESERVED), ClockGetSystemPLLInClockRate());
 }
 
 static inline uint32_t ClockGetMainClockRate(void) {
@@ -251,8 +252,7 @@ static inline void ClockSetWDTOSC(WDTLFO_OSC_T wdtclk, uint8_t div) {
 }
 
 static inline SYSCTL_MAINCLKSRC_T ClockGetMainClockSource(void) {
-  return (SYSCTL_MAINCLKSRC_T)(SYSCON->MAINCLKSEL &
-                               ~SYSCTL_MAINCLKSEL_RESERVED);
+  return (SYSCTL_MAINCLKSRC_T)(SYSCON->MAINCLKSEL & ~SYSCTL_MAINCLKSEL_RESERVED);
 }
 
 static inline void ClockSetSysClockDiv(uint32_t div) {
@@ -342,8 +342,7 @@ static inline void ClockSetCLKOUTSource(SYSCTL_CLKOUTSRC_T src, uint32_t div) {
 }
 
 static inline uint32_t ClockGetSystemClockRate(void) {
-  return ClockGetMainClockRate() /
-         (SYSCON->SYSAHBCLKDIV & ~SYSCTL_SYSAHBCLKDIV_RESERVED);
+  return ClockGetMainClockRate() / (SYSCON->SYSAHBCLKDIV & ~SYSCTL_SYSAHBCLKDIV_RESERVED);
 }
 
 static inline uint32_t ClockGetIOCONCLKDIVClockRate(PIN_CLKDIV_T reg) {

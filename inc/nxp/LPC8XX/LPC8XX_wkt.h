@@ -21,12 +21,9 @@ typedef volatile struct {
 /**
  * WKT Control register bit fields & masks
  */
-#define WKT_CTRL_CLKSEL \
-  ((uint32_t)(1 << 0)) /*!< Select the self wake-up timer clock source */
-#define WKT_CTRL_ALARMFLAG \
-  ((uint32_t)(1 << 1)) /*!< Wake-up or alarm timer flag */
-#define WKT_CTRL_CLEARCTR \
-  ((uint32_t)(1 << 2)) /*!< Clears the self wake-up timer */
+#define WKT_CTRL_CLKSEL ((uint32_t)(1 << 0))    /*!< Select the self wake-up timer clock source */
+#define WKT_CTRL_ALARMFLAG ((uint32_t)(1 << 1)) /*!< Wake-up or alarm timer flag */
+#define WKT_CTRL_CLEARCTR ((uint32_t)(1 << 2))  /*!< Clears the self wake-up timer */
 
 /**
  * WKT Clock source values enum

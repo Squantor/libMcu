@@ -27,6 +27,4 @@ typedef volatile struct {
   uint16_t RESERVED3; /*!< Reserved */
 } GPIO_Type;
 
-
-
 #endif

@@ -24,31 +24,30 @@ typedef enum {
   SVCall_IRQn = -5,
   PendSV_IRQn = -2,
   SysTick_IRQn = -1,
-  WWDG_IRQn = 0,             /*!< Window WatchDog Interrupt */
-  RTC_IRQn = 2,              /*!< RTC through EXTI Line Interrupt */
-  FLASH_IRQn = 3,            /*!< FLASH Interrupt */
-  RCC_IRQn = 4,              /*!< RCC Interrupt */
-  EXTI0_1_IRQn = 5,          /*!< EXTI Line 0 and 1 Interrupts */
-  EXTI2_3_IRQn = 6,          /*!< EXTI Line 2 and 3 Interrupts */
-  EXTI4_15_IRQn = 7,         /*!< EXTI Line 4 to 15 Interrupts */
-  DMA1_Channel1_IRQn = 9,    /*!< DMA1 Channel 1 Interrupt */
-  DMA1_Channel2_3_IRQn = 10, /*!< DMA1 Channel 2 and Channel 3 Interrupts */
-  DMA1_Channel4_5_IRQn = 11, /*!< DMA1 Channel 4 and Channel 5 Interrupts */
-  ADC1_IRQn = 12,            /*!< ADC1 Interrupt */
-  TIM1_BRK_UP_TRG_COM_IRQn =
-      13, /*!< TIM1 Break, Update, Trigger and Commutation Interrupts  */
-  TIM1_CC_IRQn = 14, /*!< TIM1 Capture Compare Interrupt */
-  TIM3_IRQn = 16,    /*!< TIM3 Interrupt */
-  TIM14_IRQn = 19,   /*!< TIM14 Interrupt */
-  TIM15_IRQn = 20,   /*!< TIM15 Interrupt */
-  TIM16_IRQn = 21,   /*!< TIM16 Interrupt */
-  TIM17_IRQn = 22,   /*!< TIM17 Interrupt */
-  I2C1_IRQn = 23,    /*!< I2C1 Interrupt */
-  I2C2_IRQn = 24,    /*!< I2C2 Interrupt */
-  SPI1_IRQn = 25,    /*!< SPI1 Interrupt */
-  SPI2_IRQn = 26,    /*!< SPI2 Interrupt */
-  USART1_IRQn = 27,  /*!< USART1 Interrupt */
-  USART2_IRQn = 28   /*!< USART2 Interrupt */
+  WWDG_IRQn = 0,                 /*!< Window WatchDog Interrupt */
+  RTC_IRQn = 2,                  /*!< RTC through EXTI Line Interrupt */
+  FLASH_IRQn = 3,                /*!< FLASH Interrupt */
+  RCC_IRQn = 4,                  /*!< RCC Interrupt */
+  EXTI0_1_IRQn = 5,              /*!< EXTI Line 0 and 1 Interrupts */
+  EXTI2_3_IRQn = 6,              /*!< EXTI Line 2 and 3 Interrupts */
+  EXTI4_15_IRQn = 7,             /*!< EXTI Line 4 to 15 Interrupts */
+  DMA1_Channel1_IRQn = 9,        /*!< DMA1 Channel 1 Interrupt */
+  DMA1_Channel2_3_IRQn = 10,     /*!< DMA1 Channel 2 and Channel 3 Interrupts */
+  DMA1_Channel4_5_IRQn = 11,     /*!< DMA1 Channel 4 and Channel 5 Interrupts */
+  ADC1_IRQn = 12,                /*!< ADC1 Interrupt */
+  TIM1_BRK_UP_TRG_COM_IRQn = 13, /*!< TIM1 Break, Update, Trigger and Commutation Interrupts  */
+  TIM1_CC_IRQn = 14,             /*!< TIM1 Capture Compare Interrupt */
+  TIM3_IRQn = 16,                /*!< TIM3 Interrupt */
+  TIM14_IRQn = 19,               /*!< TIM14 Interrupt */
+  TIM15_IRQn = 20,               /*!< TIM15 Interrupt */
+  TIM16_IRQn = 21,               /*!< TIM16 Interrupt */
+  TIM17_IRQn = 22,               /*!< TIM17 Interrupt */
+  I2C1_IRQn = 23,                /*!< I2C1 Interrupt */
+  I2C2_IRQn = 24,                /*!< I2C2 Interrupt */
+  SPI1_IRQn = 25,                /*!< SPI1 Interrupt */
+  SPI2_IRQn = 26,                /*!< SPI2 Interrupt */
+  USART1_IRQn = 27,              /*!< USART1 Interrupt */
+  USART2_IRQn = 28               /*!< USART2 Interrupt */
 } IRQn_Type;
 
 #include <CMSIS/core_cm0.h>

@@ -70,8 +70,7 @@ typedef enum {
  * @param   AHBsetting AHB settings, see RCC_CLKCTRL_AHB_Type
  * @return  Nothing
  */
-static inline void rccEnableClocks(RCC_Type *peripheral, uint32_t APB1setting,
-                                   uint32_t APB2setting, uint32_t AHBsetting) {
+static inline void rccEnableClocks(RCC_Type *peripheral, uint32_t APB1setting, uint32_t APB2setting, uint32_t AHBsetting) {
   peripheral->AHBENR = AHBsetting | peripheral->AHBENR;
   peripheral->APB1ENR = APB1setting | peripheral->APB1ENR;
   peripheral->APB2ENR = APB2setting | peripheral->APB2ENR;
@@ -85,8 +84,7 @@ static inline void rccEnableClocks(RCC_Type *peripheral, uint32_t APB1setting,
  * @param   AHBsetting AHB settings, see RCC_CLKCTRL_AHB_Type
  * @return  Nothing
  */
-static inline void rccDisableClocks(RCC_Type *peripheral, uint32_t APB1setting,
-                                    uint32_t APB2setting, uint32_t AHBsetting) {
+static inline void rccDisableClocks(RCC_Type *peripheral, uint32_t APB1setting, uint32_t APB2setting, uint32_t AHBsetting) {
   peripheral->AHBENR = ~AHBsetting & peripheral->AHBENR;
   peripheral->APB1ENR = ~APB1setting & peripheral->APB1ENR;
   peripheral->APB2ENR = ~APB2setting & peripheral->APB2ENR;

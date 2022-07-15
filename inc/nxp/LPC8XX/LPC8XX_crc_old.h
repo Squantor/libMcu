@@ -32,21 +32,37 @@ static inline void CrcUseCCITT(void) {
 
 void CrcUseDefaultConfig(CRC_POLY_T poly);
 
-static inline void CrcSetMode(uint32_t mode) { CRC->MODE = mode; }
+static inline void CrcSetMode(uint32_t mode) {
+  CRC->MODE = mode;
+}
 
-static inline uint32_t CrcGetMode(void) { return CRC->MODE; }
+static inline uint32_t CrcGetMode(void) {
+  return CRC->MODE;
+}
 
-static inline void CrcSetSeed(uint32_t seed) { CRC->SEED = seed; }
+static inline void CrcSetSeed(uint32_t seed) {
+  CRC->SEED = seed;
+}
 
-static inline uint32_t CrcGetSeed(void) { return CRC->SEED; }
+static inline uint32_t CrcGetSeed(void) {
+  return CRC->SEED;
+}
 
-static inline void CrcWrite8(uint8_t data) { CRC->WRDATA8 = data; }
+static inline void CrcWrite8(uint8_t data) {
+  CRC->WRDATA8 = data;
+}
 
-static inline void CrcWrite16(uint16_t data) { CRC->WRDATA16 = data; }
+static inline void CrcWrite16(uint16_t data) {
+  CRC->WRDATA16 = data;
+}
 
-static inline void CrcWrite32(uint32_t data) { CRC->WRDATA32 = data; }
+static inline void CrcWrite32(uint32_t data) {
+  CRC->WRDATA32 = data;
+}
 
-static inline uint32_t CrcSum(void) { return CRC->SUM; }
+static inline uint32_t CrcSum(void) {
+  return CRC->SUM;
+}
 
 static inline uint32_t CrcCRC8(const uint8_t *data, uint32_t bytes) {
   CrcUseCCITT();

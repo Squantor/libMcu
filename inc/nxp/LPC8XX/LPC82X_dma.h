@@ -11,7 +11,7 @@ LPC820 series common DMA registers, defines and functions.
 #define LPC82X_DMA_H
 
 typedef volatile struct { /* DMA shared registers structure */
-  uint32_t ENABLESET; /* DMA Channel Enable read and Set for all DMA channels */
+  uint32_t ENABLESET;     /* DMA Channel Enable read and Set for all DMA channels */
   const uint32_t RESERVED0;
   uint32_t ENABLECLR; /* DMA Channel Enable Clear for all DMA channels */
   const uint32_t RESERVED1;
@@ -21,8 +21,7 @@ typedef volatile struct { /* DMA shared registers structure */
   const uint32_t RESERVED3;
   uint32_t ERRINT; /* DMA Error Interrupt status for all DMA channels */
   const uint32_t RESERVED4;
-  uint32_t
-      INTENSET; /* DMA Interrupt Enable read and Set for all DMA channels */
+  uint32_t INTENSET; /* DMA Interrupt Enable read and Set for all DMA channels */
   const uint32_t RESERVED5;
   uint32_t INTENCLR; /* DMA Interrupt Enable Clear for all DMA channels */
   const uint32_t RESERVED6;
@@ -30,8 +29,7 @@ typedef volatile struct { /* DMA shared registers structure */
   const uint32_t RESERVED7;
   uint32_t INTB; /* DMA Interrupt B status for all DMA channels */
   const uint32_t RESERVED8;
-  uint32_t
-      SETVALID; /* DMA Set ValidPending control bits for all DMA channels */
+  uint32_t SETVALID; /* DMA Set ValidPending control bits for all DMA channels */
   const uint32_t RESERVED9;
   uint32_t SETTRIG; /* DMA Set Trigger control bits for all DMA channels */
   const uint32_t RESERVED10;
@@ -109,7 +107,7 @@ typedef enum {
 typedef struct {          /* DMA Structure */
   uint32_t CTRL;          /* DMA control register */
   const uint32_t INTSTAT; /* DMA Interrupt status register */
-  uint32_t SRAMBASE; /* DMA SRAM address of the channel configuration table */
+  uint32_t SRAMBASE;      /* DMA SRAM address of the channel configuration table */
   const uint32_t RESERVED2[5];
   LPC_DMA_COMMON_T DMACOMMON[1]; /* DMA shared channel (common) registers */
   const uint32_t RESERVED0[225];
@@ -120,14 +118,16 @@ typedef struct {          /* DMA Structure */
 #define DMA_INTSTAT_RESERVED (~7)
 #define DMA_SRAMBASE_RESERVED (0x1FF)
 
-static inline void DmaEnable(LPC_DMA_Type *pDMA) { pDMA->CTRL = 1; }
+static inline void DmaEnable(LPC_DMA_Type *pDMA) {
+  pDMA->CTRL = 1;
+}
 
-static inline void DmaDisable(LPC_DMA_Type *pDMA) { pDMA->CTRL = 0; }
+static inline void DmaDisable(LPC_DMA_Type *pDMA) {
+  pDMA->CTRL = 0;
+}
 
-#define DMA_INTSTAT_ACTIVEINT \
-  0x2 /* Summarizes whether any enabled interrupts are pending */
-#define DMA_INTSTAT_ACTIVEERRINT \
-  0x4 /* Summarizes whether any error interrupts are pending */
+#define DMA_INTSTAT_ACTIVEINT 0x2    /* Summarizes whether any enabled interrupts are pending */
+#define DMA_INTSTAT_ACTIVEERRINT 0x4 /* Summarizes whether any error interrupts are pending */
 
 /*
 If any DMA channels have an active interrupt or error interrupt
@@ -249,8 +249,7 @@ static inline uint32_t DmaGetActiveIntAChannels(LPC_DMA_Type *pDMA) {
   return (pDMA->DMACOMMON[0].INTA & ~DMA_INTA_RESERVED);
 }
 
-static inline void DmaClearActiveIntAChannel(LPC_DMA_Type *pDMA,
-                                             DMA_CHID_T ch) {
+static inline void DmaClearActiveIntAChannel(LPC_DMA_Type *pDMA, DMA_CHID_T ch) {
   pDMA->DMACOMMON[0].INTA = (1 << ch);
 }
 
@@ -264,8 +263,7 @@ static inline uint32_t DmaGetActiveIntBChannels(LPC_DMA_Type *pDMA) {
   return (pDMA->DMACOMMON[0].INTB & ~DMA_INTB_RESERVED);
 }
 
-static inline void DmaClearActiveIntBChannel(LPC_DMA_Type *pDMA,
-                                             DMA_CHID_T ch) {
+static inline void DmaClearActiveIntBChannel(LPC_DMA_Type *pDMA, DMA_CHID_T ch) {
   pDMA->DMACOMMON[0].INTB = (1 << ch);
 }
 
@@ -291,19 +289,15 @@ static inline void DmaAbortChannel(LPC_DMA_Type *pDMA, DMA_CHID_T ch) {
 /* Support macro for DMA_CHDESC_T */
 #define DMA_ADDR(addr) ((uint32_t)(addr))
 
-#define DMA_CFG_PERIPHREQEN (1 << 0) /* Enables Peripheral DMA requests */
-#define DMA_CFG_HWTRIGEN (1 << 1)    /* Use hardware triggering via imput mux */
-#define DMA_CFG_TRIGPOL_LOW \
-  (0 << 4) /* Hardware trigger is active low or falling edge */
-#define DMA_CFG_TRIGPOL_HIGH \
-  (1 << 4) /* Hardware trigger is active high or rising edge */
-#define DMA_CFG_TRIGTYPE_EDGE                    \
-  (0 << 5) /* Hardware trigger is edge triggered \
-            */
-#define DMA_CFG_TRIGTYPE_LEVEL \
-  (1 << 5) /* Hardware trigger is level triggered */
-#define DMA_CFG_TRIGBURST_SNGL \
-  (0 << 6) /* Single transfer. Hardware trigger causes a single transfer */
+#define DMA_CFG_PERIPHREQEN (1 << 0)  /* Enables Peripheral DMA requests */
+#define DMA_CFG_HWTRIGEN (1 << 1)     /* Use hardware triggering via imput mux */
+#define DMA_CFG_TRIGPOL_LOW (0 << 4)  /* Hardware trigger is active low or falling edge */
+#define DMA_CFG_TRIGPOL_HIGH (1 << 4) /* Hardware trigger is active high or rising edge */
+#define DMA_CFG_TRIGTYPE_EDGE                                                  \
+  (0 << 5)                               /* Hardware trigger is edge triggered \
+                                          */
+#define DMA_CFG_TRIGTYPE_LEVEL (1 << 5)  /* Hardware trigger is level triggered */
+#define DMA_CFG_TRIGBURST_SNGL (0 << 6)  /* Single transfer. Hardware trigger causes a single transfer */
 #define DMA_CFG_TRIGBURST_BURST (1 << 6) /* Burst transfer (see UM) */
 #define DMA_CFG_BURSTPOWER_1 (0 << 8)    /* Set DMA burst size to 1 transfer */
 #define DMA_CFG_BURSTPOWER_2 (1 << 8)    /* Set DMA burst size to 2 transfers */
@@ -315,25 +309,17 @@ static inline void DmaAbortChannel(LPC_DMA_Type *pDMA, DMA_CHID_T ch) {
 #define DMA_CFG_BURSTPOWER_32                    \
   (5 << 8) /* Set DMA burst size to 32 transfers \
             */
-#define DMA_CFG_BURSTPOWER_64                    \
-  (6 << 8) /* Set DMA burst size to 64 transfers \
-            */
-#define DMA_CFG_BURSTPOWER_128 \
-  (7 << 8) /* Set DMA burst size to 128 transfers */
-#define DMA_CFG_BURSTPOWER_256 \
-  (8 << 8) /* Set DMA burst size to 256 transfers */
-#define DMA_CFG_BURSTPOWER_512 \
-  (9 << 8) /* Set DMA burst size to 512 transfers */
-#define DMA_CFG_BURSTPOWER_1024 \
-  (10 << 8) /* Set DMA burst size to 1024 transfers */
-#define DMA_CFG_BURSTPOWER(n) \
-  ((n) << 8) /* Set DMA burst size to 2^n transfers, max n=10 */
-#define DMA_CFG_SRCBURSTWRAP \
-  (1 << 14) /* Source burst wrapping is enabled for this DMA channel */
-#define DMA_CFG_DSTBURSTWRAP \
-  (1 << 15) /* Destination burst wrapping is enabled for this DMA channel */
-#define DMA_CFG_CHPRIORITY(p) \
-  ((p) << 16) /* Sets DMA channel priority, min 0 (highest), max 3 (lowest) */
+#define DMA_CFG_BURSTPOWER_64                                                   \
+  (6 << 8)                                /* Set DMA burst size to 64 transfers \
+                                           */
+#define DMA_CFG_BURSTPOWER_128 (7 << 8)   /* Set DMA burst size to 128 transfers */
+#define DMA_CFG_BURSTPOWER_256 (8 << 8)   /* Set DMA burst size to 256 transfers */
+#define DMA_CFG_BURSTPOWER_512 (9 << 8)   /* Set DMA burst size to 512 transfers */
+#define DMA_CFG_BURSTPOWER_1024 (10 << 8) /* Set DMA burst size to 1024 transfers */
+#define DMA_CFG_BURSTPOWER(n) ((n) << 8)  /* Set DMA burst size to 2^n transfers, max n=10 */
+#define DMA_CFG_SRCBURSTWRAP (1 << 14)    /* Source burst wrapping is enabled for this DMA channel */
+#define DMA_CFG_DSTBURSTWRAP (1 << 15)    /* Destination burst wrapping is enabled for this DMA channel */
+#define DMA_CFG_CHPRIORITY(p) ((p) << 16) /* Sets DMA channel priority, min 0 (highest), max 3 (lowest) */
 
 /*
 This function sets up all configurable options for the DMA channel.
@@ -358,14 +344,12 @@ Example: Chip_DMA_SetupChannelConfig(pDMA, DMA_CH14, (
 For non-peripheral DMA triggering (DMA_CFG_HWTRIGEN definition), use the
 DMA input mux functions to configure the DMA trigger source for a DMA channel.
 */
-static inline void DmaSetupChannelConfig(LPC_DMA_Type *pDMA, DMA_CHID_T ch,
-                                         uint32_t cfg) {
+static inline void DmaSetupChannelConfig(LPC_DMA_Type *pDMA, DMA_CHID_T ch, uint32_t cfg) {
   pDMA->DMACH[ch].CFG = cfg;
 }
 
 /* DMA channel control and status register definitions */
-#define DMA_CTLSTAT_VALIDPENDING \
-  (1 << 0) /* Valid pending flag for this channel */
+#define DMA_CTLSTAT_VALIDPENDING (1 << 0) /* Valid pending flag for this channel */
 #define DMA_CTLSTAT_TRIG                                                   \
   (1 << 2) /* Trigger flag. Indicates that the trigger for this channel is \
               currently set */
@@ -376,45 +360,41 @@ static inline uint32_t DmaGetChannelStatus(LPC_DMA_Type *pDMA, DMA_CHID_T ch) {
 
 /* DMA channel transfer configuration registers definitions */
 #define DMA_XFERCFG_CFGVALID (1 << 0) /* Configuration Valid flag */
-#define DMA_XFERCFG_RELOAD                                             \
-  (1 << 1) /* Indicates whether the channels control structure will be \
-              reloaded when the current descriptor is exhausted */
+#define DMA_XFERCFG_RELOAD                                                                       \
+  (1 << 1)                           /* Indicates whether the channels control structure will be \
+                                        reloaded when the current descriptor is exhausted */
 #define DMA_XFERCFG_SWTRIG (1 << 2)  /* Software Trigger */
 #define DMA_XFERCFG_CLRTRIG (1 << 3) /* Clear Trigger */
 #define DMA_XFERCFG_SETINTA                                                    \
   (1 << 4) /* Set Interrupt flag A for this channel to fire when descriptor is \
               complete */
-#define DMA_XFERCFG_SETINTB                                                    \
-  (1 << 5) /* Set Interrupt flag B for this channel to fire when descriptor is \
-              complete */
-#define DMA_XFERCFG_WIDTH_8 (0 << 8)  /* 8-bit transfers are performed */
-#define DMA_XFERCFG_WIDTH_16 (1 << 8) /* 16-bit transfers are performed */
-#define DMA_XFERCFG_WIDTH_32 (2 << 8) /* 32-bit transfers are performed */
-#define DMA_XFERCFG_SRCINC_0 \
-  (0 << 12) /* DMA source address is not incremented after a transfer */
+#define DMA_XFERCFG_SETINTB                                                                                \
+  (1 << 5)                             /* Set Interrupt flag B for this channel to fire when descriptor is \
+                                          complete */
+#define DMA_XFERCFG_WIDTH_8 (0 << 8)   /* 8-bit transfers are performed */
+#define DMA_XFERCFG_WIDTH_16 (1 << 8)  /* 16-bit transfers are performed */
+#define DMA_XFERCFG_WIDTH_32 (2 << 8)  /* 32-bit transfers are performed */
+#define DMA_XFERCFG_SRCINC_0 (0 << 12) /* DMA source address is not incremented after a transfer */
 #define DMA_XFERCFG_SRCINC_1                                                   \
   (1 << 12) /* DMA source address is incremented by 1 (width) after a transfer \
              */
 #define DMA_XFERCFG_SRCINC_2                                                   \
   (2 << 12) /* DMA source address is incremented by 2 (width) after a transfer \
              */
-#define DMA_XFERCFG_SRCINC_4                                                   \
-  (3 << 12) /* DMA source address is incremented by 4 (width) after a transfer \
-             */
-#define DMA_XFERCFG_DSTINC_0 \
-  (0 << 14) /* DMA destination address is not incremented after a transfer */
+#define DMA_XFERCFG_SRCINC_4                                                                              \
+  (3 << 12)                            /* DMA source address is incremented by 4 (width) after a transfer \
+                                        */
+#define DMA_XFERCFG_DSTINC_0 (0 << 14) /* DMA destination address is not incremented after a transfer */
 #define DMA_XFERCFG_DSTINC_1                                               \
   (1 << 14) /* DMA destination address is incremented by 1 (width) after a \
                transfer */
 #define DMA_XFERCFG_DSTINC_2                                               \
   (2 << 14) /* DMA destination address is incremented by 2 (width) after a \
                transfer */
-#define DMA_XFERCFG_DSTINC_4                                               \
-  (3 << 14) /* DMA destination address is incremented by 4 (width) after a \
-               transfer */
-#define DMA_XFERCFG_XFERCOUNT(n) \
-  ((n - 1)                       \
-   << 16) /* DMA transfer count in 'transfers', between (0)1 and (1023)1024 */
+#define DMA_XFERCFG_DSTINC_4                                                                                    \
+  (3 << 14)                                      /* DMA destination address is incremented by 4 (width) after a \
+                                                    transfer */
+#define DMA_XFERCFG_XFERCOUNT(n) ((n - 1) << 16) /* DMA transfer count in 'transfers', between (0)1 and (1023)1024 */
 
 /*
 This function sets up the transfer configuration for the DMA channel.
@@ -428,33 +408,25 @@ Example: Chip_DMA_SetupChannelTransfer(pDMA, SSP0_RX_DMA,
 DMA_XFERCFG_WIDTH_8 | DMA_XFERCFG_SRCINC_1 | DMA_XFERCFG_DSTINC_1 |
 DMA_XFERCFG_XFERCOUNT(128)));
 */
-static inline void DmaSetupChannelTransfer(LPC_DMA_Type *pDMA, DMA_CHID_T ch,
-                                           uint32_t cfg) {
+static inline void DmaSetupChannelTransfer(LPC_DMA_Type *pDMA, DMA_CHID_T ch, uint32_t cfg) {
   pDMA->DMACH[ch].XFERCFG = cfg;
 }
 
-static inline void DmaSetTranBits(LPC_DMA_Type *pDMA, DMA_CHID_T ch,
-                                  uint32_t mask) {
+static inline void DmaSetTranBits(LPC_DMA_Type *pDMA, DMA_CHID_T ch, uint32_t mask) {
   /* Read and write values may not be the same, write 0 to
      undefined bits */
-  pDMA->DMACH[ch].XFERCFG =
-      (pDMA->DMACH[ch].XFERCFG & ~DMA_XFERCFG_RESERVED) | mask;
+  pDMA->DMACH[ch].XFERCFG = (pDMA->DMACH[ch].XFERCFG & ~DMA_XFERCFG_RESERVED) | mask;
 }
 
-static inline void DmaClearTranBits(LPC_DMA_Type *pDMA, DMA_CHID_T ch,
-                                    uint32_t mask) {
+static inline void DmaClearTranBits(LPC_DMA_Type *pDMA, DMA_CHID_T ch, uint32_t mask) {
   /* Read and write values may not be the same, write 0 to
      undefined bits */
-  uint32_t xfercfgRegister =
-      pDMA->DMACH[ch].XFERCFG & ~(DMA_XFERCFG_RESERVED | mask);
+  uint32_t xfercfgRegister = pDMA->DMACH[ch].XFERCFG & ~(DMA_XFERCFG_RESERVED | mask);
   pDMA->DMACH[ch].XFERCFG = xfercfgRegister;
 }
 
-static inline void DmaSetupChannelTransferSize(LPC_DMA_Type *pDMA,
-                                               DMA_CHID_T ch, uint32_t trans) {
-  pDMA->DMACH[ch].XFERCFG =
-      (pDMA->DMACH[ch].XFERCFG & ~(DMA_XFERCFG_RESERVED | (0x3FF << 16))) |
-      DMA_XFERCFG_XFERCOUNT(trans);
+static inline void DmaSetupChannelTransferSize(LPC_DMA_Type *pDMA, DMA_CHID_T ch, uint32_t trans) {
+  pDMA->DMACH[ch].XFERCFG = (pDMA->DMACH[ch].XFERCFG & ~(DMA_XFERCFG_RESERVED | (0x3FF << 16))) | DMA_XFERCFG_XFERCOUNT(trans);
 }
 
 static inline void DmaSetChannelValid(LPC_DMA_Type *pDMA, DMA_CHID_T ch) {
@@ -484,8 +456,7 @@ If using this function to write the initial transfer descriptor in
 a linked list or ping-pong buffer configuration, it should contain a
 non-NULL 'next' field pointer.
 */
-static inline bool DmaSetupTranChannel(LPC_DMA_Type *pDMA, DMA_CHID_T ch,
-                                       const DMA_CHDESC_T *desc) {
+static inline bool DmaSetupTranChannel(LPC_DMA_Type *pDMA, DMA_CHID_T ch, const DMA_CHDESC_T *desc) {
   /* If channel is active return false */
   if (DmaIsChannelActive(pDMA, ch)) return false;
 

@@ -42,15 +42,15 @@ static inline void WwdtStart(WWDT_Type *pWWDT) {
   WwdtFeed(pWWDT);
 }
 
-static inline uint32_t WwdtGetStatus(WWDT_Type *pWWDT) { return pWWDT->MOD; }
+static inline uint32_t WwdtGetStatus(WWDT_Type *pWWDT) {
+  return pWWDT->MOD;
+}
 
 static inline void WwdtClearStatusFlag(WWDT_Type *pWWDT, uint32_t status) {
   uint32_t modRegister;
-  if (status & WWDT_WDMOD_WDTOF)
-    modRegister = pWWDT->MOD & (~WWDT_WDMOD_WDTOF) & WWDT_WDMOD_BITMASK;
+  if (status & WWDT_WDMOD_WDTOF) modRegister = pWWDT->MOD & (~WWDT_WDMOD_WDTOF) & WWDT_WDMOD_BITMASK;
 
-  if (status & WWDT_WDMOD_WDINT)
-    modRegister = WWDT_WDMOD_WDINT | (pWWDT->MOD & ~WWDT_MOD_RESERVED);
+  if (status & WWDT_WDMOD_WDINT) modRegister = WWDT_WDMOD_WDINT | (pWWDT->MOD & ~WWDT_MOD_RESERVED);
   pWWDT->MOD = modRegister;
 }
 

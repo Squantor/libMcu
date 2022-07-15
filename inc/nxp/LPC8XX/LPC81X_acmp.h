@@ -24,8 +24,8 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 For more information, please refer to <http://unlicense.org>
 */
-/* 
-LPC810 series common analog comparator registers,definitions and 
+/*
+LPC810 series common analog comparator registers,definitions and
 functions.
 */
 #ifndef LPC81X_ACMP_H
@@ -33,22 +33,22 @@ functions.
 
 /* Analog Comparator positive input values */
 typedef enum ACMP_POS_INPUT {
-    ACMP_POSIN_VLO      = (0 << 8), /* Voltage ladder output */
-    ACMP_POSIN_ACMP_I1  = (1 << 8), /* ACMP_I1 pin */
-    ACMP_POSIN_ACMP_I2  = (2 << 8), /* ACMP_I2 pin */
-    ACMP_POSIN_ACMP_I3  = (3 << 8), /* ACMP_I3 pin */
-    ACMP_POSIN_ACMP_I4  = (4 << 8), /* ACMP_I4 pin */
-    ACMP_POSIN_INT_REF  = (6 << 8), /* Internal reference voltage */
+  ACMP_POSIN_VLO = (0 << 8),     /* Voltage ladder output */
+  ACMP_POSIN_ACMP_I1 = (1 << 8), /* ACMP_I1 pin */
+  ACMP_POSIN_ACMP_I2 = (2 << 8), /* ACMP_I2 pin */
+  ACMP_POSIN_ACMP_I3 = (3 << 8), /* ACMP_I3 pin */
+  ACMP_POSIN_ACMP_I4 = (4 << 8), /* ACMP_I4 pin */
+  ACMP_POSIN_INT_REF = (6 << 8), /* Internal reference voltage */
 } ACMP_POS_INPUT_T;
 
 /* Analog Comparator negative input values */
 typedef enum ACMP_NEG_INPUT {
-    ACMP_NEGIN_VLO     = (0 << 11), /* Voltage ladder output */
-    ACMP_NEGIN_ACMP_I1 = (1 << 11), /* ACMP_I1 pin */
-    ACMP_NEGIN_ACMP_I2 = (2 << 11), /* ACMP_I2 pin */
-    ACMP_NEGIN_ACMP_I3 = (3 << 11), /* ACMP_I3 pin */
-    ACMP_NEGIN_ACMP_I4 = (4 << 11), /* ACMP_I4 pin */
-    ACMP_NEGIN_INT_REF = (6 << 11)  /* Internal reference voltage */
+  ACMP_NEGIN_VLO = (0 << 11),     /* Voltage ladder output */
+  ACMP_NEGIN_ACMP_I1 = (1 << 11), /* ACMP_I1 pin */
+  ACMP_NEGIN_ACMP_I2 = (2 << 11), /* ACMP_I2 pin */
+  ACMP_NEGIN_ACMP_I3 = (3 << 11), /* ACMP_I3 pin */
+  ACMP_NEGIN_ACMP_I4 = (4 << 11), /* ACMP_I4 pin */
+  ACMP_NEGIN_INT_REF = (6 << 11)  /* Internal reference voltage */
 } ACMP_NEG_INPUT_T;
 
 #include "nxp/LPC8XX/LPC8XX_acmp.h"

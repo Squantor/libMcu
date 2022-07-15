@@ -10,7 +10,9 @@ LPC800 series common multi rate timer registers, defines and functions.
 #ifndef LPC8XX_MRT_OLD_H
 #define LPC8XX_MRT_OLD_H
 
-static inline MRT_CH_Type *MrtGetRegPtr(uint8_t ch) { return MRT_CH(ch); }
+static inline MRT_CH_Type *MrtGetRegPtr(uint8_t ch) {
+  return MRT_CH(ch);
+}
 
 static inline uint32_t MrtGetInterval(MRT_CH_Type *pMRT) {
   return pMRT->INTVAL;
@@ -20,7 +22,9 @@ static inline void MrtSetInterval(MRT_CH_Type *pMRT, uint32_t interval) {
   pMRT->INTVAL = interval;
 }
 
-static inline uint32_t MrtGetTimer(MRT_CH_Type *pMRT) { return pMRT->TIMER; }
+static inline uint32_t MrtGetTimer(MRT_CH_Type *pMRT) {
+  return pMRT->TIMER;
+}
 
 static inline bool MrtGetEnabled(MRT_CH_Type *pMRT) {
   return (bool)((pMRT->CTRL & MRT_CTRL_INTEN_MASK) != 0);
@@ -31,8 +35,7 @@ static inline void MrtSetEnabled(MRT_CH_Type *pMRT) {
 }
 
 static inline void MrtSetDisabled(MRT_CH_Type *pMRT) {
-  uint32_t ctrlRegister =
-      pMRT->CTRL & ~(MRT_CTRL_INTEN_MASK | MRT_CTRL_RESERVED);
+  uint32_t ctrlRegister = pMRT->CTRL & ~(MRT_CTRL_INTEN_MASK | MRT_CTRL_RESERVED);
   pMRT->CTRL = ctrlRegister;
 }
 
@@ -74,12 +77,16 @@ static inline uint8_t MrtGetIdleChannelShifted(void) {
   return (uint8_t)(MrtGetIdleChannel() >> 4);
 }
 
-static inline uint32_t MrtGetIntPending(void) { return MRT->IRQ_FLAG; }
+static inline uint32_t MrtGetIntPending(void) {
+  return MRT->IRQ_FLAG;
+}
 
 static inline bool MrtGetIntPendingByChannel(uint8_t ch) {
   return (bool)(((MRT->IRQ_FLAG >> ch) & 1) != 0);
 }
 
-static inline void MrtClearIntPending(uint32_t mask) { MRT->IRQ_FLAG = mask; }
+static inline void MrtClearIntPending(uint32_t mask) {
+  MRT->IRQ_FLAG = mask;
+}
 
 #endif

@@ -24,25 +24,23 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 For more information, please refer to <http://unlicense.org>
 */
-/* 
+/*
 LPC810 series default configuration used by libMcuLL
 */
 
 #ifndef LPC81X_DEFAULT_H
 #define LPC81X_DEFAULT_H
 
-#if !defined(CLOCK_XTAL) && !defined(CLOCK_EXT_IN) && \
-!defined(CLOCK_CPU) && !defined(CLOCK_AHB) && \
-!defined(CLOCK_MAIN)
-    #warning default clock configuration is loaded!
-    // default clock configuration
-    #define CLOCK_XTAL          (12000000u)
-    #define CLOCK_EXT_IN        (0u)
-    #define CLOCK_CPU           (30000000u)
-    #define CLOCK_AHB           (30000000u)
-    #define CLOCK_MAIN          (60000000u)
-    // predefine main clock source, reduce code size
-    // #define CLOCK_MAIN_SOURCE   SYSCTL_MAINCLKSRC_IRC
+#if !defined(CLOCK_XTAL) && !defined(CLOCK_EXT_IN) && !defined(CLOCK_CPU) && !defined(CLOCK_AHB) && !defined(CLOCK_MAIN)
+#warning default clock configuration is loaded!
+// default clock configuration
+#define CLOCK_XTAL (12000000u)
+#define CLOCK_EXT_IN (0u)
+#define CLOCK_CPU (30000000u)
+#define CLOCK_AHB (30000000u)
+#define CLOCK_MAIN (60000000u)
+// predefine main clock source, reduce code size
+// #define CLOCK_MAIN_SOURCE   SYSCTL_MAINCLKSRC_IRC
 #endif
 
 #endif

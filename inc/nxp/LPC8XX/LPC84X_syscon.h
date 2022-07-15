@@ -26,47 +26,44 @@ typedef volatile struct SYSCON_Struct {
   uint8_t RESERVED_3[4];
   uint32_t SYSRSTSTAT; /**< System reset status register, offset: 0x38 */
   uint8_t RESERVED_4[4];
-  uint32_t SYSPLLCLKSEL; /**< System PLL clock source select register, offset:
-                            0x40 */
-  uint32_t SYSPLLCLKUEN; /**< System PLL clock source update enable register,
-                            offset: 0x44 */
-  uint32_t
-      MAINCLKPLLSEL; /**< Main clock source select register, offset: 0x48 */
+  uint32_t SYSPLLCLKSEL;  /**< System PLL clock source select register, offset:
+                             0x40 */
+  uint32_t SYSPLLCLKUEN;  /**< System PLL clock source update enable register,
+                             offset: 0x44 */
+  uint32_t MAINCLKPLLSEL; /**< Main clock source select register, offset: 0x48 */
   uint32_t MAINCLKPLLUEN; /**< Main clock source update enable register, offset:
                              0x4C */
-  uint32_t MAINCLKSEL; /**< Main clock source select register, offset: 0x50 */
-  uint32_t
-      MAINCLKUEN; /**< Main clock source update enable register, offset: 0x54 */
-  uint32_t SYSAHBCLKDIV; /**< System clock divider register, offset: 0x58 */
+  uint32_t MAINCLKSEL;    /**< Main clock source select register, offset: 0x50 */
+  uint32_t MAINCLKUEN;    /**< Main clock source update enable register, offset: 0x54 */
+  uint32_t SYSAHBCLKDIV;  /**< System clock divider register, offset: 0x58 */
   uint8_t RESERVED_5[4];
   uint32_t CAPTCLKSEL; /**< CAPT clock source select register, offset: 0x60 */
   uint32_t ADCCLKSEL;  /**< ADC clock source select register, offset: 0x64 */
   uint32_t ADCCLKDIV;  /**< ADC clock divider register, offset: 0x68 */
   uint32_t SCTCLKSEL;  /**< SCT clock source select register, offset: 0x6C */
   uint32_t SCTCLKDIV;  /**< SCT clock divider register, offset: 0x70 */
-  uint32_t
-      EXTCLKSEL; /**< external clock source select register, offset: 0x74 */
+  uint32_t EXTCLKSEL;  /**< external clock source select register, offset: 0x74 */
   uint8_t RESERVED_6[8];
   uint32_t SYSAHBCLKCTRL0; /**< System clock group 0 control register, offset:
                               0x80 */
   uint32_t SYSAHBCLKCTRL1; /**< System clock group 1 control register, offset:
                               0x84 */
-  uint32_t PRESETCTRL0; /**< Peripheral reset group 0 control register, offset:
-                           0x88 */
-  uint32_t PRESETCTRL1; /**< Peripheral reset group 1 control register, offset:
-                           0x8C */
-  uint32_t FCLKSEL[11]; /**< peripheral clock source select register.
-                           FCLK0SEL~FCLK4SEL are for UART0~UART4 clock source
-                           select register. FCLK5SEL~FCLK8SEL are for I2C0~I2C3
-                           clock source select register. FCLK9SEL~FCLK10SEL are
-                           for SPI0~SPI1 clock source select register., array
-                           offset: 0x90, array step: 0x4 */
+  uint32_t PRESETCTRL0;    /**< Peripheral reset group 0 control register, offset:
+                              0x88 */
+  uint32_t PRESETCTRL1;    /**< Peripheral reset group 1 control register, offset:
+                              0x8C */
+  uint32_t FCLKSEL[11];    /**< peripheral clock source select register.
+                              FCLK0SEL~FCLK4SEL are for UART0~UART4 clock source
+                              select register. FCLK5SEL~FCLK8SEL are for I2C0~I2C3
+                              clock source select register. FCLK9SEL~FCLK10SEL are
+                              for SPI0~SPI1 clock source select register., array
+                              offset: 0x90, array step: 0x4 */
   uint8_t RESERVED_7[20];
-  struct {         /* offset: 0xD0, array step: 0x10 */
-    uint32_t DIV;  /**< fractional generator N divider value register, array
-                      offset: 0xD0, array step: 0x10 */
-    uint32_t MULT; /**< fractional generator N multiplier value register, array
-                      offset: 0xD4, array step: 0x10 */
+  struct {           /* offset: 0xD0, array step: 0x10 */
+    uint32_t DIV;    /**< fractional generator N divider value register, array
+                        offset: 0xD0, array step: 0x10 */
+    uint32_t MULT;   /**< fractional generator N multiplier value register, array
+                        offset: 0xD4, array step: 0x10 */
     uint32_t CLKSEL; /**< FRG N clock source select register, array offset:
                         0xD8, array step: 0x10 */
     uint8_t RESERVED_0[4];
@@ -74,8 +71,7 @@ typedef volatile struct SYSCON_Struct {
   uint32_t CLKOUTSEL; /**< CLKOUT clock source select register, offset: 0xF0 */
   uint32_t CLKOUTDIV; /**< CLKOUT clock divider registers, offset: 0xF4 */
   uint8_t RESERVED_8[4];
-  uint32_t
-      EXTTRACECMD; /**< External trace buffer command register, offset: 0xFC */
+  uint32_t EXTTRACECMD;        /**< External trace buffer command register, offset: 0xFC */
   const uint32_t PIOPORCAP[2]; /**< POR captured PIO N status register(PIO0 has
                                   32 PIOs, PIO1 has 22 PIOs), array offset:
                                   0x100, array step: 0x4 */
@@ -95,8 +91,7 @@ typedef volatile struct SYSCON_Struct {
   uint32_t IOCONCLKDIV0; /**< Peripheral clock 0 to the IOCON block for
                             programmable glitch filter, offset: 0x14C */
   uint32_t BODCTRL;      /**< BOD control register, offset: 0x150 */
-  uint32_t
-      SYSTCKCAL; /**< System tick timer calibration register, offset: 0x154 */
+  uint32_t SYSTCKCAL;    /**< System tick timer calibration register, offset: 0x154 */
   uint8_t RESERVED_10[24];
   uint32_t IRQLATENCY; /**< IRQ latency register, offset: 0x170 */
   uint32_t NMISRC;     /**< NMI source selection register, offset: 0x174 */
@@ -123,20 +118,14 @@ typedef enum {
   SYSPLLCTRL_POSTDIV_16 = 3u, /**< Post PLL division ratio of sixteen */
 } SYSPLLCTRL_PSEL_Type;
 
-#define SYSPLLCTRL_MASK                                                        \
-  0xFFFFFF80 /**< Reserved bits of the System PLL control register */
+#define SYSPLLCTRL_MASK 0xFFFFFF80 /**< Reserved bits of the System PLL control register */
 
-#define SYSOSCCTRL_MASK                                                        \
-  0xFFFFFFFC /**< Reserved bits of System oscillator control register */
-#define SYSOSCCTRL_BYPASS                                                      \
-  (1 << 0) /**< Oscillator is bypassed, used with external oscillator */
-#define SYSOSCCTRL_FREQ_1_20MHZ                                                \
-  (0 << 1) /**< Oscillator frequency range from 1 to 20MHz */
-#define SYSOSCCTRL_FREQ_15_25MHZ                                               \
-  (1 << 1) /**< Oscillator frequency range from 15 to 25MHz */
+#define SYSOSCCTRL_MASK 0xFFFFFFFC        /**< Reserved bits of System oscillator control register */
+#define SYSOSCCTRL_BYPASS (1 << 0)        /**< Oscillator is bypassed, used with external oscillator */
+#define SYSOSCCTRL_FREQ_1_20MHZ (0 << 1)  /**< Oscillator frequency range from 1 to 20MHz */
+#define SYSOSCCTRL_FREQ_15_25MHZ (1 << 1) /**< Oscillator frequency range from 15 to 25MHz */
 
-#define SYSPLLCLKSEL_MASK                                                      \
-  0xFFFFFFFC /**< Reserved bits of the Main clock pll select register */
+#define SYSPLLCLKSEL_MASK 0xFFFFFFFC /**< Reserved bits of the Main clock pll select register */
 typedef enum {
   SYSPLLCLKSEL_FRO = 0u,      /**< System oscillator (crystal oscillator) */
   SYSPLLCLKSEL_EXTCLK = 1u,   /**< External clock network */
@@ -144,25 +133,23 @@ typedef enum {
   SYSPLLCLKSEL_FRO_DIV = 3u   /**< FRO divided by two */
 } SYSPLLCLKSEL_Type;
 
-#define SYSPLLCLKUEN_MASK                                                      \
-  0xFFFFFFFE /**< Reserved bits of the main clock pll select update register   \
-              */
+#define SYSPLLCLKUEN_MASK                                                                            \
+  0xFFFFFFFE                         /**< Reserved bits of the main clock pll select update register \
+                                      */
 #define SYSPLLCLKUEN_UPDATE (1 << 0) /**< Update main clock pll select */
 
-#define MAINCLKPLLSEL_MASK                                                     \
-  0xFFFFFFFC /**< Reserved bits of the Main clock pll select register */
+#define MAINCLKPLLSEL_MASK 0xFFFFFFFC /**< Reserved bits of the Main clock pll select register */
 typedef enum {
   MAINCLKPLLSEL_PREPLL = 0u, /**< Pre PLL */
   MAINCLKPLLSEL_SYSPLL = 1u, /**< System PLL */
 } MAINCLKPLLSEL_Type;
 
-#define MAINCLKPLLUEN_MASK                                                     \
-  0xFFFFFFFE /**< Reserved bits of the main clock pll select update register   \
-              */
+#define MAINCLKPLLUEN_MASK                                                                            \
+  0xFFFFFFFE                          /**< Reserved bits of the main clock pll select update register \
+                                       */
 #define MAINCLKPLLUEN_UPDATE (1 << 0) /**< Update main clock pll select */
 
-#define MAINCLKSEL_MASK                                                        \
-  0xFFFFFFF8 /**< Reserved bits of the main clock source select register */
+#define MAINCLKSEL_MASK 0xFFFFFFF8 /**< Reserved bits of the main clock source select register */
 typedef enum {
   MAINCLKSEL_FRO = 0u,      /**< System oscillator (crystal oscillator) */
   MAINCLKSEL_EXTCLK = 1u,   /**< External clock network */
@@ -170,12 +157,10 @@ typedef enum {
   MAINCLKSEL_FRO_DIV = 3u   /**< FRO divided by two */
 } MAINCLOCKSEL_Type;
 
-#define MAINCLKUEN_MASK                                                        \
-  0xFFFFFFFE /**< Reserved bits of the main clock source update register */
+#define MAINCLKUEN_MASK 0xFFFFFFFE /**< Reserved bits of the main clock source update register */
 #define MAINCLKUEN_UPDATE (1 << 0) /**< Update main clock source */
 
-#define SYSAHBCLKDIV_MASK                                                      \
-  0xFFFFFF00 /**< Reserved bits of the system clock divider register */
+#define SYSAHBCLKDIV_MASK 0xFFFFFF00 /**< Reserved bits of the system clock divider register */
 
 typedef enum {
   EXTCLKSEL_SYSOSC = 0u, /**< System oscillator (crystal oscillator) */
@@ -260,10 +245,8 @@ typedef enum {
   RESETCTRL1_NONE = (0),      /*!< no reset clear */
   RESETCTRL1_CAPT = (1 << 0), /**< CAPT reset clear */
   RESETCTRL1_DAC1 = (1 << 1), /**< DAC1 reset clear */
-  RESETCTRL1_FRG0 =
-      (1 << 3), /**< Fractional baud rate generator 0 reset clear */
-  RESETCTRL1_FRG1 =
-      (1 << 4), /**< Fractional baud rate generator 1 reset clear */
+  RESETCTRL1_FRG0 = (1 << 3), /**< Fractional baud rate generator 0 reset clear */
+  RESETCTRL1_FRG1 = (1 << 4), /**< Fractional baud rate generator 1 reset clear */
 } SYSCON_RESETCTRL1_Type;
 
 /** peripheral list for clock source selection, translation happens in function
@@ -329,10 +312,8 @@ typedef enum {
   PDRUNCFG_ACMP = (1 << 15),
 } PDCFG_Type;
 
-#define PDRUNCFG_DEFAULT                                                       \
-  0x0000EDF8 /**< Default configuration for Powerdown register */
-#define PDRUNCFG_MASK                                                          \
-  0xFFFF1F00 /**< Default configuration for Powerdown register */
+#define PDRUNCFG_DEFAULT 0x0000EDF8 /**< Default configuration for Powerdown register */
+#define PDRUNCFG_MASK 0xFFFF1F00    /**< Default configuration for Powerdown register */
 
 /**
  * @brief   Select system pll clock source
@@ -340,10 +321,8 @@ typedef enum {
  * @param   source      Clock source of the PLL
  * @return  Nothing
  */
-static inline void sysconMainClockPllSelect(SYSCON_Type *peripheral,
-                                            MAINCLKPLLSEL_Type setting) {
-  peripheral->MAINCLKPLLSEL =
-      (peripheral->MAINCLKSEL & MAINCLKPLLSEL_MASK) | setting;
+static inline void sysconMainClockPllSelect(SYSCON_Type *peripheral, MAINCLKPLLSEL_Type setting) {
+  peripheral->MAINCLKPLLSEL = (peripheral->MAINCLKSEL & MAINCLKPLLSEL_MASK) | setting;
   peripheral->MAINCLKPLLUEN = peripheral->MAINCLKUEN & ~MAINCLKPLLUEN_UPDATE;
   peripheral->MAINCLKPLLUEN = peripheral->MAINCLKUEN | MAINCLKPLLUEN_UPDATE;
 }
@@ -354,8 +333,7 @@ static inline void sysconMainClockPllSelect(SYSCON_Type *peripheral,
  * @param   source      Clock source of the external clock network
  * @return  Nothing
  */
-static inline void sysconExternalClockSelect(SYSCON_Type *peripheral,
-                                             EXTCLKSEL_Type setting) {
+static inline void sysconExternalClockSelect(SYSCON_Type *peripheral, EXTCLKSEL_Type setting) {
   peripheral->EXTCLKSEL = setting;
 }
 
@@ -366,8 +344,7 @@ static inline void sysconExternalClockSelect(SYSCON_Type *peripheral,
  * @param   setting1    Settings for clock control 1 register, see CLKCTRL1 enum
  * @return  Nothing
  */
-static inline void sysconEnableClocks(SYSCON_Type *peripheral,
-                                      uint32_t setting0, uint32_t setting1) {
+static inline void sysconEnableClocks(SYSCON_Type *peripheral, uint32_t setting0, uint32_t setting1) {
   peripheral->SYSAHBCLKCTRL0 = setting0 | peripheral->SYSAHBCLKCTRL0;
   peripheral->SYSAHBCLKCTRL1 = setting1 | peripheral->SYSAHBCLKCTRL1;
 }
@@ -379,8 +356,7 @@ static inline void sysconEnableClocks(SYSCON_Type *peripheral,
  * @param   setting1    Settings for clock control 1 register, see CLKCTRL1 enum
  * @return  Nothing
  */
-static inline void sysconDisableClocks(SYSCON_Type *peripheral,
-                                       uint32_t setting0, uint32_t setting1) {
+static inline void sysconDisableClocks(SYSCON_Type *peripheral, uint32_t setting0, uint32_t setting1) {
   peripheral->SYSAHBCLKCTRL0 = ~setting0 & peripheral->SYSAHBCLKCTRL0;
   peripheral->SYSAHBCLKCTRL1 = ~setting1 & peripheral->SYSAHBCLKCTRL1;
 }
@@ -394,8 +370,7 @@ static inline void sysconDisableClocks(SYSCON_Type *peripheral,
  * enum
  * @return  Nothing
  */
-static inline void sysconEnableResets(SYSCON_Type *peripheral, uint32_t resets0,
-                                      uint32_t resets1) {
+static inline void sysconEnableResets(SYSCON_Type *peripheral, uint32_t resets0, uint32_t resets1) {
   peripheral->PRESETCTRL0 = resets0 | peripheral->PRESETCTRL0;
   peripheral->PRESETCTRL1 = resets1 | peripheral->PRESETCTRL1;
 }
@@ -409,8 +384,7 @@ static inline void sysconEnableResets(SYSCON_Type *peripheral, uint32_t resets0,
  * enum
  * @return  Nothing
  */
-static inline void sysconDisableResets(SYSCON_Type *peripheral,
-                                       uint32_t resets0, uint32_t resets1) {
+static inline void sysconDisableResets(SYSCON_Type *peripheral, uint32_t resets0, uint32_t resets1) {
   peripheral->PRESETCTRL0 = ~resets0 & peripheral->PRESETCTRL0;
   peripheral->PRESETCTRL1 = ~resets1 & peripheral->PRESETCTRL1;
 }
@@ -421,11 +395,8 @@ static inline void sysconDisableResets(SYSCON_Type *peripheral,
  * @param   select      Peripheral to setup the clock for
  * @param   source      Clock source to connect to the peripheral
  */
-static inline void sysconPeripheralClockSelect(SYSCON_Type *peripheral,
-                                               SYSCON_CLKSEL_Type select,
-                                               SYSCON_CLKSRC_Type source) {
-  peripheral->FCLKSEL[select] =
-      (peripheral->FCLKSEL[select] & 0xFFFFFFF8) | source;
+static inline void sysconPeripheralClockSelect(SYSCON_Type *peripheral, SYSCON_CLKSEL_Type select, SYSCON_CLKSRC_Type source) {
+  peripheral->FCLKSEL[select] = (peripheral->FCLKSEL[select] & 0xFFFFFFF8) | source;
 }
 
 /**
@@ -436,9 +407,7 @@ static inline void sysconPeripheralClockSelect(SYSCON_Type *peripheral,
  * @param   multiplier  MULT value for FRG
  * @param   source      source for the FRG
  */
-static inline void sysconFrg0Setup(SYSCON_Type *peripheral,
-                                   SYSCON_FRGSEL_Type frg, uint8_t divider,
-                                   uint8_t multiplier,
+static inline void sysconFrg0Setup(SYSCON_Type *peripheral, SYSCON_FRGSEL_Type frg, uint8_t divider, uint8_t multiplier,
                                    SYSCON_FRGSRC_Type source) {
   peripheral->FRG[frg].DIV = divider;
   peripheral->FRG[frg].MULT = multiplier;
@@ -451,8 +420,7 @@ static inline void sysconFrg0Setup(SYSCON_Type *peripheral,
  * @param   source      clock source, see CLKOUT_SOURCE_Type enum
  * @return  Nothing
  */
-static inline void sysconClkoutSource(SYSCON_Type *peripheral,
-                                      CLKOUT_SOURCE_Type source) {
+static inline void sysconClkoutSource(SYSCON_Type *peripheral, CLKOUT_SOURCE_Type source) {
   peripheral->CLKOUTSEL = source & CLKOUT_RESERVED_MASK;
 }
 
@@ -463,8 +431,7 @@ static inline void sysconClkoutSource(SYSCON_Type *peripheral,
  * 1
  * @return  Nothing
  */
-static inline void sysconClkoutDivider(SYSCON_Type *peripheral,
-                                       uint8_t divider) {
+static inline void sysconClkoutDivider(SYSCON_Type *peripheral, uint8_t divider) {
   peripheral->CLKOUTDIV = divider;
 }
 

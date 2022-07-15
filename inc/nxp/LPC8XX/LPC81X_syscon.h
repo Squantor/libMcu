@@ -179,7 +179,7 @@ typedef enum {
   RESETCTRL_UART0 = (1 << 3),   /**< UART0 reset clear */
   RESETCTRL_UART1 = (1 << 4),   /**< UART1 reset clear */
   RESETCTRL_UART2 = (1 << 5),   /**< UART2 reset clear */
-  RESETCTRL_I2C0 = (1 << 6),     /**< I2C reset clear */
+  RESETCTRL_I2C0 = (1 << 6),    /**< I2C reset clear */
   RESETCTRL_MRT = (1 << 7),     /**< MRT reset clear */
   RESETCTRL_SCT = (1 << 8),     /**< SCT reset clear */
   RESETCTRL_WKT = (1 << 9),     /**< WKT reset clear */

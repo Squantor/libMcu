@@ -56,8 +56,7 @@ typedef enum {
  * @param    ch        : DMA channel ID
  * @return    Nothing
  */
-static inline void inmuxSetDMAOTrig(LPC_INMUX_T *pINMUX, DMA_INMUX_T imux,
-                                    DMA_CHID_T ch) {
+static inline void inmuxSetDMAOTrig(LPC_INMUX_T *pINMUX, DMA_INMUX_T imux, DMA_CHID_T ch) {
   pINMUX->DMA_INMUX_INMUX[imux] = ch;
 }
 
@@ -68,15 +67,14 @@ static inline void inmuxSetDMAOTrig(LPC_INMUX_T *pINMUX, DMA_INMUX_T imux,
  * @param    trig    : SCT Input function that will cause the trigger
  * @return    Nothing
  */
-static inline void inmuxSetSCTInMux(LPC_INMUX_T *pINMUX, SCT_INMUX_T isct,
-                                    SCT_INP_T trig) {
+static inline void inmuxSetSCTInMux(LPC_INMUX_T *pINMUX, SCT_INMUX_T isct, SCT_INP_T trig) {
   pINMUX->SCT0_INMUX[isct] = trig;
 }
 
 /**
  * @brief DMA trigger pin muxing structure
  */
-typedef struct { /* DMA trigger pin muxing register structure */
+typedef struct {                             /* DMA trigger pin muxing register structure */
   uint32_t DMA_ITRIG_INMUX[MAX_DMA_CHANNEL]; /* Trigger input select register
                                                 for DMA channels */
 } LPC_DMATRIGMUX_T;
@@ -104,8 +102,7 @@ typedef enum {
  *            for hardware trigger mode (when Chip_DMA_SetupChannelConfig() is
  *            called with DMA_CFG_HWTRIGEN as OR'ed option).
  */
-static inline void dmaTrigMuxSetInputTrig(LPC_DMATRIGMUX_T *pDMATRIG,
-                                          DMA_CHID_T ch, DMA_TRIGSRC_T trig) {
+static inline void dmaTrigMuxSetInputTrig(LPC_DMATRIGMUX_T *pDMATRIG, DMA_CHID_T ch, DMA_TRIGSRC_T trig) {
   pDMATRIG->DMA_ITRIG_INMUX[ch] = (uint32_t)trig;
 }
 

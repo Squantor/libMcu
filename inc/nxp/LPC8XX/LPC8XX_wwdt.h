@@ -14,9 +14,9 @@ LPC800 series common windowed watchdog registers, defines and functions.
 #define WDT_OSC (LPC8XX_IRC_FREQ)
 
 typedef volatile struct {
-  uint32_t MOD;  /* basic mode and status register */
-  uint32_t TC;   /* time-out value register */
-  uint32_t FEED; /* Writing 0xAA followed by 0x55 reloads the Watchdog timer */
+  uint32_t MOD;      /* basic mode and status register */
+  uint32_t TC;       /* time-out value register */
+  uint32_t FEED;     /* Writing 0xAA followed by 0x55 reloads the Watchdog timer */
   const uint32_t TV; /* current value of the Watchdog timer */
   const uint32_t RESERVED0;
   uint32_t WARNINT; /* contains the Watchdog warning interrupt value */
