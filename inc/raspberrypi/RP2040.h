@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: Unlicense
  *
- * Copyright (c) 2021 Bart Bilos
+ * Copyright (c) 2022 Bart Bilos
  * For conditions of distribution and use, see LICENSE file
  */
 /* Main entry point for the raspberry RP2040 microcontroller */
@@ -27,9 +27,22 @@ typedef enum {
   SVCall_IRQn = -5,
   PendSV_IRQn = -2,
   SysTick_IRQn = -1,
+  // TODO: Interrupts
 } IRQn_Type;
 
 #include <CMSIS/core_cm0plus.h>
+
+// TODO: Peripheral addresses
+
+#define XIP_SSI_BASE (0x18000000UL)
+
+#define XIP_SSI ((XIP_SSI_Type *)XIP_SSI_BASE)
+
+// default configuration options, override with your own!
+#include "raspberrypi/RP2040_default.h"
+
+// Peripheral definition includes
+#include "raspberrypi/xip_ssi.h"
 
 #ifdef __cplusplus
 }
