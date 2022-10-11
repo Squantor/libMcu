@@ -5,11 +5,11 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /** @file XIP SSI peripheral definitions */
-#ifndef XIP_SSH_H
-#define XIP_SSH_H
+#ifndef XIP_SSI_H
+#define XIP_SSI_H
 
 typedef volatile struct {
-  uint32_t CTRL0;                /*!< Control register 0*/
+  uint32_t CTRL0;                /*!< Control register 0 */
   uint32_t CTRL1;                /*!< Master control register 1 */
   uint32_t SSIENR;               /*!< SSI Enable */
   uint32_t MWCR;                 /*!< Microwire Control*/
@@ -35,6 +35,6 @@ typedef volatile struct {
   uint32_t RX_SAMPLE_DLY;        /*!< RX sample delay */
   uint32_t SPI_CTRLR0;           /*!< SPI control */
   uint32_t TXD_DRIVE_EDGE;       /*!< TX drive edge */
-} XIP_SSH_Type;
+} XIP_SSI_Type;
 
 #endif
