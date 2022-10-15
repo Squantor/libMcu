@@ -4,13 +4,11 @@
  * Copyright (c) 2022 Bart Bilos
  * For conditions of distribution and use, see LICENSE file
  */
-/** @file Clocks peripheral definitions */
-#ifndef CLOCKS_H
-#define CLOCKS_H
+/** @file Bus controller peripheral definitions */
+#ifndef BUSCTRL_H
+#define BUSCTRL_H
 
 typedef volatile struct {
-  const uint32_t A; /*!<  */
-  const uint32_t A; /*!<  */
-} CLOCKS_Type;
+} BUSCTRL_Type;
 
 #endif
