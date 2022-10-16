@@ -4,13 +4,11 @@
  * Copyright (c) 2022 Bart Bilos
  * For conditions of distribution and use, see LICENSE file
  */
-/** @file Clocks peripheral definitions */
-#ifndef CLOCKS_H
-#define CLOCKS_H
+/** @file Testbench Manager peripheral definitions */
+#ifndef TBMAN_H
+#define TBMAN_H
 
 typedef volatile struct {
-  const uint32_t A; /*!<  */
-  const uint32_t A; /*!<  */
-} CLOCKS_Type;
+} TBMAN_Type;
 
 #endif
