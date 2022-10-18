@@ -9,7 +9,7 @@ RP2040 default settings for stuff like clocks etcetera
 #ifndef RP2040_DEFAULT_H
 #define RP2040_DEFAULT_H
 
-#if !defined(CLOCK_XTAL) && !defined(CLOCK_EXT_IN) && !defined(CLOCK_CPU) && !defined(CLOCK_AHB) && !defined(CLOCK_MAIN)
+#if !defined(CLOCK_XTAL) && !defined(CLOCK_CPU)
 #warning default configuration is loaded!
 // default clock configuration
 #define CLOCK_XTAL (12000000u)
