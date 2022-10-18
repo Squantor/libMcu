@@ -9,8 +9,8 @@
 #define XIP_SSI_H
 
 typedef volatile struct {
-  uint32_t CTRL0;                /*!< Control register 0 */
-  uint32_t CTRL1;                /*!< Master control register 1 */
+  uint32_t CTRLR0;               /*!< Control register 0 */
+  uint32_t CTRLR1;               /*!< Master control register 1 */
   uint32_t SSIENR;               /*!< SSI Enable */
   uint32_t MWCR;                 /*!< Microwire Control*/
   uint32_t SER;                  /*!< Slave enable*/
