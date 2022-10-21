@@ -16,7 +16,7 @@ extern "C" {
 #define __CM0PLUS_REV 0x0001
 #define __MPU_PRESENT 1
 #define __FPU_PRESENT 0
-#define __VTOR_PRESENT 0
+#define __VTOR_PRESENT 1
 #define __NVIC_PRIO_BITS 2
 #define __Vendor_SysTickConfig 0
 
