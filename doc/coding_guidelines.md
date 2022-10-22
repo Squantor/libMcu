@@ -1,34 +1,143 @@
 # LibMcuLL Coding guidelines
-This document in short describes some coding guidelines for libMcuLL.
-# Include chain
-Explaining how inclusions work in libMcuLl
-# function naming
-Naming functions is always annoying. Function names are in CamelCase with the first letter capitalized.
-Generally the following format is adhered to:
+# Introduction
+To make sure that LibMcuLL is consistent a bunch of rules/templates are defined in how to do certain things. These are described here. Also included is some of the architecture of LibMcuLL.
+# Include architecture
+We strive to make this library header only so we have bit convoluted way of including files. Generally two patterns are adhered to:
+* libmcull.h
+    * vendor\microcontroller.h
+        * vendor\family\controller_peripheral.h
+
+If possible we try to make common definitions of some peripheral in a common peripheral definition file. This can still lead to some duplication so we try to port to a more general purpose definition of peripheral definitions below:
+
+* libmcull.h
+    * vendor\microcontroller.h
+        * vendor\peripheral_variantnumber.h
+
+The variantnumber is in the format of v001, when there are no versions of a peripheral we leave out the variantnumber.
+
+# Code formatting
+LibMcuLL uses the google code format as used by clang-format, with some minor changes.
+
+# Naming conventions
+Constants are in all capitals with underscores: ```SOME_CONSTANT```
+functions are in camelcase with mcull_ prefix: ```mcull_doSomeThing```
+Typedefs are in capitals postfixed with ```_Type``` Example: ```SOME_TYPEDEF_Type```
+Enums are in capitals postfixed with ```_Enum``` Example: ```SOME_ENUM_Enum```
+## Specific naming convention
+Peripheral name is the name of the peripheral as described in the microcontroller datasheet. If we have multiple instances of one peripheral, name them accordingly, example:
 ```
-PeripheralnameOperationtypeRegister
+#define SPI0 ((SPI_Type *)SPI0_BASE)
+#define SPI1 ((SPI_Type *)SPI1_BASE)
 ```
-Peripheral name is the name of the peripheral as described in the microcontroller datasheet. Some examples:
-* Usb
-* Timer
-* Gpio
-* Swm
-Operation is meant to signify what it does. Possible options:
-* no operation, e.g: PeripheralConfig: Blindly sets the config register of the peripheral
-* Set: Sets bits (to 1) while not modifying the rest, usually implemented as a Read OR Write operation.
-* Clear: Clears bits (to 0) while not modifying the rest, usually implemented as a Read AND Write operation.
+
+# Doxygen style
+Use the javadoc style as described here:
+https://doxygen.nl/manual/docblocks.html
+
+Example
+```
+/**
+* @file A test class. 
+* A more elaborate class description.
+*/
+class Javadoc_Test
+{
+public:
+/**
+* An enum.
+* More detailed enum description.
+*/
+enum TEnum {
+TVal1, /**< enum value TVal1. */
+TVal2, /**< enum value TVal2. */
+TVal3 /**< enum value TVal3. */
+}
+*enumPtr, /**< enum pointer. Details. */
+enumVar; /**< enum variable. Details. */
+/**
+* A constructor.
+* A more elaborate description of the constructor.
+*/
+Javadoc_Test();
+/**
+* A destructor.
+* A more elaborate description of the destructor.
+*/
+~Javadoc_Test();
+/**
+* a normal member taking two arguments and returning an integer value.
+* @param a an integer argument.
+* @param s a constant character pointer.
+* @see Javadoc_Test()
+* @see ~Javadoc_Test()
+* @see testMeToo()
+* @see publicVar()
+* @return The test results
+*/
+int testMe(int a,const char *s);
+/**
+* A pure virtual member.
+* @see testMe()
+* @param c1 the first argument.
+* @param c2 the second argument.
+*/
+virtual void testMeToo(char c1,char c2) = 0;
+/**
+* a public variable.
+* Details.
+*/
+int publicVar;
+/**
+* a function variable.
+* Details.
+*/
+int (*handler)(int a,int b);
+};
+```
+# Peripheral structure definition
 Example:
 ```
-static inline void SctSetConfig(LPC_SCT_T *sct, const uint32_t value)
-{
-    uint32_t temp = sct->CONFIG;
-    sct->CONFIG = value | temp;
-}
+/**
+ * @brief Example peripheral
+ *
+ */
+typedef volatile struct {
+  uint32_t CTRL;       /**< Control register */
+  const uint32_t STAT; /**< Status register */
+  struct {
+    const uint32_t INPUT; /**< GPIO status */
+    uint32_t OUTPUT;      /**< GPIO control */
+  } REGS[30];
+} EXAMPLE_PERIPHERAL_Type;
 ```
-Sets bits in Config register of the SCT peripheral.
-# C programming patterns
+# Peripheral accessor defines
+## General
+Generally, you namespace the defines by the form: ```PERIPHERAL_REGISTER_DEFINITION_NAME``` Example: ```SPI_CTRL_SOMETHING```
+## Peripheral registers
+For each peripheral register you need to specify the reserved bits in such a fashion: ```#define PERIPHERAL_REGISTER_RESERVED (0xFFFF0000)``` Reserved bits are set to 1
+## Peripheral Register bits
+For simple on/off bits you use this template
+```
+#define PERIPHERAL_REGISTER_FUNCTION_EN (setting << position)
+#define PERIPHERAL_REGISTER_FUNCTION_DIS (~setting << position)
+```
 
-## Functions
-Where possible create static inline functions in the headers.
+For multiple bits/settings use this template and use an enum to bound settable values.
+```
+#define PERIPHERAL_REGISTER_FUNCTION_SETTING (((value) & mask) << position)
+typedef enum {
+    PERIPHERAL_REGISTER_SETTING_VARIANT0 = 0x0,
+    PERIPHERAL_REGISTER_SETTING_VARIANT1 = 0x1,
+    PERIPHERAL_REGISTER_SETTING_VARIANT2 = 0x2,
+} PERIPHERAL_REGISTER_SETTING_Enum;
+```
 
-# C++ programming patterns
+# Peripheral accessor functions
+## general function settings
+static inline as much as possible, const pointer to non const peripheral
+## function naming
+register overwrites: ```peripheralRegister(const type *peripheral, registerwidth setting)``` register sets: ```peripheralSetRegister(const type *peripheral, registerwidth mask)``` register clears: ```peripheralClearRegister(const type *peripheral, registerwidth mask)``` register toggles: ```peripheralToggleRegister(const type *peripheral, registerwidth mask)```
+
+Sometimes a register setting is very simple, like single enable bit or disable bit, it is okay then to wrap the functionality into the function like this: ```peripheralEnable(const type *peripheral, bool enable)```
+
+
