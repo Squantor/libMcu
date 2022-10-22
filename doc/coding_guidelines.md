@@ -105,8 +105,8 @@ typedef volatile struct {
   uint32_t CTRL;       /**< Control register */
   const uint32_t STAT; /**< Status register */
   struct {
-    const uint32_t INPUT; /**< GPIO status */
-    uint32_t OUTPUT;      /**< GPIO control */
+    const uint32_t INPUT; /**< Input */
+    uint32_t OUTPUT;      /**< Output */
   } REGS[30];
 } EXAMPLE_PERIPHERAL_Type;
 ```
