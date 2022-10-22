@@ -1,7 +1,7 @@
 /*
- * SPDX-License-Identifier: Unlicense
+ * SPDX-License-Identifier: MIT
  *
- * Copyright (c) 2021 Bart Bilos
+ * Copyright (c) 2022 Bart Bilos
  * For conditions of distribution and use, see LICENSE file
  */
 /* Main entry point for a generic cortex M4 microcontroller */

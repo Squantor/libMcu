@@ -1,9 +1,9 @@
 /*
-SPDX-License-Identifier: Unlicense
-
-Copyright (c) 2021 Bart Bilos
-For conditions of distribution and use, see LICENSE file
-*/
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2022 Bart Bilos
+ * For conditions of distribution and use, see LICENSE file
+ */
 /* Main entry point for the LPC824M201HI33 microcontroller definitions */
 #ifndef LPC824M201JHI33_H
 #define LPC824M201JHI33_H

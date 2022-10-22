@@ -1,8 +1,9 @@
 /*
-SPDX-License-Identifier: Unlicense
-Copyright (c) 2022 Bart Bilos
-For conditions of distribution and use, see LICENSE file
-*/
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2022 Bart Bilos
+ * For conditions of distribution and use, see LICENSE file
+ */
 /*
 RP2040 default settings for stuff like clocks etcetera
 */
