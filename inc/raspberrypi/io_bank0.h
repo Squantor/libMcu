@@ -94,44 +94,6 @@ typedef enum {
 #define IO_BANK0_DORMANT_WAKE_INTS_RESERVED (0x00000000) /**< Interrupt status reserved bits */
 
 /**
- * @brief Bank 0 gpios
- *
- */
-typedef enum {
-  BANK0_GPIO0 = (0),   /**< bank 0, pin 0 */
-  BANK0_GPIO1 = (1),   /**< bank 0, pin 1 */
-  BANK0_GPIO2 = (2),   /**< bank 0, pin 2 */
-  BANK0_GPIO3 = (3),   /**< bank 0, pin 3 */
-  BANK0_GPIO4 = (4),   /**< bank 0, pin 4 */
-  BANK0_GPIO5 = (5),   /**< bank 0, pin 5 */
-  BANK0_GPIO6 = (6),   /**< bank 0, pin 6 */
-  BANK0_GPIO7 = (7),   /**< bank 0, pin 7 */
-  BANK0_GPIO8 = (8),   /**< bank 0, pin 8 */
-  BANK0_GPIO9 = (9),   /**< bank 0, pin 9 */
-  BANK0_GPIO10 = (10), /**< bank 0, pin 10 */
-  BANK0_GPIO11 = (11), /**< bank 0, pin 11 */
-  BANK0_GPIO12 = (12), /**< bank 0, pin 12 */
-  BANK0_GPIO13 = (13), /**< bank 0, pin 13 */
-  BANK0_GPIO14 = (14), /**< bank 0, pin 14 */
-  BANK0_GPIO15 = (15), /**< bank 0, pin 15 */
-  BANK0_GPIO16 = (16), /**< bank 0, pin 16 */
-  BANK0_GPIO17 = (17), /**< bank 0, pin 17 */
-  BANK0_GPIO18 = (18), /**< bank 0, pin 18 */
-  BANK0_GPIO19 = (19), /**< bank 0, pin 19 */
-  BANK0_GPIO20 = (20), /**< bank 0, pin 20 */
-  BANK0_GPIO21 = (21), /**< bank 0, pin 21 */
-  BANK0_GPIO22 = (22), /**< bank 0, pin 22 */
-  BANK0_GPIO23 = (23), /**< bank 0, pin 23 */
-  BANK0_GPIO24 = (24), /**< bank 0, pin 24 */
-  BANK0_GPIO25 = (25), /**< bank 0, pin 25 */
-  BANK0_GPIO26 = (26), /**< bank 0, pin 26 */
-  BANK0_GPIO27 = (27), /**< bank 0, pin 27 */
-  BANK0_GPIO28 = (28), /**< bank 0, pin 28 */
-  BANK0_GPIO29 = (29), /**< bank 0, pin 29 */
-
-} BANK0_GPIO_Enum;
-
-/**
  * @brief Bank0 gpio function selects
  *
  */

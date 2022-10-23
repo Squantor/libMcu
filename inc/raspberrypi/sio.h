@@ -76,4 +76,24 @@ typedef volatile struct {
   uint32_t SPINLOCK[32];       /**< Spinlock registers */
 } SIO_Type;
 
+/**
+ * @brief Clear output enable pin
+ *
+ * @param peripheral  SIO peripheral
+ * @param setting     gpio bits to clear
+ */
+static inline void sioGpioOeClr(SIO_Type* const peripheral, uint32_t setting) {
+  peripheral->GPIO_OE_CLR = setting;
+}
+
+/**
+ * @brief Set output enable pin
+ *
+ * @param peripheral  SIO peripheral
+ * @param setting     gpio bits to set
+ */
+static inline void sioGpioOeSet(SIO_Type* const peripheral, uint32_t setting) {
+  peripheral->GPIO_OE_SET = setting;
+}
+
 #endif
