@@ -20,7 +20,6 @@ LibMcuLL uses the google code format as used by clang-format, with some minor ch
 
 # Naming conventions
 Constants are in all capitals with underscores: ```SOME_CONSTANT```
-functions are in camelcase with mcull_ prefix: ```mcull_doSomeThing```
 Typedefs are in capitals postfixed with ```_Type``` Example: ```SOME_TYPEDEF_Type```
 Enums are in capitals postfixed with ```_Enum``` Example: ```SOME_ENUM_Enum```
 ## Specific naming convention
@@ -112,14 +111,23 @@ typedef volatile struct {
 ```
 # Peripheral accessor defines
 ## General
-Generally, you namespace the defines by the form: ```PERIPHERAL_REGISTER_DEFINITION_NAME``` Example: ```SPI_CTRL_SOMETHING```
+Generally, you namespace the defines by the form: ```PERIPHERAL_REGISTER_DEFINITION_NAME``` Example: ```SPI_CTRL_BAZ```
 ## Peripheral registers
 For each peripheral register you need to specify the reserved bits in such a fashion: ```#define PERIPHERAL_REGISTER_RESERVED (0xFFFF0000)``` Reserved bits are set to 1
 ## Peripheral Register bits
-For simple on/off bits you use this template
+For simple on/off bits you postfix the bits with EN/DIS for enable/disabling of bits.
 ```
 #define PERIPHERAL_REGISTER_FUNCTION_EN (setting << position)
 #define PERIPHERAL_REGISTER_FUNCTION_DIS (~setting << position)
+```
+For read only bits we postfix the define with ```MASK```, for example:
+```
+#define PERIPHERAL_REGISTER_FUNCTION_MASK (0x01 << position)
+```
+usage:
+```
+// checking multiple bits at once
+if(PERIPHERAL_REGISTER_FUNCTION_SETTING0_MASK | PERIPHERAL_REGISTER_FUNCTION_SETTING1_MASK | registerValue)
 ```
 
 For multiple bits/settings use this template and use an enum to bound settable values.
@@ -130,6 +138,10 @@ typedef enum {
     PERIPHERAL_REGISTER_SETTING_VARIANT1 = 0x1,
     PERIPHERAL_REGISTER_SETTING_VARIANT2 = 0x2,
 } PERIPHERAL_REGISTER_SETTING_Enum;
+```
+For multiple read only bits we imitate the write pattern but change it so below code works:
+```
+if(PERIPHERAL_REGISTER_FUNCTION_SETTING_MASK(register) == PERIPHERAL_REGISTER_SETTING_VARIANT1)
 ```
 
 # Peripheral accessor functions
