@@ -48,7 +48,6 @@ typedef enum {
   XIP_SSI_CTRLR0_FRF_MOTOROLA = (0x0), /**< Motorola format, not applicable in XIP SSI */
   XIP_SSI_CTRLR0_FRF_TEXAS = (0x1),    /**< Texas instruments format, not applicable in XIP SSI */
   XIP_SSI_CTRLR0_FRF_NATIONAL = (0x2), /**< National Microwire format, not applicable in XIP SSI */
-
 } XIP_SSI_CTRLR0_FRF_Enum;
 #define XIP_SSI_CTRLR0_SCPH_EN (0x1 << 6)              /**< Motorola CLKOUT Polarity enable, not applicable in XIP SSI */
 #define XIP_SSI_CTRLR0_SCPH_DIS (0x0 << 6)             /**< Motorola CLKOUT Polarity disable, not applicable in XIP SSI */
