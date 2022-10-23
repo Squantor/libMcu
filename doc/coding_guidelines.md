@@ -164,14 +164,27 @@ Reading functions
  * @param peripheral  peripheral
  * @return            value of the register
  */
-static inline settingType peripheralRegister(PERIPHERAL_Type* const peripheral)
+static inline settingType peripheralGetRegister(PERIPHERAL_Type* const peripheral)
 ```
+For data register where the whole register the above pattern is sufficient but for register where you often mask off bits, you can also change the accessor to also pass a AND mask to it so only relevant bits are passed to the caller.
+```
+/**
+ * @brief peripheral register write
+ *
+ * @param peripheral  peripheral
+ * @param mask        mask used in bitwise and on the register, used to filter unused bits
+ * @return            value of the register bitwise anded with mask
+ */
+static inline settingType peripheralGetRegister(PERIPHERAL_Type* const peripheral, settingType mask)
+```
+
 ## function naming for accessors
 Some accessors are special for clearing/setting/xoring bits, sometimes there are dedicated registers or even full register spaces for setting/clearing/xoring bits in a register. We postfix these accessor functions as follows:
 * register overwrites: ```peripheralRegister(const type *peripheral, registerwidth setting)``` 
 * register sets: ```peripheralSetRegister(const type *peripheral, registerwidth mask)``` 
 * register clears: ```peripheralClearRegister(const type *peripheral, registerwidth mask)``` 
 * register toggles: ```peripheralToggleRegister(const type *peripheral, registerwidth mask)```
+* register get: ```peripheralGetRegister(const type *peripheral, registerwidth mask)``` optional mask can be passed if applicable
 
 Sometimes a register setting is very simple, like single enable bit or disable bit, it is okay then to wrap the functionality into the function like this: ```peripheralEnable(const type *peripheral, bool enable)```
 
