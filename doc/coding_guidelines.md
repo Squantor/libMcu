@@ -145,10 +145,33 @@ if(PERIPHERAL_REGISTER_FUNCTION_SETTING_MASK(register) == PERIPHERAL_REGISTER_SE
 ```
 
 # Peripheral accessor functions
-## general function settings
-static inline as much as possible, const pointer to non const peripheral
-## function naming
-register overwrites: ```peripheralRegister(const type *peripheral, registerwidth setting)``` register sets: ```peripheralSetRegister(const type *peripheral, registerwidth mask)``` register clears: ```peripheralClearRegister(const type *peripheral, registerwidth mask)``` register toggles: ```peripheralToggleRegister(const type *peripheral, registerwidth mask)```
+## general function naming pattern
+Writing functions
+```
+/**
+ * @brief peripheral register write
+ *
+ * @param peripheral  peripheral
+ * @param settings    value to set to register
+ */
+static inline void peripheralRegister(PERIPHERAL_Type* const peripheral, settingType settings)
+```
+Reading functions
+```
+/**
+ * @brief peripheral register write
+ *
+ * @param peripheral  peripheral
+ * @return            value of the register
+ */
+static inline settingType peripheralRegister(PERIPHERAL_Type* const peripheral)
+```
+## function naming for accessors
+Some accessors are special for clearing/setting/xoring bits, sometimes there are dedicated registers or even full register spaces for setting/clearing/xoring bits in a register. We postfix these accessor functions as follows:
+* register overwrites: ```peripheralRegister(const type *peripheral, registerwidth setting)``` 
+* register sets: ```peripheralSetRegister(const type *peripheral, registerwidth mask)``` 
+* register clears: ```peripheralClearRegister(const type *peripheral, registerwidth mask)``` 
+* register toggles: ```peripheralToggleRegister(const type *peripheral, registerwidth mask)```
 
 Sometimes a register setting is very simple, like single enable bit or disable bit, it is okay then to wrap the functionality into the function like this: ```peripheralEnable(const type *peripheral, bool enable)```
 
