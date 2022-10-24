@@ -39,9 +39,9 @@ typedef volatile struct {
 #define IO_BANK0_STATUS_IRQFROMPAD (0x01 << 24) /**< interrupt from pad before override */
 #define IO_BANK0_STATUS_IRQTOPROC (0x01 << 26)  /**< interrupt to processors, after override */
 
-#define IO_BANK0_CTRL_RESERVED (0xCFFCCCE0)                       /**< GPIO control reserved bits */
-#define IO_BANK0_FUNCSEL_OUTOVER(setting) (((setting)&0x1F) << 0) /**< Peripheral output override */
-#define IO_BANK0_CTRL_OUTOVER(setting) (((setting)&0x03) << 8)    /**< Peripheral output override */
+#define IO_BANK0_CTRL_RESERVED (0xCFFCCCE0)                    /**< GPIO control reserved bits */
+#define IO_BANK0_CTRL_FUNCSEL(setting) (((setting)&0x1F) << 0) /**< Peripheral function select */
+#define IO_BANK0_CTRL_OUTOVER(setting) (((setting)&0x03) << 8) /**< Peripheral output override */
 /**
  * @brief Peripheral output override settings
  */
@@ -407,7 +407,11 @@ typedef enum {
   BANK0_GPIO29_FUNC_PIO1 = (7),        /**< GPIO29 is PIO1 */
   BANK0_GPIO29_FUNC_USB_VBUS_EN = (9), /**< GPIO29 is USB VBUS enable */
   BANK0_GPIO29_FUNC_NULL = (31),       /**< GPIO29 is not connected */
-
 } IO_BANK0_CTRLN_FUNCSEL_Enum;
+
+static inline void iobank0GpioCtrl(IO_BANK0_Type* const peripheral, BANK0_GPIO_Enum pin, IO_BANK0_CTRLN_FUNCSEL_Enum function,
+                                   uint32_t settings) {
+  peripheral->GPIO[pin].CTRL = ~IO_BANK0_CTRL_RESERVED & (IO_BANK0_CTRL_FUNCSEL(function) | settings);
+}
 
 #endif
