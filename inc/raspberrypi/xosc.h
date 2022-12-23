@@ -37,10 +37,10 @@ typedef volatile struct {
  * @return int        returns zero when timed out not zero of crystal oscillator is enabled
  */
 static inline int xoscStart(XOSC_Type* const peripheral, uint32_t delay, int timeout) {
-  XOSC->CTRL = XOSC_CTRL_DIS | XOSC_CTRL_FREQ_RANGE_1_15MHZ;
-  XOSC->STARTUP = XOSC_STARTUP_DELAY(delay);
-  XOSC->CTRL = XOSC_CTRL_EN | XOSC_CTRL_FREQ_RANGE_1_15MHZ;
-  while (0 == (XOSC->STATUS & XOSC_STATUS_ENABLED_MASK) && (timeout > 0)) timeout--;
+  peripheral->CTRL = XOSC_CTRL_DIS | XOSC_CTRL_FREQ_RANGE_1_15MHZ;
+  peripheral->STARTUP = XOSC_STARTUP_DELAY(delay);
+  peripheral->CTRL = XOSC_CTRL_EN | XOSC_CTRL_FREQ_RANGE_1_15MHZ;
+  while (0 == (peripheral->STATUS & XOSC_STATUS_ENABLED_MASK) && (timeout > 0)) timeout--;
   return timeout;
 }
 
