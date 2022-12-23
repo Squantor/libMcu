@@ -53,24 +53,24 @@ typedef enum {
 } RESETS_RESET_Enum;
 
 /**
- * @brief Resets peripherals
+ * @brief
+ *
+ * @param peripheral  resets peripheral
+ * @param setting
+ */
+
+/**
+ * @brief Resets peripherals and waits until they have been reset
  *
  * @param peripheral  resets peripheral
  * @param setting     bit set of peripherals to reset, see RESETS_RESET_Enum for peripherals
+ * @param timeout     how many times to check if the status set
+ * @return int        returns zero when timed out or nonzero when resets are executed
  */
-static inline void resetsReset(RESETS_Type* const peripheral, uint32_t setting) {
-  peripheral->RESET = ~RESETS_RESET_RESERVED & setting;
-}
-
-/**
- * @brief return the RESET_DONE register with AND mask applied
- *
- * @param peripheral  resets peripheral
- * @param mask        mask to pass to AND operation
- * @return AND masked RESET_DONE reguster
- */
-static inline uint32_t resetsGetResetDone(RESETS_Type* const peripheral, uint32_t mask) {
-  return peripheral->RESET_DONE & mask & ~RESETS_RESET_DONE_RESERVED;
+static inline int resetsReset(uint32_t setting, int timeout) {
+  RESETS_CLR->RESET = setting;
+  while ((RESETS->RESET_DONE & setting) == setting && timeout > 0) timeout--;
+  return timeout;
 }
 
 #endif
