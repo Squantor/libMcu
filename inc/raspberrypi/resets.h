@@ -68,11 +68,10 @@ typedef enum {
  * @return uint32_t        returns zero when timed out or nonzero when resets are executed
  */
 static inline uint32_t resetsReset(uint32_t setting, uint32_t timeout) {
+  RESETS_SET->RESET = setting;
   RESETS_CLR->RESET = setting;
-  uint32_t value = RESETS->RESET_DONE;
-  while (((value & setting) == setting) && (timeout > 0)) {
+  while (((RESETS->RESET_DONE & setting) == 0) && (timeout > 0)) {
     timeout--;
-    value = RESETS->RESET_DONE;
   }
   return timeout;
 }

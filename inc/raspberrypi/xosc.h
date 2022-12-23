@@ -37,9 +37,9 @@ typedef volatile struct {
  */
 static inline uint32_t xoscStart(uint32_t delay, uint32_t timeout) {
   uint32_t count = timeout;
-  XOSC->CTRL = XOSC_CTRL_DIS | XOSC_CTRL_FREQ_RANGE_1_15MHZ;
+  XOSC->CTRL = XOSC_CTRL_FREQ_RANGE_1_15MHZ;
   XOSC->STARTUP = XOSC_STARTUP_DELAY(delay);
-  XOSC->CTRL = XOSC_CTRL_EN | XOSC_CTRL_FREQ_RANGE_1_15MHZ;
+  XOSC_SET->CTRL = XOSC_CTRL_EN;
   while (0 == (XOSC->STATUS & XOSC_STATUS_ENABLED_MASK) && (count > 0)) count--;
   return count;
 }
