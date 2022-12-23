@@ -65,11 +65,15 @@ typedef enum {
  * @param peripheral  resets peripheral
  * @param setting     bit set of peripherals to reset, see RESETS_RESET_Enum for peripherals
  * @param timeout     how many times to check if the status set
- * @return int        returns zero when timed out or nonzero when resets are executed
+ * @return uint32_t        returns zero when timed out or nonzero when resets are executed
  */
-static inline int resetsReset(uint32_t setting, int timeout) {
+static inline uint32_t resetsReset(uint32_t setting, uint32_t timeout) {
   RESETS_CLR->RESET = setting;
-  while ((RESETS->RESET_DONE & setting) == setting && timeout > 0) timeout--;
+  uint32_t value = RESETS->RESET_DONE;
+  while (((value & setting) == setting) && (timeout > 0)) {
+    timeout--;
+    value = RESETS->RESET_DONE;
+  }
   return timeout;
 }
 
