@@ -43,7 +43,7 @@ typedef volatile struct {
  */
 static inline uint32_t pllStart(PLL_Type* pll, uint32_t refDiv, uint32_t fbDiv, uint32_t postDiv1, uint32_t postDiv2,
                                 uint32_t timeout) {
-  PLL_Type* pllClear = pll + OFFSET_CLR;
+  PLL_Type* pllClear = (PLL_Type*)((volatile char*)pll + OFFSET_CLR);
   pll->CS = PLL_CS_REFDIV(refDiv);
   pll->FBDIV_INT = PLL_FBDIV_INT(fbDiv);
   pll->PRIM = PLL_PRIM_POSTDIV1(postDiv1) | PLL_PRIM_POSTDIV2(postDiv2);
