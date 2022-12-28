@@ -36,16 +36,20 @@ typedef volatile struct {
   const uint32_t INTS;                 /**< Interrupt status after masking & forcing */
 } CLOCKS_Type;
 
-#define CLOCKS_CLK_CTRL_RESERVED (0xFFECE21FUL)    /**< Clock generator control reserved bits */
-#define CLOCKS_CLK_CTRL_SRC(src) (src << 0)        /**< Clock generator clock source, will NOT glitch */
-#define CLOCKS_CLK_CTRL_AUXSRC(src) (src << 5)     /**< Clock generator auxiliary clock source, will glitch */
-#define CLOCKS_CLK_CTRL_KILL_EN (1 << 10)          /**< Asynchronously kills the clock generator */
-#define CLOCKS_CLK_CTRL_ENABLE (1 << 11)           /**< Starts and stops the clock generator cleanly */
-#define CLOCKS_CLK_CTRL_DC50 (1 << 12)             /**< Enables duty cycle correction for odd divisors */
-#define CLOCKS_CLK_CTRL_PHASE (phase)(phase << 16) /**< Delay enable signal, set before enable */
-#define CLOCKS_CLK_CTRL_NUDGE (1 << 20)            /**< An edge on this bit shifts the phase by 1 input clock cycle */
-#define CLOCKS_CLK_DIV_FRAC(frac) (frac << 0)      /**< Fractional component of divisor */
-#define CLOCKS_CLK_DIV_INT(i) (i << 8)             /**< Integer component of divisor */
+#define CLOCKS_CLK_CTRL_RESERVED (0xFFECE21FUL)   /**< Clock generator control reserved bits */
+#define CLOCKS_CLK_CTRL_SRC(src) (src << 0)       /**< Clock generator clock source, will NOT glitch */
+#define CLOCKS_CLK_CTRL_AUXSRC(src) (src << 5)    /**< Clock generator auxiliary clock source, will glitch */
+#define CLOCKS_CLK_CTRL_KILL_EN (1 << 10)         /**< Asynchronously kills the clock generator */
+#define CLOCKS_CLK_CTRL_ENABLE (1 << 11)          /**< Starts and stops the clock generator cleanly */
+#define CLOCKS_CLK_CTRL_DC50 (1 << 12)            /**< Enables duty cycle correction for odd divisors */
+#define CLOCKS_CLK_CTRL_PHASE (p)(p << 16)        /**< Delay enable signal, set before enable */
+#define CLOCKS_CLK_CTRL_NUDGE (1 << 20)           /**< An edge on this bit shifts the phase by 1 input clock cycle */
+#define CLOCKS_CLK_DIV_FRAC(frac) (frac << 0)     /**< Fractional component of divisor */
+#define CLOCKS_CLK_DIV_INT(i) (i << 8)            /**< Integer component of divisor */
+#define CLOCKS_SYS_RESUS_CTRL_CLEAR (1 << 16)     /**< Clears the resus */
+#define CLOCKS_SYS_RESUS_CTRL_FRCE (1 << 12)      /**< Forces a resus */
+#define CLOCKS_SYS_RESUS_CTRL_EN (1 << 8)         /**< Enable resus */
+#define CLOCKS_SYS_RESUS_CTRL_TIMEOUT(x) (x << 0) /**< resus timeout in clk_ref cycles */
 
 /**
  * @brief Clock generators available
@@ -164,6 +168,9 @@ typedef enum {
  *
  */
 typedef enum {
+  ALL_CLK_SRC = 0x0,  /**< Catchall source, maps to ring and reference clock */
+  CATCHALL_AUX = 0x1, /**< Catchall source, maps to aux mux */
+
   REF_SRC_ROSC = 0x0,               /**< Ring oscillator */
   REF_SRC_CLKSRC_CLK_REF_AUX = 0x1, /**< Clock source reference auxilliary  */
   REF_SRC_XOSC = 0x2,               /**< Crystal oscillator */
@@ -172,5 +179,70 @@ typedef enum {
   SYS_SRC_CLKSRC_CLK_SYS_AUX = 0x1, /**< clock source sys auxilliary */
 
 } CLOCKS_CLK_SRC_Enum;
+
+/**
+ * @brief Setup clock divider register
+ *
+ * Note: Not all generators have a full fractional clock divider
+ *
+ * @param generator Generator to set the divider of
+ * @param divisor   Divisor
+ * @param fract     Fractional
+ */
+static inline void clocksSetDivider(CLOCKS_CLK_Enum generator, uint32_t divisor, uint32_t fract) {
+  uint32_t divider = CLOCKS_CLK_DIV_INT(divisor) | CLOCKS_CLK_DIV_FRAC(fract);
+  CLOCKS->CLK[generator].DIV = divider;
+}
+
+/**
+ * @brief Switch a basic clock generator aux mux
+ *
+ * @param generator basic generator to switch
+ * @param source    source to switch to
+ */
+static inline void clockSwitchBasicAux(CLOCKS_CLK_Enum generator, CLOCKS_CLK_AUXSRC_Enum source) {
+  // disable clock divider
+  CLOCKS_CLR->CLK[generator].CTRL = CLOCKS_CLK_CTRL_ENABLE;
+  // wait for the generated clock to stop
+  for (int i = 3; i > 0; i--) __NOP();
+  // change the mux
+  CLOCKS->CLK[generator].CTRL = CLOCKS_CLK_CTRL_AUXSRC(source);
+  // enable clock divider
+  CLOCKS_SET->CLK[generator].CTRL = CLOCKS_CLK_CTRL_ENABLE;
+  // wait for the clock generator to restart
+  for (int i = 3; i > 0; i--) __NOP();
+}
+
+/**
+ * @brief Switch a glitchless clock generator clock source
+ *
+ * @param generator glitchless clock generator to switch
+ * @param source    source
+ * @param timeout   timeout value
+ * @return uint32_t iteration count, zero for timed out
+ */
+static inline uint32_t clocksSwitchGlitchlessSrc(CLOCKS_CLK_Enum generator, CLOCKS_CLK_SRC_Enum source, uint32_t timeout) {
+  uint32_t mask = 0x01 << source;
+  CLOCKS->CLK[generator].CTRL = CLOCKS_CLK_CTRL_SRC(source);
+  while (!(CLOCKS->CLK[generator].SELECTED & mask) && (timeout > 0)) timeout--;
+  return timeout;
+}
+
+/**
+ * @brief switch a glitchless clock generator aux mux
+ *
+ * @param generator glitchless clock generator to switch
+ * @param source    aux mux source
+ * @param timeout   timeout value
+ * @return uint32_t iteration count, zero for timed out
+ */
+static inline uint32_t clocksSwitchGlitchlessAux(CLOCKS_CLK_Enum generator, CLOCKS_CLK_AUXSRC_Enum source, uint32_t timeout) {
+  timeout = clocksSwitchGlitchlessSrc(generator, ALL_CLK_SRC, timeout);
+  if (timeout == 0) return timeout;
+  CLOCKS_SET->CLK[CLK_SYS].CTRL = CLOCKS_CLK_CTRL_AUXSRC(source);
+  timeout = clocksSwitchGlitchlessSrc(generator, CATCHALL_AUX, timeout);
+  if (timeout == 0) return timeout;
+  return timeout;
+}
 
 #endif
