@@ -331,7 +331,7 @@ typedef enum {
   BANK0_GPIO22_FUNC_SIO = (5),          /**< GPIO22 is SIO */
   BANK0_GPIO22_FUNC_PIO0 = (6),         /**< GPIO22 is PIO0 */
   BANK0_GPIO22_FUNC_PIO1 = (7),         /**< GPIO22 is PIO1 */
-  BANK0_GPIO21_FUNC_CLOCK_GPIN1 = (8),  /**< GPIO22 is CLOCK GPIN1 */
+  BANK0_GPIO22_FUNC_CLOCK_GPIN1 = (8),  /**< GPIO22 is CLOCK GPIN1 */
   BANK0_GPIO22_FUNC_USB_VBUS_DET = (9), /**< GPIO22 is USB VBUS detect */
   BANK0_GPIO22_FUNC_NULL = (31),        /**< GPIO22 is not connected */
 
