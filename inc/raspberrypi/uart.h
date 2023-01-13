@@ -92,6 +92,10 @@ typedef enum {
 #define UARTCR_SIREN (1 << 1)  /**< SIR enable */
 #define UARTCR_UARTEN (1 << 0) /**< UART enable */
 
+#define UARTDMACR_RXDMAE (1 << 0)   /**< Receive DMA enable */
+#define UARTDMACR_TXDMAE (1 << 1)   /**< Transmit DMA enable */
+#define UARTDMACR_DMAONERR (1 << 2) /**< DMA on error */
+
 typedef enum {
   UART_5DATA_BITS = UARTLCR_H_WLEN_5BIT, /**< 5 data bits */
   UART_6DATA_BITS = UARTLCR_H_WLEN_6BIT, /**< 6 data bits */
@@ -162,6 +166,21 @@ static inline void uartSetFormat(UART_Type *const peripheral, UART_DATA_BITS_Enu
   if (parity == UART_PARITY_ODD)
     settings = settings | UARTLCR_H_PEN_EN;
   peripheral->UARTLCR_H = settings;
+}
+
+/**
+ * @brief Enable UART in its most common settings
+ *
+ * These settings should be fine for most use cases
+ *
+ * @param peripheral  UART peripheral to configure
+ */
+static inline void uartEnable(UART_Type *const peripheral) {
+  UART_Type *peripheralSet = (UART_Type *)((char *)peripheral + OFFSET_SET);
+  peripheral->UARTCR = UARTCR_UARTEN | UARTCR_TXE | UARTCR_RXE;
+  peripheralSet->UARTLCR_H = UARTLCR_H_FEN_EN;
+  // always enable DMA signals, harmless if DMA is not working
+  peripheral->UARTDMACR = UARTDMACR_TXDMAE | UARTDMACR_RXDMAE;
 }
 
 #endif
