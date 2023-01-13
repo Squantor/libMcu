@@ -92,6 +92,39 @@ typedef enum {
 #define UARTCR_SIREN (1 << 1)  /**< SIR enable */
 #define UARTCR_UARTEN (1 << 0) /**< UART enable */
 
+typedef enum {
+  UART_5DATA_BITS = UARTLCR_H_WLEN_5BIT, /**< 5 data bits */
+  UART_6DATA_BITS = UARTLCR_H_WLEN_6BIT, /**< 6 data bits */
+  UART_7DATA_BITS = UARTLCR_H_WLEN_7BIT, /**< 7 data bits */
+  UART_8DATA_BITS = UARTLCR_H_WLEN_8BIT, /**< 8 data bits */
+} UART_DATA_BITS_Enum;
+
+/**
+ * @brief Stop bits allowed by uartSetFormat
+ *
+ */
+typedef enum {
+  UART_1STOP_BIT = 0, /**< One stop bit */
+  UART_2STOP_BIT = 1, /**< Two stop bits */
+} UART_STOP_Enum;
+
+/**
+ * @brief Parity settings allowed by uartSetFormat
+ *
+ */
+typedef enum {
+  UART_PARITY_NONE = 0, /**< No parity */
+  UART_PARITY_EVEN = 1, /**< Even parity */
+  UART_PARITY_ODD = 2,  /**< Odd parity */
+} UART_PARITY_Enum;
+
+/**
+ * @brief Set the UART baud rate
+ *
+ * @param peripheral  UART peripheral to configure
+ * @param baudrate    wanted baud rate
+ * @return uint32_t   set baud rate, might differ from the wanted baud rate
+ */
 static inline uint32_t uartSetBaudRate(UART_Type *const peripheral, uint32_t baudrate) {
   UART_Type *peripheralSet = (UART_Type *)((char *)peripheral + OFFSET_SET);
   // we scale the clock to create a 24Q8 fixed point divider
@@ -107,6 +140,20 @@ static inline uint32_t uartSetBaudRate(UART_Type *const peripheral, uint32_t bau
   peripheralSet->UARTLCR_H = 0;
 
   return (4 * FREQ_PERI) / (64 * divInteger + divFract);
+}
+
+static inline void uartSetFormat(UART_Type *const peripheral, UART_DATA_BITS_Enum bits, UART_STOP_Enum stop,
+                                 UART_PARITY_Enum parity) {
+  uint32_t settings = peripheral->UARTLCR_H;
+  settings = settings & 0x91;  // Clear all not touched settings
+  settings = settings | UARTLCR_H_WLEN(bits);
+  if (stop == UART_2STOP_BIT)
+    settings = settings | UARTLCR_H_STP2_EN;
+  if (parity == UART_PARITY_EVEN)
+    settings = settings | UARTLCR_H_PEN_EN | UARTLCR_H_EPS_EN;
+  if (parity == UART_PARITY_ODD)
+    settings = settings | UARTLCR_H_PEN_EN;
+  peripheral->UARTLCR_H = settings;
 }
 
 #endif
