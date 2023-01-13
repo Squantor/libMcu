@@ -142,6 +142,14 @@ static inline uint32_t uartSetBaudRate(UART_Type *const peripheral, uint32_t bau
   return (4 * FREQ_PERI) / (64 * divInteger + divFract);
 }
 
+/**
+ * @brief Setup UART data format
+ *
+ * @param peripheral  UART peripheral to configure
+ * @param bits        data bits in UART frame, see UART_DATA_BITS_Enum for options
+ * @param stop        stop bits in UART frame, see UART_STOP_Enum for options
+ * @param parity      parity setting in UART frame, see UART_PARITY_Enum for options
+ */
 static inline void uartSetFormat(UART_Type *const peripheral, UART_DATA_BITS_Enum bits, UART_STOP_Enum stop,
                                  UART_PARITY_Enum parity) {
   uint32_t settings = peripheral->UARTLCR_H;
