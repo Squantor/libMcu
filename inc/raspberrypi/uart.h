@@ -205,11 +205,11 @@ static inline void uartWriteBlocking(UART_Type *const peripheral, const uint8_t 
  * @param dst         buffer to put data in
  * @param len         number of bytes to read
  */
-static inline void uartReadBlocking(UART_Type *const peripheral, const uint8_t *dst, size_t len) {
+static inline void uartReadBlocking(UART_Type *const peripheral, uint8_t *dst, size_t len) {
   for (size_t i = 0; i < len; ++i) {
-    while (peripheral->UARTFR & UARTFR_RXFE_MASK)
+    while (!(peripheral->UARTFR & UARTFR_RXFE_MASK))
       ;
-    peripheral->UARTDR = *dst++;
+    *dst++ = (uint8_t)peripheral->UARTDR;
   }
 }
 
