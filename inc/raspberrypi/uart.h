@@ -183,4 +183,34 @@ static inline void uartEnable(UART_Type *const peripheral) {
   peripheral->UARTDMACR = UARTDMACR_TXDMAE | UARTDMACR_RXDMAE;
 }
 
+/**
+ * @brief blocking write to UART
+ *
+ * @param peripheral  UART peripheral to write to
+ * @param src         buffer of data to send
+ * @param len         number of bytes to send
+ */
+static inline void uartWriteBlocking(UART_Type *const peripheral, const uint8_t *src, size_t len) {
+  for (size_t i = 0; i < len; ++i) {
+    while (peripheral->UARTFR & UARTFR_TXFF_MASK)
+      ;
+    peripheral->UARTDR = *src++;
+  }
+}
+
+/**
+ * @brief blocking read from UART
+ *
+ * @param peripheral  UART peripheral to read from
+ * @param dst         buffer to put data in
+ * @param len         number of bytes to read
+ */
+static inline void uartReadBlocking(UART_Type *const peripheral, const uint8_t *dst, size_t len) {
+  for (size_t i = 0; i < len; ++i) {
+    while (peripheral->UARTFR & UARTFR_RXFE_MASK)
+      ;
+    peripheral->UARTDR = *dst++;
+  }
+}
+
 #endif

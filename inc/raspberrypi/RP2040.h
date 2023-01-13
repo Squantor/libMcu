@@ -8,6 +8,9 @@
 #ifndef RP2040_H
 #define RP2040_H
 
+#include <stddef.h>
+#include <stdint.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
