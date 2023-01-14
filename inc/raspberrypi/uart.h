@@ -192,7 +192,7 @@ static inline void uartEnable(UART_Type *const peripheral) {
  */
 static inline void uartWriteBlocking(UART_Type *const peripheral, const uint8_t *src, size_t len) {
   for (size_t i = 0; i < len; ++i) {
-    while (peripheral->UARTFR & UARTFR_TXFF_MASK)
+    while (0 != (peripheral->UARTFR & UARTFR_TXFF_MASK))
       ;
     peripheral->UARTDR = *src++;
   }
@@ -207,7 +207,7 @@ static inline void uartWriteBlocking(UART_Type *const peripheral, const uint8_t 
  */
 static inline void uartReadBlocking(UART_Type *const peripheral, uint8_t *dst, size_t len) {
   for (size_t i = 0; i < len; ++i) {
-    while (!(peripheral->UARTFR & UARTFR_RXFE_MASK))
+    while (0 == (peripheral->UARTFR & UARTFR_RXFE_MASK))
       ;
     *dst++ = (uint8_t)peripheral->UARTDR;
   }
