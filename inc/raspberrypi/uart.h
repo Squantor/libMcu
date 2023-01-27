@@ -185,6 +185,17 @@ static inline void uartEnable(UART_Type *const peripheral) {
 }
 
 /**
+ * @brief are there received characters present?
+ * 
+ * @param peripheral  UART peripheral to check
+ * @return uint32_t   zero if there are characters available, non zero if not
+ */
+static inline uint32_t uartIsRxAvailable(UART_Type *const peripheral)
+{
+  return (peripheral->UARTFR & UARTFR_RXFE_MASK);
+}
+
+/**
  * @brief blocking write to UART
  *
  * @param peripheral  UART peripheral to write to
