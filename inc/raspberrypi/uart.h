@@ -15,8 +15,9 @@
 typedef volatile struct {
   uint32_t UARTDR;         /**< Data Register */
   uint32_t UARTRSR;        /**< Receive Status Register/Error Clear Register */
-  uint32_t reserved0[5];   /**< */
+  uint32_t reserved0[4];   /**< reserved */
   uint32_t UARTFR;         /**< Flag Register */
+  uint32_t reserved1[1];   /**< reserved */
   uint32_t UARTILPR;       /**< IrDA Low-Power Counter Register */
   uint32_t UARTIBRD;       /**< Integer Baud Rate Register */
   uint32_t UARTFBRD;       /**< Fractional Baud Rate Register */
@@ -28,7 +29,7 @@ typedef volatile struct {
   uint32_t UARTMIS;        /**< Masked Interrupt Status */
   uint32_t UARTICR;        /**< Interrupt Clear Register */
   uint32_t UARTDMACR;      /**< DMA Control Register */
-  uint32_t reserved1[998]; /**< */
+  uint32_t reserved2[997]; /**< */
   uint32_t UARTPERIPHID0;  /**< UARTPeriphID0 */
   uint32_t UARTPERIPHID1;  /**< UARTPeriphID1 */
   uint32_t UARTPERIPHID2;  /**< UARTPeriphID2 */
@@ -207,7 +208,7 @@ static inline void uartWriteBlocking(UART_Type *const peripheral, const uint8_t 
  */
 static inline void uartReadBlocking(UART_Type *const peripheral, uint8_t *dst, size_t len) {
   for (size_t i = 0; i < len; ++i) {
-    while (0 == (peripheral->UARTFR & UARTFR_RXFE_MASK))
+    while (0 != (peripheral->UARTFR & UARTFR_RXFE_MASK))
       ;
     *dst++ = (uint8_t)peripheral->UARTDR;
   }
