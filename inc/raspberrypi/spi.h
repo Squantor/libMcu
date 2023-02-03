@@ -30,4 +30,59 @@ typedef volatile struct {
   uint32_t SSPPCELLID3; /**< PrimeCell identification register 3 */
 } SPI_Type;
 
+#define SSPCR0_SCR_MASK (0xFF << 8)        /**< SSP clock divider mask */
+#define SSPCR0_SCR(divider) (divider << 8) /**< SSP clock divider */
+#define SSPCR0_SPH (1 << 7)                /**< SSPCLKOUT phase */
+#define SSPCR0_SPO (1 << 6)                /**< SSPCLKOUT polarity */
+#define SSPCR0_PHASE(phase) (phase << 6)   /**< SSP frame phasing in one go */
+typedef enum {
+  SSP_PHASE_SPH0_SPO0 = 0, /**< first edge data capture, clock idle low, motorola only */
+  SSP_PHASE_SPH0_SPO1 = 1, /**< first edge data capture, clock idle high, motorola only */
+  SSP_PHASE_SPH1_SPO0 = 2, /**< second edge data capture, clock idle low, motorola only */
+  SSP_PHASE_SPH1_SPO1 = 3, /**< second edge data capture, clock idle high, motorola only */
+  SSP_PHASE_NONE = 0,      /**< any other format */
+} SSPCR0_PHASE_Enum;
+#define SSPCR0_FRF(format) (format << 4) /**< Frame format */
+typedef enum {
+  SSP_FORMAT_MOTOROLA = 0, /**< Motorola frame format */
+  SSP_FORMAT_TI = 1,       /**< Texas instruments frame format */
+  SSP_FORMAT_NATIONAL = 2, /**< National Microwire frame format */
+} SSPCR0_FORMAT_Enum;
+#define SSPCR0_DSS(size) (size << 0) /**< Data size select */
+
+#define SSPCR1_SOD (1 << 3)    /**< Slave-mode output disable */
+#define SSPCR1_MASTER (0 << 2) /**< Master mode */
+#define SSPCR1_SLAVE (1 << 2)  /**< Slave mode */
+#define SSPCR1_SSE (1 << 1)    /**< SSP enable */
+#define SSPCR1_LBM_EN (1 << 0) /**< loopback mode enable */
+
+/**
+ * @brief Setup SPI format, phasing etcetera
+ *
+ * @param peripheral  SPI peripheral to configure
+ * @param format      SPI format
+ * @param phasing     SPI phasing for motorola format
+ * @param bitCount    amount of bits to transfer
+ * @param bitRate     bitrate of SPI, divided by Peripheral clock speed
+ */
+static inline void spiSetup(SPI_Type *const peripheral, SSPCR0_FORMAT_Enum format, SSPCR0_PHASE_Enum phasing, uint8_t bitCount,
+                            uint32_t bitRate) {
+  uint32_t divider = FREQ_PERI / bitRate;
+  peripheral->SSPCR0 = SSPCR0_DSS(bitCount) | SSPCR0_FRF(format) | SSPCR0_PHASE(phasing) | SSPCR0_SCR(divider);
+}
+
+/**
+ * @brief Enable SPI
+ *
+ * @param peripheral  SPI peripheral to enable
+ * @param slaveMode   set to true for slave mode
+ */
+static inline void spiEnable(SPI_Type *const peripheral, bool slaveMode) {
+  uint32_t ctrlReg = SSPCR1_SSE;
+  if (slaveMode)
+    ctrlReg |= SSPCR1_SLAVE;
+  peripheral->SSPCR1 = ctrlReg;
+  return;
+}
+
 #endif
