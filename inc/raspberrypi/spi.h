@@ -30,6 +30,8 @@ typedef volatile struct {
   uint32_t SSPPCELLID3; /**< PrimeCell identification register 3 */
 } SPI_Type;
 
+#define SSP_FIFO_DEPTH (8u) /**< SSP FIFO depth */
+
 #define SSPCR0_SCR_MASK (0xFF << 8)        /**< SSP clock divider mask */
 #define SSPCR0_SCR(divider) (divider << 8) /**< SSP clock divider */
 #define SSPCR0_SPH (1 << 7)                /**< SSPCLKOUT phase */
@@ -56,6 +58,19 @@ typedef enum {
 #define SSPCR1_SSE (1 << 1)    /**< SSP enable */
 #define SSPCR1_LBM_EN (1 << 0) /**< loopback mode enable */
 
+#define SSPDR_DATA_MASK (0xFFFF << 0) /**< transmit/receive Data mask */
+
+#define SSPSR_BSY_MASK (1 << 4) /**< SSP busy flag mask, 0 is idle, 1 is busy */
+#define SSPSR_RFF_MASK (1 << 3) /**< RX FIFO full mask, 0 is not full , 1 is full */
+#define SSPSR_RNE_MASK (1 << 2) /**< RX FIFO not empty mask, 0 is empty, 1 is not empty */
+#define SSPSR_TNF_MASK (1 << 1) /**< TX FIFO not full mask, 0 is full, 1 is not full */
+#define SSPSR_TFE_MASK (1 << 0) /**< TX FIFO Empty mask, 0 is not empty, 1 is empty */
+
+#define SSPCPSR_CPSDVSR_MASK (0xFF << 0) /**< Clock prescale divisor mask*/
+
+#define SSPDMACR_TXDMAE (1 << 1) /**< Transmit DMA enable*/
+#define SSPDMACR_RXDMAE (1 << 0) /**< Receive DMA enable*/
+
 /**
  * @brief Setup SPI format, phasing etcetera
  *
@@ -67,6 +82,7 @@ typedef enum {
  */
 static inline void spiSetup(SPI_Type *const peripheral, SSPCR0_FORMAT_Enum format, SSPCR0_PHASE_Enum phasing, uint8_t bitCount,
                             uint32_t bitRate) {
+  // TODO change bitrate computation to use prescaler and SCR combined, see SDK for more info
   uint32_t divider = FREQ_PERI / bitRate;
   peripheral->SSPCR0 = SSPCR0_DSS(bitCount) | SSPCR0_FRF(format) | SSPCR0_PHASE(phasing) | SSPCR0_SCR(divider);
 }
@@ -81,8 +97,15 @@ static inline void spiEnable(SPI_Type *const peripheral, bool slaveMode) {
   uint32_t ctrlReg = SSPCR1_SSE;
   if (slaveMode)
     ctrlReg |= SSPCR1_SLAVE;
+  peripheral->SSPDMACR = SSPDMACR_TXDMAE | SSPDMACR_RXDMAE;  // enable DMA, no problem if DMA is not listening
   peripheral->SSPCR1 = ctrlReg;
   return;
+}
+
+static inline void spiTranceive8(SPI_Type *const peripheral, const uint8_t *src, const uint8_t *dest, size_t len) {
+  size_t rxRemaining = SSP_FIFO_DEPTH, txRemaining = SSP_FIFO_DEPTH;
+  while (rxRemaining || txRemaining) {
+  }
 }
 
 #endif
