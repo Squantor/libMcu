@@ -105,6 +105,16 @@ static inline void spiEnable(SPI_Type *const peripheral, bool slaveMode) {
 static inline void spiTranceive8(SPI_Type *const peripheral, const uint8_t *src, const uint8_t *dest, size_t len) {
   size_t rxRemaining = SSP_FIFO_DEPTH, txRemaining = SSP_FIFO_DEPTH;
   while (rxRemaining || txRemaining) {
+    /*
+    if (txRemaining && cspi_is_writable(spi) && rx_remaining < tx_remaining + fifo_depth) {
+      spi_get_hw(spi)->dr = (uint32_t)*src++;
+      --tx_remaining;
+    }
+    if (rx_remaining && spi_is_readable(spi)) {
+      *dst++ = (uint16_t)spi_get_hw(spi)->dr;
+      --rx_remaining;
+    }
+    */
   }
 }
 
