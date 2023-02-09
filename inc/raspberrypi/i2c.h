@@ -51,7 +51,7 @@ typedef volatile struct {
   uint32_t IC_FS_SPKLEN;          /**< I2C SS, FS or FM+ spike suppression limit */
   uint32_t reserved2[1];          /**< reserved */
   uint32_t IC_CLR_RESTART_DET;    /**< Clear RESTART_DET Interrupt Register */
-  uint32_t reserved0[18];         /**< reserved */
+  uint32_t reserved3[18];         /**< reserved */
   uint32_t IC_COMP_PARAM_1;       /**< Component Parameter Register 1 */
   uint32_t IC_COMP_VERSION;       /**< I2C Component Version Register */
   uint32_t IC_COMP_TYPE;          /**< I2C Component Type Register */
