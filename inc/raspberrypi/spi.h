@@ -32,11 +32,14 @@ typedef volatile struct {
 
 #define SSP_FIFO_DEPTH (8u) /**< SSP FIFO depth */
 
-#define SSPCR0_SCR_MASK (0xFF << 8)        /**< SSP clock divider mask */
-#define SSPCR0_SCR(divider) (divider << 8) /**< SSP clock divider */
-#define SSPCR0_SPH (1 << 7)                /**< SSPCLKOUT phase */
-#define SSPCR0_SPO (1 << 6)                /**< SSPCLKOUT polarity */
-#define SSPCR0_PHASE(phase) (phase << 6)   /**< SSP frame phasing in one go */
+#define SSPCR0_DSS(size) (size << 0)     /**< Data size select */
+#define SSPCR0_FRF(format) (format << 4) /**< Frame format */
+typedef enum {
+  SSP_FORMAT_MOTOROLA = 0, /**< Motorola frame format */
+  SSP_FORMAT_TI = 1,       /**< Texas instruments frame format */
+  SSP_FORMAT_NATIONAL = 2, /**< National Microwire frame format */
+} SSPCR0_FORMAT_Enum;
+#define SSPCR0_PHASE(phase) (phase << 6) /**< SSP frame phasing in one go */
 typedef enum {
   SSP_PHASE_SPH0_SPO0 = 0, /**< first edge data capture, clock idle low, motorola only */
   SSP_PHASE_SPH0_SPO1 = 1, /**< first edge data capture, clock idle high, motorola only */
@@ -44,32 +47,47 @@ typedef enum {
   SSP_PHASE_SPH1_SPO1 = 3, /**< second edge data capture, clock idle high, motorola only */
   SSP_PHASE_NONE = 0,      /**< any other format */
 } SSPCR0_PHASE_Enum;
-#define SSPCR0_FRF(format) (format << 4) /**< Frame format */
-typedef enum {
-  SSP_FORMAT_MOTOROLA = 0, /**< Motorola frame format */
-  SSP_FORMAT_TI = 1,       /**< Texas instruments frame format */
-  SSP_FORMAT_NATIONAL = 2, /**< National Microwire frame format */
-} SSPCR0_FORMAT_Enum;
-#define SSPCR0_DSS(size) (size << 0) /**< Data size select */
+#define SSPCR0_SPO (1 << 6)                /**< SSPCLKOUT polarity */
+#define SSPCR0_SPH (1 << 7)                /**< SSPCLKOUT phase */
+#define SSPCR0_SCR(divider) (divider << 8) /**< SSP clock divider */
+#define SSPCR0_SCR_MASK (0xFF << 8)        /**< SSP clock divider mask */
 
-#define SSPCR1_SOD (1 << 3)    /**< Slave-mode output disable */
-#define SSPCR1_MASTER (0 << 2) /**< Master mode */
-#define SSPCR1_SLAVE (1 << 2)  /**< Slave mode */
-#define SSPCR1_SSE (1 << 1)    /**< SSP enable */
 #define SSPCR1_LBM_EN (1 << 0) /**< loopback mode enable */
+#define SSPCR1_SSE (1 << 1)    /**< SSP enable */
+#define SSPCR1_SLAVE (1 << 2)  /**< Slave mode */
+#define SSPCR1_MASTER (0 << 2) /**< Master mode */
+#define SSPCR1_SOD (1 << 3)    /**< Slave-mode output disable */
 
 #define SSPDR_DATA_MASK (0xFFFF << 0) /**< transmit/receive Data mask */
 
-#define SSPSR_BSY_MASK (1 << 4) /**< SSP busy flag mask, 0 is idle, 1 is busy */
-#define SSPSR_RFF_MASK (1 << 3) /**< RX FIFO full mask, 0 is not full , 1 is full */
-#define SSPSR_RNE_MASK (1 << 2) /**< RX FIFO not empty mask, 0 is empty, 1 is not empty */
-#define SSPSR_TNF_MASK (1 << 1) /**< TX FIFO not full mask, 0 is full, 1 is not full */
 #define SSPSR_TFE_MASK (1 << 0) /**< TX FIFO Empty mask, 0 is not empty, 1 is empty */
+#define SSPSR_TNF_MASK (1 << 1) /**< TX FIFO not full mask, 0 is full, 1 is not full */
+#define SSPSR_RNE_MASK (1 << 2) /**< RX FIFO not empty mask, 0 is empty, 1 is not empty */
+#define SSPSR_RFF_MASK (1 << 3) /**< RX FIFO full mask, 0 is not full , 1 is full */
+#define SSPSR_BSY_MASK (1 << 4) /**< SSP busy flag mask, 0 is idle, 1 is busy */
 
-#define SSPCPSR_CPSDVSR_MASK (0xFF << 0) /**< Clock prescale divisor mask*/
+#define SSPCPSR_CPSDVSR (divider)((0xFF & divider) << 0) /**< Clock prescale divisor mask*/
 
-#define SSPDMACR_TXDMAE (1 << 1) /**< Transmit DMA enable*/
+#define SSPIMSC_RORIM (1 << 0) /**< Receive overrun interrupt mask */
+#define SSPIMSC_RTIM (1 << 1)  /**< Receive timeout interrupt mask */
+#define SSPIMSC_RXIM (1 << 2)  /**< Receive FIFO interrupt mask */
+#define SSPIMSC_TXIM (1 << 3)  /**< Transmit FIFO interrupt mask */
+
+#define SSPRIS_RORRIS (1 << 0) /**< Receive overrun raw interrupt state */
+#define SSPRIS_RTRIS (1 << 1)  /**< Receive timeout raw interrupt state */
+#define SSPRIS_RXRIS (1 << 2)  /**< Receive FIFO raw interrupt state */
+#define SSPRIS_TXRIS (1 << 3)  /**< Transmit FIFO raw interrupt state */
+
+#define SSPMIS_RORMIS (1 << 0) /**< masked receive overrun interrupt state */
+#define SSPMIS_RTMIS (1 << 1)  /**< masked receive timeout interrupt state */
+#define SSPMIS_RXMIS (1 << 2)  /**< masked receive FIFO interrupt state */
+#define SSPMIS_TXMIS (1 << 3)  /**< masked transmit FIFO interrupt state */
+
+#define SSPICR_RORIC (1 << 0) /**< Clears the Receive overrun interrupt */
+#define SSPICR_RTIC (1 << 1)  /**< Clears the receive timeout interrupt */
+
 #define SSPDMACR_RXDMAE (1 << 0) /**< Receive DMA enable*/
+#define SSPDMACR_TXDMAE (1 << 1) /**< Transmit DMA enable*/
 
 /**
  * @brief Setup SPI format, phasing etcetera
