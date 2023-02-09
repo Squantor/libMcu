@@ -62,9 +62,11 @@ typedef volatile struct {
 #define UARTFR_DSR_MASK (1 << 1)  /**< Data set ready */
 #define UARTFR_CTS_MASK (1 << 0)  /**< Clear to send */
 
-#define UARTIBRD_BAUD_DIVINT (divider)(divider << 0) /**< Integer baud rate divisor */
+#define UARTILPR_ILPDVSR(divider) (divider << 0) /**< IRDA low power divisor value */
 
-#define UARTFBRD_BAUD_DIVFRAC (divider)(divider << 0) /**< Fractional baud rate divisor */
+#define UARTIBRD_BAUD_DIVINT(divider) (divider << 0) /**< Integer baud rate divisor */
+
+#define UARTFBRD_BAUD_DIVFRAC(divider) (divider << 0) /**< Fractional baud rate divisor */
 
 #define UARTLCR_H_SPS_EN (1 << 7)            /**< stick parity select */
 #define UARTLCR_H_WLEN(length) (length << 5) /**< Word length */
@@ -92,6 +94,21 @@ typedef enum {
 #define UARTCR_SIRLP (1 << 2)  /**< SIR low power IrDA mode */
 #define UARTCR_SIREN (1 << 1)  /**< SIR enable */
 #define UARTCR_UARTEN (1 << 0) /**< UART enable */
+
+#define UARTIFLS_RXIFLSEL(level) (level << 3) /**< Receive interrupt FIFO level select */
+#define UARTIFLS_TXIFLSEL(level) (level << 0) /**< Tramsit interrupt FIFO level select */
+
+#define UARTIMSC_OEIM (1 << 10)  /**< Overrun error interrupt mask */
+#define UARTIMSC_BEIM (1 << 9)   /**< Break error interrupt mask */
+#define UARTIMSC_PEIM (1 << 8)   /**< Parity error interrupt mask */
+#define UARTIMSC_FEIM (1 << 7)   /**< Framing error interrupt mask */
+#define UARTIMSC_RTIM (1 << 6)   /**< Receive timeout interrupt mask */
+#define UARTIMSC_TXIM (1 << 5)   /**< Transmit interrupt mask */
+#define UARTIMSC_RXIM (1 << 4)   /**< Receive interrupt mask */
+#define UARTIMSC_DSRMIM (1 << 3) /**< UARTDSR modem interrupt mask */
+#define UARTIMSC_DCDMIM (1 << 2) /**< UARTDCD modem interrupt mask */
+#define UARTIMSC_CTSMIM (1 << 1) /**< UARTCTS modem interrupt mask */
+#define UARTIMSC_RIMIM (1 << 0)  /**< UARTRI modem interrupt mask */
 
 #define UARTDMACR_RXDMAE (1 << 0)   /**< Receive DMA enable */
 #define UARTDMACR_TXDMAE (1 << 1)   /**< Transmit DMA enable */
