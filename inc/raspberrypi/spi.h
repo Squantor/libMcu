@@ -32,14 +32,15 @@ typedef volatile struct {
 
 #define SSP_FIFO_DEPTH (8u) /**< SSP FIFO depth */
 
-#define SSPCR0_DSS(size) (size << 0)     /**< Data size select */
-#define SSPCR0_FRF(format) (format << 4) /**< Frame format */
+#define SSPCR0_DSS(size) ((size) << 0)     /**< Data size select */
+#define SSPCR0_DSS_MASK (0xF << 0)         /**< Data size select mask */
+#define SSPCR0_FRF(format) ((format) << 4) /**< Frame format */
 typedef enum {
   SSP_FORMAT_MOTOROLA = 0, /**< Motorola frame format */
   SSP_FORMAT_TI = 1,       /**< Texas instruments frame format */
   SSP_FORMAT_NATIONAL = 2, /**< National Microwire frame format */
 } SSPCR0_FORMAT_Enum;
-#define SSPCR0_PHASE(phase) (phase << 6) /**< SSP frame phasing in one go */
+#define SSPCR0_PHASE(phase) ((phase) << 6) /**< SSP frame phasing in one go */
 typedef enum {
   SSP_PHASE_SPH0_SPO0 = 0, /**< first edge data capture, clock idle low, motorola only */
   SSP_PHASE_SPH0_SPO1 = 1, /**< first edge data capture, clock idle high, motorola only */
@@ -47,10 +48,10 @@ typedef enum {
   SSP_PHASE_SPH1_SPO1 = 3, /**< second edge data capture, clock idle high, motorola only */
   SSP_PHASE_NONE = 0,      /**< any other format */
 } SSPCR0_PHASE_Enum;
-#define SSPCR0_SPO (1 << 6)                /**< SSPCLKOUT polarity */
-#define SSPCR0_SPH (1 << 7)                /**< SSPCLKOUT phase */
-#define SSPCR0_SCR(divider) (divider << 8) /**< SSP clock divider */
-#define SSPCR0_SCR_MASK (0xFF << 8)        /**< SSP clock divider mask */
+#define SSPCR0_SPO (1 << 6)                  /**< SSPCLKOUT polarity */
+#define SSPCR0_SPH (1 << 7)                  /**< SSPCLKOUT phase */
+#define SSPCR0_SCR(divider) ((divider) << 8) /**< SSP clock divider */
+#define SSPCR0_SCR_MASK (0xFF << 8)          /**< SSP clock divider mask */
 
 #define SSPCR1_LBM_EN (1 << 0) /**< loopback mode enable */
 #define SSPCR1_SSE (1 << 1)    /**< SSP enable */
@@ -66,7 +67,7 @@ typedef enum {
 #define SSPSR_RFF_MASK (1 << 3) /**< RX FIFO full mask, 0 is not full , 1 is full */
 #define SSPSR_BSY_MASK (1 << 4) /**< SSP busy flag mask, 0 is idle, 1 is busy */
 
-#define SSPCPSR_CPSDVSR (divider)((0xFF & divider) << 0) /**< Clock prescale divisor mask*/
+#define SSPCPSR_CPSDVSR (divider)((0xFF & (divider)) << 0) /**< Clock prescale divisor mask*/
 
 #define SSPIMSC_RORIM (1 << 0) /**< Receive overrun interrupt mask */
 #define SSPIMSC_RTIM (1 << 1)  /**< Receive timeout interrupt mask */
@@ -97,12 +98,31 @@ typedef enum {
  * @param phasing     SPI phasing for motorola format
  * @param bitCount    amount of bits to transfer
  * @param bitRate     bitrate of SPI, divided by Peripheral clock speed
+ * @return uint32_t   achieved bitrate
  */
-static inline void spiSetup(SPI_Type *const peripheral, SSPCR0_FORMAT_Enum format, SSPCR0_PHASE_Enum phasing, uint8_t bitCount,
-                            uint32_t bitRate) {
-  // TODO change bitrate computation to use prescaler and SCR combined, see SDK for more info
-  uint32_t divider = FREQ_PERI / bitRate;
-  peripheral->SSPCR0 = SSPCR0_DSS(bitCount) | SSPCR0_FRF(format) | SSPCR0_PHASE(phasing) | SSPCR0_SCR(divider);
+static inline uint32_t spiSetup(SPI_Type *const peripheral, SSPCR0_FORMAT_Enum format, SSPCR0_PHASE_Enum phasing, uint8_t bitCount,
+                                uint32_t bitRate) {
+  uint32_t freq_in = FREQ_PERI;
+  uint32_t prescale, postdiv;
+
+  // Find smallest prescale value which puts output frequency in range of
+  // post-divide. Prescale is an even number from 2 to 254 inclusive.
+  for (prescale = 2; prescale <= 254; prescale += 2) {
+    if (freq_in < (prescale + 2) * 256 * (uint64_t)bitRate)
+      break;
+  }
+
+  // Find largest post-divide which makes output <= baudrate. Post-divide is
+  // an integer in the range 1 to 256 inclusive.
+  for (postdiv = 256; postdiv > 1; --postdiv) {
+    if (freq_in / (prescale * (postdiv - 1)) > bitRate)
+      break;
+  }
+
+  peripheral->SSPCPSR = prescale;
+  peripheral->SSPCR0 = SSPCR0_DSS(bitCount) | SSPCR0_FRF(format) | SSPCR0_PHASE(phasing) | SSPCR0_SCR(postdiv - 1);
+
+  return freq_in / (prescale * postdiv);
 }
 
 /**
@@ -120,19 +140,80 @@ static inline void spiEnable(SPI_Type *const peripheral, bool slaveMode) {
   return;
 }
 
-static inline void spiTranceive8(SPI_Type *const peripheral, const uint8_t *src, const uint8_t *dest, size_t len) {
-  size_t rxRemaining = SSP_FIFO_DEPTH, txRemaining = SSP_FIFO_DEPTH;
+/**
+ * @brief Space left in TX FIFO
+ *
+ * @param peripheral  SPI peripheral to check
+ * @return uint32_t   0 for full, not 0 for not full
+ */
+static inline uint32_t spiTxFree(SPI_Type *const peripheral) {
+  return peripheral->SSPSR & SSPSR_TNF_MASK;
+}
+
+/**
+ * @brief data available in RX FIFO
+ *
+ * @param peripheral SPI peripheral to check
+ * @return uint32_t  0 for not empty, not 0 for empty
+ */
+static inline uint32_t spiRxAvailable(SPI_Type *const peripheral) {
+  return peripheral->SSPSR & SSPSR_RNE_MASK;
+}
+
+/**
+ * @brief SPI busy
+ *
+ * @param peripheral SPI peripheral to check
+ * @return uint32_t 0 for not busy, not 0 for busy
+ */
+static inline uint32_t spiBusy(SPI_Type *const peripheral) {
+  return peripheral->SSPSR & SSPSR_RNE_MASK;
+}
+
+/**
+ * @brief Read and Write byte buffers to SPI
+ *
+ * @param peripheral SPI peripheral to transmit and receive
+ * @param src        source buffer to send
+ * @param dst        destination buffer to receive
+ * @param len        length of buffers
+ */
+static inline void spiTranceive8(SPI_Type *const peripheral, const uint8_t *src, uint8_t *dst, size_t len) {
+  size_t rxRemaining = len, txRemaining = len;
   while (rxRemaining || txRemaining) {
-    /*
-    if (txRemaining && cspi_is_writable(spi) && rx_remaining < tx_remaining + fifo_depth) {
-      spi_get_hw(spi)->dr = (uint32_t)*src++;
-      --tx_remaining;
+    if (txRemaining && spiTxFree(peripheral) && rxRemaining < txRemaining + SSP_FIFO_DEPTH) {
+      peripheral->SSPDR = (uint32_t)*src++;
+      --txRemaining;
     }
-    if (rx_remaining && spi_is_readable(spi)) {
-      *dst++ = (uint16_t)spi_get_hw(spi)->dr;
-      --rx_remaining;
+    if (rxRemaining && spiRxAvailable(peripheral)) {
+      *dst++ = (uint8_t)peripheral->SSPDR;
+      --rxRemaining;
     }
-    */
+  }
+}
+
+/**
+ * @brief Read and Write variable bit size buffers to SPI
+ *
+ * @param peripheral SPI peripheral to transmit and receive
+ * @param src        source buffer to send
+ * @param dst        destination buffer to receive
+ * @param len        amount of elements in buffer
+ * @param bitCount   amount of bits per transfer
+ */
+static inline void spiTranceiveBits(SPI_Type *const peripheral, const uint16_t *src, uint16_t *dst, uint32_t len,
+                                    uint32_t bitCount) {
+  uint32_t rxRemaining = len, txRemaining = len;
+  peripheral->SSPCR0 = (peripheral->SSPCR0 & ~SSPCR0_DSS_MASK) | SSPCR0_DSS(bitCount - 1);
+  while (rxRemaining || txRemaining) {
+    if (txRemaining && spiTxFree(peripheral) && rxRemaining < txRemaining + SSP_FIFO_DEPTH) {
+      peripheral->SSPDR = (uint32_t)*src++;
+      --txRemaining;
+    }
+    if (rxRemaining && spiRxAvailable(peripheral)) {
+      *dst++ = (uint16_t)peripheral->SSPDR;
+      --rxRemaining;
+    }
   }
 }
 
