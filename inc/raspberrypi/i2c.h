@@ -57,10 +57,34 @@ typedef volatile struct {
   uint32_t IC_COMP_TYPE;          /**< I2C Component Type Register */
 } I2C_Type;
 
-#define IC_CON_MASTER_MODE_EN (1 << 0)      /**< Enable master mode */
-#define IC_CON_SPEED(mode) (mode << 1)      /**< speed mode setting */
-#define IC_CON_IC_10BITADDR_SLAVE (1 << 3)  /**< as a slave use 10 bit addresses */
-#define IC_CON_IC_10BITADDR_MASTER (1 << 4) /**< as a master send 10 bit addresses */
-#define IC_CON_IC_RESTART_EN (1 << 5)       /**< Determine if restarts can be sent */
+#define IC_CON_STOP_DET_IF_MASTER_ACTIVE (1 << 10) /**< send STOP_DET interrupt if or not active*/
+#define IC_CON_RX_FIFO_FULL_HLD_CTRL (1 << 9)      /**< hold bus if RX FIFO is full */
+#define IC_CON_TX_EMPTY_CTRL (1 << 8)              /**< Controlled TX_EMPTY interrupt*/
+#define IC_CON_STOP_DET_IFADRESSED (1 << 7)        /**< in slave mode send STOP_DET interrupt */
+#define IC_CON_IC_SLAVE_DISABLE (1 << 6)           /**< Disable I2C slave */
+#define IC_CON_IC_RESTART_EN (1 << 5)              /**< Determine if restarts can be sent */
+#define IC_CON_IC_10BITADDR_MASTER (1 << 4)        /**< as a master send 10 bit addresses */
+#define IC_CON_IC_10BITADDR_SLAVE (1 << 3)         /**< as a slave use 10 bit addresses */
+#define IC_CON_SPEED(mode) (mode << 1)             /**< speed mode setting */
+typedef enum {
+  IC_CON_SPEED_STD = 0x1,       /**< standard mode */
+  IC_CON_SPEED_FASTMODE = 0x2,  /**< Fast or fast mode plus */
+  IC_CON_SPEED_HIGHSPEED = 0x3, /**< high speed mode */
+} IC_CON_SPEED_Enum;
+#define IC_CON_MASTER_MODE_EN (1 << 0) /**< Enable master mode */
+
+#define IC_TAR_SPECIAL (1 << 11)                   /**< enable programming of general or start transmission */
+#define IC_TAR_GC_OR_START (1 << 10)               /**< start byte transmission */
+#define IC_TAR_IC_TAR_MASK(address) (address << 0) /**< Target addres for master transmission */
+
+#define IC_SAR_IC_SAR(address) (address << 0) /**< Holds slave address */
+
+#define IC_DATA_CMD_FIRST_DATA_BYTE (1 << 11)       /**< non sequential data received */
+#define IC_DATA_CMD_RESTART (1 << 10)               /**< Issue RESTART before this command */
+#define IC_DATA_CMD_STOP (1 << 9)                   /**< Issue STOP after this command */
+#define IC_DATA_CMD_CMD_READ (1 << 8)               /**< Master read command */
+#define IC_DATA_CMD_CMD_WRITE (0 << 8)              /**< Master write command */
+#define IC_DATA_CMD_DAT(register) (register & 0xFF) /**< get data from register */
+#define IC_DATA_CMD_DAT_MASK (0xFF << 0)            /**< I2C data mask */
 
 #endif
