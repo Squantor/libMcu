@@ -40,12 +40,12 @@ typedef volatile struct {
   uint32_t UARTPCELLID3;   /**< UARTPCellID3 */
 } UART_Type;
 
-#define UARTDR_DATA_MASK (0xFF << 0)            /**< Data character */
-#define UARTDR_DATA(register) (register & 0xFF) /**< get data from register */
-#define UARTDR_FE_MASK (1 << 8)                 /**< Framing error */
-#define UARTDR_PE_MASK (1 << 9)                 /**< Parity error */
-#define UARTDR_BE_MASK (1 << 10)                /**< Break error */
 #define UARTDR_OE_MASK (1 << 11)                /**< Overrun error */
+#define UARTDR_BE_MASK (1 << 10)                /**< Break error */
+#define UARTDR_PE_MASK (1 << 9)                 /**< Parity error */
+#define UARTDR_FE_MASK (1 << 8)                 /**< Framing error */
+#define UARTDR_DATA(register) (register & 0xFF) /**< get data from register */
+#define UARTDR_DATA_MASK (0xFF << 0)            /**< Data character */
 
 #define UARTRSR_OE_MASK (1 << 3) /**< Overrun error */
 #define UARTRSR_BE_MASK (1 << 2) /**< Break error */
