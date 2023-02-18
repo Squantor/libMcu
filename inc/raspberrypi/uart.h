@@ -4,7 +4,9 @@
  * Copyright (c) 2022 Bart Bilos
  * For conditions of distribution and use, see LICENSE file
  */
-/** @file UART peripheral definitions */
+/** @file UART peripheral definitions
+ * TODO: Add all bit defines
+ */
 #ifndef UART_H
 #define UART_H
 

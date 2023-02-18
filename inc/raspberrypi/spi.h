@@ -4,7 +4,10 @@
  * Copyright (c) 2022 Bart Bilos
  * For conditions of distribution and use, see LICENSE file
  */
-/** @file SPI peripheral definitions */
+/** @file SPI peripheral definitions
+ * TODO: add al bit defines for all registers
+ *
+ */
 #ifndef SPI_H
 #define SPI_H
 
