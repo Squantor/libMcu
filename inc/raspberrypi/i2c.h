@@ -93,6 +93,14 @@ typedef enum {
 #define IC_ENABLE_ABORT (1 << 1)        /**< initiate Abort operation, autocleared */
 #define IC_ENABLE_ENABLE (1 << 0)       /**< Enable I2C peripheral */
 
+#define IC_STATUS_SLV_ACTIVITY (1 << 6)  /**< Slave FSM activity status, 1 not in IDLE state */
+#define IC_STATUS_MST_ACTIVITY (1 << 5)  /**< Master FSM activity status, 1 not in IDLE state */
+#define IC_STATUS_RFF_MASK (1 << 4)      /**< RX FIFO completely empty */
+#define IC_STATUS_RFNE_MASK (1 << 3)     /**< RX FIFO not empty */
+#define IC_STATUS_TFE_MASK (1 << 2)      /**< TX FIFO completely empty */
+#define IC_STATUS_TFNF_MASK (1 << 1)     /**< TX FIFO not full  */
+#define IC_STATUS_ACTIVITY_MASK (1 << 0) /**< I2C active, 1 means yes */
+
 #define IC_SDA_HOLD_IC_SDA_RX_HOLD(clocks) ((clocks) << 16) /**< SDA RX hold time in ic_clk clocks */
 #define IC_SDA_HOLD_IC_SDA_RX_HOLD_MASK (0xFF << 16)        /**< SDA RX hold time mask */
 #define IC_SDA_HOLD_IC_SDA_TX_HOLD(clocks) ((clocks) << 0)  /**< SDA TX hold time in ic_clk clocks */
