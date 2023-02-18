@@ -67,7 +67,7 @@ typedef volatile struct {
 #define IC_CON_IC_RESTART_EN (1 << 5)              /**< Determine if restarts can be sent */
 #define IC_CON_IC_10BITADDR_MASTER (1 << 4)        /**< as a master send 10 bit addresses */
 #define IC_CON_IC_10BITADDR_SLAVE (1 << 3)         /**< as a slave use 10 bit addresses */
-#define IC_CON_SPEED(mode) (mode << 1)             /**< speed mode setting */
+#define IC_CON_SPEED(mode) ((mode) << 1)           /**< speed mode setting */
 typedef enum {
   IC_CON_SPEED_STD = 0x1,       /**< standard mode */
   IC_CON_SPEED_FASTMODE = 0x2,  /**< Fast or fast mode plus */
@@ -75,29 +75,41 @@ typedef enum {
 } IC_CON_SPEED_Enum;
 #define IC_CON_MASTER_MODE_EN (1 << 0) /**< Enable master mode */
 
-#define IC_TAR_SPECIAL (1 << 11)                   /**< enable programming of general or start transmission */
-#define IC_TAR_GC_OR_START (1 << 10)               /**< start byte transmission */
-#define IC_TAR_IC_TAR_MASK(address) (address << 0) /**< Target addres for master transmission */
+#define IC_TAR_SPECIAL (1 << 11)                     /**< enable programming of general or start transmission */
+#define IC_TAR_GC_OR_START (1 << 10)                 /**< start byte transmission */
+#define IC_TAR_IC_TAR_MASK(address) ((address) << 0) /**< Target addres for master transmission */
 
-#define IC_SAR_IC_SAR(address) (address << 0) /**< Holds slave address */
+#define IC_SAR_IC_SAR(address) ((address) << 0) /**< Holds slave address */
 
-#define IC_DATA_CMD_FIRST_DATA_BYTE (1 << 11)       /**< non sequential data received */
-#define IC_DATA_CMD_RESTART (1 << 10)               /**< Issue RESTART before this command */
-#define IC_DATA_CMD_STOP (1 << 9)                   /**< Issue STOP after this command */
-#define IC_DATA_CMD_CMD_READ (1 << 8)               /**< Master read command */
-#define IC_DATA_CMD_CMD_WRITE (0 << 8)              /**< Master write command */
-#define IC_DATA_CMD_DAT(register) (register & 0xFF) /**< get data from register */
-#define IC_DATA_CMD_DAT_MASK (0xFF << 0)            /**< I2C data mask */
+#define IC_DATA_CMD_FIRST_DATA_BYTE (1 << 11)         /**< non sequential data received */
+#define IC_DATA_CMD_RESTART (1 << 10)                 /**< Issue RESTART before this command */
+#define IC_DATA_CMD_STOP (1 << 9)                     /**< Issue STOP after this command */
+#define IC_DATA_CMD_CMD_READ (1 << 8)                 /**< Master read command */
+#define IC_DATA_CMD_CMD_WRITE (0 << 8)                /**< Master write command */
+#define IC_DATA_CMD_DAT(register) ((register) & 0xFF) /**< get data from register */
+#define IC_DATA_CMD_DAT_MASK (0xFF << 0)              /**< I2C data mask */
 
 #define IC_ENABLE_TX_CMD_BLOCK (1 << 2) /**< block tranmsission on I2C bus with not empty TX FIFO*/
 #define IC_ENABLE_ABORT (1 << 1)        /**< initiate Abort operation, autocleared */
 #define IC_ENABLE_ENABLE (1 << 0)       /**< Enable I2C peripheral */
 
+#define IC_SDA_HOLD_IC_SDA_RX_HOLD(clocks) ((clocks) << 16) /**< SDA RX hold time in ic_clk clocks */
+#define IC_SDA_HOLD_IC_SDA_RX_HOLD_MASK (0xFF << 16)        /**< SDA RX hold time mask */
+#define IC_SDA_HOLD_IC_SDA_TX_HOLD(clocks) ((clocks) << 0)  /**< SDA TX hold time in ic_clk clocks */
+#define IC_SDA_HOLD_IC_SDA_TX_HOLD_MASK (0xFFFF)            /**< SDA TX hold time mask */
+
 #define IC_DMA_CR_TDMAE (1 << 1) /**< Transmit DMA enable */
 #define IC_DMA_CR_RDMAE (1 << 0) /**< Receive DMA enable */
 
-static inline uint32_t i2cSetup(I2C_Type *const peripheral, IC_CON_SPEED_Enum speed) {
-  uint32_t setBitRate = 0;
+/**
+ * @brief Setup I2C peripheral as fast mode master
+ *
+ * @param peripheral  I2C peripheral to configure
+ * @param speed       speed mode of peripheral, see IC_CON_SPEED_Enum for options
+ * @param bitRate     bitrate of I2C peripheral in Hertz
+ * @return uint32_t   actual bitrate of I2C peripheral, zero for error
+ */
+static inline uint32_t i2cSetupMaster(I2C_Type *const peripheral, IC_CON_SPEED_Enum speed, uint32_t bitRate) {
   // disable peripheral
   peripheral->IC_ENABLE = 0;
   // configure according to arguments
@@ -108,10 +120,44 @@ static inline uint32_t i2cSetup(I2C_Type *const peripheral, IC_CON_SPEED_Enum sp
   peripheral->IC_RX_TL = 0;
   // enable DREQ signaling, harmless without DMA
   peripheral->IC_DMA_CR = IC_DMA_CR_RDMAE | IC_DMA_CR_TDMAE;
-  // set baudrate
+
+  // set baudrate, taken from pico SDK
+  // I2C is synchronous design that runs from clk_sys
+  uint32_t frequencyInput = FREQ_CPU;
+
+  // TODO there are some subtleties to I2C timing which we are completely ignoring here
+  uint32_t period = (frequencyInput + bitRate / 2) / bitRate;
+  uint32_t lcnt = period * 3 / 5;
+  uint32_t hcnt = period - lcnt;
+
+  // Per I2C-bus specification a device in standard or fast mode must
+  // internally provide a hold time of at least 300ns for the SDA signal to
+  // bridge the undefined region of the falling edge of SCL. A smaller hold
+  // time of 120ns is used for fast mode plus.
+  uint32_t sdaTxHoldCount;
+  if (bitRate < 1000000) {
+    // sdaTxHoldCount = frequencyInput [cycles/s] * 300ns * (1s / 1e9ns)
+    // Reduce 300/1e9 to 3/1e7 to avoid numbers that don't fit in uint.
+    // Add 1 to avoid division truncation.
+    sdaTxHoldCount = ((frequencyInput * 3) / 10000000) + 1;
+  } else {
+    // sdaTxHoldCount = frequencyInput [cycles/s] * 120ns * (1s / 1e9ns)
+    // Reduce 120/1e9 to 3/25e6 to avoid numbers that don't fit in uint.
+    // Add 1 to avoid division truncation.
+    sdaTxHoldCount = ((frequencyInput * 3) / 25000000) + 1;
+  }
+
+  // Always use "fast" mode (<= 400 kHz, works fine for standard mode too)
+  peripheral->IC_FS_SCL_HCNT = hcnt;
+  peripheral->IC_FS_SCL_LCNT = lcnt;
+  peripheral->IC_FS_SPKLEN = lcnt < 16 ? 1 : lcnt / 16;
+
+  peripheral->IC_SDA_HOLD =
+    (peripheral->IC_SDA_HOLD & ~IC_SDA_HOLD_IC_SDA_TX_HOLD_MASK) | IC_SDA_HOLD_IC_SDA_TX_HOLD(sdaTxHoldCount);
+
   // enable
   peripheral->IC_ENABLE = IC_ENABLE_ENABLE;
-  return setBitRate;
+  return frequencyInput / period;
 }
 
 #endif
