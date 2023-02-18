@@ -4,7 +4,9 @@
  * Copyright (c) 2022 Bart Bilos
  * For conditions of distribution and use, see LICENSE file
  */
-/** @file I2C peripheral definitions */
+/** @file I2C peripheral definitions
+ * TODO: Add all bits to #defines
+ */
 #ifndef I2C_H
 #define I2C_H
 
@@ -86,5 +88,30 @@ typedef enum {
 #define IC_DATA_CMD_CMD_WRITE (0 << 8)              /**< Master write command */
 #define IC_DATA_CMD_DAT(register) (register & 0xFF) /**< get data from register */
 #define IC_DATA_CMD_DAT_MASK (0xFF << 0)            /**< I2C data mask */
+
+#define IC_ENABLE_TX_CMD_BLOCK (1 << 2) /**< block tranmsission on I2C bus with not empty TX FIFO*/
+#define IC_ENABLE_ABORT (1 << 1)        /**< initiate Abort operation, autocleared */
+#define IC_ENABLE_ENABLE (1 << 0)       /**< Enable I2C peripheral */
+
+#define IC_DMA_CR_TDMAE (1 << 1) /**< Transmit DMA enable */
+#define IC_DMA_CR_RDMAE (1 << 0) /**< Receive DMA enable */
+
+static inline uint32_t i2cSetup(I2C_Type *const peripheral, IC_CON_SPEED_Enum speed) {
+  uint32_t setBitRate = 0;
+  // disable peripheral
+  peripheral->IC_ENABLE = 0;
+  // configure according to arguments
+  peripheral->IC_CON =
+    IC_CON_MASTER_MODE_EN | IC_CON_SPEED(speed) | IC_CON_IC_RESTART_EN | IC_CON_IC_SLAVE_DISABLE | IC_CON_TX_EMPTY_CTRL;
+  // set watermarks to 1 to simplify handling
+  peripheral->IC_TX_TL = 0;
+  peripheral->IC_RX_TL = 0;
+  // enable DREQ signaling, harmless without DMA
+  peripheral->IC_DMA_CR = IC_DMA_CR_RDMAE | IC_DMA_CR_TDMAE;
+  // set baudrate
+  // enable
+  peripheral->IC_ENABLE = IC_ENABLE_ENABLE;
+  return setBitRate;
+}
 
 #endif
