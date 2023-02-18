@@ -16,7 +16,7 @@ typedef volatile struct {
   uint32_t SSPCR1;   /**< Control register 1 */
   uint32_t SSPDR;    /**< Data register */
   uint32_t SSPSR;    /**< Status register */
-  uint32_t SSPCPSR;  /**< Clock prescale register */
+  uint32_t SSPCPSR;  /**< Clock prescaler register */
   uint32_t SSPIMSC;  /**< Interrupt mask set or clear register */
   uint32_t SSPRIS;   /**< Raw interrupt status register */
   uint32_t SSPMIS;   /**< Masked interrupt status register */
@@ -105,27 +105,27 @@ typedef enum {
  */
 static inline uint32_t spiSetup(SPI_Type *const peripheral, SSPCR0_FORMAT_Enum format, SSPCR0_PHASE_Enum phasing, uint8_t bitCount,
                                 uint32_t bitRate) {
-  uint32_t freq_in = FREQ_PERI;
-  uint32_t prescale, postdiv;
+  uint32_t frequencyInput = FREQ_PERI;
+  uint32_t prescaler, postDivider;
 
-  // Find smallest prescale value which puts output frequency in range of
+  // Find smallest prescaler value which puts output frequency in range of
   // post-divide. Prescale is an even number from 2 to 254 inclusive.
-  for (prescale = 2; prescale <= 254; prescale += 2) {
-    if (freq_in < (prescale + 2) * 256 * (uint64_t)bitRate)
+  for (prescaler = 2; prescaler <= 254; prescaler += 2) {
+    if (frequencyInput < (prescaler + 2) * 256 * (uint64_t)bitRate)
       break;
   }
 
   // Find largest post-divide which makes output <= baudrate. Post-divide is
   // an integer in the range 1 to 256 inclusive.
-  for (postdiv = 256; postdiv > 1; --postdiv) {
-    if (freq_in / (prescale * (postdiv - 1)) > bitRate)
+  for (postDivider = 256; postDivider > 1; --postDivider) {
+    if (frequencyInput / (prescaler * (postDivider - 1)) > bitRate)
       break;
   }
 
-  peripheral->SSPCPSR = prescale;
-  peripheral->SSPCR0 = SSPCR0_DSS(bitCount) | SSPCR0_FRF(format) | SSPCR0_PHASE(phasing) | SSPCR0_SCR(postdiv - 1);
+  peripheral->SSPCPSR = prescaler;
+  peripheral->SSPCR0 = SSPCR0_DSS(bitCount) | SSPCR0_FRF(format) | SSPCR0_PHASE(phasing) | SSPCR0_SCR(postDivider - 1);
 
-  return freq_in / (prescale * postdiv);
+  return frequencyInput / (prescaler * postDivider);
 }
 
 /**
