@@ -21,7 +21,7 @@ typedef volatile struct SPI_Struct {
   const uint32_t RXDAT;   /* SPI Receive Data register */
   uint32_t TXDATCTL;      /* SPI Transmit Data with Control register */
   uint32_t TXDAT;         /* SPI Transmit Data register */
-  uint32_t TXCTRL;        /* SPI Transmit Control register */
+  uint32_t TXCRL;         /* SPI Transmit Control register */
   uint32_t DIV;           /* SPI clock Divider register */
   const uint32_t INTSTAT; /* SPI Interrupt Status register */
 } SPI_Type;
@@ -192,7 +192,7 @@ static inline void SpiEnableMasterMode(SPI_Type *pSPI) {
   SpiSetCFGRegBits(pSPI, SPI_CFG_MASTER_EN);
 
   /* Deassert all chip selects, only in master mode */
-  pSPI->TXCTRL = SPI_TXDATCTL_DEASSERT_ALL;
+  pSPI->TXCRL = SPI_TXDATCTL_DEASSERT_ALL;
 }
 
 static inline void SpiEnableSlaveMode(SPI_Type *pSPI) {
@@ -225,7 +225,7 @@ static inline void SpiConfigureSPI(SPI_Type *pSPI, uint32_t config) {
   SpiSetCFGRegBits(pSPI, config);
 
   /* Deassert all chip selects, only in master mode */
-  pSPI->TXCTRL = SPI_TXDATCTL_DEASSERT_ALL;
+  pSPI->TXCRL = SPI_TXDATCTL_DEASSERT_ALL;
 }
 
 static inline uint32_t SpiGetStatus(SPI_Type *pSPI) {
@@ -275,15 +275,15 @@ static inline void SpiWriteTXDataAndCtrl(SPI_Type *pSPI, uint32_t control, uint1
 }
 
 static inline void spiTxctrl(SPI_Type *pSPI, uint32_t bits) {
-  pSPI->TXCTRL = bits;
+  pSPI->TXCRL = bits;
 }
 
 static inline void SpiSetTXCTRLRegBits(SPI_Type *pSPI, uint32_t bits) {
-  pSPI->TXCTRL = bits | (pSPI->TXCTRL & SPI_TXDATCTL_CTRLMASK);
+  pSPI->TXCRL = bits | (pSPI->TXCRL & SPI_TXDATCTL_CTRLMASK);
 }
 
 static inline void SpiClearTXCTRLRegBits(SPI_Type *pSPI, uint32_t bits) {
-  pSPI->TXCTRL = ~bits & (pSPI->TXCTRL & SPI_TXDATCTL_CTRLMASK);
+  pSPI->TXCRL = ~bits & (pSPI->TXCRL & SPI_TXDATCTL_CTRLMASK);
 }
 
 static inline void SpiSetTXCtl(SPI_Type *pSPI, uint32_t ctrlBits) {
