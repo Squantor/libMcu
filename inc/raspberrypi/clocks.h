@@ -10,10 +10,10 @@
 
 typedef volatile struct {
   struct {
-    uint32_t CTRL;
-    uint32_t DIV;
-    const uint32_t SELECTED;
-  } CLK[10];
+    uint32_t CTRL;                     /**<  */
+    uint32_t DIV;                      /**<  */
+    const uint32_t SELECTED;           /**<  */
+  } CLK[10];                           /**<  */
   uint32_t CLK_SYS_RESUS_CTRL;         /**<  */
   const uint32_t CLK_SYS_RESUS_STATUS; /**<  */
   uint32_t FC0_REF_KHZ;                /**<  */
@@ -204,13 +204,15 @@ static inline void clockSwitchBasicAux(CLOCKS_CLK_Enum generator, CLOCKS_CLK_AUX
   // disable clock divider
   CLOCKS_CLR->CLK[generator].CTRL = CLOCKS_CLK_CTRL_ENABLE;
   // wait for the generated clock to stop
-  for (int i = 3; i > 0; i--) __NOP();
+  for (int i = 3; i > 0; i--)
+    __NOP();
   // change the mux
   CLOCKS->CLK[generator].CTRL = CLOCKS_CLK_CTRL_AUXSRC(source);
   // enable clock divider
   CLOCKS_SET->CLK[generator].CTRL = CLOCKS_CLK_CTRL_ENABLE;
   // wait for the clock generator to restart
-  for (int i = 3; i > 0; i--) __NOP();
+  for (int i = 3; i > 0; i--)
+    __NOP();
 }
 
 /**
@@ -224,7 +226,8 @@ static inline void clockSwitchBasicAux(CLOCKS_CLK_Enum generator, CLOCKS_CLK_AUX
 static inline uint32_t clocksSwitchGlitchlessSrc(CLOCKS_CLK_Enum generator, CLOCKS_CLK_SRC_Enum source, uint32_t timeout) {
   uint32_t mask = 0x01 << source;
   CLOCKS->CLK[generator].CTRL = CLOCKS_CLK_CTRL_SRC(source);
-  while (!(CLOCKS->CLK[generator].SELECTED & mask) && (timeout > 0)) timeout--;
+  while (!(CLOCKS->CLK[generator].SELECTED & mask) && (timeout > 0))
+    timeout--;
   return timeout;
 }
 
@@ -238,10 +241,12 @@ static inline uint32_t clocksSwitchGlitchlessSrc(CLOCKS_CLK_Enum generator, CLOC
  */
 static inline uint32_t clocksSwitchGlitchlessAux(CLOCKS_CLK_Enum generator, CLOCKS_CLK_AUXSRC_Enum source, uint32_t timeout) {
   timeout = clocksSwitchGlitchlessSrc(generator, ALL_CLK_SRC, timeout);
-  if (timeout == 0) return timeout;
+  if (timeout == 0)
+    return timeout;
   CLOCKS_SET->CLK[CLK_SYS].CTRL = CLOCKS_CLK_CTRL_AUXSRC(source);
   timeout = clocksSwitchGlitchlessSrc(generator, CATCHALL_AUX, timeout);
-  if (timeout == 0) return timeout;
+  if (timeout == 0)
+    return timeout;
   return timeout;
 }
 
