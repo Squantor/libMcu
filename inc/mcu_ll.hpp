@@ -18,6 +18,8 @@
 
 #if defined(MCU_LPC845M301BD48)
 #include <nxp/LPC845M301BD48.hpp>
+#elif defined(MCU_LPC844M201BD64)
+#include <nxp/LPC844M201BD64.hpp>
 #elif defined(MCU_RP2040)
 #include <raspberrypi/RP2040.hpp>
 #elif defined(MCU_CortexM0)
