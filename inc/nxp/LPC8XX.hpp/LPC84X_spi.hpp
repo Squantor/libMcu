@@ -10,6 +10,9 @@
 #ifndef LPC84X_SPI_HPP
 #define LPC84X_SPI_HPP
 
+namespace instances {
+namespace spi {
+
 /**
  * @brief SPI hardware chip enables
  *
@@ -21,12 +24,10 @@ enum class spiChipEnables : uint16_t {
   SSEL3 = 3, /**< Hardware chip enable 3 */
 };
 
-namespace instances {
-
 template <uint32_t base, typename chipEnables>
 struct spi {
   static auto regs() {
-    return reinterpret_cast<LPC844M201BD64::registers::spi::registers*>(base);
+    return reinterpret_cast<registers::spi::registers*>(base);
   }
 
   /**
@@ -39,7 +40,7 @@ struct spi {
    */
   uint32_t init(uint32_t bitRate) {
     uint32_t actualBitRate = setBitRate(bitRate);
-    regs()->CFG = LPC844M201BD64::registers::spi::CFG::ENABLE | LPC844M201BD64::registers::spi::CFG::MASTER;
+    regs()->CFG = registers::spi::CFG::ENABLE | registers::spi::CFG::MASTER;
     return actualBitRate;
   }
 
@@ -61,7 +62,7 @@ struct spi {
   // void receive(chipEnables chipEnable, uint16_t* rxData, uint32_t bitCount, bool lastTransaction){};
   // void transceive(chipEnables chipEnable, const uint16_t* txData, uint16_t* rxData, uint32_t bitCount, bool lastTransaction){};
 };
-
+}  // namespace spi
 }  // namespace instances
 
 #endif

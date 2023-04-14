@@ -313,21 +313,15 @@ Copied orignally from the C header, the idea is to move more and more from
 C definitions to C++. Step by step, C++ bits will go below
 */
 
-
-namespace LPC844M201BD64 {
-
 namespace peripherals {
 constexpr static inline uint32_t SPI0_cpp = 0x4005'8000u; /**< TODO, rename to their names when refactoring is done */
 constexpr static inline uint32_t SPI1_cpp = 0x4005'C000u; /**< TODO, rename to their names when refactoring is done */
 }  // namespace peripherals
-}  // namespace LPC844M201BD64
 
-/* RinSpr: Je kan aliases maken van namespaces waarin je MCU specifieke dingen gealiast worden naar de "generieke" namespace voor de common code. Aangezien je
-toch al device specifieke includes hebt.
-*/
-
-// #includes in namespaces is a nono
+// includes that define the registers namespace go here.
 #include "nxp/LPC8XX.hpp/LPC8XX_spi_regs.hpp"
+
+// includes that use the registers namespace go here
 #include "nxp/LPC8XX.hpp/LPC84X_spi.hpp"
 
 #endif
