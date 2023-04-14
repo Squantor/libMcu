@@ -81,7 +81,7 @@ struct spi {
    * @param bitcount amount of bits to transmit
    * @param lastAction is this the last action? This will disable the chip select
    */
-  void transmit(chipEnables device, const std::span<uint16_t> transmitBuffer, uint16_t bitcount, bool lastAction) {
+  void transmit(chipEnables device, const std::span<uint16_t> transmitBuffer, uint32_t bitcount, bool lastAction) {
     size_t index = 0;
     uint32_t baseTransferCommand = (0x000F0000u ^ device) | TXDATCTL::RXIGNORE;  // base transfer command with presets
     while (bitcount > 16) {
@@ -106,7 +106,7 @@ struct spi {
    * @param bitcount amount of bits to receive
    * @param lastAction is this the last action? This will disable the chip select
    */
-  void receive(chipEnables device, std::span<uint16_t> receiveBuffer, uint16_t bitcount, bool lastAction) {
+  void receive(chipEnables device, std::span<uint16_t> receiveBuffer, uint32_t bitcount, bool lastAction) {
     size_t index = 0;
     uint32_t baseTransferCommand = 0x000F0000u ^ device;  // base transfer command with presets
     while (bitcount > 16) {
@@ -135,7 +135,7 @@ struct spi {
    * @param lastAction is this the last action? This will disable the chip select
    */
   void transceive(chipEnables device, const std::span<uint16_t> transmitBuffer, std::span<uint16_t> receiveBuffer,
-                  uint16_t bitcount, bool lastAction) {
+                  uint32_t bitcount, bool lastAction) {
     size_t index = 0;
     uint32_t baseTransferCommand = 0x000F0000u ^ device;  // base transfer command with presets
     while (bitcount > 16) {
