@@ -16,7 +16,9 @@
 #include <cstdint>
 #include <cstddef>
 
-#if defined(MCU_LPC845M301BD48)
+#if defined(MCU_LPC812M101DH20)
+#include <nxp/LPC812M101DH20.hpp>
+#elif defined(MCU_LPC845M301BD48)
 #include <nxp/LPC845M301BD48.hpp>
 #elif defined(MCU_LPC844M201BD64)
 #include <nxp/LPC844M201BD64.hpp>
