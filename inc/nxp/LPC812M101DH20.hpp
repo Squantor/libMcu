@@ -185,6 +185,7 @@ typedef enum {
 namespace peripherals {
 constexpr static inline uint32_t IOCON_cpp = 0x4004'4000u; /**< TODO, rename to their names when refactoring is done */
 constexpr static inline uint32_t SWM_cpp = 0x4000'C000u;   /**< TODO, rename to their names when refactoring is done */
+constexpr static inline uint32_t GPIO_cpp = 0xA000'0000u;  /**< TODO, rename to their names when refactoring is done */
 }  // namespace peripherals
 
 // includes that define the registers namespace go here.
