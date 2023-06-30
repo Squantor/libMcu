@@ -188,16 +188,16 @@ constexpr static inline uint32_t SWM_cpp = 0x4000'C000u;   /**< TODO, rename to 
 }  // namespace peripherals
 
 // includes that define the registers namespace go here.
-#include <LPC8xx.hpp/LPC81X_iocon_regs.hpp>
-#include <LPC8xx.hpp/LPC81X_swm_regs.hpp>
+#include "nxp/LPC8XX.hpp/LPC81X_iocon_regs.hpp"
+#include "nxp/LPC8XX.hpp/LPC81X_swm_regs.hpp"
 
 // device peripheral specific headers go here
 // these need to go after registers namespace definitions as they are used here
-#include <LPC8xx.hpp/LPC812M101DH20_pins.hpp>
+#include "nxp/LPC8XX.hpp/LPC812M101DH20_pins.hpp"
 
 // includes that use the registers namespace go here
 // need to go after registers namespaces and device specific headers
-#include <LPC8xx.hpp/LPC81X_iocon.hpp>
-#include <LPC8xx.hpp/LPC81X_swm.hpp>
+#include "nxp/LPC8XX.hpp/LPC81X_iocon.hpp"
+#include "nxp/LPC8XX.hpp/LPC81X_swm.hpp"
 
 #endif
