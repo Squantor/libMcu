@@ -191,6 +191,7 @@ constexpr static inline uint32_t GPIO_cpp = 0xA000'0000u;  /**< TODO, rename to 
 // includes that define the registers namespace go here.
 #include "nxp/LPC8XX.hpp/LPC81X_iocon_regs.hpp"
 #include "nxp/LPC8XX.hpp/LPC81X_swm_regs.hpp"
+#include "nxp/LPC8XX.hpp/LPC81X_gpio_regs.hpp"
 
 // device peripheral specific headers go here
 // these need to go after registers namespace definitions as they are used here
@@ -200,5 +201,6 @@ constexpr static inline uint32_t GPIO_cpp = 0xA000'0000u;  /**< TODO, rename to 
 // need to go after registers namespaces and device specific headers
 #include "nxp/LPC8XX.hpp/LPC81X_iocon.hpp"
 #include "nxp/LPC8XX.hpp/LPC81X_swm.hpp"
+#include "nxp/LPC8XX.hpp/LPC81X_gpio.hpp"
 
 #endif
