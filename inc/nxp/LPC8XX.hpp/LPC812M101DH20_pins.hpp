@@ -59,7 +59,7 @@ enum class IOports : uint8_t {
  */
 template <IOports T_PORT, IOpins T_PIN, bool DUMMY = false>
 struct pin {
-  static_assert(DUMMY, "This configuration is invalid!");
+  static_assert(DUMMY, "This I/O pin configuration is invalid!");
 };
 
 /**
@@ -303,7 +303,7 @@ struct pin<IOports::PORT0, IOpins::PIN17> {
  */
 template <IOports T_PORT, bool DUMMY = false>
 struct port {
-  static_assert(DUMMY, "This configuration is invalid!");
+  static_assert(DUMMY, "This I/O port configuration is invalid!");
 };
 
 /**
