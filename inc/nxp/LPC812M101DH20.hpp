@@ -183,9 +183,33 @@ typedef enum {
 #endif
 
 namespace peripherals {
-constexpr static inline uint32_t IOCON_cpp = 0x4004'4000u; /**< TODO, rename to their names when refactoring is done */
-constexpr static inline uint32_t SWM_cpp = 0x4000'C000u;   /**< TODO, rename to their names when refactoring is done */
-constexpr static inline uint32_t GPIO_cpp = 0xA000'0000u;  /**< TODO, rename to their names when refactoring is done */
+
+// Define peripheral addresses on APB0 bus
+// rename these when full c++ functionality is finished, remove _cpp postfix
+constexpr static inline uint32_t WWDT_cpp = 0x4000'0000u;   /**< Windowed watchdog base address */
+constexpr static inline uint32_t MRT_cpp = 0x4000'4000u;    /**< multi rate timer base address */
+constexpr static inline uint32_t WKT_cpp = 0x4000'8000u;    /**< wakeup timer base address */
+constexpr static inline uint32_t SWM_cpp = 0x4000'C000u;    /**< base address */
+constexpr static inline uint32_t PMU_cpp = 0x4002'0000u;    /**< base address */
+constexpr static inline uint32_t CMP_cpp = 0x4002'4000u;    /**< base address */
+constexpr static inline uint32_t FMC_cpp = 0x4004'0000u;    /**< base address */
+constexpr static inline uint32_t IOCON_cpp = 0x4004'4000u;  /**< base address */
+constexpr static inline uint32_t SYSCTL_cpp = 0x4004'8000u; /**< base address */
+constexpr static inline uint32_t I2C0_cpp = 0x4005'0000u;   /**< I2C 0 base address */
+constexpr static inline uint32_t SPI0_cpp = 0x4005'8000u;   /**< SPI 0 base address */
+constexpr static inline uint32_t SPI1_cpp = 0x4005'C000u;   /**< SPI 1 base address */
+constexpr static inline uint32_t USART0_cpp = 0x4006'4000u; /**< USART 0 base address */
+constexpr static inline uint32_t USART1_cpp = 0x4006'8000u; /**< USART 1 base address */
+constexpr static inline uint32_t USART2_cpp = 0x4006'C000u; /**< USART 2 base address */
+
+/* AHB peripherals */
+constexpr static inline uint32_t CRC_cpp = 0x5000'0000u;  /**< CRC calculator base address */
+constexpr static inline uint32_t SCT0_cpp = 0x5000'4000u; /**< State configurable timer 0 base address */
+
+/* Direct connected peripherals */
+constexpr static inline uint32_t GPIO_cpp = 0xA000'0000u;    /**< General Purpose I/O base address */
+constexpr static inline uint32_t PIN_INT_cpp = 0xA000'4000u; /**< Pin interrupt base address */
+
 }  // namespace peripherals
 
 // includes that define the registers namespace go here.
