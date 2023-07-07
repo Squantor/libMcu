@@ -296,6 +296,25 @@ struct pin<IOports::PORT0, IOpins::PIN17> {
   static constexpr registers::swm::pinAssign swmValue = registers::swm::pinAssign::PIO0_17;
 };
 
+/**
+ * @brief base I/O port template
+ *
+ * @tparam T_PORT IO port
+ */
+template <IOports T_PORT, bool DUMMY = false>
+struct port {
+  static_assert(DUMMY, "This configuration is invalid!");
+};
+
+/**
+ * @brief Specialization for Port 0
+ *
+ */
+template <>
+struct port<IOports::PORT0> {
+  static constexpr uint8_t gpioPortIndex = 0;
+};
+
 }  // namespace instances
 
 #endif
