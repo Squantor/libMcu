@@ -217,6 +217,18 @@ constexpr static inline uint32_t PIN_INT_cpp = 0xA000'4000u; /**< Pin interrupt 
 #include "nxp/LPC8XX.hpp/LPC81X_swm_regs.hpp"
 #include "nxp/LPC8XX.hpp/LPC81X_gpio_regs.hpp"
 #include "nxp/LPC8XX.hpp/LPC81X_spi_regs.hpp"
+#include "nxp/LPC8XX.hpp/LPC81X_acmp_regs.hpp"
+#include "nxp/LPC8XX.hpp/LPC81X_crc_regs.hpp"
+#include "nxp/LPC8XX.hpp/LPC81X_fmc_regs.hpp"
+#include "nxp/LPC8XX.hpp/LPC81X_i2c_regs.hpp"
+#include "nxp/LPC8XX.hpp/LPC81X_mrt_regs.hpp"
+#include "nxp/LPC8XX.hpp/LPC81X_pin_int_regs.hpp"
+#include "nxp/LPC8XX.hpp/LPC81X_pmu_regs.hpp"
+#include "nxp/LPC8XX.hpp/LPC81X_sct_regs.hpp"
+#include "nxp/LPC8XX.hpp/LPC81X_syscon_regs.hpp"
+#include "nxp/LPC8XX.hpp/LPC81X_usart_regs.hpp"
+#include "nxp/LPC8XX.hpp/LPC81X_wkt_regs.hpp"
+#include "nxp/LPC8XX.hpp/LPC81X_wwdt_regs.hpp"
 
 // device peripheral specific headers go here
 // these need to go after registers namespace definitions as they are used here
@@ -228,5 +240,17 @@ constexpr static inline uint32_t PIN_INT_cpp = 0xA000'4000u; /**< Pin interrupt 
 #include "nxp/LPC8XX.hpp/LPC81X_swm.hpp"
 #include "nxp/LPC8XX.hpp/LPC81X_gpio.hpp"
 #include "nxp/LPC8XX.hpp/LPC81X_spi.hpp"
+#include "nxp/LPC8XX.hpp/LPC81X_acmp.hpp"
+#include "nxp/LPC8XX.hpp/LPC81X_crc.hpp"
+#include "nxp/LPC8XX.hpp/LPC81X_fmc.hpp"
+#include "nxp/LPC8XX.hpp/LPC81X_i2c.hpp"
+#include "nxp/LPC8XX.hpp/LPC81X_mrt.hpp"
+#include "nxp/LPC8XX.hpp/LPC81X_pin_int.hpp"
+#include "nxp/LPC8XX.hpp/LPC81X_pmu.hpp"
+#include "nxp/LPC8XX.hpp/LPC81X_sct.hpp"
+#include "nxp/LPC8XX.hpp/LPC81X_syscon.hpp"
+#include "nxp/LPC8XX.hpp/LPC81X_usart.hpp"
+#include "nxp/LPC8XX.hpp/LPC81X_wkt.hpp"
+#include "nxp/LPC8XX.hpp/LPC81X_wwdt.hpp"
 
 #endif
