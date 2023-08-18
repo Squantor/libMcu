@@ -45,6 +45,19 @@ struct swm {
     }
   }
 
+  template <typename PIN, typename FUNC>
+  constexpr void clear([[maybe_unused]] PIN &pin, FUNC &function) {
+    if constexpr (FUNC::type == registers::swm::pinFunctionTypes::MOVABLE) {
+      // create a mask for unassigning pin setting
+      constexpr uint32_t mask = (0xFF << function.shift);
+      regs()->PINASSIGN[function.index] = (regs()->PINASSIGN[function.index] | mask);
+    }
+    if constexpr (FUNC::type == registers::swm::pinFunctionTypes::FIXED) {
+      static_assert(PIN::pio == FUNC::pio, "this function is not available on this pin!");
+      regs()->PINENABLE0 = regs()->PINENABLE0 | function.mask;
+    }
+  }
+
   /**
    * @brief Enable fixed pins in one go
    *

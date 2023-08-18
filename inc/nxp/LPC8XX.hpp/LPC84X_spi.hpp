@@ -39,6 +39,12 @@ inline uint32_t operator^(uint32_t a, spiChipEnables b) {
   return a ^ static_cast<uint32_t>(b);
 }
 
+/**
+ * @brief
+ *
+ * @tparam base
+ * @tparam chipEnables
+ */
 template <uint32_t base, typename chipEnables>
 struct spi {
   static auto regs() {

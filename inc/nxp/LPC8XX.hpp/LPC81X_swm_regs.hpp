@@ -135,8 +135,9 @@ enum class pinFunctions : uint8_t {
 };
 
 enum class pinFunctionTypes : uint8_t {
-  MOVABLE,
-  FIXED,
+  MOVABLE, /**< Function is a movable function */
+  FIXED,   /**< Function is a fixed pin function */
+  CLEAR,   /**< This function clears */
 };
 
 /**

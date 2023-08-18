@@ -25,7 +25,13 @@ enum chipEnables : uint32_t {
   SSEL = (1 << 16), /**< Hardware chip enable */
 };
 
-template <uint32_t base>
+/**
+ * @brief SPI peripheral instance
+ *
+ * @tparam base Peripheral base address
+ * @tparam chipEnables enum of available chip enables
+ */
+template <uint32_t base, typename chipEnables>
 struct spi {
   /**
    * @brief get registers from peripheral
