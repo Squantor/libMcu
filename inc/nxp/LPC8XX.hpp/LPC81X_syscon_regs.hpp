@@ -68,6 +68,10 @@ struct registers {
   volatile const uint32_t DEVICEID; /**< Device ID (R/ ) */
 };
 
+namespace PRESETCTRL {
+constexpr inline uint32_t MASK = 0x0001FFFF; /**< register mask for allowed bits */
+}
+
 }  // namespace syscon
 }  // namespace registers
 
