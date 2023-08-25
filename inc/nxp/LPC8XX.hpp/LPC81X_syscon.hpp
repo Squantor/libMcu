@@ -20,8 +20,11 @@ struct syscon {
    *
    * @return return pointer to syscon registers
    */
-  static auto regs() {
+  static registers::syscon::registers *regs() {
     return reinterpret_cast<registers::syscon::registers *>(base);
+  }
+  static auto getChipId() {
+    return regs()->DEVICEID;
   }
 };
 }  // namespace syscon
