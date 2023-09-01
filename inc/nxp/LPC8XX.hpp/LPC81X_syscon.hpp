@@ -37,14 +37,31 @@ enum peripheralResets : uint32_t {
   RESET_ACMP = (1 << 12),   /**< ACMP reset control */
 };
 
+enum pllPostDivider : uint32_t {
+  PLLPOSTDIV_2 = (0 << 0),  /**< PLL post division ration of 2 */
+  PLLPOSTDIV_4 = (1 << 0),  /**< PLL post division ration of 4 */
+  PLLPOSTDIV_8 = (1 << 1),  /**< PLL post division ration of 8 */
+  PLLPOSTDIV_16 = (1 << 2), /**< PLL post division ration of 16 */
+};
+
+/**
+ * @brief PLL clock sources
+ *
+ */
+enum pllClockSources : uint32_t {
+  PLLCLK_IRC = 0,    /**< IRC oscillator */
+  PLLCLK_SYSOSC = 1, /**< SYSOSC crystal oscillator */
+  PLLCLK_CLKIN = 3,  /**< External clock input */
+};
+
 /**
  * @brief main clock sources
  */
 enum mainClockSources : uint32_t {
-  MAINCLK_IRC = (0 << 0),     /**< IRC oscillator */
-  MAINCLK_PLL_IN = (1 << 0),  /**< PLL input */
-  MAINCLK_WDOSC = (1 << 1),   /**< Watchdog oscillator */
-  MAINCLK_PLL_OUT = (1 << 2), /**< PLL output */
+  MAINCLK_IRC = 0,     /**< IRC oscillator */
+  MAINCLK_PLL_IN = 1,  /**< PLL input */
+  MAINCLK_WDOSC = 2,   /**< Watchdog oscillator */
+  MAINCLK_PLL_OUT = 3, /**< PLL output */
 };
 
 /**
@@ -117,6 +134,45 @@ struct syscon {
   }
 
   /**
+   * @brief Set the System PLL Control
+   *
+   * @param msel Feedback divider ratio, 0 divides by 1, 31 divides by 32
+   * @param psel Post divider ratio, acceptable values in pllPostDivider enum
+   */
+  void setSystemPllControl(uint32_t msel, pllPostDivider psel) {
+    regs()->SYSPLLCTRL = msel | (static_cast<uint32_t>(psel) << 5);
+  }
+
+  /**
+   * @brief Get the System Pll Status
+   *
+   * @return 0 PLL not locked, 1 PLL locked
+   */
+  uint32_t getSystemPllStatus(void) {
+    return regs()->SYSPLLSTAT;
+  }
+
+  /**
+   * @brief set system oscillator control
+   *
+   * @param setting set register see registers::syscon::SYSOSCCTRL
+   */
+  void setSysOscControl(uint32_t setting) {
+    regs()->SYSOSCCTRL = setting;
+  }
+
+  /**
+   * @brief   Select PLL clock source
+   *
+   * @param   source      Clock source of the PLL
+   */
+  void selectPllClock(pllClockSources setting) {
+    regs()->SYSPLLCLKSEL = static_cast<uint32_t>(setting);
+    regs()->SYSPLLCLKUEN = SYSPLLCLKUEN::NO_CHANGE;
+    regs()->SYSPLLCLKUEN = SYSPLLCLKUEN::UPDATE;
+  }
+
+  /**
    * @brief Select main clock source
    *
    * @param setting clock source from mainClockSources enum
@@ -125,6 +181,14 @@ struct syscon {
     regs()->MAINCLKSEL = static_cast<uint32_t>(setting);
     regs()->MAINCLKUEN = MAINCLKUEN::NO_CHANGE;
     regs()->MAINCLKUEN = MAINCLKUEN::UPDATE;
+  }
+  /**
+   * @brief Set the System Clock Divider
+   *
+   * @param setting divison factor, 0 is disable, 1 is 1, the maximum is 255
+   */
+  void setSystemClockDivider(uint32_t setting) {
+    regs()->SYSAHBCLKDIV = setting;
   }
 
   /**

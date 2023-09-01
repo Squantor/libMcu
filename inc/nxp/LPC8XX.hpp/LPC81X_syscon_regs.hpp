@@ -69,20 +69,24 @@ struct registers {
 };
 
 namespace SYSMEMREMAP {
-constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+constexpr inline uint32_t MASK = 0x00000003; /**< register mask for allowed bits */
 }
 namespace PRESETCTRL {
 constexpr inline uint32_t MASK = 0x0001FFFF; /**< register mask for allowed bits */
 }
 namespace SYSPLLCTRL {
-constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+constexpr inline uint32_t MASK = 0x0000007F; /**< register mask for allowed bits */
 }
 namespace SYSPLLSTAT {
-constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+constexpr inline uint32_t MASK = 0x00000001; /**< register mask for allowed bits */
 }
 namespace SYSOSCCTRL {
-constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
-}
+constexpr inline uint32_t MASK = 0x00000003;        /**< register mask for allowed bits */
+constexpr inline uint32_t NO_BYPASS = (0 << 0);     /**< PLL input is fed by crystal oscillator */
+constexpr inline uint32_t BYPASS = (1 << 0);        /**< PLL input is fed directly by XTALIN */
+constexpr inline uint32_t FREQ_1_20MHz = (0 << 1);  /**< crystal range is 1 to 20MHz */
+constexpr inline uint32_t FREQ_15_25MHz = (1 << 1); /**< crystal range is 15 to 25MHz */
+}  // namespace SYSOSCCTRL
 namespace WDTOSCCTRL {
 constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
 }
@@ -90,11 +94,13 @@ namespace SYSRSTSTAT {
 constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
 }
 namespace SYSPLLCLKSEL {
-constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+constexpr inline uint32_t MASK = 0x00000003; /**< register mask for allowed bits */
 }
 namespace SYSPLLCLKUEN {
-constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
-}
+constexpr inline uint32_t MASK = 0x00000001;    /**< register mask for allowed bits */
+constexpr inline uint32_t NO_CHANGE = (0 << 0); /**< No change of clock source */
+constexpr inline uint32_t UPDATE = (1 << 0);    /**< update clock source */
+}  // namespace SYSPLLCLKUEN
 namespace MAINCLKSEL {
 constexpr inline uint32_t MASK = 0x00000003; /**< register mask for allowed bits */
 }
