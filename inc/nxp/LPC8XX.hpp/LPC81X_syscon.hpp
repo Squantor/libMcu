@@ -37,6 +37,24 @@ enum peripheralResets : uint32_t {
   RESET_ACMP = (1 << 12),   /**< ACMP reset control */
 };
 
+/**
+ * @brief Peripheral power down reset options
+ *
+ * TODO, change name after all C dependencies are gone so you can use the proper names like
+ * IRCOUT instead of POWER_IRCOUT_PD.
+ *
+ */
+enum peripheralPowers : uint32_t {
+  POWER_IRCOUT_PD = (1 << 0), /**< IRC oscillator output power */
+  POWER_IRC_PD = (1 << 1),    /**< IRC oscillator power down */
+  POWER_FLASH_PD = (1 << 2),  /**< Flash power down */
+  POWER_BOD_PD = (1 << 3),    /**< BOD power down */
+  POWER_SYSOSC_PD = (1 << 5), /**< Crystal oscillator powerdown */
+  POWER_WDTOSC_PD = (1 << 6), /**< Watchdog oscillator powerdown */
+  POWER_SYSPLL_PD = (1 << 7), /**< System PLL power down */
+  POWER_ACMP_PD = (1 << 15),  /**< Analog comparator power down */
+};
+
 template <uint32_t base>
 struct syscon {
   /**
@@ -51,11 +69,29 @@ struct syscon {
   /**
    * @brief
    *
-   * @param resets
+   * @param setting
    */
-  void resetPeripherals(uint32_t resets) {
-    regs()->PRESETCTRL = regs()->PRESETCTRL & ~resets;
-    regs()->PRESETCTRL = regs()->PRESETCTRL | resets;
+  void resetPeripherals(uint32_t setting) {
+    regs()->PRESETCTRL = regs()->PRESETCTRL & ~setting;
+    regs()->PRESETCTRL = regs()->PRESETCTRL | setting;
+  }
+
+  /**
+   * @brief Power up a peripheral
+   *
+   * @param setting bit setting from peripheralPowers enum
+   */
+  void powerPeripherals(uint32_t setting) {
+    regs()->PDRUNCFG = regs()->PDRUNCFG & ~(PDRUNCFG::MASK & setting);
+  }
+
+  /**
+   * @brief Power down a peripheral
+   *
+   * @param setting bit setting from peripheralPowers enum
+   */
+  void depowerPeripherals(uint32_t setting) {
+    regs()->PDRUNCFG = regs()->PDRUNCFG | (PDRUNCFG::MASK & setting);
   }
 
   /**

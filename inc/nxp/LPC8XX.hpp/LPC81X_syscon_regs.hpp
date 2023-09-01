@@ -72,6 +72,14 @@ namespace PRESETCTRL {
 constexpr inline uint32_t MASK = 0x0001FFFF; /**< register mask for allowed bits */
 }
 
+namespace SYSAHBCLKCTRL {
+constexpr inline uint32_t MASK = 0x000FFFFF; /**< register mask for allowed bits */
+}
+
+namespace PDRUNCFG {
+constexpr inline uint32_t MASK = 0x000080EF; /**< register mask for allowed bits */
+}
+
 }  // namespace syscon
 }  // namespace registers
 
