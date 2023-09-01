@@ -41,18 +41,48 @@ enum peripheralResets : uint32_t {
  * @brief Peripheral power down reset options
  *
  * TODO, change name after all C dependencies are gone so you can use the proper names like
- * IRCOUT instead of POWER_IRCOUT_PD.
+ * IRCOUT instead of POWER_IRCOUT.
  *
  */
 enum peripheralPowers : uint32_t {
-  POWER_IRCOUT_PD = (1 << 0), /**< IRC oscillator output power */
-  POWER_IRC_PD = (1 << 1),    /**< IRC oscillator power down */
-  POWER_FLASH_PD = (1 << 2),  /**< Flash power down */
-  POWER_BOD_PD = (1 << 3),    /**< BOD power down */
-  POWER_SYSOSC_PD = (1 << 5), /**< Crystal oscillator powerdown */
-  POWER_WDTOSC_PD = (1 << 6), /**< Watchdog oscillator powerdown */
-  POWER_SYSPLL_PD = (1 << 7), /**< System PLL power down */
-  POWER_ACMP_PD = (1 << 15),  /**< Analog comparator power down */
+  POWER_IRCOUT = (1 << 0), /**< IRC oscillator output */
+  POWER_IRC = (1 << 1),    /**< IRC oscillator*/
+  POWER_FLASH = (1 << 2),  /**< Flash*/
+  POWER_BOD = (1 << 3),    /**< BOD*/
+  POWER_SYSOSC = (1 << 5), /**< Crystal oscillator*/
+  POWER_WDTOSC = (1 << 6), /**< Watchdog oscillator*/
+  POWER_SYSPLL = (1 << 7), /**< System PLL*/
+  POWER_ACMP = (1 << 15),  /**< Analog comparator*/
+};
+
+/**
+ * @brief Peripheral clock enable options
+ *
+ * TODO, change name after all C dependencies are gone so you can use the proper names like
+ * IRCOUT instead of POWER_IRCOUT_PD.
+ *
+ */
+enum peripheralClocks : uint32_t {
+  CLOCK_SYS = (1 << 0),      /**< AHB bus, APB bridge and the processor core */
+  CLOCK_ROM = (1 << 1),      /**< ROM */
+  CLOCK_RAM = (1 << 2),      /**< RAM */
+  CLOCK_FLASHREG = (1 << 3), /**< Flash register interface */
+  CLOCK_FLASH = (1 << 4),    /**< Flash */
+  CLOCK_I2C = (1 << 5),      /**< I2C */
+  CLOCK_GPIO = (1 << 6),     /**< GPIO */
+  CLOCK_SWM = (1 << 7),      /**< Switch Matrix */
+  CLOCK_SCT = (1 << 8),      /**< State configurable timer */
+  CLOCK_WKT = (1 << 9),      /**< self wake-up timer */
+  CLOCK_MRT = (1 << 10),     /**< multi-rate timer */
+  CLOCK_SPI0 = (1 << 11),    /**< SPI0 */
+  CLOCK_SPI1 = (1 << 12),    /**< SPI1 */
+  CLOCK_CRC = (1 << 13),     /**< CRC */
+  CLOCK_UART0 = (1 << 14),   /**< UART0 */
+  CLOCK_UART1 = (1 << 15),   /**< UART1 */
+  CLOCK_UART2 = (1 << 16),   /**< UART2 */
+  CLOCK_WWDT = (1 << 17),    /**< WWDT */
+  CLOCK_IOCON = (1 << 18),   /**< IOCON */
+  CLOCK_ACMP = (1 << 19),    /**< analog comparator */
 };
 
 template <uint32_t base>
@@ -67,13 +97,31 @@ struct syscon {
   }
 
   /**
-   * @brief
+   * @brief reset a peripheral
    *
-   * @param setting
+   * @param setting bit setting from peripheralResets enum
    */
   void resetPeripherals(uint32_t setting) {
     regs()->PRESETCTRL = regs()->PRESETCTRL & ~setting;
     regs()->PRESETCTRL = regs()->PRESETCTRL | setting;
+  }
+
+  /**
+   * @brief enable peripheral clocks
+   *
+   * @param setting bit setting from peripheralClocks
+   */
+  void enablePeripheralClocks(uint32_t setting) {
+    regs()->SYSAHBCLKCTRL = regs()->SYSAHBCLKCTRL | (SYSAHBCLKCTRL::MASK & setting);
+  }
+
+  /**
+   * @brief disable peripheral clocks
+   *
+   * @param setting bit setting from peripheralClocks
+   */
+  void disablePeripheralClocks(uint32_t setting) {
+    regs()->SYSAHBCLKCTRL = regs()->SYSAHBCLKCTRL & ~(SYSAHBCLKCTRL::MASK & setting);
   }
 
   /**
