@@ -38,21 +38,13 @@ enum peripheralResets : uint32_t {
 };
 
 /**
- * @brief Peripheral power down reset options
- *
- * TODO, change name after all C dependencies are gone so you can use the proper names like
- * IRCOUT instead of POWER_IRCOUT.
- *
+ * @brief main clock sources
  */
-enum peripheralPowers : uint32_t {
-  POWER_IRCOUT = (1 << 0), /**< IRC oscillator output */
-  POWER_IRC = (1 << 1),    /**< IRC oscillator*/
-  POWER_FLASH = (1 << 2),  /**< Flash*/
-  POWER_BOD = (1 << 3),    /**< BOD*/
-  POWER_SYSOSC = (1 << 5), /**< Crystal oscillator*/
-  POWER_WDTOSC = (1 << 6), /**< Watchdog oscillator*/
-  POWER_SYSPLL = (1 << 7), /**< System PLL*/
-  POWER_ACMP = (1 << 15),  /**< Analog comparator*/
+enum mainClockSources : uint32_t {
+  MAINCLK_IRC = (0 << 0),     /**< IRC oscillator */
+  MAINCLK_PLL_IN = (1 << 0),  /**< PLL input */
+  MAINCLK_WDOSC = (1 << 1),   /**< Watchdog oscillator */
+  MAINCLK_PLL_OUT = (1 << 2), /**< PLL output */
 };
 
 /**
@@ -85,6 +77,24 @@ enum peripheralClocks : uint32_t {
   CLOCK_ACMP = (1 << 19),    /**< analog comparator */
 };
 
+/**
+ * @brief Peripheral power down reset options
+ *
+ * TODO, change name after all C dependencies are gone so you can use the proper names like
+ * IRCOUT instead of POWER_IRCOUT.
+ *
+ */
+enum peripheralPowers : uint32_t {
+  POWER_IRCOUT = (1 << 0), /**< IRC oscillator output */
+  POWER_IRC = (1 << 1),    /**< IRC oscillator*/
+  POWER_FLASH = (1 << 2),  /**< Flash*/
+  POWER_BOD = (1 << 3),    /**< BOD*/
+  POWER_SYSOSC = (1 << 5), /**< Crystal oscillator*/
+  POWER_WDTOSC = (1 << 6), /**< Watchdog oscillator*/
+  POWER_SYSPLL = (1 << 7), /**< System PLL*/
+  POWER_ACMP = (1 << 15),  /**< Analog comparator*/
+};
+
 template <uint32_t base>
 struct syscon {
   /**
@@ -104,6 +114,17 @@ struct syscon {
   void resetPeripherals(uint32_t setting) {
     regs()->PRESETCTRL = regs()->PRESETCTRL & ~setting;
     regs()->PRESETCTRL = regs()->PRESETCTRL | setting;
+  }
+
+  /**
+   * @brief Select main clock source
+   *
+   * @param setting clock source from mainClockSources enum
+   */
+  void selectMainClock(mainClockSources setting) {
+    regs()->MAINCLKSEL = static_cast<uint32_t>(setting);
+    regs()->MAINCLKUEN = MAINCLKUEN::NO_CHANGE;
+    regs()->MAINCLKUEN = MAINCLKUEN::UPDATE;
   }
 
   /**
