@@ -68,16 +68,106 @@ struct registers {
   volatile const uint32_t DEVICEID; /**< Device ID (R/ ) */
 };
 
+namespace SYSMEMREMAP {
+constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}
 namespace PRESETCTRL {
 constexpr inline uint32_t MASK = 0x0001FFFF; /**< register mask for allowed bits */
 }
-
+namespace SYSPLLCTRL {
+constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}
+namespace SYSPLLSTAT {
+constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}
+namespace SYSOSCCTRL {
+constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}
+namespace WDTOSCCTRL {
+constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}
+namespace SYSRSTSTAT {
+constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}
+namespace SYSPLLCLKSEL {
+constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}
+namespace SYSPLLCLKUEN {
+constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}
+namespace MAINCLKSEL {
+constexpr inline uint32_t MASK = 0x00000003; /**< register mask for allowed bits */
+}
+namespace MAINCLKUEN {
+constexpr inline uint32_t MASK = 0x00000001;    /**< register mask for allowed bits */
+constexpr inline uint32_t NO_CHANGE = (0 << 0); /**< No change of clock source */
+constexpr inline uint32_t UPDATE = (1 << 0);    /**< update clock source */
+}  // namespace MAINCLKUEN
+namespace SYSAHBCLKDIV {
+constexpr inline uint32_t MASK = 0x000000FF; /**< register mask for allowed bits */
+}
 namespace SYSAHBCLKCTRL {
 constexpr inline uint32_t MASK = 0x000FFFFF; /**< register mask for allowed bits */
+}  // namespace SYSAHBCLKCTRL
+namespace UARTCLKDIV {
+constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
 }
-
+namespace CLKOUTSEL {
+constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}
+namespace CLKOUTUEN {
+constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}
+namespace CLKOUTDIV {
+constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}
+namespace UARTFRGDIV {
+constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}
+namespace UARTFRGMULT {
+constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}
+namespace EXTTRACECMD {
+constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}
+namespace PIOPORCAP0 {
+constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}
+namespace IOCONCLKDIV {
+constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}
+namespace BODCTRL {
+constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}
+namespace SYSTCKCAL {
+constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}
+namespace IRQLATENCY {
+constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}
+namespace NMISRC {
+constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}
+namespace PINTSEL {
+constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}
+namespace STARTERP0 {
+constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}
+namespace STARTERP1 {
+constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}
+namespace PDSLEEPCFG {
+constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}
+namespace PDAWAKECFG {
+constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}
 namespace PDRUNCFG {
 constexpr inline uint32_t MASK = 0x000080EF; /**< register mask for allowed bits */
+}
+namespace DEVICEID {
+constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
 }
 
 }  // namespace syscon
