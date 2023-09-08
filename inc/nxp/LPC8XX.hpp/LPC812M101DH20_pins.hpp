@@ -71,6 +71,7 @@ struct pin<IOports::PORT0, IOpins::PIN00> {
   static constexpr uint8_t typeFlags = pinTypeFlags::NORMAL;
   static constexpr uint8_t ioconIndex = 17;
   static constexpr uint8_t gpioPinIndex = 0;
+  static constexpr uint32_t gpioPinMask = 1 << gpioPinIndex;
   static constexpr uint8_t gpioPortIndex = 0;
   static constexpr registers::swm::pinAssign pio = registers::swm::pinAssign::PIO0_0;
 };
@@ -84,6 +85,7 @@ struct pin<IOports::PORT0, IOpins::PIN01> {
   static constexpr uint8_t typeFlags = pinTypeFlags::NORMAL;
   static constexpr uint8_t ioconIndex = 11;
   static constexpr uint8_t gpioPinIndex = 1;
+  static constexpr uint32_t gpioPinMask = 1 << gpioPinIndex;
   static constexpr uint8_t gpioPortIndex = 0;
   static constexpr registers::swm::pinAssign pio = registers::swm::pinAssign::PIO0_1;
 };
@@ -97,6 +99,7 @@ struct pin<IOports::PORT0, IOpins::PIN02> {
   static constexpr uint8_t typeFlags = pinTypeFlags::NORMAL;
   static constexpr uint8_t ioconIndex = 6;
   static constexpr uint8_t gpioPinIndex = 2;
+  static constexpr uint32_t gpioPinMask = 1 << gpioPinIndex;
   static constexpr uint8_t gpioPortIndex = 0;
   static constexpr registers::swm::pinAssign pio = registers::swm::pinAssign::PIO0_2;
 };
@@ -110,6 +113,7 @@ struct pin<IOports::PORT0, IOpins::PIN03> {
   static constexpr uint8_t typeFlags = pinTypeFlags::NORMAL;
   static constexpr uint8_t ioconIndex = 5;
   static constexpr uint8_t gpioPinIndex = 3;
+  static constexpr uint32_t gpioPinMask = 1 << gpioPinIndex;
   static constexpr uint8_t gpioPortIndex = 0;
   static constexpr registers::swm::pinAssign pio = registers::swm::pinAssign::PIO0_3;
 };
@@ -123,6 +127,7 @@ struct pin<IOports::PORT0, IOpins::PIN04> {
   static constexpr uint8_t typeFlags = pinTypeFlags::NORMAL;
   static constexpr uint8_t ioconIndex = 4;
   static constexpr uint8_t gpioPinIndex = 4;
+  static constexpr uint32_t gpioPinMask = 1 << gpioPinIndex;
   static constexpr uint8_t gpioPortIndex = 0;
   static constexpr registers::swm::pinAssign pio = registers::swm::pinAssign::PIO0_4;
 };
@@ -136,6 +141,7 @@ struct pin<IOports::PORT0, IOpins::PIN05> {
   static constexpr uint8_t typeFlags = pinTypeFlags::NORMAL;
   static constexpr uint8_t ioconIndex = 3;
   static constexpr uint8_t gpioPinIndex = 5;
+  static constexpr uint32_t gpioPinMask = 1 << gpioPinIndex;
   static constexpr uint8_t gpioPortIndex = 0;
   static constexpr registers::swm::pinAssign pio = registers::swm::pinAssign::PIO0_5;
 };
@@ -149,6 +155,7 @@ struct pin<IOports::PORT0, IOpins::PIN06> {
   static constexpr uint8_t typeFlags = pinTypeFlags::NORMAL;
   static constexpr uint8_t ioconIndex = 16;
   static constexpr uint8_t gpioPinIndex = 6;
+  static constexpr uint32_t gpioPinMask = 1 << gpioPinIndex;
   static constexpr uint8_t gpioPortIndex = 0;
   static constexpr registers::swm::pinAssign pio = registers::swm::pinAssign::PIO0_6;
 };
@@ -162,6 +169,7 @@ struct pin<IOports::PORT0, IOpins::PIN07> {
   static constexpr uint8_t typeFlags = pinTypeFlags::NORMAL;
   static constexpr uint8_t ioconIndex = 15;
   static constexpr uint8_t gpioPinIndex = 7;
+  static constexpr uint32_t gpioPinMask = 1 << gpioPinIndex;
   static constexpr uint8_t gpioPortIndex = 0;
   static constexpr registers::swm::pinAssign pio = registers::swm::pinAssign::PIO0_7;
 };
@@ -175,6 +183,7 @@ struct pin<IOports::PORT0, IOpins::PIN08> {
   static constexpr uint8_t typeFlags = pinTypeFlags::NORMAL;
   static constexpr uint8_t ioconIndex = 14;
   static constexpr uint8_t gpioPinIndex = 8;
+  static constexpr uint32_t gpioPinMask = 1 << gpioPinIndex;
   static constexpr uint8_t gpioPortIndex = 0;
   static constexpr registers::swm::pinAssign pio = registers::swm::pinAssign::PIO0_8;
 };
@@ -188,6 +197,7 @@ struct pin<IOports::PORT0, IOpins::PIN09> {
   static constexpr uint8_t typeFlags = pinTypeFlags::NORMAL;
   static constexpr uint8_t ioconIndex = 13;
   static constexpr uint8_t gpioPinIndex = 9;
+  static constexpr uint32_t gpioPinMask = 1 << gpioPinIndex;
   static constexpr uint8_t gpioPortIndex = 0;
   static constexpr registers::swm::pinAssign pio = registers::swm::pinAssign::PIO0_9;
 };
@@ -201,6 +211,7 @@ struct pin<IOports::PORT0, IOpins::PIN10> {
   static constexpr uint8_t typeFlags = pinTypeFlags::IOCON_I2C;
   static constexpr uint8_t ioconIndex = 8;
   static constexpr uint8_t gpioPinIndex = 10;
+  static constexpr uint32_t gpioPinMask = 1 << gpioPinIndex;
   static constexpr uint8_t gpioPortIndex = 0;
   static constexpr registers::swm::pinAssign pio = registers::swm::pinAssign::PIO0_10;
 };
@@ -214,6 +225,7 @@ struct pin<IOports::PORT0, IOpins::PIN11> {
   static constexpr uint8_t typeFlags = pinTypeFlags::IOCON_I2C;
   static constexpr uint8_t ioconIndex = 7;
   static constexpr uint8_t gpioPinIndex = 11;
+  static constexpr uint32_t gpioPinMask = 1 << gpioPinIndex;
   static constexpr uint8_t gpioPortIndex = 0;
   static constexpr registers::swm::pinAssign pio = registers::swm::pinAssign::PIO0_11;
 };
@@ -227,6 +239,7 @@ struct pin<IOports::PORT0, IOpins::PIN12> {
   static constexpr uint8_t typeFlags = pinTypeFlags::NORMAL;
   static constexpr uint8_t ioconIndex = 2;
   static constexpr uint8_t gpioPinIndex = 12;
+  static constexpr uint32_t gpioPinMask = 1 << gpioPinIndex;
   static constexpr uint8_t gpioPortIndex = 0;
   static constexpr registers::swm::pinAssign pio = registers::swm::pinAssign::PIO0_12;
 };
@@ -240,6 +253,7 @@ struct pin<IOports::PORT0, IOpins::PIN13> {
   static constexpr uint8_t typeFlags = pinTypeFlags::NORMAL;
   static constexpr uint8_t ioconIndex = 1;
   static constexpr uint8_t gpioPinIndex = 13;
+  static constexpr uint32_t gpioPinMask = 1 << gpioPinIndex;
   static constexpr uint8_t gpioPortIndex = 0;
   static constexpr registers::swm::pinAssign pio = registers::swm::pinAssign::PIO0_13;
 };
@@ -253,6 +267,7 @@ struct pin<IOports::PORT0, IOpins::PIN14> {
   static constexpr uint8_t typeFlags = pinTypeFlags::NORMAL;
   static constexpr uint8_t ioconIndex = 12;
   static constexpr uint8_t gpioPinIndex = 14;
+  static constexpr uint32_t gpioPinMask = 1 << gpioPinIndex;
   static constexpr uint8_t gpioPortIndex = 0;
   static constexpr registers::swm::pinAssign pio = registers::swm::pinAssign::PIO0_14;
 };
@@ -266,6 +281,7 @@ struct pin<IOports::PORT0, IOpins::PIN15> {
   static constexpr uint8_t typeFlags = pinTypeFlags::NORMAL;
   static constexpr uint8_t ioconIndex = 10;
   static constexpr uint8_t gpioPinIndex = 15;
+  static constexpr uint32_t gpioPinMask = 1 << gpioPinIndex;
   static constexpr uint8_t gpioPortIndex = 0;
   static constexpr registers::swm::pinAssign pio = registers::swm::pinAssign::PIO0_15;
 };
@@ -279,6 +295,7 @@ struct pin<IOports::PORT0, IOpins::PIN16> {
   static constexpr uint8_t typeFlags = pinTypeFlags::NORMAL;
   static constexpr uint8_t ioconIndex = 9;
   static constexpr uint8_t gpioPinIndex = 16;
+  static constexpr uint32_t gpioPinMask = 1 << gpioPinIndex;
   static constexpr uint8_t gpioPortIndex = 0;
   static constexpr registers::swm::pinAssign pio = registers::swm::pinAssign::PIO0_16;
 };
@@ -292,6 +309,7 @@ struct pin<IOports::PORT0, IOpins::PIN17> {
   static constexpr uint8_t typeFlags = pinTypeFlags::NORMAL;
   static constexpr uint8_t ioconIndex = 0;
   static constexpr uint8_t gpioPinIndex = 17;
+  static constexpr uint32_t gpioPinMask = 1 << gpioPinIndex;
   static constexpr uint8_t gpioPortIndex = 0;
   static constexpr registers::swm::pinAssign swmValue = registers::swm::pinAssign::PIO0_17;
 };
