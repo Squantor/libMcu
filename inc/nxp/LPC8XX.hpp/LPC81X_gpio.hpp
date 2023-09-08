@@ -147,11 +147,35 @@ struct gpio {
    *
    * @tparam PIN pin instance
    * @param pin reference to pin instance
-   * @return uint32_t pin state, 0 for low 1 for high
+   * @return uint32_t pin state, 0 for low, 1 for high
    */
   template <typename PIN>
   uint32_t get(PIN &pin) {
     return static_cast<uint32_t>(regs()->B[pin.gpioPortIndex][pin.gpioPinIndex]);
+  }
+
+  /**
+   * @brief Set the gpio pin state
+   *
+   * @tparam PIN pin instance
+   * @param pin reference to pin instance
+   * @param setting pin state, 0 for low, 1 for high
+   */
+  template <typename PIN>
+  void set(PIN &pin, uint32_t setting) {
+    regs()->B[pin.gpioPortIndex][pin.gpioPinIndex] = setting;
+  }
+
+  /**
+   * @brief Get gpio port pins state
+   *
+   * @tparam PORT port instance
+   * @param port reference to port instance
+   * @return uint32_t gpio pin state
+   */
+  template <typename PORT>
+  uint32_t portGet(PORT &port) {
+    return static_cast<uint32_t>(regs()->PIN[port.gpioPortIndex]);
   }
 
   /**
@@ -163,20 +187,8 @@ struct gpio {
    * @return uint32_t gpio pin state masked by mask
    */
   template <typename PORT>
-  uint32_t get(PORT &port, uint32_t mask) {
+  uint32_t portGet(PORT &port, uint32_t mask) {
     return static_cast<uint32_t>(regs()->PIN[port.gpioPortIndex]) & mask;
-  }
-
-  /**
-   * @brief Get gpio port pins state
-   *
-   * @tparam PORT port instance
-   * @param port reference to port instance
-   * @return uint32_t gpio pin state
-   */
-  template <typename PORT>
-  uint32_t get(PORT &port) {
-    return static_cast<uint32_t>(regs()->PIN[port.gpioPortIndex]);
   }
 
   /**
@@ -190,7 +202,7 @@ struct gpio {
    * @param mask gpio pins that are unaffected
    */
   template <typename PORT>
-  void set(PORT &port, uint32_t setting, uint32_t mask) {
+  void portSet(PORT &port, uint32_t setting, uint32_t mask) {
     regs()->DIR[port.gpioPortIndex] = (regs()->DIR[port.gpioPortIndex] & ~mask) | (setting & mask);
   }
 
@@ -202,7 +214,7 @@ struct gpio {
    * @param setting gpio pins to setup
    */
   template <typename PORT>
-  void set(PORT &port, uint32_t setting) {
+  void portSet(PORT &port, uint32_t setting) {
     regs()->DIR[port.gpioPortIndex] = setting;
   }
 };
