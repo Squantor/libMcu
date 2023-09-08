@@ -38,7 +38,7 @@ struct spi {
    *
    * @return return pointer to spi registers
    */
-  static auto regs() {
+  static registers::spi::registers *regs() {
     return reinterpret_cast<registers::spi::registers *>(base);
   }
 
@@ -56,11 +56,9 @@ struct spi {
     return actualBitRate;
   }
 
-  // TODO: initMaster with alternative SSEL polarities
-  // TODO: initMaster with CPOL/CPHA and SSEL polarities
+  // TODO: initMaster with SSEL polarities and CPOL/CPHA
   // TODO: initSlave();
-  // TODO: initSlave with alternative SSEL polarities
-  // TODO: initSlave with CPOL/CPHA and SSEL polarities
+  // TODO: initSlave with SSEL polarities and CPOL/CPHA
 
   /**
    * @brief Transmit data to SPI
@@ -70,7 +68,7 @@ struct spi {
    * @param bitcount amount of bits to transmit
    * @param lastAction is this the last action? This will disable the chip select
    */
-  void transmit(chipEnables device, const std::span<uint16_t> transmitBuffer, uint32_t bitcount, bool lastAction) {
+  void write(chipEnables device, const std::span<uint16_t> transmitBuffer, uint32_t bitcount, bool lastAction) {
     size_t index = 0;
     uint32_t baseTransferCommand = TXDATCTL::TXSSEL(device) | TXDATCTL::RXIGNORE;  // base transfer command with presets
     while (bitcount > 16) {
@@ -99,7 +97,7 @@ struct spi {
    * @param bitcount amount of bits to receive
    * @param lastAction is this the last action? This will disable the chip select
    */
-  void receive(chipEnables device, std::span<uint16_t> receiveBuffer, uint32_t bitcount, bool lastAction) {
+  void read(chipEnables device, std::span<uint16_t> receiveBuffer, uint32_t bitcount, bool lastAction) {
     size_t index = 0;
     uint32_t baseTransferCommand = TXDATCTL::TXSSEL(device);  // base transfer command with presets
     while (bitcount > 16) {
@@ -146,8 +144,8 @@ struct spi {
    * @param bitcount amount of bits
    * @param lastAction is this the last action? This will disable the chip select
    */
-  void transceive(chipEnables device, const std::span<uint16_t> transmitBuffer, std::span<uint16_t> receiveBuffer,
-                  uint32_t bitcount, bool lastAction) {
+  void readWrite(chipEnables device, const std::span<uint16_t> transmitBuffer, std::span<uint16_t> receiveBuffer, uint32_t bitcount,
+                 bool lastAction) {
     size_t index = 0;
     uint32_t baseTransferCommand = TXDATCTL::TXSSEL(device);  // base transfer command with presets
     while (bitcount > 16) {
