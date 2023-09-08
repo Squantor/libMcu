@@ -30,6 +30,52 @@ struct registers {
   volatile const uint32_t INTSTAT;   /**< Interrupt status register. */
 };
 
+namespace CFG {
+constexpr inline uint32_t MASK = 0x0000DA7D;   /**< register mask for allowed bits */
+constexpr inline uint32_t ENABLE = (1 << 0);   /**< Enable USART */
+constexpr inline uint32_t CTSEN = (1 << 9);    /**< CTS enable */
+constexpr inline uint32_t SYNCEN = (1 << 11);  /**< Synchronous enable */
+constexpr inline uint32_t CLKPOL = (1 << 12);  /**< Rising edge sampling */
+constexpr inline uint32_t SYNCMST = (1 << 14); /**< Synchronous master selected */
+constexpr inline uint32_t LOOP = (1 << 15);    /**< Loopback mode */
+}  // namespace CFG
+namespace CTL {
+// TODO register definitions
+constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}  // namespace CTL
+namespace STAT {
+// TODO register definitions
+constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}  // namespace STAT
+namespace INTENSET {
+// TODO register definitions
+constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}  // namespace INTENSET
+namespace INTENCLR {
+// TODO register definitions
+constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}  // namespace INTENCLR
+namespace RXDAT {
+// TODO register definitions
+constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}  // namespace RXDAT
+namespace RXDATSTAT {
+// TODO register definitions
+constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}  // namespace RXDATSTAT
+namespace TXDAT {
+// TODO register definitions
+constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}  // namespace TXDAT
+namespace BRG {
+// TODO register definitions
+constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}  // namespace BRG
+namespace INTSTAT {
+// TODO register definitions
+constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}  // namespace INTSTAT
+
 }  // namespace usart
 }  // namespace registers
 
