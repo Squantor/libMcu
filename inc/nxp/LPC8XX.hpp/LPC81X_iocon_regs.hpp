@@ -38,6 +38,8 @@ enum pinFiltering : uint32_t {
 /**
  * @brief Clock divider to use for filtering
  *
+ * TODO, change this to a consteval function
+ *
  */
 enum clockDivider : uint32_t {
   IOCONCLKDIV0 = (0 << 13), /**< use IOCONCLKDIV0 in SYSCON */
