@@ -19,7 +19,7 @@ using namespace registers::usart;
  *
  * These bit patterns match the USART CFG register settings
  */
-enum length : uint32_t {
+enum uartLength : uint32_t {
   SIZE_7 = (0 << 2), /**< USART transmit length of 7 bits */
   SIZE_8 = (1 << 2), /**< USART transmit length of 8 bits */
   SIZE_9 = (2 << 2), /**< USART transmit length of 9 bits */
@@ -30,7 +30,7 @@ enum length : uint32_t {
  *
  * These bit patterns match the USART CFG register settings
  */
-enum parity : uint32_t {
+enum uartParity : uint32_t {
   NONE = (0 << 4), /**< No parity */
   EVEN = (2 << 4), /**< Even parity */
   ODD = (3 << 4),  /**< Odd parity */
@@ -41,7 +41,7 @@ enum parity : uint32_t {
  *
  * These bit patterns match the USART CFG register settings
  */
-enum stop : uint32_t {
+enum uartStop : uint32_t {
   STOP_1 = (0 << 6), /**< 1 stop bit */
   STOP_2 = (1 << 6), /**< 2 stop bits */
 };
@@ -66,7 +66,23 @@ struct usart {
   uint32_t init(uint32_t baudRate) {
     uint32_t baudDivider = CLOCK_AHB / (baudRate * 16);
     regs()->BRG = baudDivider;
-    regs()->CFG = CFG::ENABLE | length::SIZE_8 | parity::NONE | stop::STOP_1;
+    regs()->CFG = CFG::ENABLE | uartLength::SIZE_8 | uartParity::NONE | uartStop::STOP_1;
+    return CLOCK_AHB / 16 / baudDivider;
+  }
+
+  /**
+   * @brief Setup USART
+   *
+   * @param baudRate Baud rate value
+   * @param lengthBits bit length of transmissions, see uartLength enum for options
+   * @param parity parity type of transmissions, see uartParity enum for options
+   * @param stopBits Amount of stop bits, see uartStop enum for options
+   * @return uint32_t actual baud rate
+   */
+  uint32_t init(uint32_t baudRate, uartLength lengthBits, uartParity parity, uartStop stopBits) {
+    uint32_t baudDivider = CLOCK_AHB / (baudRate * 16);
+    regs()->BRG = baudDivider;
+    regs()->CFG = CFG::ENABLE | lengthBits | parity | stopBits;
     return CLOCK_AHB / 16 / baudDivider;
   }
 };
