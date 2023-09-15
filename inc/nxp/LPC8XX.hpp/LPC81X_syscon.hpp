@@ -209,6 +209,10 @@ struct syscon {
     regs()->SYSAHBCLKCTRL = regs()->SYSAHBCLKCTRL & ~(SYSAHBCLKCTRL::MASK & setting);
   }
 
+  void setUsartClockDivider(uint32_t setting) {
+    regs()->UARTCLKDIV = UARTCLKDIV::MASK & setting;
+  }
+
   /**
    * @brief Power up a peripheral
    *

@@ -116,7 +116,7 @@ namespace SYSAHBCLKCTRL {
 constexpr inline uint32_t MASK = 0x000FFFFF; /**< register mask for allowed bits */
 }  // namespace SYSAHBCLKCTRL
 namespace UARTCLKDIV {
-constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+constexpr inline uint32_t MASK = 0x000000FF; /**< register mask for allowed bits */
 }
 namespace CLKOUTSEL {
 constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
