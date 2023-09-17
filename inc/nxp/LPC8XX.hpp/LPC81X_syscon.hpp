@@ -17,7 +17,7 @@ using namespace registers::syscon;
 /**
  * @brief Peripheral reset options
  *
- * TODO, change name after all C dependencies are gone so you can use
+ * TODO: change name after all C dependencies are gone so you can use
  * proper name like SPI0 instead of SPI0_reset
  *
  */
@@ -37,6 +37,10 @@ enum peripheralResets : uint32_t {
   RESET_ACMP = (1 << 12),   /**< ACMP reset control */
 };
 
+/**
+ * @brief TODO:
+ *
+ */
 enum pllPostDivider : uint32_t {
   PLLPOSTDIV_2 = (0 << 0),  /**< PLL post division ration of 2 */
   PLLPOSTDIV_4 = (1 << 0),  /**< PLL post division ration of 4 */
@@ -45,7 +49,7 @@ enum pllPostDivider : uint32_t {
 };
 
 /**
- * @brief PLL clock sources
+ * @brief TODO:
  *
  */
 enum pllClockSources : uint32_t {
@@ -67,7 +71,7 @@ enum mainClockSources : uint32_t {
 /**
  * @brief Peripheral clock enable options
  *
- * TODO, change name after all C dependencies are gone so you can use the proper names like
+ * TODO: change name after all C dependencies are gone so you can use the proper names like
  * IRCOUT instead of POWER_IRCOUT_PD.
  *
  */
@@ -97,7 +101,7 @@ enum peripheralClocks : uint32_t {
 /**
  * @brief Peripheral power down reset options
  *
- * TODO, change name after all C dependencies are gone so you can use the proper names like
+ * TODO: change name after all C dependencies are gone so you can use the proper names like
  * IRCOUT instead of POWER_IRCOUT.
  *
  */
