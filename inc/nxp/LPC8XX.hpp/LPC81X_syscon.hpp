@@ -22,40 +22,38 @@ using namespace registers::syscon;
  *
  */
 enum peripheralResets : uint32_t {
-  RESET_SPI0 = (1 << 0),    /**< SPI0 reset control */
-  RESET_SPI1 = (1 << 1),    /**< SPI1 reset control */
-  RESET_UARTFRG = (1 << 2), /**< UART fractional baud rate generator reset control */
-  RESET_UART0 = (1 << 3),   /**< UART0 reset control */
-  RESET_UART1 = (1 << 4),   /**< UART1 reset control */
-  RESET_UART2 = (1 << 5),   /**< UART2 reset control */
-  RESET_I2C = (1 << 6),     /**< I2C reset control */
-  RESET_MRT = (1 << 7),     /**< MRT reset control */
-  RESET_SCT = (1 << 8),     /**< SCT reset control */
-  RESET_WKT = (1 << 9),     /**< WKT reset control */
-  RESET_GPIO = (1 << 10),   /**< GPIO reset control */
-  RESET_FLASH = (1 << 11),  /**< Flash reset control */
-  RESET_ACMP = (1 << 12),   /**< ACMP reset control */
+  RESET_SPI0 = PRESETCTRL::SPI0_RST_N,       /**< SPI0 reset control */
+  RESET_SPI1 = PRESETCTRL::SPI1_RST_N,       /**< SPI1 reset control */
+  RESET_UARTFRG = PRESETCTRL::UARTFRG_RST_N, /**< UART fractional baud rate generator reset control */
+  RESET_UART0 = PRESETCTRL::UART0_RST_N,     /**< UART0 reset control */
+  RESET_UART1 = PRESETCTRL::UART1_RST_N,     /**< UART1 reset control */
+  RESET_UART2 = PRESETCTRL::UART2_RST_N,     /**< UART2 reset control */
+  RESET_I2C = PRESETCTRL::I2C_RST_N,         /**< I2C reset control */
+  RESET_MRT = PRESETCTRL::MRT_RST_N,         /**< MRT reset control */
+  RESET_SCT = PRESETCTRL::SCT_RST_N,         /**< SCT reset control */
+  RESET_WKT = PRESETCTRL::WKT_RST_N,         /**< WKT reset control */
+  RESET_GPIO = PRESETCTRL::GPIO_RST_N,       /**< GPIO reset control */
+  RESET_FLASH = PRESETCTRL::FLASH_RST_N,     /**< Flash reset control */
+  RESET_ACMP = PRESETCTRL::ACMP_RST_N,       /**< ACMP reset control */
 };
 
 /**
- * @brief TODO:
- *
+ * @brief PLL post divider options
  */
 enum pllPostDivider : uint32_t {
-  PLLPOSTDIV_2 = (0 << 0),  /**< PLL post division ration of 2 */
-  PLLPOSTDIV_4 = (1 << 0),  /**< PLL post division ration of 4 */
-  PLLPOSTDIV_8 = (1 << 1),  /**< PLL post division ration of 8 */
-  PLLPOSTDIV_16 = (1 << 2), /**< PLL post division ration of 16 */
+  PLLPOSTDIV_2 = SYSPLLCTRL::PSEL_DIV2,   /**< PLL post division ration of 2 */
+  PLLPOSTDIV_4 = SYSPLLCTRL::PSEL_DIV4,   /**< PLL post division ration of 4 */
+  PLLPOSTDIV_8 = SYSPLLCTRL::PSEL_DIV8,   /**< PLL post division ration of 8 */
+  PLLPOSTDIV_16 = SYSPLLCTRL::PSEL_DIV16, /**< PLL post division ration of 16 */
 };
 
 /**
- * @brief TODO:
- *
+ * @brief PLL source options
  */
 enum pllClockSources : uint32_t {
-  PLLCLK_IRC = 0,    /**< IRC oscillator */
-  PLLCLK_SYSOSC = 1, /**< SYSOSC crystal oscillator */
-  PLLCLK_CLKIN = 3,  /**< External clock input */
+  PLLCLK_IRC = SYSPLLCLKSEL::SEL_IRC,       /**< IRC oscillator */
+  PLLCLK_SYSOSC = SYSPLLCLKSEL::SEL_SYSOSC, /**< crystal oscillator */
+  PLLCLK_CLKIN = SYSPLLCLKSEL::SEL_CLKIN,   /**< External clock input */
 };
 
 /**
@@ -144,7 +142,7 @@ struct syscon {
    * @param psel Post divider ratio, acceptable values in pllPostDivider enum
    */
   void setSystemPllControl(uint32_t msel, pllPostDivider psel) {
-    regs()->SYSPLLCTRL = msel | (static_cast<uint32_t>(psel) << 5);
+    regs()->SYSPLLCTRL = SYSPLLCTRL::MSEL(msel) | static_cast<uint32_t>(psel);
   }
 
   /**
@@ -192,7 +190,7 @@ struct syscon {
    * @param setting divison factor, 0 is disable, 1 is 1, the maximum is 255
    */
   void setSystemClockDivider(uint32_t setting) {
-    regs()->SYSAHBCLKDIV = setting;
+    regs()->SYSAHBCLKDIV = SYSAHBCLKDIV::DIV(setting);
   }
 
   /**

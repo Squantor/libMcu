@@ -69,17 +69,47 @@ struct registers {
 };
 
 namespace SYSMEMREMAP {
-constexpr inline uint32_t MASK = 0x00000003; /**< register mask for allowed bits */
-}
+constexpr inline uint32_t MASK = 0x00000003;    /**< register mask for allowed bits */
+constexpr inline uint32_t MAP_BOOT = (0 << 0);  /**< Map interrupts to boot ROM */
+constexpr inline uint32_t MAP_RAM = (1 << 0);   /**< Map interrupts to RAM */
+constexpr inline uint32_t MAP_FLASH = (2 << 0); /**< Map interrupts to flash */
+}  // namespace SYSMEMREMAP
 namespace PRESETCTRL {
-constexpr inline uint32_t MASK = 0x0001FFFF; /**< register mask for allowed bits */
-}
+constexpr inline uint32_t MASK = 0x0001FFFF;        /**< register mask for allowed bits */
+constexpr inline uint32_t SPI0_RST_N = (1 << 0);    /**< SPI0 reset */
+constexpr inline uint32_t SPI1_RST_N = (1 << 1);    /**< SPI1 reset */
+constexpr inline uint32_t UARTFRG_RST_N = (1 << 2); /**< UART FRG reset */
+constexpr inline uint32_t UART0_RST_N = (1 << 3);   /**< UART0 reset */
+constexpr inline uint32_t UART1_RST_N = (1 << 4);   /**< UART1 reset */
+constexpr inline uint32_t UART2_RST_N = (1 << 5);   /**< UART2 reset */
+constexpr inline uint32_t I2C_RST_N = (1 << 6);     /**< I2C reset */
+constexpr inline uint32_t MRT_RST_N = (1 << 7);     /**< MRT reset */
+constexpr inline uint32_t SCT_RST_N = (1 << 8);     /**< SCT reset */
+constexpr inline uint32_t WKT_RST_N = (1 << 9);     /**< WKT reset */
+constexpr inline uint32_t GPIO_RST_N = (1 << 10);   /**< GPIO reset */
+constexpr inline uint32_t FLASH_RST_N = (1 << 11);  /**< FLASH reset */
+constexpr inline uint32_t ACMP_RST_N = (1 << 12);   /**< ACMP reset */
+}  // namespace PRESETCTRL
 namespace SYSPLLCTRL {
 constexpr inline uint32_t MASK = 0x0000007F; /**< register mask for allowed bits */
+/**
+ * @brief Format feedback divider value
+ *
+ * @param divider feedback divider value, 0 is division by 1 to 31 is division by 32
+ * @return formatted data for SYSPLLCTRL
+ */
+constexpr inline uint32_t MSEL(uint32_t divider) {
+  return divider << 0;
 }
+constexpr inline uint32_t PSEL_DIV2 = (0 << 5);  /**< Post divider of 2 */
+constexpr inline uint32_t PSEL_DIV4 = (1 << 5);  /**< Post divider of 4 */
+constexpr inline uint32_t PSEL_DIV8 = (2 << 5);  /**< Post divider of 8 */
+constexpr inline uint32_t PSEL_DIV16 = (3 << 5); /**< Post divider of 16 */
+}  // namespace SYSPLLCTRL
 namespace SYSPLLSTAT {
 constexpr inline uint32_t MASK = 0x00000001; /**< register mask for allowed bits */
-}
+constexpr inline uint32_t LOCK = (1 << 0);   /**< PLL lock status */
+}  // namespace SYSPLLSTAT
 namespace SYSOSCCTRL {
 constexpr inline uint32_t MASK = 0x00000003;        /**< register mask for allowed bits */
 constexpr inline uint32_t NO_BYPASS = (0 << 0);     /**< PLL input is fed by crystal oscillator */
@@ -88,22 +118,58 @@ constexpr inline uint32_t FREQ_1_20MHz = (0 << 1);  /**< crystal range is 1 to 2
 constexpr inline uint32_t FREQ_15_25MHz = (1 << 1); /**< crystal range is 15 to 25MHz */
 }  // namespace SYSOSCCTRL
 namespace WDTOSCCTRL {
-constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+constexpr inline uint32_t MASK = 0x000001FF; /**< register mask for allowed bits */
+/**
+ * @brief Format divider for Fclkana
+ *
+ * @param divider divider for Fclkana, 0 is 2, 1 is 4 and 31 is 64
+ * @return formatted data for DIVSEL
+ */
+constexpr inline uint32_t DIVSEL(uint32_t divider) {
+  return divider << 0;
 }
+constexpr inline uint32_t FREQSEL_0_6MHZ = (1 << 5);   /**< Fclkana is 0.6 MHz */
+constexpr inline uint32_t FREQSEL_1_05MHZ = (2 << 5);  /**< Fclkana is 1.05 MHz */
+constexpr inline uint32_t FREQSEL_1_4MHZ = (3 << 5);   /**< Fclkana is 1.4 MHz */
+constexpr inline uint32_t FREQSEL_1_75MHZ = (4 << 5);  /**< Fclkana is 1.75 MHz */
+constexpr inline uint32_t FREQSEL_2_1MHZ = (5 << 5);   /**< Fclkana is 2.1 MHz */
+constexpr inline uint32_t FREQSEL_2_4MHZ = (6 << 5);   /**< Fclkana is 2.4 MHz */
+constexpr inline uint32_t FREQSEL_2_7MHZ = (7 << 5);   /**< Fclkana is 2.7 MHz */
+constexpr inline uint32_t FREQSEL_3_0MHZ = (8 << 5);   /**< Fclkana is 3.0 MHz */
+constexpr inline uint32_t FREQSEL_3_25MHZ = (9 << 5);  /**< Fclkana is 3.25 MHz */
+constexpr inline uint32_t FREQSEL_3_5MHZ = (10 << 5);  /**< Fclkana is 3.5 MHz */
+constexpr inline uint32_t FREQSEL_3_75MHZ = (11 << 5); /**< Fclkana is 3.75 MHz */
+constexpr inline uint32_t FREQSEL_4_0MHZ = (12 << 5);  /**< Fclkana is 4.0 MHz */
+constexpr inline uint32_t FREQSEL_4_2MHZ = (13 << 5);  /**< Fclkana is 4.2 MHz */
+constexpr inline uint32_t FREQSEL_4_4MHZ = (14 << 5);  /**< Fclkana is 4.4 MHz */
+constexpr inline uint32_t FREQSEL_4_6MHZ = (15 << 5);  /**< Fclkana is 4.6 MHz */
+}  // namespace WDTOSCCTRL
 namespace SYSRSTSTAT {
-constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
-}
+constexpr inline uint32_t MASK = 0x0000001F; /**< register mask for allowed bits */
+constexpr inline uint32_t POR = (1 << 0);    /**< POR detected */
+constexpr inline uint32_t EXTRST = (1 << 1); /**< reset detected */
+constexpr inline uint32_t WDT = (1 << 2);    /**< WDT reset detected */
+constexpr inline uint32_t BOD = (1 << 3);    /**< BOD reset detected */
+constexpr inline uint32_t SYSRST = (1 << 4); /**< System reset detected */
+}  // namespace SYSRSTSTAT
 namespace SYSPLLCLKSEL {
-constexpr inline uint32_t MASK = 0x00000003; /**< register mask for allowed bits */
-}
+constexpr inline uint32_t MASK = 0x00000003;     /**< register mask for allowed bits */
+constexpr inline uint32_t SEL_IRC = (0 << 0);    /**< PLL clock source is IRC */
+constexpr inline uint32_t SEL_SYSOSC = (1 << 0); /**< PLL clock source is crystal oscillator */
+constexpr inline uint32_t SEL_CLKIN = (3 << 0);  /**< PLL clock source is external clock input */
+}  // namespace SYSPLLCLKSEL
 namespace SYSPLLCLKUEN {
 constexpr inline uint32_t MASK = 0x00000001;    /**< register mask for allowed bits */
 constexpr inline uint32_t NO_CHANGE = (0 << 0); /**< No change of clock source */
 constexpr inline uint32_t UPDATE = (1 << 0);    /**< update clock source */
 }  // namespace SYSPLLCLKUEN
 namespace MAINCLKSEL {
-constexpr inline uint32_t MASK = 0x00000003; /**< register mask for allowed bits */
-}
+constexpr inline uint32_t MASK = 0x00000003;      /**< register mask for allowed bits */
+constexpr inline uint32_t SEL_IRC = (0 << 0);     /**< main clock source is IRC */
+constexpr inline uint32_t SEL_PLL_IN = (1 << 0);  /**< main clock source is PLL input */
+constexpr inline uint32_t SEL_WDTOSC = (2 << 0);  /**< main clock source is WDT oscillator */
+constexpr inline uint32_t SEL_PLL_OUT = (3 << 0); /**< main clock source is PLL output */
+}  // namespace MAINCLKSEL
 namespace MAINCLKUEN {
 constexpr inline uint32_t MASK = 0x00000001;    /**< register mask for allowed bits */
 constexpr inline uint32_t NO_CHANGE = (0 << 0); /**< No change of clock source */
@@ -111,7 +177,16 @@ constexpr inline uint32_t UPDATE = (1 << 0);    /**< update clock source */
 }  // namespace MAINCLKUEN
 namespace SYSAHBCLKDIV {
 constexpr inline uint32_t MASK = 0x000000FF; /**< register mask for allowed bits */
+/**
+ * @brief Format system clock divider
+ *
+ * @param divider 0 is system clock disabled, 1 divide by 1, 255 divide by 255
+ * @return formatted data for SYSAHBCLKDIV
+ */
+constexpr inline uint32_t DIV(uint32_t divider) {
+  return divider << 0;
 }
+}  // namespace SYSAHBCLKDIV
 namespace SYSAHBCLKCTRL {
 constexpr inline uint32_t MASK = 0x000FFFFF; /**< register mask for allowed bits */
 }  // namespace SYSAHBCLKCTRL
