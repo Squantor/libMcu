@@ -30,7 +30,6 @@ struct registers {
   volatile uint32_t DIV;           /**< SPI clock Divider register */
   volatile const uint32_t INTSTAT; /**< SPI Interrupt Status register */
 };
-
 namespace CFG {
 constexpr inline uint32_t MASK = 0x1BD;      /**< register mask for allowed bits */
 constexpr inline uint32_t ENABLE = (1 << 0); /**< SPI enable */
@@ -42,7 +41,6 @@ constexpr inline uint32_t CPOL = (1 << 5);   /**< Clock polarity select */
 constexpr inline uint32_t LOOP = (1 << 7);   /**< Loopback mode enable */
 constexpr inline uint32_t SPOL = (1 << 8);   /**< SSEL0 Polarity select */
 }  // namespace CFG
-
 namespace DLY {
 constexpr inline uint32_t MASK = 0x0000FFFF; /**< register mask for allowed bits */
 /**
@@ -82,7 +80,6 @@ constexpr inline uint32_t TRANSFER_DELAY(uint8_t data) {
   return static_cast<uint32_t>(data) << 12;
 }
 }  // namespace DLY
-
 namespace STAT {
 constexpr inline uint32_t MASK = 0x000001FF;      /**< register mask for allowed bits */
 constexpr inline uint32_t RXRDY = (1 << 0);       /**< Receiver Ready flag. When 1 data available  */
@@ -95,7 +92,6 @@ constexpr inline uint32_t STALLED = (1 << 6);     /**< Stalled status flag. */
 constexpr inline uint32_t ENDTRANSFER = (1 << 7); /**< End Transfer control bit. Force end of current transaction */
 constexpr inline uint32_t MSTIDLE = (1 << 8);     /**< Master idle status flag. Master is fully idle */
 }  // namespace STAT
-
 namespace INTENSET {
 constexpr inline uint32_t MASK = 0x0000003F;  /**< register mask for allowed bits */
 constexpr inline uint32_t RXRDYEN = (1 << 0); /**< enable received data available interrupt */
@@ -105,12 +101,10 @@ constexpr inline uint32_t TXUREN = (1 << 3);  /**< enable transmitter underrun i
 constexpr inline uint32_t SSAEN = (1 << 4);   /**< enable slave selected interrupt */
 constexpr inline uint32_t SSDEN = (1 << 5);   /**< enable slave deselected interrupt */
 }  // namespace INTENSET
-
 namespace INTENCLR {
 constexpr inline uint32_t MASK = 0x0000003F; /**< register mask for allowed bits */
 // TODO register definitions
 }  // namespace INTENCLR
-
 namespace RXDAT {
 constexpr inline uint32_t MASK = 0x0011FFFF; /**< register mask for allowed bits */
 /**
@@ -125,7 +119,6 @@ constexpr inline uint16_t RXDAT(uint32_t registerData) {
 constexpr inline uint32_t RXSSEL_N = (1 << 16); /**< Slave 0 selected for receive transaction, zero is active */
 constexpr inline uint32_t SOT = (1 << 20);      /**< Start of transfer flag. 1 when SSEL is asserted the first time */
 }  // namespace RXDAT
-
 namespace TXDATCTL {
 constexpr inline uint32_t MASK = 0x0F71FFFF; /**< register mask for allowed bits */
 /**
@@ -160,7 +153,6 @@ constexpr inline uint32_t LEN(uint32_t length) {
   return ((length - 1) & 0x0F) << 24;
 }
 }  // namespace TXDATCTL
-
 namespace TXDAT {
 constexpr inline uint32_t MASK = 0x0000FFFF; /**< register mask for allowed bits */
 /**
@@ -173,10 +165,8 @@ constexpr inline uint32_t TXDAT(uint16_t data) {
   return static_cast<uint32_t>(data);
 }
 }  // namespace TXDAT
-
 namespace TXCTL {
 constexpr inline uint32_t MASK = 0x0F710000; /**< register mask for allowed bits */
-// TODO register definitions
 /**
  * @brief Format data transmit length to TXDATCTL register field
  *
@@ -187,9 +177,8 @@ constexpr inline uint32_t LEN(uint32_t length) {
   return ((length - 1) & 0x0F) << 24;
 }
 }  // namespace TXCTL
-
 namespace DIV {
-constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+constexpr inline uint32_t MASK = 0x0000FFFF; /**< register mask for allowed bits */
 /**
  * @brief Formats divider value to DIVVAL register field
  *
@@ -200,10 +189,14 @@ constexpr inline uint32_t DIVVAL(uint16_t divider) {
   return divider - 1;  // subtract one according to datasheet
 }
 }  // namespace DIV
-
 namespace INTSTAT {
-constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
-// TODO register definitions
+constexpr inline uint32_t MASK = 0x0000003F; /**< register mask for allowed bits */
+constexpr inline uint32_t RXRDY = (1 << 0);  /**< Receiver ready interrupt flag */
+constexpr inline uint32_t TXRDY = (1 << 1);  /**< Transmitter ready interrupt flag */
+constexpr inline uint32_t RXOV = (1 << 2);   /**< Receiver overrun interrupt flag*/
+constexpr inline uint32_t TXUR = (1 << 3);   /**< Transmitter underrun interrupt flag */
+constexpr inline uint32_t SSA = (1 << 4);    /**< Slave Select Assert */
+constexpr inline uint32_t SSD = (1 << 5);    /**< Slave Select Deassert */
 }  // namespace INTSTAT
 }  // namespace spi
 }  // namespace registers

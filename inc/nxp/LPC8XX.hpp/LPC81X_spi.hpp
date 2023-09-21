@@ -22,6 +22,7 @@ using namespace registers::spi;
  *
  */
 enum chipEnables : uint32_t {
+  NONE = 0,         /**< No chip select */
   SSEL = (1 << 16), /**< Hardware chip enable */
 };
 
