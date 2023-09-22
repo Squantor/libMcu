@@ -27,6 +27,30 @@ enum chipEnables : uint32_t {
 };
 
 /**
+ * @brief possible SPI clocking/phasing/ordering
+ *
+ */
+enum waveforms : uint32_t {
+  CPHA0_CPOL0_MSB = 0,                                 /**< CPHA is 0, CPOL is 0, MSB first */
+  CPHA1_CPOL0_MSB = CFG::CPHA,                         /**< CPHA is 1, CPOL is 0, MSB first */
+  CPHA0_CPOL1_MSB = CFG::CPOL,                         /**< CPHA is 0, CPOL is 1, MSB first */
+  CPHA1_CPOL1_MSB = CFG::CPHA | CFG::CPOL,             /**< CPHA is 1, CPOL is 1, MSB first */
+  CPHA0_CPOL0_LSB = CFG::LSBF,                         /**< CPHA is 0, CPOL is 0, LSB first */
+  CPHA1_CPOL0_LSB = CFG::CPHA | CFG::LSBF,             /**< CPHA is 1, CPOL is 0, LSB first */
+  CPHA0_CPOL1_LSB = CFG::CPOL | CFG::LSBF,             /**< CPHA is 0, CPOL is 1, LSB first */
+  CPHA1_CPOL1_LSB = CFG::CPHA | CFG::CPOL | CFG::LSBF, /**< CPHA is 1, CPOL is 1, LSB first */
+};
+
+/**
+ * @brief Slave polarity selects
+ *
+ */
+enum slavePolaritySelects : uint32_t {
+  SPOL_LOW = 0,          /**< Active low slave select */
+  SPOL_HIGH = CFG::SPOL, /**< Active high slave select*/
+};
+
+/**
  * @brief SPI peripheral instance
  *
  * @tparam base Peripheral base address
@@ -47,6 +71,7 @@ struct spi {
    * @brief Initialise SPI peripheral as master device
    *
    * Make sure clocks are enabled to the SPI peripheral first before calling this method!
+   * LSB first mode, CPHA is 0, CPOL is 0,
    *
    * @param bitRate requested bit rate
    * @return actual bit rate
@@ -57,9 +82,25 @@ struct spi {
     return actualBitRate;
   }
 
-  // TODO: initMaster with SSEL polarities and CPOL/CPHA
-  // TODO: initSlave();
-  // TODO: initSlave with SSEL polarities and CPOL/CPHA
+  /**
+   * @brief Initialise SPI peripheral as master device
+   *
+   * Make sure clocks are enabled to the SPI peripheral first before calling this method!
+   * LSB first mode, CPHA is 0, CPOL is 0,
+   *
+   * @param bitRate requested bit rate
+   * @param waveform SPI waveform, see waveforms for options
+   * @param polarity SPI slave select polarity
+   * @return actual bit rate
+   */
+  uint32_t initMaster(uint32_t bitRate, waveforms waveform, slavePolaritySelects polarity) {
+    uint32_t actualBitRate = setBitRate(bitRate);
+    regs()->CFG = CFG::ENABLE | CFG::MASTER | static_cast<uint32_t>(waveform) | static_cast<uint32_t>(polarity);
+    return actualBitRate;
+  }
+
+  // TODO: SPI slave initialisation method with standard waveform
+  // TODO: SPI slave initialisation method with waveform selection
 
   /**
    * @brief Transmit data to SPI
