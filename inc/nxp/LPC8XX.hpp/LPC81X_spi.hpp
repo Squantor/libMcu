@@ -22,7 +22,7 @@ using namespace registers::spi;
  *
  */
 enum chipEnables : uint32_t {
-  NONE = 0,         /**< No chip select */
+  SSEL_NONE = 0,    /**< No chip select */
   SSEL = (1 << 16), /**< Hardware chip enable */
 };
 
@@ -189,7 +189,7 @@ struct spi {
   void readWrite(chipEnables device, const std::span<uint16_t> transmitBuffer, std::span<uint16_t> receiveBuffer, uint32_t bitcount,
                  bool lastAction) {
     size_t index = 0;
-    uint32_t baseTransferCommand = TXDATCTL::TXSSEL(device);  // base transfer command with presets
+    uint32_t baseTransferCommand = TXDATCTL::TXSSEL(device);
     while (bitcount > 16) {
       regs()->TXDATCTL = baseTransferCommand | TXDATCTL::TXDAT(transmitBuffer[index]) | TXDATCTL::LEN(16);
       while ((regs()->STAT & STAT::RXRDY) == 0)
@@ -207,8 +207,8 @@ struct spi {
     receiveBuffer[index] = RXDAT::RXDAT(regs()->RXDAT);
   }
 
-  // TODO: transceive with gpio chip select
-  // TODO: transceive with chip select lambda
+  // TODO: readWrite with gpio chip select
+  // TODO: readWrite with chip select lambda
   // TODO: configure delay settings
 };
 }  // namespace spi
