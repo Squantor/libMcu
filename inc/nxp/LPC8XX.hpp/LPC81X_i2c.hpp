@@ -5,7 +5,7 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC810 series GPIO functions
+ * \file LPC810 series I2C functions
  */
 #ifndef LPC81X_I2C_HPP
 #define LPC81X_I2C_HPP
