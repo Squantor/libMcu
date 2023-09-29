@@ -15,6 +15,7 @@
 
 #include <cstdint>
 #include <cstddef>
+#include <results.hpp>
 
 #if defined(MCU_LPC812M101DH20)
 #include <nxp/LPC812M101DH20.hpp>
