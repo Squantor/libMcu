@@ -19,7 +19,7 @@ namespace spi {
 using namespace registers::spi;
 
 /**
- * @brief SPI peripheral instance
+ * @brief synchronous SPI peripheral instance
  *
  * @tparam base Peripheral base address
  * @tparam chipEnables enum of available chip enables

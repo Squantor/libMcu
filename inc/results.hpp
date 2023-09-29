@@ -10,8 +10,21 @@
 #ifndef RESULTS_HPP
 #define RESULTS_HPP
 
+namespace libMcuLL {
+/**
+ * @brief result class for libMcuLL
+ *
+ * Mostly used by asynchronous operations
+ *
+ */
 enum class results : uint32_t {
-
+  NO_ERROR, /**< No error */
+  ERROR,    /**< Error has occured */
+  STARTED,  /**< Operation started */
+  BUSY,     /**< Operation Busy */
+  DONE,     /**< Operation completed*/
+  IN_USE,   /**< Currently in use */
 };
+}  // namespace libMcuLL
 
 #endif
