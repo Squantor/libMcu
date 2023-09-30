@@ -15,7 +15,11 @@
 
 #include <cstdint>
 #include <cstddef>
-#include <results.hpp>
+#include <array>
+#include <span>
+#include <type_traits>
+#include <libmcull/results.hpp>
+#include <libmcull/types.hpp>
 
 #if defined(MCU_LPC812M101DH20)
 #include <nxp/LPC812M101DH20.hpp>

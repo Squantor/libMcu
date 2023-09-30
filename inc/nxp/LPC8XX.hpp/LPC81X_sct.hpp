@@ -13,7 +13,7 @@
 namespace instances {
 namespace sct {
 using namespace registers::sct;
-template <uint32_t base>
+template <libMcuLL::SCTtype base>
 struct sct {
   /**
    * @brief get registers from peripheral

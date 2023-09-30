@@ -13,7 +13,7 @@
 namespace instances {
 namespace i2c {
 using namespace registers::i2c;
-template <uint32_t base>
+template <libMcuLL::I2Ctype base>
 struct i2c {
   /**
    * @brief get registers from peripheral

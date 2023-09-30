@@ -13,7 +13,7 @@
 namespace instances {
 namespace mrt {
 using namespace registers::mrt;
-template <uint32_t base>
+template <libMcuLL::MRTtype base>
 struct mrt {
   /**
    * @brief get registers from peripheral

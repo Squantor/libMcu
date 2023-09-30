@@ -13,7 +13,7 @@
 namespace instances {
 namespace pmu {
 using namespace registers::pmu;
-template <uint32_t base>
+template <libMcuLL::PMUtype base>
 struct pmu {
   /**
    * @brief get registers from peripheral

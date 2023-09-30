@@ -13,7 +13,7 @@
 namespace instances {
 namespace iocon {
 using namespace registers::iocon;
-template <uint32_t base>
+template <libMcuLL::IOCONtype base>
 struct iocon {
   /**
    * @brief get registers from peripheral

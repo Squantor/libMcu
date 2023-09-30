@@ -11,7 +11,6 @@
 #define LPC81X_SPI_ASYNC_HPP
 
 #include <nxp/LPC8XX.hpp/LPC81X_spi_common.hpp>
-#include <span>
 
 namespace instances {
 namespace spi {
@@ -24,7 +23,7 @@ using namespace registers::spi;
  * @tparam base Peripheral base address
  * @tparam chipEnables enum of available chip enables
  */
-template <uint32_t base, typename chipEnables>
+template <libMcuLL::SPItype base, typename chipEnables>
 struct spiAsync {
   /**
    * @brief get registers from peripheral

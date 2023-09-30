@@ -13,7 +13,7 @@
 namespace instances {
 namespace wkt {
 using namespace registers::wkt;
-template <uint32_t base>
+template <libMcuLL::WKTtype base>
 struct wkt {
   /**
    * @brief get registers from peripheral

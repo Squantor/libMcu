@@ -68,7 +68,7 @@ enum uartStatus : uint32_t {
   RXNOISEINT = STAT::RXNOISEINT,     /**< Recieved noise interrupt flag, write 1 clear*/
 };
 
-template <uint32_t base>
+template <libMcuLL::USARTtype base>
 struct usart {
   /**
    * @brief get registers from peripheral

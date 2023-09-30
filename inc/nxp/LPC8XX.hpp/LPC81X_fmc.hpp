@@ -13,7 +13,7 @@
 namespace instances {
 namespace fmc {
 using namespace registers::fmc;
-template <uint32_t base>
+template <libMcuLL::FMCtype base>
 struct fmc {
   /**
    * @brief get registers from peripheral

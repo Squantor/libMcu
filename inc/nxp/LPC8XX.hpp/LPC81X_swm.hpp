@@ -13,7 +13,7 @@
 namespace instances {
 namespace swm {
 using namespace registers::swm;
-template <uint32_t base>
+template <libMcuLL::SWMtype base>
 struct swm {
   /**
    * @brief get registers from peripheral

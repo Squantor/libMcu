@@ -13,7 +13,7 @@
 namespace instances {
 namespace gpio {
 using namespace registers::gpio;
-template <uint32_t base>
+template <libMcuLL::GPIOtype base>
 struct gpio {
   /**
    * @brief get registers from peripheral

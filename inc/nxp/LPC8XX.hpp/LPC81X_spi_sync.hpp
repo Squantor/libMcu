@@ -10,7 +10,6 @@
 #ifndef LPC81X_SPI_HPP
 #define LPC81X_SPI_HPP
 
-#include <span>
 #include <nxp/LPC8XX.hpp/LPC81X_spi_common.hpp>
 
 namespace instances {
@@ -24,8 +23,9 @@ using namespace registers::spi;
  * @tparam base Peripheral base address
  * @tparam chipEnables enum of available chip enables
  */
-template <uint32_t base, typename chipEnables>
-struct spi {
+template <libMcuLL::SPItype base, typename chipEnables>
+struct spiSync {
+  static_assert(std::is_same<decltype(base), libMcuLL::SPItype>::value, "Address does not point to a SPI address!");
   /**
    * @brief get registers from peripheral
    *

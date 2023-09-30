@@ -13,7 +13,7 @@
 namespace instances {
 namespace wwdt {
 using namespace registers::wwdt;
-template <uint32_t base>
+template <libMcuLL::WWDTtype base>
 struct wwdt {
   /**
    * @brief get registers from peripheral

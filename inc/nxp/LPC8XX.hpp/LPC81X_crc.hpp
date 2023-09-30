@@ -13,7 +13,7 @@
 namespace instances {
 namespace crc {
 using namespace registers::crc;
-template <uint32_t base>
+template <libMcuLL::CRCtype base>
 struct crc {
   /**
    * @brief get registers from peripheral

@@ -114,7 +114,7 @@ enum peripheralPowers : uint32_t {
   POWER_ACMP = (1 << 15),  /**< Analog comparator*/
 };
 
-template <uint32_t base>
+template <libMcuLL::SYSCONtype base>
 struct syscon {
   /**
    * @brief get registers from peripheral

@@ -13,7 +13,7 @@
 namespace instances {
 namespace pin_int {
 using namespace registers::gpio;
-template <uint32_t base>
+template <libMcuLL::PININTtype base>
 struct gpio {
   /**
    * @brief get registers from peripheral

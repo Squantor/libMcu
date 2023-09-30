@@ -13,7 +13,7 @@
 namespace instances {
 namespace acmp {
 using namespace registers::acmp;
-template <uint32_t base>
+template <libMcuLL::ACMPtype base>
 struct acmp {
   /**
    * @brief get registers from peripheral
