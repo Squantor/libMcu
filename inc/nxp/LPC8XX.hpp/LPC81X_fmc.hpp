@@ -10,9 +10,10 @@
 #ifndef LPC81X_FMC_HPP
 #define LPC81X_FMC_HPP
 
-namespace instances {
+namespace libMcuLL {
+namespace sw {
 namespace fmc {
-using namespace registers::fmc;
+using namespace libMcuLL::hw::fmc;
 template <libMcuLL::FMCaddress address_>
 struct fmc {
   static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
@@ -21,11 +22,12 @@ struct fmc {
    *
    * @return return pointer to gpio registers
    */
-  static auto regs() {
-    return reinterpret_cast<registers::fmc::registers *>(address_);
+  static hw::fmc::peripheral *peripheral() {
+    return reinterpret_cast<hw::fmc::peripheral *>(address_);
   }
 };
 }  // namespace fmc
-}  // namespace instances
+}  // namespace sw
+}  // namespace libMcuLL
 
 #endif

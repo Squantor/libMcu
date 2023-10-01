@@ -10,9 +10,10 @@
 #ifndef LPC81X_CRC_HPP
 #define LPC81X_CRC_HPP
 
-namespace instances {
+namespace libMcuLL {
+namespace sw {
 namespace crc {
-using namespace registers::crc;
+using namespace hw::crc;
 template <libMcuLL::CRCaddress address_>
 struct crc {
   static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
@@ -21,11 +22,12 @@ struct crc {
    *
    * @return return pointer to CRC registers
    */
-  static auto regs() {
-    return reinterpret_cast<registers::crc::registers *>(address_);
+  static hw::crc::peripheral *peripheral() {
+    return reinterpret_cast<hw::crc::peripheral *>(address_);
   }
 };
 }  // namespace crc
-}  // namespace instances
+}  // namespace sw
+}  // namespace libMcuLL
 
 #endif

@@ -10,14 +10,15 @@
 #ifndef LPC81X_SYSCON_REGS_HPP
 #define LPC81X_SYSCON_REGS_HPP
 
-namespace registers {
+namespace libMcuLL {
+namespace hw {
 namespace syscon {
 
 /**
  * @brief sysctl register definitions
  *
  */
-struct registers {
+struct peripheral {
   volatile uint32_t SYSMEMREMAP;    /**<  System memory remap (R/W) */
   volatile uint32_t PRESETCTRL;     /**<  Peripheral reset control (R/W) */
   volatile uint32_t SYSPLLCTRL;     /**<  System PLL control (R/W) */
@@ -252,6 +253,7 @@ constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits
 }
 
 }  // namespace syscon
-}  // namespace registers
+}  // namespace hw
+}  // namespace libMcuLL
 
 #endif

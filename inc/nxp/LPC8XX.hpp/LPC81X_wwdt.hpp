@@ -10,9 +10,10 @@
 #ifndef LPC81X_WWDT_HPP
 #define LPC81X_WWDT_HPP
 
-namespace instances {
+namespace libMcuLL {
+namespace sw {
 namespace wwdt {
-using namespace registers::wwdt;
+using namespace hw::wwdt;
 template <libMcuLL::WWDTaddress address_>
 struct wwdt {
   static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
@@ -21,11 +22,12 @@ struct wwdt {
    *
    * @return return pointer to windowed watchdog registers
    */
-  static auto regs() {
-    return reinterpret_cast<registers::wwdt::registers *>(address_);
+  static hw::wwdt::peripheral *regs() {
+    return reinterpret_cast<hw::wwdt::peripheral *>(address_);
   }
 };
 }  // namespace wwdt
-}  // namespace instances
+}  // namespace sw
+}  // namespace libMcuLL
 
 #endif

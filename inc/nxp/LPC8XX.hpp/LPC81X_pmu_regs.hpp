@@ -10,20 +10,22 @@
 #ifndef LPC81X_PMU_REGS_HPP
 #define LPC81X_PMU_REGS_HPP
 
-namespace registers {
+namespace libMcuLL {
+namespace hw {
 namespace pmu {
 
 /**
  * @brief power management register definitions
  *
  */
-struct registers {
+struct peripheral {
   volatile uint32_t PCON;     /**< Power control Register (R/W) */
   volatile uint32_t GPREG[4]; /**< General purpose Registers 0..3 (R/W) */
   volatile uint32_t DPDCTRL;  /**< Deep power-down control register (R/W) */
 };
 
 }  // namespace pmu
-}  // namespace registers
+}  // namespace hw
+}  // namespace libMcuLL
 
 #endif

@@ -10,14 +10,15 @@
 #ifndef LPC81X_PIN_INT_REGS_HPP
 #define LPC81X_PIN_INT_REGS_HPP
 
-namespace registers {
+namespace libMcuLL {
+namespace hw {
 namespace pinint {
 
 /**
  * @brief pin interrupt register definitions
  *
  */
-struct registers {
+struct peripheral {
   volatile uint32_t ISEL;   /**< Pin Interrupt Mode register */
   volatile uint32_t IENR;   /**< Pin interrupt level or rising edge enable register */
   volatile uint32_t SIENR;  /**< Pin interrupt level or rising edge set register */
@@ -34,6 +35,7 @@ struct registers {
 };
 
 }  // namespace pinint
-}  // namespace registers
+}  // namespace hw
+}  // namespace libMcuLL
 
 #endif

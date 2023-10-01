@@ -10,9 +10,10 @@
 #ifndef LPC81X_I2C_HPP
 #define LPC81X_I2C_HPP
 
-namespace instances {
+namespace libMcuLL {
+namespace sw {
 namespace i2c {
-using namespace registers::i2c;
+using namespace hw::i2c;
 template <libMcuLL::I2Caddress address_>
 struct i2c {
   static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
@@ -21,8 +22,8 @@ struct i2c {
    *
    * @return return pointer to i2c registers
    */
-  static auto regs() {
-    return reinterpret_cast<registers::i2c::registers *>(address);
+  static hw::i2c::peripheral *peripheral() {
+    return reinterpret_cast<hw::i2c::peripheral *>(address);
   }
 
   /**
@@ -33,12 +34,13 @@ struct i2c {
    */
   uint32_t initMaster(uint32_t bitRate) {
     uint32_t divider = CLOCK_AHB / bitRate;
-    regs()->CLKDIV = divider + 1;
-    regs()->CFG = CFG::MSTEN;
+    peripheral()->CLKDIV = divider + 1;
+    peripheral()->CFG = CFG::MSTEN;
     return CLOCK_AHB / divider;
   }
 };
 }  // namespace i2c
-}  // namespace instances
+}  // namespace sw
+}  // namespace libMcuLL
 
 #endif

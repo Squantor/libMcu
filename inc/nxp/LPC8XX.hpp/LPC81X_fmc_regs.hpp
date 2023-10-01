@@ -10,14 +10,15 @@
 #ifndef LPC81X_FMC_REGS_HPP
 #define LPC81X_FMC_REGS_HPP
 
-namespace registers {
+namespace libMcuLL {
+namespace hw {
 namespace fmc {
 
 /**
  * @brief flash controller register definitions
  *
  */
-struct registers {
+struct peripheral {
   volatile const uint32_t RESERVED1[4]; /**< reserved */
   volatile uint32_t FLASHCFG;           /**< Flash Configuration register */
   volatile const uint32_t RESERVED2[3]; /**< reserved */
@@ -28,6 +29,7 @@ struct registers {
 };
 
 }  // namespace fmc
-}  // namespace registers
+}  // namespace hw
+}  // namespace libMcuLL
 
 #endif

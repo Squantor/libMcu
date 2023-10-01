@@ -10,14 +10,15 @@
 #ifndef LPC81X_USART_REGS_HPP
 #define LPC81X_USART_REGS_HPP
 
-namespace registers {
+namespace libMcuLL {
+namespace hw {
 namespace usart {
 
 /**
  * @brief USART register definitions
  *
  */
-struct registers {
+struct peripheral {
   volatile uint32_t CFG;             /**< USART Configuration register. */
   volatile uint32_t CTL;             /**< USART Control register. */
   volatile uint32_t STAT;            /**< USART Status register. */
@@ -96,6 +97,7 @@ constexpr inline uint32_t MASK = 0x00000000; /**< register mask for allowed bits
 }  // namespace INTSTAT
 
 }  // namespace usart
-}  // namespace registers
+}  // namespace hw
+}  // namespace libMcuLL
 
 #endif

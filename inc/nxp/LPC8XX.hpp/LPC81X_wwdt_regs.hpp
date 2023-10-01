@@ -10,14 +10,15 @@
 #ifndef LPC81X_WWDT_REGS_HPP
 #define LPC81X_WWDT_REGS_HPP
 
-namespace registers {
+namespace libMcuLL {
+namespace hw {
 namespace wwdt {
 
 /**
  * @brief windowed watchdog register definitions
  *
  */
-struct registers {
+struct peripheral {
   volatile uint32_t MOD;      /**< basic mode and status register */
   volatile uint32_t TC;       /**< time-out value register */
   volatile uint32_t FEED;     /**< Writing 0xAA followed by 0x55 reloads the Watchdog timer */
@@ -28,6 +29,7 @@ struct registers {
 };
 
 }  // namespace wwdt
-}  // namespace registers
+}  // namespace hw
+}  // namespace libMcuLL
 
 #endif

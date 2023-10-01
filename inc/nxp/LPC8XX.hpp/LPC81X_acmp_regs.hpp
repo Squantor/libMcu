@@ -9,20 +9,21 @@
  */
 #ifndef LPC81X_ACMP_REGS_HPP
 #define LPC81X_ACMP_REGS_HPP
-
-namespace registers {
+namespace libMcuLL {
+namespace hw {
 namespace acmp {
 
 /**
  * @brief analog comparator register definitions
  *
  */
-struct registers {
+struct peripheral {
   volatile uint32_t CTRL; /**<  Analog Comparator control register */
   volatile uint32_t LAD;  /**<  Voltage ladder register */
 };
 
 }  // namespace acmp
-}  // namespace registers
+}  // namespace hw
+}  // namespace libMcuLL
 
 #endif

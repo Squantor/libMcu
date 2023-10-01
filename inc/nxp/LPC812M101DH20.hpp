@@ -182,7 +182,8 @@ typedef enum {
 }
 #endif
 
-namespace peripherals {
+namespace libMcuLL {
+namespace hw {
 
 // Define peripheral addresses on APB0 bus
 // rename these when full c++ functionality is finished, remove _cpp postfix
@@ -210,7 +211,8 @@ constexpr inline libMcuLL::SCTaddress SCT0_cpp{0x5000'4000u}; /**< State configu
 constexpr inline libMcuLL::GPIOaddress GPIO_cpp{0xA000'0000u};      /**< General Purpose I/O base address */
 constexpr inline libMcuLL::PININTaddress PIN_INT_cpp{0xA000'4000u}; /**< Pin interrupt base address */
 
-}  // namespace peripherals
+}  // namespace hw
+}  // namespace libMcuLL
 
 // includes that define the registers namespace go here.
 #include "nxp/LPC8XX.hpp/LPC81X_iocon_regs.hpp"

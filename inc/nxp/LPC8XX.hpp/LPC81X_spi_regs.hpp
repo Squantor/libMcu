@@ -10,14 +10,15 @@
 #ifndef LPC81X_SPI_REGS_HPP
 #define LPC81X_SPI_REGS_HPP
 
-namespace registers {
+namespace libMcuLL {
+namespace hw {
 namespace spi {
 
 /**
  * @brief SPI register definitions
  *
  */
-struct registers {
+struct peripheral {
   volatile uint32_t CFG;           /**< SPI Configuration register */
   volatile uint32_t DLY;           /**< SPI Delay register */
   volatile uint32_t STAT;          /**< SPI Status register */
@@ -199,6 +200,7 @@ constexpr inline uint32_t SSA = (1 << 4);    /**< Slave Select Assert */
 constexpr inline uint32_t SSD = (1 << 5);    /**< Slave Select Deassert */
 }  // namespace INTSTAT
 }  // namespace spi
-}  // namespace registers
+}  // namespace hw
+}  // namespace libMcuLL
 
 #endif

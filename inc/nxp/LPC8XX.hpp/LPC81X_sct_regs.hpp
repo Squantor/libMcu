@@ -10,7 +10,8 @@
 #ifndef LPC81X_SCT_REGS_HPP
 #define LPC81X_SCT_REGS_HPP
 
-namespace registers {
+namespace libMcuLL {
+namespace hw {
 namespace sct {
 
 static constexpr inline uint8_t sctEventCount = 8u;  /**< Number of events */
@@ -21,7 +22,7 @@ static constexpr inline uint8_t sctOutputCount = 6u; /**< Number of outputs */
  * @brief state configurable timer register definitions
  *
  */
-struct registers {
+struct peripheral {
   volatile uint32_t CONFIG; /**< configuration Register*/
   union {
     volatile uint32_t CTRL; /**< SCT control register*/
@@ -153,6 +154,7 @@ struct registers {
 };
 
 }  // namespace sct
-}  // namespace registers
+}  // namespace hw
+}  // namespace libMcuLL
 
 #endif

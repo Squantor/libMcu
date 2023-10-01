@@ -9,15 +9,15 @@
  */
 #ifndef LPC81X_GPIO_REGS_HPP
 #define LPC81X_GPIO_REGS_HPP
-
-namespace registers {
+namespace libMcuLL {
+namespace hw {
 namespace gpio {
 
 /**
  * @brief gpio register definitions
  *
  */
-struct registers {
+struct peripheral {
   volatile uint8_t B[128][32]; /**< Byte pin registers ports 0 to n; pins PIOn_0 to PIOn_31 */
   volatile uint32_t W[32][32]; /**< Word pin registers port 0 to n */
   volatile uint32_t DIR[32];   /**< Direction registers port n */
@@ -30,6 +30,7 @@ struct registers {
 };
 
 }  // namespace gpio
-}  // namespace registers
+}  // namespace hw
+}  // namespace libMcuLL
 
 #endif

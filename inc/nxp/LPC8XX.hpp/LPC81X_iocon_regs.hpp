@@ -10,7 +10,8 @@
 #ifndef LPC81X_IOCON_REGS_HPP
 #define LPC81X_IOCON_REGS_HPP
 
-namespace registers {
+namespace libMcuLL {
+namespace hw {
 namespace iocon {
 
 /**
@@ -65,7 +66,7 @@ enum i2cmodes : uint32_t {
  * @brief IOCON register definitions
  *
  */
-struct registers {
+struct peripheral {
   volatile uint32_t PIO[56]; /**< Pin control registers */
 };
 
@@ -75,6 +76,7 @@ constexpr inline uint32_t INV = (1 << 6); /**< Invert input enable */
 constexpr inline uint32_t OD = (1 << 10); /**< Open drain enable */
 }  // namespace PIO
 }  // namespace iocon
-}  // namespace registers
+}  // namespace hw
+}  // namespace libMcuLL
 
 #endif

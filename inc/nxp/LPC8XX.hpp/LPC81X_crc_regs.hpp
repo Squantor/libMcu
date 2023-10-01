@@ -10,14 +10,15 @@
 #ifndef LPC81X_CRC_REGS_HPP
 #define LPC81X_CRC_REGS_HPP
 
-namespace registers {
+namespace libMcuLL {
+namespace hw {
 namespace crc {
 
 /**
  * @brief gpio register definitions
  *
  */
-struct registers {
+struct peripheral {
   volatile uint32_t MODE; /**< CRC Mode Register */
   volatile uint32_t SEED; /**< CRC SEED Register */
   union {
@@ -29,6 +30,7 @@ struct registers {
 };
 
 }  // namespace crc
-}  // namespace registers
+}  // namespace hw
+}  // namespace libMcuLL
 
 #endif

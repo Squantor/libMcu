@@ -10,10 +10,11 @@
 #ifndef LPC81X_SPI_COMMON_HPP
 #define LPC81X_SPI_COMMON_HPP
 
-namespace instances {
+namespace libMcuLL {
+namespace sw {
 namespace spi {
 
-using namespace registers::spi;
+using namespace hw::spi;
 
 /**
  * @brief SPI hardware chip enables
@@ -49,6 +50,7 @@ enum slavePolaritySelects : uint32_t {
 };
 
 }  // namespace spi
-}  // namespace instances
+}  // namespace sw
+}  // namespace libMcuLL
 
 #endif

@@ -10,14 +10,15 @@
 #ifndef LPC81X_I2C_REGS_HPP
 #define LPC81X_I2C_REGS_HPP
 
-namespace registers {
+namespace libMcuLL {
+namespace hw {
 namespace i2c {
 
 /**
  * @brief I2C bus register definitions
  *
  */
-struct registers {
+struct peripheral {
   volatile uint32_t CFG;                /**< Configuration for shared functions */
   volatile uint32_t STAT;               /**< Status register for Master, Slave, and Monitor functions */
   volatile uint32_t INTENSET;           /**< Interrupt Enable Set and read register */
@@ -241,6 +242,7 @@ constexpr inline uint32_t MONNACK = (1 << 10);   /**< Monitor Received NACK */
 
 }  // namespace MONRXDAT
 }  // namespace i2c
-}  // namespace registers
+}  // namespace hw
+}  // namespace libMcuLL
 
 #endif

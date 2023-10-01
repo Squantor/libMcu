@@ -10,9 +10,10 @@
 #ifndef LPC81X_SYSCON_HPP
 #define LPC81X_SYSCON_HPP
 
-namespace instances {
+namespace libMcuLL {
+namespace sw {
 namespace syscon {
-using namespace registers::syscon;
+using namespace hw::syscon;
 
 /**
  * @brief Peripheral reset options
@@ -122,8 +123,8 @@ struct syscon {
    *
    * @return return pointer to syscon registers
    */
-  static registers::syscon::registers *regs() {
-    return reinterpret_cast<registers::syscon::registers *>(address);
+  static hw::syscon::peripheral *regs() {
+    return reinterpret_cast<hw::syscon::peripheral *>(address);
   }
 
   /**
@@ -250,6 +251,7 @@ struct syscon {
   }
 };
 }  // namespace syscon
-}  // namespace instances
+}  // namespace sw
+}  // namespace libMcuLL
 
 #endif

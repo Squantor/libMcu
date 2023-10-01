@@ -12,10 +12,11 @@
 
 #include <nxp/LPC8XX.hpp/LPC81X_spi_common.hpp>
 
-namespace instances {
+namespace libMcuLL {
+namespace sw {
 namespace spi {
 
-using namespace registers::spi;
+using namespace hw::spi;
 
 /**
  * @brief Asynchronous SPI peripheral instance
@@ -31,8 +32,8 @@ struct spiAsync {
    *
    * @return return pointer to spi registers
    */
-  static registers::spi::registers *regs() {
-    return reinterpret_cast<registers::spi::registers *>(address_);
+  static hw::spi::peripheral *regs() {
+    return reinterpret_cast<hw::spi::peripheral *>(address_);
   }
 
   /**
@@ -177,6 +178,7 @@ struct spiAsync {
   // TODO: configure delay settings
 };
 }  // namespace spi
-}  // namespace instances
+}  // namespace sw
+}  // namespace libMcuLL
 
 #endif

@@ -10,9 +10,10 @@
 #ifndef LPC81X_USART_HPP
 #define LPC81X_USART_HPP
 
-namespace instances {
+namespace libMcuLL {
+namespace sw {
 namespace usart {
-using namespace registers::usart;
+using namespace hw::usart;
 
 /**
  * @brief amount of bits to transmit
@@ -76,8 +77,8 @@ struct usart {
    *
    * @return return pointer to usart registers
    */
-  static registers::usart::registers *regs() {
-    return reinterpret_cast<registers::usart::registers *>(address);
+  static hw::usart::peripheral *regs() {
+    return reinterpret_cast<hw::usart::peripheral *>(address);
   }
 
   /**
@@ -148,6 +149,7 @@ struct usart {
   }
 };
 }  // namespace usart
-}  // namespace instances
+}  // namespace sw
+}  // namespace libMcuLL
 
 #endif

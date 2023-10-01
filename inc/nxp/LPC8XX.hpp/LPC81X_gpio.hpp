@@ -10,9 +10,10 @@
 #ifndef LPC81X_GPIO_HPP
 #define LPC81X_GPIO_HPP
 
-namespace instances {
+namespace libMcuLL {
+namespace sw {
 namespace gpio {
-using namespace registers::gpio;
+using namespace hw::gpio;
 template <libMcuLL::GPIOaddress const &address_>
 struct gpio {
   static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
@@ -22,8 +23,8 @@ struct gpio {
    *
    * @return return pointer to gpio registers
    */
-  static auto regs() {
-    return reinterpret_cast<registers::gpio::registers *>(address);
+  static hw::gpio::peripheral *peripheral() {
+    return reinterpret_cast<hw::gpio::peripheral *>(address);
   }
 
   /**
@@ -34,7 +35,7 @@ struct gpio {
    */
   template <typename PIN>
   void output(PIN &pin) {
-    regs()->DIR[pin.gpioPortIndex] = regs()->DIR[pin.gpioPortIndex] | (1 << pin.gpioPinIndex);
+    peripheral()->DIR[pin.gpioPortIndex] = peripheral()->DIR[pin.gpioPortIndex] | (1 << pin.gpioPinIndex);
   }
 
   /**
@@ -45,7 +46,7 @@ struct gpio {
    */
   template <typename PIN>
   void input(PIN &pin) {
-    regs()->DIR[pin.gpioPortIndex] = regs()->DIR[pin.gpioPortIndex] & ~(1 << pin.gpioPinIndex);
+    peripheral()->DIR[pin.gpioPortIndex] = peripheral()->DIR[pin.gpioPortIndex] & ~(1 << pin.gpioPinIndex);
   }
 
   /**
@@ -56,7 +57,7 @@ struct gpio {
    */
   template <typename PIN>
   void high(PIN &pin) {
-    regs()->B[pin.gpioPortIndex][pin.gpioPinIndex] = 0x01;
+    peripheral()->B[pin.gpioPortIndex][pin.gpioPinIndex] = 0x01;
   }
 
   /**
@@ -67,7 +68,7 @@ struct gpio {
    */
   template <typename PIN>
   void low(PIN &pin) {
-    regs()->B[pin.gpioPortIndex][pin.gpioPinIndex] = 0x00;
+    peripheral()->B[pin.gpioPortIndex][pin.gpioPinIndex] = 0x00;
   }
 
   /**
@@ -78,7 +79,7 @@ struct gpio {
    */
   template <typename PIN>
   void toggle(PIN &pin) {
-    regs()->B[pin.gpioPortIndex][pin.gpioPinIndex] = ~regs()->B[pin.gpioPortIndex][pin.gpioPinIndex];
+    peripheral()->B[pin.gpioPortIndex][pin.gpioPinIndex] = ~peripheral()->B[pin.gpioPortIndex][pin.gpioPinIndex];
   }
 
   /**
@@ -90,7 +91,7 @@ struct gpio {
    */
   template <typename PIN>
   uint32_t get(PIN &pin) {
-    return static_cast<uint32_t>(regs()->B[pin.gpioPortIndex][pin.gpioPinIndex]);
+    return static_cast<uint32_t>(peripheral()->B[pin.gpioPortIndex][pin.gpioPinIndex]);
   }
 
   /**
@@ -102,7 +103,7 @@ struct gpio {
    */
   template <typename PIN>
   void set(PIN &pin, uint32_t setting) {
-    regs()->B[pin.gpioPortIndex][pin.gpioPinIndex] = setting;
+    peripheral()->B[pin.gpioPortIndex][pin.gpioPinIndex] = setting;
   }
 
   /**
@@ -114,7 +115,7 @@ struct gpio {
    */
   template <typename PORT>
   void portDirection(PORT &port, uint32_t setting) {
-    regs()->DIR[port.gpioPortIndex] = setting;
+    peripheral()->DIR[port.gpioPortIndex] = setting;
   }
 
   /**
@@ -129,7 +130,7 @@ struct gpio {
    */
   template <typename PORT>
   void portDirection(PORT &port, uint32_t setting, uint32_t mask) {
-    regs()->DIR[port.gpioPortIndex] = (regs()->DIR[port.gpioPortIndex] & ~mask) | (setting & mask);
+    peripheral()->DIR[port.gpioPortIndex] = (peripheral()->DIR[port.gpioPortIndex] & ~mask) | (setting & mask);
   }
 
   /**
@@ -144,7 +145,7 @@ struct gpio {
    */
   template <typename PORT>
   void portSet(PORT &port, uint32_t setting, uint32_t mask) {
-    regs()->DIR[port.gpioPortIndex] = (regs()->DIR[port.gpioPortIndex] & ~mask) | (setting & mask);
+    peripheral()->DIR[port.gpioPortIndex] = (peripheral()->DIR[port.gpioPortIndex] & ~mask) | (setting & mask);
   }
 
   /**
@@ -156,7 +157,7 @@ struct gpio {
    */
   template <typename PORT>
   void portSet(PORT &port, uint32_t setting) {
-    regs()->DIR[port.gpioPortIndex] = setting;
+    peripheral()->DIR[port.gpioPortIndex] = setting;
   }
 
   /**
@@ -168,7 +169,7 @@ struct gpio {
    */
   template <typename PORT>
   void portLow(PORT &port, uint32_t setting) {
-    regs()->CLR[port.gpioPortIndex] = setting;
+    peripheral()->CLR[port.gpioPortIndex] = setting;
   }
 
   /**
@@ -180,7 +181,7 @@ struct gpio {
    */
   template <typename PORT>
   void portHigh(PORT &port, uint32_t setting) {
-    regs()->SET[port.gpioPortIndex] = setting;
+    peripheral()->SET[port.gpioPortIndex] = setting;
   }
 
   /**
@@ -192,7 +193,7 @@ struct gpio {
    */
   template <typename PORT>
   void portToggle(PORT &port, uint32_t setting) {
-    regs()->NOT[port.gpioPortIndex] = setting;
+    peripheral()->NOT[port.gpioPortIndex] = setting;
   }
 
   /**
@@ -204,7 +205,7 @@ struct gpio {
    */
   template <typename PORT>
   uint32_t portGet(PORT &port) {
-    return static_cast<uint32_t>(regs()->PIN[port.gpioPortIndex]);
+    return static_cast<uint32_t>(peripheral()->PIN[port.gpioPortIndex]);
   }
 
   /**
@@ -217,10 +218,11 @@ struct gpio {
    */
   template <typename PORT>
   uint32_t portGet(PORT &port, uint32_t mask) {
-    return static_cast<uint32_t>(regs()->PIN[port.gpioPortIndex]) & mask;
+    return static_cast<uint32_t>(peripheral()->PIN[port.gpioPortIndex]) & mask;
   }
 };
 }  // namespace gpio
-}  // namespace instances
+}  // namespace sw
+}  // namespace libMcuLL
 
 #endif

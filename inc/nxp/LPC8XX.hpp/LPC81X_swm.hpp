@@ -10,9 +10,10 @@
 #ifndef LPC81X_SWM_HPP
 #define LPC81X_SWM_HPP
 
-namespace instances {
+namespace libMcuLL {
+namespace sw {
 namespace swm {
-using namespace registers::swm;
+using namespace hw::swm;
 template <libMcuLL::SWMaddress address_>
 struct swm {
   static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
@@ -21,8 +22,8 @@ struct swm {
    *
    * @return return pointer to registers
    */
-  static registers::swm::registers *regs() {
-    return reinterpret_cast<registers::swm::registers *>(address);
+  static hw::swm::peripheral *regs() {
+    return reinterpret_cast<hw::swm::peripheral *>(address);
   }
 
   /**
@@ -35,12 +36,12 @@ struct swm {
    */
   template <typename PIN, typename FUNC>
   constexpr void setup(PIN &pin, FUNC &function) {
-    if constexpr (FUNC::type == registers::swm::pinFunctionTypes::MOVABLE) {
+    if constexpr (FUNC::type == hw::swm::pinFunctionTypes::MOVABLE) {
       // create a mask for resetting the pin setting
       constexpr uint32_t mask = ~(0xFF << function.shift);
       regs()->PINASSIGN[function.index] = (regs()->PINASSIGN[function.index] & mask) | (pin.pio << function.shift);
     }
-    if constexpr (FUNC::type == registers::swm::pinFunctionTypes::FIXED) {
+    if constexpr (FUNC::type == hw::swm::pinFunctionTypes::FIXED) {
       static_assert(PIN::pio == FUNC::pio, "this function is not available on this pin!");
       regs()->PINENABLE0 = regs()->PINENABLE0 & ~function.mask;
     }
@@ -48,12 +49,12 @@ struct swm {
 
   template <typename PIN, typename FUNC>
   constexpr void clear([[maybe_unused]] PIN &pin, FUNC &function) {
-    if constexpr (FUNC::type == registers::swm::pinFunctionTypes::MOVABLE) {
+    if constexpr (FUNC::type == hw::swm::pinFunctionTypes::MOVABLE) {
       // create a mask for unassigning pin setting
       constexpr uint32_t mask = (0xFF << function.shift);
       regs()->PINASSIGN[function.index] = (regs()->PINASSIGN[function.index] | mask);
     }
-    if constexpr (FUNC::type == registers::swm::pinFunctionTypes::FIXED) {
+    if constexpr (FUNC::type == hw::swm::pinFunctionTypes::FIXED) {
       static_assert(PIN::pio == FUNC::pio, "this function is not available on this pin!");
       regs()->PINENABLE0 = regs()->PINENABLE0 | function.mask;
     }
@@ -78,5 +79,7 @@ struct swm {
   }
 };
 }  // namespace swm
-}  // namespace instances
+}  // namespace sw
+}  // namespace libMcuLL
+
 #endif

@@ -10,9 +10,10 @@
 #ifndef LPC81X_PIN_INT_HPP
 #define LPC81X_PIN_INT_HPP
 
-namespace instances {
+namespace libMcuLL {
+namespace sw {
 namespace pin_int {
-using namespace registers::gpio;
+using namespace hw::gpio;
 template <libMcuLL::PININTaddress address_>
 struct gpio {
   static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
@@ -21,11 +22,12 @@ struct gpio {
    *
    * @return return pointer to pin interrupt registers
    */
-  static auto regs() {
-    return reinterpret_cast<registers::pinint::registers *>(address_);
+  static hw::pinint::peripheral *peripheral() {
+    return reinterpret_cast<hw::pinint::peripheral *>(address_);
   }
 };
 }  // namespace pin_int
-}  // namespace instances
+}  // namespace sw
+}  // namespace libMcuLL
 
 #endif

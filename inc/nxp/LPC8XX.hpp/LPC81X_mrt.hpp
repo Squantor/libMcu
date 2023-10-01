@@ -10,9 +10,10 @@
 #ifndef LPC81X_MRT_HPP
 #define LPC81X_MRT_HPP
 
-namespace instances {
+namespace libMcuLL {
+namespace sw {
 namespace mrt {
-using namespace registers::mrt;
+using namespace hw::mrt;
 template <libMcuLL::MRTaddress address_>
 struct mrt {
   static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
@@ -21,11 +22,12 @@ struct mrt {
    *
    * @return return pointer to mrt registers
    */
-  static auto regs() {
-    return reinterpret_cast<registers::mrt::registers *>(address_);
+  static hw::mrt::peripheral *peripheral() {
+    return reinterpret_cast<hw::mrt::peripheral *>(address_);
   }
 };
 }  // namespace mrt
-}  // namespace instances
+}  // namespace sw
+}  // namespace libMcuLL
 
 #endif

@@ -10,7 +10,8 @@
 #ifndef LPC81X_MRT_REGS_HPP
 #define LPC81X_MRT_REGS_HPP
 
-namespace registers {
+namespace libMcuLL {
+namespace hw {
 namespace mrt {
 
 struct mrtChannel {
@@ -20,7 +21,7 @@ struct mrtChannel {
   volatile uint32_t STAT;   /* Timer status register */
 };
 
-struct registers {
+struct peripheral {
   mrtChannel CHANNEL[4];
   volatile uint32_t RESERVED1[45];
   volatile uint32_t IDLE_CH;
@@ -28,6 +29,7 @@ struct registers {
 };
 
 }  // namespace mrt
-}  // namespace registers
+}  // namespace hw
+}  // namespace libMcuLL
 
 #endif

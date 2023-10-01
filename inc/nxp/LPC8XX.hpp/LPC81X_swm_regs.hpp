@@ -10,7 +10,8 @@
 #ifndef LPC81X_SMW_REGS_HPP
 #define LPC81X_SWM_REGS_HPP
 
-namespace registers {
+namespace libMcuLL {
+namespace hw {
 namespace swm {
 
 enum pinAssign : uint8_t {
@@ -695,12 +696,13 @@ struct pinFunction<pinFunctions::VDDCMP> {
  * @brief SWM register definitions
  *
  */
-struct registers {
+struct peripheral {
   volatile uint32_t PINASSIGN[9];   /**< Pin Assign register array */
   volatile uint32_t RESERVED0[103]; /**< reserved*/
   volatile uint32_t PINENABLE0;     /**< Pin Enable register */
 };
 }  // namespace swm
-}  // namespace registers
+}  // namespace hw
+}  // namespace libMcuLL
 
 #endif

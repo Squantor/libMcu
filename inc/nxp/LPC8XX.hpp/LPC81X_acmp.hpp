@@ -9,10 +9,10 @@
  */
 #ifndef LPC81X_ACMP_HPP
 #define LPC81X_ACMP_HPP
-
-namespace instances {
+namespace libMcuLL {
+namespace sw {
 namespace acmp {
-using namespace registers::acmp;
+using namespace hw::acmp;
 template <libMcuLL::ACMPaddress const& address_>
 struct acmp {
   static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
@@ -21,11 +21,12 @@ struct acmp {
    *
    * @return return pointer to analog comparator registers
    */
-  static auto regs() {
-    return reinterpret_cast<registers::acmp::registers*>(address);
+  static hw::acmp::peripheral* peripheral() {
+    return reinterpret_cast<hw::acmp::peripheral*>(address);
   }
 };
 }  // namespace acmp
-}  // namespace instances
+}  // namespace sw
+}  // namespace libMcuLL
 
 #endif

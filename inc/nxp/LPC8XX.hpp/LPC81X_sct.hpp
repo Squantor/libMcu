@@ -10,9 +10,10 @@
 #ifndef LPC81X_SCT_HPP
 #define LPC81X_SCT_HPP
 
-namespace instances {
+namespace libMcuLL {
+namespace sw {
 namespace sct {
-using namespace registers::sct;
+using namespace hw::sct;
 template <libMcuLL::SCTaddress address_>
 struct sct {
   static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
@@ -21,11 +22,12 @@ struct sct {
    *
    * @return return pointer to state configurable timer registers
    */
-  static auto regs() {
-    return reinterpret_cast<registers::sct::registers *>(address_);
+  static hw::sct::peripheral *regs() {
+    return reinterpret_cast<hw::sct::peripheral *>(address_);
   }
 };
 }  // namespace sct
-}  // namespace instances
+}  // namespace sw
+}  // namespace libMcuLL
 
 #endif
