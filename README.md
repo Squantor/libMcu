@@ -17,7 +17,7 @@ To use this project add the inc directory of this repository to your project and
 * Hardware in the loop tests (TODO)
 * [C Coding guidelines](doc/C_coding_guidelines.md)
 * [C++ Coding guidelines](doc/CPP_coding_guidelines.md)
-* [C++ namespacing](doc/namespaces.md)
+* [C++ namespacing](doc/CPP_namespaces.md)
 * C++ anatomy of a peripheral hardware definition (TODO)
 * C++ anatomy of a peripheral software definition (TODO)
 # Goals
