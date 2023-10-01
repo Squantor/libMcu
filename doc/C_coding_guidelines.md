@@ -1,4 +1,4 @@
-# LibMcuLL Coding guidelines
+# C LibMcuLL Coding guidelines
 # Introduction
 To make sure that LibMcuLL is consistent a bunch of rules/templates are defined in how to do certain things. These are described here. Also included is some of the architecture of LibMcuLL.
 # Include architecture
