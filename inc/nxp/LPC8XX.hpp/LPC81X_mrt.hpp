@@ -13,15 +13,16 @@
 namespace instances {
 namespace mrt {
 using namespace registers::mrt;
-template <libMcuLL::MRTtype base>
+template <libMcuLL::MRTaddress address_>
 struct mrt {
+  static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
   /**
    * @brief get registers from peripheral
    *
    * @return return pointer to mrt registers
    */
   static auto regs() {
-    return reinterpret_cast<registers::mrt::registers *>(base);
+    return reinterpret_cast<registers::mrt::registers *>(address_);
   }
 };
 }  // namespace mrt

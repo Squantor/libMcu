@@ -20,19 +20,19 @@ using namespace registers::spi;
 /**
  * @brief synchronous SPI peripheral instance
  *
- * @tparam base Peripheral base address
+ * @tparam address_ Peripheral base address
  * @tparam chipEnables enum of available chip enables
  */
-template <libMcuLL::SPItype base, typename chipEnables>
+template <libMcuLL::SPIaddress address_, typename chipEnables>
 struct spiSync {
-  static_assert(std::is_same<decltype(base), libMcuLL::SPItype>::value, "Address does not point to a SPI address!");
+  static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
   /**
    * @brief get registers from peripheral
    *
    * @return return pointer to spi registers
    */
   static registers::spi::registers *regs() {
-    return reinterpret_cast<registers::spi::registers *>(base);
+    return reinterpret_cast<registers::spi::registers *>(address);
   }
 
   /**
@@ -80,9 +80,9 @@ struct spiSync {
    */
   void write(chipEnables device, const std::span<uint16_t> transmitBuffer, uint32_t bitcount, bool lastAction) {
     size_t index = 0;
-    uint32_t baseTransferCommand = TXDATCTL::TXSSEL(device) | TXDATCTL::RXIGNORE;  // base transfer command with presets
+    uint32_t address_TransferCommand = TXDATCTL::TXSSEL(device) | TXDATCTL::RXIGNORE;  // address_ transfer command with presets
     while (bitcount > 16) {
-      regs()->TXDATCTL = baseTransferCommand | TXDATCTL::TXDAT(transmitBuffer[index]) | TXDATCTL::LEN(16);
+      regs()->TXDATCTL = address_TransferCommand | TXDATCTL::TXDAT(transmitBuffer[index]) | TXDATCTL::LEN(16);
       while ((regs()->STAT & STAT::TXRDY) == 0)
         ;
       bitcount -= 16;
@@ -90,8 +90,8 @@ struct spiSync {
     }
     // process remainder
     if (lastAction)
-      baseTransferCommand |= TXDATCTL::EOT;
-    regs()->TXDATCTL = baseTransferCommand | TXDATCTL::TXDAT(transmitBuffer[index]) | TXDATCTL::LEN(bitcount);
+      address_TransferCommand |= TXDATCTL::EOT;
+    regs()->TXDATCTL = address_TransferCommand | TXDATCTL::TXDAT(transmitBuffer[index]) | TXDATCTL::LEN(bitcount);
     while ((regs()->STAT & STAT::TXRDY) == 0)
       ;
   }
@@ -109,9 +109,9 @@ struct spiSync {
    */
   void read(chipEnables device, std::span<uint16_t> receiveBuffer, uint32_t bitcount, bool lastAction) {
     size_t index = 0;
-    uint32_t baseTransferCommand = TXDATCTL::TXSSEL(device);  // base transfer command with presets
+    uint32_t address_TransferCommand = TXDATCTL::TXSSEL(device);  // address_ transfer command with presets
     while (bitcount > 16) {
-      regs()->TXDATCTL = baseTransferCommand | TXDATCTL::LEN(16);
+      regs()->TXDATCTL = address_TransferCommand | TXDATCTL::LEN(16);
       while ((regs()->STAT & STAT::RXRDY) == 0)
         ;
       receiveBuffer[index] = RXDAT::RXDAT(regs()->RXDAT);
@@ -120,8 +120,8 @@ struct spiSync {
     }
     // process remainder
     if (lastAction)
-      baseTransferCommand |= TXDATCTL::EOT;
-    regs()->TXDATCTL = baseTransferCommand | TXDATCTL::LEN(bitcount);
+      address_TransferCommand |= TXDATCTL::EOT;
+    regs()->TXDATCTL = address_TransferCommand | TXDATCTL::LEN(bitcount);
     while ((regs()->STAT & STAT::RXRDY) == 0)
       ;
     receiveBuffer[index] = RXDAT::RXDAT(regs()->RXDAT);
@@ -157,9 +157,9 @@ struct spiSync {
   void readWrite(chipEnables device, const std::span<uint16_t> transmitBuffer, std::span<uint16_t> receiveBuffer, uint32_t bitcount,
                  bool lastAction) {
     size_t index = 0;
-    uint32_t baseTransferCommand = TXDATCTL::TXSSEL(device);
+    uint32_t address_TransferCommand = TXDATCTL::TXSSEL(device);
     while (bitcount > 16) {
-      regs()->TXDATCTL = baseTransferCommand | TXDATCTL::TXDAT(transmitBuffer[index]) | TXDATCTL::LEN(16);
+      regs()->TXDATCTL = address_TransferCommand | TXDATCTL::TXDAT(transmitBuffer[index]) | TXDATCTL::LEN(16);
       while ((regs()->STAT & STAT::RXRDY) == 0)
         ;
       receiveBuffer[index] = RXDAT::RXDAT(regs()->RXDAT);
@@ -168,8 +168,8 @@ struct spiSync {
     }
     // process remainder
     if (lastAction)
-      baseTransferCommand |= TXDATCTL::EOT;
-    regs()->TXDATCTL = baseTransferCommand | TXDATCTL::TXDAT(transmitBuffer[index]) | TXDATCTL::LEN(bitcount);
+      address_TransferCommand |= TXDATCTL::EOT;
+    regs()->TXDATCTL = address_TransferCommand | TXDATCTL::TXDAT(transmitBuffer[index]) | TXDATCTL::LEN(bitcount);
     while ((regs()->STAT & STAT::RXRDY) == 0)
       ;
     receiveBuffer[index] = RXDAT::RXDAT(regs()->RXDAT);

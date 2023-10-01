@@ -13,15 +13,16 @@
 namespace instances {
 namespace wkt {
 using namespace registers::wkt;
-template <libMcuLL::WKTtype base>
+template <libMcuLL::WKTaddress address_>
 struct wkt {
+  static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
   /**
    * @brief get registers from peripheral
    *
    * @return return pointer to wkt registers
    */
   static auto regs() {
-    return reinterpret_cast<registers::wkt::registers *>(base);
+    return reinterpret_cast<registers::wkt::registers *>(address_);
   }
 };
 }  // namespace wkt

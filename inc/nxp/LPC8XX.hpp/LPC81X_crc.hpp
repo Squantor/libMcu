@@ -13,15 +13,16 @@
 namespace instances {
 namespace crc {
 using namespace registers::crc;
-template <libMcuLL::CRCtype base>
+template <libMcuLL::CRCaddress address_>
 struct crc {
+  static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
   /**
    * @brief get registers from peripheral
    *
    * @return return pointer to CRC registers
    */
   static auto regs() {
-    return reinterpret_cast<registers::crc::registers *>(base);
+    return reinterpret_cast<registers::crc::registers *>(address_);
   }
 };
 }  // namespace crc

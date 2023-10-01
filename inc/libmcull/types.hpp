@@ -12,25 +12,44 @@
 
 namespace libMcuLL {
 
+/**
+ * @brief defines a constant for typesafety
+ *
+ * @tparam C_ type of constant
+ */
+template <typename C_>
+struct constant {
+  using type = C_;
+
+  constexpr operator C_() const {
+    return value;
+  }
+
+  C_ value;
+};
+
+using hwAddress = constant<std::uint32_t>;
+using hwAddressType = typename hwAddress::type;
+
 /* Peripheral address types used by all microcontrollers */
-using I2Ctype = std::uint32_t;   /**< I2C */
-using SPItype = std::uint32_t;   /**< SPI */
-using USARTtype = std::uint32_t; /**< USART */
-using CRCtype = std::uint32_t;   /**< CRC engine */
-using GPIOtype = std::uint32_t;  /**< GPIO */
+struct I2Caddress : hwAddress {};   /**< I2C */
+struct SPIaddress : hwAddress {};   /**< SPI */
+struct USARTaddress : hwAddress {}; /**< USART */
+struct CRCaddress : hwAddress {};   /**< CRC engine */
+struct GPIOaddress : hwAddress {};  /**< GPIO */
 
 /* Peripheral address types used by NXP LPC microcontrollers */
-using WWDTtype = std::uint32_t;   /**< NXP LPC Windowed watchdog */
-using MRTtype = std::uint32_t;    /**< NXP LPC Multi rate timer*/
-using WKTtype = std::uint32_t;    /**< NXP LPC Wakeup timer */
-using SWMtype = std::uint32_t;    /**< NXP LPC Switch Matrix */
-using PMUtype = std::uint32_t;    /**< NXP LPC Power management unit */
-using ACMPtype = std::uint32_t;   /**< NXP LPC Analog comparator */
-using FMCtype = std::uint32_t;    /**< NXP LPC Flash controller */
-using IOCONtype = std::uint32_t;  /**< NXP LPC IO control */
-using SYSCONtype = std::uint32_t; /**< NXP LPC System control*/
-using SCTtype = std::uint32_t;    /**< NXP LPC state configurable timer */
-using PININTtype = std::uint32_t; /**< NXP LPC Pin interrupt */
+struct WWDTaddress : hwAddress {};   /**< NXP LPC Windowed watchdog */
+struct MRTaddress : hwAddress {};    /**< NXP LPC Multi rate timer*/
+struct WKTaddress : hwAddress {};    /**< NXP LPC Wakeup timer */
+struct SWMaddress : hwAddress {};    /**< NXP LPC Switch Matrix */
+struct PMUaddress : hwAddress {};    /**< NXP LPC Power management unit */
+struct ACMPaddress : hwAddress {};   /**< NXP LPC Analog comparator */
+struct FMCaddress : hwAddress {};    /**< NXP LPC Flash controller */
+struct IOCONaddress : hwAddress {};  /**< NXP LPC IO control */
+struct SYSCONaddress : hwAddress {}; /**< NXP LPC System control*/
+struct SCTaddress : hwAddress {};    /**< NXP LPC state configurable timer */
+struct PININTaddress : hwAddress {}; /**< NXP LPC Pin interrupt */
 
 /* Peripheral address types used by STM32 microcontrollers */
 

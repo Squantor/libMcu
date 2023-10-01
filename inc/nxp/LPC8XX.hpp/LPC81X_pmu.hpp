@@ -13,15 +13,16 @@
 namespace instances {
 namespace pmu {
 using namespace registers::pmu;
-template <libMcuLL::PMUtype base>
+template <libMcuLL::PMUaddress address_>
 struct pmu {
+  static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
   /**
    * @brief get registers from peripheral
    *
    * @return return pointer to power management unit registers
    */
   static auto regs() {
-    return reinterpret_cast<registers::pmu::registers *>(base);
+    return reinterpret_cast<registers::pmu::registers *>(address_);
   }
 };
 }  // namespace pmu

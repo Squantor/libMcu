@@ -13,15 +13,16 @@
 namespace instances {
 namespace acmp {
 using namespace registers::acmp;
-template <libMcuLL::ACMPtype base>
+template <libMcuLL::ACMPaddress const& address_>
 struct acmp {
+  static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
   /**
    * @brief get registers from peripheral
    *
    * @return return pointer to analog comparator registers
    */
   static auto regs() {
-    return reinterpret_cast<registers::acmp::registers *>(base);
+    return reinterpret_cast<registers::acmp::registers*>(address);
   }
 };
 }  // namespace acmp

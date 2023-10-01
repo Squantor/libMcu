@@ -186,29 +186,29 @@ namespace peripherals {
 
 // Define peripheral addresses on APB0 bus
 // rename these when full c++ functionality is finished, remove _cpp postfix
-constexpr static inline libMcuLL::WWDTtype WWDT_cpp = 0x4000'0000u;     /**< Windowed watchdog base address */
-constexpr static inline libMcuLL::MRTtype MRT_cpp = 0x4000'4000u;       /**< multi rate timer base address */
-constexpr static inline libMcuLL::WKTtype WKT_cpp = 0x4000'8000u;       /**< wakeup timer base address */
-constexpr static inline libMcuLL::SWMtype SWM_cpp = 0x4000'C000u;       /**< Switch matrix base address */
-constexpr static inline libMcuLL::PMUtype PMU_cpp = 0x4002'0000u;       /**< Power management unit base address */
-constexpr static inline libMcuLL::ACMPtype ACMP_cpp = 0x4002'4000u;     /**< Analog comparator base address */
-constexpr static inline libMcuLL::FMCtype FMC_cpp = 0x4004'0000u;       /**< Flash memory controller base address */
-constexpr static inline libMcuLL::IOCONtype IOCON_cpp = 0x4004'4000u;   /**< I/O control base address */
-constexpr static inline libMcuLL::SYSCONtype SYSCON_cpp = 0x4004'8000u; /**< System control base address */
-constexpr static inline libMcuLL::I2Ctype I2C0_cpp = 0x4005'0000u;      /**< I2C 0 base address */
-constexpr static inline libMcuLL::SPItype SPI0_cpp = 0x4005'8000u;      /**< SPI 0 base address */
-constexpr static inline libMcuLL::SPItype SPI1_cpp = 0x4005'C000u;      /**< SPI 1 base address */
-constexpr static inline libMcuLL::USARTtype USART0_cpp = 0x4006'4000u;  /**< USART 0 base address */
-constexpr static inline libMcuLL::USARTtype USART1_cpp = 0x4006'8000u;  /**< USART 1 base address */
-constexpr static inline libMcuLL::USARTtype USART2_cpp = 0x4006'C000u;  /**< USART 2 base address */
+constexpr inline libMcuLL::WWDTaddress WWDT_cpp{0x4000'0000u};     /**< Windowed watchdog base address */
+constexpr inline libMcuLL::MRTaddress MRT_cpp{0x4000'4000u};       /**< multi rate timer base address */
+constexpr inline libMcuLL::WKTaddress WKT_cpp{0x4000'8000u};       /**< wakeup timer base address */
+constexpr inline libMcuLL::SWMaddress SWM_cpp{0x4000'C000u};       /**< Switch matrix base address */
+constexpr inline libMcuLL::PMUaddress PMU_cpp{0x4002'0000u};       /**< Power management unit base address */
+constexpr inline libMcuLL::ACMPaddress ACMP_cpp{0x4002'4000u};     /**< Analog comparator base address */
+constexpr inline libMcuLL::FMCaddress FMC_cpp{0x4004'0000u};       /**< Flash memory controller base address */
+constexpr inline libMcuLL::IOCONaddress IOCON_cpp{0x4004'4000u};   /**< I/O control base address */
+constexpr inline libMcuLL::SYSCONaddress SYSCON_cpp{0x4004'8000u}; /**< System control base address */
+constexpr inline libMcuLL::I2Caddress I2C0_cpp{0x4005'0000u};      /**< I2C 0 base address */
+constexpr inline libMcuLL::SPIaddress SPI0_cpp{0x4005'8000u};      /**< SPI 0 base address */
+constexpr inline libMcuLL::SPIaddress SPI1_cpp{0x4005'C000u};      /**< SPI 1 base address */
+constexpr inline libMcuLL::USARTaddress USART0_cpp{0x4006'4000u};  /**< USART 0 base address */
+constexpr inline libMcuLL::USARTaddress USART1_cpp{0x4006'8000u};  /**< USART 1 base address */
+constexpr inline libMcuLL::USARTaddress USART2_cpp{0x4006'C000u};  /**< USART 2 base address */
 
 /* AHB peripherals */
-constexpr static inline libMcuLL::CRCtype CRC_cpp = 0x5000'0000u;  /**< CRC calculator base address */
-constexpr static inline libMcuLL::SCTtype SCT0_cpp = 0x5000'4000u; /**< State configurable timer 0 base address */
+constexpr inline libMcuLL::CRCaddress CRC_cpp{0x5000'0000u};  /**< CRC calculator base address */
+constexpr inline libMcuLL::SCTaddress SCT0_cpp{0x5000'4000u}; /**< State configurable timer 0 base address */
 
 /* Direct connected peripherals */
-constexpr static inline libMcuLL::GPIOtype GPIO_cpp = 0xA000'0000u;      /**< General Purpose I/O base address */
-constexpr static inline libMcuLL::PININTtype PIN_INT_cpp = 0xA000'4000u; /**< Pin interrupt base address */
+constexpr inline libMcuLL::GPIOaddress GPIO_cpp{0xA000'0000u};      /**< General Purpose I/O base address */
+constexpr inline libMcuLL::PININTaddress PIN_INT_cpp{0xA000'4000u}; /**< Pin interrupt base address */
 
 }  // namespace peripherals
 

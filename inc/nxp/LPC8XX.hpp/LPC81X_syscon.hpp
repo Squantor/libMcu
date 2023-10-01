@@ -114,15 +114,16 @@ enum peripheralPowers : uint32_t {
   POWER_ACMP = (1 << 15),  /**< Analog comparator*/
 };
 
-template <libMcuLL::SYSCONtype base>
+template <libMcuLL::SYSCONaddress address_>
 struct syscon {
+  static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
   /**
    * @brief get registers from peripheral
    *
    * @return return pointer to syscon registers
    */
   static registers::syscon::registers *regs() {
-    return reinterpret_cast<registers::syscon::registers *>(base);
+    return reinterpret_cast<registers::syscon::registers *>(address);
   }
 
   /**

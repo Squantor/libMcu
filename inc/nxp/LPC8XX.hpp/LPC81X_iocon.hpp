@@ -13,15 +13,16 @@
 namespace instances {
 namespace iocon {
 using namespace registers::iocon;
-template <libMcuLL::IOCONtype base>
+template <libMcuLL::IOCONaddress address_>
 struct iocon {
+  static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
   /**
    * @brief get registers from peripheral
    *
    * @return return pointer to iocon registers
    */
   static auto regs() {
-    return reinterpret_cast<registers::iocon::registers *>(base);
+    return reinterpret_cast<registers::iocon::registers *>(address);
   }
   /**
    * @brief Setup normal IOCON pin

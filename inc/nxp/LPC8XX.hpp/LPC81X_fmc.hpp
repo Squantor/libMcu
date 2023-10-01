@@ -13,15 +13,16 @@
 namespace instances {
 namespace fmc {
 using namespace registers::fmc;
-template <libMcuLL::FMCtype base>
+template <libMcuLL::FMCaddress address_>
 struct fmc {
+  static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
   /**
    * @brief get registers from peripheral
    *
    * @return return pointer to gpio registers
    */
   static auto regs() {
-    return reinterpret_cast<registers::fmc::registers *>(base);
+    return reinterpret_cast<registers::fmc::registers *>(address_);
   }
 };
 }  // namespace fmc

@@ -13,15 +13,16 @@
 namespace instances {
 namespace swm {
 using namespace registers::swm;
-template <libMcuLL::SWMtype base>
+template <libMcuLL::SWMaddress address_>
 struct swm {
+  static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
   /**
    * @brief get registers from peripheral
    *
    * @return return pointer to registers
    */
   static registers::swm::registers *regs() {
-    return reinterpret_cast<registers::swm::registers *>(base);
+    return reinterpret_cast<registers::swm::registers *>(address);
   }
 
   /**

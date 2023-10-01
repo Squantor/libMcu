@@ -13,15 +13,16 @@
 namespace instances {
 namespace i2c {
 using namespace registers::i2c;
-template <libMcuLL::I2Ctype base>
+template <libMcuLL::I2Caddress address_>
 struct i2c {
+  static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
   /**
    * @brief get registers from peripheral
    *
    * @return return pointer to i2c registers
    */
   static auto regs() {
-    return reinterpret_cast<registers::i2c::registers *>(base);
+    return reinterpret_cast<registers::i2c::registers *>(address);
   }
 
   /**

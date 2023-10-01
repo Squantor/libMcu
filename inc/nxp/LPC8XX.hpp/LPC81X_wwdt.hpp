@@ -13,15 +13,16 @@
 namespace instances {
 namespace wwdt {
 using namespace registers::wwdt;
-template <libMcuLL::WWDTtype base>
+template <libMcuLL::WWDTaddress address_>
 struct wwdt {
+  static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
   /**
    * @brief get registers from peripheral
    *
    * @return return pointer to windowed watchdog registers
    */
   static auto regs() {
-    return reinterpret_cast<registers::wwdt::registers *>(base);
+    return reinterpret_cast<registers::wwdt::registers *>(address_);
   }
 };
 }  // namespace wwdt

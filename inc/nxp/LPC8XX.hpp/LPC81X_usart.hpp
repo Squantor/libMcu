@@ -68,15 +68,16 @@ enum uartStatus : uint32_t {
   RXNOISEINT = STAT::RXNOISEINT,     /**< Recieved noise interrupt flag, write 1 clear*/
 };
 
-template <libMcuLL::USARTtype base>
+template <libMcuLL::USARTaddress address_>
 struct usart {
+  static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
   /**
    * @brief get registers from peripheral
    *
    * @return return pointer to usart registers
    */
   static registers::usart::registers *regs() {
-    return reinterpret_cast<registers::usart::registers *>(base);
+    return reinterpret_cast<registers::usart::registers *>(address);
   }
 
   /**

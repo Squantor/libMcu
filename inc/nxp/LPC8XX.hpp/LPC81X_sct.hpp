@@ -13,15 +13,16 @@
 namespace instances {
 namespace sct {
 using namespace registers::sct;
-template <libMcuLL::SCTtype base>
+template <libMcuLL::SCTaddress address_>
 struct sct {
+  static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
   /**
    * @brief get registers from peripheral
    *
    * @return return pointer to state configurable timer registers
    */
   static auto regs() {
-    return reinterpret_cast<registers::sct::registers *>(base);
+    return reinterpret_cast<registers::sct::registers *>(address_);
   }
 };
 }  // namespace sct

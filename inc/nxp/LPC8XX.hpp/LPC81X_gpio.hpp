@@ -13,15 +13,17 @@
 namespace instances {
 namespace gpio {
 using namespace registers::gpio;
-template <libMcuLL::GPIOtype base>
+template <libMcuLL::GPIOaddress const &address_>
 struct gpio {
+  static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
   /**
+   *
    * @brief get registers from peripheral
    *
    * @return return pointer to gpio registers
    */
   static auto regs() {
-    return reinterpret_cast<registers::gpio::registers *>(base);
+    return reinterpret_cast<registers::gpio::registers *>(address);
   }
 
   /**
