@@ -56,8 +56,8 @@ struct PININTbaseAddress : hwAddress {}; /**< NXP LPC Pin interrupt */
 /* Peripheral address types used by Raspberry Pi microcontrollers */
 
 /* I2C general definitions */
-using i2cAddress = constant<std::uint32_t>;
-using i2cAddressType = typename i2cAddress::type;
+using i2cDeviceAddress = constant<std::uint32_t>;
+using i2cDeviceAddressType = typename i2cDeviceAddress::type;
 
 }  // namespace libMcuLL
 
