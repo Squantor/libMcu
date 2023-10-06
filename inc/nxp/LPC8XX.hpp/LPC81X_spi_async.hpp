@@ -24,7 +24,7 @@ using namespace hw::spi;
  * @tparam address_ Peripheral base address
  * @tparam chipEnables enum of available chip enables
  */
-template <libMcuLL::SPIaddress address_, typename chipEnables>
+template <libMcuLL::SPIbaseAddress address_, typename chipEnables>
 struct spiAsync {
   static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
   /**

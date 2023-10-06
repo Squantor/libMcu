@@ -13,7 +13,7 @@ namespace libMcuLL {
 namespace sw {
 namespace acmp {
 using namespace hw::acmp;
-template <libMcuLL::ACMPaddress const& address_>
+template <libMcuLL::ACMPbaseAddress const& address_>
 struct acmp {
   static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
   /**

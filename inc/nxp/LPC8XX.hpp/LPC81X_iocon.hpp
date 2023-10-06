@@ -14,7 +14,7 @@ namespace libMcuLL {
 namespace sw {
 namespace iocon {
 using namespace hw::iocon;
-template <libMcuLL::IOCONaddress address_>
+template <libMcuLL::IOCONbaseAddress address_>
 struct iocon {
   static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
   /**

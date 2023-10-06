@@ -115,7 +115,7 @@ enum peripheralPowers : uint32_t {
   POWER_ACMP = (1 << 15),  /**< Analog comparator*/
 };
 
-template <libMcuLL::SYSCONaddress address_>
+template <libMcuLL::SYSCONbaseAddress address_>
 struct syscon {
   static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
   /**

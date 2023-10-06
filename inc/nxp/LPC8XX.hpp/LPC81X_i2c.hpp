@@ -14,7 +14,7 @@ namespace libMcuLL {
 namespace sw {
 namespace i2c {
 using namespace hw::i2c;
-template <libMcuLL::I2Caddress address_>
+template <libMcuLL::I2CbaseAddress address_>
 struct i2c {
   static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
   /**

@@ -14,7 +14,7 @@ namespace libMcuLL {
 namespace sw {
 namespace crc {
 using namespace hw::crc;
-template <libMcuLL::CRCaddress address_>
+template <libMcuLL::CRCbaseAddress address_>
 struct crc {
   static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
   /**

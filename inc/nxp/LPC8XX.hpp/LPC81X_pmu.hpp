@@ -14,7 +14,7 @@ namespace libMcuLL {
 namespace sw {
 namespace pmu {
 using namespace hw::pmu;
-template <libMcuLL::PMUaddress address_>
+template <libMcuLL::PMUbaseAddress address_>
 struct pmu {
   static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
   /**

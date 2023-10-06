@@ -14,7 +14,7 @@ namespace libMcuLL {
 namespace sw {
 namespace pin_int {
 using namespace hw::gpio;
-template <libMcuLL::PININTaddress address_>
+template <libMcuLL::PININTbaseAddress address_>
 struct gpio {
   static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
   /**

@@ -14,7 +14,7 @@ namespace libMcuLL {
 namespace sw {
 namespace fmc {
 using namespace libMcuLL::hw::fmc;
-template <libMcuLL::FMCaddress address_>
+template <libMcuLL::FMCbaseAddress address_>
 struct fmc {
   static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
   /**

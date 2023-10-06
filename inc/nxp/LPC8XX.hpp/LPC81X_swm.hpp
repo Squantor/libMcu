@@ -14,7 +14,7 @@ namespace libMcuLL {
 namespace sw {
 namespace swm {
 using namespace hw::swm;
-template <libMcuLL::SWMaddress address_>
+template <libMcuLL::SWMbaseAddress address_>
 struct swm {
   static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
   /**
