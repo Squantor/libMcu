@@ -38,6 +38,31 @@ struct i2c {
     peripheral()->CFG = CFG::MSTEN;
     return CLOCK_AHB / divider;
   }
+  /**
+   * @brief Write data to I2C device
+   *
+   * @param address I2C device to write to
+   * @param transmitBuffer data to send
+   */
+  void write(libMcuLL::i2cDeviceAddress address, const std::span<uint8_t> transmitBuffer) {
+    uint32_t i2cAddress = static_cast<std::uint32_t>(address.value) << 1;
+    peripheral()->MSTDAT = i2cAddress;
+    peripheral()->MSTCTL = MSTCTL::MSTSTART;
+    while (!(peripheral()->STAT & STAT::MSTPENDING))
+      ;
+    if ((peripheral()->STAT & STAT::MSTSTATE_MASK) != STAT::MSTSTATE_TXRDY)
+      goto stop;
+    for (const uint8_t &data : transmitBuffer) {
+      peripheral()->MSTDAT = static_cast<std::uint32_t>(data);
+      peripheral()->MSTCTL = MSTCTL::MSTCONTINUE;
+      while (!(peripheral()->STAT & STAT::MSTPENDING))
+        ;
+    }
+  stop:
+    peripheral()->MSTCTL = MSTCTL::MSTSTOP;
+    while (!(peripheral()->STAT & STAT::MSTPENDING))
+      ;
+  }
 };
 }  // namespace i2c
 }  // namespace sw
