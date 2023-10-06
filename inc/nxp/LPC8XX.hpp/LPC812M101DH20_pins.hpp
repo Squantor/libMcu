@@ -265,7 +265,7 @@ struct pin<IOports::PORT0, IOpins::PIN13> {
 template <>
 struct pin<IOports::PORT0, IOpins::PIN14> {
   static constexpr uint8_t typeFlags = pinTypeFlags::NORMAL;
-  static constexpr uint8_t ioconIndex = 12;
+  static constexpr uint8_t ioconIndex = 18;
   static constexpr uint8_t gpioPinIndex = 14;
   static constexpr uint32_t gpioPinMask = 1 << gpioPinIndex;
   static constexpr uint8_t gpioPortIndex = 0;
