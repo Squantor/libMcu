@@ -28,36 +28,38 @@ struct constant {
   C_ value;
 };
 
-using hwAddress = constant<std::uint32_t>;
-using hwAddressType = typename hwAddress::type;
+using hwAddressBase = constant<std::uint32_t>;
+using hwAddressType = typename hwAddressBase::type;
 
 /* Peripheral address types used by all microcontrollers */
-struct I2CbaseAddress : hwAddress {};   /**< I2C */
-struct SPIbaseAddress : hwAddress {};   /**< SPI */
-struct USARTbaseAddress : hwAddress {}; /**< USART */
-struct CRCbaseAddress : hwAddress {};   /**< CRC engine */
-struct GPIObaseAddress : hwAddress {};  /**< GPIO */
+struct I2CbaseAddress : hwAddressBase {};   /**< I2C */
+struct SPIbaseAddress : hwAddressBase {};   /**< SPI */
+struct USARTbaseAddress : hwAddressBase {}; /**< USART */
+struct CRCbaseAddress : hwAddressBase {};   /**< CRC engine */
+struct GPIObaseAddress : hwAddressBase {};  /**< GPIO */
 
 /* Peripheral address types used by NXP LPC microcontrollers */
-struct WWDTbaseAddress : hwAddress {};   /**< NXP LPC Windowed watchdog */
-struct MRTbaseAddress : hwAddress {};    /**< NXP LPC Multi rate timer*/
-struct WKTbaseAddress : hwAddress {};    /**< NXP LPC Wakeup timer */
-struct SWMbaseAddress : hwAddress {};    /**< NXP LPC Switch Matrix */
-struct PMUbaseAddress : hwAddress {};    /**< NXP LPC Power management unit */
-struct ACMPbaseAddress : hwAddress {};   /**< NXP LPC Analog comparator */
-struct FMCbaseAddress : hwAddress {};    /**< NXP LPC Flash controller */
-struct IOCONbaseAddress : hwAddress {};  /**< NXP LPC IO control */
-struct SYSCONbaseAddress : hwAddress {}; /**< NXP LPC System control*/
-struct SCTbaseAddress : hwAddress {};    /**< NXP LPC state configurable timer */
-struct PININTbaseAddress : hwAddress {}; /**< NXP LPC Pin interrupt */
+struct WWDTbaseAddress : hwAddressBase {};   /**< NXP LPC Windowed watchdog */
+struct MRTbaseAddress : hwAddressBase {};    /**< NXP LPC Multi rate timer*/
+struct WKTbaseAddress : hwAddressBase {};    /**< NXP LPC Wakeup timer */
+struct SWMbaseAddress : hwAddressBase {};    /**< NXP LPC Switch Matrix */
+struct PMUbaseAddress : hwAddressBase {};    /**< NXP LPC Power management unit */
+struct ACMPbaseAddress : hwAddressBase {};   /**< NXP LPC Analog comparator */
+struct FMCbaseAddress : hwAddressBase {};    /**< NXP LPC Flash controller */
+struct IOCONbaseAddress : hwAddressBase {};  /**< NXP LPC IO control */
+struct SYSCONbaseAddress : hwAddressBase {}; /**< NXP LPC System control*/
+struct SCTbaseAddress : hwAddressBase {};    /**< NXP LPC state configurable timer */
+struct PININTbaseAddress : hwAddressBase {}; /**< NXP LPC Pin interrupt */
 
 /* Peripheral address types used by STM32 microcontrollers */
 
 /* Peripheral address types used by Raspberry Pi microcontrollers */
 
 /* I2C general definitions */
-using i2cDeviceAddress = constant<std::uint32_t>;
-using i2cDeviceAddressType = typename i2cDeviceAddress::type;
+using i2cDeviceAddressBase = constant<std::uint8_t>;
+using i2cDeviceAddressType = typename i2cDeviceAddressBase::type;
+
+struct i2cDeviceAddress : i2cDeviceAddressBase {}; /**< General purpose I2C address type */
 
 }  // namespace libMcuLL
 
