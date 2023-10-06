@@ -30,13 +30,19 @@ struct i2c {
    * @brief Initialize I2C master
    *
    * @param bitRate requested bit rate
+   * @param timeout clocks to timeout
    * @return uint32_t actual bit rate
    */
-  uint32_t initMaster(uint32_t bitRate) {
-    uint32_t divider = CLOCK_AHB / bitRate;
+  uint32_t initMaster(uint32_t bitRate, uint32_t timeout) {
+    /*
+    we multiply by 20 as by default MSTTIME divides the timing by 2 and I2C peripheral needs 10 clocks for something.
+    This is not described in the datasheet but the calculation does match their example.
+    */
+    uint32_t divider = CLOCK_AHB / (bitRate * 20);
+    peripheral()->TIMEOUT = TIMEOUT::TO(timeout);
     peripheral()->CLKDIV = divider + 1;
     peripheral()->CFG = CFG::MSTEN;
-    return CLOCK_AHB / divider;
+    return CLOCK_AHB / divider / 20;
   }
   /**
    * @brief Write data to I2C device
@@ -48,19 +54,50 @@ struct i2c {
     uint32_t i2cAddress = static_cast<std::uint32_t>(address.value) << 1;
     peripheral()->MSTDAT = i2cAddress;
     peripheral()->MSTCTL = MSTCTL::MSTSTART;
-    while (!(peripheral()->STAT & STAT::MSTPENDING))
+    while (!(peripheral()->STAT & (STAT::MSTPENDING | STAT::EVENTTIMEOUT | STAT::SCLTIMEOUT)))
       ;
     if ((peripheral()->STAT & STAT::MSTSTATE_MASK) != STAT::MSTSTATE_TXRDY)
       goto stop;
     for (const uint8_t &data : transmitBuffer) {
       peripheral()->MSTDAT = static_cast<std::uint32_t>(data);
       peripheral()->MSTCTL = MSTCTL::MSTCONTINUE;
-      while (!(peripheral()->STAT & STAT::MSTPENDING))
+      while (!(peripheral()->STAT & (STAT::MSTPENDING | STAT::EVENTTIMEOUT | STAT::SCLTIMEOUT)))
         ;
+      if ((peripheral()->STAT & STAT::MSTSTATE_MASK) != STAT::MSTSTATE_TXRDY)
+        break;
     }
   stop:
     peripheral()->MSTCTL = MSTCTL::MSTSTOP;
-    while (!(peripheral()->STAT & STAT::MSTPENDING))
+    while (!(peripheral()->STAT & (STAT::MSTPENDING | STAT::EVENTTIMEOUT | STAT::SCLTIMEOUT)))
+      ;
+  }
+
+  /**
+   * @brief Read data from I2C device
+   *
+   * @param address I2C device to read from
+   * @param receiveBuffer place to put read data, needs to be at least size 1!
+   */
+  void read(libMcuLL::i2cDeviceAddress address, std::span<uint8_t> receiveBuffer) {
+    uint32_t i2cAddress = static_cast<std::uint32_t>(address.value) << 1;
+    peripheral()->MSTDAT = i2cAddress | 0x01;  // set read bit in Address
+    peripheral()->MSTCTL = MSTCTL::MSTSTART;
+    while (!(peripheral()->STAT & (STAT::MSTPENDING | STAT::EVENTTIMEOUT | STAT::SCLTIMEOUT)))
+      ;
+    if ((peripheral()->STAT & STAT::MSTSTATE_MASK) != STAT::MSTSTATE_RXRDY)
+      goto stop;
+    receiveBuffer[0] = static_cast<uint8_t>(peripheral()->MSTDAT);
+    for (uint8_t &data : receiveBuffer.subspan(1)) {
+      peripheral()->MSTCTL = MSTCTL::MSTCONTINUE;
+      while (!(peripheral()->STAT & (STAT::MSTPENDING | STAT::EVENTTIMEOUT | STAT::SCLTIMEOUT)))
+        ;
+      if ((peripheral()->STAT & STAT::MSTSTATE_MASK) != STAT::MSTSTATE_RXRDY)
+        break;
+      data = static_cast<uint8_t>(peripheral()->MSTDAT);
+    }
+  stop:
+    peripheral()->MSTCTL = MSTCTL::MSTSTOP;
+    while (!(peripheral()->STAT & (STAT::MSTPENDING | STAT::EVENTTIMEOUT | STAT::SCLTIMEOUT)))
       ;
   }
 };
