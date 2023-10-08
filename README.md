@@ -15,6 +15,7 @@ To use this project add the inc directory of this repository to your project and
 ## Design documents
 * How to add a microcontroller (TODO)
 * Hardware in the loop tests (TODO)
+* [include architecture](doc/includes.md)
 * [C Coding guidelines](doc/C_coding_guidelines.md)
 * [C++ Coding guidelines](doc/CPP_coding_guidelines.md)
 * [C++ namespacing](doc/CPP_namespaces.md)
