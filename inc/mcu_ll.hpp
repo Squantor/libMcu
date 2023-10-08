@@ -18,27 +18,27 @@
 #include <array>
 #include <span>
 #include <type_traits>
-#include <libmcull/results.hpp>
-#include <libmcull/types.hpp>
+#include "libmcull/results.hpp"
+#include "libmcull/types.hpp"
 
 #if defined(MCU_LPC812M101DH20)
-#include <nxp/LPC812M101DH20.hpp>
+#include "nxp/LPC812M101DH20.hpp"
 #elif defined(MCU_LPC845M301BD48)
-#include <nxp/LPC845M301BD48.hpp>
+#include "nxp/LPC845M301BD48.hpp"
 #elif defined(MCU_LPC844M201BD64)
-#include <nxp/LPC844M201BD64.hpp>
+#include "nxp/LPC844M201BD64.hpp"
 #elif defined(MCU_RP2040)
-#include <raspberrypi/RP2040.hpp>
+#include "raspberrypi/RP2040.hpp"
 #elif defined(MCU_CortexM0)
-#include <generic/CortexM0.hpp>
+#include "generic/CortexM0.hpp"
 #elif defined(MCU_CortexM0plus)
-#include <generic/CortexM0plus.hpp>
+#include "generic/CortexM0plus.hpp"
 #elif defined(MCU_CortexM3)
-#include <generic/CortexM3.hpp>
+#include "generic/CortexM3.hpp"
 #elif defined(MCU_CortexM4)
-#include <generic/CortexM4.hpp>
+#include "generic/CortexM4.hpp"
 #elif defined(MCU_CortexM7)
-#include <generic/CortexM7.hpp>
+#include "generic/CortexM7.hpp"
 #else
 #error "Unknown or unsupported microcontroller defined, use MCU_Microcontroller"
 #endif

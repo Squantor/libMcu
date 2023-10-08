@@ -278,31 +278,31 @@ typedef enum {
 } GPIO_PIN_Type;
 
 // default configuration options, override with your own!
-#include "nxp/LPC8XX/LPC84X_default.h"
+#include "LPC8XX/LPC84X_default.h"
 // Peripheral specific includes
-#include "nxp/LPC8XX/LPC84X_wwdt.h"
-#include "nxp/LPC8XX/LPC84X_mrt.h"
-#include "nxp/LPC8XX/LPC84X_wkt.h"
-#include "nxp/LPC8XX/LPC84X_swm.h"
-#include "nxp/LPC8XX/LPC84X_dac.h"
-#include "nxp/LPC8XX/LPC84X_adc.h"
-#include "nxp/LPC8XX/LPC84X_pmu.h"
-#include "nxp/LPC8XX/LPC84X_acomp.h"
-#include "nxp/LPC8XX/LPC84X_inputmux.h"
-#include "nxp/LPC8XX/LPC84X_i2c.h"
-#include "nxp/LPC8XX/LPC84X_ctimer.h"
-#include "nxp/LPC8XX/LPC84X_flash_ctrl.h"
-#include "nxp/LPC8XX/LPC84X_iocon.h"
-#include "nxp/LPC8XX/LPC84X_syscon.h"
-#include "nxp/LPC8XX/LPC84X_spi.h"
-#include "nxp/LPC8XX/LPC84X_capt.h"
-#include "nxp/LPC8XX/LPC84X_usart.h"
-#include "nxp/LPC8XX/LPC84X_crc.h"
-#include "nxp/LPC8XX/LPC84X_sct.h"
-#include "nxp/LPC8XX/LPC84X_dma.h"
-#include "nxp/LPC8XX/LPC84X_mtb.h"
-#include "nxp/LPC8XX/LPC84X_gpio.h"
-#include "nxp/LPC8XX/LPC84X_pint.h"
+#include "LPC8XX/LPC84X_wwdt.h"
+#include "LPC8XX/LPC84X_mrt.h"
+#include "LPC8XX/LPC84X_wkt.h"
+#include "LPC8XX/LPC84X_swm.h"
+#include "LPC8XX/LPC84X_dac.h"
+#include "LPC8XX/LPC84X_adc.h"
+#include "LPC8XX/LPC84X_pmu.h"
+#include "LPC8XX/LPC84X_acomp.h"
+#include "LPC8XX/LPC84X_inputmux.h"
+#include "LPC8XX/LPC84X_i2c.h"
+#include "LPC8XX/LPC84X_ctimer.h"
+#include "LPC8XX/LPC84X_flash_ctrl.h"
+#include "LPC8XX/LPC84X_iocon.h"
+#include "LPC8XX/LPC84X_syscon.h"
+#include "LPC8XX/LPC84X_spi.h"
+#include "LPC8XX/LPC84X_capt.h"
+#include "LPC8XX/LPC84X_usart.h"
+#include "LPC8XX/LPC84X_crc.h"
+#include "LPC8XX/LPC84X_sct.h"
+#include "LPC8XX/LPC84X_dma.h"
+#include "LPC8XX/LPC84X_mtb.h"
+#include "LPC8XX/LPC84X_gpio.h"
+#include "LPC8XX/LPC84X_pint.h"
 
 #ifdef __cplusplus
 }
@@ -319,9 +319,9 @@ constexpr static inline uint32_t SPI1_cpp = 0x4005'C000u; /**< TODO, rename to t
 }  // namespace peripherals
 
 // includes that define the registers namespace go here.
-#include "nxp/LPC8XX.hpp/LPC8XX_spi_regs.hpp"
+#include "LPC8XX.hpp/LPC8XX_spi_regs.hpp"
 
 // includes that use the registers namespace go here
-#include "nxp/LPC8XX.hpp/LPC84X_spi.hpp"
+#include "LPC8XX.hpp/LPC84X_spi.hpp"
 
 #endif
