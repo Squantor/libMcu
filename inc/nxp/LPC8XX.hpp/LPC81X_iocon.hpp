@@ -14,6 +14,55 @@ namespace libMcuLL {
 namespace sw {
 namespace iocon {
 using namespace hw::iocon;
+
+/**
+ * @brief Pin pull modes
+ *
+ */
+enum pullModes : std::uint32_t {
+  INACTIVE = PIO::INACTIVE, /**< No pullup/down */
+  PULLDOWN = PIO::PULLDOWN, /**< Pulldown enabled */
+  PULLUP = PIO::PULLUP,     /**< Pullup enabled */
+  REPEATER = PIO::REPEATER, /**< Repeater mode */
+};
+
+/**
+ * @brief pin filtering modes
+ *
+ */
+enum pinFiltering : std::uint32_t {
+  BYPASS = PIO::BYPASS,   /**< Bypassed input filter */
+  CYCLES1 = PIO::CYCLES1, /**< 1 clock cycle pulses are filtered */
+  CYCLES2 = PIO::CYCLES2, /**< 2 clock cycle pulses are filtered */
+  CYCLES3 = PIO::CYCLES3, /**< 3 clock cycle pulses are filtered */
+};
+
+/**
+ * @brief Clock divider to use for filtering
+ *
+ * TODO, change this to a consteval function
+ *
+ */
+enum clockDivider : std::uint32_t {
+  IOCONCLKDIV0 = PIO::IOCONCLKDIV0, /**< use IOCONCLKDIV0 in SYSCON */
+  IOCONCLKDIV1 = PIO::IOCONCLKDIV1, /**< use IOCONCLKDIV1 in SYSCON */
+  IOCONCLKDIV2 = PIO::IOCONCLKDIV2, /**< use IOCONCLKDIV2 in SYSCON */
+  IOCONCLKDIV3 = PIO::IOCONCLKDIV3, /**< use IOCONCLKDIV3 in SYSCON */
+  IOCONCLKDIV4 = PIO::IOCONCLKDIV4, /**< use IOCONCLKDIV4 in SYSCON */
+  IOCONCLKDIV5 = PIO::IOCONCLKDIV5, /**< use IOCONCLKDIV5 in SYSCON */
+  IOCONCLKDIV6 = PIO::IOCONCLKDIV6, /**< use IOCONCLKDIV6 in SYSCON */
+};
+
+/**
+ * @brief I2C pin modes
+ *
+ */
+enum i2cmodes : std::uint32_t {
+  I2C_STD = PIO::I2C_STD,   /**< standard/fast I2C mode */
+  IO_STD = PIO::IO_STD,     /**< standard I/O functionality */
+  I2C_FAST = PIO::I2C_FAST, /**< fast mode plus I2C */
+};
+
 template <libMcuLL::IOCONbaseAddress address_>
 struct iocon {
   static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
