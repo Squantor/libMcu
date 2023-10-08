@@ -20,7 +20,7 @@ using namespace hw::usart;
  *
  * These bit patterns match the USART CFG register settings
  */
-enum uartLength : uint32_t {
+enum uartLength : std::uint32_t {
   SIZE_7 = (0 << 2), /**< USART transmit length of 7 bits */
   SIZE_8 = (1 << 2), /**< USART transmit length of 8 bits */
   SIZE_9 = (2 << 2), /**< USART transmit length of 9 bits */
@@ -31,7 +31,7 @@ enum uartLength : uint32_t {
  *
  * These bit patterns match the USART CFG register settings
  */
-enum uartParity : uint32_t {
+enum uartParity : std::uint32_t {
   NONE = (0 << 4), /**< No parity */
   EVEN = (2 << 4), /**< Even parity */
   ODD = (3 << 4),  /**< Odd parity */
@@ -42,7 +42,7 @@ enum uartParity : uint32_t {
  *
  * These bit patterns match the USART CFG register settings
  */
-enum uartStop : uint32_t {
+enum uartStop : std::uint32_t {
   STOP_1 = (0 << 6), /**< 1 stop bit */
   STOP_2 = (1 << 6), /**< 2 stop bits */
 };
@@ -52,7 +52,7 @@ enum uartStop : uint32_t {
  *
  * These bit patterns match the USART STAT register settings
  */
-enum uartStatus : uint32_t {
+enum uartStatus : std::uint32_t {
   RXRDY = STAT::RXRDY,               /**< Receiver ready flag, Read only */
   RXIDLE = STAT::RXIDLE,             /**< Receiver idle, Read only */
   TXRDY = STAT::TXRDY,               /**< Transmitter ready, Read only  */
@@ -85,10 +85,10 @@ struct usart {
    * @brief Setup USART to 8n1
    *
    * @param baudRate Baud rate value
-   * @return uint32_t actual baud rate
+   * @return std::uint32_t actual baud rate
    */
-  uint32_t init(uint32_t baudRate) {
-    uint32_t baudDivider = CLOCK_MAIN / (baudRate * 16);
+  std::uint32_t init(std::uint32_t baudRate) {
+    std::uint32_t baudDivider = CLOCK_MAIN / (baudRate * 16);
     regs()->BRG = baudDivider;
     regs()->CFG = CFG::ENABLE | uartLength::SIZE_8 | uartParity::NONE | uartStop::STOP_1;
     return CLOCK_MAIN / 16 / baudDivider;
@@ -101,10 +101,10 @@ struct usart {
    * @param lengthBits bit length of transmissions, see uartLength enum for options
    * @param parity parity type of transmissions, see uartParity enum for options
    * @param stopBits Amount of stop bits, see uartStop enum for options
-   * @return uint32_t actual baud rate
+   * @return std::uint32_t actual baud rate
    */
-  uint32_t init(uint32_t baudRate, uartLength lengthBits, uartParity parity, uartStop stopBits) {
-    uint32_t baudDivider = CLOCK_MAIN / (baudRate * 16);
+  std::uint32_t init(std::uint32_t baudRate, uartLength lengthBits, uartParity parity, uartStop stopBits) {
+    std::uint32_t baudDivider = CLOCK_MAIN / (baudRate * 16);
     regs()->BRG = baudDivider;
     regs()->CFG = CFG::ENABLE | lengthBits | parity | stopBits;
     return CLOCK_MAIN / 16 / baudDivider;
@@ -113,9 +113,9 @@ struct usart {
   /**
    * @brief return uart status
    *
-   * @return uint32_t one to one copy of the status register, see bit masks for options
+   * @return std::uint32_t one to one copy of the status register, see bit masks for options
    */
-  uint32_t status() {
+  std::uint32_t status() {
     return regs()->STAT & STAT::MASK;
   }
 
@@ -124,7 +124,7 @@ struct usart {
    *
    * @param data data to send, amount is sent according to configuration
    */
-  void write(uint32_t data) {
+  void write(std::uint32_t data) {
     regs()->TXDAT = data & TXDAT::MASK;
   }
   /**
@@ -132,7 +132,7 @@ struct usart {
    *
    * @param data reference to put received data in
    */
-  void read(uint32_t &data) {
+  void read(std::uint32_t &data) {
     data = regs()->RXDAT;
   }
 
@@ -142,8 +142,8 @@ struct usart {
    * @param data reference to put received data in
    * @param status reference to put received status in
    */
-  void read(uint32_t &data, uint32_t &status) {
-    uint32_t regData = regs()->RXDATSTAT;
+  void read(std::uint32_t &data, std::uint32_t &status) {
+    std::uint32_t regData = regs()->RXDATSTAT;
     data = regData & RXDATSTAT::MASK_DATA;
     status = regData & RXDATSTAT::MASK_STAT;
   }

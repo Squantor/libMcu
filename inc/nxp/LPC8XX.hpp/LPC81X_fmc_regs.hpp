@@ -19,13 +19,13 @@ namespace fmc {
  *
  */
 struct peripheral {
-  volatile const uint32_t RESERVED1[4]; /**< reserved */
-  volatile uint32_t FLASHCFG;           /**< Flash Configuration register */
-  volatile const uint32_t RESERVED2[3]; /**< reserved */
-  volatile uint32_t FMSSTART;           /**< Signature start address register */
-  volatile uint32_t FMSSTOP;            /**< Signature stop address register */
-  volatile const uint32_t RESERVED3;    /**< reserved */
-  volatile const uint32_t FMSW[1];      /**< Signature word regsiter */
+  volatile const std::uint32_t RESERVED1[4]; /**< reserved */
+  volatile std::uint32_t FLASHCFG;           /**< Flash Configuration register */
+  volatile const std::uint32_t RESERVED2[3]; /**< reserved */
+  volatile std::uint32_t FMSSTART;           /**< Signature start address register */
+  volatile std::uint32_t FMSSTOP;            /**< Signature stop address register */
+  volatile const std::uint32_t RESERVED3;    /**< reserved */
+  volatile const std::uint32_t FMSW[1];      /**< Signature word regsiter */
 };
 
 }  // namespace fmc

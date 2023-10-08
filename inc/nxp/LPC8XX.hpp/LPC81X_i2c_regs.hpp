@@ -19,226 +19,226 @@ namespace i2c {
  *
  */
 struct peripheral {
-  volatile uint32_t CFG;                /**< Configuration for shared functions */
-  volatile uint32_t STAT;               /**< Status register for Master, Slave, and Monitor functions */
-  volatile uint32_t INTENSET;           /**< Interrupt Enable Set and read register */
-  volatile uint32_t INTENCLR;           /**< Interrupt Enable Clear register */
-  volatile uint32_t TIMEOUT;            /**< Time-out value register */
-  volatile uint32_t CLKDIV;             /**< Clock pre-divider for the entire I2C interface */
-  volatile const uint32_t INTSTAT;      /**< Interrupt Status register for Master, Slave, and Monitor functions */
-  volatile const uint32_t RESERVED0;    /**< reserved */
-  volatile uint32_t MSTCTL;             /**< Master control register */
-  volatile uint32_t MSTTIME;            /**< Master timing configuration */
-  volatile uint32_t MSTDAT;             /**< Combined Master receiver and transmitter data register */
-  volatile const uint32_t RESERVED1[5]; /**< reserved */
-  volatile uint32_t SLVCTL;             /**< Slave control register */
-  volatile uint32_t SLVDAT;             /**< Combined Slave receiver and transmitter data register */
-  volatile uint32_t SLVADR[4];          /**< Slave address register */
-  volatile uint32_t SLVQUAL0;           /**< Slave Qualification for address 0 */
-  volatile const uint32_t RESERVED2[9]; /**< reserved */
-  volatile const uint32_t MONRXDAT;     /**< Monitor receiver data register */
+  volatile std::uint32_t CFG;                /**< Configuration for shared functions */
+  volatile std::uint32_t STAT;               /**< Status register for Master, Slave, and Monitor functions */
+  volatile std::uint32_t INTENSET;           /**< Interrupt Enable Set and read register */
+  volatile std::uint32_t INTENCLR;           /**< Interrupt Enable Clear register */
+  volatile std::uint32_t TIMEOUT;            /**< Time-out value register */
+  volatile std::uint32_t CLKDIV;             /**< Clock pre-divider for the entire I2C interface */
+  volatile const std::uint32_t INTSTAT;      /**< Interrupt Status register for Master, Slave, and Monitor functions */
+  volatile const std::uint32_t RESERVED0;    /**< reserved */
+  volatile std::uint32_t MSTCTL;             /**< Master control register */
+  volatile std::uint32_t MSTTIME;            /**< Master timing configuration */
+  volatile std::uint32_t MSTDAT;             /**< Combined Master receiver and transmitter data register */
+  volatile const std::uint32_t RESERVED1[5]; /**< reserved */
+  volatile std::uint32_t SLVCTL;             /**< Slave control register */
+  volatile std::uint32_t SLVDAT;             /**< Combined Slave receiver and transmitter data register */
+  volatile std::uint32_t SLVADR[4];          /**< Slave address register */
+  volatile std::uint32_t SLVQUAL0;           /**< Slave Qualification for address 0 */
+  volatile const std::uint32_t RESERVED2[9]; /**< reserved */
+  volatile const std::uint32_t MONRXDAT;     /**< Monitor receiver data register */
 };
 namespace CFG {
-constexpr inline uint32_t MASK = 0x0000001F;    /**< register mask for allowed bits */
-constexpr inline uint32_t MSTEN = (1 << 0);     /**< Master Enable*/
-constexpr inline uint32_t SLVEN = (1 << 1);     /**< Slave enable */
-constexpr inline uint32_t MONEN = (1 << 2);     /**< Monitor enable */
-constexpr inline uint32_t TIMEOUTEN = (1 << 3); /**< I2C timeout enable */
-constexpr inline uint32_t MONCLKSTR = (1 << 4); /**< Monitor clock stretching enable */
+constexpr inline std::uint32_t MASK = 0x0000001F;    /**< register mask for allowed bits */
+constexpr inline std::uint32_t MSTEN = (1 << 0);     /**< Master Enable*/
+constexpr inline std::uint32_t SLVEN = (1 << 1);     /**< Slave enable */
+constexpr inline std::uint32_t MONEN = (1 << 2);     /**< Monitor enable */
+constexpr inline std::uint32_t TIMEOUTEN = (1 << 3); /**< I2C timeout enable */
+constexpr inline std::uint32_t MONCLKSTR = (1 << 4); /**< Monitor clock stretching enable */
 }  // namespace CFG
 namespace STAT {
-constexpr inline uint32_t MASK = 0x030FFF5F;             /**< register mask for allowed bits */
-constexpr inline uint32_t MSTPENDING = (1 << 0);         /**< Master Enable */
-constexpr inline uint32_t MSTSTATE_MASK = (0x7 << 1);    /**< Master State mask */
-constexpr inline uint32_t MSTSTATE_IDLE = (0 << 1);      /**< Master Idle state */
-constexpr inline uint32_t MSTSTATE_RXRDY = (1 << 1);     /**< Master Receive ready state */
-constexpr inline uint32_t MSTSTATE_TXRDY = (2 << 1);     /**< Master Transmit ready state */
-constexpr inline uint32_t MSTSTATE_NACK_ADDR = (3 << 1); /**< Master Slave nacked address state */
-constexpr inline uint32_t MSTSTATE_NACK_DATA = (4 << 1); /**< Master Slave nacked data state */
-constexpr inline uint32_t MSTARBLOSS = (1 << 4);         /**< Master Arbitration loss flag*/
-constexpr inline uint32_t MSTSTSTPERR = (1 << 6);        /**< Master Start/Stop error flag */
-constexpr inline uint32_t SLVPENDING = (1 << 8);         /**< Slave pending */
-constexpr inline uint32_t SLVSTATE_MASK = (0x4 << 9);    /**< Slave State mask*/
-constexpr inline uint32_t SLVSTATE_ADDR = (0 << 9);      /**< Slave address received state */
-constexpr inline uint32_t SLVSTATE_RX = (1 << 9);        /**< Slave receive state */
-constexpr inline uint32_t SLVSTATE_TX = (2 << 9);        /**< Slave transmit state */
-constexpr inline uint32_t SLVNOTSTR = (1 << 11);         /**< Slave not stretch */
-constexpr inline uint32_t SLVIDX_MASK = (0x3 << 12);     /**< Slave address match index mask*/
-constexpr inline uint32_t SLVIDX_0 = (0 << 12);          /**< Slave address 0 matched */
-constexpr inline uint32_t SLVIDX_1 = (1 << 12);          /**< Slave address 1 matched */
-constexpr inline uint32_t SLVIDX_2 = (2 << 12);          /**< Slave address 2 matched */
-constexpr inline uint32_t SLVIDX_3 = (3 << 12);          /**< Slave address 3 matched */
-constexpr inline uint32_t SLVSEL = (1 << 14);            /**< Slave selected flag */
-constexpr inline uint32_t SLVDESEL = (1 << 15);          /**< Slave deselected flag */
-constexpr inline uint32_t MONRDY = (1 << 16);            /**< Monitor ready flag */
-constexpr inline uint32_t MONOV = (1 << 17);             /**< Monitor overflow flag */
-constexpr inline uint32_t MONACTIVE = (1 << 18);         /**< Monitor active flag */
-constexpr inline uint32_t MONIDLE = (1 << 19);           /**< Monitor idle flag */
-constexpr inline uint32_t EVENTTIMEOUT = (1 << 24);      /**< Event timeout interrupt flag */
-constexpr inline uint32_t SCLTIMEOUT = (1 << 25);        /**< SCL timeout interrupt flag */
+constexpr inline std::uint32_t MASK = 0x030FFF5F;             /**< register mask for allowed bits */
+constexpr inline std::uint32_t MSTPENDING = (1 << 0);         /**< Master Enable */
+constexpr inline std::uint32_t MSTSTATE_MASK = (0x7 << 1);    /**< Master State mask */
+constexpr inline std::uint32_t MSTSTATE_IDLE = (0 << 1);      /**< Master Idle state */
+constexpr inline std::uint32_t MSTSTATE_RXRDY = (1 << 1);     /**< Master Receive ready state */
+constexpr inline std::uint32_t MSTSTATE_TXRDY = (2 << 1);     /**< Master Transmit ready state */
+constexpr inline std::uint32_t MSTSTATE_NACK_ADDR = (3 << 1); /**< Master Slave nacked address state */
+constexpr inline std::uint32_t MSTSTATE_NACK_DATA = (4 << 1); /**< Master Slave nacked data state */
+constexpr inline std::uint32_t MSTARBLOSS = (1 << 4);         /**< Master Arbitration loss flag*/
+constexpr inline std::uint32_t MSTSTSTPERR = (1 << 6);        /**< Master Start/Stop error flag */
+constexpr inline std::uint32_t SLVPENDING = (1 << 8);         /**< Slave pending */
+constexpr inline std::uint32_t SLVSTATE_MASK = (0x4 << 9);    /**< Slave State mask*/
+constexpr inline std::uint32_t SLVSTATE_ADDR = (0 << 9);      /**< Slave address received state */
+constexpr inline std::uint32_t SLVSTATE_RX = (1 << 9);        /**< Slave receive state */
+constexpr inline std::uint32_t SLVSTATE_TX = (2 << 9);        /**< Slave transmit state */
+constexpr inline std::uint32_t SLVNOTSTR = (1 << 11);         /**< Slave not stretch */
+constexpr inline std::uint32_t SLVIDX_MASK = (0x3 << 12);     /**< Slave address match index mask*/
+constexpr inline std::uint32_t SLVIDX_0 = (0 << 12);          /**< Slave address 0 matched */
+constexpr inline std::uint32_t SLVIDX_1 = (1 << 12);          /**< Slave address 1 matched */
+constexpr inline std::uint32_t SLVIDX_2 = (2 << 12);          /**< Slave address 2 matched */
+constexpr inline std::uint32_t SLVIDX_3 = (3 << 12);          /**< Slave address 3 matched */
+constexpr inline std::uint32_t SLVSEL = (1 << 14);            /**< Slave selected flag */
+constexpr inline std::uint32_t SLVDESEL = (1 << 15);          /**< Slave deselected flag */
+constexpr inline std::uint32_t MONRDY = (1 << 16);            /**< Monitor ready flag */
+constexpr inline std::uint32_t MONOV = (1 << 17);             /**< Monitor overflow flag */
+constexpr inline std::uint32_t MONACTIVE = (1 << 18);         /**< Monitor active flag */
+constexpr inline std::uint32_t MONIDLE = (1 << 19);           /**< Monitor idle flag */
+constexpr inline std::uint32_t EVENTTIMEOUT = (1 << 24);      /**< Event timeout interrupt flag */
+constexpr inline std::uint32_t SCLTIMEOUT = (1 << 25);        /**< SCL timeout interrupt flag */
 }  // namespace STAT
 namespace INTENSET {
-constexpr inline uint32_t MASK = 0x030B8951;          /**< register mask for allowed bits */
-constexpr inline uint32_t MSTPENDINGEN = (1 << 0);    /**< Master Pending interrupt Enable */
-constexpr inline uint32_t MSTARBLOSSEN = (1 << 4);    /**< Master Arbitration Loss interrupt Enable */
-constexpr inline uint32_t MSTSTSTPERREN = (1 << 6);   /**< Master Start/Stop Error interrupt Enable */
-constexpr inline uint32_t SLVPENDINGEN = (1 << 8);    /**< Slave Pending interrupt Enable */
-constexpr inline uint32_t SLVNOTSTREN = (1 << 11);    /**< Slave Not Stretching interrupt Enable */
-constexpr inline uint32_t SLVDESELEN = (1 << 15);     /**< Slave Deselect interrupt Enable */
-constexpr inline uint32_t MONRDYEN = (1 << 16);       /**< Monitor data Ready interrupt Enable */
-constexpr inline uint32_t MONOVEN = (1 << 17);        /**< Monitor Overrun interrupt Enable */
-constexpr inline uint32_t MONIDLEEN = (1 << 17);      /**< Monitor Idle interrupt Enable */
-constexpr inline uint32_t EVENTTIMEOUTEN = (1 << 24); /**< Event time-out interrupt Enable */
-constexpr inline uint32_t SCLTIMEOUTEN = (1 << 25);   /**< SCL time-out interrupt Enable */
+constexpr inline std::uint32_t MASK = 0x030B8951;          /**< register mask for allowed bits */
+constexpr inline std::uint32_t MSTPENDINGEN = (1 << 0);    /**< Master Pending interrupt Enable */
+constexpr inline std::uint32_t MSTARBLOSSEN = (1 << 4);    /**< Master Arbitration Loss interrupt Enable */
+constexpr inline std::uint32_t MSTSTSTPERREN = (1 << 6);   /**< Master Start/Stop Error interrupt Enable */
+constexpr inline std::uint32_t SLVPENDINGEN = (1 << 8);    /**< Slave Pending interrupt Enable */
+constexpr inline std::uint32_t SLVNOTSTREN = (1 << 11);    /**< Slave Not Stretching interrupt Enable */
+constexpr inline std::uint32_t SLVDESELEN = (1 << 15);     /**< Slave Deselect interrupt Enable */
+constexpr inline std::uint32_t MONRDYEN = (1 << 16);       /**< Monitor data Ready interrupt Enable */
+constexpr inline std::uint32_t MONOVEN = (1 << 17);        /**< Monitor Overrun interrupt Enable */
+constexpr inline std::uint32_t MONIDLEEN = (1 << 17);      /**< Monitor Idle interrupt Enable */
+constexpr inline std::uint32_t EVENTTIMEOUTEN = (1 << 24); /**< Event time-out interrupt Enable */
+constexpr inline std::uint32_t SCLTIMEOUTEN = (1 << 25);   /**< SCL time-out interrupt Enable */
 }  // namespace INTENSET
 namespace INTENCLR {
-constexpr inline uint32_t MASK = 0x030B8951;           /**< register mask for allowed bits */
-constexpr inline uint32_t MSTPENDINGCLR = (1 << 0);    /**< Master Pending interrupt clear */
-constexpr inline uint32_t MSTARBLOSSCLR = (1 << 4);    /**< Master Arbitration Loss interrupt clear */
-constexpr inline uint32_t MSTSTSTPERRCLR = (1 << 6);   /**< Master Start/Stop Error interrupt clear */
-constexpr inline uint32_t SLVPENDINGCLR = (1 << 8);    /**< Slave Pending interrupt clear */
-constexpr inline uint32_t SLVNOTSTRCLR = (1 << 11);    /**< Slave Not Stretching interrupt clear */
-constexpr inline uint32_t SLVDESELCLR = (1 << 15);     /**< Slave Deselect interrupt clear */
-constexpr inline uint32_t MONRDYCLR = (1 << 16);       /**< Monitor data Ready interrupt clear */
-constexpr inline uint32_t MONOVCLR = (1 << 17);        /**< Monitor Overrun interrupt clear */
-constexpr inline uint32_t MONIDLECLR = (1 << 19);      /**< Monitor Idle interrupt clear */
-constexpr inline uint32_t EVENTTIMEOUTCLR = (1 << 24); /**< Event time-out interrupt clear */
-constexpr inline uint32_t SCLTIMEOUTCLR = (1 << 25);   /**< SCL time-out interrupt clear */
+constexpr inline std::uint32_t MASK = 0x030B8951;           /**< register mask for allowed bits */
+constexpr inline std::uint32_t MSTPENDINGCLR = (1 << 0);    /**< Master Pending interrupt clear */
+constexpr inline std::uint32_t MSTARBLOSSCLR = (1 << 4);    /**< Master Arbitration Loss interrupt clear */
+constexpr inline std::uint32_t MSTSTSTPERRCLR = (1 << 6);   /**< Master Start/Stop Error interrupt clear */
+constexpr inline std::uint32_t SLVPENDINGCLR = (1 << 8);    /**< Slave Pending interrupt clear */
+constexpr inline std::uint32_t SLVNOTSTRCLR = (1 << 11);    /**< Slave Not Stretching interrupt clear */
+constexpr inline std::uint32_t SLVDESELCLR = (1 << 15);     /**< Slave Deselect interrupt clear */
+constexpr inline std::uint32_t MONRDYCLR = (1 << 16);       /**< Monitor data Ready interrupt clear */
+constexpr inline std::uint32_t MONOVCLR = (1 << 17);        /**< Monitor Overrun interrupt clear */
+constexpr inline std::uint32_t MONIDLECLR = (1 << 19);      /**< Monitor Idle interrupt clear */
+constexpr inline std::uint32_t EVENTTIMEOUTCLR = (1 << 24); /**< Event time-out interrupt clear */
+constexpr inline std::uint32_t SCLTIMEOUTCLR = (1 << 25);   /**< SCL time-out interrupt clear */
 }  // namespace INTENCLR
 namespace TIMEOUT {
-constexpr inline uint32_t MASK = 0x0000FFFF; /**< register mask for allowed bits */
+constexpr inline std::uint32_t MASK = 0x0000FFFF; /**< register mask for allowed bits */
 /**
  * @brief Formats data to TO register field
  *
  * @param data data to put in TO register, a value of 0 is 16 clocks, 1 is 32 clocks
- * @return constexpr uint32_t returns formatted data
+ * @return constexpr std::uint32_t returns formatted data
  */
-constexpr inline uint32_t TO(uint_fast16_t data) {
-  return static_cast<uint32_t>(data) << 4;
+constexpr inline std::uint32_t TO(std::uint_fast16_t data) {
+  return static_cast<std::uint32_t>(data) << 4;
 }
 }  // namespace TIMEOUT
 namespace CLKDIV {
-constexpr inline uint32_t MASK = 0x0000FFFF; /**< register mask for allowed bits */
+constexpr inline std::uint32_t MASK = 0x0000FFFF; /**< register mask for allowed bits */
 /**
  * @brief Formats data to DIVVAL register field
  *
  * @param data data to put in DIVVAL register, 0 is no division of PCLK, 1 is division by 2
- * @return constexpr uint32_t returns formatted data
+ * @return constexpr std::uint32_t returns formatted data
  */
-constexpr inline uint32_t DIVVAL(uint_fast16_t data) {
-  return static_cast<uint32_t>(data) << 0;
+constexpr inline std::uint32_t DIVVAL(std::uint_fast16_t data) {
+  return static_cast<std::uint32_t>(data) << 0;
 }
 }  // namespace CLKDIV
 namespace INTSTAT {
-constexpr inline uint32_t MASK = 0x030B8951;        /**< register mask for allowed bits */
-constexpr inline uint32_t MSTPENDING = (1 << 0);    /**< Master Pending */
-constexpr inline uint32_t MSTARBLOSS = (1 << 4);    /**< Master Arbitration Loss flag */
-constexpr inline uint32_t MSTSTSTPERR = (1 << 6);   /**< Master Start/Stop Error flag */
-constexpr inline uint32_t SLVPENDING = (1 << 8);    /**< Slave Pending */
-constexpr inline uint32_t SLVNOTSTR = (1 << 11);    /**< Slave Not Stretching status */
-constexpr inline uint32_t SLVDESEL = (1 << 15);     /**< Slave Deselected flag */
-constexpr inline uint32_t MONRDY = (1 << 16);       /**< Monitor Ready */
-constexpr inline uint32_t MONOV = (1 << 17);        /**< Monitor Overflow flag */
-constexpr inline uint32_t MONIDLE = (1 << 19);      /**< Monitor Idle flag */
-constexpr inline uint32_t EVENTTIMEOUT = (1 << 24); /**< Event time-out Interrupt flag */
-constexpr inline uint32_t SCLTIMEOUT = (1 << 25);   /**< SCL time-out Interrupt flag */
+constexpr inline std::uint32_t MASK = 0x030B8951;        /**< register mask for allowed bits */
+constexpr inline std::uint32_t MSTPENDING = (1 << 0);    /**< Master Pending */
+constexpr inline std::uint32_t MSTARBLOSS = (1 << 4);    /**< Master Arbitration Loss flag */
+constexpr inline std::uint32_t MSTSTSTPERR = (1 << 6);   /**< Master Start/Stop Error flag */
+constexpr inline std::uint32_t SLVPENDING = (1 << 8);    /**< Slave Pending */
+constexpr inline std::uint32_t SLVNOTSTR = (1 << 11);    /**< Slave Not Stretching status */
+constexpr inline std::uint32_t SLVDESEL = (1 << 15);     /**< Slave Deselected flag */
+constexpr inline std::uint32_t MONRDY = (1 << 16);       /**< Monitor Ready */
+constexpr inline std::uint32_t MONOV = (1 << 17);        /**< Monitor Overflow flag */
+constexpr inline std::uint32_t MONIDLE = (1 << 19);      /**< Monitor Idle flag */
+constexpr inline std::uint32_t EVENTTIMEOUT = (1 << 24); /**< Event time-out Interrupt flag */
+constexpr inline std::uint32_t SCLTIMEOUT = (1 << 25);   /**< SCL time-out Interrupt flag */
 }  // namespace INTSTAT
 namespace MSTCTL {
-constexpr inline uint32_t MASK = 0x00000007;      /**< register mask for allowed bits */
-constexpr inline uint32_t MSTCONTINUE = (1 << 0); /**< Master Continue */
-constexpr inline uint32_t MSTSTART = (1 << 1);    /**< Master Start control */
-constexpr inline uint32_t MSTSTOP = (1 << 2);     /**< Master Stop control */
+constexpr inline std::uint32_t MASK = 0x00000007;      /**< register mask for allowed bits */
+constexpr inline std::uint32_t MSTCONTINUE = (1 << 0); /**< Master Continue */
+constexpr inline std::uint32_t MSTSTART = (1 << 1);    /**< Master Start control */
+constexpr inline std::uint32_t MSTSTOP = (1 << 2);     /**< Master Stop control */
 }  // namespace MSTCTL
 namespace MSTTIME {
-constexpr inline uint32_t MASK = 0x00000077; /**< register mask for allowed bits */
+constexpr inline std::uint32_t MASK = 0x00000077; /**< register mask for allowed bits */
 /**
  * @brief Formats data to MSTSCLLOW register field
  *
  * @param data data to put in MSTSCLLOW register, 0 is 2 cycles SCL low, 1 is 3 cycles SCL low
- * @return constexpr uint32_t returns formatted data
+ * @return constexpr std::uint32_t returns formatted data
  */
-constexpr inline uint32_t MSTSCLLOW(uint_fast8_t data) {
-  return static_cast<uint32_t>(data) << 0;
+constexpr inline std::uint32_t MSTSCLLOW(std::uint_fast8_t data) {
+  return static_cast<std::uint32_t>(data) << 0;
 }
 /**
  * @brief Formats data to MSTSCLHIGH register field
  *
  * @param data data to put in MSTSCLHIGH register, 0 is 2 cycles SCL high, 1 is 3 cycles SCL high
- * @return constexpr uint32_t returns formatted data
+ * @return constexpr std::uint32_t returns formatted data
  */
-constexpr inline uint32_t MSTSCLHIGH(uint_fast8_t data) {
-  return static_cast<uint32_t>(data) << 4;
+constexpr inline std::uint32_t MSTSCLHIGH(std::uint_fast8_t data) {
+  return static_cast<std::uint32_t>(data) << 4;
 }
 }  // namespace MSTTIME
 namespace MSTDAT {
-constexpr inline uint32_t MASK = 0x000000FF; /**< register mask for allowed bits */
+constexpr inline std::uint32_t MASK = 0x000000FF; /**< register mask for allowed bits */
 /**
  * @brief Formats data to DATA register field
  *
  * @param data data to put in DATA register
- * @return constexpr uint32_t returns formatted data
+ * @return constexpr std::uint32_t returns formatted data
  */
-constexpr inline uint32_t DATA(uint_fast8_t data) {
-  return static_cast<uint32_t>(data) << 0;
+constexpr inline std::uint32_t DATA(std::uint_fast8_t data) {
+  return static_cast<std::uint32_t>(data) << 0;
 }
 }  // namespace MSTDAT
 namespace SLVCTL {
-constexpr inline uint32_t MASK = 0x00000003;      /**< register mask for allowed bits */
-constexpr inline uint32_t SLVCONTINUE = (1 << 0); /**< Slave Continue */
-constexpr inline uint32_t SLVNACK = (1 << 1);     /**< Slave NACK */
+constexpr inline std::uint32_t MASK = 0x00000003;      /**< register mask for allowed bits */
+constexpr inline std::uint32_t SLVCONTINUE = (1 << 0); /**< Slave Continue */
+constexpr inline std::uint32_t SLVNACK = (1 << 1);     /**< Slave NACK */
 }  // namespace SLVCTL
 namespace SLVDAT {
-constexpr inline uint32_t MASK = 0x000000FF; /**< register mask for allowed bits */
+constexpr inline std::uint32_t MASK = 0x000000FF; /**< register mask for allowed bits */
 /**
  * @brief Formats data to DATA register field
  *
  * @param data data to put in DATA register
- * @return constexpr uint32_t returns formatted data
+ * @return constexpr std::uint32_t returns formatted data
  */
-constexpr inline uint32_t DATA(uint_fast8_t data) {
-  return static_cast<uint32_t>(data) << 0;
+constexpr inline std::uint32_t DATA(std::uint_fast8_t data) {
+  return static_cast<std::uint32_t>(data) << 0;
 }
 }  // namespace SLVDAT
 namespace SLVADR {
-constexpr inline uint32_t MASK = 0x000000FF;    /**< register mask for allowed bits */
-constexpr inline uint32_t SADISABLE = (1 << 0); /**< Slave Address n Disable */
+constexpr inline std::uint32_t MASK = 0x000000FF;    /**< register mask for allowed bits */
+constexpr inline std::uint32_t SADISABLE = (1 << 0); /**< Slave Address n Disable */
 /**
  * @brief Formats data to SLVADR register field
  *
  * @param data data to put in SLVADR register
- * @return constexpr uint32_t returns formatted data
+ * @return constexpr std::uint32_t returns formatted data
  */
-constexpr inline uint32_t SLVADR(uint_fast8_t data) {
-  return static_cast<uint32_t>(data) << 1;
+constexpr inline std::uint32_t SLVADR(std::uint_fast8_t data) {
+  return static_cast<std::uint32_t>(data) << 1;
 }
 }  // namespace SLVADR
 namespace SLVQUAL0 {
-constexpr inline uint32_t MASK = 0x000000FF;    /**< register mask for allowed bits */
-constexpr inline uint32_t QUALMODE0 = (1 << 0); /**< SLVQUAL0 field extends address 0 matching */
+constexpr inline std::uint32_t MASK = 0x000000FF;    /**< register mask for allowed bits */
+constexpr inline std::uint32_t QUALMODE0 = (1 << 0); /**< SLVQUAL0 field extends address 0 matching */
 /**
  * @brief Formats data to SLVQUAL0 register field
  *
  * @param data data to put in SLVQUAL0 register
- * @return constexpr uint32_t returns formatted data
+ * @return constexpr std::uint32_t returns formatted data
  */
-constexpr inline uint32_t SLVQUAL0(uint_fast8_t data) {
-  return static_cast<uint32_t>(data) << 1;
+constexpr inline std::uint32_t SLVQUAL0(std::uint_fast8_t data) {
+  return static_cast<std::uint32_t>(data) << 1;
 }
 }  // namespace SLVQUAL0
 namespace MONRXDAT {
-constexpr inline uint32_t MASK = 0x000007FF; /**< register mask for allowed bits */
+constexpr inline std::uint32_t MASK = 0x000007FF; /**< register mask for allowed bits */
 /**
  * @brief Formats MONRXDAT to a value
  *
  * @param data data to put in SLVQUAL0 register
- * @return constexpr uint32_t returns formatted data
+ * @return constexpr std::uint32_t returns formatted data
  */
-constexpr inline uint32_t MONRXDAT(uint32_t reg) {
+constexpr inline std::uint32_t MONRXDAT(std::uint32_t reg) {
   return (reg & 0xFF) >> 0;
 }
-constexpr inline uint32_t MONSTART = (1 << 8);   /**< Monitor Received Start flag */
-constexpr inline uint32_t MONRESTART = (1 << 9); /**< Monitor Received Repeated Start flag */
-constexpr inline uint32_t MONNACK = (1 << 10);   /**< Monitor Received NACK */
+constexpr inline std::uint32_t MONSTART = (1 << 8);   /**< Monitor Received Start flag */
+constexpr inline std::uint32_t MONRESTART = (1 << 9); /**< Monitor Received Repeated Start flag */
+constexpr inline std::uint32_t MONNACK = (1 << 10);   /**< Monitor Received NACK */
 
 }  // namespace MONRXDAT
 }  // namespace i2c

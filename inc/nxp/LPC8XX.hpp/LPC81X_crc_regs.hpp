@@ -19,13 +19,13 @@ namespace crc {
  *
  */
 struct peripheral {
-  volatile uint32_t MODE; /**< CRC Mode Register */
-  volatile uint32_t SEED; /**< CRC SEED Register */
+  volatile std::uint32_t MODE; /**< CRC Mode Register */
+  volatile std::uint32_t SEED; /**< CRC SEED Register */
   union {
-    volatile const uint32_t SUM; /**< CRC Checksum Register. */
-    volatile uint32_t WRDATA32;  /**< CRC Data Register: write size 32-bit */
-    volatile uint16_t WRDATA16;  /**< CRC Data Register: write size 16-bit */
-    volatile uint8_t WRDATA8;    /**< CRC Data Register: write size 8-bit */
+    volatile const std::uint32_t SUM; /**< CRC Checksum Register. */
+    volatile std::uint32_t WRDATA32;  /**< CRC Data Register: write size 32-bit */
+    volatile std::uint16_t WRDATA16;  /**< CRC Data Register: write size 16-bit */
+    volatile std::uint8_t WRDATA8;    /**< CRC Data Register: write size 8-bit */
   };
 };
 

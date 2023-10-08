@@ -19,9 +19,9 @@ namespace pmu {
  *
  */
 struct peripheral {
-  volatile uint32_t PCON;     /**< Power control Register (R/W) */
-  volatile uint32_t GPREG[4]; /**< General purpose Registers 0..3 (R/W) */
-  volatile uint32_t DPDCTRL;  /**< Deep power-down control register (R/W) */
+  volatile std::uint32_t PCON;     /**< Power control Register (R/W) */
+  volatile std::uint32_t GPREG[4]; /**< General purpose Registers 0..3 (R/W) */
+  volatile std::uint32_t DPDCTRL;  /**< Deep power-down control register (R/W) */
 };
 
 }  // namespace pmu

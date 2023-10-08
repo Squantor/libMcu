@@ -38,7 +38,7 @@ struct swm {
   constexpr void setup(PIN &pin, FUNC &function) {
     if constexpr (FUNC::type == hw::swm::pinFunctionTypes::MOVABLE) {
       // create a mask for resetting the pin setting
-      constexpr uint32_t mask = ~(0xFF << function.shift);
+      constexpr std::uint32_t mask = ~(0xFF << function.shift);
       regs()->PINASSIGN[function.index] = (regs()->PINASSIGN[function.index] & mask) | (pin.pio << function.shift);
     }
     if constexpr (FUNC::type == hw::swm::pinFunctionTypes::FIXED) {
@@ -51,7 +51,7 @@ struct swm {
   constexpr void clear([[maybe_unused]] PIN &pin, FUNC &function) {
     if constexpr (FUNC::type == hw::swm::pinFunctionTypes::MOVABLE) {
       // create a mask for unassigning pin setting
-      constexpr uint32_t mask = (0xFF << function.shift);
+      constexpr std::uint32_t mask = (0xFF << function.shift);
       regs()->PINASSIGN[function.index] = (regs()->PINASSIGN[function.index] | mask);
     }
     if constexpr (FUNC::type == hw::swm::pinFunctionTypes::FIXED) {
@@ -65,7 +65,7 @@ struct swm {
    *
    * @param pinMask bit pattern of fixed functions
    */
-  constexpr void enableFixedPins(uint32_t pinMask) {
+  constexpr void enableFixedPins(std::uint32_t pinMask) {
     regs()->PINENABLE0 = regs()->PINENABLE0 & ~pinMask;
   }
 
@@ -74,7 +74,7 @@ struct swm {
    *
    * @param pinMask bit pattern of fixed functions
    */
-  constexpr void disableFixedPins(uint32_t pinMask) {
+  constexpr void disableFixedPins(std::uint32_t pinMask) {
     regs()->PINENABLE0 = regs()->PINENABLE0 | pinMask;
   }
 };

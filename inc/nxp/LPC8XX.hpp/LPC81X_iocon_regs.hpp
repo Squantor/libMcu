@@ -18,7 +18,7 @@ namespace iocon {
  * @brief Pin pull modes
  *
  */
-enum pullModes : uint32_t {
+enum pullModes : std::uint32_t {
   INACTIVE = (0 << 3), /**< No pullup/down */
   PULLDOWN = (1 << 3), /**< Pulldown enabled */
   PULLUP = (2 << 3),   /**< Pullup enabled */
@@ -29,7 +29,7 @@ enum pullModes : uint32_t {
  * @brief pin filtering modes
  *
  */
-enum pinFiltering : uint32_t {
+enum pinFiltering : std::uint32_t {
   BYPASS = (0 << 11),  /**< Bypassed input filter */
   CYCLES1 = (1 << 11), /**< 1 clock cycle pulses are filtered */
   CYCLES2 = (2 << 11), /**< 2 clock cycle pulses are filtered */
@@ -42,7 +42,7 @@ enum pinFiltering : uint32_t {
  * TODO, change this to a consteval function
  *
  */
-enum clockDivider : uint32_t {
+enum clockDivider : std::uint32_t {
   IOCONCLKDIV0 = (0 << 13), /**< use IOCONCLKDIV0 in SYSCON */
   IOCONCLKDIV1 = (1 << 13), /**< use IOCONCLKDIV1 in SYSCON */
   IOCONCLKDIV2 = (2 << 13), /**< use IOCONCLKDIV2 in SYSCON */
@@ -56,7 +56,7 @@ enum clockDivider : uint32_t {
  * @brief I2C pin modes
  *
  */
-enum i2cmodes : uint32_t {
+enum i2cmodes : std::uint32_t {
   I2C_STD = (0 << 8),  /**< standard/fast I2C mode */
   IO_STD = (1 << 8),   /**< standard I/O functionality */
   I2C_FAST = (2 << 8), /**< fast mode plus I2C */
@@ -67,13 +67,13 @@ enum i2cmodes : uint32_t {
  *
  */
 struct peripheral {
-  volatile uint32_t PIO[56]; /**< Pin control registers */
+  volatile std::uint32_t PIO[56]; /**< Pin control registers */
 };
 
 namespace PIO {
-constexpr inline uint32_t HYS = (1 << 5); /**< Hysteresis enable */
-constexpr inline uint32_t INV = (1 << 6); /**< Invert input enable */
-constexpr inline uint32_t OD = (1 << 10); /**< Open drain enable */
+constexpr inline std::uint32_t HYS = (1 << 5); /**< Hysteresis enable */
+constexpr inline std::uint32_t INV = (1 << 6); /**< Invert input enable */
+constexpr inline std::uint32_t OD = (1 << 10); /**< Open drain enable */
 }  // namespace PIO
 }  // namespace iocon
 }  // namespace hw

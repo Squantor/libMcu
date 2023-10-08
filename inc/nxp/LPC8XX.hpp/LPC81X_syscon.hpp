@@ -22,7 +22,7 @@ using namespace hw::syscon;
  * proper name like SPI0 instead of SPI0_reset
  *
  */
-enum peripheralResets : uint32_t {
+enum peripheralResets : std::uint32_t {
   RESET_SPI0 = PRESETCTRL::SPI0_RST_N,       /**< SPI0 reset control */
   RESET_SPI1 = PRESETCTRL::SPI1_RST_N,       /**< SPI1 reset control */
   RESET_UARTFRG = PRESETCTRL::UARTFRG_RST_N, /**< UART fractional baud rate generator reset control */
@@ -41,7 +41,7 @@ enum peripheralResets : uint32_t {
 /**
  * @brief PLL post divider options
  */
-enum pllPostDivider : uint32_t {
+enum pllPostDivider : std::uint32_t {
   PLLPOSTDIV_2 = SYSPLLCTRL::PSEL_DIV2,   /**< PLL post division ration of 2 */
   PLLPOSTDIV_4 = SYSPLLCTRL::PSEL_DIV4,   /**< PLL post division ration of 4 */
   PLLPOSTDIV_8 = SYSPLLCTRL::PSEL_DIV8,   /**< PLL post division ration of 8 */
@@ -51,7 +51,7 @@ enum pllPostDivider : uint32_t {
 /**
  * @brief PLL source options
  */
-enum pllClockSources : uint32_t {
+enum pllClockSources : std::uint32_t {
   PLLCLK_IRC = SYSPLLCLKSEL::SEL_IRC,       /**< IRC oscillator */
   PLLCLK_SYSOSC = SYSPLLCLKSEL::SEL_SYSOSC, /**< crystal oscillator */
   PLLCLK_CLKIN = SYSPLLCLKSEL::SEL_CLKIN,   /**< External clock input */
@@ -60,7 +60,7 @@ enum pllClockSources : uint32_t {
 /**
  * @brief main clock sources
  */
-enum mainClockSources : uint32_t {
+enum mainClockSources : std::uint32_t {
   MAINCLK_IRC = 0,     /**< IRC oscillator */
   MAINCLK_PLL_IN = 1,  /**< PLL input */
   MAINCLK_WDOSC = 2,   /**< Watchdog oscillator */
@@ -74,7 +74,7 @@ enum mainClockSources : uint32_t {
  * IRCOUT instead of POWER_IRCOUT_PD.
  *
  */
-enum peripheralClocks : uint32_t {
+enum peripheralClocks : std::uint32_t {
   CLOCK_SYS = (1 << 0),      /**< AHB bus, APB bridge and the processor core */
   CLOCK_ROM = (1 << 1),      /**< ROM */
   CLOCK_RAM = (1 << 2),      /**< RAM */
@@ -104,7 +104,7 @@ enum peripheralClocks : uint32_t {
  * IRCOUT instead of POWER_IRCOUT.
  *
  */
-enum peripheralPowers : uint32_t {
+enum peripheralPowers : std::uint32_t {
   POWER_IRCOUT = (1 << 0), /**< IRC oscillator output */
   POWER_IRC = (1 << 1),    /**< IRC oscillator*/
   POWER_FLASH = (1 << 2),  /**< Flash*/
@@ -132,7 +132,7 @@ struct syscon {
    *
    * @param setting bit setting from peripheralResets enum
    */
-  void resetPeripherals(uint32_t setting) {
+  void resetPeripherals(std::uint32_t setting) {
     regs()->PRESETCTRL = regs()->PRESETCTRL & ~setting;
     regs()->PRESETCTRL = regs()->PRESETCTRL | setting;
   }
@@ -143,8 +143,8 @@ struct syscon {
    * @param msel Feedback divider ratio, 0 divides by 1, 31 divides by 32
    * @param psel Post divider ratio, acceptable values in pllPostDivider enum
    */
-  void setSystemPllControl(uint32_t msel, pllPostDivider psel) {
-    regs()->SYSPLLCTRL = SYSPLLCTRL::MSEL(msel) | static_cast<uint32_t>(psel);
+  void setSystemPllControl(std::uint32_t msel, pllPostDivider psel) {
+    regs()->SYSPLLCTRL = SYSPLLCTRL::MSEL(msel) | static_cast<std::uint32_t>(psel);
   }
 
   /**
@@ -152,7 +152,7 @@ struct syscon {
    *
    * @return 0 PLL not locked, 1 PLL locked
    */
-  uint32_t getSystemPllStatus(void) {
+  std::uint32_t getSystemPllStatus(void) {
     return regs()->SYSPLLSTAT;
   }
 
@@ -161,7 +161,7 @@ struct syscon {
    *
    * @param setting set register see registers::syscon::SYSOSCCTRL
    */
-  void setSysOscControl(uint32_t setting) {
+  void setSysOscControl(std::uint32_t setting) {
     regs()->SYSOSCCTRL = setting;
   }
 
@@ -171,7 +171,7 @@ struct syscon {
    * @param   source      Clock source of the PLL
    */
   void selectPllClock(pllClockSources setting) {
-    regs()->SYSPLLCLKSEL = static_cast<uint32_t>(setting);
+    regs()->SYSPLLCLKSEL = static_cast<std::uint32_t>(setting);
     regs()->SYSPLLCLKUEN = SYSPLLCLKUEN::NO_CHANGE;
     regs()->SYSPLLCLKUEN = SYSPLLCLKUEN::UPDATE;
   }
@@ -182,7 +182,7 @@ struct syscon {
    * @param setting clock source from mainClockSources enum
    */
   void selectMainClock(mainClockSources setting) {
-    regs()->MAINCLKSEL = static_cast<uint32_t>(setting);
+    regs()->MAINCLKSEL = static_cast<std::uint32_t>(setting);
     regs()->MAINCLKUEN = MAINCLKUEN::NO_CHANGE;
     regs()->MAINCLKUEN = MAINCLKUEN::UPDATE;
   }
@@ -191,7 +191,7 @@ struct syscon {
    *
    * @param setting divison factor, 0 is disable, 1 is 1, the maximum is 255
    */
-  void setSystemClockDivider(uint32_t setting) {
+  void setSystemClockDivider(std::uint32_t setting) {
     regs()->SYSAHBCLKDIV = SYSAHBCLKDIV::DIV(setting);
   }
 
@@ -200,7 +200,7 @@ struct syscon {
    *
    * @param setting bit setting from peripheralClocks
    */
-  void enablePeripheralClocks(uint32_t setting) {
+  void enablePeripheralClocks(std::uint32_t setting) {
     regs()->SYSAHBCLKCTRL = regs()->SYSAHBCLKCTRL | (SYSAHBCLKCTRL::MASK & setting);
   }
 
@@ -209,11 +209,11 @@ struct syscon {
    *
    * @param setting bit setting from peripheralClocks
    */
-  void disablePeripheralClocks(uint32_t setting) {
+  void disablePeripheralClocks(std::uint32_t setting) {
     regs()->SYSAHBCLKCTRL = regs()->SYSAHBCLKCTRL & ~(SYSAHBCLKCTRL::MASK & setting);
   }
 
-  void setUsartClockDivider(uint32_t setting) {
+  void setUsartClockDivider(std::uint32_t setting) {
     regs()->UARTCLKDIV = UARTCLKDIV::MASK & setting;
   }
 
@@ -222,7 +222,7 @@ struct syscon {
    *
    * @param setting bit setting from peripheralPowers enum
    */
-  void powerPeripherals(uint32_t setting) {
+  void powerPeripherals(std::uint32_t setting) {
     regs()->PDRUNCFG = regs()->PDRUNCFG & ~(PDRUNCFG::MASK & setting);
   }
 
@@ -231,7 +231,7 @@ struct syscon {
    *
    * @param setting bit setting from peripheralPowers enum
    */
-  void depowerPeripherals(uint32_t setting) {
+  void depowerPeripherals(std::uint32_t setting) {
     regs()->PDRUNCFG = regs()->PDRUNCFG | (PDRUNCFG::MASK & setting);
   }
 
@@ -246,7 +246,7 @@ struct syscon {
    * @return 0x00008122 is returned for LPC812M101JDH20
    * @return 0x00008122 is returned for LPC812M101JTB16
    */
-  uint32_t getChipId(void) {
+  std::uint32_t getChipId(void) {
     return regs()->DEVICEID;
   }
 };

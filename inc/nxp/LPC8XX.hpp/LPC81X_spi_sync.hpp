@@ -45,8 +45,8 @@ struct spiSync {
    * @param bitRate requested bit rate
    * @return actual bit rate
    */
-  uint32_t initMaster(uint32_t bitRate) {
-    uint32_t actualBitRate = setBitRate(bitRate);
+  std::uint32_t initMaster(std::uint32_t bitRate) {
+    std::uint32_t actualBitRate = setBitRate(bitRate);
     regs()->CFG = CFG::ENABLE | CFG::MASTER;
     return actualBitRate;
   }
@@ -62,9 +62,9 @@ struct spiSync {
    * @param polarity SPI slave select polarity
    * @return actual bit rate
    */
-  uint32_t initMaster(uint32_t bitRate, waveforms waveform, slavePolaritySelects polarity) {
-    uint32_t actualBitRate = setBitRate(bitRate);
-    regs()->CFG = CFG::ENABLE | CFG::MASTER | static_cast<uint32_t>(waveform) | static_cast<uint32_t>(polarity);
+  std::uint32_t initMaster(std::uint32_t bitRate, waveforms waveform, slavePolaritySelects polarity) {
+    std::uint32_t actualBitRate = setBitRate(bitRate);
+    regs()->CFG = CFG::ENABLE | CFG::MASTER | static_cast<std::uint32_t>(waveform) | static_cast<std::uint32_t>(polarity);
     return actualBitRate;
   }
 
@@ -79,9 +79,10 @@ struct spiSync {
    * @param bitcount amount of bits to transmit
    * @param lastAction is this the last action? This will disable the chip select
    */
-  void write(chipEnables device, const std::span<uint16_t> transmitBuffer, uint32_t bitcount, bool lastAction) {
+  void write(chipEnables device, const std::span<std::uint16_t> transmitBuffer, std::uint32_t bitcount, bool lastAction) {
     size_t index = 0;
-    uint32_t address_TransferCommand = TXDATCTL::TXSSEL(device) | TXDATCTL::RXIGNORE;  // address_ transfer command with presets
+    std::uint32_t address_TransferCommand =
+      TXDATCTL::TXSSEL(device) | TXDATCTL::RXIGNORE;  // address_ transfer command with presets
     while (bitcount > 16) {
       regs()->TXDATCTL = address_TransferCommand | TXDATCTL::TXDAT(transmitBuffer[index]) | TXDATCTL::LEN(16);
       while ((regs()->STAT & STAT::TXRDY) == 0)
@@ -108,9 +109,9 @@ struct spiSync {
    * @param bitcount amount of bits to receive
    * @param lastAction is this the last action? This will disable the chip select
    */
-  void read(chipEnables device, std::span<uint16_t> receiveBuffer, uint32_t bitcount, bool lastAction) {
+  void read(chipEnables device, std::span<std::uint16_t> receiveBuffer, std::uint32_t bitcount, bool lastAction) {
     size_t index = 0;
-    uint32_t address_TransferCommand = TXDATCTL::TXSSEL(device);  // address_ transfer command with presets
+    std::uint32_t address_TransferCommand = TXDATCTL::TXSSEL(device);  // address_ transfer command with presets
     while (bitcount > 16) {
       regs()->TXDATCTL = address_TransferCommand | TXDATCTL::LEN(16);
       while ((regs()->STAT & STAT::RXRDY) == 0)
@@ -139,9 +140,9 @@ struct spiSync {
    * @param bitRate requested bit rate
    * @return actual bit rate
    */
-  uint32_t setBitRate(uint32_t bitRate) {
+  std::uint32_t setBitRate(std::uint32_t bitRate) {
     // compute divider and truncate so we can observe a possible round off
-    uint16_t divider = static_cast<uint16_t>(CLOCK_AHB / bitRate);
+    std::uint16_t divider = static_cast<std::uint16_t>(CLOCK_AHB / bitRate);
     regs()->DIV = DIV::DIVVAL(divider);
     return CLOCK_AHB / divider;
   }
@@ -155,10 +156,10 @@ struct spiSync {
    * @param bitcount amount of bits
    * @param lastAction is this the last action? This will disable the chip select
    */
-  void readWrite(chipEnables device, const std::span<uint16_t> transmitBuffer, std::span<uint16_t> receiveBuffer, uint32_t bitcount,
-                 bool lastAction) {
+  void readWrite(chipEnables device, const std::span<std::uint16_t> transmitBuffer, std::span<std::uint16_t> receiveBuffer,
+                 std::uint32_t bitcount, bool lastAction) {
     size_t index = 0;
-    uint32_t address_TransferCommand = TXDATCTL::TXSSEL(device);
+    std::uint32_t address_TransferCommand = TXDATCTL::TXSSEL(device);
     while (bitcount > 16) {
       regs()->TXDATCTL = address_TransferCommand | TXDATCTL::TXDAT(transmitBuffer[index]) | TXDATCTL::LEN(16);
       while ((regs()->STAT & STAT::RXRDY) == 0)

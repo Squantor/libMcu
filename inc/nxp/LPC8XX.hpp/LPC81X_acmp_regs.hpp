@@ -18,8 +18,8 @@ namespace acmp {
  *
  */
 struct peripheral {
-  volatile uint32_t CTRL; /**<  Analog Comparator control register */
-  volatile uint32_t LAD;  /**<  Voltage ladder register */
+  volatile std::uint32_t CTRL; /**<  Analog Comparator control register */
+  volatile std::uint32_t LAD;  /**<  Voltage ladder register */
 };
 
 }  // namespace acmp

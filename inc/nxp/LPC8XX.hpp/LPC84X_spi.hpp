@@ -21,7 +21,7 @@ using namespace registers::spi;
  * @brief SPI hardware chip enables
  *
  */
-enum class spiChipEnables : uint32_t {
+enum class spiChipEnables : std::uint32_t {
   SSEL0 = (1 << 16), /**< Hardware chip enable 0 */
   SSEL1 = (1 << 17), /**< Hardware chip enable 1 */
   SSEL2 = (1 << 18), /**< Hardware chip enable 2 */
@@ -29,14 +29,14 @@ enum class spiChipEnables : uint32_t {
 };
 
 /**
- * @brief XOR operator to use slave selects on uint32_t registers
+ * @brief XOR operator to use slave selects on std::uint32_t registers
  *
  * @param a register input
  * @param b slave select to xor
- * @return uint32_t register setting
+ * @return std::uint32_t register setting
  */
-inline uint32_t operator^(uint32_t a, spiChipEnables b) {
-  return a ^ static_cast<uint32_t>(b);
+inline std::uint32_t operator^(std::uint32_t a, spiChipEnables b) {
+  return a ^ static_cast<std::uint32_t>(b);
 }
 
 /**
@@ -45,7 +45,7 @@ inline uint32_t operator^(uint32_t a, spiChipEnables b) {
  * @tparam base
  * @tparam chipEnables
  */
-template <uint32_t base, typename chipEnables>
+template <std::uint32_t base, typename chipEnables>
 struct spi {
   static auto regs() {
     return reinterpret_cast<registers::spi::registers*>(base);
@@ -59,8 +59,8 @@ struct spi {
    * @param bitRate requested bit rate
    * @return actual bit rate
    */
-  uint32_t init(uint32_t bitRate) {
-    uint32_t actualBitRate = setBitRate(bitRate);
+  std::uint32_t init(std::uint32_t bitRate) {
+    std::uint32_t actualBitRate = setBitRate(bitRate);
     regs()->CFG = CFG::ENABLE | CFG::MASTER;
     return actualBitRate;
   }
@@ -73,9 +73,9 @@ struct spi {
    * @param bitRate requested bit rate
    * @return actual bit rate
    */
-  uint32_t setBitRate(uint32_t bitRate) {
+  std::uint32_t setBitRate(std::uint32_t bitRate) {
     // compute divider
-    uint32_t divider = CLOCK_AHB / bitRate;
+    std::uint32_t divider = CLOCK_AHB / bitRate;
     regs()->DIV = divider - 1; /**< Divider value is -1 encoded as per datasheet */
     return CLOCK_AHB / divider;
   }
@@ -87,9 +87,9 @@ struct spi {
    * @param bitcount amount of bits to transmit
    * @param lastAction is this the last action? This will disable the chip select
    */
-  void transmit(chipEnables device, const std::span<uint16_t> transmitBuffer, uint32_t bitcount, bool lastAction) {
+  void transmit(chipEnables device, const std::span<std::uint16_t> transmitBuffer, std::uint32_t bitcount, bool lastAction) {
     size_t index = 0;
-    uint32_t baseTransferCommand = (0x000F0000u ^ device) | TXDATCTL::RXIGNORE;  // base transfer command with presets
+    std::uint32_t baseTransferCommand = (0x000F0000u ^ device) | TXDATCTL::RXIGNORE;  // base transfer command with presets
     while (bitcount > 16) {
       regs()->TXDATCTL = baseTransferCommand | TXDATCTL::TXDAT(transmitBuffer[index]) | TXDATCTL::LEN(16);
       while ((regs()->STAT & STAT::TXRDY) == 0)
@@ -112,9 +112,9 @@ struct spi {
    * @param bitcount amount of bits to receive
    * @param lastAction is this the last action? This will disable the chip select
    */
-  void receive(chipEnables device, std::span<uint16_t> receiveBuffer, uint32_t bitcount, bool lastAction) {
+  void receive(chipEnables device, std::span<std::uint16_t> receiveBuffer, std::uint32_t bitcount, bool lastAction) {
     size_t index = 0;
-    uint32_t baseTransferCommand = 0x000F0000u ^ device;  // base transfer command with presets
+    std::uint32_t baseTransferCommand = 0x000F0000u ^ device;  // base transfer command with presets
     while (bitcount > 16) {
       regs()->TXDATCTL = baseTransferCommand | TXDATCTL::LEN(16);
       while ((regs()->STAT & STAT::RXRDY) == 0)
@@ -140,10 +140,10 @@ struct spi {
    * @param bitcount amount of bits
    * @param lastAction is this the last action? This will disable the chip select
    */
-  void transceive(chipEnables device, const std::span<uint16_t> transmitBuffer, std::span<uint16_t> receiveBuffer,
-                  uint32_t bitcount, bool lastAction) {
+  void transceive(chipEnables device, const std::span<std::uint16_t> transmitBuffer, std::span<std::uint16_t> receiveBuffer,
+                  std::uint32_t bitcount, bool lastAction) {
     size_t index = 0;
-    uint32_t baseTransferCommand = 0x000F0000u ^ device;  // base transfer command with presets
+    std::uint32_t baseTransferCommand = 0x000F0000u ^ device;  // base transfer command with presets
     while (bitcount > 16) {
       regs()->TXDATCTL = baseTransferCommand | TXDATCTL::TXDAT(transmitBuffer[index]) | TXDATCTL::LEN(16);
       while ((regs()->STAT & STAT::RXRDY) == 0)

@@ -15,17 +15,17 @@ namespace hw {
 namespace mrt {
 
 struct mrtChannel {
-  volatile uint32_t INTVAL; /* Timer interval register */
-  volatile uint32_t TIMER;  /* Timer register */
-  volatile uint32_t CTRL;   /* Timer control register */
-  volatile uint32_t STAT;   /* Timer status register */
+  volatile std::uint32_t INTVAL; /* Timer interval register */
+  volatile std::uint32_t TIMER;  /* Timer register */
+  volatile std::uint32_t CTRL;   /* Timer control register */
+  volatile std::uint32_t STAT;   /* Timer status register */
 };
 
 struct peripheral {
   mrtChannel CHANNEL[4];
-  volatile uint32_t RESERVED1[45];
-  volatile uint32_t IDLE_CH;
-  volatile uint32_t IRQ_FLAG;
+  volatile std::uint32_t RESERVED1[45];
+  volatile std::uint32_t IDLE_CH;
+  volatile std::uint32_t IRQ_FLAG;
 };
 
 }  // namespace mrt

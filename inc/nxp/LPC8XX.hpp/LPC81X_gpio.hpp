@@ -87,11 +87,11 @@ struct gpio {
    *
    * @tparam PIN pin instance
    * @param pin reference to pin instance
-   * @return uint32_t pin state, 0 for low, 1 for high
+   * @return std::uint32_t pin state, 0 for low, 1 for high
    */
   template <typename PIN>
-  uint32_t get(PIN &pin) {
-    return static_cast<uint32_t>(peripheral()->B[pin.gpioPortIndex][pin.gpioPinIndex]);
+  std::uint32_t get(PIN &pin) {
+    return static_cast<std::uint32_t>(peripheral()->B[pin.gpioPortIndex][pin.gpioPinIndex]);
   }
 
   /**
@@ -102,7 +102,7 @@ struct gpio {
    * @param setting pin state, 0 for low, 1 for high
    */
   template <typename PIN>
-  void set(PIN &pin, uint32_t setting) {
+  void set(PIN &pin, std::uint32_t setting) {
     peripheral()->B[pin.gpioPortIndex][pin.gpioPinIndex] = setting;
   }
 
@@ -114,7 +114,7 @@ struct gpio {
    * @param setting gpio port pin directions
    */
   template <typename PORT>
-  void portDirection(PORT &port, uint32_t setting) {
+  void portDirection(PORT &port, std::uint32_t setting) {
     peripheral()->DIR[port.gpioPortIndex] = setting;
   }
 
@@ -129,7 +129,7 @@ struct gpio {
    * @param mask gpio pins to ignore
    */
   template <typename PORT>
-  void portDirection(PORT &port, uint32_t setting, uint32_t mask) {
+  void portDirection(PORT &port, std::uint32_t setting, std::uint32_t mask) {
     peripheral()->DIR[port.gpioPortIndex] = (peripheral()->DIR[port.gpioPortIndex] & ~mask) | (setting & mask);
   }
 
@@ -144,7 +144,7 @@ struct gpio {
    * @param mask gpio pins that are unaffected
    */
   template <typename PORT>
-  void portSet(PORT &port, uint32_t setting, uint32_t mask) {
+  void portSet(PORT &port, std::uint32_t setting, std::uint32_t mask) {
     peripheral()->DIR[port.gpioPortIndex] = (peripheral()->DIR[port.gpioPortIndex] & ~mask) | (setting & mask);
   }
 
@@ -156,7 +156,7 @@ struct gpio {
    * @param setting gpio pins to setup
    */
   template <typename PORT>
-  void portSet(PORT &port, uint32_t setting) {
+  void portSet(PORT &port, std::uint32_t setting) {
     peripheral()->DIR[port.gpioPortIndex] = setting;
   }
 
@@ -168,7 +168,7 @@ struct gpio {
    * @param setting gpio pins to set low, a 1 bit will set the corresponding gpio pin to low
    */
   template <typename PORT>
-  void portLow(PORT &port, uint32_t setting) {
+  void portLow(PORT &port, std::uint32_t setting) {
     peripheral()->CLR[port.gpioPortIndex] = setting;
   }
 
@@ -180,7 +180,7 @@ struct gpio {
    * @param setting gpio pins to set high, a 1 bit will set the corresponding gpio pin to high
    */
   template <typename PORT>
-  void portHigh(PORT &port, uint32_t setting) {
+  void portHigh(PORT &port, std::uint32_t setting) {
     peripheral()->SET[port.gpioPortIndex] = setting;
   }
 
@@ -192,7 +192,7 @@ struct gpio {
    * @param setting gpio pins to toggle, a 1 bit will toggle the corresponding pio pin
    */
   template <typename PORT>
-  void portToggle(PORT &port, uint32_t setting) {
+  void portToggle(PORT &port, std::uint32_t setting) {
     peripheral()->NOT[port.gpioPortIndex] = setting;
   }
 
@@ -201,11 +201,11 @@ struct gpio {
    *
    * @tparam PORT port instance
    * @param port reference to port instance
-   * @return uint32_t gpio pin state
+   * @return std::uint32_t gpio pin state
    */
   template <typename PORT>
-  uint32_t portGet(PORT &port) {
-    return static_cast<uint32_t>(peripheral()->PIN[port.gpioPortIndex]);
+  std::uint32_t portGet(PORT &port) {
+    return static_cast<std::uint32_t>(peripheral()->PIN[port.gpioPortIndex]);
   }
 
   /**
@@ -214,11 +214,11 @@ struct gpio {
    * @tparam PORT port instance
    * @param port reference to port instance
    * @param mask gpio pins to ignore
-   * @return uint32_t gpio pin state masked by mask
+   * @return std::uint32_t gpio pin state masked by mask
    */
   template <typename PORT>
-  uint32_t portGet(PORT &port, uint32_t mask) {
-    return static_cast<uint32_t>(peripheral()->PIN[port.gpioPortIndex]) & mask;
+  std::uint32_t portGet(PORT &port, std::uint32_t mask) {
+    return static_cast<std::uint32_t>(peripheral()->PIN[port.gpioPortIndex]) & mask;
   }
 };
 }  // namespace gpio
