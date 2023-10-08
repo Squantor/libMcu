@@ -1,5 +1,6 @@
 # Include paths
 LibMcuLL uses multiple levels of includes to reduce the file clutter.
+
 * ```inc\ ``` include directory top level, ```mcu_ll.h``` and ```mcu_ll.hpp``` headers reside here
   * ```CMSIS\ ``` ARM CMSIS provided files, these provide CortexM definitions
   * ```generic\ ``` generic microcontroller definitions, these are controllers with only their on core peripherals and can be used as a basis for your own definitions
@@ -9,6 +10,7 @@ LibMcuLL uses multiple levels of includes to reduce the file clutter.
     * ```LPC8XX.hpp\ ``` LPC800 series peripheral C++ style headers
 
 There are many more vendor header directories but they are not described here for brevity but do follow the general shape:
+
 * ```VENDOR\ ``` Vendor header file directory
   * ```DEVICE_FAMILIY\ ``` Device family C style header directory
   * ```DEVICE_FAMILTY.hpp\ ``` Device family C++ style header directory
@@ -21,10 +23,12 @@ Peripheral headers are usually prefixed as with the device family and the periph
 We drop package/geometry/temperature related letters/numbers if they are at the end of the device part number or we replace them with a X character.
 
 Some peripherals have multiple API's for control with various methods. The spi peripheral is usually controlled in a synchronous (blocking), asynchronous (nonblocking), asynchronous interrupt or asynchronous DMA methods. Peripheral control functions with these API's are suffixed by the following pattern:
+
 * for synchronous API's the headers are suffixed by ```_sync```
 * for asynchronous API's the headers are suffixed by ```_async```
 * for asycnrhonous API's using interrupts are suffixed by ```_interrupt```
 * for asynchronous API's using DMA are suffixed by ```_dma```
+
 If there is just one API, still use the proper suffixes.
 
 Some device family share common definitions, for example the LPC81, LPC82 and LPC83 series share some common bits or even full peripherals. Share these headers among the device and change the name to not refer to a specific device family but one level higher. So this would be a header prefixed with ```LPC8XX``` to signify it is common for the whole LPC800 series family.
