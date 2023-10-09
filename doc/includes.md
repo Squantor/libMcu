@@ -38,13 +38,16 @@ The header ```mcu_ll.h``` and ```mcu_ll.hpp``` contain the selection logic for s
 # inclusion anatomy of a device header
 ```
 // Processor specific defines/constexprs for setting up processor specific header
-#include "core_definitions.hpp"
+
+#include "core_definitions.hpp" // device processor definitions
+
+// device specific defines/constexprs for things like pins/ports etcetera
 
 constexpr inline libMcuLL::peripheralBaseAddress peripheral0{0x4000'0000u};     /**< Peripheral base address */
 
-#include "device_peripheral_regs.hpp``` // peripheral register definitions
+#include "device_peripheral_regs.hpp" // peripheral register definitions
 
-#include "device_peripheral.hpp``` // peripheral class definitions
+#include "device_peripheral.hpp" // peripheral class definitions
 ```
 ## CortexM
 TODO give a generic example of a device header.
