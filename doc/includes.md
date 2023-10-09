@@ -26,7 +26,7 @@ Some peripherals have multiple API's for control with various methods. The spi p
 
 * for synchronous API's the headers are suffixed by ```_sync```
 * for asynchronous API's the headers are suffixed by ```_async```
-* for asycnrhonous API's using interrupts are suffixed by ```_interrupt```
+* for asynchronous API's using interrupts are suffixed by ```_interrupt```
 * for asynchronous API's using DMA are suffixed by ```_dma```
 
 If there is just one API, still use the proper suffixes.
@@ -36,7 +36,16 @@ Some device family share common definitions, for example the LPC81, LPC82 and LP
 # conditional compilation
 The header ```mcu_ll.h``` and ```mcu_ll.hpp``` contain the selection logic for selecting the right microcontroller device header but using a long ```#ifndef``` chain. In general specifity is greatest at bottom level and gradually becomes less specific the futher you go deeper in the include hierarchy. The device specific header contains the most specific values for that device. The device specific headers less detail like package type, memory sizes, it is often not relevant. These even might be shared among multiple devices.
 # inclusion anatomy of a device header
-TODO explain how a device header looks like.
+```
+// Processor specific defines/constexprs for setting up processor specific header
+#include "core_definitions.hpp"
+
+constexpr inline libMcuLL::peripheralBaseAddress peripheral0{0x4000'0000u};     /**< Peripheral base address */
+
+#include "device_peripheral_regs.hpp``` // peripheral register definitions
+
+#include "device_peripheral.hpp``` // peripheral class definitions
+```
 ## CortexM
 TODO give a generic example of a device header.
 
