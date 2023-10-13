@@ -17,13 +17,15 @@ namespace libMcuLL {
  * Mostly used by asynchronous operations
  *
  */
-enum class results : uint32_t {
-  NO_ERROR, /**< No error */
-  ERROR,    /**< Error has occured */
-  STARTED,  /**< Operation started */
-  BUSY,     /**< Operation Busy */
-  DONE,     /**< Operation completed*/
-  IN_USE,   /**< Currently in use */
+enum class results : std::uint32_t {
+  NO_ERROR,  /**< No error */
+  ERROR,     /**< Error has occured */
+  STARTED,   /**< Operation started */
+  BUSY,      /**< Operation Busy */
+  DONE,      /**< Operation completed*/
+  IN_USE,    /**< Currently in use */
+  CLAIMED,   /**< Interface has been successfully claimed */
+  UNCLAIMED, /**< Interface has been successfully unclaimed */
 };
 }  // namespace libMcuLL
 
