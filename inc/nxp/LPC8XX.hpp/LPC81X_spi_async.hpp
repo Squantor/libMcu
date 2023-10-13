@@ -49,7 +49,7 @@ struct spiAsync {
    * @return return pointer to spi registers
    */
   static hw::spi::peripheral *regs() {
-    return reinterpret_cast<hw::spi::peripheral *>(address_);
+    return reinterpret_cast<hw::spi::peripheral *>(address);
   }
 
   /**
@@ -194,6 +194,12 @@ struct spiAsync {
   // TODO: readWrite with chip select lambda
   // TODO: configure delay settings
 
+  /**
+   * @brief Claim the SPI interface
+   *
+   * @return IN_USE when already in use
+   * @return CLAIMED when the claim has been successful
+   */
   libMcuLL::results claim(void) {
     if (state != detail::spiSynchonousStates::IDLE) {
       return libMcuLL::results::IN_USE;
@@ -202,14 +208,25 @@ struct spiAsync {
     return libMcuLL::results::CLAIMED;
   }
 
+  /**
+   * @brief Unclaim the SPI interface
+   *
+   * @return ERROR when not claimed or busy
+   * @return UNCLAIMED when unclaim sucessful
+   */
   libMcuLL::results unclaim(void) {
-    if (state != detail::spiSynchonousStates::CLAIMED) {
+    if (state == detail::spiSynchonousStates::IDLE) {
       return libMcuLL::results::ERROR;
+    } else if (state == detail::spiSynchonousStates::TRANSACTING) {
+      return libMcuLL::results::BUSY;
+    } else {
+      state = detail::spiSynchonousStates::IDLE;
+      return libMcuLL::results::UNCLAIMED;
     }
-    state = detail::spiSynchonousStates::IDLE;
-    return libMcuLL::results::UNCLAIMED;
+    return libMcuLL::results::ERROR;
   }
 
+ private:
   static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
   detail::spiSynchonousStates state;
 };

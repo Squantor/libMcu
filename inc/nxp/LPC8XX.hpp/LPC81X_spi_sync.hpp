@@ -26,7 +26,6 @@ using namespace hw::spi;
  */
 template <libMcuLL::SPIbaseAddress address_, typename chipEnables>
 struct spiSync {
-  static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
   /**
    * @brief get registers from peripheral
    *
@@ -180,6 +179,8 @@ struct spiSync {
   // TODO: readWrite with gpio chip select
   // TODO: readWrite with chip select lambda
   // TODO: configure delay settings
+ private:
+  static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
 };
 }  // namespace spi
 }  // namespace sw
