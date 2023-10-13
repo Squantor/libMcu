@@ -10,11 +10,20 @@
 #ifndef LPC81X_SPI_ASYNC_HPP
 #define LPC81X_SPI_ASYNC_HPP
 
-#include <nxp/LPC8XX.hpp/LPC81X_spi_common.hpp>
+#include "LPC81X_spi_common.hpp"
 
 namespace libMcuLL {
 namespace sw {
 namespace spi {
+namespace detail {
+
+enum class spiSynchonousStates : std::uint8_t {
+  IDLE,
+  CLAIMED,
+  TRANSACTING,
+};
+
+}
 
 using namespace hw::spi;
 
@@ -26,7 +35,14 @@ using namespace hw::spi;
  */
 template <libMcuLL::SPIbaseAddress address_, typename chipEnables>
 struct spiAsync {
-  static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
+  /**
+   * @brief Construct a new spi Async object
+   *
+   * Initializes the internal state to defaults
+   *
+   */
+  spiAsync() : state{detail::spiSynchonousStates::IDLE} {}
+
   /**
    * @brief get registers from peripheral
    *
@@ -177,6 +193,25 @@ struct spiAsync {
   // TODO: readWrite with gpio chip select
   // TODO: readWrite with chip select lambda
   // TODO: configure delay settings
+
+  libMcuLL::results claim(void) {
+    if (state != detail::spiSynchonousStates::IDLE) {
+      return libMcuLL::results::IN_USE;
+    }
+    state = detail::spiSynchonousStates::CLAIMED;
+    return libMcuLL::results::CLAIMED;
+  }
+
+  libMcuLL::results unclaim(void) {
+    if (state != detail::spiSynchonousStates::CLAIMED) {
+      return libMcuLL::results::ERROR;
+    }
+    state = detail::spiSynchonousStates::IDLE;
+    return libMcuLL::results::UNCLAIMED;
+  }
+
+  static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
+  detail::spiSynchonousStates state;
 };
 }  // namespace spi
 }  // namespace sw
