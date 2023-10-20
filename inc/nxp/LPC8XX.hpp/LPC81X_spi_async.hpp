@@ -41,7 +41,7 @@ struct spiAsync {
    * Initializes the internal state to defaults
    *
    */
-  spiAsync() : state{detail::spiSynchonousStates::IDLE} {}
+  spiAsync() : transactionState{detail::spiSynchonousStates::IDLE} {}
 
   /**
    * @brief get registers from peripheral
@@ -201,10 +201,10 @@ struct spiAsync {
    * @return CLAIMED when the claim has been successful
    */
   libMcuLL::results claim(void) {
-    if (state != detail::spiSynchonousStates::IDLE) {
+    if (transactionState != detail::spiSynchonousStates::IDLE) {
       return libMcuLL::results::IN_USE;
     }
-    state = detail::spiSynchonousStates::CLAIMED;
+    transactionState = detail::spiSynchonousStates::CLAIMED;
     return libMcuLL::results::CLAIMED;
   }
 
@@ -215,20 +215,102 @@ struct spiAsync {
    * @return UNCLAIMED when unclaim sucessful
    */
   libMcuLL::results unclaim(void) {
-    if (state == detail::spiSynchonousStates::IDLE) {
+    if (transactionState == detail::spiSynchonousStates::IDLE) {
       return libMcuLL::results::ERROR;
-    } else if (state == detail::spiSynchonousStates::TRANSACTING) {
+    } else if (transactionState == detail::spiSynchonousStates::TRANSACTING) {
       return libMcuLL::results::BUSY;
     } else {
-      state = detail::spiSynchonousStates::IDLE;
+      transactionState = detail::spiSynchonousStates::IDLE;
       return libMcuLL::results::UNCLAIMED;
     }
     return libMcuLL::results::ERROR;
   }
 
+  /**
+   * @brief Start a read and write data transaction
+   *
+   * @param device SPI device to use
+   * @param transmitBuffer data to transmit
+   * @param receiveBuffer buffer to put data into
+   * @param bitcount amount of bits
+   * @param lastAction is this the last action? This will disable the chip select
+   *
+   * @retval libMcuLL::results::STARTED transaction started
+   */
+  libMcuLL::results startReadWrite(chipEnables device, const std::span<std::uint16_t> transmitBuffer,
+                                   std::span<std::uint16_t> receiveBuffer, std::uint32_t bitcount, bool lastAction) {
+    if (transactionState != detail::spiSynchonousStates::CLAIMED) {
+      return libMcuLL::results::ERROR;
+    }
+    // store transaction information
+    transactionWriteIndex = 0;
+    transactionReadIndex = 0;
+    transactionWriteData = transmitBuffer;
+    transactionReadData = receiveBuffer;
+    transactionWriteBits = bitcount;
+    transactionReadBits = bitcount;
+    transactionDeviceEnable = device;
+    transactionDisableDevice = lastAction;
+    // TODO: Enable device
+    transactionState = detail::spiSynchonousStates::TRANSACTING;
+    return libMcuLL::results::STARTED;
+  }
+
+  // TODO: StartRead
+  // TODO: StartWrite
+  /**
+   * @brief progress with current transaction
+   *
+   * @retval libMcuLL::results::BUSY transaction still busy
+   * @retval libMcuLL::results::DONE transaction done, data available in buffers
+   */
+  libMcuLL::results progress(void) {
+    if (transactionState == detail::spiSynchonousStates::TRANSACTING) {
+      std::uint32_t address_TransferCommand = TXDATCTL::TXSSEL(transactionDeviceEnable);
+      // data read path, best to put it first as a write will generate data
+      if ((regs()->STAT & STAT::RXRDY) != 0) {
+        if (transactionReadBits > 16) {
+          transactionReadData[transactionReadIndex] = RXDAT::RXDAT(regs()->RXDAT);
+          transactionReadBits -= 16;
+          transactionReadIndex++;
+        } else if (transactionReadBits > 0) {
+          if (transactionDisableDevice)
+            address_TransferCommand |= TXDATCTL::EOT;
+          transactionReadData[transactionReadIndex] = RXDAT::RXDAT(regs()->RXDAT);
+          transactionState = detail::spiSynchonousStates::CLAIMED;
+          return libMcuLL::results::DONE;
+        }
+      }
+      // data write path
+      if (((regs()->STAT & STAT::TXRDY) != 0)) {
+        if (transactionWriteBits > 16) {
+          regs()->TXDATCTL =
+            address_TransferCommand | TXDATCTL::TXDAT(transactionWriteData[transactionWriteIndex]) | TXDATCTL::LEN(16);
+          transactionWriteBits -= 16;
+          transactionWriteIndex++;
+        } else if (transactionWriteBits > 0) {
+          regs()->TXDATCTL = address_TransferCommand | TXDATCTL::TXDAT(transactionWriteData[transactionWriteIndex]) |
+                             TXDATCTL::LEN(transactionWriteBits);
+          transactionWriteBits = 0;  // reset to zero so any further calls while TX is ready will cause no data written
+        }
+      }
+      return libMcuLL::results::BUSY;
+    } else {
+      return libMcuLL::results::ERROR;
+    }
+  }
+
  private:
   static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
-  detail::spiSynchonousStates state;
+  detail::spiSynchonousStates transactionState;                /**< spi transaction state */
+  std::size_t transactionWriteIndex;                           /**< transaction write buffer index */
+  std::size_t transactionReadIndex;                            /**< transaction read buffer index */
+  std::span<std::uint16_t> transactionWriteData;               /**< data to write */
+  std::span<std::uint16_t> transactionReadData;                /**< where to put read data in */
+  std::uint32_t transactionWriteBits;                          /**< Bits remaining in current transaction */
+  std::uint32_t transactionReadBits;                           /**< Bits remaining in current transaction */
+  chipEnables transactionDeviceEnable;                         /**< Disable chip after transaction */
+  bool transactionDisableDevice;
 };
 }  // namespace spi
 }  // namespace sw
