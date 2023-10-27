@@ -5,7 +5,7 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC810 series SPI functions
+ * \file LPC810 series asynchronous SPI functions
  */
 #ifndef LPC81X_SPI_ASYNC_HPP
 #define LPC81X_SPI_ASYNC_HPP
@@ -17,10 +17,10 @@ namespace sw {
 namespace spi {
 namespace detail {
 
-enum class spiSynchonousStates : std::uint8_t {
-  IDLE,
-  CLAIMED,
-  TRANSACTING,
+enum class synchonousStates : std::uint8_t {
+  IDLE,        /**< Interface is idle, ready to be claimed */
+  CLAIMED,     /**< Interface is claimed, ready to transact */
+  TRANSACTING, /**< Interface is busy with a transaction */
 };
 
 }
@@ -41,7 +41,7 @@ struct spiAsync {
    * Initializes the internal state to defaults
    *
    */
-  spiAsync() : transactionState{detail::spiSynchonousStates::IDLE} {}
+  spiAsync() : transactionState{detail::synchonousStates::IDLE} {}
 
   /**
    * @brief get registers from peripheral
@@ -201,26 +201,27 @@ struct spiAsync {
    * @return CLAIMED when the claim has been successful
    */
   libMcuLL::results claim(void) {
-    if (transactionState != detail::spiSynchonousStates::IDLE) {
+    if (transactionState != detail::synchonousStates::IDLE) {
       return libMcuLL::results::IN_USE;
     }
-    transactionState = detail::spiSynchonousStates::CLAIMED;
+    transactionState = detail::synchonousStates::CLAIMED;
     return libMcuLL::results::CLAIMED;
   }
 
   /**
    * @brief Unclaim the SPI interface
    *
-   * @return ERROR when not claimed or busy
+   * @return ERROR when already idle or inconsistent, possible programming error!
+   * @return BUSY when still executing a transaction
    * @return UNCLAIMED when unclaim sucessful
    */
   libMcuLL::results unclaim(void) {
-    if (transactionState == detail::spiSynchonousStates::IDLE) {
+    if (transactionState == detail::synchonousStates::IDLE) {
       return libMcuLL::results::ERROR;
-    } else if (transactionState == detail::spiSynchonousStates::TRANSACTING) {
+    } else if (transactionState == detail::synchonousStates::TRANSACTING) {
       return libMcuLL::results::BUSY;
     } else {
-      transactionState = detail::spiSynchonousStates::IDLE;
+      transactionState = detail::synchonousStates::IDLE;
       return libMcuLL::results::UNCLAIMED;
     }
     return libMcuLL::results::ERROR;
@@ -239,7 +240,7 @@ struct spiAsync {
    */
   libMcuLL::results startReadWrite(chipEnables device, const std::span<std::uint16_t> transmitBuffer,
                                    std::span<std::uint16_t> receiveBuffer, std::uint32_t bitcount, bool lastAction) {
-    if (transactionState != detail::spiSynchonousStates::CLAIMED) {
+    if (transactionState != detail::synchonousStates::CLAIMED) {
       return libMcuLL::results::ERROR;
     }
     // store transaction information
@@ -252,7 +253,7 @@ struct spiAsync {
     transactionDeviceEnable = device;
     transactionDisableDevice = lastAction;
     // TODO: Enable device
-    transactionState = detail::spiSynchonousStates::TRANSACTING;
+    transactionState = detail::synchonousStates::TRANSACTING;
     return libMcuLL::results::STARTED;
   }
 
@@ -265,7 +266,7 @@ struct spiAsync {
    * @retval libMcuLL::results::DONE transaction done, data available in buffers
    */
   libMcuLL::results progress(void) {
-    if (transactionState == detail::spiSynchonousStates::TRANSACTING) {
+    if (transactionState == detail::synchonousStates::TRANSACTING) {
       std::uint32_t address_TransferCommand = TXDATCTL::TXSSEL(transactionDeviceEnable);
       // data read path, best to put it first as a write will generate data
       if ((regs()->STAT & STAT::RXRDY) != 0) {
@@ -277,7 +278,7 @@ struct spiAsync {
           if (transactionDisableDevice)
             address_TransferCommand |= TXDATCTL::EOT;
           transactionReadData[transactionReadIndex] = RXDAT::RXDAT(regs()->RXDAT);
-          transactionState = detail::spiSynchonousStates::CLAIMED;
+          transactionState = detail::synchonousStates::CLAIMED;
           return libMcuLL::results::DONE;
         }
       }
@@ -302,7 +303,7 @@ struct spiAsync {
 
  private:
   static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
-  detail::spiSynchonousStates transactionState;                /**< spi transaction state */
+  detail::synchonousStates transactionState;                   /**< spi transaction state */
   std::size_t transactionWriteIndex;                           /**< transaction write buffer index */
   std::size_t transactionReadIndex;                            /**< transaction read buffer index */
   std::span<std::uint16_t> transactionWriteData;               /**< data to write */

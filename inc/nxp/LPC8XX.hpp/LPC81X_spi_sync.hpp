@@ -5,7 +5,7 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC810 series SPI functions
+ * \file LPC810 series synchronous SPI functions
  */
 #ifndef LPC81X_SPI_HPP
 #define LPC81X_SPI_HPP
