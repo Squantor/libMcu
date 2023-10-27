@@ -252,7 +252,8 @@ constexpr inline libMcuLL::PININTbaseAddress PIN_INT_cpp{0xA000'4000u}; /**< Pin
 #include "LPC8XX.hpp/LPC81X_pmu.hpp"
 #include "LPC8XX.hpp/LPC81X_sct.hpp"
 #include "LPC8XX.hpp/LPC81X_syscon.hpp"
-#include "LPC8XX.hpp/LPC81X_usart.hpp"
+#include "LPC8XX.hpp/LPC81X_usart_sync.hpp"
+#include "LPC8XX.hpp/LPC81X_usart_async.hpp"
 #include "LPC8XX.hpp/LPC81X_wkt.hpp"
 #include "LPC8XX.hpp/LPC81X_wwdt.hpp"
 
