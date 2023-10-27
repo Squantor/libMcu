@@ -99,10 +99,8 @@ struct usartAsync {
    * @return UNCLAIMED when unclaim sucessful
    */
   libMcuLL::results unclaim(void) {
-    if ((transactionWriteState == detail::synchonousStates::IDLE) || (transactionReadState == detail::synchonousStates::IDLE)) {
-      return libMcuLL::results::ERROR;
-    } else if ((transactionWriteState == detail::synchonousStates::TRANSACTING) ||
-               (transactionReadState == detail::synchonousStates::TRANSACTING)) {
+    if ((transactionWriteState == detail::synchonousStates::TRANSACTING) ||
+        (transactionReadState == detail::synchonousStates::TRANSACTING)) {
       return libMcuLL::results::BUSY;
     } else if ((transactionWriteState == detail::synchonousStates::CLAIMED) &&
                (transactionReadState == detail::synchonousStates::CLAIMED)) {
