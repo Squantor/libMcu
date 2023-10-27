@@ -85,67 +85,6 @@ struct spiAsync {
   }
 
   /**
-   * @brief Transmit data to SPI
-   *
-   * @param device SPI device to transmit to
-   * @param transmitBuffer data to transmit
-   * @param bitcount amount of bits to transmit
-   * @param lastAction is this the last action? This will disable the chip select
-   */
-  void write(chipEnables device, const std::span<std::uint16_t> transmitBuffer, std::uint32_t bitcount, bool lastAction) {
-    size_t index = 0;
-    std::uint32_t address_TransferCommand =
-      TXDATCTL::TXSSEL(device) | TXDATCTL::RXIGNORE;  // address_ transfer command with presets
-    while (bitcount > 16) {
-      regs()->TXDATCTL = address_TransferCommand | TXDATCTL::TXDAT(transmitBuffer[index]) | TXDATCTL::LEN(16);
-      while ((regs()->STAT & STAT::TXRDY) == 0)
-        ;
-      bitcount -= 16;
-      index++;
-    }
-    // process remainder
-    if (lastAction)
-      address_TransferCommand |= TXDATCTL::EOT;
-    regs()->TXDATCTL = address_TransferCommand | TXDATCTL::TXDAT(transmitBuffer[index]) | TXDATCTL::LEN(bitcount);
-    while ((regs()->STAT & STAT::TXRDY) == 0)
-      ;
-  }
-
-  // TODO: transmit with gpio chip select
-  // TODO: transmit with chip select lambda
-
-  /**
-   * @brief Receive data from SPI, transmitter is active but transmits zeroes, disable MOSI if you want to float it
-   *
-   * @param device SPI device to receive data from
-   * @param receiveBuffer buffer to put data into
-   * @param bitcount amount of bits to receive
-   * @param lastAction is this the last action? This will disable the chip select
-   */
-  void read(chipEnables device, std::span<std::uint16_t> receiveBuffer, std::uint32_t bitcount, bool lastAction) {
-    size_t index = 0;
-    std::uint32_t address_TransferCommand = TXDATCTL::TXSSEL(device);  // address_ transfer command with presets
-    while (bitcount > 16) {
-      regs()->TXDATCTL = address_TransferCommand | TXDATCTL::LEN(16);
-      while ((regs()->STAT & STAT::RXRDY) == 0)
-        ;
-      receiveBuffer[index] = RXDAT::RXDAT(regs()->RXDAT);
-      bitcount -= 16;
-      index++;
-    }
-    // process remainder
-    if (lastAction)
-      address_TransferCommand |= TXDATCTL::EOT;
-    regs()->TXDATCTL = address_TransferCommand | TXDATCTL::LEN(bitcount);
-    while ((regs()->STAT & STAT::RXRDY) == 0)
-      ;
-    receiveBuffer[index] = RXDAT::RXDAT(regs()->RXDAT);
-  }
-
-  // TODO: receive with gpio chip select
-  // TODO: receive with chip select lambda
-
-  /**
    * @brief Set the SPI peripheral bit rate
    *
    * Uses defined CLOCK_AHB to compute the actual bit rate
@@ -159,40 +98,6 @@ struct spiAsync {
     regs()->DIV = DIV::DIVVAL(divider);
     return CLOCK_AHB / divider;
   }
-
-  /**
-   * @brief Transmit and recieve data via SPI
-   *
-   * @param device SPI device to use
-   * @param transmitBuffer data to transmit
-   * @param receiveBuffer buffer to put data into
-   * @param bitcount amount of bits
-   * @param lastAction is this the last action? This will disable the chip select
-   */
-  void readWrite(chipEnables device, const std::span<std::uint16_t> transmitBuffer, std::span<std::uint16_t> receiveBuffer,
-                 std::uint32_t bitcount, bool lastAction) {
-    size_t index = 0;
-    std::uint32_t address_TransferCommand = TXDATCTL::TXSSEL(device);
-    while (bitcount > 16) {
-      regs()->TXDATCTL = address_TransferCommand | TXDATCTL::TXDAT(transmitBuffer[index]) | TXDATCTL::LEN(16);
-      while ((regs()->STAT & STAT::RXRDY) == 0)
-        ;
-      receiveBuffer[index] = RXDAT::RXDAT(regs()->RXDAT);
-      bitcount -= 16;
-      index++;
-    }
-    // process remainder
-    if (lastAction)
-      address_TransferCommand |= TXDATCTL::EOT;
-    regs()->TXDATCTL = address_TransferCommand | TXDATCTL::TXDAT(transmitBuffer[index]) | TXDATCTL::LEN(bitcount);
-    while ((regs()->STAT & STAT::RXRDY) == 0)
-      ;
-    receiveBuffer[index] = RXDAT::RXDAT(regs()->RXDAT);
-  }
-
-  // TODO: readWrite with gpio chip select
-  // TODO: readWrite with chip select lambda
-  // TODO: configure delay settings
 
   /**
    * @brief Claim the SPI interface
