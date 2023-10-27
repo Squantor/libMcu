@@ -147,7 +147,54 @@ struct usartAsync {
     return libMcuLL::results::STARTED;
   }
 
-  // TODO: progressRead/progressWrite
+  /**
+   * @brief continue started read transaction
+   *
+   * @return libMcuLL::results::ERROR if transaction has not started
+   * @return libMcuLL::results::BUSY if transaction is still in progress
+   * @return libMcuLL::results::DONE if transaction is done and buffer filled with data
+   */
+  libMcuLL::results progressRead(void) {
+    if (transactionReadState != detail::synchonousStates::TRANSACTING) {
+      return libMcuLL::results::ERROR;
+    }
+    if (regs()->STAT & STAT::RXRDY) {
+      transactionReadData[transactionReadIndex] = static_cast<std::uint16_t>(regs()->RXDAT);
+      transactionReadIndex++;
+      if (transactionReadData.size() == transactionReadIndex) {
+        transactionReadState = detail::synchonousStates::CLAIMED;
+        return libMcuLL::results::DONE;
+      }
+    }
+    return libMcuLL::results::BUSY;
+  }
+
+  /**
+   * @brief continue started write transaction
+   *
+   * @return libMcuLL::results::ERROR if transaction has not started
+   * @return libMcuLL::results::BUSY if transaction is still in progress
+   * @return libMcuLL::results::DONE if transaction is done and buffer of data has been written
+   */
+  libMcuLL::results progressWrite(void) {
+    if (transactionWriteState != detail::synchonousStates::TRANSACTING) {
+      return libMcuLL::results::ERROR;
+    }
+    std::uint32_t status = regs()->STAT;
+    if (status & STAT::TXRDY) {
+      if (transactionWriteData.size() > transactionWriteIndex) {
+        regs()->TXDAT = static_cast<std::uint32_t>(transactionWriteData[transactionWriteIndex]);
+        transactionWriteIndex++;
+      } else {
+        if (status & STAT::TXIDLE) {
+          transactionWriteState = detail::synchonousStates::CLAIMED;
+          return libMcuLL::results::DONE;
+        }
+      }
+    }
+    return libMcuLL::results::BUSY;
+  }
+
  private:
   static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
   detail::synchonousStates transactionWriteState;              /**< usart write transaction state */
