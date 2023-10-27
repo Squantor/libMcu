@@ -74,8 +74,6 @@ struct usartAsync {
     return CLOCK_MAIN / 16 / baudDivider;
   }
 
-  // Brain: As we have two almost independent processes for reading and writing
-  // We should also have to separate asynchronous processes for this too
   /**
    * @brief Claim the Usart interface
    *
@@ -111,7 +109,44 @@ struct usartAsync {
       return libMcuLL::results::ERROR;
     }
   }
-  // TODO: startRead/startWrite
+
+  /**
+   * @brief Start a read transaction
+   *
+   * @param buffer buffer of data to read
+   * @return libMcuLL::results::ERROR if not claimed interface or busy
+   * @return libMcuLL::results::STARTED when transaction started
+   */
+  libMcuLL::results startRead(std::span<std::uint16_t> buffer) {
+    if (transactionReadState != detail::synchonousStates::CLAIMED) {
+      return libMcuLL::results::ERROR;
+    }
+    // store transaction information
+    transactionReadIndex = 0;
+    transactionReadData = buffer;
+    transactionReadState = detail::synchonousStates::TRANSACTING;
+    return libMcuLL::results::STARTED;
+  }
+
+  /**
+   * @brief Start a write transaction
+   *
+   * @param buffer buffer of data to read
+   * @return libMcuLL::results::ERROR if not claimed interface or busy
+   * @return libMcuLL::results::STARTED when transaction started
+   */
+  libMcuLL::results startWrite(std::span<std::uint16_t> buffer) {
+    if (transactionWriteState != detail::synchonousStates::CLAIMED) {
+      return libMcuLL::results::ERROR;
+    }
+    // store transaction information
+    transactionWriteIndex = 0;
+    transactionWriteData = buffer;
+    transactionWriteState = detail::synchonousStates::TRANSACTING;
+    // TODO write first data in UART register
+    return libMcuLL::results::STARTED;
+  }
+
   // TODO: progressRead/progressWrite
  private:
   static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
