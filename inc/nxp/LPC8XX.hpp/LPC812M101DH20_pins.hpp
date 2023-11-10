@@ -311,7 +311,7 @@ struct pin<IOports::PORT0, IOpins::PIN17> {
   static constexpr std::uint8_t gpioPinIndex = 17;
   static constexpr std::uint32_t gpioPinMask = 1 << gpioPinIndex;
   static constexpr std::uint8_t gpioPortIndex = 0;
-  static constexpr hw::swm::pinAssign swmValue = hw::swm::pinAssign::PIO0_17;
+  static constexpr hw::swm::pinAssign pio = hw::swm::pinAssign::PIO0_17;
 };
 
 /**
