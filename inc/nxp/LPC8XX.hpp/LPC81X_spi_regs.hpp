@@ -139,7 +139,7 @@ constexpr inline std::uint32_t TXSSEL_N = (1 << 16); /**< This field asserts SSE
  * @return constexpr std::uint32_t properly formatted chipselects to be put in register
  */
 constexpr inline std::uint32_t TXSSEL(std::uint32_t chipselects) {
-  return chipselects ^ 0x000F0000u;
+  return chipselects & 0x000F0000u;
 }
 constexpr inline std::uint32_t EOT = (1 << 20);      /**< End of Transfer. Deassert SSEL */
 constexpr inline std::uint32_t EOF = (1 << 21);      /**< End of Frame. Insert delay between frames */
