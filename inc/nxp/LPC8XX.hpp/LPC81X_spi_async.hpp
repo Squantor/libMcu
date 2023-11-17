@@ -234,7 +234,7 @@ struct spiAsync {
         return progressReadWrite();
         break;
       case detail::synchonousStates::TRANSACTING_R:
-        return progressReadWrite();
+        return progressRead();
         break;
       case detail::synchonousStates::TRANSACTING_W:
         return progressWrite();
