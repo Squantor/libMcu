@@ -270,7 +270,7 @@ struct spiAsync {
     if (((regs()->STAT & STAT::TXRDY) != 0)) {
       if (transactionWriteBits > elementBitCnt) {
         regs()->TXDATCTL =
-          address_TransferCommand | TXDATCTL::TXDAT(transactionWriteData[transactionWriteIndex]) | TXDATCTL::LEN(16);
+          address_TransferCommand | TXDATCTL::TXDAT(transactionWriteData[transactionWriteIndex]) | TXDATCTL::LEN(elementBitCnt);
         transactionWriteBits -= elementBitCnt;
         transactionWriteIndex++;
       } else if (transactionWriteBits > 0) {
@@ -294,9 +294,9 @@ struct spiAsync {
     std::uint32_t address_TransferCommand = TXDATCTL::TXSSEL(transactionDeviceEnable);
     // data read path, best to put it first as a write will generate data
     if ((regs()->STAT & STAT::RXRDY) != 0) {
-      if (transactionReadBits > 16) {
+      if (transactionReadBits > elementBitCnt) {
         transactionReadData[transactionReadIndex] = RXDAT::RXDAT(regs()->RXDAT);
-        transactionReadBits -= 16;
+        transactionReadBits -= elementBitCnt;
         transactionReadIndex++;
       } else if (transactionReadBits > 0) {
         transactionReadData[transactionReadIndex] = RXDAT::RXDAT(regs()->RXDAT);
@@ -306,9 +306,9 @@ struct spiAsync {
     }
     // data write path
     if (((regs()->STAT & STAT::TXRDY) != 0)) {
-      if (transactionWriteBits > 16) {
-        regs()->TXDATCTL = address_TransferCommand | TXDATCTL::TXDAT(0x0000) | TXDATCTL::LEN(16);
-        transactionWriteBits -= 16;
+      if (transactionWriteBits > elementBitCnt) {
+        regs()->TXDATCTL = address_TransferCommand | TXDATCTL::TXDAT(0x0000) | TXDATCTL::LEN(elementBitCnt);
+        transactionWriteBits -= elementBitCnt;
         transactionWriteIndex++;
       } else if (transactionWriteBits > 0) {
         if (transactionDisableDevice)
@@ -330,9 +330,9 @@ struct spiAsync {
     std::uint32_t address_TransferCommand = TXDATCTL::TXSSEL(transactionDeviceEnable) | TXDATCTL::RXIGNORE;
     // data write path
     if (((regs()->STAT & STAT::TXRDY) != 0)) {
-      if (transactionWriteBits > 16) {
-        regs()->TXDATCTL = address_TransferCommand | TXDATCTL::TXDAT(0x0000) | TXDATCTL::LEN(16);
-        transactionWriteBits -= 16;
+      if (transactionWriteBits > elementBitCnt) {
+        regs()->TXDATCTL = address_TransferCommand | TXDATCTL::TXDAT(0x0000) | TXDATCTL::LEN(elementBitCnt);
+        transactionWriteBits -= elementBitCnt;
         transactionWriteIndex++;
       } else if (transactionWriteBits > 0) {
         if (transactionDisableDevice)
