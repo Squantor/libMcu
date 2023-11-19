@@ -17,7 +17,7 @@ namespace sw {
 namespace usart {
 using namespace hw::usart;
 
-template <libMcuLL::USARTbaseAddress address_>
+template <libMcuLL::USARTbaseAddress address_, typename transferType>
 struct usartSync {
   static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
   /**
@@ -72,16 +72,16 @@ struct usartSync {
    *
    * @param data data to send, amount is sent according to configuration
    */
-  void write(std::uint32_t data) {
-    regs()->TXDAT = data & TXDAT::MASK;
+  void write(transferType data) {
+    regs()->TXDAT = static_cast<transferType>(data & TXDAT::MASK);
   }
   /**
    * @brief Read data from UART
    *
    * @param data reference to put received data in
    */
-  void read(std::uint32_t &data) {
-    data = regs()->RXDAT;
+  void read(transferType &data) {
+    data = static_cast<transferType>(regs()->RXDAT);
   }
 
   /**
@@ -90,9 +90,9 @@ struct usartSync {
    * @param data reference to put received data in
    * @param status reference to put received status in
    */
-  void read(std::uint32_t &data, std::uint32_t &status) {
+  void read(transferType &data, std::uint32_t &status) {
     std::uint32_t regData = regs()->RXDATSTAT;
-    data = regData & RXDATSTAT::MASK_DATA;
+    data = static_cast<transferType>(regData & RXDATSTAT::MASK_DATA);
     status = regData & RXDATSTAT::MASK_STAT;
   }
 };
