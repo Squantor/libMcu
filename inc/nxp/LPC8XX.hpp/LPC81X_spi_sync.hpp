@@ -23,8 +23,9 @@ using namespace hw::spi;
  *
  * @tparam address_ Peripheral base address
  * @tparam chipEnables enum of available chip enables
+ * @tparam transferType datatype to use for data transfers
  */
-template <libMcuLL::SPIbaseAddress address_, typename chipEnables>
+template <libMcuLL::SPIbaseAddress address_, typename chipEnables, typename transferType>
 struct spiSync {
   /**
    * @brief get registers from peripheral

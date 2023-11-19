@@ -26,6 +26,12 @@ enum class synchonousStates : std::uint8_t {
 }
 using namespace hw::usart;
 
+/**
+ * @brief Asynchronous USART peripheral instance
+ *
+ * @tparam address_ Peripheral base address
+ * @tparam transferType datatype to use for data transfers
+ */
 template <libMcuLL::USARTbaseAddress address_, typename transferType>
 struct usartAsync {
   /**

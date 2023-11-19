@@ -17,6 +17,12 @@ namespace sw {
 namespace usart {
 using namespace hw::usart;
 
+/**
+ * @brief synchronous USART peripheral instance
+ *
+ * @tparam address_ Peripheral base address
+ * @tparam transferType datatype to use for data transfers
+ */
 template <libMcuLL::USARTbaseAddress address_, typename transferType>
 struct usartSync {
   static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
