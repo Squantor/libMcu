@@ -26,7 +26,7 @@ enum class synchonousStates : std::uint8_t {
 }
 using namespace hw::usart;
 
-template <libMcuLL::USARTbaseAddress address_>
+template <libMcuLL::USARTbaseAddress address_, typename transferType>
 struct usartAsync {
   /**
    * @brief Construct a new usart Async object
@@ -117,7 +117,7 @@ struct usartAsync {
    * @return libMcuLL::results::ERROR if not claimed interface or busy
    * @return libMcuLL::results::STARTED when transaction started
    */
-  libMcuLL::results startRead(std::span<std::uint16_t> buffer) {
+  libMcuLL::results startRead(std::span<transferType> buffer) {
     if (transactionReadState != detail::synchonousStates::CLAIMED) {
       return libMcuLL::results::ERROR;
     }
@@ -135,7 +135,7 @@ struct usartAsync {
    * @return libMcuLL::results::ERROR if not claimed interface or busy
    * @return libMcuLL::results::STARTED when transaction started
    */
-  libMcuLL::results startWrite(std::span<std::uint16_t> buffer) {
+  libMcuLL::results startWrite(std::span<transferType> buffer) {
     if (transactionWriteState != detail::synchonousStates::CLAIMED) {
       return libMcuLL::results::ERROR;
     }
@@ -159,7 +159,7 @@ struct usartAsync {
       return libMcuLL::results::ERROR;
     }
     if (regs()->STAT & STAT::RXRDY) {
-      transactionReadData[transactionReadIndex] = static_cast<std::uint16_t>(regs()->RXDAT);
+      transactionReadData[transactionReadIndex] = static_cast<transferType>(regs()->RXDAT);
       transactionReadIndex++;
       if (transactionReadData.size() == transactionReadIndex) {
         transactionReadState = detail::synchonousStates::CLAIMED;
@@ -201,8 +201,8 @@ struct usartAsync {
   detail::synchonousStates transactionReadState;               /**< usart read transaction state */
   std::size_t transactionWriteIndex;                           /**< transaction write buffer index */
   std::size_t transactionReadIndex;                            /**< transaction read buffer index */
-  std::span<std::uint16_t> transactionWriteData;               /**< data to write */
-  std::span<std::uint16_t> transactionReadData;                /**< where to put read data in */
+  std::span<transferType> transactionWriteData;                /**< data to write */
+  std::span<transferType> transactionReadData;                 /**< where to put read data in */
 };
 }  // namespace usart
 }  // namespace sw
