@@ -18,6 +18,7 @@
 #include <array>
 #include <span>
 #include <type_traits>
+#include <limits>
 #include "libmcull/results.hpp"
 #include "libmcull/types.hpp"
 
