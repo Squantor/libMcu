@@ -153,6 +153,154 @@ struct peripheral {
   } OUT[sctOutputCount];
 };
 
+namespace CONFIG {
+constexpr inline std::uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}  // namespace CONFIG
+namespace CTRL {
+constexpr inline std::uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}  // namespace CTRL
+namespace CTRL_L {
+constexpr inline std::uint16_t MASK = 0x0000; /**< register mask for allowed bits */
+}  // namespace CTRL_L
+namespace CTRL_H {
+constexpr inline std::uint16_t MASK = 0x0000; /**< register mask for allowed bits */
+}  // namespace CTRL_H
+namespace LIMIT {
+constexpr inline std::uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}  // namespace LIMIT
+namespace LIMIT_L {
+constexpr inline std::uint16_t MASK = 0x0000; /**< register mask for allowed bits */
+}  // namespace LIMIT_L
+namespace LIMIT_H {
+constexpr inline std::uint16_t MASK = 0x0000; /**< register mask for allowed bits */
+}  // namespace LIMIT_H
+namespace HALT {
+constexpr inline std::uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}  // namespace HALT
+namespace HALT_L {
+constexpr inline std::uint16_t MASK = 0x0000; /**< register mask for allowed bits */
+}  // namespace HALT_L
+namespace HALT_H {
+constexpr inline std::uint16_t MASK = 0x0000; /**< register mask for allowed bits */
+}  // namespace HALT_H
+namespace STOP {
+constexpr inline std::uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}  // namespace STOP
+namespace STOP_L {
+constexpr inline std::uint16_t MASK = 0x0000; /**< register mask for allowed bits */
+}  // namespace STOP_L
+namespace STOP_H {
+constexpr inline std::uint16_t MASK = 0x0000; /**< register mask for allowed bits */
+}  // namespace STOP_H
+namespace START {
+constexpr inline std::uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}  // namespace START
+namespace START_L {
+constexpr inline std::uint16_t MASK = 0x0000; /**< register mask for allowed bits */
+}  // namespace START_L
+namespace START_H {
+constexpr inline std::uint16_t MASK = 0x0000; /**< register mask for allowed bits */
+}  // namespace START_H
+namespace COUNT {
+constexpr inline std::uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}  // namespace COUNT
+namespace COUNT_L {
+constexpr inline std::uint16_t MASK = 0x0000; /**< register mask for allowed bits */
+}  // namespace COUNT_L
+namespace COUNT_H {
+constexpr inline std::uint16_t MASK = 0x0000; /**< register mask for allowed bits */
+}  // namespace COUNT_H
+namespace STATE {
+constexpr inline std::uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}  // namespace STATE
+namespace STATE_L {
+constexpr inline std::uint16_t MASK = 0x0000; /**< register mask for allowed bits */
+}  // namespace STATE_L
+namespace STATE_H {
+constexpr inline std::uint16_t MASK = 0x0000; /**< register mask for allowed bits */
+}  // namespace STATE_H
+namespace INPUT {
+constexpr inline std::uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}  // namespace INPUT
+namespace REGMODE {
+constexpr inline std::uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}  // namespace REGMODE
+namespace REGMODE_L {
+constexpr inline std::uint16_t MASK = 0x0000; /**< register mask for allowed bits */
+}  // namespace REGMODE_L
+namespace REGMODE_H {
+constexpr inline std::uint16_t MASK = 0x0000; /**< register mask for allowed bits */
+}  // namespace REGMODE_H
+namespace OUTPUT {
+constexpr inline std::uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}  // namespace OUTPUT
+namespace OUTPUTDIRCTRL {
+constexpr inline std::uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}  // namespace OUTPUTDIRCTRL
+namespace RES {
+constexpr inline std::uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}  // namespace RES
+namespace EVEN {
+constexpr inline std::uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}  // namespace EVEN
+namespace EVFLAG {
+constexpr inline std::uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}  // namespace EVFLAG
+namespace CONEN {
+constexpr inline std::uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}  // namespace CONEN
+namespace CONFLAG {
+constexpr inline std::uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}  // namespace CONFLAG
+namespace MATCH {
+constexpr inline std::uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}  // namespace MATCH
+namespace MATCH_L {
+constexpr inline std::uint16_t MASK = 0x0000; /**< register mask for allowed bits */
+}  // namespace MATCH_L
+namespace MATCH_H {
+constexpr inline std::uint16_t MASK = 0x0000; /**< register mask for allowed bits */
+}  // namespace MATCH_H
+namespace CAP {
+constexpr inline std::uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}  // namespace CAP
+namespace CAP_L {
+constexpr inline std::uint16_t MASK = 0x0000; /**< register mask for allowed bits */
+}  // namespace CAP_L
+namespace CAP_H {
+constexpr inline std::uint16_t MASK = 0x0000; /**< register mask for allowed bits */
+}  // namespace CAP_H
+namespace MATCHREL {
+constexpr inline std::uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}  // namespace MATCHREL
+namespace MATCHREL_L {
+constexpr inline std::uint16_t MASK = 0x0000; /**< register mask for allowed bits */
+}  // namespace MATCHREL_L
+namespace MATCHREL_H {
+constexpr inline std::uint16_t MASK = 0x0000; /**< register mask for allowed bits */
+}  // namespace MATCHREL_H
+namespace CAPCTRL {
+constexpr inline std::uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}  // namespace CAPCTRL
+namespace CAPCTRL_L {
+constexpr inline std::uint16_t MASK = 0x0000; /**< register mask for allowed bits */
+}  // namespace CAPCTRL_L
+namespace CAPCTRL_H {
+constexpr inline std::uint16_t MASK = 0x0000; /**< register mask for allowed bits */
+}  // namespace CAPCTRL_H
+namespace EV_STATE {
+constexpr inline std::uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}  // namespace EV_STATE
+namespace EV_CTRL {
+constexpr inline std::uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}  // namespace EV_CTRL
+namespace OUT_SET {
+constexpr inline std::uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}  // namespace OUT_SET
+namespace OUT_CLR {
+constexpr inline std::uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+}  // namespace OUT_CLR
+
 }  // namespace sct
 }  // namespace hw
 }  // namespace libMcuLL
