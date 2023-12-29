@@ -14,9 +14,11 @@ namespace libMcuLL {
 namespace hw {
 namespace sct {
 
-static constexpr inline std::uint8_t sctEventCount = 8u;  /**< Number of events */
-static constexpr inline std::uint8_t sctMatchCount = 8u;  /**< Number of match/compare registers */
-static constexpr inline std::uint8_t sctOutputCount = 6u; /**< Number of outputs */
+static constexpr inline std::uint8_t inputCount = 4u;  /**< Number of inputs this SCT supports*/
+static constexpr inline std::uint8_t outputCount = 6u; /**< TODO: fix Number of outputs this SCT supports */
+static constexpr inline std::uint8_t matchCount = 8u;  /**< TODO: fix Number of match/compare registers */
+static constexpr inline std::uint8_t eventCount = 8u;  /**< TODO: fix Number of events */
+static constexpr inline std::uint8_t stateCount = 2u;  /**< Number of states*/
 
 /**
  * @brief state configurable timer register definitions
@@ -107,7 +109,7 @@ struct peripheral {
         volatile std::uint16_t L; /**<  MATCH[i].L  Access to L value */
         volatile std::uint16_t H; /**<  MATCH[i].H  Access to H value */
       };
-    } MATCH[sctMatchCount];
+    } MATCH[matchCount];
 
     const union {
       volatile std::uint32_t U; /**<  CAP[i].U  Unified 32-bit register */
@@ -115,7 +117,7 @@ struct peripheral {
         volatile std::uint16_t L; /**<  CAP[i].L  Access to L value */
         volatile std::uint16_t H; /**<  CAP[i].H  Access to H value */
       };
-    } CAP[sctMatchCount];
+    } CAP[matchCount];
   };
 
   std::uint32_t RESERVED3[56]; /**< 0x120 - 0x1FC reserved */
@@ -127,7 +129,7 @@ struct peripheral {
         volatile std::uint16_t L; /**<  MATCHREL[i].L  Access to L value */
         volatile std::uint16_t H; /**<  MATCHREL[i].H  Access to H value */
       };
-    } MATCHREL[sctMatchCount];
+    } MATCHREL[matchCount];
 
     union {
       volatile std::uint32_t U; /**<  CAPCTRL[i].U  Unified 32-bit register */
@@ -135,7 +137,7 @@ struct peripheral {
         volatile std::uint16_t L; /**<  CAPCTRL[i].L  Access to L value */
         volatile std::uint16_t H; /**<  CAPCTRL[i].H  Access to H value */
       };
-    } CAPCTRL[sctMatchCount];
+    } CAPCTRL[matchCount];
   };
 
   std::uint32_t RESERVED4[56]; /**< 0x220 - 0x2FC reserved */
@@ -143,21 +145,75 @@ struct peripheral {
   struct {                        /**< EV[i].STATE / EV[i].CTRL (offset 0x300) */
     volatile std::uint32_t STATE; /**< Event State Register */
     volatile std::uint32_t CTRL;  /**< Event Control Register */
-  } EV[sctEventCount];
+  } EV[eventCount];
 
   std::uint32_t RESERVED5[112]; /**< 0x340 - 0x4FC reserved */
 
   struct {                      /**< OUT[i].SET / OUT[i].CLR  (offset 0x500) */
     volatile std::uint32_t SET; /**< Output n Set Register */
     volatile std::uint32_t CLR; /**< Output n Clear Register */
-  } OUT[sctOutputCount];
+  } OUT[outputCount];
 };
 
 namespace CONFIG {
-constexpr inline std::uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+constexpr inline std::uint32_t MASK = 0x0007FFFF;          /**< register mask for allowed bits */
+constexpr inline std::uint32_t UNIFY_OFF = (0 << 0);       /**< SCT as two 16 bit timers  */
+constexpr inline std::uint32_t UNIFY_ON = (1 << 0);        /**< SCT as single 32 bit timer */
+constexpr inline std::uint32_t CLKMODE_BUS = (0 << 1);     /**< SCT clock is bus clock */
+constexpr inline std::uint32_t CLKMODE_BUS_PRE = (1 << 1); /**< SCT clock is prescaled bus clock*/
+constexpr inline std::uint32_t CLKMODE_INPUT = (2 << 1);   /**< SCT clock is a SCT input */
+constexpr inline std::uint32_t CKSEL_0_RISING = (0 << 3);  /**< SCT clock input 0 rising edges */
+constexpr inline std::uint32_t CKSEL_0_FALLING = (1 << 3); /**< SCT clock input 0 falling edges */
+constexpr inline std::uint32_t CKSEL_1_RISING = (2 << 3);  /**< SCT clock input 1 rising edges */
+constexpr inline std::uint32_t CKSEL_1_FALLING = (3 << 3); /**< SCT clock input 1 falling edges */
+constexpr inline std::uint32_t CKSEL_2_RISING = (4 << 3);  /**< SCT clock input 2 rising edges */
+constexpr inline std::uint32_t CKSEL_2_FALLING = (5 << 3); /**< SCT clock input 2 falling edges */
+constexpr inline std::uint32_t CKSEL_3_RISING = (6 << 3);  /**< SCT clock input 3 rising edges */
+constexpr inline std::uint32_t CKSEL_3_FALLING = (7 << 3); /**< SCT clock input 3 falling edges */
+constexpr inline std::uint32_t NORELOAD_L = (1 << 7);      /**< prevents reload of lower match registers */
+constexpr inline std::uint32_t NORELOAD_H = (1 << 8);      /**< prevents reload of higher match registers */
+/**
+ * @brief Format synchronization for input N
+ *
+ * @param inputBits bit 0 is input 0, bit 1 is input 1, bit 7 is input 7
+ * @return formatted data for INSYNC
+ */
+constexpr inline std::uint32_t INSYNC(std::uint32_t inputBits) {
+  return inputBits << 9;
+}
+constexpr inline std::uint32_t AUTOLIMIT_L = (1 << 17); /**< treats match 0 low register as the LIMIT condition */
+constexpr inline std::uint32_t AUTOLIMIT_H = (1 << 18); /**< treats match 0 high register as the LIMIT condition */
 }  // namespace CONFIG
 namespace CTRL {
-constexpr inline std::uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+constexpr inline std::uint32_t MASK = 0x1FFF1FFF;   /**< register mask for allowed bits */
+constexpr inline std::uint32_t DOWN_L = (1 << 0);   /**< low counter is counting down */
+constexpr inline std::uint32_t STOP_L = (1 << 1);   /**< low counter is stopped */
+constexpr inline std::uint32_t HALT_L = (1 << 2);   /**< low counter is halted */
+constexpr inline std::uint32_t CLRCTR_L = (1 << 3); /**< clear counter low */
+constexpr inline std::uint32_t BIDIR_L = (1 << 4);  /**< low counter is bidirectional */
+/**
+ * @brief Format low counter prescaler
+ *
+ * @param prescale counter clock is SCT clock divided by prescale+1
+ * @return formatted data for PRE_L
+ */
+constexpr inline std::uint32_t PRE_L(std::uint32_t prescale) {
+  return prescale << 5;
+}
+constexpr inline std::uint32_t DOWN_H = (1 << 16);   /**< high counter is counting down */
+constexpr inline std::uint32_t STOP_H = (1 << 17);   /**< high counter is stopped */
+constexpr inline std::uint32_t HALT_H = (1 << 18);   /**< high counter is halted */
+constexpr inline std::uint32_t CLRCTR_H = (1 << 19); /**< clear counter high */
+constexpr inline std::uint32_t BIDIR_H = (1 << 20);  /**< high counter is bidirectional */
+/**
+ * @brief Format high counter prescaler
+ *
+ * @param prescale counter clock is SCT clock divided by prescale+1
+ * @return formatted data for PRE_H
+ */
+constexpr inline std::uint32_t PRE_H(std::uint32_t prescale) {
+  return prescale << 21;
+}
 }  // namespace CTRL
 namespace CTRL_L {
 constexpr inline std::uint16_t MASK = 0x0000; /**< register mask for allowed bits */
