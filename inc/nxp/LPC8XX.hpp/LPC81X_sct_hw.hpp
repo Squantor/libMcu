@@ -15,9 +15,9 @@ namespace hw {
 namespace sct {
 
 static constexpr inline std::uint8_t inputCount = 4u;  /**< Number of inputs this SCT supports*/
-static constexpr inline std::uint8_t outputCount = 6u; /**< TODO: fix Number of outputs this SCT supports */
-static constexpr inline std::uint8_t matchCount = 8u;  /**< TODO: fix Number of match/compare registers */
-static constexpr inline std::uint8_t eventCount = 8u;  /**< TODO: fix Number of events */
+static constexpr inline std::uint8_t outputCount = 4u; /**< Number of outputs this SCT supports */
+static constexpr inline std::uint8_t matchCount = 5u;  /**< Number of match/compare registers */
+static constexpr inline std::uint8_t eventCount = 6u;  /**< Number of events */
 static constexpr inline std::uint8_t stateCount = 2u;  /**< Number of states*/
 
 /**
@@ -120,7 +120,7 @@ struct peripheral {
     } CAP[matchCount];
   };
 
-  std::uint32_t RESERVED3[56]; /**< 0x120 - 0x1FC reserved */
+  std::uint32_t RESERVED3[59]; /**< 0x114 - 0x1FC reserved */
 
   union {
     union {                     /**< ...Match Reload / Capture Control value (offset 0x200) */
@@ -140,14 +140,14 @@ struct peripheral {
     } CAPCTRL[matchCount];
   };
 
-  std::uint32_t RESERVED4[56]; /**< 0x220 - 0x2FC reserved */
+  std::uint32_t RESERVED4[59]; /**< 0x214 - 0x2FC reserved */
 
   struct {                        /**< EV[i].STATE / EV[i].CTRL (offset 0x300) */
     volatile std::uint32_t STATE; /**< Event State Register */
     volatile std::uint32_t CTRL;  /**< Event Control Register */
   } EV[eventCount];
 
-  std::uint32_t RESERVED5[112]; /**< 0x340 - 0x4FC reserved */
+  std::uint32_t RESERVED5[116]; /**< 0x330 - 0x4FC reserved */
 
   struct {                      /**< OUT[i].SET / OUT[i].CLR  (offset 0x500) */
     volatile std::uint32_t SET; /**< Output n Set Register */
