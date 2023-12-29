@@ -7,8 +7,8 @@
 /**
  * \file LPC810 series State configurable timer register interface
  */
-#ifndef LPC81X_SCT_REGS_HPP
-#define LPC81X_SCT_REGS_HPP
+#ifndef LPC81X_SCT_HW_HPP
+#define LPC81X_SCT_HW_HPP
 
 namespace libMcuLL {
 namespace hw {
