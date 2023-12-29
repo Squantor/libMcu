@@ -83,11 +83,11 @@ struct sct {
    */
   void init(std::uint32_t prescaleL, std::uint32_t prescaleH, countingMode countModeL, countingMode countModeH) {
     regs()->CONFIG = CONFIG::AUTOLIMIT_L | CONFIG::AUTOLIMIT_H;
-    regs()->CTRL = CTRL::CLRCTR_L | CTRL::PRE_L(prescaleL) | CTRL::CLRCTR_L | CTRL::PRE_L(prescaleH);
+    regs()->CTRL = CTRL::HALT_L | CTRL::CLRCTR_L | CTRL::PRE_L(prescaleL) | CTRL::HALT_H | CTRL::CLRCTR_H | CTRL::PRE_H(prescaleH);
     if (countModeL == BIDIRECTIONAL)
-      regs()->CTRL |= CTRL::BIDIR_L;
+      regs()->CTRL = regs()->CTRL | CTRL::BIDIR_L;
     if (countModeH == BIDIRECTIONAL)
-      regs()->CTRL |= CTRL::BIDIR_H;
+      regs()->CTRL = regs()->CTRL | CTRL::BIDIR_H;
   }
   // init(mode, prescale, inputpin)
   // init(mode, prescaleL, prescale H, inputpint)
