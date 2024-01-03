@@ -34,9 +34,10 @@ enum countingMode : std::uint32_t {
  *
  */
 enum sctTimer : std::uint32_t {
-  TIMER_U, /**< 32 bit unified timer */
-  TIMER_L, /**< 16 bit lower timer */
-  TIMER_H, /**< 16 bit higher timer */
+  TIMER_U,    /**< 32 bit unified timer */
+  TIMER_L,    /**< 16 bit lower timer */
+  TIMER_H,    /**< 16 bit higher timer */
+  TIMER_BOTH, /**< both 16 bit timers */
 };
 
 template <libMcuLL::SCTbaseAddress address_>
@@ -51,7 +52,7 @@ struct sct {
    *
    * @return return pointer to state configurable timer registers
    */
-  static hw::sct::peripheral *regs() {
+  constexpr static hw::sct::peripheral *regs() {
     return reinterpret_cast<hw::sct::peripheral *>(address);
   }
 
@@ -64,7 +65,7 @@ struct sct {
    *
    * @param prescale prescale for unified timer
    */
-  void init(std::uint32_t prescale, countingMode countMode) {
+  constexpr void init(std::uint32_t prescale, countingMode countMode) {
     regs()->CONFIG = CONFIG::UNIFY_ON | CONFIG::AUTOLIMIT_L;
     if (countMode == BIDIRECTIONAL)
       regs()->CTRL = CTRL::HALT_L | CTRL::CLRCTR_L | CTRL::PRE_L(prescale) | CTRL::BIDIR_L;
@@ -81,7 +82,7 @@ struct sct {
    *
    * @param prescale prescale for unified timer
    */
-  void init(std::uint32_t prescaleL, std::uint32_t prescaleH, countingMode countModeL, countingMode countModeH) {
+  constexpr void init(std::uint32_t prescaleL, std::uint32_t prescaleH, countingMode countModeL, countingMode countModeH) {
     regs()->CONFIG = CONFIG::AUTOLIMIT_L | CONFIG::AUTOLIMIT_H;
     regs()->CTRL = CTRL::HALT_L | CTRL::CLRCTR_L | CTRL::PRE_L(prescaleL) | CTRL::HALT_H | CTRL::CLRCTR_H | CTRL::PRE_H(prescaleH);
     if (countModeL == BIDIRECTIONAL)
@@ -89,9 +90,76 @@ struct sct {
     if (countModeH == BIDIRECTIONAL)
       regs()->CTRL = regs()->CTRL | CTRL::BIDIR_H;
   }
-  // init(mode, prescale, inputpin)
-  // init(mode, prescaleL, prescale H, inputpint)
 
+  // TODO: init(mode, prescale, inputpin)
+  // TODO: init(mode, prescaleL, prescale H, inputpint)
+
+  /**
+   * @brief Starts the requested SCT sub timer
+   *
+   * Starts the timer by unhalting the timer block
+   *
+   * @param timer timer to start
+   */
+  constexpr void start(sctTimer timer) {
+    switch (timer) {
+    TIMER_U:
+    TIMER_L:
+      regs()->CTRL = regs()->CTRL & ~(CTRL::HALT_L);
+      break;
+    TIMER_H:
+      regs()->CTRL = regs()->CTRL & ~(CTRL::HALT_H);
+      break;
+    TIMER_BOTH:
+      regs()->CTRL = regs()->CTRL & ~(CTRL::HALT_L | CTRL::HALT_H);
+      break;
+    }
+  }
+
+  /**
+   * @brief Halts the requested SCT sub timer
+   *
+   * Halts the timer block by setting the timer bit
+   *
+   * @param timer timer to halt
+   */
+  constexpr void halt(sctTimer timer) {
+    switch (timer) {
+    TIMER_U:
+    TIMER_L:
+      regs()->CTRL = regs()->CTRL | (CTRL::HALT_L);
+      break;
+    TIMER_H:
+      regs()->CTRL = regs()->CTRL | (CTRL::HALT_H);
+      break;
+    TIMER_BOTH:
+      regs()->CTRL = regs()->CTRL | (CTRL::HALT_L | CTRL::HALT_H);
+      break;
+    }
+  }
+
+  /**
+   * @brief returns SCT counter register
+   *
+   * @param timer timer to get the count register from
+   * @return current count value
+   */
+  constexpr std::uint32_t counter(sctTimer timer) {
+    switch (timer) {
+    TIMER_U:
+    TIMER_BOTH:  // unusual request but lets just return both 16 bit timers
+      return regs()->COUNT;
+    TIMER_L:
+      return static_cast<std::uint32_t>(regs()->COUNT_L);
+    TIMER_H:
+      return static_cast<std::uint32_t>(regs()->COUNT_H);
+    }
+  }
+  // setupPwm(timer, matchRegister, matchValue, output)
+  // setup match register
+  // setup value
+  // setup reload value
+  // setup output trigger
   static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
 };
 }  // namespace sct
