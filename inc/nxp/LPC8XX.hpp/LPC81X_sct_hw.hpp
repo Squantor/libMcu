@@ -258,13 +258,13 @@ namespace START_H {
 constexpr inline std::uint16_t MASK = 0x0000; /**< register mask for allowed bits */
 }  // namespace START_H
 namespace COUNT {
-constexpr inline std::uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+constexpr inline std::uint32_t MASK = 0xFFFFFFFF; /**< register mask for allowed bits */
 }  // namespace COUNT
 namespace COUNT_L {
-constexpr inline std::uint16_t MASK = 0x0000; /**< register mask for allowed bits */
+constexpr inline std::uint16_t MASK = 0xFFFF; /**< register mask for allowed bits */
 }  // namespace COUNT_L
 namespace COUNT_H {
-constexpr inline std::uint16_t MASK = 0x0000; /**< register mask for allowed bits */
+constexpr inline std::uint16_t MASK = 0xFFFF; /**< register mask for allowed bits */
 }  // namespace COUNT_H
 namespace STATE {
 constexpr inline std::uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
@@ -279,22 +279,114 @@ namespace INPUT {
 constexpr inline std::uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
 }  // namespace INPUT
 namespace REGMODE {
-constexpr inline std::uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+constexpr inline std::uint32_t MASK = 0x001F001F;          /**< register mask for allowed bits */
+constexpr inline std::uint32_t REGMOD_L_0_MAT = (0 << 0);  /**< register 0 low as match register */
+constexpr inline std::uint32_t REGMOD_L_0_CAP = (1 << 0);  /**< register 0 low as capture register */
+constexpr inline std::uint32_t REGMOD_L_1_MAT = (0 << 1);  /**< register 1 low as match register */
+constexpr inline std::uint32_t REGMOD_L_1_CAP = (1 << 1);  /**< register 1 low as capture register */
+constexpr inline std::uint32_t REGMOD_L_2_MAT = (0 << 2);  /**< register 2 low as match register */
+constexpr inline std::uint32_t REGMOD_L_2_CAP = (1 << 2);  /**< register 2 low as capture register */
+constexpr inline std::uint32_t REGMOD_L_3_MAT = (0 << 3);  /**< register 3 low as match register */
+constexpr inline std::uint32_t REGMOD_L_3_CAP = (1 << 3);  /**< register 3 low as capture register */
+constexpr inline std::uint32_t REGMOD_L_4_MAT = (0 << 4);  /**< register 4 low as match register */
+constexpr inline std::uint32_t REGMOD_L_4_CAP = (1 << 4);  /**< register 4 low as capture register */
+constexpr inline std::uint32_t REGMOD_H_0_MAT = (0 << 16); /**< register 0 high as match register */
+constexpr inline std::uint32_t REGMOD_H_0_CAP = (1 << 16); /**< register 0 high as capture register */
+constexpr inline std::uint32_t REGMOD_H_1_MAT = (0 << 17); /**< register 1 high as match register */
+constexpr inline std::uint32_t REGMOD_H_1_CAP = (1 << 17); /**< register 1 high as capture register */
+constexpr inline std::uint32_t REGMOD_H_2_MAT = (0 << 18); /**< register 2 high as match register */
+constexpr inline std::uint32_t REGMOD_H_2_CAP = (1 << 18); /**< register 2 high as capture register */
+constexpr inline std::uint32_t REGMOD_H_3_MAT = (0 << 19); /**< register 3 high as match register */
+constexpr inline std::uint32_t REGMOD_H_3_CAP = (1 << 19); /**< register 3 high as capture register */
+constexpr inline std::uint32_t REGMOD_H_4_MAT = (0 << 20); /**< register 4 high as match register */
+constexpr inline std::uint32_t REGMOD_H_4_CAP = (1 << 20); /**< register 4 high as capture register */
+/**
+ * @brief setup match/capture register to match mode
+ *
+ * @param oldReg old REGMODE register to modify
+ * @param match register to set match mode for
+ * @return new REGMODE register
+ */
+constexpr inline std::uint32_t REGMOD_MAT(std::uint32_t oldReg, std::uint32_t match) {
+  return oldReg & ~(1 << match);
+}
+/**
+ * @brief setup match/capture register to match mode
+ *
+ * @param oldReg old REGMODE register to modify
+ * @param match register to set match mode for
+ * @return new REGMODE register
+ */
+constexpr inline std::uint32_t REGMOD_CAP(std::uint32_t oldReg, std::uint32_t match) {
+  return oldReg | (1 << match);
+}
 }  // namespace REGMODE
 namespace REGMODE_L {
-constexpr inline std::uint16_t MASK = 0x0000; /**< register mask for allowed bits */
+constexpr inline std::uint16_t MASK = 0x001F;           /**< register mask for allowed bits */
+constexpr inline std::uint16_t REGMOD_0_MAT = (0 << 0); /**< register 0 low as match register */
+constexpr inline std::uint16_t REGMOD_0_CAP = (1 << 0); /**< register 0 low as capture register */
+constexpr inline std::uint16_t REGMOD_1_MAT = (0 << 1); /**< register 1 low as match register */
+constexpr inline std::uint16_t REGMOD_1_CAP = (1 << 1); /**< register 1 low as capture register */
+constexpr inline std::uint16_t REGMOD_2_MAT = (0 << 2); /**< register 2 low as match register */
+constexpr inline std::uint16_t REGMOD_2_CAP = (1 << 2); /**< register 2 low as capture register */
+constexpr inline std::uint16_t REGMOD_3_MAT = (0 << 3); /**< register 3 low as match register */
+constexpr inline std::uint16_t REGMOD_3_CAP = (1 << 3); /**< register 3 low as capture register */
+constexpr inline std::uint16_t REGMOD_4_MAT = (0 << 4); /**< register 4 low as match register */
+constexpr inline std::uint16_t REGMOD_4_CAP = (1 << 4); /**< register 4 low as capture register */
 }  // namespace REGMODE_L
 namespace REGMODE_H {
-constexpr inline std::uint16_t MASK = 0x0000; /**< register mask for allowed bits */
+constexpr inline std::uint16_t MASK = 0x001F;           /**< register mask for allowed bits */
+constexpr inline std::uint32_t REGMOD_0_MAT = (0 << 0); /**< register 0 high as match register */
+constexpr inline std::uint32_t REGMOD_0_CAP = (1 << 0); /**< register 0 high as capture register */
+constexpr inline std::uint32_t REGMOD_1_MAT = (0 << 1); /**< register 1 high as match register */
+constexpr inline std::uint32_t REGMOD_1_CAP = (1 << 1); /**< register 1 high as capture register */
+constexpr inline std::uint32_t REGMOD_2_MAT = (0 << 2); /**< register 2 high as match register */
+constexpr inline std::uint32_t REGMOD_2_CAP = (1 << 2); /**< register 2 high as capture register */
+constexpr inline std::uint32_t REGMOD_3_MAT = (0 << 3); /**< register 3 high as match register */
+constexpr inline std::uint32_t REGMOD_3_CAP = (1 << 3); /**< register 3 high as capture register */
+constexpr inline std::uint32_t REGMOD_4_MAT = (0 << 4); /**< register 4 high as match register */
+constexpr inline std::uint32_t REGMOD_4_CAP = (1 << 4); /**< register 4 high as capture register */
+// TODO indexed function?
 }  // namespace REGMODE_H
 namespace OUTPUT {
-constexpr inline std::uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+constexpr inline std::uint32_t MASK = 0x0000000F; /**< register mask for allowed bits */
+/**
+ * @brief Set output initial state
+ *
+ * @param oldReg original output register
+ * @param output output to set/clear
+ * @param isHigh is output high
+ * @return new OUTPUT register value
+ */
+constexpr inline std::uint32_t OUT(uint32_t oldReg, std::uint32_t output, bool isHigh) {
+  if (isHigh)
+    return oldReg | (1 << output);
+  else
+    return oldReg & ~(1 << output);
+}
 }  // namespace OUTPUT
 namespace OUTPUTDIRCTRL {
 constexpr inline std::uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
 }  // namespace OUTPUTDIRCTRL
 namespace RES {
-constexpr inline std::uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+constexpr inline std::uint32_t MASK = 0x000000FF;     /**< register mask for allowed bits */
+constexpr inline std::uint32_t MASK_RES = 0x00000003; /**< register field mask */
+constexpr inline std::uint32_t NONE = 0u;             /**< no conflict resolution */
+constexpr inline std::uint32_t SET = 1u;              /**< set the output on conflict */
+constexpr inline std::uint32_t CLEAR = 2u;            /**< clear the output on conflict */
+constexpr inline std::uint32_t TOGGLE = 3u;           /**< toggle the output on conflict*/
+/**
+ * @brief Formats, indexes and updates the confict resolution field of an output
+ *
+ * @param oldReg original conflict resolution register
+ * @param output output to set conflict resolution for
+ * @param solution how to resolve conflicts
+ * @return new RES register value
+ */
+constexpr inline std::uint32_t RES(std::uint32_t oldReg, std::uint32_t output, std::uint32_t solution) {
+  uint32_t indexShift = output * 2;
+  return (oldReg & ~(MASK_RES << indexShift)) | (solution << indexShift);
+}
 }  // namespace RES
 namespace EVEN {
 constexpr inline std::uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
@@ -309,31 +401,31 @@ namespace CONFLAG {
 constexpr inline std::uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
 }  // namespace CONFLAG
 namespace MATCH {
-constexpr inline std::uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+constexpr inline std::uint32_t MASK = 0xFFFFFFFF; /**< register mask for allowed bits */
 }  // namespace MATCH
 namespace MATCH_L {
-constexpr inline std::uint16_t MASK = 0x0000; /**< register mask for allowed bits */
+constexpr inline std::uint16_t MASK = 0xFFFF; /**< register mask for allowed bits */
 }  // namespace MATCH_L
 namespace MATCH_H {
-constexpr inline std::uint16_t MASK = 0x0000; /**< register mask for allowed bits */
+constexpr inline std::uint16_t MASK = 0xFFFF; /**< register mask for allowed bits */
 }  // namespace MATCH_H
 namespace CAP {
-constexpr inline std::uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+constexpr inline std::uint32_t MASK = 0xFFFFFFFF; /**< register mask for allowed bits */
 }  // namespace CAP
 namespace CAP_L {
-constexpr inline std::uint16_t MASK = 0x0000; /**< register mask for allowed bits */
+constexpr inline std::uint16_t MASK = 0xFFFF; /**< register mask for allowed bits */
 }  // namespace CAP_L
 namespace CAP_H {
-constexpr inline std::uint16_t MASK = 0x0000; /**< register mask for allowed bits */
+constexpr inline std::uint16_t MASK = 0xFFFF; /**< register mask for allowed bits */
 }  // namespace CAP_H
 namespace MATCHREL {
-constexpr inline std::uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+constexpr inline std::uint32_t MASK = 0xFFFFFFFF; /**< register mask for allowed bits */
 }  // namespace MATCHREL
 namespace MATCHREL_L {
-constexpr inline std::uint16_t MASK = 0x0000; /**< register mask for allowed bits */
+constexpr inline std::uint16_t MASK = 0xFFFF; /**< register mask for allowed bits */
 }  // namespace MATCHREL_L
 namespace MATCHREL_H {
-constexpr inline std::uint16_t MASK = 0x0000; /**< register mask for allowed bits */
+constexpr inline std::uint16_t MASK = 0xFFFF; /**< register mask for allowed bits */
 }  // namespace MATCHREL_H
 namespace CAPCTRL {
 constexpr inline std::uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
@@ -345,16 +437,78 @@ namespace CAPCTRL_H {
 constexpr inline std::uint16_t MASK = 0x0000; /**< register mask for allowed bits */
 }  // namespace CAPCTRL_H
 namespace EV_STATE {
-constexpr inline std::uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+constexpr inline std::uint32_t MASK = 0x00000003;     /**< register mask for allowed bits */
+constexpr inline std::uint32_t STATEMASK0 = (1 << 0); /**< Event occurs in state 0 */
+constexpr inline std::uint32_t STATEMASK1 = (1 << 1); /**< Event occurs in state 1 */
 }  // namespace EV_STATE
 namespace EV_CTRL {
-constexpr inline std::uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+constexpr inline std::uint32_t MASK = 0x007FFFFF; /**< register mask for allowed bits */
+/**
+ * @brief Format match selection field
+ *
+ * @param matchRegister match register to associate with event
+ * @return formatted data for MATCHSEL
+ */
+constexpr inline std::uint32_t MATCHSEL(std::uint32_t matchRegister) {
+  return matchRegister << 0;
+}
+constexpr inline std::uint32_t HEVENT = (1 << 4); /**< Select H counter for event */
+constexpr inline std::uint32_t OUTSEL = (1 << 5); /**< IOSEL selects an output */
+/**
+ * @brief Format I/O selection field
+ *
+ * @param inputOutput Input or output to use for IO selection
+ * @return formatted data for IOSEL
+ */
+constexpr inline std::uint32_t IOSEL(std::uint32_t inputOutput) {
+  return inputOutput << 6;
+}
+constexpr inline std::uint32_t IOCOND_LOW = (0 << 10);     /**< Low level condition on IO triggers */
+constexpr inline std::uint32_t IOCOND_RISE = (1 << 10);    /**< Rising edge condition on IO trigger */
+constexpr inline std::uint32_t IOCOND_FALL = (2 << 10);    /**< Falling edge condition on IO trigger */
+constexpr inline std::uint32_t IOCOND_HIGH = (3 << 10);    /**< High level on IO trigger */
+constexpr inline std::uint32_t COMBMODE_OR = (0 << 12);    /**< event when match or I/O condition occurs */
+constexpr inline std::uint32_t COMBMODE_MATCH = (1 << 12); /**< event only when match condition occurs */
+constexpr inline std::uint32_t COMBMODE_IO = (2 << 12);    /**< event only when I/O condition occurs */
+constexpr inline std::uint32_t COMBMODE_AND = (3 << 12);   /**< event when match and I/O condition simultanious occurs */
+constexpr inline std::uint32_t STATELD = (1 << 14);        /**< Load STATEV into STATE when event occurs*/
+/**
+ * @brief Format event state field
+ *
+ * @param state state value to use when event occurs
+ * @return formatted data for STATEV
+ */
+constexpr inline std::uint32_t STATEV(std::uint32_t state) {
+  return state << 15;
+}
+constexpr inline std::uint32_t MATCHMEM = (1 << 20);       /**< match is active when greater or equal*/
+constexpr inline std::uint32_t DIRECTION_IND = (0 << 21);  /**< event is counting direction independent */
+constexpr inline std::uint32_t DIRECTION_UP = (1 << 21);   /**< event occurs when counting up */
+constexpr inline std::uint32_t DIRECTION_DOWN = (2 << 21); /**< event occurs when counting down */
 }  // namespace EV_CTRL
 namespace OUT_SET {
-constexpr inline std::uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+constexpr inline std::uint32_t MASK = 0x0000003F; /**< register mask for allowed bits */
+/**
+ * @brief Format set output on event field
+ *
+ * @param event event number to set the output on
+ * @return formatted data for SET
+ */
+constexpr inline std::uint32_t SET(std::uint32_t event) {
+  return 1 << event;
+}
 }  // namespace OUT_SET
 namespace OUT_CLR {
-constexpr inline std::uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+constexpr inline std::uint32_t MASK = 0x0000003F; /**< register mask for allowed bits */
+/**
+ * @brief Format clear output on event field
+ *
+ * @param event event number to clear the output on
+ * @return formatted data for SET
+ */
+constexpr inline std::uint32_t CLR(std::uint32_t event) {
+  return 1 << event;
+}
 }  // namespace OUT_CLR
 
 }  // namespace sct

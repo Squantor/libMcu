@@ -6,6 +6,10 @@
  */
 /**
  * \file LPC810 series State configurable timer software interface
+ *
+ * TODO: This class has a mix of unified and split timer functionality, split into two different classes. Lets now focus on unified
+ * only and clean up all unified/split logic. keep this a 32 bit unified timer class only
+ *
  */
 #ifndef LPC81X_SCT_SW_HPP
 #define LPC81X_SCT_SW_HPP
@@ -15,29 +19,61 @@ namespace sw {
 namespace sct {
 using namespace hw::sct;
 
-/**
- * @brief Which SCT mode to setup
- *
- */
-enum sctMode : std::uint32_t {
-  UNIFIED, /**< 32 bit single timer mode */
-  SPLIT,   /**< 16 bit double timer mode */
-};
-
 enum countingMode : std::uint32_t {
   UP,            /**< counter only counts up */
   BIDIRECTIONAL, /**< bidirectional counting */
 };
 
 /**
- * @brief which timer to address
+ * @brief match register to use
+ *
+ * Used as an index for match registers
  *
  */
-enum sctTimer : std::uint32_t {
-  TIMER_U,    /**< 32 bit unified timer */
-  TIMER_L,    /**< 16 bit lower timer */
-  TIMER_H,    /**< 16 bit higher timer */
-  TIMER_BOTH, /**< both 16 bit timers */
+enum matchNumber : std::uint32_t {
+  MATCH_0 = 0, /**< match 0 */
+  MATCH_1 = 1, /**< match 1 */
+  MATCH_2 = 2, /**< match 2 */
+  MATCH_3 = 3, /**< match 3 */
+  MATCH_4 = 4, /**< match 4 */
+};
+
+/**
+ * @brief Event register to use
+ *
+ * Used as an index for event registers
+ *
+ */
+enum eventNumber : std::uint32_t {
+  EVENT_0 = 0, /** event 0 */
+  EVENT_1 = 1, /** event 1 */
+  EVENT_2 = 2, /** event 2 */
+  EVENT_3 = 3, /** event 3 */
+  EVENT_4 = 4, /** event 4 */
+  EVENT_5 = 5, /** event 5 */
+};
+
+/**
+ * @brief Output register to use
+ *
+ * Used as an index for output registers
+ *
+ */
+enum outputNumber : std::uint32_t {
+  OUTPUT_0 = 0, /** output 0 */
+  OUTPUT_1 = 1, /** output 1 */
+  OUTPUT_2 = 2, /** output 2 */
+  OUTPUT_3 = 3, /** output 3 */
+};
+
+/**
+ * @brief Input register to use
+ *
+ * Used as an index for input registers
+ *
+ */
+enum inputNumber {
+
 };
 
 template <libMcuLL::SCTbaseAddress address_>
@@ -67,99 +103,96 @@ struct sct {
    */
   constexpr void init(std::uint32_t prescale, countingMode countMode) {
     regs()->CONFIG = CONFIG::UNIFY_ON | CONFIG::AUTOLIMIT_L;
+    // TODO configure match 0 register as match register as we autolimit on match 0
+    regs()->COUNT = 0x00000000u;
     if (countMode == BIDIRECTIONAL)
       regs()->CTRL = CTRL::HALT_L | CTRL::CLRCTR_L | CTRL::PRE_L(prescale) | CTRL::BIDIR_L;
     else
       regs()->CTRL = CTRL::HALT_L | CTRL::CLRCTR_L | CTRL::PRE_L(prescale);
   }
 
-  /**
-   * @brief Setup SCT to dual 16 bit timer
-   *
-   * Clock should be enabled before calling this method.
-   * The single prescaler value selects the unified timer init.
-   * Match 0 register is used as automatic limit for the clock.
-   *
-   * @param prescale prescale for unified timer
-   */
-  constexpr void init(std::uint32_t prescaleL, std::uint32_t prescaleH, countingMode countModeL, countingMode countModeH) {
-    regs()->CONFIG = CONFIG::AUTOLIMIT_L | CONFIG::AUTOLIMIT_H;
-    regs()->CTRL = CTRL::HALT_L | CTRL::CLRCTR_L | CTRL::PRE_L(prescaleL) | CTRL::HALT_H | CTRL::CLRCTR_H | CTRL::PRE_H(prescaleH);
-    if (countModeL == BIDIRECTIONAL)
-      regs()->CTRL = regs()->CTRL | CTRL::BIDIR_L;
-    if (countModeH == BIDIRECTIONAL)
-      regs()->CTRL = regs()->CTRL | CTRL::BIDIR_H;
-  }
-
   // TODO: init(mode, prescale, inputpin)
   // TODO: init(mode, prescaleL, prescale H, inputpint)
 
   /**
-   * @brief Starts the requested SCT sub timer
+   * @brief Starts the 32bit SCT
    *
-   * Starts the timer by unhalting the timer block
-   *
-   * @param timer timer to start
    */
-  constexpr void start(sctTimer timer) {
-    switch (timer) {
-    TIMER_U:
-    TIMER_L:
-      regs()->CTRL = regs()->CTRL & ~(CTRL::HALT_L);
-      break;
-    TIMER_H:
-      regs()->CTRL = regs()->CTRL & ~(CTRL::HALT_H);
-      break;
-    TIMER_BOTH:
-      regs()->CTRL = regs()->CTRL & ~(CTRL::HALT_L | CTRL::HALT_H);
-      break;
-    }
+  constexpr void start() {
+    regs()->CTRL = regs()->CTRL & ~(CTRL::HALT_L);
   }
 
   /**
-   * @brief Halts the requested SCT sub timer
+   * @brief Halts the 32bit SCT
    *
-   * Halts the timer block by setting the timer bit
-   *
-   * @param timer timer to halt
    */
-  constexpr void halt(sctTimer timer) {
-    switch (timer) {
-    TIMER_U:
-    TIMER_L:
-      regs()->CTRL = regs()->CTRL | (CTRL::HALT_L);
-      break;
-    TIMER_H:
-      regs()->CTRL = regs()->CTRL | (CTRL::HALT_H);
-      break;
-    TIMER_BOTH:
-      regs()->CTRL = regs()->CTRL | (CTRL::HALT_L | CTRL::HALT_H);
-      break;
-    }
+  constexpr void halt() {
+    regs()->CTRL = regs()->CTRL | (CTRL::HALT_L);
   }
 
   /**
-   * @brief returns SCT counter register
+   * @brief returns SCT count value
    *
-   * @param timer timer to get the count register from
    * @return current count value
    */
-  constexpr std::uint32_t counter(sctTimer timer) {
-    switch (timer) {
-    TIMER_U:
-    TIMER_BOTH:  // unusual request but lets just return both 16 bit timers
-      return regs()->COUNT;
-    TIMER_L:
-      return static_cast<std::uint32_t>(regs()->COUNT_L);
-    TIMER_H:
-      return static_cast<std::uint32_t>(regs()->COUNT_H);
-    }
+  constexpr std::uint32_t counter() {
+    return regs()->COUNT;
   }
-  // setupPwm(timer, matchRegister, matchValue, output)
-  // setup match register
-  // setup value
-  // setup reload value
-  // setup output trigger
+
+  /**
+   * @brief Setup SCT match register and match reload register
+   *
+   * @param match match register to set
+   * @param value value to put in match register
+   */
+  void setupMatch(matchNumber match, std::uint32_t value) {
+    size_t matchIndex = static_cast<std::size_t>(match);
+    regs()->MATCH[matchIndex].U = value;
+    regs()->MATCHREL[matchIndex].U = value;
+  }
+
+  /**
+   * @brief return state of the SCT output
+   *
+   * @param output which output to read
+   * @return current output state
+   */
+  bool output(outputNumber output) {
+    uint32_t outputRegister = regs()->OUTPUT & (1 << output);
+    if (outputRegister == 0)
+      return false;
+    else
+      return true;
+  }
+
+  /**
+   * @brief Setup a SCT PWM channel
+   *
+   * The PWM signal generated is perspective correct PWM, it is centered around the match 0 register value.
+   *
+   * @param match match register to use, 0 is reserved as the end condition register
+   * @param value match value to use, basically the PWM value
+   * @param event which event is used for generating the PWM
+   * @param output which output is used for generating the PWM
+   * @param outputHigh is the initial state of the output high
+   */
+  void setupPwm(matchNumber match, std::uint32_t value, eventNumber event, outputNumber output, bool outputHigh) {
+    size_t matchIndex = static_cast<std::size_t>(match);
+    size_t eventIndex = static_cast<std::size_t>(event);
+    size_t outputIndex = static_cast<std::size_t>(output);
+    regs()->REGMODE = REGMODE::REGMOD_MAT(regs()->REGMODE, match);
+    regs()->MATCH[matchIndex].U = value;
+    regs()->MATCHREL[matchIndex].U = value;
+    // setup event
+    regs()->EV[eventIndex].CTRL = EV_CTRL::MATCHSEL(match) | EV_CTRL::OUTSEL | EV_CTRL::IOSEL(output) | EV_CTRL::COMBMODE_MATCH;
+    regs()->EV[eventIndex].STATE = EV_STATE::STATEMASK0 | EV_STATE::STATEMASK1;
+    // setup output
+    regs()->OUTPUT = OUTPUT::OUT(regs()->OUTPUT, output, outputHigh);
+    regs()->OUT[outputIndex].CLR = OUT_CLR::CLR(event);
+    regs()->OUT[outputIndex].SET = OUT_SET::SET(event);
+    regs()->RES = RES::RES(regs()->RES, outputIndex, RES::TOGGLE);
+  }
+
   static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
 };
 }  // namespace sct
