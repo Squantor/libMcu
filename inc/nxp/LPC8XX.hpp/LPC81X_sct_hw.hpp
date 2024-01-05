@@ -428,7 +428,27 @@ namespace MATCHREL_H {
 constexpr inline std::uint16_t MASK = 0xFFFF; /**< register mask for allowed bits */
 }  // namespace MATCHREL_H
 namespace CAPCTRL {
-constexpr inline std::uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+constexpr inline std::uint32_t MASK = 0x003F003F; /**< register mask for allowed bits */
+/**
+ * @brief sets CAPCON field
+ *
+ * @param oldReg old CAPCTRL register value
+ * @param event event to trigger a capture on
+ * @return new CAPCON register
+ */
+constexpr inline std::uint32_t CAPCON_L_SET(std::uint32_t oldReg, std::uint32_t event) {
+  return oldReg | (1 << event);
+}
+/**
+ * @brief clears the CAPCON field
+ *
+ * @param oldReg old CAPCTRL register value
+ * @param event event to not trigger a capture on
+ * @return new CAPCON register
+ */
+constexpr inline std::uint32_t CAPCON_L_CLR(std::uint32_t oldReg, std::uint32_t event) {
+  return oldReg & ~(1 << event);
+}
 }  // namespace CAPCTRL
 namespace CAPCTRL_L {
 constexpr inline std::uint16_t MASK = 0x0000; /**< register mask for allowed bits */
@@ -454,6 +474,7 @@ constexpr inline std::uint32_t MATCHSEL(std::uint32_t matchRegister) {
 }
 constexpr inline std::uint32_t HEVENT = (1 << 4); /**< Select H counter for event */
 constexpr inline std::uint32_t OUTSEL = (1 << 5); /**< IOSEL selects an output */
+constexpr inline std::uint32_t INSEL = (0 << 5);  /**< IOSEL selects an input */
 /**
  * @brief Format I/O selection field
  *

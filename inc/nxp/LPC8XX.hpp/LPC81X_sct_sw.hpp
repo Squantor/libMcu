@@ -38,6 +38,14 @@ enum matchNumber : std::uint32_t {
   MATCH_4 = 4, /**< match 4 */
 };
 
+enum captureNumber : std::uint32_t {
+  CAPTURE_0 = 0, /**< match 0 */
+  CAPTURE_1 = 1, /**< match 1 */
+  CAPTURE_2 = 2, /**< match 2 */
+  CAPTURE_3 = 3, /**< match 3 */
+  CAPTURE_4 = 4, /**< match 4 */
+};
+
 /**
  * @brief Event register to use
  *
@@ -45,12 +53,12 @@ enum matchNumber : std::uint32_t {
  *
  */
 enum eventNumber : std::uint32_t {
-  EVENT_0 = 0, /** event 0 */
-  EVENT_1 = 1, /** event 1 */
-  EVENT_2 = 2, /** event 2 */
-  EVENT_3 = 3, /** event 3 */
-  EVENT_4 = 4, /** event 4 */
-  EVENT_5 = 5, /** event 5 */
+  EVENT_0 = 0, /**< event 0 */
+  EVENT_1 = 1, /**< event 1 */
+  EVENT_2 = 2, /**< event 2 */
+  EVENT_3 = 3, /**< event 3 */
+  EVENT_4 = 4, /**< event 4 */
+  EVENT_5 = 5, /**< event 5 */
 };
 
 /**
@@ -60,10 +68,10 @@ enum eventNumber : std::uint32_t {
  *
  */
 enum outputNumber : std::uint32_t {
-  OUTPUT_0 = 0, /** output 0 */
-  OUTPUT_1 = 1, /** output 1 */
-  OUTPUT_2 = 2, /** output 2 */
-  OUTPUT_3 = 3, /** output 3 */
+  OUTPUT_0 = 0, /**< output 0 */
+  OUTPUT_1 = 1, /**< output 1 */
+  OUTPUT_2 = 2, /**< output 2 */
+  OUTPUT_3 = 3, /**< output 3 */
 };
 
 /**
@@ -72,8 +80,18 @@ enum outputNumber : std::uint32_t {
  * Used as an index for input registers
  *
  */
-enum inputNumber {
+enum inputNumber : std::uint32_t {
+  INPUT_0 = 0, /**< input 0 */
+  INPUT_1 = 1, /**< input 0 */
+  INPUT_2 = 2, /**< input 0 */
+  INPUT_3 = 3, /**< input 0 */
+};
 
+enum captureCondition : std::uint32_t {
+  CAPTURE_LOW = EV_CTRL::IOCOND_LOW,   /**< Capture low levels */
+  CAPTURE_RISE = EV_CTRL::IOCOND_RISE, /**< Capture rising edges */
+  CAPTURE_FALL = EV_CTRL::IOCOND_FALL, /**< Capture falling edges */
+  CAPTURE_HIGH = EV_CTRL::IOCOND_HIGH, /**< Capture high levels */
 };
 
 template <libMcuLL::SCTbaseAddress address_>
@@ -191,6 +209,29 @@ struct sct {
     regs()->OUT[outputIndex].CLR = OUT_CLR::CLR(event);
     regs()->OUT[outputIndex].SET = OUT_SET::SET(event);
     regs()->RES = RES::RES(regs()->RES, outputIndex, RES::TOGGLE);
+  }
+
+  /**
+   * @brief Setup a SCT capture channel
+   *
+   * TODO
+   *
+   * @param match match register to use, 0 is reserved as the end condition register
+   * @param event which event is used for generating the capture
+   * @param input which input is captured
+   * TODO capture mode
+   */
+  void setupCapture(captureNumber capture, eventNumber event, inputNumber input, captureCondition condition) {
+    size_t captureIndex = static_cast<std::size_t>(capture);
+    size_t eventIndex = static_cast<std::size_t>(event);
+    size_t inputIndex = static_cast<std::size_t>(input);
+    regs()->REGMODE = REGMODE::REGMOD_CAP(regs()->REGMODE, capture);
+    regs()->CAP[captureIndex].U = 0u;
+    // setup event
+    regs()->CAPCTRL[captureIndex].U = CAPCTRL::CAPCON_L_SET(regs()->CAPCTRL[captureIndex].U, eventIndex);
+    regs()->EV[eventIndex].CTRL =
+      EV_CTRL::INSEL | EV_CTRL::IOSEL(inputIndex) | static_cast<std::uint32_t>(condition) | EV_CTRL::COMBMODE_IO;
+    regs()->EV[eventIndex].STATE = EV_STATE::STATEMASK0 | EV_STATE::STATEMASK1;
   }
 
   static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
