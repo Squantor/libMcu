@@ -57,7 +57,7 @@ struct gpio {
    */
   template <typename PIN>
   void high(PIN &pin) {
-    peripheral()->B[pin.gpioPortIndex][pin.gpioPinIndex] = 0x01;
+    peripheral()->W[pin.gpioPortIndex][pin.gpioPinIndex] = 0x01;
   }
 
   /**
@@ -68,7 +68,7 @@ struct gpio {
    */
   template <typename PIN>
   void low(PIN &pin) {
-    peripheral()->B[pin.gpioPortIndex][pin.gpioPinIndex] = 0x00;
+    peripheral()->W[pin.gpioPortIndex][pin.gpioPinIndex] = 0x00;
   }
 
   /**
@@ -79,7 +79,7 @@ struct gpio {
    */
   template <typename PIN>
   void toggle(PIN &pin) {
-    peripheral()->B[pin.gpioPortIndex][pin.gpioPinIndex] = ~peripheral()->B[pin.gpioPortIndex][pin.gpioPinIndex];
+    peripheral()->W[pin.gpioPortIndex][pin.gpioPinIndex] = ~peripheral()->B[pin.gpioPortIndex][pin.gpioPinIndex];
   }
 
   /**
@@ -91,7 +91,7 @@ struct gpio {
    */
   template <typename PIN>
   std::uint32_t get(PIN &pin) {
-    return static_cast<std::uint32_t>(peripheral()->B[pin.gpioPortIndex][pin.gpioPinIndex]);
+    return peripheral()->W[pin.gpioPortIndex][pin.gpioPinIndex];
   }
 
   /**
@@ -103,7 +103,7 @@ struct gpio {
    */
   template <typename PIN>
   void set(PIN &pin, std::uint32_t setting) {
-    peripheral()->B[pin.gpioPortIndex][pin.gpioPinIndex] = setting;
+    peripheral()->W[pin.gpioPortIndex][pin.gpioPinIndex] = setting;
   }
 
   /**
