@@ -7,8 +7,8 @@
 /**
  * \file LPC81X series common SPI definitions
  */
-#ifndef LPC81X_SPI_COMMON_HPP
-#define LPC81X_SPI_COMMON_HPP
+#ifndef LPC81X_SPI_SW_COMMON_HPP
+#define LPC81X_SPI_SW_COMMON_HPP
 
 namespace libMcuLL {
 namespace sw {

@@ -10,7 +10,7 @@
 #ifndef LPC81X_SPI_ASYNC_HPP
 #define LPC81X_SPI_ASYNC_HPP
 
-#include "LPC81X_spi_common.hpp"
+#include "LPC81X_spi_sw_common.hpp"
 
 namespace libMcuLL {
 namespace sw {

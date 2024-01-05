@@ -7,10 +7,8 @@
 /**
  * \file LPC810 series commong USART functions and definitions
  */
-#ifndef LPC81X_USART_COMMON_HPP
-#define LPC81X_USART_COMMON_HPP
-
-#include "nxp/LPC8XX.hpp/LPC81X_usart_common.hpp"
+#ifndef LPC81X_USART_SW_COMMON_HPP
+#define LPC81X_USART_SW_COMMON_HPP
 
 namespace libMcuLL {
 namespace sw {

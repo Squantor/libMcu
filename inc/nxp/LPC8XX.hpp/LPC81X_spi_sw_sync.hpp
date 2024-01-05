@@ -10,7 +10,7 @@
 #ifndef LPC81X_SPI_HPP
 #define LPC81X_SPI_HPP
 
-#include <nxp/LPC8XX.hpp/LPC81X_spi_common.hpp>
+#include <nxp/LPC8XX.hpp/LPC81X_spi_sw_common.hpp>
 
 namespace libMcuLL {
 namespace sw {

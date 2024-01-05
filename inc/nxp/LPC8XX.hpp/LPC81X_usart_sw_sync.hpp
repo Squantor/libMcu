@@ -10,7 +10,7 @@
 #ifndef LPC81X_USART_HPP
 #define LPC81X_USART_HPP
 
-#include "nxp/LPC8XX.hpp/LPC81X_usart_common.hpp"
+#include "nxp/LPC8XX.hpp/LPC81X_usart_sw_common.hpp"
 
 namespace libMcuLL {
 namespace sw {

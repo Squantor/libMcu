@@ -19,17 +19,19 @@ There are many more vendor header directories but they are not described here fo
 We generally use ```#include "current_path/include.h"``` to minimise the compiler needing to search for our include.
 # include file naming conventions
 Device headers usually fully include the device name, also all the size variants. For example the LPC812 in TSSOP 20 package is described in the header ```LPC812M101DH20.hpp``` in the ```nxp``` vendor directory.
-Peripheral headers are usually prefixed as with the device family and the peripheral name in the general shape of ```DEVICEFAMILIY_PERIPHERAL``` and has the suffix ```_regs``` if it contains the register definitions. For example, the LPC812 SPI register definitions has the name ```LPC81X_spi_regs.hpp```, we drop the 2 number in LPC812 as it describes the flash/ram size in that family. 
-We drop package/geometry/temperature related letters/numbers if they are at the end of the device part number or we replace them with a X character.
+Peripheral headers are usually prefixed as with the device family and the peripheral name in the general shape of ```DEVICEFAMILIY_PERIPHERAL_suffixes```. The ```_hw``` suffix is used for hardware related definitions like registers, bit names, formatting functions and more. We drop package/geometry/temperature related letters/numbers if they are at the end of the device part number or we replace them with a X character. 
+For example, the LPC812 SPI register definitions has the name ```LPC81X_spi_hw.hpp```, we drop the 2 number in LPC812 as it describes the flash/ram size in that family. 
 
-Some peripherals have multiple API's for control with various methods. The spi peripheral is usually controlled in a synchronous (blocking), asynchronous (nonblocking), asynchronous interrupt or asynchronous DMA methods. Peripheral control functions with these API's are suffixed by the following pattern:
+For the includes that contain the peripheral control classes we suffix them with ```_sw```. Some peripherals have multiple API's for control with various methods. The spi peripheral is usually controlled in a synchronous (blocking), asynchronous (nonblocking), asynchronous interrupt or asynchronous DMA methods. Peripheral control functions with these API's are suffixed by the following pattern:
 
-* for synchronous API's the headers are suffixed by ```_sync```
-* for asynchronous API's the headers are suffixed by ```_async```
-* for asynchronous API's using interrupts are suffixed by ```_interrupt```
-* for asynchronous API's using DMA are suffixed by ```_dma```
+* for synchronous API's the headers are suffixed by ```_sw__sync```
+* for asynchronous API's the headers are suffixed by ```_sw_async```
+* for asynchronous API's using interrupts are suffixed by ```_sw_interrupt```
+* for asynchronous API's using DMA are suffixed by ```_sw_dma```
 
 If there is just one API, still use the proper suffixes.
+
+Peripherals that have multiple ways of controlling the peripheral often share definitions for their API's. This is put in a common peripheral header with the suffix ```_sw_common``` to make it clear that it is software/API related common definitions.
 
 Some device family share common definitions, for example the LPC81, LPC82 and LPC83 series share some common bits or even full peripherals. Share these headers among the device and change the name to not refer to a specific device family but one level higher. So this would be a header prefixed with ```LPC8XX``` to signify it is common for the whole LPC800 series family.
 
