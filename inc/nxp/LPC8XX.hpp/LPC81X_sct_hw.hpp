@@ -181,6 +181,15 @@ constexpr inline std::uint32_t NORELOAD_H = (1 << 8);      /**< prevents reload 
 constexpr inline std::uint32_t INSYNC(std::uint32_t inputBits) {
   return inputBits << 9;
 }
+/**
+ * @brief Format synchronisation for input N for a single input value
+ *
+ * @param input to turn on in the INSYNC field
+ * @return formatted data for INSYNC
+ */
+constexpr inline std::uint32_t INSYNC_INPUT(std::uint32_t input) {
+  return 1 << (9 + input);
+}
 constexpr inline std::uint32_t AUTOLIMIT_L = (1 << 17); /**< treats match 0 low register as the LIMIT condition */
 constexpr inline std::uint32_t AUTOLIMIT_H = (1 << 18); /**< treats match 0 high register as the LIMIT condition */
 }  // namespace CONFIG
@@ -392,7 +401,13 @@ namespace EVEN {
 constexpr inline std::uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
 }  // namespace EVEN
 namespace EVFLAG {
-constexpr inline std::uint32_t MASK = 0x00000000; /**< register mask for allowed bits */
+constexpr inline std::uint32_t MASK = 0x0000003F;     /**< register mask for allowed bits */
+constexpr inline std::uint32_t FLAG0_MASK = (1 << 0); /**< event 0 triggered */
+constexpr inline std::uint32_t FLAG1_MASK = (1 << 1); /**< event 1 triggered */
+constexpr inline std::uint32_t FLAG2_MASK = (1 << 2); /**< event 2 triggered */
+constexpr inline std::uint32_t FLAG3_MASK = (1 << 3); /**< event 3 triggered */
+constexpr inline std::uint32_t FLAG4_MASK = (1 << 4); /**< event 4 triggered */
+constexpr inline std::uint32_t FLAG5_MASK = (1 << 5); /**< event 5 triggered */
 }  // namespace EVFLAG
 namespace CONEN {
 constexpr inline std::uint32_t MASK = 0x00000000; /**< register mask for allowed bits */

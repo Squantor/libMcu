@@ -38,6 +38,12 @@ enum matchNumber : std::uint32_t {
   MATCH_4 = 4, /**< match 4 */
 };
 
+/**
+ * @brief capture register to use
+ *
+ * Used as an index for capture registers
+ *
+ */
 enum captureNumber : std::uint32_t {
   CAPTURE_0 = 0, /**< match 0 */
   CAPTURE_1 = 1, /**< match 1 */
@@ -87,6 +93,10 @@ enum inputNumber : std::uint32_t {
   INPUT_3 = 3, /**< input 0 */
 };
 
+/**
+ * @brief conditions that can be captured
+ *
+ */
 enum captureCondition : std::uint32_t {
   CAPTURE_LOW = EV_CTRL::IOCOND_LOW,   /**< Capture low levels */
   CAPTURE_RISE = EV_CTRL::IOCOND_RISE, /**< Capture rising edges */
@@ -158,15 +168,26 @@ struct sct {
   }
 
   /**
-   * @brief Setup SCT match register and match reload register
+   * @brief set SCT match register and match reload register
    *
    * @param match match register to set
    * @param value value to put in match register
    */
-  void setupMatch(matchNumber match, std::uint32_t value) {
+  void setMatch(matchNumber match, std::uint32_t value) {
     size_t matchIndex = static_cast<std::size_t>(match);
     regs()->MATCH[matchIndex].U = value;
     regs()->MATCHREL[matchIndex].U = value;
+  }
+
+  /**
+   * @brief get SCT capture register value
+   *
+   * @param capture capture register to get
+   * @return value of the requested capture register
+   */
+  uint32_t getCapture(captureNumber capture) {
+    size_t captureIndex = static_cast<std::size_t>(capture);
+    return regs()->CAP[captureIndex].U;
   }
 
   /**
@@ -198,39 +219,35 @@ struct sct {
     size_t matchIndex = static_cast<std::size_t>(match);
     size_t eventIndex = static_cast<std::size_t>(event);
     size_t outputIndex = static_cast<std::size_t>(output);
-    regs()->REGMODE = REGMODE::REGMOD_MAT(regs()->REGMODE, match);
+    regs()->REGMODE = REGMODE::REGMOD_MAT(regs()->REGMODE, matchIndex);
     regs()->MATCH[matchIndex].U = value;
     regs()->MATCHREL[matchIndex].U = value;
-    // setup event
-    regs()->EV[eventIndex].CTRL = EV_CTRL::MATCHSEL(match) | EV_CTRL::OUTSEL | EV_CTRL::IOSEL(output) | EV_CTRL::COMBMODE_MATCH;
+    regs()->EV[eventIndex].CTRL =
+      EV_CTRL::MATCHSEL(matchIndex) | EV_CTRL::OUTSEL | EV_CTRL::IOSEL(outputIndex) | EV_CTRL::COMBMODE_MATCH;
     regs()->EV[eventIndex].STATE = EV_STATE::STATEMASK0 | EV_STATE::STATEMASK1;
-    // setup output
-    regs()->OUTPUT = OUTPUT::OUT(regs()->OUTPUT, output, outputHigh);
-    regs()->OUT[outputIndex].CLR = OUT_CLR::CLR(event);
-    regs()->OUT[outputIndex].SET = OUT_SET::SET(event);
+    regs()->OUTPUT = OUTPUT::OUT(regs()->OUTPUT, outputIndex, outputHigh);
+    regs()->OUT[outputIndex].CLR = OUT_CLR::CLR(eventIndex);
+    regs()->OUT[outputIndex].SET = OUT_SET::SET(eventIndex);
     regs()->RES = RES::RES(regs()->RES, outputIndex, RES::TOGGLE);
   }
 
   /**
    * @brief Setup a SCT capture channel
    *
-   * TODO
-   *
    * @param match match register to use, 0 is reserved as the end condition register
    * @param event which event is used for generating the capture
    * @param input which input is captured
-   * TODO capture mode
+   * @param condition which condition to capture
    */
   void setupCapture(captureNumber capture, eventNumber event, inputNumber input, captureCondition condition) {
     size_t captureIndex = static_cast<std::size_t>(capture);
     size_t eventIndex = static_cast<std::size_t>(event);
     size_t inputIndex = static_cast<std::size_t>(input);
-    regs()->REGMODE = REGMODE::REGMOD_CAP(regs()->REGMODE, capture);
-    regs()->CAP[captureIndex].U = 0u;
-    // setup event
+    regs()->CONFIG = regs()->CONFIG | CONFIG::INSYNC_INPUT(inputIndex);  // needs to be done for edge capture condition
+    regs()->REGMODE = REGMODE::REGMOD_CAP(regs()->REGMODE, captureIndex);
     regs()->CAPCTRL[captureIndex].U = CAPCTRL::CAPCON_L_SET(regs()->CAPCTRL[captureIndex].U, eventIndex);
-    regs()->EV[eventIndex].CTRL =
-      EV_CTRL::INSEL | EV_CTRL::IOSEL(inputIndex) | static_cast<std::uint32_t>(condition) | EV_CTRL::COMBMODE_IO;
+    regs()->EV[eventIndex].CTRL = EV_CTRL::MATCHSEL(captureIndex) | EV_CTRL::INSEL | EV_CTRL::IOSEL(inputIndex) |
+                                  static_cast<std::uint32_t>(condition) | EV_CTRL::COMBMODE_IO;
     regs()->EV[eventIndex].STATE = EV_STATE::STATEMASK0 | EV_STATE::STATEMASK1;
   }
 
