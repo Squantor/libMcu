@@ -57,7 +57,7 @@ struct gpio {
    */
   template <typename PIN>
   void high(PIN &pin) {
-    peripheral()->W[pin.gpioPortIndex][pin.gpioPinIndex] = 0x01;
+    peripheral()->SET[pin.gpioPortIndex] = (1 << pin.gpioPinIndex);
   }
 
   /**
@@ -68,7 +68,7 @@ struct gpio {
    */
   template <typename PIN>
   void low(PIN &pin) {
-    peripheral()->W[pin.gpioPortIndex][pin.gpioPinIndex] = 0x00;
+    peripheral()->CLR[pin.gpioPortIndex] = (1 << pin.gpioPinIndex);
   }
 
   /**
@@ -79,7 +79,7 @@ struct gpio {
    */
   template <typename PIN>
   void toggle(PIN &pin) {
-    peripheral()->W[pin.gpioPortIndex][pin.gpioPinIndex] = ~peripheral()->B[pin.gpioPortIndex][pin.gpioPinIndex];
+    peripheral()->NOT[pin.gpioPortIndex] = (1 << pin.gpioPinIndex);
   }
 
   /**
