@@ -105,9 +105,7 @@ struct acmp {
     peripheral()->CTRL = static_cast<std::uint32_t>(inPlus) | static_cast<std::uint32_t>(inNeg) |
                          static_cast<std::uint32_t>(output) | static_cast<std::uint32_t>(edges) |
                          static_cast<std::uint32_t>(hysteresis);
-    // clear edge detector status
-    peripheral()->CTRL = peripheral()->CTRL | CTRL::EDGECLR;
-    peripheral()->CTRL = peripheral()->CTRL & ~CTRL::EDGECLR;
+    clearEdgeDetector();
   }
 
   /**
@@ -126,14 +124,48 @@ struct acmp {
                          static_cast<std::uint32_t>(output) | static_cast<std::uint32_t>(edges) |
                          static_cast<std::uint32_t>(hysteresis);
     peripheral()->LAD = LAD::LADEN | static_cast<std::uint32_t>(ladderReference);
-    // clear edge detector status
+    clearEdgeDetector();
+  }
+
+  /**
+   * @brief comparator output status
+   *
+   * @return zero for low, non zero for high
+   */
+  constexpr uint32_t comparatorOutput() {
+    return peripheral()->CTRL & CTRL::COMPSTAT_MASK;
+  }
+
+  /**
+   * @brief comparator edge detector status
+   *
+   * @return zero for no edges detected, non zero for edge detector edges detected
+   */
+  constexpr uint32_t edgeOutput() {
+    std::uint32_t status = peripheral()->CTRL & CTRL::COMPEDGE_MASK;
+    if (status == 0)
+      return status;
+    clearEdgeDetector();
+    return status;
+  }
+
+  /**
+   * @brief set resistor ladder value
+   *
+   * @param value resistor ladder setting
+   */
+  constexpr void setLadder(uint32_t value) {
+    peripheral()->LAD = (peripheral()->LAD & ~LAD::LADSEL_MASK) | LAD::LADSEL(value);
+  }
+
+  /**
+   * @brief reset edge detector
+   *
+   */
+  constexpr void clearEdgeDetector() {
     peripheral()->CTRL = peripheral()->CTRL | CTRL::EDGECLR;
     peripheral()->CTRL = peripheral()->CTRL & ~CTRL::EDGECLR;
   }
-
-  // get comparator status
-  // get edge detector status
-  // set voltage ladder
 
   static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
 };
