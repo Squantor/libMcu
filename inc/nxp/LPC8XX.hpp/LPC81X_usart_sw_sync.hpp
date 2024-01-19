@@ -70,7 +70,7 @@ struct usartSync {
    * @return std::uint32_t one to one copy of the status register, see bit masks for options
    */
   std::uint32_t status() {
-    return regs()->STAT & STAT::MASK;
+    return regs()->STAT & STAT::RESERVED_MASK;
   }
 
   /**
@@ -79,7 +79,7 @@ struct usartSync {
    * @param data data to send, amount is sent according to configuration
    */
   void write(transferType data) {
-    regs()->TXDAT = static_cast<transferType>(data & TXDAT::MASK);
+    regs()->TXDAT = static_cast<transferType>(data & TXDAT::RESERVED_MASK);
   }
   /**
    * @brief Read data from UART
@@ -98,8 +98,8 @@ struct usartSync {
    */
   void read(transferType &data, std::uint32_t &status) {
     std::uint32_t regData = regs()->RXDATSTAT;
-    data = static_cast<transferType>(regData & RXDATSTAT::MASK_DATA);
-    status = regData & RXDATSTAT::MASK_STAT;
+    data = static_cast<transferType>(regData & RXDATSTAT::DATA_MASK);
+    status = regData & RXDATSTAT::STAT_MASK;
   }
 };
 }  // namespace usart

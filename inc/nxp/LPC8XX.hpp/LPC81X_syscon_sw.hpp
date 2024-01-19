@@ -201,7 +201,7 @@ struct syscon {
    * @param setting bit setting from peripheralClocks
    */
   void enablePeripheralClocks(std::uint32_t setting) {
-    regs()->SYSAHBCLKCTRL = regs()->SYSAHBCLKCTRL | (SYSAHBCLKCTRL::MASK & setting);
+    regs()->SYSAHBCLKCTRL = regs()->SYSAHBCLKCTRL | (SYSAHBCLKCTRL::RESERVED_MASK & setting);
   }
 
   /**
@@ -210,11 +210,11 @@ struct syscon {
    * @param setting bit setting from peripheralClocks
    */
   void disablePeripheralClocks(std::uint32_t setting) {
-    regs()->SYSAHBCLKCTRL = regs()->SYSAHBCLKCTRL & ~(SYSAHBCLKCTRL::MASK & setting);
+    regs()->SYSAHBCLKCTRL = regs()->SYSAHBCLKCTRL & ~(SYSAHBCLKCTRL::RESERVED_MASK & setting);
   }
 
   void setUsartClockDivider(std::uint32_t setting) {
-    regs()->UARTCLKDIV = UARTCLKDIV::MASK & setting;
+    regs()->UARTCLKDIV = UARTCLKDIV::RESERVED_MASK & setting;
   }
 
   /**
@@ -223,7 +223,7 @@ struct syscon {
    * @param setting bit setting from peripheralPowers enum
    */
   void powerPeripherals(std::uint32_t setting) {
-    regs()->PDRUNCFG = regs()->PDRUNCFG & ~(PDRUNCFG::MASK & setting);
+    regs()->PDRUNCFG = regs()->PDRUNCFG & ~(PDRUNCFG::RESERVED_MASK & setting);
   }
 
   /**
@@ -232,7 +232,7 @@ struct syscon {
    * @param setting bit setting from peripheralPowers enum
    */
   void depowerPeripherals(std::uint32_t setting) {
-    regs()->PDRUNCFG = regs()->PDRUNCFG | (PDRUNCFG::MASK & setting);
+    regs()->PDRUNCFG = regs()->PDRUNCFG | (PDRUNCFG::RESERVED_MASK & setting);
   }
 
   /**
