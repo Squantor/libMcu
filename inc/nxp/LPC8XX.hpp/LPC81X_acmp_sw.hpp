@@ -46,16 +46,33 @@ enum class edgeDetectSettings : std::uint32_t {
   BOTH = CTRL::EDGESEL_BOTH,       /**< edge detector detects both edges */
 };
 
-enum class outputControlSetting : std::uint32_t {
+/**
+ * @brief possible options for comparator output synchronization
+ *
+ */
+enum class outputControlSettings : std::uint32_t {
   DIRECT = CTRL::COMPSA_DIR,  /**< comparator output used directly */
   SYNCED = CTRL::COMPSA_SYNC, /**< comparator output is synchronized to main clock */
 };
 
-enum class hysteresisSetting : std::uint32_t {
+/**
+ * @brief possible options for comparator hysteresis
+ *
+ */
+enum class hysteresisSettings : std::uint32_t {
   NONE = CTRL::HYS_NONE,     /**< No hysteresis */
   HYS_5MV = CTRL::HYS_5MV,   /**< 5mV hysteresis */
   HYS_10MV = CTRL::HYS_10MV, /**< 10mV hysteresis */
   HYS_20MV = CTRL::HYS_20MV, /**< 20mV hysteresis */
+};
+
+/**
+ * @brief possible options for voltage ladder reference
+ *
+ */
+enum class ladderReferenceSetting : std::uint32_t {
+  VDD = LAD::LADREF_VDD,       /**< ladder reference is VDD pin */
+  VDDCMP = LAD::LADREF_VDDCMP, /**< ladder reference is VDDCMP pin */
 };
 
 template <libMcuLL::ACMPbaseAddress const& address_>
@@ -74,12 +91,43 @@ struct acmp {
   static hw::acmp::peripheral* peripheral() {
     return reinterpret_cast<hw::acmp::peripheral*>(address);
   }
-
+  /**
+   * @brief Setup analog comparator
+   *
+   * @param inPlus positive input connection
+   * @param inNeg negative input connection
+   * @param edges edge detector setting
+   * @param output comparator output setting
+   * @param hysteresis comparator hysteresis
+   */
   constexpr void init(inputPositiveSettings inPlus, inputNegativeSettings inNeg, edgeDetectSettings edges,
-                      outputControlSetting output) {
+                      outputControlSettings output, hysteresisSettings hysteresis) {
     peripheral()->CTRL = static_cast<std::uint32_t>(inPlus) | static_cast<std::uint32_t>(inNeg) |
-                         static_cast<std::uint32_t>(output) | static_cast<std::uint32_t>(edges);
+                         static_cast<std::uint32_t>(output) | static_cast<std::uint32_t>(edges) |
+                         static_cast<std::uint32_t>(hysteresis);
   }
+
+  /**
+   * @brief Setup analog comparator and voltage ladder
+   *
+   * @param inPlus positive input connection
+   * @param inNeg negative input connection
+   * @param edges edge detector setting
+   * @param output comparator output setting
+   * @param hysteresis comparator hysteresis
+   * @param ladderReference voltage ladder reference connection
+   */
+  constexpr void init(inputPositiveSettings inPlus, inputNegativeSettings inNeg, edgeDetectSettings edges,
+                      outputControlSettings output, hysteresisSettings hysteresis, ladderReferenceSetting ladderReference) {
+    peripheral()->CTRL = static_cast<std::uint32_t>(inPlus) | static_cast<std::uint32_t>(inNeg) |
+                         static_cast<std::uint32_t>(output) | static_cast<std::uint32_t>(edges) |
+                         static_cast<std::uint32_t>(hysteresis);
+    peripheral()->LAD = LAD::LADEN | static_cast<std::uint32_t>(ladderReference);
+  }
+
+  // get comparator status
+  // get edge detector status
+  // set voltage ladder
 
   static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
 };
