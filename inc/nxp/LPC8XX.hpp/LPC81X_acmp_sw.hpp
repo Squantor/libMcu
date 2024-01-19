@@ -15,7 +15,7 @@ namespace acmp {
 using namespace hw::acmp;
 
 /**
- * @brief possible inputs for positive comparator input
+ * @brief possible inputs for plus comparator input
  *
  */
 enum class inputPositiveSettings : std::uint32_t {
@@ -26,14 +26,14 @@ enum class inputPositiveSettings : std::uint32_t {
 };
 
 /**
- * @brief possible inputs for negative comparator input
+ * @brief possible inputs for min comparator input
  *
  */
 enum class inputNegativeSettings : std::uint32_t {
-  LADDER = CTRL::COMP_VP_SEL_LAD,    /**< Negative input connected to voltage ladder */
-  IN1 = CTRL::COMP_VP_SEL_ACMP_I1,   /**< Negative input connected to IN1 */
-  IN2 = CTRL::COMP_VP_SEL_ACMP_I2,   /**< Negative input connected to IN2 */
-  REF = CTRL::COMP_VP_SEL_ACMP_VREF, /**< Negative input connected to reference */
+  LADDER = CTRL::COMP_VM_SEL_LAD,    /**< Negative input connected to voltage ladder */
+  IN1 = CTRL::COMP_VM_SEL_ACMP_I1,   /**< Negative input connected to IN1 */
+  IN2 = CTRL::COMP_VM_SEL_ACMP_I2,   /**< Negative input connected to IN2 */
+  REF = CTRL::COMP_VM_SEL_ACMP_VREF, /**< Negative input connected to reference */
 };
 
 /**
@@ -105,6 +105,9 @@ struct acmp {
     peripheral()->CTRL = static_cast<std::uint32_t>(inPlus) | static_cast<std::uint32_t>(inNeg) |
                          static_cast<std::uint32_t>(output) | static_cast<std::uint32_t>(edges) |
                          static_cast<std::uint32_t>(hysteresis);
+    // clear edge detector status
+    peripheral()->CTRL = peripheral()->CTRL | CTRL::EDGECLR;
+    peripheral()->CTRL = peripheral()->CTRL & ~CTRL::EDGECLR;
   }
 
   /**
@@ -123,6 +126,9 @@ struct acmp {
                          static_cast<std::uint32_t>(output) | static_cast<std::uint32_t>(edges) |
                          static_cast<std::uint32_t>(hysteresis);
     peripheral()->LAD = LAD::LADEN | static_cast<std::uint32_t>(ladderReference);
+    // clear edge detector status
+    peripheral()->CTRL = peripheral()->CTRL | CTRL::EDGECLR;
+    peripheral()->CTRL = peripheral()->CTRL & ~CTRL::EDGECLR;
   }
 
   // get comparator status
