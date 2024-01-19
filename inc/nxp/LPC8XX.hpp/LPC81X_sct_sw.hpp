@@ -170,12 +170,27 @@ struct sct {
   /**
    * @brief set SCT match register and match reload register
    *
+   * Call this function only when the SCT, writing to MATCH during running is disallowed
+   *
    * @param match match register to set
    * @param value value to put in match register
    */
   void setMatch(matchNumber match, std::uint32_t value) {
     size_t matchIndex = static_cast<std::size_t>(match);
     regs()->MATCH[matchIndex].U = value;
+    regs()->MATCHREL[matchIndex].U = value;
+  }
+
+  /**
+   * @brief Set SCT match reload register
+   *
+   * match reload is loaded into match when a match occurs
+   *
+   * @param match match reload register to set
+   * @param value value to put in match reload register
+   */
+  void setReload(matchNumber match, std::uint32_t value) {
+    size_t matchIndex = static_cast<std::size_t>(match);
     regs()->MATCHREL[matchIndex].U = value;
   }
 
