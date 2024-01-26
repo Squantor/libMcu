@@ -258,6 +258,7 @@ struct sct {
     size_t captureIndex = static_cast<std::size_t>(capture);
     size_t eventIndex = static_cast<std::size_t>(event);
     size_t inputIndex = static_cast<std::size_t>(input);
+    regs()->MATCH[captureIndex].U = 0;                                   // clear capture register via the aliased match register
     regs()->CONFIG = regs()->CONFIG | CONFIG::INSYNC_INPUT(inputIndex);  // needs to be done for edge capture condition
     regs()->REGMODE = REGMODE::REGMOD_CAP(regs()->REGMODE, captureIndex);
     regs()->CAPCTRL[captureIndex].U = CAPCTRL::CAPCON_L_SET(regs()->CAPCTRL[captureIndex].U, eventIndex);
