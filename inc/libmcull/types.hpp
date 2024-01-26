@@ -31,6 +31,13 @@ struct constant {
 using hwAddressBase = constant<std::uint32_t>;
 using hwAddressType = typename hwAddressBase::type;
 
+/* Peripheral address types used by CortexM microcontrollers */
+struct scsBaseAddress : hwAddressBase {};
+struct systickBaseAddress : hwAddressBase {};
+struct nvicBaseAddress : hwAddressBase {};
+struct scbBaseAddress : hwAddressBase {};
+struct mpuBaseAddress : hwAddressBase {};
+
 /* Peripheral address types used by all microcontrollers */
 struct I2CbaseAddress : hwAddressBase {};   /**< I2C */
 struct SPIbaseAddress : hwAddressBase {};   /**< SPI */
