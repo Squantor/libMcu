@@ -62,12 +62,6 @@ typedef enum {
 
 #include <CMSIS/core_cm0plus.h>
 
-#define FMC_BASE (0x40040000UL)
-
-#define FMC ((FMC_Type *)FMC_BASE)
-
-#include "LPC8XX/LPC8XX_fmc.h"
-
 #ifdef __cplusplus
 }
 #endif
@@ -77,21 +71,21 @@ namespace hw {
 
 // Define peripheral addresses on APB0 bus
 // rename these when full c++ functionality is finished, remove _cpp postfix
-constexpr inline libMcuLL::WWDTbaseAddress WWDT_cpp{0x4000'0000u};     /**< Windowed watchdog base address */
-constexpr inline libMcuLL::MRTbaseAddress MRT_cpp{0x4000'4000u};       /**< multi rate timer base address */
-constexpr inline libMcuLL::WKTbaseAddress WKT_cpp{0x4000'8000u};       /**< wakeup timer base address */
-constexpr inline libMcuLL::SWMbaseAddress SWM_cpp{0x4000'C000u};       /**< Switch matrix base address */
-constexpr inline libMcuLL::PMUbaseAddress PMU_cpp{0x4002'0000u};       /**< Power management unit base address */
-constexpr inline libMcuLL::ACMPbaseAddress ACMP_cpp{0x4002'4000u};     /**< Analog comparator base address */
-constexpr inline libMcuLL::FMCbaseAddress FMC_cpp{0x4004'0000u};       /**< Flash memory controller base address */
-constexpr inline libMcuLL::IOCONbaseAddress IOCON_cpp{0x4004'4000u};   /**< I/O control base address */
-constexpr inline libMcuLL::SYSCONbaseAddress SYSCON_cpp{0x4004'8000u}; /**< System control base address */
-constexpr inline libMcuLL::I2CbaseAddress I2C0_cpp{0x4005'0000u};      /**< I2C 0 base address */
-constexpr inline libMcuLL::SPIbaseAddress SPI0_cpp{0x4005'8000u};      /**< SPI 0 base address */
-constexpr inline libMcuLL::SPIbaseAddress SPI1_cpp{0x4005'C000u};      /**< SPI 1 base address */
-constexpr inline libMcuLL::USARTbaseAddress USART0_cpp{0x4006'4000u};  /**< USART 0 base address */
-constexpr inline libMcuLL::USARTbaseAddress USART1_cpp{0x4006'8000u};  /**< USART 1 base address */
-constexpr inline libMcuLL::USARTbaseAddress USART2_cpp{0x4006'C000u};  /**< USART 2 base address */
+constexpr inline libMcuLL::WWDTbaseAddress wwdtAddress{0x4000'0000u};     /**< Windowed watchdog base address */
+constexpr inline libMcuLL::MRTbaseAddress mrtAddress{0x4000'4000u};       /**< multi rate timer base address */
+constexpr inline libMcuLL::WKTbaseAddress wktAddress{0x4000'8000u};       /**< wakeup timer base address */
+constexpr inline libMcuLL::SWMbaseAddress swmAddress{0x4000'C000u};       /**< Switch matrix base address */
+constexpr inline libMcuLL::PMUbaseAddress pmuAddress{0x4002'0000u};       /**< Power management unit base address */
+constexpr inline libMcuLL::ACMPbaseAddress acmpAddress{0x4002'4000u};     /**< Analog comparator base address */
+constexpr inline libMcuLL::FMCbaseAddress fmcAddress{0x4004'0000u};       /**< Flash memory controller base address */
+constexpr inline libMcuLL::IOCONbaseAddress ioconAddress{0x4004'4000u};   /**< I/O control base address */
+constexpr inline libMcuLL::SYSCONbaseAddress sysconAddress{0x4004'8000u}; /**< System control base address */
+constexpr inline libMcuLL::I2CbaseAddress i2c0Address{0x4005'0000u};      /**< I2C 0 base address */
+constexpr inline libMcuLL::SPIbaseAddress spi0Address{0x4005'8000u};      /**< SPI 0 base address */
+constexpr inline libMcuLL::SPIbaseAddress spi1Address{0x4005'C000u};      /**< SPI 1 base address */
+constexpr inline libMcuLL::USARTbaseAddress usart0Address{0x4006'4000u};  /**< USART 0 base address */
+constexpr inline libMcuLL::USARTbaseAddress usart1Address{0x4006'8000u};  /**< USART 1 base address */
+constexpr inline libMcuLL::USARTbaseAddress usart2Address{0x4006'C000u};  /**< USART 2 base address */
 
 /* AHB peripherals */
 constexpr inline libMcuLL::CRCbaseAddress CRC_cpp{0x5000'0000u};  /**< CRC calculator base address */
