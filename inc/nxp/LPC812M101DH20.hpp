@@ -8,6 +8,43 @@
 #ifndef LPC812M101DH20_HPP
 #define LPC812M101DH20_HPP
 
+#define CORTEX_M0_REVISION 0x0001 /**< Revision number, relevant? */
+#define MPU_PRESENT 0             /**< Presence of memory protection unit */
+#define VTOR_PRESENT 1            /**< presence of vector relocation */
+#define NVIC_PRIO_BITS 2          /**< NVIC priority bit count */
+#define Vendor_SysTickConfig 0    /**< Type of systick */
+
+enum class interrupts : int8_t {
+  reset = -15,
+  nonMaskable = -14,
+  hardFault = -13,
+  svCall = -5,
+  pendSv = -2,
+  systick = -1,
+  spi0 = 0,
+  spi1 = 1,
+  uart0 = 3,
+  uart1 = 4,
+  uart2 = 5,
+  i2c0 = 8,
+  sct = 9,
+  mrt = 10,
+  acmp = 11,
+  wwdt = 12,
+  bod = 13,
+  wkt = 15,
+  pinint0 = 24,
+  PININT1 = 25,
+  PININT2 = 26,
+  PININT3 = 27,
+  PININT4 = 28,
+  PININT5 = 29,
+  PININT6 = 30,
+  PININT7 = 31,
+};
+
+#include <CortexM/Cortex_M0plus.hpp>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -50,14 +87,14 @@ typedef enum {
   Reserved9_IRQn = 21,
   Reserved10_IRQn = 22,
   Reserved11_IRQn = 23,
-  PININT0_IRQn = 24,
-  PININT1_IRQn = 25,
-  PININT2_IRQn = 26,
-  PININT3_IRQn = 27,
-  PININT4_IRQn = 28,
-  PININT5_IRQn = 29,
-  PININT6_IRQn = 30,
-  PININT7_IRQn = 31,
+  pinint0_IRQn = 24,
+  pinint1_IRQn = 25,
+  pinint2_IRQn = 26,
+  pinint3_IRQn = 27,
+  pinint4_IRQn = 28,
+  pinint5_IRQn = 29,
+  pinint6_IRQn = 30,
+  pinint7_IRQn = 31,
 } IRQn_Type;
 
 #include <CMSIS/core_cm0plus.h>
@@ -88,12 +125,12 @@ constexpr inline libMcuLL::USARTbaseAddress usart1Address{0x4006'8000u};  /**< U
 constexpr inline libMcuLL::USARTbaseAddress usart2Address{0x4006'C000u};  /**< USART 2 base address */
 
 /* AHB peripherals */
-constexpr inline libMcuLL::CRCbaseAddress CRC_cpp{0x5000'0000u};  /**< CRC calculator base address */
-constexpr inline libMcuLL::SCTbaseAddress SCT0_cpp{0x5000'4000u}; /**< State configurable timer 0 base address */
+constexpr inline libMcuLL::CRCbaseAddress crcAddress{0x5000'0000u}; /**< CRC calculator base address */
+constexpr inline libMcuLL::SCTbaseAddress sctAddress{0x5000'4000u}; /**< State configurable timer 0 base address */
 
 /* Direct connected peripherals */
-constexpr inline libMcuLL::GPIObaseAddress GPIO_cpp{0xA000'0000u};      /**< General Purpose I/O base address */
-constexpr inline libMcuLL::PININTbaseAddress PIN_INT_cpp{0xA000'4000u}; /**< Pin interrupt base address */
+constexpr inline libMcuLL::GPIObaseAddress gpioAddress{0xA000'0000u};     /**< General Purpose I/O base address */
+constexpr inline libMcuLL::PININTbaseAddress pinintAddress{0xA000'4000u}; /**< Pin interrupt base address */
 
 }  // namespace hw
 }  // namespace libMcuLL
