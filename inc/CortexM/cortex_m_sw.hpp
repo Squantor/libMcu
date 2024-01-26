@@ -142,12 +142,10 @@ __attribute__((always_inline)) static inline std::uint32_t ror(std::uint32_t val
  * Causes the processor to enter Debug state. Debug tools can use this to investigate system state when the instruction at a
  * particular address is reached.
  *
- * @param value Value  is ignored by the processor. If required, a debugger can use it to store additional information about the
+ * @param value is ignored by the processor. If required, a debugger can use it to store additional information about the
  * breakpoint.
  */
-__attribute__((always_inline)) static inline void bkpt(std::uint32_t value) {
-  asm volatile inline("bkpt %0" ::"l"(value) :);
-}
+#define LIBMCULL_BKPT(value) __ASM volatile("bkpt " #value)
 
 }  // namespace sw
 }  // namespace libMcuLL
