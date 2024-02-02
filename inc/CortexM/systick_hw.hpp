@@ -24,11 +24,17 @@ constexpr inline std::uint32_t ENABLE = (1 << 0);          /**< enable systick *
 constexpr inline std::uint32_t TICKINT = (1 << 1);         /**< enable systick interrupt */
 constexpr inline std::uint32_t CLKSOURCE_EXT = (0 << 2);   /**< select external reference clock */
 constexpr inline std::uint32_t CLKSOURCE_PROC = (1 << 2);  /**< select processor clock */
-constexpr inline std::uint32_t COUTNFLAG_MASK = (1 << 16); /** 1 if counter passed 0 after last read */
+constexpr inline std::uint32_t COUNTFLAG_MASK = (1 << 16); /** 1 if counter passed 0 after last read */
 
 }  // namespace CSR
 namespace RVR {
 constexpr inline std::uint32_t RESERVED_MASK = 0x00FFFFFF; /**< register mask for allowed bits */
+/**
+ * @brief format RELOAD field
+ *
+ * @param value reload value
+ * @return formatted RVR register
+ */
 constexpr inline std::uint32_t RELOAD(std::uint32_t value) {
   return value << 0;
 }
