@@ -10,6 +10,29 @@
 #ifndef CORTEXM0PLUS_HPP
 #define CORTEXM0PLUS_HPP
 
+namespace libMcuLL {
+namespace hw {
+
+// change into constexprs?
+#define CORTEX_M0P_REVISION 0x0001   /**< Revision number */
+#define CORTEX_M0P_MPU_PRESENT 0     /**< Presence of memory protection unit */
+#define CORTEX_M0P_VTOR_PRESENT 1    /**< presence of vector relocation */
+#define CORTEX_M0P_NVIC_PRIO_BITS 2  /**< NVIC priority bit count */
+#define CORTEX_M0P_SYSTICK_VARIANT 0 /**< Type of systick */
+
+enum class interrupts : int8_t {
+  reset = -15,
+  nonMaskable = -14,
+  hardFault = -13,
+  svCall = -5,
+  pendSv = -2,
+  systick = -1,
+};
+}  // namespace hw
+}  // namespace libMcuLL
+
+#include <CortexM/cortex_m0plus.hpp>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
