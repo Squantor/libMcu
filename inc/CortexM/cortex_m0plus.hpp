@@ -31,8 +31,8 @@ constexpr inline libMcuLL::mpuBaseAddress mpuAddress{0xE000'ED90};         /**< 
 #include "mpu_hw.hpp"
 
 #include "systick_sw.hpp"
-#include "nvic_hw.hpp"
-#include "scb_hw.hpp"
-#include "mpu_hw.hpp"
+#include "nvic_sw.hpp"
+#include "scb_sw.hpp"
+#include "mpu_sw.hpp"
 
 #endif

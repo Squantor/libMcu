@@ -12,13 +12,23 @@
 
 namespace libMcuLL {
 namespace hw {
-
-// change into constexprs?
-#define CORTEX_M0P_REVISION 0x0001   /**< Revision number */
-#define CORTEX_M0P_MPU_PRESENT 0     /**< Presence of memory protection unit */
-#define CORTEX_M0P_VTOR_PRESENT 1    /**< presence of vector relocation */
-#define CORTEX_M0P_NVIC_PRIO_BITS 2  /**< NVIC priority bit count */
-#define CORTEX_M0P_SYSTICK_VARIANT 0 /**< Type of systick */
+// MCU configuration options
+namespace core {
+constexpr inline std::uint32_t revision = 0x0001; /**< Revision number */
+}  // namespace core
+namespace mpu {
+constexpr inline bool present = false; /**< Presence of memory protection unit */
+}  // namespace mpu
+namespace vtor {
+constexpr inline bool present = true; /**< presence of vector relocation */
+}  // namespace vtor
+namespace systick {
+constexpr inline std::uint32_t variant = 0; /**< Type of systick */
+}  // namespace systick
+namespace nvic {
+constexpr inline std::uint32_t priorityMask = 0x3; /**< NVIC priority bit mask */
+constexpr inline std::uint32_t priorityBits = 2;   /** NVIC priority bit count */
+}  // namespace nvic
 
 enum class interrupts : int8_t {
   reset = -15,
@@ -32,32 +42,6 @@ enum class interrupts : int8_t {
 }  // namespace libMcuLL
 
 #include <CortexM/cortex_m0plus.hpp>
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-/* Configuration of the Cortex-M0+ Processor and Core Peripherals */
-#define __CM0PLUS_REV 0x0000
-#define __MPU_PRESENT 0
-#define __VTOR_PRESENT 0
-#define __NVIC_PRIO_BITS 2
-#define __Vendor_SysTickConfig 0
-
-typedef enum {
-  Reset_IRQn = -15,
-  NonMaskableInt_IRQn = -14,
-  HardFault_IRQn = -13,
-  SVCall_IRQn = -5,
-  PendSV_IRQn = -2,
-  SysTick_IRQn = -1,
-} IRQn_Type;
-
-#include <CMSIS/core_cm0plus.h>
-
-#ifdef __cplusplus
-}
-#endif
 
 /*
 Copied orignally from the C header, the idea is to move more and more from
