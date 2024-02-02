@@ -7,8 +7,8 @@
 /**
  * \file cortex m functions
  */
-#ifndef SYSTICK_SW_HPP
-#define SYSTICK_SW_HPP
+#ifndef CORTEXM_SW_HPP
+#define CORTEXM_SW_HPP
 namespace libMcuLL {
 namespace sw {
 
