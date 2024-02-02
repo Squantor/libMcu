@@ -30,7 +30,7 @@ struct nvic {
     return reinterpret_cast<hw::nvic::peripheral*>(address);
   }
   /**
-   * @brief Setup systick
+   * @brief Setup nvic
    */
   constexpr void init() {}
 

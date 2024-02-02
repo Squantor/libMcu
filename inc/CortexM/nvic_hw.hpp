@@ -25,20 +25,57 @@ struct peripheral {
   volatile std::uint32_t IP[8U]; /**< interrupt priority register */
 };
 namespace ISER {
-constexpr inline std::uint32_t RESERVED_MASK = 0x00000000; /**< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK = 0xFFFFFFFF; /**< register mask for allowed bits */
+/**
+ * @brief format for SETENA bits
+ *
+ * @param interrupt interrupt to enable
+ * @return formatted ISER register
+ */
+constexpr inline std::uint32_t SETENA(std::uint32_t interrupt) {
+  return 1 << interrupt;
 }
+}  // namespace ISER
 namespace ICER {
-constexpr inline std::uint32_t RESERVED_MASK = 0x00000000; /**< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK = 0xFFFFFFFF; /**< register mask for allowed bits */
+/**
+ * @brief format for CLRENA bits
+ *
+ * @param interrupt interrupt to disable
+ * @return formatted ICER register
+ */
+constexpr inline std::uint32_t CLRENA(std::uint32_t interrupt) {
+  return 1 << interrupt;
 }
+}  // namespace ICER
 namespace ISPR {
-constexpr inline std::uint32_t RESERVED_MASK = 0x00000000; /**< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK = 0xFFFFFFFF; /**< register mask for allowed bits */
+/**
+ * @brief format for SETPEND bits
+ *
+ * @param interrupt interrupt to set to pending status
+ * @return formatted ISPR register
+ */
+constexpr inline std::uint32_t CLRENA(std::uint32_t interrupt) {
+  return 1 << interrupt;
 }
+}  // namespace ISPR
 namespace ICPR {
-constexpr inline std::uint32_t RESERVED_MASK = 0x00000000; /**< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK = 0xFFFFFFFF; /**< register mask for allowed bits */
+/**
+ * @brief format for CLRPEND bits
+ *
+ * @param interrupt interrupt to clear pending status
+ * @return formatted ICPR register
+ */
+constexpr inline std::uint32_t CLRPEND(std::uint32_t interrupt) {
+  return 1 << interrupt;
 }
+}  // namespace ICPR
 namespace IP {
-constexpr inline std::uint32_t RESERVED_MASK = 0x00000000; /**< register mask for allowed bits */
-}
+constexpr inline std::uint32_t RESERVED_MASK = 0xC0C0C0C0; /**< register mask for allowed bits */
+constexpr inline std::uint32_t IPR(std::uint32_t interrupt, std::uint32_t priority) {}
+}  // namespace IP
 
 }  // namespace nvic
 }  // namespace hw
