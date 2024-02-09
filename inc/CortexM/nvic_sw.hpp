@@ -31,8 +31,38 @@ struct nvic {
   }
   /**
    * @brief Setup nvic
+   *
+   * Nothing to setup here
    */
   constexpr void init() {}
+
+  /**
+   * @brief enable interrupt in nvic
+   *
+   * @param interrupt interrupt number
+   */
+  constexpr void enable(libMcuLL::hw::interrupts interrupt) {
+    std::int32_t number = static_cast<std::uint32_t>(interrupt);
+    if (number >= 0) {
+      std::uint32_t index = static_cast<std::uint32_t>(number) >> 5;
+      std::uint32_t bitIndex = static_cast<std::uint32_t>(number) & 0x1F;
+      peripheral()->ISER[index] = ISER::SETENA(bitIndex);
+    }
+  }
+
+  /**
+   * @brief disable interrupt in nvic
+   *
+   * @param interrupt interrupt number
+   */
+  constexpr void disable(libMcuLL::hw::interrupts interrupt) {
+    std::int32_t number = static_cast<std::uint32_t>(interrupt);
+    if (number >= 0) {
+      std::uint32_t index = static_cast<std::uint32_t>(number) >> 5;
+      std::uint32_t bitIndex = static_cast<std::uint32_t>(number) & 0x1F;
+      peripheral()->ICER[index] = ICER::CLRENA(bitIndex);
+    }
+  }
 
   static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
 };

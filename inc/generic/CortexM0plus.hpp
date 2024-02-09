@@ -27,7 +27,7 @@ constexpr inline std::uint32_t variant = 0; /**< Type of systick */
 }  // namespace systick
 namespace nvic {
 constexpr inline std::uint32_t priorityMask = 0x3; /**< NVIC priority bit mask */
-constexpr inline std::uint32_t priorityBits = 2;   /** NVIC priority bit count */
+constexpr inline std::uint32_t priorityBits = 2;   /**< NVIC priority bit count */
 }  // namespace nvic
 
 enum class interrupts : int8_t {
@@ -37,6 +37,8 @@ enum class interrupts : int8_t {
   svCall = -5,
   pendSv = -2,
   systick = -1,
+  dummy0 = 0,   /**< used only for the tests */
+  dummy12 = 12, /**< used only for the tests */
 };
 }  // namespace hw
 }  // namespace libMcuLL
