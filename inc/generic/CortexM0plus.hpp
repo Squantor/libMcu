@@ -43,9 +43,4 @@ enum class interrupts : int8_t {
 
 #include <CortexM/cortex_m0plus.hpp>
 
-/*
-Copied orignally from the C header, the idea is to move more and more from
-C definitions to C++. Step by step, C++ bits will go below
-*/
-
 #endif

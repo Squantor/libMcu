@@ -145,7 +145,7 @@ __attribute__((always_inline)) static inline std::uint32_t ror(std::uint32_t val
  * @param value is ignored by the processor. If required, a debugger can use it to store additional information about the
  * breakpoint.
  */
-#define LIBMCULL_BKPT(value) __ASM volatile("bkpt " #value)
+#define LIBMCULL_BKPT(value) __asm volatile("bkpt " #value)
 
 }  // namespace sw
 }  // namespace libMcuLL

@@ -74,7 +74,7 @@ constexpr inline std::uint32_t CLRPEND(std::uint32_t interrupt) {
 }  // namespace ICPR
 namespace IP {
 constexpr inline std::uint32_t RESERVED_MASK = 0xC0C0C0C0; /**< register mask for allowed bits */
-constexpr inline std::uint32_t IPR(std::uint32_t interrupt, std::uint32_t priority) {}
+// constexpr inline std::uint32_t IPR(std::uint32_t interrupt, std::uint32_t priority) {} // TODO
 }  // namespace IP
 
 }  // namespace nvic
