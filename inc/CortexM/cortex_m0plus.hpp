@@ -14,11 +14,11 @@ namespace libMcuLL {
 namespace hw {
 
 // core peripheral definitions
-constexpr inline libMcuLL::scsBaseAddress scsAddress{0xE000'E000u};        /**< systemcontrol space base address */
-constexpr inline libMcuLL::systickBaseAddress systickAddress{0xE000'E010}; /**< systick base address*/
-constexpr inline libMcuLL::nvicBaseAddress nvicAddress{0xE000'E100};       /**< NVIC base address */
-constexpr inline libMcuLL::scbBaseAddress scbAddress{0xE000'ED00};         /** SCB base address */
-constexpr inline libMcuLL::mpuBaseAddress mpuAddress{0xE000'ED90};         /**< MPU base address */
+constexpr inline libMcuLL::scsBaseAddress scsAddress{0xE000'E000UL};         /**< systemcontrol space base address */
+constexpr inline libMcuLL::systickBaseAddress systickAddress{0xE000'E010UL}; /**< systick base address*/
+constexpr inline libMcuLL::nvicBaseAddress nvicAddress{0xE000'E100UL};       /**< NVIC base address */
+constexpr inline libMcuLL::scbBaseAddress scbAddress{0xE000'ED00UL};         /** SCB base address */
+constexpr inline libMcuLL::mpuBaseAddress mpuAddress{0xE000'ED90UL};         /**< MPU base address */
 
 }  // namespace hw
 }  // namespace libMcuLL

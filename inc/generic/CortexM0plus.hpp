@@ -38,6 +38,7 @@ enum class interrupts : int8_t {
   pendSv = -2,
   systick = -1,
   dummy0 = 0,   /**< used only for the tests */
+  dummy1 = 1,   /**< used only for the tests */
   dummy12 = 12, /**< used only for the tests */
 };
 }  // namespace hw

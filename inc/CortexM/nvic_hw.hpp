@@ -56,8 +56,18 @@ constexpr inline std::uint32_t RESERVED_MASK = 0xFFFFFFFF; /**< register mask fo
  * @param interrupt interrupt to set to pending status
  * @return formatted ISPR register
  */
-constexpr inline std::uint32_t CLRENA(std::uint32_t interrupt) {
+constexpr inline std::uint32_t SETPEND(std::uint32_t interrupt) {
   return 1 << interrupt;
+}
+/**
+ * @brief format register value to extract pending bit
+ *
+ * @param registerValue register value from peripheral
+ * @param interrupt interrupt to check pending status
+ * @return zero for not pending, non zero for pending
+ */
+constexpr inline std::uint32_t GETPEND(std::uint32_t registerValue, std::uint32_t interrupt) {
+  return registerValue & (1 << interrupt);
 }
 }  // namespace ISPR
 namespace ICPR {
@@ -74,7 +84,18 @@ constexpr inline std::uint32_t CLRPEND(std::uint32_t interrupt) {
 }  // namespace ICPR
 namespace IP {
 constexpr inline std::uint32_t RESERVED_MASK = 0xC0C0C0C0; /**< register mask for allowed bits */
-// constexpr inline std::uint32_t IPR(std::uint32_t interrupt, std::uint32_t priority) {} // TODO
+/**
+ * @brief format for IPR
+ *
+ * @param registerValue original IP register value
+ * @param interrupt interrupt to set the priority of
+ * @param priority priority level to set
+ * @return modified IP register with the correct priority level
+ */
+constexpr inline std::uint32_t IPR(std::uint32_t registerValue, std::uint32_t interrupt, std::uint32_t priority) {
+  std::uint32_t shiftValue = (interrupt & 0x3) * 8;
+  return (registerValue & ~(0xFF << shiftValue)) | (priority << (shiftValue + (8 - libMcuLL::hw::nvic::priorityBits)));
+}
 }  // namespace IP
 
 }  // namespace nvic
