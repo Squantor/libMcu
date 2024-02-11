@@ -20,7 +20,8 @@ namespace mpu {
 constexpr inline bool present = false; /**< Presence of memory protection unit */
 }  // namespace mpu
 namespace vtor {
-constexpr inline bool present = true; /**< presence of vector relocation */
+constexpr inline bool present = true;                      /**< presence of vector relocation */
+constexpr inline std::uint32_t addressMask = 0xFFFFFF00UL; /**< VTOR bit count */
 }  // namespace vtor
 namespace systick {
 constexpr inline std::uint32_t variant = 0; /**< Type of systick */
