@@ -68,6 +68,8 @@ using i2cDeviceAddressType = typename i2cDeviceAddressBase::type;
 
 struct i2cDeviceAddress : i2cDeviceAddressBase {}; /**< General purpose I2C address type */
 
+using isrLambda = std::add_pointer<void()>::type;
+
 }  // namespace libMcuLL
 
 #endif

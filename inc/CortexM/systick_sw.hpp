@@ -72,9 +72,33 @@ struct systick {
     peripheral()->CSR = CSR::CLKSOURCE_PROC | CSR::ENABLE;
   }
 
+  constexpr void start(isrLambda lambda) {
+    callback = lambda;
+    peripheral()->CSR = CSR::CLKSOURCE_PROC | CSR::ENABLE | CSR::TICKINT;
+  }
+
   // TODO start(lambda) for callbacks when interrupts, depends on NVIC
 
+  /**
+   * @brief stop the systick peripheral
+   *
+   */
+  constexpr void stop() {
+    peripheral()->CSR = CSR::CLKSOURCE_PROC;
+  }
+
+  /**
+   * @brief call site for the systick ISR
+   *
+   * let the C style ISR call this method to make sure the callbacks get called properly
+   *
+   */
+  constexpr void isr() {
+    callback();
+  }
+
   static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
+  isrLambda callback;
 };
 }  // namespace systick
 }  // namespace sw
