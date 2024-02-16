@@ -14,16 +14,16 @@ namespace libMcuLL {
 namespace sw {
 namespace swm {
 using namespace hw::swm;
-template <libMcuLL::SWMbaseAddress address_>
+template <libMcuLL::SWMbaseAddress swmAddress_>
 struct swm {
-  static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
+  static constexpr libMcuLL::hwAddressType swmAddress = swmAddress_; /**< peripheral address */
   /**
    * @brief get registers from peripheral
    *
    * @return return pointer to registers
    */
-  static hw::swm::peripheral *regs() {
-    return reinterpret_cast<hw::swm::peripheral *>(address);
+  static hw::swm::peripheral *swmPeripheral() {
+    return reinterpret_cast<hw::swm::peripheral *>(swmAddress);
   }
 
   /**
@@ -39,11 +39,12 @@ struct swm {
     if constexpr (FUNC::type == hw::swm::pinFunctionTypes::MOVABLE) {
       // create a mask for resetting the pin setting
       constexpr std::uint32_t mask = ~(0xFF << function.shift);
-      regs()->PINASSIGN[function.index] = (regs()->PINASSIGN[function.index] & mask) | (pin.pio << function.shift);
+      swmPeripheral()->PINASSIGN[function.index] =
+        (swmPeripheral()->PINASSIGN[function.index] & mask) | (pin.pio << function.shift);
     }
     if constexpr (FUNC::type == hw::swm::pinFunctionTypes::FIXED) {
       static_assert(PIN::pio == FUNC::pio, "this function is not available on this pin!");
-      regs()->PINENABLE0 = regs()->PINENABLE0 & ~function.mask;
+      swmPeripheral()->PINENABLE0 = swmPeripheral()->PINENABLE0 & ~function.mask;
     }
   }
 
@@ -52,11 +53,11 @@ struct swm {
     if constexpr (FUNC::type == hw::swm::pinFunctionTypes::MOVABLE) {
       // create a mask for unassigning pin setting
       constexpr std::uint32_t mask = (0xFF << function.shift);
-      regs()->PINASSIGN[function.index] = (regs()->PINASSIGN[function.index] | mask);
+      swmPeripheral()->PINASSIGN[function.index] = (swmPeripheral()->PINASSIGN[function.index] | mask);
     }
     if constexpr (FUNC::type == hw::swm::pinFunctionTypes::FIXED) {
       static_assert(PIN::pio == FUNC::pio, "this function is not available on this pin!");
-      regs()->PINENABLE0 = regs()->PINENABLE0 | function.mask;
+      swmPeripheral()->PINENABLE0 = swmPeripheral()->PINENABLE0 | function.mask;
     }
   }
 
@@ -66,7 +67,7 @@ struct swm {
    * @param pinMask bit pattern of fixed functions
    */
   constexpr void enableFixedPins(std::uint32_t pinMask) {
-    regs()->PINENABLE0 = regs()->PINENABLE0 & ~pinMask;
+    swmPeripheral()->PINENABLE0 = swmPeripheral()->PINENABLE0 & ~pinMask;
   }
 
   /**
@@ -75,7 +76,7 @@ struct swm {
    * @param pinMask bit pattern of fixed functions
    */
   constexpr void disableFixedPins(std::uint32_t pinMask) {
-    regs()->PINENABLE0 = regs()->PINENABLE0 | pinMask;
+    swmPeripheral()->PINENABLE0 = swmPeripheral()->PINENABLE0 | pinMask;
   }
 };
 }  // namespace swm

@@ -75,7 +75,7 @@ enum class ladderReferenceSetting : std::uint32_t {
   VDDCMP = LAD::LADREF_VDDCMP, /**< ladder reference is VDDCMP pin */
 };
 
-template <libMcuLL::ACMPbaseAddress const& address_>
+template <libMcuLL::ACMPbaseAddress const& acmpAddress_>
 struct acmp {
   /**
    * @brief Construct a new acmp object
@@ -88,8 +88,8 @@ struct acmp {
    *
    * @return return pointer to analog comparator registers
    */
-  static hw::acmp::peripheral* peripheral() {
-    return reinterpret_cast<hw::acmp::peripheral*>(address);
+  static hw::acmp::peripheral* acmpPeripheral() {
+    return reinterpret_cast<hw::acmp::peripheral*>(acmpAddress);
   }
   /**
    * @brief Setup analog comparator
@@ -102,9 +102,9 @@ struct acmp {
    */
   constexpr void init(inputPositiveSettings inPlus, inputNegativeSettings inNeg, edgeDetectSettings edges,
                       outputControlSettings output, hysteresisSettings hysteresis) {
-    peripheral()->CTRL = static_cast<std::uint32_t>(inPlus) | static_cast<std::uint32_t>(inNeg) |
-                         static_cast<std::uint32_t>(output) | static_cast<std::uint32_t>(edges) |
-                         static_cast<std::uint32_t>(hysteresis);
+    acmpPeripheral()->CTRL = static_cast<std::uint32_t>(inPlus) | static_cast<std::uint32_t>(inNeg) |
+                             static_cast<std::uint32_t>(output) | static_cast<std::uint32_t>(edges) |
+                             static_cast<std::uint32_t>(hysteresis);
     clearEdgeDetector();
   }
 
@@ -120,10 +120,10 @@ struct acmp {
    */
   constexpr void init(inputPositiveSettings inPlus, inputNegativeSettings inNeg, edgeDetectSettings edges,
                       outputControlSettings output, hysteresisSettings hysteresis, ladderReferenceSetting ladderReference) {
-    peripheral()->CTRL = static_cast<std::uint32_t>(inPlus) | static_cast<std::uint32_t>(inNeg) |
-                         static_cast<std::uint32_t>(output) | static_cast<std::uint32_t>(edges) |
-                         static_cast<std::uint32_t>(hysteresis);
-    peripheral()->LAD = LAD::LADEN | static_cast<std::uint32_t>(ladderReference);
+    acmpPeripheral()->CTRL = static_cast<std::uint32_t>(inPlus) | static_cast<std::uint32_t>(inNeg) |
+                             static_cast<std::uint32_t>(output) | static_cast<std::uint32_t>(edges) |
+                             static_cast<std::uint32_t>(hysteresis);
+    acmpPeripheral()->LAD = LAD::LADEN | static_cast<std::uint32_t>(ladderReference);
     clearEdgeDetector();
   }
 
@@ -133,7 +133,7 @@ struct acmp {
    * @return zero for low, non zero for high
    */
   constexpr uint32_t comparatorOutput() {
-    return peripheral()->CTRL & CTRL::COMPSTAT_MASK;
+    return acmpPeripheral()->CTRL & CTRL::COMPSTAT_MASK;
   }
 
   /**
@@ -142,7 +142,7 @@ struct acmp {
    * @return zero for no edges detected, non zero for edge detector edges detected
    */
   constexpr uint32_t edgeOutput() {
-    std::uint32_t status = peripheral()->CTRL & CTRL::COMPEDGE_MASK;
+    std::uint32_t status = acmpPeripheral()->CTRL & CTRL::COMPEDGE_MASK;
     if (status == 0)
       return status;
     clearEdgeDetector();
@@ -155,7 +155,7 @@ struct acmp {
    * @param value resistor ladder setting
    */
   constexpr void setLadder(uint32_t value) {
-    peripheral()->LAD = (peripheral()->LAD & ~LAD::LADSEL_MASK) | LAD::LADSEL(value);
+    acmpPeripheral()->LAD = (acmpPeripheral()->LAD & ~LAD::LADSEL_MASK) | LAD::LADSEL(value);
   }
 
   /**
@@ -163,11 +163,11 @@ struct acmp {
    *
    */
   constexpr void clearEdgeDetector() {
-    peripheral()->CTRL = peripheral()->CTRL | CTRL::EDGECLR;
-    peripheral()->CTRL = peripheral()->CTRL & ~CTRL::EDGECLR;
+    acmpPeripheral()->CTRL = acmpPeripheral()->CTRL | CTRL::EDGECLR;
+    acmpPeripheral()->CTRL = acmpPeripheral()->CTRL & ~CTRL::EDGECLR;
   }
 
-  static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
+  static constexpr libMcuLL::hwAddressType acmpAddress = acmpAddress_; /**< peripheral address */
 };
 }  // namespace acmp
 }  // namespace sw

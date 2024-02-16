@@ -29,10 +29,10 @@ using namespace hw::usart;
 /**
  * @brief Asynchronous USART peripheral instance
  *
- * @tparam address_ Peripheral base address
+ * @tparam usartAddress_ Peripheral base address
  * @tparam transferType datatype to use for data transfers
  */
-template <libMcuLL::USARTbaseAddress address_, typename transferType>
+template <libMcuLL::USARTbaseAddress usartAddress_, typename transferType>
 struct usartAsync {
   /**
    * @brief Construct a new usart Async object
@@ -47,8 +47,8 @@ struct usartAsync {
    *
    * @return return pointer to usart registers
    */
-  static hw::usart::peripheral *regs() {
-    return reinterpret_cast<hw::usart::peripheral *>(address);
+  static hw::usart::peripheral *usartPeripheral() {
+    return reinterpret_cast<hw::usart::peripheral *>(usartAddress);
   }
 
   /**
@@ -59,8 +59,8 @@ struct usartAsync {
    */
   std::uint32_t init(std::uint32_t baudRate) {
     std::uint32_t baudDivider = CLOCK_MAIN / (baudRate * 16);
-    regs()->BRG = baudDivider;
-    regs()->CFG = CFG::ENABLE | uartLength::SIZE_8 | uartParity::NONE | uartStop::STOP_1;
+    usartPeripheral()->BRG = baudDivider;
+    usartPeripheral()->CFG = CFG::ENABLE | uartLength::SIZE_8 | uartParity::NONE | uartStop::STOP_1;
     return CLOCK_MAIN / 16 / baudDivider;
   }
 
@@ -75,8 +75,8 @@ struct usartAsync {
    */
   std::uint32_t init(std::uint32_t baudRate, uartLength lengthBits, uartParity parity, uartStop stopBits) {
     std::uint32_t baudDivider = CLOCK_MAIN / (baudRate * 16);
-    regs()->BRG = baudDivider;
-    regs()->CFG = CFG::ENABLE | lengthBits | parity | stopBits;
+    usartPeripheral()->BRG = baudDivider;
+    usartPeripheral()->CFG = CFG::ENABLE | lengthBits | parity | stopBits;
     return CLOCK_MAIN / 16 / baudDivider;
   }
 
@@ -164,8 +164,8 @@ struct usartAsync {
     if (transactionReadState != detail::synchonousStates::TRANSACTING) {
       return libMcuLL::results::ERROR;
     }
-    if (regs()->STAT & STAT::RXRDY) {
-      transactionReadData[transactionReadIndex] = static_cast<transferType>(regs()->RXDAT);
+    if (usartPeripheral()->STAT & STAT::RXRDY) {
+      transactionReadData[transactionReadIndex] = static_cast<transferType>(usartPeripheral()->RXDAT);
       transactionReadIndex++;
       if (transactionReadData.size() == transactionReadIndex) {
         transactionReadState = detail::synchonousStates::CLAIMED;
@@ -186,10 +186,10 @@ struct usartAsync {
     if (transactionWriteState != detail::synchonousStates::TRANSACTING) {
       return libMcuLL::results::ERROR;
     }
-    std::uint32_t status = regs()->STAT;
+    std::uint32_t status = usartPeripheral()->STAT;
     if (status & STAT::TXRDY) {
       if (transactionWriteData.size() > transactionWriteIndex) {
-        regs()->TXDAT = static_cast<std::uint32_t>(transactionWriteData[transactionWriteIndex]);
+        usartPeripheral()->TXDAT = static_cast<std::uint32_t>(transactionWriteData[transactionWriteIndex]);
         transactionWriteIndex++;
       } else {
         if (status & STAT::TXIDLE) {
@@ -202,13 +202,13 @@ struct usartAsync {
   }
 
  private:
-  static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
-  detail::synchonousStates transactionWriteState;              /**< usart write transaction state */
-  detail::synchonousStates transactionReadState;               /**< usart read transaction state */
-  std::size_t transactionWriteIndex;                           /**< transaction write buffer index */
-  std::size_t transactionReadIndex;                            /**< transaction read buffer index */
-  std::span<transferType> transactionWriteData;                /**< data to write */
-  std::span<transferType> transactionReadData;                 /**< where to put read data in */
+  static constexpr libMcuLL::hwAddressType usartAddress = usartAddress_; /**< peripheral address */
+  detail::synchonousStates transactionWriteState;                        /**< usart write transaction state */
+  detail::synchonousStates transactionReadState;                         /**< usart read transaction state */
+  std::size_t transactionWriteIndex;                                     /**< transaction write buffer index */
+  std::size_t transactionReadIndex;                                      /**< transaction read buffer index */
+  std::span<transferType> transactionWriteData;                          /**< data to write */
+  std::span<transferType> transactionReadData;                           /**< where to put read data in */
 };
 }  // namespace usart
 }  // namespace sw

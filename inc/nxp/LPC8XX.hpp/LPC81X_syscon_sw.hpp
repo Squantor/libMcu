@@ -115,16 +115,16 @@ enum peripheralPowers : std::uint32_t {
   POWER_ACMP = (1 << 15),  /**< Analog comparator*/
 };
 
-template <libMcuLL::SYSCONbaseAddress address_>
+template <libMcuLL::SYSCONbaseAddress sysconAddress_>
 struct syscon {
-  static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
+  static constexpr libMcuLL::hwAddressType sysconAddress = sysconAddress_; /**< peripheral address */
   /**
    * @brief get registers from peripheral
    *
    * @return return pointer to syscon registers
    */
-  static hw::syscon::peripheral *regs() {
-    return reinterpret_cast<hw::syscon::peripheral *>(address);
+  static hw::syscon::peripheral *sysconPeripheral() {
+    return reinterpret_cast<hw::syscon::peripheral *>(sysconAddress);
   }
 
   /**
@@ -133,8 +133,8 @@ struct syscon {
    * @param setting bit setting from peripheralResets enum
    */
   void resetPeripherals(std::uint32_t setting) {
-    regs()->PRESETCTRL = regs()->PRESETCTRL & ~setting;
-    regs()->PRESETCTRL = regs()->PRESETCTRL | setting;
+    sysconPeripheral()->PRESETCTRL = sysconPeripheral()->PRESETCTRL & ~setting;
+    sysconPeripheral()->PRESETCTRL = sysconPeripheral()->PRESETCTRL | setting;
   }
 
   /**
@@ -144,7 +144,7 @@ struct syscon {
    * @param psel Post divider ratio, acceptable values in pllPostDivider enum
    */
   void setSystemPllControl(std::uint32_t msel, pllPostDivider psel) {
-    regs()->SYSPLLCTRL = SYSPLLCTRL::MSEL(msel) | static_cast<std::uint32_t>(psel);
+    sysconPeripheral()->SYSPLLCTRL = SYSPLLCTRL::MSEL(msel) | static_cast<std::uint32_t>(psel);
   }
 
   /**
@@ -153,7 +153,7 @@ struct syscon {
    * @return 0 PLL not locked, 1 PLL locked
    */
   std::uint32_t getSystemPllStatus(void) {
-    return regs()->SYSPLLSTAT;
+    return sysconPeripheral()->SYSPLLSTAT;
   }
 
   /**
@@ -162,7 +162,7 @@ struct syscon {
    * @param setting set register see registers::syscon::SYSOSCCTRL
    */
   void setSysOscControl(std::uint32_t setting) {
-    regs()->SYSOSCCTRL = setting;
+    sysconPeripheral()->SYSOSCCTRL = setting;
   }
 
   /**
@@ -171,9 +171,9 @@ struct syscon {
    * @param   source      Clock source of the PLL
    */
   void selectPllClock(pllClockSources setting) {
-    regs()->SYSPLLCLKSEL = static_cast<std::uint32_t>(setting);
-    regs()->SYSPLLCLKUEN = SYSPLLCLKUEN::NO_CHANGE;
-    regs()->SYSPLLCLKUEN = SYSPLLCLKUEN::UPDATE;
+    sysconPeripheral()->SYSPLLCLKSEL = static_cast<std::uint32_t>(setting);
+    sysconPeripheral()->SYSPLLCLKUEN = SYSPLLCLKUEN::NO_CHANGE;
+    sysconPeripheral()->SYSPLLCLKUEN = SYSPLLCLKUEN::UPDATE;
   }
 
   /**
@@ -182,9 +182,9 @@ struct syscon {
    * @param setting clock source from mainClockSources enum
    */
   void selectMainClock(mainClockSources setting) {
-    regs()->MAINCLKSEL = static_cast<std::uint32_t>(setting);
-    regs()->MAINCLKUEN = MAINCLKUEN::NO_CHANGE;
-    regs()->MAINCLKUEN = MAINCLKUEN::UPDATE;
+    sysconPeripheral()->MAINCLKSEL = static_cast<std::uint32_t>(setting);
+    sysconPeripheral()->MAINCLKUEN = MAINCLKUEN::NO_CHANGE;
+    sysconPeripheral()->MAINCLKUEN = MAINCLKUEN::UPDATE;
   }
   /**
    * @brief Set the System Clock Divider
@@ -192,7 +192,7 @@ struct syscon {
    * @param setting divison factor, 0 is disable, 1 is 1, the maximum is 255
    */
   void setSystemClockDivider(std::uint32_t setting) {
-    regs()->SYSAHBCLKDIV = SYSAHBCLKDIV::DIV(setting);
+    sysconPeripheral()->SYSAHBCLKDIV = SYSAHBCLKDIV::DIV(setting);
   }
 
   /**
@@ -201,7 +201,7 @@ struct syscon {
    * @param setting bit setting from peripheralClocks
    */
   void enablePeripheralClocks(std::uint32_t setting) {
-    regs()->SYSAHBCLKCTRL = regs()->SYSAHBCLKCTRL | (SYSAHBCLKCTRL::RESERVED_MASK & setting);
+    sysconPeripheral()->SYSAHBCLKCTRL = sysconPeripheral()->SYSAHBCLKCTRL | (SYSAHBCLKCTRL::RESERVED_MASK & setting);
   }
 
   /**
@@ -210,11 +210,11 @@ struct syscon {
    * @param setting bit setting from peripheralClocks
    */
   void disablePeripheralClocks(std::uint32_t setting) {
-    regs()->SYSAHBCLKCTRL = regs()->SYSAHBCLKCTRL & ~(SYSAHBCLKCTRL::RESERVED_MASK & setting);
+    sysconPeripheral()->SYSAHBCLKCTRL = sysconPeripheral()->SYSAHBCLKCTRL & ~(SYSAHBCLKCTRL::RESERVED_MASK & setting);
   }
 
   void setUsartClockDivider(std::uint32_t setting) {
-    regs()->UARTCLKDIV = UARTCLKDIV::RESERVED_MASK & setting;
+    sysconPeripheral()->UARTCLKDIV = UARTCLKDIV::RESERVED_MASK & setting;
   }
 
   /**
@@ -223,7 +223,7 @@ struct syscon {
    * @param setting bit setting from peripheralPowers enum
    */
   void powerPeripherals(std::uint32_t setting) {
-    regs()->PDRUNCFG = regs()->PDRUNCFG & ~(PDRUNCFG::RESERVED_MASK & setting);
+    sysconPeripheral()->PDRUNCFG = sysconPeripheral()->PDRUNCFG & ~(PDRUNCFG::RESERVED_MASK & setting);
   }
 
   /**
@@ -232,7 +232,7 @@ struct syscon {
    * @param setting bit setting from peripheralPowers enum
    */
   void depowerPeripherals(std::uint32_t setting) {
-    regs()->PDRUNCFG = regs()->PDRUNCFG | (PDRUNCFG::RESERVED_MASK & setting);
+    sysconPeripheral()->PDRUNCFG = sysconPeripheral()->PDRUNCFG | (PDRUNCFG::RESERVED_MASK & setting);
   }
 
   /**
@@ -247,7 +247,7 @@ struct syscon {
    * @return 0x00008122 is returned for LPC812M101JTB16
    */
   std::uint32_t getChipId(void) {
-    return regs()->DEVICEID;
+    return sysconPeripheral()->DEVICEID;
   }
 };
 }  // namespace syscon

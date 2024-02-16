@@ -45,10 +45,10 @@ inline std::uint32_t operator^(std::uint32_t a, spiChipEnables b) {
  * @tparam base
  * @tparam chipEnables
  */
-template <std::uint32_t base, typename chipEnables>
+template <std::uint32_t spiAddress, typename chipEnables>
 struct spi {
-  static auto regs() {
-    return reinterpret_cast<registers::spi::registers*>(base);
+  static auto spiPeripheral() {
+    return reinterpret_cast<registers::spi::registers*>(spiAddress);
   }
 
   /**
@@ -61,7 +61,7 @@ struct spi {
    */
   std::uint32_t init(std::uint32_t bitRate) {
     std::uint32_t actualBitRate = setBitRate(bitRate);
-    regs()->CFG = CFG::ENABLE | CFG::MASTER;
+    spiPeripheral()->CFG = CFG::ENABLE | CFG::MASTER;
     return actualBitRate;
   }
 
@@ -76,7 +76,7 @@ struct spi {
   std::uint32_t setBitRate(std::uint32_t bitRate) {
     // compute divider
     std::uint32_t divider = CLOCK_AHB / bitRate;
-    regs()->DIV = divider - 1; /**< Divider value is -1 encoded as per datasheet */
+    spiPeripheral()->DIV = divider - 1; /**< Divider value is -1 encoded as per datasheet */
     return CLOCK_AHB / divider;
   }
   /**
@@ -91,8 +91,8 @@ struct spi {
     size_t index = 0;
     std::uint32_t baseTransferCommand = (0x000F0000u ^ device) | TXDATCTL::RXIGNORE;  // base transfer command with presets
     while (bitcount > 16) {
-      regs()->TXDATCTL = baseTransferCommand | TXDATCTL::TXDAT(transmitBuffer[index]) | TXDATCTL::LEN(16);
-      while ((regs()->STAT & STAT::TXRDY) == 0)
+      spiPeripheral()->TXDATCTL = baseTransferCommand | TXDATCTL::TXDAT(transmitBuffer[index]) | TXDATCTL::LEN(16);
+      while ((spiPeripheral()->STAT & STAT::TXRDY) == 0)
         ;
       bitcount -= 16;
       index++;
@@ -100,8 +100,8 @@ struct spi {
     // process remainder
     if (lastAction)
       baseTransferCommand |= TXDATCTL::EOT;
-    regs()->TXDATCTL = baseTransferCommand | TXDATCTL::TXDAT(transmitBuffer[index]) | TXDATCTL::LEN(bitcount);
-    while ((regs()->STAT & STAT::TXRDY) == 0)
+    spiPeripheral()->TXDATCTL = baseTransferCommand | TXDATCTL::TXDAT(transmitBuffer[index]) | TXDATCTL::LEN(bitcount);
+    while ((spiPeripheral()->STAT & STAT::TXRDY) == 0)
       ;
   }
   /**
@@ -116,20 +116,20 @@ struct spi {
     size_t index = 0;
     std::uint32_t baseTransferCommand = 0x000F0000u ^ device;  // base transfer command with presets
     while (bitcount > 16) {
-      regs()->TXDATCTL = baseTransferCommand | TXDATCTL::LEN(16);
-      while ((regs()->STAT & STAT::RXRDY) == 0)
+      spiPeripheral()->TXDATCTL = baseTransferCommand | TXDATCTL::LEN(16);
+      while ((spiPeripheral()->STAT & STAT::RXRDY) == 0)
         ;
-      receiveBuffer[index] = RXDAT::RXDAT(regs()->RXDAT);
+      receiveBuffer[index] = RXDAT::RXDAT(spiPeripheral()->RXDAT);
       bitcount -= 16;
       index++;
     }
     // process remainder
     if (lastAction)
       baseTransferCommand |= TXDATCTL::EOT;
-    regs()->TXDATCTL = baseTransferCommand | TXDATCTL::LEN(bitcount);
-    while ((regs()->STAT & STAT::RXRDY) == 0)
+    spiPeripheral()->TXDATCTL = baseTransferCommand | TXDATCTL::LEN(bitcount);
+    while ((spiPeripheral()->STAT & STAT::RXRDY) == 0)
       ;
-    receiveBuffer[index] = RXDAT::RXDAT(regs()->RXDAT);
+    receiveBuffer[index] = RXDAT::RXDAT(spiPeripheral()->RXDAT);
   }
   /**
    * @brief Transmit and recieve data via SPI
@@ -145,20 +145,20 @@ struct spi {
     size_t index = 0;
     std::uint32_t baseTransferCommand = 0x000F0000u ^ device;  // base transfer command with presets
     while (bitcount > 16) {
-      regs()->TXDATCTL = baseTransferCommand | TXDATCTL::TXDAT(transmitBuffer[index]) | TXDATCTL::LEN(16);
-      while ((regs()->STAT & STAT::RXRDY) == 0)
+      spiPeripheral()->TXDATCTL = baseTransferCommand | TXDATCTL::TXDAT(transmitBuffer[index]) | TXDATCTL::LEN(16);
+      while ((spiPeripheral()->STAT & STAT::RXRDY) == 0)
         ;
-      receiveBuffer[index] = RXDAT::RXDAT(regs()->RXDAT);
+      receiveBuffer[index] = RXDAT::RXDAT(spiPeripheral()->RXDAT);
       bitcount -= 16;
       index++;
     }
     // process remainder
     if (lastAction)
       baseTransferCommand |= TXDATCTL::EOT;
-    regs()->TXDATCTL = baseTransferCommand | TXDATCTL::TXDAT(transmitBuffer[index]) | TXDATCTL::LEN(bitcount);
-    while ((regs()->STAT & STAT::RXRDY) == 0)
+    spiPeripheral()->TXDATCTL = baseTransferCommand | TXDATCTL::TXDAT(transmitBuffer[index]) | TXDATCTL::LEN(bitcount);
+    while ((spiPeripheral()->STAT & STAT::RXRDY) == 0)
       ;
-    receiveBuffer[index] = RXDAT::RXDAT(regs()->RXDAT);
+    receiveBuffer[index] = RXDAT::RXDAT(spiPeripheral()->RXDAT);
   }
 };
 }  // namespace spi

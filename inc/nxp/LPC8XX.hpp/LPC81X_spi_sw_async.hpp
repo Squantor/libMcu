@@ -32,11 +32,11 @@ using namespace hw::spi;
 /**
  * @brief Asynchronous SPI peripheral instance
  *
- * @tparam address_ Peripheral base address
+ * @tparam spiAddress_ Peripheral base address
  * @tparam chipEnables enum of available chip enables
  * @tparam transferType datatype to use for data transfers
  */
-template <libMcuLL::SPIbaseAddress address_, typename chipEnables, typename transferType>
+template <libMcuLL::SPIbaseAddress spiAddress_, typename chipEnables, typename transferType>
 struct spiAsync {
   /**
    * @brief Construct a new spi Async object
@@ -51,8 +51,8 @@ struct spiAsync {
    *
    * @return return pointer to spi registers
    */
-  static hw::spi::peripheral *regs() {
-    return reinterpret_cast<hw::spi::peripheral *>(address);
+  static hw::spi::peripheral *spiPeripheral() {
+    return reinterpret_cast<hw::spi::peripheral *>(spiAddress);
   }
 
   /**
@@ -66,7 +66,7 @@ struct spiAsync {
    */
   std::uint32_t initMaster(std::uint32_t bitRate) {
     std::uint32_t actualBitRate = setBitRate(bitRate);
-    regs()->CFG = CFG::ENABLE | CFG::MASTER;
+    spiPeripheral()->CFG = CFG::ENABLE | CFG::MASTER;
     return actualBitRate;
   }
 
@@ -83,7 +83,7 @@ struct spiAsync {
    */
   std::uint32_t initMaster(std::uint32_t bitRate, waveforms waveform, slavePolaritySelects polarity) {
     std::uint32_t actualBitRate = setBitRate(bitRate);
-    regs()->CFG = CFG::ENABLE | CFG::MASTER | static_cast<std::uint32_t>(waveform) | static_cast<std::uint32_t>(polarity);
+    spiPeripheral()->CFG = CFG::ENABLE | CFG::MASTER | static_cast<std::uint32_t>(waveform) | static_cast<std::uint32_t>(polarity);
     return actualBitRate;
   }
 
@@ -98,7 +98,7 @@ struct spiAsync {
   std::uint32_t setBitRate(std::uint32_t bitRate) {
     // compute divider and truncate so we can observe a possible round off
     std::uint16_t divider = static_cast<std::uint16_t>(CLOCK_AHB / bitRate);
-    regs()->DIV = DIV::DIVVAL(divider);
+    spiPeripheral()->DIV = DIV::DIVVAL(divider);
     return CLOCK_AHB / divider;
   }
 
@@ -256,13 +256,13 @@ struct spiAsync {
    * @retval libMcuLL::results::BUSY when interface is busy or still some data to be read remains
    */
   libMcuLL::results progressPartialRead(void) {
-    if ((regs()->STAT & STAT::RXRDY) != 0) {
+    if ((spiPeripheral()->STAT & STAT::RXRDY) != 0) {
       if (transactionReadBits > elementBitCnt) {
-        transactionReadData[transactionReadIndex] = RXDAT::RXDAT(regs()->RXDAT);
+        transactionReadData[transactionReadIndex] = RXDAT::RXDAT(spiPeripheral()->RXDAT);
         transactionReadBits -= elementBitCnt;
         transactionReadIndex++;
       } else if (transactionReadBits > 0) {
-        transactionReadData[transactionReadIndex] = RXDAT::RXDAT(regs()->RXDAT);
+        transactionReadData[transactionReadIndex] = RXDAT::RXDAT(spiPeripheral()->RXDAT);
         transactionState = detail::synchonousStates::CLAIMED;
         transactionReadBits = 0;
         return libMcuLL::results::DONE;
@@ -280,15 +280,16 @@ struct spiAsync {
    * @retval libMcuLL::results::BUSY when interface is busy or still some data remains
    */
   libMcuLL::results progressPartialWrite(std::uint32_t transferCommand, transferType data) {
-    if (((regs()->STAT & STAT::TXRDY) != 0)) {
+    if (((spiPeripheral()->STAT & STAT::TXRDY) != 0)) {
       if (transactionWriteBits > elementBitCnt) {
-        regs()->TXDATCTL = transferCommand | TXDATCTL::TXDAT(static_cast<uint16_t>(data)) | TXDATCTL::LEN(elementBitCnt);
+        spiPeripheral()->TXDATCTL = transferCommand | TXDATCTL::TXDAT(static_cast<uint16_t>(data)) | TXDATCTL::LEN(elementBitCnt);
         transactionWriteBits -= elementBitCnt;
         transactionWriteIndex++;
       } else if (transactionWriteBits > 0) {
         if (transactionDisableDevice)
           transferCommand |= TXDATCTL::EOT;
-        regs()->TXDATCTL = transferCommand | TXDATCTL::TXDAT(static_cast<uint16_t>(data)) | TXDATCTL::LEN(transactionWriteBits);
+        spiPeripheral()->TXDATCTL =
+          transferCommand | TXDATCTL::TXDAT(static_cast<uint16_t>(data)) | TXDATCTL::LEN(transactionWriteBits);
         transactionWriteBits = 0;  // reset to zero so any further calls while TX is ready will cause no data written
         return libMcuLL::results::DONE;
       }
@@ -327,16 +328,16 @@ struct spiAsync {
       return writeResult;
   }
 
-  static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
-  detail::synchonousStates transactionState;                   /**< spi transaction state */
-  std::size_t transactionWriteIndex;                           /**< transaction write buffer index */
-  std::size_t transactionReadIndex;                            /**< transaction read buffer index */
-  std::span<transferType> transactionWriteData;                /**< data to write */
-  std::span<transferType> transactionReadData;                 /**< where to put read data in */
-  std::uint32_t transactionWriteBits;                          /**< Bits remaining in current transaction */
-  std::uint32_t transactionReadBits;                           /**< Bits remaining in current transaction */
-  chipEnables transactionDeviceEnable;                         /**< Disable chip after transaction */
-  bool transactionDisableDevice;                               /**< Do we disable chip select after transaction */
+  static constexpr libMcuLL::hwAddressType spiAddress = spiAddress_; /**< peripheral address */
+  detail::synchonousStates transactionState;                         /**< spi transaction state */
+  std::size_t transactionWriteIndex;                                 /**< transaction write buffer index */
+  std::size_t transactionReadIndex;                                  /**< transaction read buffer index */
+  std::span<transferType> transactionWriteData;                      /**< data to write */
+  std::span<transferType> transactionReadData;                       /**< where to put read data in */
+  std::uint32_t transactionWriteBits;                                /**< Bits remaining in current transaction */
+  std::uint32_t transactionReadBits;                                 /**< Bits remaining in current transaction */
+  chipEnables transactionDeviceEnable;                               /**< Disable chip after transaction */
+  bool transactionDisableDevice;                                     /**< Do we disable chip select after transaction */
   static constexpr std::uint8_t elementBitCnt =
     std::numeric_limits<transferType>::digits; /**< Amount of bits in datatransfer type */
 };

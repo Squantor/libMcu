@@ -14,16 +14,16 @@ namespace libMcuLL {
 namespace sw {
 namespace crc {
 using namespace hw::crc;
-template <libMcuLL::CRCbaseAddress address_>
+template <libMcuLL::CRCbaseAddress crcAddress_>
 struct crc {
-  static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
+  static constexpr libMcuLL::hwAddressType crcAddress = crcAddress_; /**< peripheral address */
   /**
    * @brief get registers from peripheral
    *
    * @return return pointer to CRC registers
    */
-  static hw::crc::peripheral *peripheral() {
-    return reinterpret_cast<hw::crc::peripheral *>(address_);
+  static hw::crc::peripheral *crcPeripheral() {
+    return reinterpret_cast<hw::crc::peripheral *>(crcAddress_);
   }
 };
 }  // namespace crc

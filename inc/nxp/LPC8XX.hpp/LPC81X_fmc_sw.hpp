@@ -20,7 +20,7 @@ enum class waitstates : std::uint32_t {
   WAIT_2_CLOCK = FLASHCFG::FLASHTIM_2_CLOCK, /**< 2 clock flash waitstate, use up to 30MHz clock */
 };
 
-template <libMcuLL::FMCbaseAddress address_>
+template <libMcuLL::FMCbaseAddress fmcAddress_>
 struct fmc {
   /**
    * @brief Construct a new fmc object
@@ -33,8 +33,8 @@ struct fmc {
    *
    * @return return pointer to gpio registers
    */
-  static hw::fmc::peripheral *regs() {
-    return reinterpret_cast<hw::fmc::peripheral *>(address);
+  static hw::fmc::peripheral *fmcPeripheral() {
+    return reinterpret_cast<hw::fmc::peripheral *>(fmcAddress);
   }
 
   /**
@@ -46,12 +46,12 @@ struct fmc {
    */
   constexpr void setFlashWaitState(waitstates setting) {
     // reserved bits need to be EXACTLY written back according to datasheet
-    regs()->FLASHCFG = (regs()->FLASHCFG & ~FLASHCFG::RESERVED_MASK) | static_cast<std::uint32_t>(setting);
+    fmcPeripheral()->FLASHCFG = (fmcPeripheral()->FLASHCFG & ~FLASHCFG::RESERVED_MASK) | static_cast<std::uint32_t>(setting);
   }
 
   // TODO flash signiature generator
 
-  static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
+  static constexpr libMcuLL::hwAddressType fmcAddress = fmcAddress_; /**< peripheral address */
 };
 }  // namespace fmc
 }  // namespace sw

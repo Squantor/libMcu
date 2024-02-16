@@ -14,16 +14,16 @@ namespace libMcuLL {
 namespace sw {
 namespace mrt {
 using namespace hw::mrt;
-template <libMcuLL::MRTbaseAddress address_>
+template <libMcuLL::MRTbaseAddress const &mrtAddress_>
 struct mrt {
-  static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
+  static constexpr libMcuLL::hwAddressType mrtAddress = mrtAddress_; /**< peripheral address */
   /**
    * @brief get registers from peripheral
    *
    * @return return pointer to mrt registers
    */
-  static hw::mrt::peripheral *peripheral() {
-    return reinterpret_cast<hw::mrt::peripheral *>(address_);
+  static hw::mrt::peripheral *mrtPeripheral() {
+    return reinterpret_cast<hw::mrt::peripheral *>(mrtAddress);
   }
 };
 }  // namespace mrt

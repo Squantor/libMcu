@@ -14,16 +14,16 @@ namespace libMcuLL {
 namespace sw {
 namespace wkt {
 using namespace hw::wkt;
-template <libMcuLL::WKTbaseAddress address_>
+template <libMcuLL::WKTbaseAddress wktAddress_>
 struct wkt {
-  static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
+  static constexpr libMcuLL::hwAddressType wktAddress = wktAddress_; /**< peripheral address */
   /**
    * @brief get registers from peripheral
    *
    * @return return pointer to wkt registers
    */
-  static hw::wkt::peripheral *regs() {
-    return reinterpret_cast<hw::wkt::peripheral *>(address_);
+  static hw::wkt::peripheral *wktPeripheral() {
+    return reinterpret_cast<hw::wkt::peripheral *>(wktAddress);
   }
 };
 }  // namespace wkt

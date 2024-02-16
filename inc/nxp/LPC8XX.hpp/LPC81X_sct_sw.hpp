@@ -104,7 +104,7 @@ enum captureCondition : std::uint32_t {
   CAPTURE_HIGH = EV_CTRL::IOCOND_HIGH, /**< Capture high levels */
 };
 
-template <libMcuLL::SCTbaseAddress address_>
+template <libMcuLL::SCTbaseAddress const &sctAddress_>
 struct sct {
   /**
    * @brief Construct a new sct object
@@ -116,8 +116,8 @@ struct sct {
    *
    * @return return pointer to state configurable timer registers
    */
-  constexpr static hw::sct::peripheral *regs() {
-    return reinterpret_cast<hw::sct::peripheral *>(address);
+  constexpr static hw::sct::peripheral *sctPeripheral() {
+    return reinterpret_cast<hw::sct::peripheral *>(sctAddress);
   }
 
   /**
@@ -130,13 +130,13 @@ struct sct {
    * @param prescale prescale for unified timer
    */
   constexpr void init(std::uint32_t prescale, countingMode countMode) {
-    regs()->CONFIG = CONFIG::UNIFY_ON | CONFIG::AUTOLIMIT_L;
+    sctPeripheral()->CONFIG = CONFIG::UNIFY_ON | CONFIG::AUTOLIMIT_L;
     // TODO configure match 0 register as match register as we autolimit on match 0
-    regs()->COUNT = 0x00000000u;
+    sctPeripheral()->COUNT = 0x00000000u;
     if (countMode == BIDIRECTIONAL)
-      regs()->CTRL = CTRL::HALT_L | CTRL::CLRCTR_L | CTRL::PRE_L(prescale) | CTRL::BIDIR_L;
+      sctPeripheral()->CTRL = CTRL::HALT_L | CTRL::CLRCTR_L | CTRL::PRE_L(prescale) | CTRL::BIDIR_L;
     else
-      regs()->CTRL = CTRL::HALT_L | CTRL::CLRCTR_L | CTRL::PRE_L(prescale);
+      sctPeripheral()->CTRL = CTRL::HALT_L | CTRL::CLRCTR_L | CTRL::PRE_L(prescale);
   }
 
   // TODO: init(mode, prescale, inputpin)
@@ -147,7 +147,7 @@ struct sct {
    *
    */
   constexpr void start() {
-    regs()->CTRL = regs()->CTRL & ~(CTRL::HALT_L);
+    sctPeripheral()->CTRL = sctPeripheral()->CTRL & ~(CTRL::HALT_L);
   }
 
   /**
@@ -155,7 +155,7 @@ struct sct {
    *
    */
   constexpr void halt() {
-    regs()->CTRL = regs()->CTRL | (CTRL::HALT_L);
+    sctPeripheral()->CTRL = sctPeripheral()->CTRL | (CTRL::HALT_L);
   }
 
   /**
@@ -164,7 +164,7 @@ struct sct {
    * @return current count value
    */
   constexpr std::uint32_t counter() {
-    return regs()->COUNT;
+    return sctPeripheral()->COUNT;
   }
 
   /**
@@ -177,8 +177,8 @@ struct sct {
    */
   void setMatch(matchNumber match, std::uint32_t value) {
     size_t matchIndex = static_cast<std::size_t>(match);
-    regs()->MATCH[matchIndex].U = value;
-    regs()->MATCHREL[matchIndex].U = value;
+    sctPeripheral()->MATCH[matchIndex].U = value;
+    sctPeripheral()->MATCHREL[matchIndex].U = value;
   }
 
   /**
@@ -191,7 +191,7 @@ struct sct {
    */
   void setReload(matchNumber match, std::uint32_t value) {
     size_t matchIndex = static_cast<std::size_t>(match);
-    regs()->MATCHREL[matchIndex].U = value;
+    sctPeripheral()->MATCHREL[matchIndex].U = value;
   }
 
   /**
@@ -202,7 +202,7 @@ struct sct {
    */
   uint32_t getCapture(captureNumber capture) {
     size_t captureIndex = static_cast<std::size_t>(capture);
-    return regs()->CAP[captureIndex].U;
+    return sctPeripheral()->CAP[captureIndex].U;
   }
 
   /**
@@ -212,7 +212,7 @@ struct sct {
    * @return current output state
    */
   bool output(outputNumber output) {
-    uint32_t outputRegister = regs()->OUTPUT & (1 << output);
+    uint32_t outputRegister = sctPeripheral()->OUTPUT & (1 << output);
     if (outputRegister == 0)
       return false;
     else
@@ -234,16 +234,16 @@ struct sct {
     size_t matchIndex = static_cast<std::size_t>(match);
     size_t eventIndex = static_cast<std::size_t>(event);
     size_t outputIndex = static_cast<std::size_t>(output);
-    regs()->REGMODE = REGMODE::REGMOD_MAT(regs()->REGMODE, matchIndex);
-    regs()->MATCH[matchIndex].U = value;
-    regs()->MATCHREL[matchIndex].U = value;
-    regs()->EV[eventIndex].CTRL =
+    sctPeripheral()->REGMODE = REGMODE::REGMOD_MAT(sctPeripheral()->REGMODE, matchIndex);
+    sctPeripheral()->MATCH[matchIndex].U = value;
+    sctPeripheral()->MATCHREL[matchIndex].U = value;
+    sctPeripheral()->EV[eventIndex].CTRL =
       EV_CTRL::MATCHSEL(matchIndex) | EV_CTRL::OUTSEL | EV_CTRL::IOSEL(outputIndex) | EV_CTRL::COMBMODE_MATCH;
-    regs()->EV[eventIndex].STATE = EV_STATE::STATEMASK0 | EV_STATE::STATEMASK1;
-    regs()->OUTPUT = OUTPUT::OUT(regs()->OUTPUT, outputIndex, outputHigh);
-    regs()->OUT[outputIndex].CLR = OUT_CLR::CLR(eventIndex);
-    regs()->OUT[outputIndex].SET = OUT_SET::SET(eventIndex);
-    regs()->RES = RES::RES(regs()->RES, outputIndex, RES::TOGGLE);
+    sctPeripheral()->EV[eventIndex].STATE = EV_STATE::STATEMASK0 | EV_STATE::STATEMASK1;
+    sctPeripheral()->OUTPUT = OUTPUT::OUT(sctPeripheral()->OUTPUT, outputIndex, outputHigh);
+    sctPeripheral()->OUT[outputIndex].CLR = OUT_CLR::CLR(eventIndex);
+    sctPeripheral()->OUT[outputIndex].SET = OUT_SET::SET(eventIndex);
+    sctPeripheral()->RES = RES::RES(sctPeripheral()->RES, outputIndex, RES::TOGGLE);
   }
 
   /**
@@ -258,16 +258,17 @@ struct sct {
     size_t captureIndex = static_cast<std::size_t>(capture);
     size_t eventIndex = static_cast<std::size_t>(event);
     size_t inputIndex = static_cast<std::size_t>(input);
-    regs()->MATCH[captureIndex].U = 0;                                   // clear capture register via the aliased match register
-    regs()->CONFIG = regs()->CONFIG | CONFIG::INSYNC_INPUT(inputIndex);  // needs to be done for edge capture condition
-    regs()->REGMODE = REGMODE::REGMOD_CAP(regs()->REGMODE, captureIndex);
-    regs()->CAPCTRL[captureIndex].U = CAPCTRL::CAPCON_L_SET(regs()->CAPCTRL[captureIndex].U, eventIndex);
-    regs()->EV[eventIndex].CTRL = EV_CTRL::MATCHSEL(captureIndex) | EV_CTRL::INSEL | EV_CTRL::IOSEL(inputIndex) |
-                                  static_cast<std::uint32_t>(condition) | EV_CTRL::COMBMODE_IO;
-    regs()->EV[eventIndex].STATE = EV_STATE::STATEMASK0 | EV_STATE::STATEMASK1;
+    sctPeripheral()->MATCH[captureIndex].U = 0;  // clear capture register via the aliased match register
+    sctPeripheral()->CONFIG =
+      sctPeripheral()->CONFIG | CONFIG::INSYNC_INPUT(inputIndex);  // needs to be done for edge capture condition
+    sctPeripheral()->REGMODE = REGMODE::REGMOD_CAP(sctPeripheral()->REGMODE, captureIndex);
+    sctPeripheral()->CAPCTRL[captureIndex].U = CAPCTRL::CAPCON_L_SET(sctPeripheral()->CAPCTRL[captureIndex].U, eventIndex);
+    sctPeripheral()->EV[eventIndex].CTRL = EV_CTRL::MATCHSEL(captureIndex) | EV_CTRL::INSEL | EV_CTRL::IOSEL(inputIndex) |
+                                           static_cast<std::uint32_t>(condition) | EV_CTRL::COMBMODE_IO;
+    sctPeripheral()->EV[eventIndex].STATE = EV_STATE::STATEMASK0 | EV_STATE::STATEMASK1;
   }
 
-  static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
+  static constexpr libMcuLL::hwAddressType sctAddress = sctAddress_; /**< peripheral address */
 };
 }  // namespace sct
 }  // namespace sw

@@ -13,7 +13,7 @@ namespace libMcuLL {
 namespace sw {
 namespace systick {
 using namespace hw::systick;
-template <libMcuLL::systickBaseAddress const& address_>
+template <libMcuLL::systickBaseAddress const& nvicAddress_>
 struct systick {
   /**
    * @brief Construct a new systick object
@@ -26,8 +26,8 @@ struct systick {
    *
    * @return return pointer to analog comparator registers
    */
-  static hw::systick::peripheral* peripheral() {
-    return reinterpret_cast<hw::systick::peripheral*>(address);
+  static hw::systick::peripheral* nvicPeripheral() {
+    return reinterpret_cast<hw::systick::peripheral*>(nvicAddress);
   }
   /**
    * @brief setup systick peripheral
@@ -35,7 +35,7 @@ struct systick {
    * @param interval systick interval count
    */
   constexpr void init(std::uint32_t interval) {
-    peripheral()->RVR = interval;
+    nvicPeripheral()->RVR = interval;
   }
 
   /**
@@ -44,7 +44,7 @@ struct systick {
    * @param interval systick interval to put in reload register
    */
   constexpr void setReload(std::uint32_t interval) {
-    peripheral()->RVR = interval;
+    nvicPeripheral()->RVR = interval;
   }
 
   /**
@@ -53,7 +53,7 @@ struct systick {
    * @return current systick count
    */
   constexpr std::uint32_t getCount() {
-    return peripheral()->CVR;
+    return nvicPeripheral()->CVR;
   }
 
   /**
@@ -62,19 +62,19 @@ struct systick {
    * @return zero if not, non zero if so
    */
   constexpr std::uint32_t getZeroPass() {
-    return peripheral()->CSR & CSR::COUNTFLAG_MASK;
+    return nvicPeripheral()->CSR & CSR::COUNTFLAG_MASK;
   }
 
   /**
    * @brief start the systick peripheral without any interrupts
    */
   constexpr void start() {
-    peripheral()->CSR = CSR::CLKSOURCE_PROC | CSR::ENABLE;
+    nvicPeripheral()->CSR = CSR::CLKSOURCE_PROC | CSR::ENABLE;
   }
 
   constexpr void start(isrLambda lambda) {
     callback = lambda;
-    peripheral()->CSR = CSR::CLKSOURCE_PROC | CSR::ENABLE | CSR::TICKINT;
+    nvicPeripheral()->CSR = CSR::CLKSOURCE_PROC | CSR::ENABLE | CSR::TICKINT;
   }
 
   // TODO start(lambda) for callbacks when interrupts, depends on NVIC
@@ -84,7 +84,7 @@ struct systick {
    *
    */
   constexpr void stop() {
-    peripheral()->CSR = CSR::CLKSOURCE_PROC;
+    nvicPeripheral()->CSR = CSR::CLKSOURCE_PROC;
   }
 
   /**
@@ -97,7 +97,7 @@ struct systick {
     callback();
   }
 
-  static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
+  static constexpr libMcuLL::hwAddressType nvicAddress = nvicAddress_; /**< peripheral address */
   isrLambda callback;
 };
 }  // namespace systick

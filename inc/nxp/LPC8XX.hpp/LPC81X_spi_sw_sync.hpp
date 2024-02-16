@@ -21,19 +21,19 @@ using namespace hw::spi;
 /**
  * @brief synchronous SPI peripheral instance
  *
- * @tparam address_ Peripheral base address
+ * @tparam spiAddress_ Peripheral base spiAddress
  * @tparam chipEnables enum of available chip enables
  * @tparam transferType datatype to use for data transfers
  */
-template <libMcuLL::SPIbaseAddress address_, typename chipEnables, typename transferType>
+template <libMcuLL::SPIbaseAddress spiAddress_, typename chipEnables, typename transferType>
 struct spiSync {
   /**
    * @brief get registers from peripheral
    *
    * @return return pointer to spi registers
    */
-  static hw::spi::peripheral *regs() {
-    return reinterpret_cast<hw::spi::peripheral *>(address);
+  static hw::spi::peripheral *spiPeripheral() {
+    return reinterpret_cast<hw::spi::peripheral *>(spiAddress);
   }
 
   /**
@@ -47,7 +47,7 @@ struct spiSync {
    */
   std::uint32_t initMaster(std::uint32_t bitRate) {
     std::uint32_t actualBitRate = setBitRate(bitRate);
-    regs()->CFG = CFG::ENABLE | CFG::MASTER;
+    spiPeripheral()->CFG = CFG::ENABLE | CFG::MASTER;
     return actualBitRate;
   }
 
@@ -64,7 +64,7 @@ struct spiSync {
    */
   std::uint32_t initMaster(std::uint32_t bitRate, waveforms waveform, slavePolaritySelects polarity) {
     std::uint32_t actualBitRate = setBitRate(bitRate);
-    regs()->CFG = CFG::ENABLE | CFG::MASTER | static_cast<std::uint32_t>(waveform) | static_cast<std::uint32_t>(polarity);
+    spiPeripheral()->CFG = CFG::ENABLE | CFG::MASTER | static_cast<std::uint32_t>(waveform) | static_cast<std::uint32_t>(polarity);
     return actualBitRate;
   }
 
@@ -82,10 +82,10 @@ struct spiSync {
   void write(chipEnables device, const std::span<std::uint16_t> transmitBuffer, std::uint32_t bitcount, bool lastAction) {
     size_t index = 0;
     std::uint32_t address_TransferCommand =
-      TXDATCTL::TXSSEL(device) | TXDATCTL::RXIGNORE;  // address_ transfer command with presets
+      TXDATCTL::TXSSEL(device) | TXDATCTL::RXIGNORE;  // spiAddress_ transfer command with presets
     while (bitcount > 16) {
-      regs()->TXDATCTL = address_TransferCommand | TXDATCTL::TXDAT(transmitBuffer[index]) | TXDATCTL::LEN(16);
-      while ((regs()->STAT & STAT::TXRDY) == 0)
+      spiPeripheral()->TXDATCTL = address_TransferCommand | TXDATCTL::TXDAT(transmitBuffer[index]) | TXDATCTL::LEN(16);
+      while ((spiPeripheral()->STAT & STAT::TXRDY) == 0)
         ;
       bitcount -= 16;
       index++;
@@ -93,8 +93,8 @@ struct spiSync {
     // process remainder
     if (lastAction)
       address_TransferCommand |= TXDATCTL::EOT;
-    regs()->TXDATCTL = address_TransferCommand | TXDATCTL::TXDAT(transmitBuffer[index]) | TXDATCTL::LEN(bitcount);
-    while ((regs()->STAT & STAT::TXRDY) == 0)
+    spiPeripheral()->TXDATCTL = address_TransferCommand | TXDATCTL::TXDAT(transmitBuffer[index]) | TXDATCTL::LEN(bitcount);
+    while ((spiPeripheral()->STAT & STAT::TXRDY) == 0)
       ;
   }
 
@@ -111,22 +111,22 @@ struct spiSync {
    */
   void read(chipEnables device, std::span<std::uint16_t> receiveBuffer, std::uint32_t bitcount, bool lastAction) {
     size_t index = 0;
-    std::uint32_t address_TransferCommand = TXDATCTL::TXSSEL(device);  // address_ transfer command with presets
+    std::uint32_t address_TransferCommand = TXDATCTL::TXSSEL(device);  // spiAddress_ transfer command with presets
     while (bitcount > 16) {
-      regs()->TXDATCTL = address_TransferCommand | TXDATCTL::LEN(16);
-      while ((regs()->STAT & STAT::RXRDY) == 0)
+      spiPeripheral()->TXDATCTL = address_TransferCommand | TXDATCTL::LEN(16);
+      while ((spiPeripheral()->STAT & STAT::RXRDY) == 0)
         ;
-      receiveBuffer[index] = RXDAT::RXDAT(regs()->RXDAT);
+      receiveBuffer[index] = RXDAT::RXDAT(spiPeripheral()->RXDAT);
       bitcount -= 16;
       index++;
     }
     // process remainder
     if (lastAction)
       address_TransferCommand |= TXDATCTL::EOT;
-    regs()->TXDATCTL = address_TransferCommand | TXDATCTL::LEN(bitcount);
-    while ((regs()->STAT & STAT::RXRDY) == 0)
+    spiPeripheral()->TXDATCTL = address_TransferCommand | TXDATCTL::LEN(bitcount);
+    while ((spiPeripheral()->STAT & STAT::RXRDY) == 0)
       ;
-    receiveBuffer[index] = RXDAT::RXDAT(regs()->RXDAT);
+    receiveBuffer[index] = RXDAT::RXDAT(spiPeripheral()->RXDAT);
   }
 
   // TODO: receive with gpio chip select
@@ -143,7 +143,7 @@ struct spiSync {
   std::uint32_t setBitRate(std::uint32_t bitRate) {
     // compute divider and truncate so we can observe a possible round off
     std::uint16_t divider = static_cast<std::uint16_t>(CLOCK_AHB / bitRate);
-    regs()->DIV = DIV::DIVVAL(divider);
+    spiPeripheral()->DIV = DIV::DIVVAL(divider);
     return CLOCK_AHB / divider;
   }
 
@@ -161,27 +161,27 @@ struct spiSync {
     size_t index = 0;
     std::uint32_t address_TransferCommand = TXDATCTL::TXSSEL(device);
     while (bitcount > 16) {
-      regs()->TXDATCTL = address_TransferCommand | TXDATCTL::TXDAT(transmitBuffer[index]) | TXDATCTL::LEN(16);
-      while ((regs()->STAT & STAT::RXRDY) == 0)
+      spiPeripheral()->TXDATCTL = address_TransferCommand | TXDATCTL::TXDAT(transmitBuffer[index]) | TXDATCTL::LEN(16);
+      while ((spiPeripheral()->STAT & STAT::RXRDY) == 0)
         ;
-      receiveBuffer[index] = RXDAT::RXDAT(regs()->RXDAT);
+      receiveBuffer[index] = RXDAT::RXDAT(spiPeripheral()->RXDAT);
       bitcount -= 16;
       index++;
     }
     // process remainder
     if (lastAction)
       address_TransferCommand |= TXDATCTL::EOT;
-    regs()->TXDATCTL = address_TransferCommand | TXDATCTL::TXDAT(transmitBuffer[index]) | TXDATCTL::LEN(bitcount);
-    while ((regs()->STAT & STAT::RXRDY) == 0)
+    spiPeripheral()->TXDATCTL = address_TransferCommand | TXDATCTL::TXDAT(transmitBuffer[index]) | TXDATCTL::LEN(bitcount);
+    while ((spiPeripheral()->STAT & STAT::RXRDY) == 0)
       ;
-    receiveBuffer[index] = RXDAT::RXDAT(regs()->RXDAT);
+    receiveBuffer[index] = RXDAT::RXDAT(spiPeripheral()->RXDAT);
   }
 
   // TODO: readWrite with gpio chip select
   // TODO: readWrite with chip select lambda
   // TODO: configure delay settings
  private:
-  static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
+  static constexpr libMcuLL::hwAddressType spiAddress = spiAddress_; /**< peripheral spiAddress */
 };
 }  // namespace spi
 }  // namespace sw

@@ -14,17 +14,17 @@ namespace libMcuLL {
 namespace sw {
 namespace gpio {
 using namespace hw::gpio;
-template <libMcuLL::GPIObaseAddress const &address_>
+template <libMcuLL::GPIObaseAddress const &gpioAddress_>
 struct gpio {
-  static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
+  static constexpr libMcuLL::hwAddressType gpioAddress = gpioAddress_; /**< peripheral address */
   /**
    *
    * @brief get registers from peripheral
    *
    * @return return pointer to gpio registers
    */
-  static hw::gpio::peripheral *peripheral() {
-    return reinterpret_cast<hw::gpio::peripheral *>(address);
+  static hw::gpio::peripheral *gpioPeripheral() {
+    return reinterpret_cast<hw::gpio::peripheral *>(gpioAddress);
   }
 
   /**
@@ -35,7 +35,7 @@ struct gpio {
    */
   template <typename PIN>
   void output(PIN &pin) {
-    peripheral()->DIR[pin.gpioPortIndex] = peripheral()->DIR[pin.gpioPortIndex] | (1 << pin.gpioPinIndex);
+    gpioPeripheral()->DIR[pin.gpioPortIndex] = gpioPeripheral()->DIR[pin.gpioPortIndex] | (1 << pin.gpioPinIndex);
   }
 
   /**
@@ -46,7 +46,7 @@ struct gpio {
    */
   template <typename PIN>
   void input(PIN &pin) {
-    peripheral()->DIR[pin.gpioPortIndex] = peripheral()->DIR[pin.gpioPortIndex] & ~(1 << pin.gpioPinIndex);
+    gpioPeripheral()->DIR[pin.gpioPortIndex] = gpioPeripheral()->DIR[pin.gpioPortIndex] & ~(1 << pin.gpioPinIndex);
   }
 
   /**
@@ -57,7 +57,7 @@ struct gpio {
    */
   template <typename PIN>
   void high(PIN &pin) {
-    peripheral()->SET[pin.gpioPortIndex] = (1 << pin.gpioPinIndex);
+    gpioPeripheral()->SET[pin.gpioPortIndex] = (1 << pin.gpioPinIndex);
   }
 
   /**
@@ -68,7 +68,7 @@ struct gpio {
    */
   template <typename PIN>
   void low(PIN &pin) {
-    peripheral()->CLR[pin.gpioPortIndex] = (1 << pin.gpioPinIndex);
+    gpioPeripheral()->CLR[pin.gpioPortIndex] = (1 << pin.gpioPinIndex);
   }
 
   /**
@@ -79,7 +79,7 @@ struct gpio {
    */
   template <typename PIN>
   void toggle(PIN &pin) {
-    peripheral()->NOT[pin.gpioPortIndex] = (1 << pin.gpioPinIndex);
+    gpioPeripheral()->NOT[pin.gpioPortIndex] = (1 << pin.gpioPinIndex);
   }
 
   /**
@@ -91,7 +91,7 @@ struct gpio {
    */
   template <typename PIN>
   std::uint32_t get(PIN &pin) {
-    return peripheral()->W[pin.gpioPortIndex][pin.gpioPinIndex];
+    return gpioPeripheral()->W[pin.gpioPortIndex][pin.gpioPinIndex];
   }
 
   /**
@@ -103,7 +103,7 @@ struct gpio {
    */
   template <typename PIN>
   void set(PIN &pin, std::uint32_t setting) {
-    peripheral()->W[pin.gpioPortIndex][pin.gpioPinIndex] = setting;
+    gpioPeripheral()->W[pin.gpioPortIndex][pin.gpioPinIndex] = setting;
   }
 
   /**
@@ -115,7 +115,7 @@ struct gpio {
    */
   template <typename PORT>
   void portDirection(PORT &port, std::uint32_t setting) {
-    peripheral()->DIR[port.gpioPortIndex] = setting;
+    gpioPeripheral()->DIR[port.gpioPortIndex] = setting;
   }
 
   /**
@@ -130,7 +130,7 @@ struct gpio {
    */
   template <typename PORT>
   void portDirection(PORT &port, std::uint32_t setting, std::uint32_t mask) {
-    peripheral()->DIR[port.gpioPortIndex] = (peripheral()->DIR[port.gpioPortIndex] & ~mask) | (setting & mask);
+    gpioPeripheral()->DIR[port.gpioPortIndex] = (gpioPeripheral()->DIR[port.gpioPortIndex] & ~mask) | (setting & mask);
   }
 
   /**
@@ -145,7 +145,7 @@ struct gpio {
    */
   template <typename PORT>
   void portSet(PORT &port, std::uint32_t setting, std::uint32_t mask) {
-    peripheral()->DIR[port.gpioPortIndex] = (peripheral()->DIR[port.gpioPortIndex] & ~mask) | (setting & mask);
+    gpioPeripheral()->DIR[port.gpioPortIndex] = (gpioPeripheral()->DIR[port.gpioPortIndex] & ~mask) | (setting & mask);
   }
 
   /**
@@ -157,7 +157,7 @@ struct gpio {
    */
   template <typename PORT>
   void portSet(PORT &port, std::uint32_t setting) {
-    peripheral()->DIR[port.gpioPortIndex] = setting;
+    gpioPeripheral()->DIR[port.gpioPortIndex] = setting;
   }
 
   /**
@@ -169,7 +169,7 @@ struct gpio {
    */
   template <typename PORT>
   void portLow(PORT &port, std::uint32_t setting) {
-    peripheral()->CLR[port.gpioPortIndex] = setting;
+    gpioPeripheral()->CLR[port.gpioPortIndex] = setting;
   }
 
   /**
@@ -181,7 +181,7 @@ struct gpio {
    */
   template <typename PORT>
   void portHigh(PORT &port, std::uint32_t setting) {
-    peripheral()->SET[port.gpioPortIndex] = setting;
+    gpioPeripheral()->SET[port.gpioPortIndex] = setting;
   }
 
   /**
@@ -193,7 +193,7 @@ struct gpio {
    */
   template <typename PORT>
   void portToggle(PORT &port, std::uint32_t setting) {
-    peripheral()->NOT[port.gpioPortIndex] = setting;
+    gpioPeripheral()->NOT[port.gpioPortIndex] = setting;
   }
 
   /**
@@ -205,7 +205,7 @@ struct gpio {
    */
   template <typename PORT>
   std::uint32_t portGet(PORT &port) {
-    return static_cast<std::uint32_t>(peripheral()->PIN[port.gpioPortIndex]);
+    return static_cast<std::uint32_t>(gpioPeripheral()->PIN[port.gpioPortIndex]);
   }
 
   /**
@@ -218,7 +218,7 @@ struct gpio {
    */
   template <typename PORT>
   std::uint32_t portGet(PORT &port, std::uint32_t mask) {
-    return static_cast<std::uint32_t>(peripheral()->PIN[port.gpioPortIndex]) & mask;
+    return static_cast<std::uint32_t>(gpioPeripheral()->PIN[port.gpioPortIndex]) & mask;
   }
 };
 }  // namespace gpio

@@ -14,16 +14,16 @@ namespace libMcuLL {
 namespace sw {
 namespace wwdt {
 using namespace hw::wwdt;
-template <libMcuLL::WWDTbaseAddress address_>
+template <libMcuLL::WWDTbaseAddress wwdtAddress_>
 struct wwdt {
-  static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
+  static constexpr libMcuLL::hwAddressType wwdtAddress = wwdtAddress_; /**< peripheral address */
   /**
    * @brief get registers from peripheral
    *
    * @return return pointer to windowed watchdog registers
    */
-  static hw::wwdt::peripheral *regs() {
-    return reinterpret_cast<hw::wwdt::peripheral *>(address_);
+  static hw::wwdt::peripheral *wwdtPeripheral() {
+    return reinterpret_cast<hw::wwdt::peripheral *>(wwdtAddress);
   }
 };
 }  // namespace wwdt

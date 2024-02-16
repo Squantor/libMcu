@@ -20,19 +20,19 @@ using namespace hw::usart;
 /**
  * @brief synchronous USART peripheral instance
  *
- * @tparam address_ Peripheral base address
+ * @tparam usartAddress_ Peripheral base usartAddress
  * @tparam transferType datatype to use for data transfers
  */
-template <libMcuLL::USARTbaseAddress address_, typename transferType>
+template <libMcuLL::USARTbaseAddress usartAddress_, typename transferType>
 struct usartSync {
-  static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
+  static constexpr libMcuLL::hwAddressType usartAddress = usartAddress_; /**< peripheral usartAddress */
   /**
    * @brief get registers from peripheral
    *
    * @return return pointer to usart registers
    */
-  static hw::usart::peripheral *regs() {
-    return reinterpret_cast<hw::usart::peripheral *>(address);
+  static hw::usart::peripheral *usartPeripheral() {
+    return reinterpret_cast<hw::usart::peripheral *>(usartAddress);
   }
 
   /**
@@ -43,8 +43,8 @@ struct usartSync {
    */
   std::uint32_t init(std::uint32_t baudRate) {
     std::uint32_t baudDivider = CLOCK_MAIN / (baudRate * 16);
-    regs()->BRG = baudDivider;
-    regs()->CFG = CFG::ENABLE | uartLength::SIZE_8 | uartParity::NONE | uartStop::STOP_1;
+    usartPeripheral()->BRG = baudDivider;
+    usartPeripheral()->CFG = CFG::ENABLE | uartLength::SIZE_8 | uartParity::NONE | uartStop::STOP_1;
     return CLOCK_MAIN / 16 / baudDivider;
   }
 
@@ -59,8 +59,8 @@ struct usartSync {
    */
   std::uint32_t init(std::uint32_t baudRate, uartLength lengthBits, uartParity parity, uartStop stopBits) {
     std::uint32_t baudDivider = CLOCK_MAIN / (baudRate * 16);
-    regs()->BRG = baudDivider;
-    regs()->CFG = CFG::ENABLE | lengthBits | parity | stopBits;
+    usartPeripheral()->BRG = baudDivider;
+    usartPeripheral()->CFG = CFG::ENABLE | lengthBits | parity | stopBits;
     return CLOCK_MAIN / 16 / baudDivider;
   }
 
@@ -70,7 +70,7 @@ struct usartSync {
    * @return std::uint32_t one to one copy of the status register, see bit masks for options
    */
   std::uint32_t status() {
-    return regs()->STAT & STAT::RESERVED_MASK;
+    return usartPeripheral()->STAT & STAT::RESERVED_MASK;
   }
 
   /**
@@ -79,7 +79,7 @@ struct usartSync {
    * @param data data to send, amount is sent according to configuration
    */
   void write(transferType data) {
-    regs()->TXDAT = static_cast<transferType>(data & TXDAT::RESERVED_MASK);
+    usartPeripheral()->TXDAT = static_cast<transferType>(data & TXDAT::RESERVED_MASK);
   }
   /**
    * @brief Read data from UART
@@ -87,7 +87,7 @@ struct usartSync {
    * @param data reference to put received data in
    */
   void read(transferType &data) {
-    data = static_cast<transferType>(regs()->RXDAT);
+    data = static_cast<transferType>(usartPeripheral()->RXDAT);
   }
 
   /**
@@ -97,7 +97,7 @@ struct usartSync {
    * @param status reference to put received status in
    */
   void read(transferType &data, std::uint32_t &status) {
-    std::uint32_t regData = regs()->RXDATSTAT;
+    std::uint32_t regData = usartPeripheral()->RXDATSTAT;
     data = static_cast<transferType>(regData & RXDATSTAT::DATA_MASK);
     status = regData & RXDATSTAT::STAT_MASK;
   }
