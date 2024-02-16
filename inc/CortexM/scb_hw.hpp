@@ -46,7 +46,7 @@ constexpr inline std::uint32_t NMIPENDSET = (0x1UL) << 31;        /**< Activate 
 namespace VTOR {
 constexpr inline std::uint32_t RESERVED_MASK = 0xFFFFFF80UL; /**< register mask for allowed bits */
 constexpr inline std::uint32_t TBLOFF(std::uint32_t address) {
-  return (address << 8UL) & libMcuLL::hw::vtor::addressMask;
+  return address & libMcuLL::hw::vtor::addressMask;
 }
 }  // namespace VTOR
 namespace AIRCR {
@@ -55,7 +55,7 @@ constexpr inline std::uint32_t VECTCLRACTIVE = (0x1UL) << 1;    /**< clear state
 constexpr inline std::uint32_t SYSRESETREQ = (0x1UL) << 2;      /**< request system reset */
 constexpr inline std::uint32_t ENDIANNESS_MASK = (0x1UL) << 15; /**< system endianness, 0 little, 1 big */
 constexpr inline std::uint32_t VECTKEY_MASK = (0xFFFFUL) << 16; /**< Vector key, 0x05FA must be written */
-constexpr inline std::uint32_t VECTKEY_KEY = 0x05FAUL;          /**< Vector key, key value */
+constexpr inline std::uint32_t VECTKEY_KEY = 0x05FA0000UL;      /**< Vector key, key value */
 
 }  // namespace AIRCR
 namespace SCR {
