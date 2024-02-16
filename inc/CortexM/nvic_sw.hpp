@@ -13,7 +13,8 @@ namespace libMcuLL {
 namespace sw {
 namespace nvic {
 using namespace hw::nvic;
-template <libMcuLL::nvicBaseAddress const& address_>
+using namespace hw::scb;
+template <libMcuLL::nvicBaseAddress const& nvicAddress_, libMcuLL::scbBaseAddress const& scbAddress_>
 struct nvic {
   /**
    * @brief Construct a new systick object
@@ -24,11 +25,21 @@ struct nvic {
   /**
    * @brief get registers from peripheral
    *
-   * @return return pointer to analog comparator registers
+   * @return return pointer to nvic peripheral
    */
-  static hw::nvic::peripheral* peripheral() {
-    return reinterpret_cast<hw::nvic::peripheral*>(address);
+  static hw::nvic::peripheral* nvicPeripheral() {
+    return reinterpret_cast<hw::nvic::peripheral*>(nvicAddress);
   }
+
+  /**
+   * @brief get registers from SCB peripheral
+   *
+   * @return return pointer to scb peripheral
+   */
+  static hw::scb::peripheral* scbPeripheral() {
+    return reinterpret_cast<hw::scb::peripheral*>(scbAddress);
+  }
+
   /**
    * @brief Setup nvic
    *
@@ -46,7 +57,7 @@ struct nvic {
     if (number >= 0) {
       std::uint32_t index = getInterruptIndex(interrupt);
       std::uint32_t bitIndex = getInterruptBit(interrupt);
-      peripheral()->ISER[index] = ISER::SETENA(bitIndex);
+      nvicPeripheral()->ISER[index] = ISER::SETENA(bitIndex);
     }
   }
 
@@ -60,7 +71,7 @@ struct nvic {
     if (number >= 0) {
       std::uint32_t index = getInterruptIndex(interrupt);
       std::uint32_t bitIndex = getInterruptBit(interrupt);
-      peripheral()->ICER[index] = ICER::CLRENA(bitIndex);
+      nvicPeripheral()->ICER[index] = ICER::CLRENA(bitIndex);
       libMcuLL::sw::dsb();
       libMcuLL::sw::isb();
     }
@@ -75,7 +86,7 @@ struct nvic {
     if (number >= 0) {
       std::uint32_t index = getInterruptIndex(interrupt);
       std::uint32_t bitIndex = getInterruptBit(interrupt);
-      peripheral()->ISPR[index] = ISPR::SETPEND(bitIndex);
+      nvicPeripheral()->ISPR[index] = ISPR::SETPEND(bitIndex);
     }
   }
 
@@ -89,7 +100,7 @@ struct nvic {
     if (number >= 0) {
       std::uint32_t index = getInterruptIndex(interrupt);
       std::uint32_t bitIndex = getInterruptBit(interrupt);
-      peripheral()->ICPR[index] = ICPR::CLRPEND(bitIndex);
+      nvicPeripheral()->ICPR[index] = ICPR::CLRPEND(bitIndex);
     }
   }
 
@@ -105,7 +116,7 @@ struct nvic {
     if (number >= 0) {
       std::uint32_t index = getInterruptIndex(interrupt);
       std::uint32_t bitIndex = getInterruptBit(interrupt);
-      if (ISPR::GETPEND(peripheral()->ISPR[index], bitIndex) == 0)
+      if (ISPR::GETPEND(nvicPeripheral()->ISPR[index], bitIndex) == 0)
         return false;
       else
         return true;
@@ -114,14 +125,14 @@ struct nvic {
   }
 
   constexpr void setPriority(libMcuLL::hw::interrupts interrupt, std::uint32_t priority) {
-    std::int32_t number = static_cast<std::uint32_t>(interrupt);
+    std::int32_t number = static_cast<std::int32_t>(interrupt);
     if (number >= 0) {
-      // NVIC->IP[_IP_IDX(IRQn)] = ((uint32_t)(NVIC->IP[_IP_IDX(IRQn)] & ~(0xFFUL << _BIT_SHIFT(IRQn))) |
-      //                          (((priority << (8U - __NVIC_PRIO_BITS)) & (uint32_t)0xFFUL) << _BIT_SHIFT(IRQn)));
-      std::uint32_t index = getInterruptPrioIndex(interrupt);
-      peripheral()->IP[index] = IP::IPR(peripheral()->IP[index], static_cast<std::uint32_t>(interrupt), priority);
+      std::uint32_t index = getInterruptPrioIndex(number);
+      nvicPeripheral()->IP[index] = IP::IPR(nvicPeripheral()->IP[index], static_cast<std::uint32_t>(number), priority);
     } else {
-      // TODO for other interrupts
+      number = number + 8;  // translate negative isrs to SCB priority field index with offset for first 8 ISR's
+      std::uint32_t index = getInterruptPrioIndex(number);
+      scbPeripheral()->SHP[index] = IP::IPR(scbPeripheral()->SHP[index], static_cast<std::uint32_t>(number), priority);
     }
   }
 
@@ -157,11 +168,12 @@ struct nvic {
    * @param interrupt interrupt number, MUST BE POSITIVE
    * @return interrupt priority register index
    */
-  constexpr uint32_t getInterruptPrioIndex(libMcuLL::hw::interrupts interrupt) {
+  constexpr uint32_t getInterruptPrioIndex(std::int32_t interrupt) {
     return static_cast<std::uint32_t>(interrupt) >> 2;
   }
 
-  static constexpr libMcuLL::hwAddressType address = address_; /**< peripheral address */
+  static constexpr libMcuLL::hwAddressType nvicAddress = nvicAddress_; /**< peripheral address */
+  static constexpr libMcuLL::hwAddressType scbAddress = scbAddress_;   /**< peripheral address */
 };
 }  // namespace nvic
 }  // namespace sw

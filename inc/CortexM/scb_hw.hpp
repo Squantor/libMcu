@@ -45,7 +45,7 @@ constexpr inline std::uint32_t NMIPENDSET = (0x1UL) << 31;        /**< Activate 
 }  // namespace ICSR
 namespace VTOR {
 constexpr inline std::uint32_t RESERVED_MASK = 0xFFFFFF80UL; /**< register mask for allowed bits */
-constexpr inline std::uint32_t TBLOFF(std::uint32_t registerValue, std::uint32_t address) {
+constexpr inline std::uint32_t TBLOFF(std::uint32_t address) {
   return (address << 8UL) & libMcuLL::hw::vtor::addressMask;
 }
 }  // namespace VTOR
@@ -79,3 +79,4 @@ constexpr inline std::uint32_t SVCALLPENDED_MASK = (0x1UL) << 15; /**< SVCALL is
 }  // namespace scb
 }  // namespace hw
 }  // namespace libMcuLL
+#endif
