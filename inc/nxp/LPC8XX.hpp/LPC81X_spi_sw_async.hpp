@@ -297,7 +297,7 @@ struct spiAsync : libMcuLL::peripheralBase {
     libMcuLL::results readResult = progressPartialRead();
     if (readResult == libMcuLL::results::DONE)
       return libMcuLL::results::DONE;
-    progressPartialWrite(TXDATCTL::TXSSEL(transactionDeviceEnable), data);
+    progressPartialWrite(TXDATCTL::TXSSEL(static_cast<std::uint32_t>(transactionDeviceEnable)), data);
     return libMcuLL::results::BUSY;
   }
   /**
@@ -307,8 +307,9 @@ struct spiAsync : libMcuLL::peripheralBase {
    * @retval libMcuLL::results::DONE transaction done, data available in buffers
    */
   constexpr libMcuLL::results progressWrite(void) {
-    libMcuLL::results writeResult = progressPartialWrite(TXDATCTL::TXSSEL(transactionDeviceEnable) | TXDATCTL::RXIGNORE,
-                                                         transactionWriteData[transactionWriteIndex]);
+    libMcuLL::results writeResult =
+      progressPartialWrite(TXDATCTL::TXSSEL(static_cast<std::uint32_t>(transactionDeviceEnable)) | TXDATCTL::RXIGNORE,
+                           transactionWriteData[transactionWriteIndex]);
     if (writeResult == libMcuLL::results::DONE) {
       transactionState = detail::asynchronousStates::CLAIMED;
       return libMcuLL::results::DONE;

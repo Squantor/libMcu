@@ -24,30 +24,19 @@ using namespace hw::usart;
  * @tparam transferType datatype to use for data transfers
  */
 template <libMcuLL::USARTbaseAddress usartAddress_, typename transferType>
-struct usartSync {
-  static constexpr libMcuLL::hwAddressType usartAddress = usartAddress_; /**< peripheral usartAddress */
-  /**
-   * @brief get registers from peripheral
-   *
-   * @return return pointer to usart registers
-   */
-  static hw::usart::peripheral *usartPeripheral() {
-    return reinterpret_cast<hw::usart::peripheral *>(usartAddress);
-  }
-
+struct usartSync : libMcuLL::peripheralBase {
   /**
    * @brief Setup USART to 8n1
    *
    * @param baudRate Baud rate value
    * @return std::uint32_t actual baud rate
    */
-  std::uint32_t init(std::uint32_t baudRate) {
+  constexpr std::uint32_t init(std::uint32_t baudRate) {
     std::uint32_t baudDivider = CLOCK_MAIN / (baudRate * 16);
     usartPeripheral()->BRG = baudDivider;
     usartPeripheral()->CFG = CFG::ENABLE | uartLength::SIZE_8 | uartParity::NONE | uartStop::STOP_1;
     return CLOCK_MAIN / 16 / baudDivider;
   }
-
   /**
    * @brief Setup USART
    *
@@ -57,28 +46,26 @@ struct usartSync {
    * @param stopBits Amount of stop bits, see uartStop enum for options
    * @return std::uint32_t actual baud rate
    */
-  std::uint32_t init(std::uint32_t baudRate, uartLength lengthBits, uartParity parity, uartStop stopBits) {
+  constexpr std::uint32_t init(std::uint32_t baudRate, uartLength lengthBits, uartParity parity, uartStop stopBits) {
     std::uint32_t baudDivider = CLOCK_MAIN / (baudRate * 16);
     usartPeripheral()->BRG = baudDivider;
     usartPeripheral()->CFG = CFG::ENABLE | lengthBits | parity | stopBits;
     return CLOCK_MAIN / 16 / baudDivider;
   }
-
   /**
    * @brief return uart status
    *
    * @return std::uint32_t one to one copy of the status register, see bit masks for options
    */
-  std::uint32_t status() {
+  constexpr std::uint32_t status() {
     return usartPeripheral()->STAT & STAT::RESERVED_MASK;
   }
-
   /**
    * @brief Send data out of the UART
    *
    * @param data data to send, amount is sent according to configuration
    */
-  void write(transferType data) {
+  constexpr void write(transferType data) {
     usartPeripheral()->TXDAT = static_cast<transferType>(data & TXDAT::RESERVED_MASK);
   }
   /**
@@ -86,21 +73,31 @@ struct usartSync {
    *
    * @param data reference to put received data in
    */
-  void read(transferType &data) {
+  constexpr void read(transferType &data) {
     data = static_cast<transferType>(usartPeripheral()->RXDAT);
   }
-
   /**
    * @brief Read data and status from UART
    *
    * @param data reference to put received data in
    * @param status reference to put received status in
    */
-  void read(transferType &data, std::uint32_t &status) {
+  constexpr void read(transferType &data, std::uint32_t &status) {
     std::uint32_t regData = usartPeripheral()->RXDATSTAT;
     data = static_cast<transferType>(regData & RXDATSTAT::DATA_MASK);
     status = regData & RXDATSTAT::STAT_MASK;
   }
+  /**
+   * @brief get registers from peripheral
+   *
+   * @return return pointer to usart registers
+   */
+  constexpr static hw::usart::peripheral *usartPeripheral() {
+    return reinterpret_cast<hw::usart::peripheral *>(usartAddress);
+  }
+
+ private:
+  static constexpr libMcuLL::hwAddressType usartAddress = usartAddress_; /**< peripheral usartAddress */
 };
 }  // namespace usart
 }  // namespace sw

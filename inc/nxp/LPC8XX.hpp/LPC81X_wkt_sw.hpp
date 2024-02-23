@@ -16,7 +16,6 @@ namespace wkt {
 using namespace hw::wkt;
 template <libMcuLL::WKTbaseAddress wktAddress_>
 struct wkt {
-  static constexpr libMcuLL::hwAddressType wktAddress = wktAddress_; /**< peripheral address */
   /**
    * @brief get registers from peripheral
    *
@@ -25,6 +24,9 @@ struct wkt {
   static hw::wkt::peripheral *wktPeripheral() {
     return reinterpret_cast<hw::wkt::peripheral *>(wktAddress);
   }
+
+ private:
+  static constexpr libMcuLL::hwAddressType wktAddress = wktAddress_; /**< peripheral address */
 };
 }  // namespace wkt
 }  // namespace sw

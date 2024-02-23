@@ -97,7 +97,8 @@ struct spiSync : libMcuLL::peripheralBase {
    */
   constexpr void read(chipEnables device, std::span<std::uint16_t> receiveBuffer, std::uint32_t bitcount, bool lastAction) {
     size_t index = 0u;
-    std::uint32_t address_TransferCommand = TXDATCTL::TXSSEL(device);  // spiAddress_ transfer command with presets
+    std::uint32_t address_TransferCommand =
+      TXDATCTL::TXSSEL(static_cast<std::uint32_t>(device));  // spiAddress_ transfer command with presets
     while (bitcount > 16u) {
       spiPeripheral()->TXDATCTL = address_TransferCommand | TXDATCTL::LEN(16);
       while ((spiPeripheral()->STAT & STAT::RXRDY) == 0u)
@@ -142,7 +143,7 @@ struct spiSync : libMcuLL::peripheralBase {
   constexpr void readWrite(chipEnables device, const std::span<std::uint16_t> transmitBuffer,
                            std::span<std::uint16_t> receiveBuffer, std::uint32_t bitcount, bool lastAction) {
     size_t index = 0u;
-    std::uint32_t address_TransferCommand = TXDATCTL::TXSSEL(device);
+    std::uint32_t address_TransferCommand = TXDATCTL::TXSSEL(static_cast<std::uint32_t>(device));
     while (bitcount > 16u) {
       spiPeripheral()->TXDATCTL = address_TransferCommand | TXDATCTL::TXDAT(transmitBuffer[index]) | TXDATCTL::LEN(16);
       while ((spiPeripheral()->STAT & STAT::RXRDY) == 0u)

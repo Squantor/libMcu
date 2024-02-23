@@ -33,7 +33,7 @@ using namespace hw::usart;
  * @tparam transferType datatype to use for data transfers
  */
 template <libMcuLL::USARTbaseAddress usartAddress_, typename transferType>
-struct usartAsync {
+struct usartAsync : libMcuLL::peripheralBase {
   /**
    * @brief Construct a new usart Async object
    *
@@ -41,29 +41,18 @@ struct usartAsync {
    *
    */
   usartAsync() : transactionWriteState{detail::synchonousStates::IDLE}, transactionReadState{detail::synchonousStates::IDLE} {}
-
-  /**
-   * @brief get registers from peripheral
-   *
-   * @return return pointer to usart registers
-   */
-  static hw::usart::peripheral *usartPeripheral() {
-    return reinterpret_cast<hw::usart::peripheral *>(usartAddress);
-  }
-
   /**
    * @brief Setup USART to 8n1
    *
    * @param baudRate Baud rate value
    * @return std::uint32_t actual baud rate
    */
-  std::uint32_t init(std::uint32_t baudRate) {
+  constexpr std::uint32_t init(std::uint32_t baudRate) {
     std::uint32_t baudDivider = CLOCK_MAIN / (baudRate * 16);
     usartPeripheral()->BRG = baudDivider;
     usartPeripheral()->CFG = CFG::ENABLE | uartLength::SIZE_8 | uartParity::NONE | uartStop::STOP_1;
     return CLOCK_MAIN / 16 / baudDivider;
   }
-
   /**
    * @brief Setup USART
    *
@@ -73,20 +62,19 @@ struct usartAsync {
    * @param stopBits Amount of stop bits, see uartStop enum for options
    * @return std::uint32_t actual baud rate
    */
-  std::uint32_t init(std::uint32_t baudRate, uartLength lengthBits, uartParity parity, uartStop stopBits) {
+  constexpr std::uint32_t init(std::uint32_t baudRate, uartLength lengthBits, uartParity parity, uartStop stopBits) {
     std::uint32_t baudDivider = CLOCK_MAIN / (baudRate * 16);
     usartPeripheral()->BRG = baudDivider;
     usartPeripheral()->CFG = CFG::ENABLE | lengthBits | parity | stopBits;
     return CLOCK_MAIN / 16 / baudDivider;
   }
-
   /**
    * @brief Claim the Usart interface
    *
    * @return IN_USE when already in use
    * @return CLAIMED when the claim has been successful
    */
-  libMcuLL::results claim(void) {
+  constexpr libMcuLL::results claim(void) {
     if ((transactionWriteState != detail::synchonousStates::IDLE) && (transactionReadState != detail::synchonousStates::IDLE)) {
       return libMcuLL::results::IN_USE;
     }
@@ -94,7 +82,6 @@ struct usartAsync {
     transactionReadState = detail::synchonousStates::CLAIMED;
     return libMcuLL::results::CLAIMED;
   }
-
   /**
    * @brief Unclaim the Usart interface
    *
@@ -102,7 +89,7 @@ struct usartAsync {
    * @return BUSY when still executing a transaction
    * @return UNCLAIMED when unclaim sucessful
    */
-  libMcuLL::results unclaim(void) {
+  constexpr libMcuLL::results unclaim(void) {
     if ((transactionWriteState == detail::synchonousStates::TRANSACTING) ||
         (transactionReadState == detail::synchonousStates::TRANSACTING)) {
       return libMcuLL::results::BUSY;
@@ -115,7 +102,6 @@ struct usartAsync {
       return libMcuLL::results::ERROR;
     }
   }
-
   /**
    * @brief Start a read transaction
    *
@@ -123,17 +109,16 @@ struct usartAsync {
    * @return libMcuLL::results::ERROR if not claimed interface or busy
    * @return libMcuLL::results::STARTED when transaction started
    */
-  libMcuLL::results startRead(std::span<transferType> buffer) {
+  constexpr libMcuLL::results startRead(std::span<transferType> buffer) {
     if (transactionReadState != detail::synchonousStates::CLAIMED) {
       return libMcuLL::results::ERROR;
     }
     // store transaction information
-    transactionReadIndex = 0;
+    transactionReadIndex = 0u;
     transactionReadData = buffer;
     transactionReadState = detail::synchonousStates::TRANSACTING;
     return libMcuLL::results::STARTED;
   }
-
   /**
    * @brief Start a write transaction
    *
@@ -141,18 +126,17 @@ struct usartAsync {
    * @return libMcuLL::results::ERROR if not claimed interface or busy
    * @return libMcuLL::results::STARTED when transaction started
    */
-  libMcuLL::results startWrite(std::span<transferType> buffer) {
+  constexpr libMcuLL::results startWrite(std::span<transferType> buffer) {
     if (transactionWriteState != detail::synchonousStates::CLAIMED) {
       return libMcuLL::results::ERROR;
     }
     // store transaction information
-    transactionWriteIndex = 0;
+    transactionWriteIndex = 0u;
     transactionWriteData = buffer;
     transactionWriteState = detail::synchonousStates::TRANSACTING;
     // TODO write first data in UART register
     return libMcuLL::results::STARTED;
   }
-
   /**
    * @brief continue started read transaction
    *
@@ -160,7 +144,7 @@ struct usartAsync {
    * @return libMcuLL::results::BUSY if transaction is still in progress
    * @return libMcuLL::results::DONE if transaction is done and buffer filled with data
    */
-  libMcuLL::results progressRead(void) {
+  constexpr libMcuLL::results progressRead(void) {
     if (transactionReadState != detail::synchonousStates::TRANSACTING) {
       return libMcuLL::results::ERROR;
     }
@@ -174,7 +158,6 @@ struct usartAsync {
     }
     return libMcuLL::results::BUSY;
   }
-
   /**
    * @brief continue started write transaction
    *
@@ -182,7 +165,7 @@ struct usartAsync {
    * @return libMcuLL::results::BUSY if transaction is still in progress
    * @return libMcuLL::results::DONE if transaction is done and buffer of data has been written
    */
-  libMcuLL::results progressWrite(void) {
+  constexpr libMcuLL::results progressWrite(void) {
     if (transactionWriteState != detail::synchonousStates::TRANSACTING) {
       return libMcuLL::results::ERROR;
     }
@@ -199,6 +182,14 @@ struct usartAsync {
       }
     }
     return libMcuLL::results::BUSY;
+  }
+  /**
+   * @brief get registers from peripheral
+   *
+   * @return return pointer to usart registers
+   */
+  static hw::usart::peripheral *usartPeripheral() {
+    return reinterpret_cast<hw::usart::peripheral *>(usartAddress);
   }
 
  private:

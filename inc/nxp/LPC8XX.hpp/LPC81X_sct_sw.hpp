@@ -234,7 +234,7 @@ struct sct : libMcuLL::peripheralBase {
     size_t captureIndex = static_cast<std::size_t>(capture);
     size_t eventIndex = static_cast<std::size_t>(event);
     size_t inputIndex = static_cast<std::size_t>(input);
-    sctPeripheral()->MATCH[captureIndex].U = 0;  // clear capture register via the aliased match register
+    sctPeripheral()->MATCH[captureIndex].U = 0u;  // clear capture register via the aliased match register
     sctPeripheral()->CONFIG =
       sctPeripheral()->CONFIG | CONFIG::INSYNC_INPUT(inputIndex);  // needs to be done for edge capture condition
     sctPeripheral()->REGMODE = REGMODE::REGMOD_CAP(sctPeripheral()->REGMODE, captureIndex);
