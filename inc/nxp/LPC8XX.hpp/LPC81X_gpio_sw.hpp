@@ -15,18 +15,7 @@ namespace sw {
 namespace gpio {
 using namespace hw::gpio;
 template <libMcuLL::GPIObaseAddress const &gpioAddress_>
-struct gpio {
-  static constexpr libMcuLL::hwAddressType gpioAddress = gpioAddress_; /**< peripheral address */
-  /**
-   *
-   * @brief get registers from peripheral
-   *
-   * @return return pointer to gpio registers
-   */
-  static hw::gpio::peripheral *gpioPeripheral() {
-    return reinterpret_cast<hw::gpio::peripheral *>(gpioAddress);
-  }
-
+struct gpio : libMcuLL::peripheralBase {
   /**
    * @brief Set gpio pin to output mode
    *
@@ -34,7 +23,7 @@ struct gpio {
    * @param pin reference to pin instance
    */
   template <typename PIN>
-  void output(PIN &pin) {
+  constexpr void output(PIN &pin) {
     gpioPeripheral()->DIR[pin.gpioPortIndex] = gpioPeripheral()->DIR[pin.gpioPortIndex] | (1 << pin.gpioPinIndex);
   }
 
@@ -45,7 +34,7 @@ struct gpio {
    * @param pin reference to pin instance
    */
   template <typename PIN>
-  void input(PIN &pin) {
+  constexpr void input(PIN &pin) {
     gpioPeripheral()->DIR[pin.gpioPortIndex] = gpioPeripheral()->DIR[pin.gpioPortIndex] & ~(1 << pin.gpioPinIndex);
   }
 
@@ -56,7 +45,7 @@ struct gpio {
    * @param pin reference to pin instance
    */
   template <typename PIN>
-  void high(PIN &pin) {
+  constexpr void high(PIN &pin) {
     gpioPeripheral()->SET[pin.gpioPortIndex] = (1 << pin.gpioPinIndex);
   }
 
@@ -67,7 +56,7 @@ struct gpio {
    * @param pin reference to pin instance
    */
   template <typename PIN>
-  void low(PIN &pin) {
+  constexpr void low(PIN &pin) {
     gpioPeripheral()->CLR[pin.gpioPortIndex] = (1 << pin.gpioPinIndex);
   }
 
@@ -78,7 +67,7 @@ struct gpio {
    * @param pin reference to pin instance
    */
   template <typename PIN>
-  void toggle(PIN &pin) {
+  constexpr void toggle(PIN &pin) {
     gpioPeripheral()->NOT[pin.gpioPortIndex] = (1 << pin.gpioPinIndex);
   }
 
@@ -90,7 +79,7 @@ struct gpio {
    * @return std::uint32_t pin state, 0 for low, 1 for high
    */
   template <typename PIN>
-  std::uint32_t get(PIN &pin) {
+  constexpr std::uint32_t get(PIN &pin) {
     return gpioPeripheral()->W[pin.gpioPortIndex][pin.gpioPinIndex];
   }
 
@@ -102,7 +91,7 @@ struct gpio {
    * @param setting pin state, 0 for low, 1 for high
    */
   template <typename PIN>
-  void set(PIN &pin, std::uint32_t setting) {
+  constexpr void set(PIN &pin, std::uint32_t setting) {
     gpioPeripheral()->W[pin.gpioPortIndex][pin.gpioPinIndex] = setting;
   }
 
@@ -114,7 +103,7 @@ struct gpio {
    * @param setting gpio port pin directions
    */
   template <typename PORT>
-  void portDirection(PORT &port, std::uint32_t setting) {
+  constexpr void portDirection(PORT &port, std::uint32_t setting) {
     gpioPeripheral()->DIR[port.gpioPortIndex] = setting;
   }
 
@@ -129,7 +118,7 @@ struct gpio {
    * @param mask gpio pins to ignore
    */
   template <typename PORT>
-  void portDirection(PORT &port, std::uint32_t setting, std::uint32_t mask) {
+  constexpr void portDirection(PORT &port, std::uint32_t setting, std::uint32_t mask) {
     gpioPeripheral()->DIR[port.gpioPortIndex] = (gpioPeripheral()->DIR[port.gpioPortIndex] & ~mask) | (setting & mask);
   }
 
@@ -144,7 +133,7 @@ struct gpio {
    * @param mask gpio pins that are unaffected
    */
   template <typename PORT>
-  void portSet(PORT &port, std::uint32_t setting, std::uint32_t mask) {
+  constexpr void portSet(PORT &port, std::uint32_t setting, std::uint32_t mask) {
     gpioPeripheral()->DIR[port.gpioPortIndex] = (gpioPeripheral()->DIR[port.gpioPortIndex] & ~mask) | (setting & mask);
   }
 
@@ -156,7 +145,7 @@ struct gpio {
    * @param setting gpio pins to setup
    */
   template <typename PORT>
-  void portSet(PORT &port, std::uint32_t setting) {
+  constexpr void portSet(PORT &port, std::uint32_t setting) {
     gpioPeripheral()->DIR[port.gpioPortIndex] = setting;
   }
 
@@ -168,7 +157,7 @@ struct gpio {
    * @param setting gpio pins to set low, a 1 bit will set the corresponding gpio pin to low
    */
   template <typename PORT>
-  void portLow(PORT &port, std::uint32_t setting) {
+  constexpr void portLow(PORT &port, std::uint32_t setting) {
     gpioPeripheral()->CLR[port.gpioPortIndex] = setting;
   }
 
@@ -180,7 +169,7 @@ struct gpio {
    * @param setting gpio pins to set high, a 1 bit will set the corresponding gpio pin to high
    */
   template <typename PORT>
-  void portHigh(PORT &port, std::uint32_t setting) {
+  constexpr void portHigh(PORT &port, std::uint32_t setting) {
     gpioPeripheral()->SET[port.gpioPortIndex] = setting;
   }
 
@@ -192,7 +181,7 @@ struct gpio {
    * @param setting gpio pins to toggle, a 1 bit will toggle the corresponding pio pin
    */
   template <typename PORT>
-  void portToggle(PORT &port, std::uint32_t setting) {
+  constexpr void portToggle(PORT &port, std::uint32_t setting) {
     gpioPeripheral()->NOT[port.gpioPortIndex] = setting;
   }
 
@@ -204,7 +193,7 @@ struct gpio {
    * @return std::uint32_t gpio pin state
    */
   template <typename PORT>
-  std::uint32_t portGet(PORT &port) {
+  constexpr std::uint32_t portGet(PORT &port) {
     return static_cast<std::uint32_t>(gpioPeripheral()->PIN[port.gpioPortIndex]);
   }
 
@@ -217,9 +206,21 @@ struct gpio {
    * @return std::uint32_t gpio pin state masked by mask
    */
   template <typename PORT>
-  std::uint32_t portGet(PORT &port, std::uint32_t mask) {
+  constexpr std::uint32_t portGet(PORT &port, std::uint32_t mask) {
     return static_cast<std::uint32_t>(gpioPeripheral()->PIN[port.gpioPortIndex]) & mask;
   }
+  /**
+   *
+   * @brief get registers from peripheral
+   *
+   * @return return pointer to gpio registers
+   */
+  constexpr hw::gpio::peripheral *gpioPeripheral() {
+    return reinterpret_cast<hw::gpio::peripheral *>(gpioAddress);
+  }
+
+ private:
+  static constexpr libMcuLL::hwAddressType gpioAddress = gpioAddress_; /**< peripheral address */
 };
 }  // namespace gpio
 }  // namespace sw

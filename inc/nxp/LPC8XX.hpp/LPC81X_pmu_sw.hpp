@@ -14,17 +14,19 @@ namespace libMcuLL {
 namespace sw {
 namespace pmu {
 using namespace hw::pmu;
-template <libMcuLL::PMUbaseAddress const &pmuAddress_>
+template <libMcuLL::PMUbaseAddress pmuAddress_>
 struct pmu {
-  static constexpr libMcuLL::hwAddressType pmuAddress = pmuAddress_; /**< peripheral address */
   /**
    * @brief get registers from peripheral
    *
    * @return return pointer to power management unit registers
    */
-  static hw::pmu::peripheral *pmuPeripheral() {
+  constexpr static hw::pmu::peripheral *pmuPeripheral() {
     return reinterpret_cast<hw::pmu::peripheral *>(pmuAddress);
   }
+
+ private:
+  static constexpr libMcuLL::hwAddressType pmuAddress = pmuAddress_; /**< peripheral address */
 };
 }  // namespace pmu
 }  // namespace sw

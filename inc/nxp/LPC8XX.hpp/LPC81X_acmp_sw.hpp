@@ -76,21 +76,7 @@ enum class ladderReferenceSetting : std::uint32_t {
 };
 
 template <libMcuLL::ACMPbaseAddress const& acmpAddress_>
-struct acmp {
-  /**
-   * @brief Construct a new acmp object
-   *
-   */
-  acmp() {}
-
-  /**
-   * @brief get registers from peripheral
-   *
-   * @return return pointer to analog comparator registers
-   */
-  static hw::acmp::peripheral* acmpPeripheral() {
-    return reinterpret_cast<hw::acmp::peripheral*>(acmpAddress);
-  }
+struct acmp : libMcuLL::peripheralBase {
   /**
    * @brief Setup analog comparator
    *
@@ -107,7 +93,6 @@ struct acmp {
                              static_cast<std::uint32_t>(hysteresis);
     clearEdgeDetector();
   }
-
   /**
    * @brief Setup analog comparator and voltage ladder
    *
@@ -126,38 +111,34 @@ struct acmp {
     acmpPeripheral()->LAD = LAD::LADEN | static_cast<std::uint32_t>(ladderReference);
     clearEdgeDetector();
   }
-
   /**
    * @brief comparator output status
    *
    * @return zero for low, non zero for high
    */
-  constexpr uint32_t comparatorOutput() {
+  constexpr std::uint32_t comparatorOutput() {
     return acmpPeripheral()->CTRL & CTRL::COMPSTAT_MASK;
   }
-
   /**
    * @brief comparator edge detector status
    *
    * @return zero for no edges detected, non zero for edge detector edges detected
    */
-  constexpr uint32_t edgeOutput() {
+  constexpr std::uint32_t edgeOutput() {
     std::uint32_t status = acmpPeripheral()->CTRL & CTRL::COMPEDGE_MASK;
-    if (status == 0)
+    if (status == 0u)
       return status;
     clearEdgeDetector();
     return status;
   }
-
   /**
    * @brief set resistor ladder value
    *
    * @param value resistor ladder setting
    */
-  constexpr void setLadder(uint32_t value) {
+  constexpr void setLadder(std::uint32_t value) {
     acmpPeripheral()->LAD = (acmpPeripheral()->LAD & ~LAD::LADSEL_MASK) | LAD::LADSEL(value);
   }
-
   /**
    * @brief reset edge detector
    *
@@ -166,7 +147,16 @@ struct acmp {
     acmpPeripheral()->CTRL = acmpPeripheral()->CTRL | CTRL::EDGECLR;
     acmpPeripheral()->CTRL = acmpPeripheral()->CTRL & ~CTRL::EDGECLR;
   }
+  /**
+   * @brief get registers from peripheral
+   *
+   * @return return pointer to analog comparator registers
+   */
+  static hw::acmp::peripheral* acmpPeripheral() {
+    return reinterpret_cast<hw::acmp::peripheral*>(acmpAddress);
+  }
 
+ private:
   static constexpr libMcuLL::hwAddressType acmpAddress = acmpAddress_; /**< peripheral address */
 };
 }  // namespace acmp

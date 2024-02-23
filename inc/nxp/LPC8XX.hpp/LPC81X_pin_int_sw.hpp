@@ -14,17 +14,19 @@ namespace libMcuLL {
 namespace sw {
 namespace pin_int {
 using namespace hw::gpio;
-template <libMcuLL::PININTbaseAddress const &pinintAddress_>
-struct gpio {
-  static constexpr libMcuLL::hwAddressType pinintAddress = pinintAddress_; /**< peripheral address */
+template <libMcuLL::PININTbaseAddress pinintAddress_>
+struct pinint : peripheralBase {
   /**
    * @brief get registers from peripheral
    *
    * @return return pointer to pin interrupt registers
    */
-  static hw::pinint::peripheral *pinintPeripheral() {
+  constexpr static hw::pinint::peripheral *pinintPeripheral() {
     return reinterpret_cast<hw::pinint::peripheral *>(pinintAddress);
   }
+
+ private:
+  static constexpr libMcuLL::hwAddressType pinintAddress = pinintAddress_; /**< peripheral address */
 };
 }  // namespace pin_int
 }  // namespace sw

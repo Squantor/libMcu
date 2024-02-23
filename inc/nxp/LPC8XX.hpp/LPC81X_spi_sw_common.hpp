@@ -20,7 +20,7 @@ using namespace hw::spi;
  * @brief SPI hardware chip enables
  *
  */
-enum chipEnables : std::uint32_t {
+enum class chipEnables : std::uint32_t {
   SSEL_NONE = 0,    /**< No chip select */
   SSEL = (1 << 16), /**< Hardware chip enable */
 };
@@ -29,7 +29,7 @@ enum chipEnables : std::uint32_t {
  * @brief possible SPI clocking/phasing/ordering
  *
  */
-enum waveforms : std::uint32_t {
+enum class waveforms : std::uint32_t {
   CPHA0_CPOL0_MSB = 0,                                 /**< CPHA is 0, CPOL is 0, MSB first */
   CPHA1_CPOL0_MSB = CFG::CPHA,                         /**< CPHA is 1, CPOL is 0, MSB first */
   CPHA0_CPOL1_MSB = CFG::CPOL,                         /**< CPHA is 0, CPOL is 1, MSB first */
@@ -44,7 +44,7 @@ enum waveforms : std::uint32_t {
  * @brief Slave polarity selects
  *
  */
-enum slavePolaritySelects : std::uint32_t {
+enum class slavePolaritySelects : std::uint32_t {
   SPOL_LOW = 0,          /**< Active low slave select */
   SPOL_HIGH = CFG::SPOL, /**< Active high slave select*/
 };

@@ -70,29 +70,29 @@ struct peripheral {
 };
 
 namespace SYSMEMREMAP {
-constexpr inline std::uint32_t RESERVED_MASK = 0x00000003; /**< register mask for allowed bits */
-constexpr inline std::uint32_t MAP_BOOT = (0 << 0);        /**< Map interrupts to boot ROM */
-constexpr inline std::uint32_t MAP_RAM = (1 << 0);         /**< Map interrupts to RAM */
-constexpr inline std::uint32_t MAP_FLASH = (2 << 0);       /**< Map interrupts to flash */
+constexpr inline std::uint32_t RESERVED_MASK = 0x00000003u; /**< register mask for allowed bits */
+constexpr inline std::uint32_t MAP_BOOT = (0 << 0);         /**< Map interrupts to boot ROM */
+constexpr inline std::uint32_t MAP_RAM = (1 << 0);          /**< Map interrupts to RAM */
+constexpr inline std::uint32_t MAP_FLASH = (2 << 0);        /**< Map interrupts to flash */
 }  // namespace SYSMEMREMAP
 namespace PRESETCTRL {
-constexpr inline std::uint32_t RESERVED_MASK = 0x0001FFFF; /**< register mask for allowed bits */
-constexpr inline std::uint32_t SPI0_RST_N = (1 << 0);      /**< SPI0 reset */
-constexpr inline std::uint32_t SPI1_RST_N = (1 << 1);      /**< SPI1 reset */
-constexpr inline std::uint32_t UARTFRG_RST_N = (1 << 2);   /**< UART FRG reset */
-constexpr inline std::uint32_t UART0_RST_N = (1 << 3);     /**< UART0 reset */
-constexpr inline std::uint32_t UART1_RST_N = (1 << 4);     /**< UART1 reset */
-constexpr inline std::uint32_t UART2_RST_N = (1 << 5);     /**< UART2 reset */
-constexpr inline std::uint32_t I2C_RST_N = (1 << 6);       /**< I2C reset */
-constexpr inline std::uint32_t MRT_RST_N = (1 << 7);       /**< MRT reset */
-constexpr inline std::uint32_t SCT_RST_N = (1 << 8);       /**< SCT reset */
-constexpr inline std::uint32_t WKT_RST_N = (1 << 9);       /**< WKT reset */
-constexpr inline std::uint32_t GPIO_RST_N = (1 << 10);     /**< GPIO reset */
-constexpr inline std::uint32_t FLASH_RST_N = (1 << 11);    /**< FLASH reset */
-constexpr inline std::uint32_t ACMP_RST_N = (1 << 12);     /**< ACMP reset */
+constexpr inline std::uint32_t RESERVED_MASK = 0x0001FFFFu; /**< register mask for allowed bits */
+constexpr inline std::uint32_t SPI0_RST_N = (1 << 0);       /**< SPI0 reset */
+constexpr inline std::uint32_t SPI1_RST_N = (1 << 1);       /**< SPI1 reset */
+constexpr inline std::uint32_t UARTFRG_RST_N = (1 << 2);    /**< UART FRG reset */
+constexpr inline std::uint32_t UART0_RST_N = (1 << 3);      /**< UART0 reset */
+constexpr inline std::uint32_t UART1_RST_N = (1 << 4);      /**< UART1 reset */
+constexpr inline std::uint32_t UART2_RST_N = (1 << 5);      /**< UART2 reset */
+constexpr inline std::uint32_t I2C_RST_N = (1 << 6);        /**< I2C reset */
+constexpr inline std::uint32_t MRT_RST_N = (1 << 7);        /**< MRT reset */
+constexpr inline std::uint32_t SCT_RST_N = (1 << 8);        /**< SCT reset */
+constexpr inline std::uint32_t WKT_RST_N = (1 << 9);        /**< WKT reset */
+constexpr inline std::uint32_t GPIO_RST_N = (1 << 10);      /**< GPIO reset */
+constexpr inline std::uint32_t FLASH_RST_N = (1 << 11);     /**< FLASH reset */
+constexpr inline std::uint32_t ACMP_RST_N = (1 << 12);      /**< ACMP reset */
 }  // namespace PRESETCTRL
 namespace SYSPLLCTRL {
-constexpr inline std::uint32_t RESERVED_MASK = 0x0000007F; /**< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK = 0x0000007Fu; /**< register mask for allowed bits */
 /**
  * @brief Format feedback divider value
  *
@@ -108,18 +108,18 @@ constexpr inline std::uint32_t PSEL_DIV8 = (2 << 5);  /**< Post divider of 8 */
 constexpr inline std::uint32_t PSEL_DIV16 = (3 << 5); /**< Post divider of 16 */
 }  // namespace SYSPLLCTRL
 namespace SYSPLLSTAT {
-constexpr inline std::uint32_t RESERVED_MASK = 0x00000001; /**< register mask for allowed bits */
-constexpr inline std::uint32_t LOCK = (1 << 0);            /**< PLL lock status */
+constexpr inline std::uint32_t RESERVED_MASK = 0x00000001u; /**< register mask for allowed bits */
+constexpr inline std::uint32_t LOCK = (1 << 0);             /**< PLL lock status */
 }  // namespace SYSPLLSTAT
 namespace SYSOSCCTRL {
-constexpr inline std::uint32_t RESERVED_MASK = 0x00000003; /**< register mask for allowed bits */
-constexpr inline std::uint32_t NO_BYPASS = (0 << 0);       /**< PLL input is fed by crystal oscillator */
-constexpr inline std::uint32_t BYPASS = (1 << 0);          /**< PLL input is fed directly by XTALIN */
-constexpr inline std::uint32_t FREQ_1_20MHz = (0 << 1);    /**< crystal range is 1 to 20MHz */
-constexpr inline std::uint32_t FREQ_15_25MHz = (1 << 1);   /**< crystal range is 15 to 25MHz */
+constexpr inline std::uint32_t RESERVED_MASK = 0x00000003u; /**< register mask for allowed bits */
+constexpr inline std::uint32_t NO_BYPASS = (0 << 0);        /**< PLL input is fed by crystal oscillator */
+constexpr inline std::uint32_t BYPASS = (1 << 0);           /**< PLL input is fed directly by XTALIN */
+constexpr inline std::uint32_t FREQ_1_20MHz = (0 << 1);     /**< crystal range is 1 to 20MHz */
+constexpr inline std::uint32_t FREQ_15_25MHz = (1 << 1);    /**< crystal range is 15 to 25MHz */
 }  // namespace SYSOSCCTRL
 namespace WDTOSCCTRL {
-constexpr inline std::uint32_t RESERVED_MASK = 0x000001FF; /**< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK = 0x000001FFu; /**< register mask for allowed bits */
 /**
  * @brief Format divider for Fclkana
  *
@@ -146,38 +146,38 @@ constexpr inline std::uint32_t FREQSEL_4_4MHZ = (14 << 5);  /**< Fclkana is 4.4 
 constexpr inline std::uint32_t FREQSEL_4_6MHZ = (15 << 5);  /**< Fclkana is 4.6 MHz */
 }  // namespace WDTOSCCTRL
 namespace SYSRSTSTAT {
-constexpr inline std::uint32_t RESERVED_MASK = 0x0000001F; /**< register mask for allowed bits */
-constexpr inline std::uint32_t POR = (1 << 0);             /**< POR detected */
-constexpr inline std::uint32_t EXTRST = (1 << 1);          /**< reset detected */
-constexpr inline std::uint32_t WDT = (1 << 2);             /**< WDT reset detected */
-constexpr inline std::uint32_t BOD = (1 << 3);             /**< BOD reset detected */
-constexpr inline std::uint32_t SYSRST = (1 << 4);          /**< System reset detected */
+constexpr inline std::uint32_t RESERVED_MASK = 0x0000001Fu; /**< register mask for allowed bits */
+constexpr inline std::uint32_t POR = (1 << 0);              /**< POR detected */
+constexpr inline std::uint32_t EXTRST = (1 << 1);           /**< reset detected */
+constexpr inline std::uint32_t WDT = (1 << 2);              /**< WDT reset detected */
+constexpr inline std::uint32_t BOD = (1 << 3);              /**< BOD reset detected */
+constexpr inline std::uint32_t SYSRST = (1 << 4);           /**< System reset detected */
 }  // namespace SYSRSTSTAT
 namespace SYSPLLCLKSEL {
-constexpr inline std::uint32_t RESERVED_MASK = 0x00000003; /**< register mask for allowed bits */
-constexpr inline std::uint32_t SEL_IRC = (0 << 0);         /**< PLL clock source is IRC */
-constexpr inline std::uint32_t SEL_SYSOSC = (1 << 0);      /**< PLL clock source is crystal oscillator */
-constexpr inline std::uint32_t SEL_CLKIN = (3 << 0);       /**< PLL clock source is external clock input */
+constexpr inline std::uint32_t RESERVED_MASK = 0x00000003u; /**< register mask for allowed bits */
+constexpr inline std::uint32_t SEL_IRC = (0 << 0);          /**< PLL clock source is IRC */
+constexpr inline std::uint32_t SEL_SYSOSC = (1 << 0);       /**< PLL clock source is crystal oscillator */
+constexpr inline std::uint32_t SEL_CLKIN = (3 << 0);        /**< PLL clock source is external clock input */
 }  // namespace SYSPLLCLKSEL
 namespace SYSPLLCLKUEN {
-constexpr inline std::uint32_t RESERVED_MASK = 0x00000001; /**< register mask for allowed bits */
-constexpr inline std::uint32_t NO_CHANGE = (0 << 0);       /**< No change of clock source */
-constexpr inline std::uint32_t UPDATE = (1 << 0);          /**< update clock source */
+constexpr inline std::uint32_t RESERVED_MASK = 0x00000001u; /**< register mask for allowed bits */
+constexpr inline std::uint32_t NO_CHANGE = (0 << 0);        /**< No change of clock source */
+constexpr inline std::uint32_t UPDATE = (1 << 0);           /**< update clock source */
 }  // namespace SYSPLLCLKUEN
 namespace MAINCLKSEL {
-constexpr inline std::uint32_t RESERVED_MASK = 0x00000003; /**< register mask for allowed bits */
-constexpr inline std::uint32_t SEL_IRC = (0 << 0);         /**< main clock source is IRC */
-constexpr inline std::uint32_t SEL_PLL_IN = (1 << 0);      /**< main clock source is PLL input */
-constexpr inline std::uint32_t SEL_WDTOSC = (2 << 0);      /**< main clock source is WDT oscillator */
-constexpr inline std::uint32_t SEL_PLL_OUT = (3 << 0);     /**< main clock source is PLL output */
+constexpr inline std::uint32_t RESERVED_MASK = 0x00000003u; /**< register mask for allowed bits */
+constexpr inline std::uint32_t SEL_IRC = (0 << 0);          /**< main clock source is IRC */
+constexpr inline std::uint32_t SEL_PLL_IN = (1 << 0);       /**< main clock source is PLL input */
+constexpr inline std::uint32_t SEL_WDTOSC = (2 << 0);       /**< main clock source is WDT oscillator */
+constexpr inline std::uint32_t SEL_PLL_OUT = (3 << 0);      /**< main clock source is PLL output */
 }  // namespace MAINCLKSEL
 namespace MAINCLKUEN {
-constexpr inline std::uint32_t RESERVED_MASK = 0x00000001; /**< register mask for allowed bits */
-constexpr inline std::uint32_t NO_CHANGE = (0 << 0);       /**< No change of clock source */
-constexpr inline std::uint32_t UPDATE = (1 << 0);          /**< update clock source */
+constexpr inline std::uint32_t RESERVED_MASK = 0x00000001u; /**< register mask for allowed bits */
+constexpr inline std::uint32_t NO_CHANGE = (0 << 0);        /**< No change of clock source */
+constexpr inline std::uint32_t UPDATE = (1 << 0);           /**< update clock source */
 }  // namespace MAINCLKUEN
 namespace SYSAHBCLKDIV {
-constexpr inline std::uint32_t RESERVED_MASK = 0x000000FF; /**< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK = 0x000000FFu; /**< register mask for allowed bits */
 /**
  * @brief Format system clock divider
  *
@@ -189,67 +189,67 @@ constexpr inline std::uint32_t DIV(std::uint32_t divider) {
 }
 }  // namespace SYSAHBCLKDIV
 namespace SYSAHBCLKCTRL {
-constexpr inline std::uint32_t RESERVED_MASK = 0x000FFFFF; /**< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK = 0x000FFFFFu; /**< register mask for allowed bits */
 }  // namespace SYSAHBCLKCTRL
 namespace UARTCLKDIV {
-constexpr inline std::uint32_t RESERVED_MASK = 0x000000FF; /**< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK = 0x000000FFu; /**< register mask for allowed bits */
 }
 namespace CLKOUTSEL {
-constexpr inline std::uint32_t RESERVED_MASK = 0x00000000; /**< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK = 0x00000000u; /**< register mask for allowed bits */
 }
 namespace CLKOUTUEN {
-constexpr inline std::uint32_t RESERVED_MASK = 0x00000000; /**< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK = 0x00000000u; /**< register mask for allowed bits */
 }
 namespace CLKOUTDIV {
-constexpr inline std::uint32_t RESERVED_MASK = 0x00000000; /**< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK = 0x00000000u; /**< register mask for allowed bits */
 }
 namespace UARTFRGDIV {
-constexpr inline std::uint32_t RESERVED_MASK = 0x00000000; /**< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK = 0x00000000u; /**< register mask for allowed bits */
 }
 namespace UARTFRGMULT {
-constexpr inline std::uint32_t RESERVED_MASK = 0x00000000; /**< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK = 0x00000000u; /**< register mask for allowed bits */
 }
 namespace EXTTRACECMD {
-constexpr inline std::uint32_t RESERVED_MASK = 0x00000000; /**< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK = 0x00000000u; /**< register mask for allowed bits */
 }
 namespace PIOPORCAP0 {
-constexpr inline std::uint32_t RESERVED_MASK = 0x00000000; /**< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK = 0x00000000u; /**< register mask for allowed bits */
 }
 namespace IOCONCLKDIV {
-constexpr inline std::uint32_t RESERVED_MASK = 0x00000000; /**< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK = 0x00000000u; /**< register mask for allowed bits */
 }
 namespace BODCTRL {
-constexpr inline std::uint32_t RESERVED_MASK = 0x00000000; /**< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK = 0x00000000u; /**< register mask for allowed bits */
 }
 namespace SYSTCKCAL {
-constexpr inline std::uint32_t RESERVED_MASK = 0x00000000; /**< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK = 0x00000000u; /**< register mask for allowed bits */
 }
 namespace IRQLATENCY {
-constexpr inline std::uint32_t RESERVED_MASK = 0x00000000; /**< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK = 0x00000000u; /**< register mask for allowed bits */
 }
 namespace NMISRC {
-constexpr inline std::uint32_t RESERVED_MASK = 0x00000000; /**< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK = 0x00000000u; /**< register mask for allowed bits */
 }
 namespace PINTSEL {
-constexpr inline std::uint32_t RESERVED_MASK = 0x00000000; /**< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK = 0x00000000u; /**< register mask for allowed bits */
 }
 namespace STARTERP0 {
-constexpr inline std::uint32_t RESERVED_MASK = 0x00000000; /**< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK = 0x00000000u; /**< register mask for allowed bits */
 }
 namespace STARTERP1 {
-constexpr inline std::uint32_t RESERVED_MASK = 0x00000000; /**< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK = 0x00000000u; /**< register mask for allowed bits */
 }
 namespace PDSLEEPCFG {
-constexpr inline std::uint32_t RESERVED_MASK = 0x00000000; /**< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK = 0x00000000u; /**< register mask for allowed bits */
 }
 namespace PDAWAKECFG {
-constexpr inline std::uint32_t RESERVED_MASK = 0x00000000; /**< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK = 0x00000000u; /**< register mask for allowed bits */
 }
 namespace PDRUNCFG {
-constexpr inline std::uint32_t RESERVED_MASK = 0x000080EF; /**< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK = 0x000080EFu; /**< register mask for allowed bits */
 }
 namespace DEVICEID {
-constexpr inline std::uint32_t RESERVED_MASK = 0x00000000; /**< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK = 0x00000000u; /**< register mask for allowed bits */
 }
 
 }  // namespace syscon

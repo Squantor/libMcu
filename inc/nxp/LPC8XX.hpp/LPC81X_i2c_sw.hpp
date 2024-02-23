@@ -15,17 +15,7 @@ namespace sw {
 namespace i2c {
 using namespace hw::i2c;
 template <libMcuLL::I2CbaseAddress i2cAddress_>
-struct i2c {
-  static constexpr libMcuLL::hwAddressType i2cAddress = i2cAddress_; /**< peripheral address */
-  /**
-   * @brief get registers from peripheral
-   *
-   * @return return pointer to i2c registers
-   */
-  static hw::i2c::peripheral *i2cPeripheral() {
-    return reinterpret_cast<hw::i2c::peripheral *>(i2cAddress);
-  }
-
+struct i2c : libMcuLL::peripheralBase {
   /**
    * @brief Initialize I2C master
    *
@@ -33,7 +23,7 @@ struct i2c {
    * @param timeout clocks to timeout
    * @return std::uint32_t actual bit rate
    */
-  std::uint32_t initMaster(std::uint32_t bitRate, std::uint32_t timeout) {
+  constexpr std::uint32_t initMaster(std::uint32_t bitRate, std::uint32_t timeout) {
     /*
     we multiply by 20 as by default MSTTIME divides the timing by 2 and I2C peripheral needs 10 clocks for something.
     This is not described in the datasheet but the calculation does match their example.
@@ -50,7 +40,7 @@ struct i2c {
    * @param address I2C device to write to
    * @param transmitBuffer data to send
    */
-  void write(libMcuLL::i2cDeviceAddress address, const std::span<std::uint8_t> transmitBuffer) {
+  constexpr void write(libMcuLL::i2cDeviceAddress address, const std::span<std::uint8_t> transmitBuffer) {
     std::uint32_t i2cAddress = static_cast<std::uint32_t>(address.value) << 1;
     i2cPeripheral()->MSTDAT = i2cAddress;
     i2cPeripheral()->MSTCTL = MSTCTL::MSTSTART;
@@ -78,7 +68,7 @@ struct i2c {
    * @param address I2C device to read from
    * @param receiveBuffer place to put read data, needs to be at least size 1!
    */
-  void read(libMcuLL::i2cDeviceAddress address, std::span<std::uint8_t> receiveBuffer) {
+  constexpr void read(libMcuLL::i2cDeviceAddress address, std::span<std::uint8_t> receiveBuffer) {
     std::uint32_t i2cAddress = static_cast<std::uint32_t>(address.value) << 1;
     i2cPeripheral()->MSTDAT = i2cAddress | 0x01;  // set read bit in Address
     i2cPeripheral()->MSTCTL = MSTCTL::MSTSTART;
@@ -100,6 +90,17 @@ struct i2c {
     while (!(i2cPeripheral()->STAT & (STAT::MSTPENDING | STAT::EVENTTIMEOUT | STAT::SCLTIMEOUT)))
       ;
   }
+  /**
+   * @brief get registers from peripheral
+   *
+   * @return return pointer to i2c registers
+   */
+  constexpr static hw::i2c::peripheral *i2cPeripheral() {
+    return reinterpret_cast<hw::i2c::peripheral *>(i2cAddress);
+  }
+
+ private:
+  static constexpr libMcuLL::hwAddressType i2cAddress = i2cAddress_; /**< peripheral address */
 };
 }  // namespace i2c
 }  // namespace sw

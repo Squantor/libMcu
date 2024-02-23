@@ -19,7 +19,7 @@ using namespace hw::iocon;
  * @brief Pin pull modes
  *
  */
-enum pullModes : std::uint32_t {
+enum class pullModes : std::uint32_t {
   INACTIVE = PIO::INACTIVE, /**< No pullup/down */
   PULLDOWN = PIO::PULLDOWN, /**< Pulldown enabled */
   PULLUP = PIO::PULLUP,     /**< Pullup enabled */
@@ -30,7 +30,7 @@ enum pullModes : std::uint32_t {
  * @brief pin filtering modes
  *
  */
-enum pinFiltering : std::uint32_t {
+enum class pinFiltering : std::uint32_t {
   BYPASS = PIO::BYPASS,   /**< Bypassed input filter */
   CYCLES1 = PIO::CYCLES1, /**< 1 clock cycle pulses are filtered */
   CYCLES2 = PIO::CYCLES2, /**< 2 clock cycle pulses are filtered */
@@ -43,7 +43,7 @@ enum pinFiltering : std::uint32_t {
  * TODO, change this to a consteval function
  *
  */
-enum clockDivider : std::uint32_t {
+enum class clockDivider : std::uint32_t {
   IOCONCLKDIV0 = PIO::IOCONCLKDIV0, /**< use IOCONCLKDIV0 in SYSCON */
   IOCONCLKDIV1 = PIO::IOCONCLKDIV1, /**< use IOCONCLKDIV1 in SYSCON */
   IOCONCLKDIV2 = PIO::IOCONCLKDIV2, /**< use IOCONCLKDIV2 in SYSCON */
@@ -57,104 +57,106 @@ enum clockDivider : std::uint32_t {
  * @brief I2C pin modes
  *
  */
-enum i2cmodes : std::uint32_t {
+enum class i2cmodes : std::uint32_t {
   I2C_STD = PIO::I2C_STD,   /**< standard/fast I2C mode */
   IO_STD = PIO::IO_STD,     /**< standard I/O functionality */
   I2C_FAST = PIO::I2C_FAST, /**< fast mode plus I2C */
 };
 
 template <libMcuLL::IOCONbaseAddress ioconAddress_>
-struct iocon {
-  static constexpr libMcuLL::hwAddressType ioconAddress = ioconAddress_; /**< peripheral address */
+struct iocon : libMcuLL::peripheralBase {
+  /**
+   * @brief Setup normal IOCON pin
+   *
+   * @tparam T      normal iocon pin type
+   * @param pin     instance of pin type to setup
+   * @param mode    pullup mode
+   * @param filter  glitch filter setting
+   * @param clock   clock source for glitch filter
+   * @param options additional single bit options to set
+   */
+  template <typename T>
+  constexpr void setup(T &pin, pullModes mode, pinFiltering filter, clockDivider clock, std::uint32_t options) {
+    static_assert(pin.typeFlags == hw::pinTypeFlags::NORMAL, "only normal pins can use this setup function");
+    ioconPeripheral()->PIO[pin.ioconIndex] =
+      static_cast<std::uint32_t>(mode) | static_cast<std::uint32_t>(filter) | static_cast<std::uint32_t>(clock) | options;
+  }
+  /**
+   * @brief Setup normal IOCON pin
+   *
+   * @tparam T      normal iocon pin type
+   * @param pin     instance of pin type to setup
+   * @param mode    pullup mode
+   * @param options additional single bit options to set
+   */
+  template <typename T>
+  constexpr void setup(T &pin, pullModes mode, std::uint32_t options) {
+    static_assert(pin.typeFlags == hw::pinTypeFlags::NORMAL, "only normal pins can use this setup function");
+    ioconPeripheral()->PIO[pin.ioconIndex] = static_cast<std::uint32_t>(mode) | options;
+  }
+  /**
+   * @brief Setup normal IOCON pin
+   *
+   * @tparam T      normal iocon pin type
+   * @param pin     instance of pin type to setup
+   */
+  template <typename T>
+  constexpr void setup(T &pin, pullModes mode) {
+    static_assert(pin.typeFlags == hw::pinTypeFlags::NORMAL, "only normal pins can use this setup function");
+    ioconPeripheral()->PIO[pin.ioconIndex] = static_cast<std::uint32_t>(mode);
+  }
+  /**
+   * @brief Setup I2C IOCON pin
+   *
+   * @tparam T      i2c iocon pin type
+   * @param pin     instance of pin type to setup
+   * @param mode    I2C mode
+   * @param filter  glitch filter setting
+   * @param clock   clock source for glitch filter
+   * @param options additional single bit options to set
+   */
+  template <typename T>
+  constexpr void setup(T &pin, i2cmodes mode, pinFiltering filter, clockDivider clock, std::uint32_t options) {
+    static_assert(pin.typeFlags & hw::pinTypeFlags::IOCON_I2C, "only I2C pins have a i2c mode setup");
+    ioconPeripheral()->PIO[pin.ioconIndex] =
+      static_cast<std::uint32_t>(mode) | static_cast<std::uint32_t>(filter) | static_cast<std::uint32_t>(clock) | options;
+  }
+  /**
+   * @brief Setup I2C IOCON pin
+   *
+   * @tparam T      i2c iocon pin type
+   * @param pin     instance of pin type to setup
+   * @param mode    I2C mode
+   * @param options additional single bit options to set
+   */
+  template <typename T>
+  constexpr void setup(T &pin, i2cmodes mode, std::uint32_t options) {
+    static_assert(pin.typeFlags & hw::pinTypeFlags::IOCON_I2C, "only I2C pins have a i2c mode setup");
+    ioconPeripheral()->PIO[pin.ioconIndex] = static_cast<std::uint32_t>(mode) | options;
+  }
+  /**
+   * @brief Setup I2C IOCON pin
+   *
+   * @tparam T      i2c iocon pin type
+   * @param pin     instance of pin type to setup
+   * @param mode    I2C mode
+   */
+  template <typename T>
+  constexpr void setup(T &pin, i2cmodes mode) {
+    static_assert(pin.typeFlags & hw::pinTypeFlags::IOCON_I2C, "only I2C pins have a i2c mode setup");
+    ioconPeripheral()->PIO[pin.ioconIndex] = static_cast<std::uint32_t>(mode);
+  }
   /**
    * @brief get registers from peripheral
    *
    * @return return pointer to iocon registers
    */
-  static hw::iocon::peripheral *ioconPeripheral() {
+  static constexpr hw::iocon::peripheral *ioconPeripheral() {
     return reinterpret_cast<hw::iocon::peripheral *>(ioconAddress);
   }
-  /**
-   * @brief Setup normal IOCON pin
-   *
-   * @tparam T      normal iocon pin type
-   * @param pin     instance of pin type to setup
-   * @param mode    pullup mode
-   * @param filter  glitch filter setting
-   * @param clock   clock source for glitch filter
-   * @param options additional single bit options to set
-   */
-  template <typename T>
-  void setup(T &pin, pullModes mode, pinFiltering filter, clockDivider clock, std::uint32_t options) {
-    static_assert(pin.typeFlags == hw::pinTypeFlags::NORMAL, "only normal pins can use this setup function");
-    ioconPeripheral()->PIO[pin.ioconIndex] =
-      static_cast<std::uint32_t>(mode) | static_cast<std::uint32_t>(filter) | static_cast<std::uint32_t>(clock) | options;
-  }
-  /**
-   * @brief Setup normal IOCON pin
-   *
-   * @tparam T      normal iocon pin type
-   * @param pin     instance of pin type to setup
-   * @param mode    pullup mode
-   * @param options additional single bit options to set
-   */
-  template <typename T>
-  void setup(T &pin, pullModes mode, std::uint32_t options) {
-    static_assert(pin.typeFlags == hw::pinTypeFlags::NORMAL, "only normal pins can use this setup function");
-    ioconPeripheral()->PIO[pin.ioconIndex] = static_cast<std::uint32_t>(mode) | options;
-  }
-  /**
-   * @brief Setup normal IOCON pin
-   *
-   * @tparam T      normal iocon pin type
-   * @param pin     instance of pin type to setup
-   */
-  template <typename T>
-  void setup(T &pin, pullModes mode) {
-    static_assert(pin.typeFlags == hw::pinTypeFlags::NORMAL, "only normal pins can use this setup function");
-    ioconPeripheral()->PIO[pin.ioconIndex] = static_cast<std::uint32_t>(mode);
-  }
-  /**
-   * @brief Setup I2C IOCON pin
-   *
-   * @tparam T      i2c iocon pin type
-   * @param pin     instance of pin type to setup
-   * @param mode    I2C mode
-   * @param filter  glitch filter setting
-   * @param clock   clock source for glitch filter
-   * @param options additional single bit options to set
-   */
-  template <typename T>
-  void setup(T &pin, i2cmodes mode, pinFiltering filter, clockDivider clock, std::uint32_t options) {
-    static_assert(pin.typeFlags & hw::pinTypeFlags::IOCON_I2C, "only I2C pins have a i2c mode setup");
-    ioconPeripheral()->PIO[pin.ioconIndex] =
-      static_cast<std::uint32_t>(mode) | static_cast<std::uint32_t>(filter) | static_cast<std::uint32_t>(clock) | options;
-  }
-  /**
-   * @brief Setup I2C IOCON pin
-   *
-   * @tparam T      i2c iocon pin type
-   * @param pin     instance of pin type to setup
-   * @param mode    I2C mode
-   * @param options additional single bit options to set
-   */
-  template <typename T>
-  void setup(T &pin, i2cmodes mode, std::uint32_t options) {
-    static_assert(pin.typeFlags & hw::pinTypeFlags::IOCON_I2C, "only I2C pins have a i2c mode setup");
-    ioconPeripheral()->PIO[pin.ioconIndex] = static_cast<std::uint32_t>(mode) | options;
-  }
-  /**
-   * @brief Setup I2C IOCON pin
-   *
-   * @tparam T      i2c iocon pin type
-   * @param pin     instance of pin type to setup
-   * @param mode    I2C mode
-   */
-  template <typename T>
-  void setup(T &pin, i2cmodes mode) {
-    static_assert(pin.typeFlags & hw::pinTypeFlags::IOCON_I2C, "only I2C pins have a i2c mode setup");
-    ioconPeripheral()->PIO[pin.ioconIndex] = static_cast<std::uint32_t>(mode);
-  }
+
+ private:
+  static constexpr libMcuLL::hwAddressType ioconAddress = ioconAddress_; /**< peripheral address */
 };
 }  // namespace iocon
 }  // namespace sw

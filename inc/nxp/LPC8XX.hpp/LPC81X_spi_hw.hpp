@@ -32,18 +32,18 @@ struct peripheral {
   volatile const std::uint32_t INTSTAT; /**< SPI Interrupt Status register */
 };
 namespace CFG {
-constexpr inline std::uint32_t RESERVED_MASK = 0x1BD; /**< register mask for allowed bits */
-constexpr inline std::uint32_t ENABLE = (1 << 0);     /**< SPI enable */
-constexpr inline std::uint32_t MASTER = (1 << 2);     /**< master mode */
-constexpr inline std::uint32_t SLAVE = (0 << 2);      /**< slave mode */
-constexpr inline std::uint32_t LSBF = (1 << 3);       /**< LSB First mode enable */
-constexpr inline std::uint32_t CPHA = (1 << 4);       /**< Clock phase select */
-constexpr inline std::uint32_t CPOL = (1 << 5);       /**< Clock polarity select */
-constexpr inline std::uint32_t LOOP = (1 << 7);       /**< Loopback mode enable */
-constexpr inline std::uint32_t SPOL = (1 << 8);       /**< SSEL0 Polarity select */
+constexpr inline std::uint32_t RESERVED_MASK = 0x1BDu; /**< register mask for allowed bits */
+constexpr inline std::uint32_t ENABLE = (1 << 0);      /**< SPI enable */
+constexpr inline std::uint32_t MASTER = (1 << 2);      /**< master mode */
+constexpr inline std::uint32_t SLAVE = (0 << 2);       /**< slave mode */
+constexpr inline std::uint32_t LSBF = (1 << 3);        /**< LSB First mode enable */
+constexpr inline std::uint32_t CPHA = (1 << 4);        /**< Clock phase select */
+constexpr inline std::uint32_t CPOL = (1 << 5);        /**< Clock polarity select */
+constexpr inline std::uint32_t LOOP = (1 << 7);        /**< Loopback mode enable */
+constexpr inline std::uint32_t SPOL = (1 << 8);        /**< SSEL0 Polarity select */
 }  // namespace CFG
 namespace DLY {
-constexpr inline std::uint32_t RESERVED_MASK = 0x0000FFFF; /**< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK = 0x0000FFFFu; /**< register mask for allowed bits */
 /**
  * @brief Format pre delay data for DLY register
  *
@@ -82,32 +82,32 @@ constexpr inline std::uint32_t TRANSFER_DELAY(std::uint8_t data) {
 }
 }  // namespace DLY
 namespace STAT {
-constexpr inline std::uint32_t RESERVED_MASK = 0x000001FF; /**< register mask for allowed bits */
-constexpr inline std::uint32_t RXRDY = (1 << 0);           /**< Receiver Ready flag. When 1 data available  */
-constexpr inline std::uint32_t TXRDY = (1 << 1);           /**< Transmitter Ready flag. When 1 data can be written */
-constexpr inline std::uint32_t RXOV = (1 << 2);            /**< Receiver Overrun interrupt flag. Slave mode only */
-constexpr inline std::uint32_t TXUR = (1 << 3);            /**< Transmitter Underrun interrupt flag. Slave mode only */
-constexpr inline std::uint32_t SSA = (1 << 4);             /**< Slave Select Assert. Set when selected. */
-constexpr inline std::uint32_t SSD = (1 << 5);             /**< Slave Select Deassert. Set when deselected. */
-constexpr inline std::uint32_t STALLED = (1 << 6);         /**< Stalled status flag. */
-constexpr inline std::uint32_t ENDTRANSFER = (1 << 7);     /**< End Transfer control bit. Force end of current transaction */
-constexpr inline std::uint32_t MSTIDLE = (1 << 8);         /**< Master idle status flag. Master is fully idle */
+constexpr inline std::uint32_t RESERVED_MASK = 0x000001FFu; /**< register mask for allowed bits */
+constexpr inline std::uint32_t RXRDY = (1 << 0);            /**< Receiver Ready flag. When 1 data available  */
+constexpr inline std::uint32_t TXRDY = (1 << 1);            /**< Transmitter Ready flag. When 1 data can be written */
+constexpr inline std::uint32_t RXOV = (1 << 2);             /**< Receiver Overrun interrupt flag. Slave mode only */
+constexpr inline std::uint32_t TXUR = (1 << 3);             /**< Transmitter Underrun interrupt flag. Slave mode only */
+constexpr inline std::uint32_t SSA = (1 << 4);              /**< Slave Select Assert. Set when selected. */
+constexpr inline std::uint32_t SSD = (1 << 5);              /**< Slave Select Deassert. Set when deselected. */
+constexpr inline std::uint32_t STALLED = (1 << 6);          /**< Stalled status flag. */
+constexpr inline std::uint32_t ENDTRANSFER = (1 << 7);      /**< End Transfer control bit. Force end of current transaction */
+constexpr inline std::uint32_t MSTIDLE = (1 << 8);          /**< Master idle status flag. Master is fully idle */
 }  // namespace STAT
 namespace INTENSET {
-constexpr inline std::uint32_t RESERVED_MASK = 0x0000003F; /**< register mask for allowed bits */
-constexpr inline std::uint32_t RXRDYEN = (1 << 0);         /**< enable received data available interrupt */
-constexpr inline std::uint32_t TXRDYEN = (1 << 1);         /**< enable write to transmit register interrupt */
-constexpr inline std::uint32_t RXOVEN = (1 << 2);          /**< enable receiver overrun interrupt */
-constexpr inline std::uint32_t TXUREN = (1 << 3);          /**< enable transmitter underrun interrupt */
-constexpr inline std::uint32_t SSAEN = (1 << 4);           /**< enable slave selected interrupt */
-constexpr inline std::uint32_t SSDEN = (1 << 5);           /**< enable slave deselected interrupt */
+constexpr inline std::uint32_t RESERVED_MASK = 0x0000003Fu; /**< register mask for allowed bits */
+constexpr inline std::uint32_t RXRDYEN = (1 << 0);          /**< enable received data available interrupt */
+constexpr inline std::uint32_t TXRDYEN = (1 << 1);          /**< enable write to transmit register interrupt */
+constexpr inline std::uint32_t RXOVEN = (1 << 2);           /**< enable receiver overrun interrupt */
+constexpr inline std::uint32_t TXUREN = (1 << 3);           /**< enable transmitter underrun interrupt */
+constexpr inline std::uint32_t SSAEN = (1 << 4);            /**< enable slave selected interrupt */
+constexpr inline std::uint32_t SSDEN = (1 << 5);            /**< enable slave deselected interrupt */
 }  // namespace INTENSET
 namespace INTENCLR {
-constexpr inline std::uint32_t RESERVED_MASK = 0x0000003F; /**< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK = 0x0000003Fu; /**< register mask for allowed bits */
 // TODO register definitions
 }  // namespace INTENCLR
 namespace RXDAT {
-constexpr inline std::uint32_t RESERVED_MASK = 0x0011FFFF; /**< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK = 0x0011FFFFu; /**< register mask for allowed bits */
 /**
  * @brief Format received data from RXDAT register field
  *
@@ -115,13 +115,13 @@ constexpr inline std::uint32_t RESERVED_MASK = 0x0011FFFF; /**< register mask fo
  * @return constexpr std::uint16_t data in RXDAT register
  */
 constexpr inline std::uint16_t RXDAT(std::uint32_t registerData) {
-  return static_cast<std::uint16_t>(registerData & 0xFFFF);
+  return static_cast<std::uint16_t>(registerData & 0xFFFFu);
 }
 constexpr inline std::uint32_t RXSSEL_N = (1 << 16); /**< Slave 0 selected for receive transaction, zero is active */
 constexpr inline std::uint32_t SOT = (1 << 20);      /**< Start of transfer flag. 1 when SSEL is asserted the first time */
 }  // namespace RXDAT
 namespace TXDATCTL {
-constexpr inline std::uint32_t RESERVED_MASK = 0x0F71FFFF; /**< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK = 0x0F71FFFFu; /**< register mask for allowed bits */
 /**
  * @brief Formats data to TXDATCTL register field
  *
@@ -151,11 +151,11 @@ constexpr inline std::uint32_t RXIGNORE = (1 << 22); /**< Receive ignore */
  * @return constexpr std::uint32_t returns formatted data
  */
 constexpr inline std::uint32_t LEN(std::uint32_t length) {
-  return ((length - 1) & 0x0F) << 24;
+  return ((length - 1) & 0x0Fu) << 24;
 }
 }  // namespace TXDATCTL
 namespace TXDAT {
-constexpr inline std::uint32_t RESERVED_MASK = 0x0000FFFF; /**< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK = 0x0000FFFFu; /**< register mask for allowed bits */
 /**
  * @brief Formats data to TXDATCTL register field
  *
@@ -167,7 +167,7 @@ constexpr inline std::uint32_t TXDAT(std::uint16_t data) {
 }
 }  // namespace TXDAT
 namespace TXCTL {
-constexpr inline std::uint32_t RESERVED_MASK = 0x0F710000; /**< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK = 0x0F710000u; /**< register mask for allowed bits */
 /**
  * @brief Format data transmit length to TXDATCTL register field
  *
@@ -175,11 +175,11 @@ constexpr inline std::uint32_t RESERVED_MASK = 0x0F710000; /**< register mask fo
  * @return constexpr std::uint32_t returns formatted data
  */
 constexpr inline std::uint32_t LEN(std::uint32_t length) {
-  return ((length - 1) & 0x0F) << 24;
+  return ((length - 1) & 0x0Fu) << 24;
 }
 }  // namespace TXCTL
 namespace DIV {
-constexpr inline std::uint32_t RESERVED_MASK = 0x0000FFFF; /**< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK = 0x0000FFFFu; /**< register mask for allowed bits */
 /**
  * @brief Formats divider value to DIVVAL register field
  *
@@ -191,13 +191,13 @@ constexpr inline std::uint32_t DIVVAL(std::uint16_t divider) {
 }
 }  // namespace DIV
 namespace INTSTAT {
-constexpr inline std::uint32_t RESERVED_MASK = 0x0000003F; /**< register mask for allowed bits */
-constexpr inline std::uint32_t RXRDY = (1 << 0);           /**< Receiver ready interrupt flag */
-constexpr inline std::uint32_t TXRDY = (1 << 1);           /**< Transmitter ready interrupt flag */
-constexpr inline std::uint32_t RXOV = (1 << 2);            /**< Receiver overrun interrupt flag*/
-constexpr inline std::uint32_t TXUR = (1 << 3);            /**< Transmitter underrun interrupt flag */
-constexpr inline std::uint32_t SSA = (1 << 4);             /**< Slave Select Assert */
-constexpr inline std::uint32_t SSD = (1 << 5);             /**< Slave Select Deassert */
+constexpr inline std::uint32_t RESERVED_MASK = 0x0000003Fu; /**< register mask for allowed bits */
+constexpr inline std::uint32_t RXRDY = (1 << 0);            /**< Receiver ready interrupt flag */
+constexpr inline std::uint32_t TXRDY = (1 << 1);            /**< Transmitter ready interrupt flag */
+constexpr inline std::uint32_t RXOV = (1 << 2);             /**< Receiver overrun interrupt flag*/
+constexpr inline std::uint32_t TXUR = (1 << 3);             /**< Transmitter underrun interrupt flag */
+constexpr inline std::uint32_t SSA = (1 << 4);              /**< Slave Select Assert */
+constexpr inline std::uint32_t SSD = (1 << 5);              /**< Slave Select Deassert */
 }  // namespace INTSTAT
 }  // namespace spi
 }  // namespace hw

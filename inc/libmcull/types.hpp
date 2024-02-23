@@ -28,6 +28,22 @@ struct constant {
   C_ value;
 };
 
+/**
+ * @brief Peripheral base class that all peripherals should inherit from
+ *
+ * You will never copy/move a peripheral, they are "eternal" with respect to program lifetime
+ *
+ */
+class peripheralBase {
+ public:
+  peripheralBase() = default;
+  ~peripheralBase() = default;
+  peripheralBase(const peripheralBase&) = delete;
+  peripheralBase& operator=(const peripheralBase&) = delete;
+  peripheralBase(peripheralBase&&) = delete;
+  peripheralBase& operator=(peripheralBase&&) = delete;
+};
+
 using hwAddressBase = constant<std::uint32_t>;
 using hwAddressType = typename hwAddressBase::type;
 

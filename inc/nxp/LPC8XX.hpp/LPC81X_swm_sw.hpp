@@ -15,17 +15,7 @@ namespace sw {
 namespace swm {
 using namespace hw::swm;
 template <libMcuLL::SWMbaseAddress swmAddress_>
-struct swm {
-  static constexpr libMcuLL::hwAddressType swmAddress = swmAddress_; /**< peripheral address */
-  /**
-   * @brief get registers from peripheral
-   *
-   * @return return pointer to registers
-   */
-  static hw::swm::peripheral *swmPeripheral() {
-    return reinterpret_cast<hw::swm::peripheral *>(swmAddress);
-  }
-
+struct swm : libMcuLL::peripheralBase {
   /**
    * @brief set pin to a function
    *
@@ -38,7 +28,7 @@ struct swm {
   constexpr void setup(PIN &pin, FUNC &function) {
     if constexpr (FUNC::type == hw::swm::pinFunctionTypes::MOVABLE) {
       // create a mask for resetting the pin setting
-      constexpr std::uint32_t mask = ~(0xFF << function.shift);
+      constexpr std::uint32_t mask = ~(0xFFu << function.shift);
       swmPeripheral()->PINASSIGN[function.index] =
         (swmPeripheral()->PINASSIGN[function.index] & mask) | (pin.pio << function.shift);
     }
@@ -52,7 +42,7 @@ struct swm {
   constexpr void clear([[maybe_unused]] PIN &pin, FUNC &function) {
     if constexpr (FUNC::type == hw::swm::pinFunctionTypes::MOVABLE) {
       // create a mask for unassigning pin setting
-      constexpr std::uint32_t mask = (0xFF << function.shift);
+      constexpr std::uint32_t mask = (0xFFu << function.shift);
       swmPeripheral()->PINASSIGN[function.index] = (swmPeripheral()->PINASSIGN[function.index] | mask);
     }
     if constexpr (FUNC::type == hw::swm::pinFunctionTypes::FIXED) {
@@ -78,6 +68,17 @@ struct swm {
   constexpr void disableFixedPins(std::uint32_t pinMask) {
     swmPeripheral()->PINENABLE0 = swmPeripheral()->PINENABLE0 | pinMask;
   }
+  /**
+   * @brief get registers from peripheral
+   *
+   * @return return pointer to registers
+   */
+  constexpr hw::swm::peripheral *swmPeripheral() {
+    return reinterpret_cast<hw::swm::peripheral *>(swmAddress);
+  }
+
+ private:
+  static constexpr libMcuLL::hwAddressType swmAddress = swmAddress_; /**< peripheral address */
 };
 }  // namespace swm
 }  // namespace sw

@@ -28,18 +28,18 @@ struct peripheral {
   volatile const std::uint32_t FMSW[1];      /**< Signature word regsiter */
 };
 namespace FLASHCFG {
-constexpr inline std::uint32_t RESERVED_MASK = 0x00000003;  /**< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK = 0x00000003u; /**< register mask for allowed bits */
 constexpr inline std::uint32_t FLASHTIM_1_CLOCK = (0 << 0); /**< 1 clock flash access time*/
 constexpr inline std::uint32_t FLASHTIM_2_CLOCK = (1 << 0); /**< 1 clock flash access time*/
 }  // namespace FLASHCFG
 namespace FMSSTART {
-constexpr inline std::uint32_t RESERVED_MASK = 0x00000000; /**< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK = 0x00000000u; /**< register mask for allowed bits */
 }  // namespace FMSSTART
 namespace FMSSTOP {
-constexpr inline std::uint32_t RESERVED_MASK = 0x00000000; /**< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK = 0x00000000u; /**< register mask for allowed bits */
 }  // namespace FMSSTOP
 namespace FMSW {
-constexpr inline std::uint32_t RESERVED_MASK = 0x00000000; /**< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK = 0x00000000u; /**< register mask for allowed bits */
 }  // namespace FMSW
 
 }  // namespace fmc

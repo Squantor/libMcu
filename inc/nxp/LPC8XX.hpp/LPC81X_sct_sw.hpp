@@ -19,7 +19,7 @@ namespace sw {
 namespace sct {
 using namespace hw::sct;
 
-enum countingMode : std::uint32_t {
+enum class countingMode : std::uint32_t {
   UP,            /**< counter only counts up */
   BIDIRECTIONAL, /**< bidirectional counting */
 };
@@ -30,7 +30,7 @@ enum countingMode : std::uint32_t {
  * Used as an index for match registers
  *
  */
-enum matchNumber : std::uint32_t {
+enum class matchNumber : std::uint32_t {
   MATCH_0 = 0, /**< match 0 */
   MATCH_1 = 1, /**< match 1 */
   MATCH_2 = 2, /**< match 2 */
@@ -44,7 +44,7 @@ enum matchNumber : std::uint32_t {
  * Used as an index for capture registers
  *
  */
-enum captureNumber : std::uint32_t {
+enum class captureNumber : std::uint32_t {
   CAPTURE_0 = 0, /**< match 0 */
   CAPTURE_1 = 1, /**< match 1 */
   CAPTURE_2 = 2, /**< match 2 */
@@ -58,7 +58,7 @@ enum captureNumber : std::uint32_t {
  * Used as an index for event registers
  *
  */
-enum eventNumber : std::uint32_t {
+enum class eventNumber : std::uint32_t {
   EVENT_0 = 0, /**< event 0 */
   EVENT_1 = 1, /**< event 1 */
   EVENT_2 = 2, /**< event 2 */
@@ -73,7 +73,7 @@ enum eventNumber : std::uint32_t {
  * Used as an index for output registers
  *
  */
-enum outputNumber : std::uint32_t {
+enum class outputNumber : std::uint32_t {
   OUTPUT_0 = 0, /**< output 0 */
   OUTPUT_1 = 1, /**< output 1 */
   OUTPUT_2 = 2, /**< output 2 */
@@ -86,7 +86,7 @@ enum outputNumber : std::uint32_t {
  * Used as an index for input registers
  *
  */
-enum inputNumber : std::uint32_t {
+enum class inputNumber : std::uint32_t {
   INPUT_0 = 0, /**< input 0 */
   INPUT_1 = 1, /**< input 0 */
   INPUT_2 = 2, /**< input 0 */
@@ -97,29 +97,15 @@ enum inputNumber : std::uint32_t {
  * @brief conditions that can be captured
  *
  */
-enum captureCondition : std::uint32_t {
+enum class captureCondition : std::uint32_t {
   CAPTURE_LOW = EV_CTRL::IOCOND_LOW,   /**< Capture low levels */
   CAPTURE_RISE = EV_CTRL::IOCOND_RISE, /**< Capture rising edges */
   CAPTURE_FALL = EV_CTRL::IOCOND_FALL, /**< Capture falling edges */
   CAPTURE_HIGH = EV_CTRL::IOCOND_HIGH, /**< Capture high levels */
 };
 
-template <libMcuLL::SCTbaseAddress const &sctAddress_>
-struct sct {
-  /**
-   * @brief Construct a new sct object
-   *
-   */
-  sct() {}
-  /**
-   * @brief get registers from peripheral
-   *
-   * @return return pointer to state configurable timer registers
-   */
-  constexpr static hw::sct::peripheral *sctPeripheral() {
-    return reinterpret_cast<hw::sct::peripheral *>(sctAddress);
-  }
-
+template <libMcuLL::SCTbaseAddress sctAddress_>
+struct sct : libMcuLL::peripheralBase {
   /**
    * @brief Setup SCT to unified 32 bit timer
    *
@@ -133,15 +119,13 @@ struct sct {
     sctPeripheral()->CONFIG = CONFIG::UNIFY_ON | CONFIG::AUTOLIMIT_L;
     // TODO configure match 0 register as match register as we autolimit on match 0
     sctPeripheral()->COUNT = 0x00000000u;
-    if (countMode == BIDIRECTIONAL)
+    if (countMode == countingMode::BIDIRECTIONAL)
       sctPeripheral()->CTRL = CTRL::HALT_L | CTRL::CLRCTR_L | CTRL::PRE_L(prescale) | CTRL::BIDIR_L;
     else
       sctPeripheral()->CTRL = CTRL::HALT_L | CTRL::CLRCTR_L | CTRL::PRE_L(prescale);
   }
-
   // TODO: init(mode, prescale, inputpin)
   // TODO: init(mode, prescaleL, prescale H, inputpint)
-
   /**
    * @brief Starts the 32bit SCT
    *
@@ -149,7 +133,6 @@ struct sct {
   constexpr void start() {
     sctPeripheral()->CTRL = sctPeripheral()->CTRL & ~(CTRL::HALT_L);
   }
-
   /**
    * @brief Halts the 32bit SCT
    *
@@ -157,7 +140,6 @@ struct sct {
   constexpr void halt() {
     sctPeripheral()->CTRL = sctPeripheral()->CTRL | (CTRL::HALT_L);
   }
-
   /**
    * @brief returns SCT count value
    *
@@ -166,7 +148,6 @@ struct sct {
   constexpr std::uint32_t counter() {
     return sctPeripheral()->COUNT;
   }
-
   /**
    * @brief set SCT match register and match reload register
    *
@@ -175,12 +156,11 @@ struct sct {
    * @param match match register to set
    * @param value value to put in match register
    */
-  void setMatch(matchNumber match, std::uint32_t value) {
-    size_t matchIndex = static_cast<std::size_t>(match);
+  constexpr void setMatch(matchNumber match, std::uint32_t value) {
+    std::size_t matchIndex = static_cast<std::size_t>(match);
     sctPeripheral()->MATCH[matchIndex].U = value;
     sctPeripheral()->MATCHREL[matchIndex].U = value;
   }
-
   /**
    * @brief Set SCT match reload register
    *
@@ -189,36 +169,33 @@ struct sct {
    * @param match match reload register to set
    * @param value value to put in match reload register
    */
-  void setReload(matchNumber match, std::uint32_t value) {
-    size_t matchIndex = static_cast<std::size_t>(match);
+  constexpr void setReload(matchNumber match, std::uint32_t value) {
+    std::size_t matchIndex = static_cast<std::size_t>(match);
     sctPeripheral()->MATCHREL[matchIndex].U = value;
   }
-
   /**
    * @brief get SCT capture register value
    *
    * @param capture capture register to get
    * @return value of the requested capture register
    */
-  uint32_t getCapture(captureNumber capture) {
-    size_t captureIndex = static_cast<std::size_t>(capture);
+  constexpr std::uint32_t getCapture(captureNumber capture) {
+    std::size_t captureIndex = static_cast<std::size_t>(capture);
     return sctPeripheral()->CAP[captureIndex].U;
   }
-
   /**
    * @brief return state of the SCT output
    *
    * @param output which output to read
    * @return current output state
    */
-  bool output(outputNumber output) {
-    uint32_t outputRegister = sctPeripheral()->OUTPUT & (1 << output);
-    if (outputRegister == 0)
+  constexpr bool output(outputNumber output) {
+    std::uint32_t outputRegister = sctPeripheral()->OUTPUT & (1 << static_cast<std::uint32_t>(output));
+    if (outputRegister == 0u)
       return false;
     else
       return true;
   }
-
   /**
    * @brief Setup a SCT PWM channel
    *
@@ -230,7 +207,7 @@ struct sct {
    * @param output which output is used for generating the PWM
    * @param outputHigh is the initial state of the output high
    */
-  void setupPwm(matchNumber match, std::uint32_t value, eventNumber event, outputNumber output, bool outputHigh) {
+  constexpr void setupPwm(matchNumber match, std::uint32_t value, eventNumber event, outputNumber output, bool outputHigh) {
     size_t matchIndex = static_cast<std::size_t>(match);
     size_t eventIndex = static_cast<std::size_t>(event);
     size_t outputIndex = static_cast<std::size_t>(output);
@@ -245,7 +222,6 @@ struct sct {
     sctPeripheral()->OUT[outputIndex].SET = OUT_SET::SET(eventIndex);
     sctPeripheral()->RES = RES::RES(sctPeripheral()->RES, outputIndex, RES::TOGGLE);
   }
-
   /**
    * @brief Setup a SCT capture channel
    *
@@ -254,7 +230,7 @@ struct sct {
    * @param input which input is captured
    * @param condition which condition to capture
    */
-  void setupCapture(captureNumber capture, eventNumber event, inputNumber input, captureCondition condition) {
+  constexpr void setupCapture(captureNumber capture, eventNumber event, inputNumber input, captureCondition condition) {
     size_t captureIndex = static_cast<std::size_t>(capture);
     size_t eventIndex = static_cast<std::size_t>(event);
     size_t inputIndex = static_cast<std::size_t>(input);
@@ -267,7 +243,16 @@ struct sct {
                                            static_cast<std::uint32_t>(condition) | EV_CTRL::COMBMODE_IO;
     sctPeripheral()->EV[eventIndex].STATE = EV_STATE::STATEMASK0 | EV_STATE::STATEMASK1;
   }
+  /**
+   * @brief get registers from peripheral
+   *
+   * @return return pointer to state configurable timer registers
+   */
+  constexpr static hw::sct::peripheral *sctPeripheral() {
+    return reinterpret_cast<hw::sct::peripheral *>(sctAddress);
+  }
 
+ private:
   static constexpr libMcuLL::hwAddressType sctAddress = sctAddress_; /**< peripheral address */
 };
 }  // namespace sct

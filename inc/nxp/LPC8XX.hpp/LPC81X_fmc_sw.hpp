@@ -23,24 +23,7 @@ enum class waitstates : std::uint32_t {
 template <libMcuLL::FMCbaseAddress fmcAddress_>
 struct fmc {
   /**
-   * @brief Construct a new fmc object
-   *
-   */
-  fmc() {}
-
-  /**
-   * @brief get registers from peripheral
-   *
-   * @return return pointer to gpio registers
-   */
-  static hw::fmc::peripheral *fmcPeripheral() {
-    return reinterpret_cast<hw::fmc::peripheral *>(fmcAddress);
-  }
-
-  /**
    * @brief Change flash controller wait states
-   *
-   *
    *
    * @param setting amount of waitstates to wait for accessing flash
    */
@@ -48,9 +31,17 @@ struct fmc {
     // reserved bits need to be EXACTLY written back according to datasheet
     fmcPeripheral()->FLASHCFG = (fmcPeripheral()->FLASHCFG & ~FLASHCFG::RESERVED_MASK) | static_cast<std::uint32_t>(setting);
   }
+  // TODO flash signiature generator method
+  /**
+   * @brief get registers from peripheral
+   *
+   * @return return pointer to gpio registers
+   */
+  constexpr static hw::fmc::peripheral *fmcPeripheral() {
+    return reinterpret_cast<hw::fmc::peripheral *>(fmcAddress);
+  }
 
-  // TODO flash signiature generator
-
+ private:
   static constexpr libMcuLL::hwAddressType fmcAddress = fmcAddress_; /**< peripheral address */
 };
 }  // namespace fmc

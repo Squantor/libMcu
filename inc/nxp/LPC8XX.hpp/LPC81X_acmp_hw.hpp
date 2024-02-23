@@ -22,7 +22,7 @@ struct peripheral {
   volatile std::uint32_t LAD;  /**<  Voltage ladder register */
 };
 namespace CTRL {
-constexpr inline std::uint32_t RESERVED_MASK = 0x06B03F58;        /**< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK = 0x06B03F58u;       /**< register mask for allowed bits */
 constexpr inline std::uint32_t EDGESEL_FALLING = (0 << 3);        /**< falling edges trigger COMPEDGE */
 constexpr inline std::uint32_t EDGESEL_RISING = (1 << 3);         /**< rising edges trigger COMPEDGE */
 constexpr inline std::uint32_t EDGESEL_BOTH = (2 << 3);           /**< both edges trigger COMPEDGE */
@@ -45,8 +45,8 @@ constexpr inline std::uint32_t HYS_10MV = (2 << 25);              /**< 10mV comp
 constexpr inline std::uint32_t HYS_20MV = (3 << 25);              /**< 20mV comparator hysteresis */
 }  // namespace CTRL
 namespace LAD {
-constexpr inline std::uint32_t RESERVED_MASK = 0x0000003F; /**< register mask for allowed bits */
-constexpr inline std::uint32_t LADEN = (1 << 0);           /**< Voltage ladder enable */
+constexpr inline std::uint32_t RESERVED_MASK = 0x0000003Fu; /**< register mask for allowed bits */
+constexpr inline std::uint32_t LADEN = (1 << 0);            /**< Voltage ladder enable */
 /**
  * @brief Format Voltage ladder value register
  *
@@ -56,9 +56,9 @@ constexpr inline std::uint32_t LADEN = (1 << 0);           /**< Voltage ladder e
 constexpr inline std::uint32_t LADSEL(std::uint32_t value) {
   return value << 1;
 }
-constexpr inline std::uint32_t LADSEL_MASK = (0x1F << 1); /**< register mask for ladders select */
-constexpr inline std::uint32_t LADREF_VDD = (0 << 6);     /**< reference voltage selects VDD pin */
-constexpr inline std::uint32_t LADREF_VDDCMP = (1 << 6);  /**< reference voltage selects VDDCMP pin */
+constexpr inline std::uint32_t LADSEL_MASK = (0x1Fu << 1); /**< register mask for ladders select */
+constexpr inline std::uint32_t LADREF_VDD = (0 << 6);      /**< reference voltage selects VDD pin */
+constexpr inline std::uint32_t LADREF_VDDCMP = (1 << 6);   /**< reference voltage selects VDDCMP pin */
 }  // namespace LAD
 }  // namespace acmp
 }  // namespace hw

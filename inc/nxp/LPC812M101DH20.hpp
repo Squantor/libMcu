@@ -63,64 +63,6 @@ enum class interrupts : int8_t {
 
 #include <CortexM/cortex_m0plus.hpp>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-/* Configuration of the Cortex-M0+ Processor and Core Peripherals */
-#define __CM0PLUS_REV 0x0001
-#define __MPU_PRESENT 0
-#define __VTOR_PRESENT 1
-#define __NVIC_PRIO_BITS 2
-#define __Vendor_SysTickConfig 0
-
-typedef enum {
-  Reset_IRQn = -15,
-  NonMaskableInt_IRQn = -14,
-  HardFault_IRQn = -13,
-  SVCall_IRQn = -5,
-  PendSV_IRQn = -2,
-  SysTick_IRQn = -1,
-  SPI0_IRQn = 0,
-  SPI1_IRQn = 1,
-  Reserved0_IRQn = 2,
-  UART0_IRQn = 3,
-  UART1_IRQn = 4,
-  UART2_IRQn = 5,
-  Reserved1_IRQn = 6,
-  Reserved2_IRQn = 7,
-  I2C0_IRQn = 8,
-  SCT_IRQn = 9,
-  MRT_IRQn = 10,
-  CMP_IRQn = 11,
-  WDT_IRQn = 12,
-  BOD_IRQn = 13,
-  Reserved3_IRQn = 14,
-  WKT_IRQn = 15,
-  Reserved4_IRQn = 16,
-  Reserved5_IRQn = 17,
-  Reserved6_IRQn = 18,
-  Reserved7_IRQn = 19,
-  Reserved8_IRQn = 20,
-  Reserved9_IRQn = 21,
-  Reserved10_IRQn = 22,
-  Reserved11_IRQn = 23,
-  pinint0_IRQn = 24,
-  pinint1_IRQn = 25,
-  pinint2_IRQn = 26,
-  pinint3_IRQn = 27,
-  pinint4_IRQn = 28,
-  pinint5_IRQn = 29,
-  pinint6_IRQn = 30,
-  pinint7_IRQn = 31,
-} IRQn_Type;
-
-#include <CMSIS/core_cm0plus.h>
-
-#ifdef __cplusplus
-}
-#endif
-
 namespace libMcuLL {
 namespace hw {
 
