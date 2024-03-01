@@ -16,23 +16,23 @@ namespace swm {
 
 enum pinAssign : std::uint8_t {
   PIO0_0 = 0u,     /**< assign to pin P0_0. */
-  PIO0_1 = 1u,     /**< assign to pin pin P0_1. */
-  PIO0_2 = 2u,     /**< assign to pin pin P0_2. */
-  PIO0_3 = 3u,     /**< assign to pin pin P0_3. */
-  PIO0_4 = 4u,     /**< assign to pin pin P0_4. */
-  PIO0_5 = 5u,     /**< assign to pin pin P0_5. */
-  PIO0_6 = 6u,     /**< assign to pin pin P0_6. */
-  PIO0_7 = 7u,     /**< assign to pin pin P0_7. */
-  PIO0_8 = 8u,     /**< assign to pin pin P0_8. */
-  PIO0_9 = 9u,     /**< assign to pin pin P0_9. */
-  PIO0_10 = 10u,   /**< assign to pin pin P0_10. */
-  PIO0_11 = 11u,   /**< assign to pin pin P0_11. */
-  PIO0_12 = 12u,   /**< assign to pin pin P0_12. */
-  PIO0_13 = 13u,   /**< assign to pin pin P0_13. */
-  PIO0_14 = 14u,   /**< assign to pin pin P0_14. */
-  PIO0_15 = 15u,   /**< assign to pin pin P0_15. */
-  PIO0_16 = 16u,   /**< assign to pin pin P0_16. */
-  PIO0_17 = 17u,   /**< assign to pin pin P0_17. */
+  PIO0_1 = 1u,     /**< assign to pin P0_1. */
+  PIO0_2 = 2u,     /**< assign to pin P0_2. */
+  PIO0_3 = 3u,     /**< assign to pin P0_3. */
+  PIO0_4 = 4u,     /**< assign to pin P0_4. */
+  PIO0_5 = 5u,     /**< assign to pin P0_5. */
+  PIO0_6 = 6u,     /**< assign to pin P0_6. */
+  PIO0_7 = 7u,     /**< assign to pin P0_7. */
+  PIO0_8 = 8u,     /**< assign to pin P0_8. */
+  PIO0_9 = 9u,     /**< assign to pin P0_9. */
+  PIO0_10 = 10u,   /**< assign to pin P0_10. */
+  PIO0_11 = 11u,   /**< assign to pin P0_11. */
+  PIO0_12 = 12u,   /**< assign to pin P0_12. */
+  PIO0_13 = 13u,   /**< assign to pin P0_13. */
+  PIO0_14 = 14u,   /**< assign to pin P0_14. */
+  PIO0_15 = 15u,   /**< assign to pin P0_15. */
+  PIO0_16 = 16u,   /**< assign to pin P0_16. */
+  PIO0_17 = 17u,   /**< assign to pin P0_17. */
   PIO_NONE = 0xFFu /**< assign to nothing */
 };
 
