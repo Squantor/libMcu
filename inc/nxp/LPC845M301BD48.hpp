@@ -33,7 +33,7 @@ constexpr inline std::uint32_t priorityBits = 2;   /**< NVIC priority bit count 
 constexpr inline std::uint32_t vectorCount = 48;   /**< amount of interrupt vectors */
 }  // namespace nvic
 
-enum class interrupts : int8_t {
+enum class interrupts : std::int8_t {
   reset = -15,
   nonMaskable = -14,
   hardFault = -13,
@@ -77,87 +77,56 @@ enum class interrupts : int8_t {
 
 #include <CortexM/cortex_m0plus.hpp>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+namespace libMcuLL {
+namespace hw {
 
 /* Base addresses */
-#define FLASH_BASE (0x00000000u)
-#define RAM_BASE (0x10000000u)
-#define ROM_BASE (0x0F001FF1u)
-#define APB0_BASE (0x40000000u)
-#define AHB_BASE (0x50000000u)
+constexpr inline libMcuLL::memoryAddress flashBaseAddress{0x0000'0000u};
+constexpr inline libMcuLL::memoryAddress ramBaseAddress{0x1000'0000u};
+constexpr inline libMcuLL::memoryAddress romBaseAddress{0xF001'FF10u};
+constexpr inline libMcuLL::memoryAddress apb0BaseAddress{0x4000'0000u};
+constexpr inline libMcuLL::memoryAddress ahbBaseAddress{0x5000'0000u};
 
 /* APB peripherals, see UM11029 2.2.1 */
-#define WWDT_BASE (0x40000000u)
-#define MRT0_BASE (0x40004000u)
-#define WKT_BASE (0x40008000u)
-#define SWM_BASE (0x4000C000u)
-#define FAIM_BASE (0x40010000u)
-#define DAC0_BASE (0x40014000u)
-#define DAC1_BASE (0x40018000u)
-#define ADC0_BASE (0x4001C000u)
-#define PMU_BASE (0x40020000u)
-#define ACOMP_BASE (0x40024000u)
-#define INPUTMUX_BASE (0x4002C000u)
-#define I2C2_BASE (0x40030000u)
-#define I2C3_BASE (0x40034000u)
-#define CTIMER0_BASE (0x40038000u)
-#define FLASH_CTRL_BASE (0x40040000u)
-#define IOCON_BASE (0x40044000u)
-#define SYSCON_BASE (0x40048000u)
-#define I2C0_BASE (0x40050000u)
-#define I2C1_BASE (0x40054000u)
-#define SPI0_BASE (0x40058000u)
-#define SPI1_BASE (0x4005C000u)
-#define CAPT_BASE (0x40060000u)
-#define USART0_BASE (0x40064000u)
-#define USART1_BASE (0x40068000u)
-#define USART2_BASE (0x4006C000u)
-#define USART3_BASE (0x40070000u)
+constexpr inline libMcuLL::WWDTbaseAddress wwdtAddress{0x4000'0000u};         /**< Windowed watchdog base address */
+constexpr inline libMcuLL::MRTbaseAddress mrt0Address{0x4000'4000u};          /**< multi rate timer base address */
+constexpr inline libMcuLL::WKTbaseAddress wktAddress{0x4000'8000u};           /**< wakeup timer base address */
+constexpr inline libMcuLL::SWMbaseAddress swmAddress{0x4000'C000u};           /**< Switch matrix base address */
+constexpr inline libMcuLL::faimBaseAddress faimAddress{0x4001'0000u};         /**< Fast memory init base address */
+constexpr inline libMcuLL::dacBaseAddress dac0Address{0x4001'4000u};          /**< DAC 0 base address */
+constexpr inline libMcuLL::dacBaseAddress dac1Address{0x4001'8000u};          /**< DAC 1 base address */
+constexpr inline libMcuLL::adcBaseAddress adc0Address{0x4001'C000u};          /**< ADC 0 matrix base address */
+constexpr inline libMcuLL::PMUbaseAddress pmuAddress{0x4002'0000u};           /**< Power management unit base address */
+constexpr inline libMcuLL::ACMPbaseAddress acmpAddress{0x4002'4000u};         /**< Analog comparator base address */
+constexpr inline libMcuLL::inputMuxBaseAddress inputMuxAddress{0x4002'C000u}; /**< Flash memory controller base address */
+constexpr inline libMcuLL::I2CbaseAddress i2c2Address{0x4003'0000u};          /**< I2C 2 base address */
+constexpr inline libMcuLL::I2CbaseAddress i2c3Address{0x4003'4000u};          /**< I2C 3 base address */
+constexpr inline libMcuLL::ctimerBaseAddress ctimer0Address{0x4003'8000u};    /**< standard counter/timer 0 base address */
+constexpr inline libMcuLL::FMCbaseAddress fmcAddress{0x4004'0000u};           /**< Flash memory controller base address */
+constexpr inline libMcuLL::IOCONbaseAddress ioconAddress{0x4004'4000u};       /**< I/O control base address */
+constexpr inline libMcuLL::SYSCONbaseAddress sysconAddress{0x4004'8000u};     /**< System control base address */
+constexpr inline libMcuLL::I2CbaseAddress i2c0Address{0x4005'0000u};          /**< I2C 0 base address */
+constexpr inline libMcuLL::I2CbaseAddress i2c1Address{0x4005'4000u};          /**< I2C 1 base address */
+constexpr inline libMcuLL::SPIbaseAddress spi0Address{0x4005'8000u};          /**< SPI 0 base address */
+constexpr inline libMcuLL::SPIbaseAddress spi1Address{0x4005'C000u};          /**< SPI 1 base address */
+constexpr inline libMcuLL::captBaseAddress capt0Address{0x4006'0000u};        /**< Capacitive touch 0 base address */
+constexpr inline libMcuLL::USARTbaseAddress usart0Address{0x4006'4000u};      /**< USART 0 base address */
+constexpr inline libMcuLL::USARTbaseAddress usart1Address{0x4006'8000u};      /**< USART 1 base address */
+constexpr inline libMcuLL::USARTbaseAddress usart2Address{0x4006'C000u};      /**< USART 2 base address */
+constexpr inline libMcuLL::USARTbaseAddress usart3Address{0x4007'0000u};      /**< USART 3 base address */
 
 /* AHB peripherals, see UM11029 2.2.1 */
-#define CRC_BASE (0x50000000u)
-#define SCT0_BASE (0x50004000u)
-#define DMA0_BASE (0x50008000u)
-#define MTB_SFR_BASE (0x5000C000u)
+constexpr inline libMcuLL::CRCbaseAddress crcAddress{0x5000'0000u};  /**< CRC calculator base address */
+constexpr inline libMcuLL::SCTbaseAddress sct0Address{0x5000'4000u}; /**< State configurable timer 0 base address */
+constexpr inline libMcuLL::dmaBaseAddress dmaAddress{0x5000'8000u};  /**< DMA 0 base address */
+constexpr inline libMcuLL::mtbBaseAddress mtbAddress{0x5000'C000u};  /**< MTB base address */
 
-/* Other peripheral section */
-#define GPIO_BASE (0xA0000000u)
-#define PINT_BASE (0xA0004000u)
+/* Direct connected peripherals */
+constexpr inline libMcuLL::GPIObaseAddress gpioAddress{0xA000'0000u};     /**< General Purpose I/O base address */
+constexpr inline libMcuLL::PININTbaseAddress pinintAddress{0xA000'4000u}; /**< Pin interrupt base address */
 
-#define WWDT ((WWDT_Type *)WWDT_BASE)
-#define MRT0 ((MRT_Type *)MRT0_BASE)
-#define WKT ((WKT_Type *)WKT_BASE)
-#define SWM ((SWM_Type *)SWM_BASE)
-#define DAC0 ((DAC_Type *)DAC0_BASE)
-#define DAC1 ((DAC_Type *)DAC1_BASE)
-#define ADC0 ((ADC_Type *)ADC0_BASE)
-#define PMU ((PMU_Type *)PMU_BASE)
-#define ACOMP ((ACOMP_Type *)ACOMP_BASE)
-#define INPUTMUX ((INPUTMUX_Type *)INPUTMUX_BASE)
-#define I2C2 ((I2C_Type *)I2C2_BASE)
-#define I2C3 ((I2C_Type *)I2C3_BASE)
-#define CTIMER0 ((CTIMER_Type *)CTIMER0_BASE)
-#define FLASH_CTRL ((FLASH_CTRL_Type *)FLASH_CTRL_BASE)
-#define IOCON ((IOCON_Type *)IOCON_BASE)
-#define SYSCON ((SYSCON_Type *)SYSCON_BASE)
-#define I2C0 ((I2C_Type *)I2C0_BASE)
-#define I2C1 ((I2C_Type *)I2C1_BASE)
-#define SPI0 ((SPI_Type *)SPI0_BASE)
-#define SPI1 ((SPI_Type *)SPI1_BASE)
-#define CAPT ((CAPT_Type *)CAPT_BASE)
-#define USART0 ((USART_Type *)USART0_BASE)
-#define USART1 ((USART_Type *)USART1_BASE)
-#define USART2 ((USART_Type *)USART2_BASE)
-#define USART3 ((USART_Type *)USART3_BASE)
-#define CRC ((CRC_Type *)CRC_BASE)
-#define SCT0 ((SCT_Type *)SCT0) _BASE
-#define DMA0 ((DMA_Type *)DMA0_BASE)
-#define MTB_SFR ((MTB_Type *)MTB_SFR_BASE)
-#define GPIO ((GPIO_Type *)GPIO_BASE)
-#define PINT ((PINT_Type *)PINT_BASE)
-
+}  // namespace hw
+namespace dma {
 /*!
  * @brief Enumeration for the DMA hardware request
  *
@@ -165,33 +134,39 @@ extern "C" {
  * hardware request to trigger the DMA transfer accordingly. The index
  * of the hardware request varies according  to the to SoC.
  */
-typedef enum dmaRequestSource {
-  kDmaRequestUSART0_RX_DMA = 0U, /**< USART0 RX DMA  */
-  kDmaRequestUSART0_TX_DMA = 1U, /**< USART0 TX DMA  */
-  kDmaRequestUSART1_RX_DMA = 2U, /**< USART1 RX DMA  */
-  kDmaRequestUSART1_TX_DMA = 3U, /**< USART1 TX DMA  */
-  kDmaRequestUSART2_RX_DMA = 4U, /**< USART2 RX DMA  */
-  kDmaRequestUSART2_TX_DMA = 5U, /**< USART2 TX DMA  */
-  kDmaRequestUSART3_RX_DMA = 6U, /**< USART3 RX DMA  */
-  kDmaRequestUSART3_TX_DMA = 7U, /**< USART3 TX DMA  */
-  kDmaRequestUSART4_RX_DMA = 8U, /**< USART4 RX DMA  */
-  kDmaRequestUSART4_TX_DMA = 9U, /**< USART4 TX DMA  */
-  kDmaRequestSPI0_RX_DMA = 10U,  /**< SPI0 RX DMA  */
-  kDmaRequestSPI0_TX_DMA = 11U,  /**< SPI0 TX DMA  */
-  kDmaRequestSPI1_RX_DMA = 12U,  /**< SPI1 RX DMA  */
-  kDmaRequestSPI1_TX_DMA = 13U,  /**< SPI1 TX DMA  */
-  kDmaRequestI2C0_SLV_DMA = 14U, /**< I2C0 SLAVE DMA  */
-  kDmaRequestI2C0_MST_DMA = 15U, /**< I2C0 MASTER DMA  */
-  kDmaRequestI2C1_SLV_DMA = 16U, /**< I2C1 SLAVE DMA  */
-  kDmaRequestI2C1_MST_DMA = 17U, /**< I2C1 MASTER DMA  */
-  kDmaRequestI2C2_SLV_DMA = 18U, /**< I2C2 SLAVE DMA  */
-  kDmaRequestI2C2_MST_DMA = 19U, /**< I2C2 MASTER DMA  */
-  kDmaRequestI2C3_SLV_DMA = 20U, /**< I2C3 SLAVE DMA  */
-  kDmaRequestI2C3_MST_DMA = 21U, /**< I2C3 MASTER DMA  */
-  kDmaRequestDAC0_DMAREQ = 22U,  /**< DAC0 DMA REQUEST  */
-  kDmaRequestDAC1_DMAREQ = 23U,  /**< DAC1 DMA REQUEST  */
-  kDmaRequestCAPT_DMA = 24U,     /**< CAPT DMA  */
-} dmaRequestSource_t;
+enum class dmaRequestSources : std::uint8_t {
+  usart0rx = 0U,    /**< USART0 RX DMA  */
+  usart0tx = 1U,    /**< USART0 TX DMA  */
+  usart1rx = 2U,    /**< USART1 RX DMA  */
+  usart1tx = 3U,    /**< USART1 TX DMA  */
+  usart2rx = 4U,    /**< USART2 RX DMA  */
+  usart2tx = 5U,    /**< USART2 TX DMA  */
+  usart3rx = 6U,    /**< USART3 RX DMA  */
+  usart3tx = 7U,    /**< USART3 TX DMA  */
+  usart4rx = 8U,    /**< USART4 RX DMA  */
+  usart4tx = 9U,    /**< USART4 TX DMA  */
+  spi0rx = 10U,     /**< SPI0 RX DMA  */
+  spi0tx = 11U,     /**< SPI0 TX DMA  */
+  spi1rx = 12U,     /**< SPI1 RX DMA  */
+  spi1tx = 13U,     /**< SPI1 TX DMA  */
+  i2c0slave = 14U,  /**< I2C0 SLAVE DMA  */
+  i2c0master = 15U, /**< I2C0 MASTER DMA  */
+  i2c1slave = 16U,  /**< I2C1 SLAVE DMA  */
+  i2c1master = 17U, /**< I2C1 MASTER DMA  */
+  i2c2slave = 18U,  /**< I2C2 SLAVE DMA  */
+  i2c2master = 19U, /**< I2C2 MASTER DMA  */
+  i2c3slave = 20U,  /**< I2C3 SLAVE DMA  */
+  i2c3master = 21U, /**< I2C3 MASTER DMA  */
+  dac0 = 22U,       /**< DAC0 DMA REQUEST  */
+  dac1 = 23U,       /**< DAC1 DMA REQUEST  */
+  capt = 24U,       /**< CAPT DMA  */
+};
+}  // namespace dma
+}  // namespace libMcuLL
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /**
  * @brief Translation table from GPIO pin name to IOCON index
@@ -304,51 +279,25 @@ typedef enum {
   GPIO_PIO1_21 = 53,
 } GPIO_PIN_Type;
 
-// default configuration options, override with your own!
-#include "LPC8XX/LPC84X_default.h"
-// Peripheral specific includes
-#include "LPC8XX/LPC84X_wwdt.h"
-#include "LPC8XX/LPC84X_mrt.h"
-#include "LPC8XX/LPC84X_wkt.h"
-#include "LPC8XX/LPC84X_swm.h"
-#include "LPC8XX/LPC84X_dac.h"
-#include "LPC8XX/LPC84X_adc.h"
-#include "LPC8XX/LPC84X_pmu.h"
-#include "LPC8XX/LPC84X_acomp.h"
-#include "LPC8XX/LPC84X_inputmux.h"
-#include "LPC8XX/LPC84X_i2c.h"
-#include "LPC8XX/LPC84X_ctimer.h"
-#include "LPC8XX/LPC84X_flash_ctrl.h"
-#include "LPC8XX/LPC84X_iocon.h"
-#include "LPC8XX/LPC84X_syscon.h"
-#include "LPC8XX/LPC84X_spi.h"
-#include "LPC8XX/LPC84X_capt.h"
-#include "LPC8XX/LPC84X_usart.h"
-#include "LPC8XX/LPC84X_crc.h"
-#include "LPC8XX/LPC84X_sct.h"
-#include "LPC8XX/LPC84X_dma.h"
-#include "LPC8XX/LPC84X_mtb.h"
-#include "LPC8XX/LPC84X_gpio.h"
-#include "LPC8XX/LPC84X_pint.h"
-
 #ifdef __cplusplus
 }
 #endif
 
-/*
-Copied orignally from the C header, the idea is to move more and more from
-C definitions to C++. Step by step, C++ bits will go below
-*/
-
-namespace peripherals {
-constexpr static inline uint32_t SPI0_cpp = 0x4005'8000u; /**< TODO, rename to their names when refactoring is done */
-constexpr static inline uint32_t SPI1_cpp = 0x4005'C000u; /**< TODO, rename to their names when refactoring is done */
-}  // namespace peripherals
-
 // includes that define the registers namespace go here.
-#include "LPC8XX.hpp/LPC8XX_spi_hw.hpp"
+#include "LPC8XX.hpp/LPC84X_iocon_hw.hpp"
+#include "LPC8XX.hpp/LPC84X_swm_hw.hpp"
+#include "LPC8XX.hpp/LPC84X_gpio_hw.hpp"
+#include "LPC8XX.hpp/LPC84X_syscon_hw.hpp"
+
+// device peripheral specific headers go here
+// these need to go after registers namespace definitions as they are used here
+#include "LPC8XX.hpp/LPC845M301BD48_pins.hpp"
 
 // includes that use the registers namespace go here
-#include "LPC8XX.hpp/LPC84X_spi_sw.hpp"
+// need to go after registers namespaces and device specific headers
+#include "LPC8XX.hpp/LPC84X_iocon_sw.hpp"
+#include "LPC8XX.hpp/LPC84X_swm_sw.hpp"
+#include "LPC8XX.hpp/LPC84X_gpio_sw.hpp"
+#include "LPC8XX.hpp/LPC84X_syscon_sw.hpp"
 
 #endif
