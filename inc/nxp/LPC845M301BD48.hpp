@@ -10,63 +10,76 @@
 #ifndef LPC845M301BD48_HPP
 #define LPC845M301BD48_HPP
 
+namespace libMcuLL {
+namespace hw {
+
+// MCU configuration options
+namespace core {
+constexpr inline std::uint32_t revision = 0x0001; /**< Revision number */
+}  // namespace core
+namespace mpu {
+constexpr inline bool present = false; /**< Presence of memory protection unit */
+}  // namespace mpu
+namespace vtor {
+constexpr inline bool present = true;                      /**< presence of vector relocation */
+constexpr inline std::uint32_t addressMask = 0xFFFFFF00UL; /**< VTOR bit count */
+}  // namespace vtor
+namespace systick {
+constexpr inline std::uint32_t variant = 0; /**< Type of systick */
+}  // namespace systick
+namespace nvic {
+constexpr inline std::uint32_t priorityMask = 0x3; /**< NVIC priority bit mask */
+constexpr inline std::uint32_t priorityBits = 2;   /**< NVIC priority bit count */
+constexpr inline std::uint32_t vectorCount = 48;   /**< amount of interrupt vectors */
+}  // namespace nvic
+
+enum class interrupts : int8_t {
+  reset = -15,
+  nonMaskable = -14,
+  hardFault = -13,
+  svCall = -5,
+  pendSv = -2,
+  systick = -1,
+  spi0 = 0,           /**< SPI0 interrupt */
+  spi1 = 1,           /**< SPI1 interrupt */
+  dac0 = 2,           /**< DAC0 interrupt */
+  uart0 = 3,          /**< USART0 interrupt */
+  uart1 = 4,          /**< USART1 interrupt */
+  uart2 = 5,          /**< USART2 interrupt */
+  i2c1 = 7,           /**< I2C1 interrupt */
+  i2c0 = 8,           /**< I2C0 interrupt */
+  sct0 = 9,           /**< State configurable timer interrupt */
+  mrt0 = 10,          /**< Multi-rate timer interrupt */
+  acmp0 = 11,         /**< Analog comparator interrupt or Capacitive Touch interrupt */
+  wdt = 12,           /**< Windowed watchdog timer interrupt */
+  bod = 13,           /**< BOD interrupts */
+  flash = 14,         /**< flash interrupt */
+  wkt = 15,           /**< Self-wake-up timer interrupt */
+  adc0_seqA = 16,     /**< ADC0 sequence A completion. */
+  adc0_seqB = 17,     /**< ADC0 sequence B completion. */
+  adc0_thcmp = 18,    /**< ADC0 threshold compare and error. */
+  adc0_ovr = 19,      /**< ADC0 overrun */
+  dma = 20,           /**< DMA0 interrupt */
+  i2c2 = 21,          /**< I2C2 interrupt */
+  i2c3 = 22,          /**< I2C3 interrupt */
+  ctimer0 = 23,       /**< Timer interrupt */
+  pinint0 = 24,       /**< Pin interrupt 0 or pattern match engine slice 0 interrupt */
+  pinint1 = 25,       /**< Pin interrupt 1 or pattern match engine slice 1 interrupt */
+  pinint2 = 26,       /**< Pin interrupt 2 or pattern match engine slice 2 interrupt */
+  pinint3 = 27,       /**< Pin interrupt 3 or pattern match engine slice 3 interrupt */
+  pinint4 = 28,       /**< Pin interrupt 4 or pattern match engine slice 4 interrupt */
+  pinint5_dac1 = 29,  /**< Pin interrupt 5 or pattern match engine slice 5 interrupt or DAC1 interrupt */
+  pinint6_uart3 = 30, /**< Pin interrupt 6 or pattern match engine slice 6 interrupt or UART3 interrupt */
+  pinint7_uart4 = 31  /**< Pin interrupt 7 or pattern match engine slice 7 interrupt or UART4 interrupt */
+};
+}  // namespace hw
+}  // namespace libMcuLL
+
+#include <CortexM/cortex_m0plus.hpp>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-/* Configuration of the Cortex-M0+ Processor and Core Peripherals */
-#define __CM0PLUS_REV 0x0001
-#define __MPU_PRESENT 0
-#define __VTOR_PRESENT 1
-#define __NVIC_PRIO_BITS 2
-#define __Vendor_SysTickConfig 0
-
-/** Interrupt Number Definitions */
-#define NUMBER_OF_INT_VECTORS 48 /**< Number of interrupts in the Vector table */
-
-typedef enum {
-  Reset_IRQn = -15,          /**< Reset entry  */
-  NonMaskableInt_IRQn = -14, /**< Non Maskable Interrupt */
-  HardFault_IRQn = -13,      /**< Cortex-M0 SV Hard Fault Interrupt */
-  SVCall_IRQn = -5,          /**< Cortex-M0 SV Call Interrupt */
-  PendSV_IRQn = -2,          /**< Cortex-M0 Pend SV Interrupt */
-  SysTick_IRQn = -1,         /**< Cortex-M0 System Tick Interrupt */
-
-  SPI0_IRQn = 0,             /**< SPI0 interrupt */
-  SPI1_IRQn = 1,             /**< SPI1 interrupt */
-  DAC0_IRQn = 2,             /**< DAC0 interrupt */
-  UART0_IRQn = 3,            /**< USART0 interrupt */
-  UART1_IRQn = 4,            /**< USART1 interrupt */
-  UART2_IRQn = 5,            /**< USART2 interrupt */
-  Reserved22_IRQn = 6,       /**< Reserved interrupt */
-  I2C1_IRQn = 7,             /**< I2C1 interrupt */
-  I2C0_IRQn = 8,             /**< I2C0 interrupt */
-  SCT_IRQn = 9,              /**< State configurable timer interrupt */
-  MRT_IRQn = 10,             /**< Multi-rate timer interrupt */
-  CMP_IRQn = 11,             /**< Analog comparator interrupt or Capacitive Touch interrupt */
-  WDT_IRQn = 12,             /**< Windowed watchdog timer interrupt */
-  BOD_IRQn = 13,             /**< BOD interrupts */
-  FLASH_IRQn = 14,           /**< flash interrupt */
-  WKT_IRQn = 15,             /**< Self-wake-up timer interrupt */
-  ADC_SEQA_IRQn = 16,        /**< ADC0 sequence A completion. */
-  ADC_SEQB_IRQn = 17,        /**< ADC0 sequence B completion. */
-  ADC_THCMP_IRQn = 18,       /**< ADC0 threshold compare and error. */
-  ADC_OVR_IRQn = 19,         /**< ADC0 overrun */
-  DMA_IRQn = 20,             /**< DMA0 interrupt */
-  I2C2_IRQn = 21,            /**< I2C2 interrupt */
-  I2C3_IRQn = 22,            /**< I2C3 interrupt */
-  CTIMER0_IRQn = 23,         /**< Timer interrupt */
-  PIN_INT0_IRQn = 24,        /**< Pin interrupt 0 or pattern match engine slice 0 interrupt */
-  PIN_INT1_IRQn = 25,        /**< Pin interrupt 1 or pattern match engine slice 1 interrupt */
-  PIN_INT2_IRQn = 26,        /**< Pin interrupt 2 or pattern match engine slice 2 interrupt */
-  PIN_INT3_IRQn = 27,        /**< Pin interrupt 3 or pattern match engine slice 3 interrupt */
-  PIN_INT4_IRQn = 28,        /**< Pin interrupt 4 or pattern match engine slice 4 interrupt */
-  PIN_INT5_DAC1_IRQn = 29,   /**< Pin interrupt 5 or pattern match engine slice 5 interrupt or DAC1 interrupt */
-  PIN_INT6_USART3_IRQn = 30, /**< Pin interrupt 6 or pattern match engine slice 6 interrupt or UART3 interrupt */
-  PIN_INT7_USART4_IRQn = 31  /**< Pin interrupt 7 or pattern match engine slice 7 interrupt or UART4 interrupt */
-} IRQn_Type;
-
-#include <CMSIS/core_cm0plus.h> /* Core Peripheral Access Layer */
 
 /* Base addresses */
 #define FLASH_BASE (0x00000000u)
@@ -333,9 +346,9 @@ constexpr static inline uint32_t SPI1_cpp = 0x4005'C000u; /**< TODO, rename to t
 }  // namespace peripherals
 
 // includes that define the registers namespace go here.
-#include "LPC8XX.hpp/LPC8XX_spi_regs.hpp"
+#include "LPC8XX.hpp/LPC8XX_spi_hw.hpp"
 
 // includes that use the registers namespace go here
-#include "LPC8XX.hpp/LPC84X_spi.hpp"
+#include "LPC8XX.hpp/LPC84X_spi_sw.hpp"
 
 #endif
