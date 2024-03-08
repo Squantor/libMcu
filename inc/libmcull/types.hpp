@@ -87,6 +87,33 @@ struct captBaseAddress : hwAddressBase {};     /**< NXP LPC capacitive touch */
 /* Peripheral address types used by STM32 microcontrollers */
 
 /* Peripheral address types used by Raspberry Pi microcontrollers */
+struct xipCtrlBaseAddress : hwAddressBase {};
+struct xipSsiBaseAddress : hwAddressBase {};
+struct sysinfoBaseAddress : hwAddressBase {};
+struct syscfgBaseAddress : hwAddressBase {};
+struct clocksBaseAddress : hwAddressBase {};
+struct resetsBaseAddress : hwAddressBase {};
+struct psmBaseAddress : hwAddressBase {};
+struct ioBank0BaseAddress : hwAddressBase {};
+struct ioQspiBaseAddress : hwAddressBase {};
+struct padsBank0BaseAddress : hwAddressBase {};
+struct padsQspi0BaseAddress : hwAddressBase {};
+struct xoscBaseAddress : hwAddressBase {};
+struct pllSysBaseAddress : hwAddressBase {};
+struct pllUsbBaseAddress : hwAddressBase {};
+struct busCtrlBaseAddress : hwAddressBase {};
+struct pwmBaseAddress : hwAddressBase {};
+struct timerBaseAddress : hwAddressBase {};
+struct watchdogBaseAddress : hwAddressBase {};
+struct rtcBaseAddress : hwAddressBase {};
+struct roscBaseAddress : hwAddressBase {};
+struct vregChipResetBaseAddress : hwAddressBase {};
+struct tbmanBaseAddress : hwAddressBase {};
+struct usbCtrlDPramBaseAddress : hwAddressBase {};
+struct usbCtrlRegsBaseAddress : hwAddressBase {};
+struct pioBaseAddress : hwAddressBase {};
+struct sioBaseAddress : hwAddressBase {};
+struct ppbBaseAddress : hwAddressBase {};
 
 /* I2C general definitions */
 using i2cDeviceAddressBase = constant<std::uint8_t>;
