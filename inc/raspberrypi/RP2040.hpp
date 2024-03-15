@@ -385,11 +385,11 @@ typedef enum {
 #endif
 
 // includes that define the registers namespace go here.
+#include "peripherals.hpp/RP2040_sio_hw.hpp"
 
 // device peripheral specific headers go here
 // these need to go after registers namespace definitions as they are used here
-// #include "LPC8XX.hpp/LPC812M101DH20_pins.hpp"
-#include "peripherals.hpp/RP2040_sio_hw.hpp"
+#include "RP2040_pins.hpp"
 
 // includes that use the registers namespace go here
 // need to go after registers namespaces and device specific headers

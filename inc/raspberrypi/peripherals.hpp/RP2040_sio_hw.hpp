@@ -7,8 +7,8 @@
 /**
  * \file RP2040 SIO register interface
  */
-#ifndef LPC81X_IOCON_REGS_HPP
-#define LPC81X_IOCON_REGS_HPP
+#ifndef RP2040_SIO_HW_HPP
+#define RP2040_SIO_HW_HPP
 
 namespace libMcuLL {
 namespace hw {
