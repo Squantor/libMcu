@@ -152,7 +152,7 @@ struct pin {
   static_assert(DUMMY, "This I/O pin configuration is invalid!");
 };
 /**
- * @brief Specialization for Pin 0 on Port 0 with function SPI0 RX
+ * @brief Specialization for Pin 0 on Port 0 with function SPI0 receive
  *
  */
 template <>
@@ -317,7 +317,7 @@ struct pin<IOports::PORT0, IOpins::PIN01, IOfuncts::PIO1> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F7;
 };
 /**
- * @brief Specialization for Pin 1 on Port 0 with function USB overcurrent detection
+ * @brief Specialization for Pin 1 on Port 0 with function USB VBUS detection
  *
  */
 template <>
@@ -768,7 +768,7 @@ struct pin<IOports::PORT0, IOpins::PIN06, IOfuncts::USB_OVCUR_DET> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F9;
 };
 /**
- * @brief Specialization for Pin 7 on Port 0 with function SPI0 clock
+ * @brief Specialization for Pin 7 on Port 0 with function SPI0 transmit
  *
  */
 template <>
@@ -779,7 +779,7 @@ struct pin<IOports::PORT0, IOpins::PIN07, IOfuncts::SPI0_TX> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F1;
 };
 /**
- * @brief Specialization for Pin 7 on Port 0 with function UART1 Clear to send
+ * @brief Specialization for Pin 7 on Port 0 with function UART1 request to send
  *
  */
 template <>
@@ -790,7 +790,7 @@ struct pin<IOports::PORT0, IOpins::PIN07, IOfuncts::UART1_RTS> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F2;
 };
 /**
- * @brief Specialization for Pin 7 on Port 0 with function I2C1 SDA
+ * @brief Specialization for Pin 7 on Port 0 with function I2C1 SCL
  *
  */
 template <>
@@ -801,7 +801,7 @@ struct pin<IOports::PORT0, IOpins::PIN07, IOfuncts::I2C1_SCL> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F3;
 };
 /**
- * @brief Specialization for Pin 7 on Port 0 with function PWM3 A
+ * @brief Specialization for Pin 7 on Port 0 with function PWM3 B
  *
  */
 template <>
@@ -845,7 +845,7 @@ struct pin<IOports::PORT0, IOpins::PIN07, IOfuncts::PIO1> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F7;
 };
 /**
- * @brief Specialization for Pin 7 on Port 0 with function USB Overcurrent Detect
+ * @brief Specialization for Pin 7 on Port 0 with function USB VBUS detection
  *
  */
 template <>
@@ -856,7 +856,7 @@ struct pin<IOports::PORT0, IOpins::PIN07, IOfuncts::USB_VBUS_DET> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F9;
 };
 /**
- * @brief Specialization for Pin 8 on Port 0 with function SPI0 clock
+ * @brief Specialization for Pin 8 on Port 0 with function SPI1 receive
  *
  */
 template <>
@@ -867,7 +867,7 @@ struct pin<IOports::PORT0, IOpins::PIN08, IOfuncts::SPI1_RX> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F1;
 };
 /**
- * @brief Specialization for Pin 8 on Port 0 with function UART1 Clear to send
+ * @brief Specialization for Pin 8 on Port 0 with function UART1 transmit
  *
  */
 template <>
@@ -878,7 +878,7 @@ struct pin<IOports::PORT0, IOpins::PIN08, IOfuncts::UART1_TX> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F2;
 };
 /**
- * @brief Specialization for Pin 8 on Port 0 with function I2C1 SDA
+ * @brief Specialization for Pin 8 on Port 0 with function I2C0 SDA
  *
  */
 template <>
@@ -889,7 +889,7 @@ struct pin<IOports::PORT0, IOpins::PIN08, IOfuncts::I2C0_SDA> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F3;
 };
 /**
- * @brief Specialization for Pin 8 on Port 0 with function PWM3 A
+ * @brief Specialization for Pin 8 on Port 0 with function PWM4 A
  *
  */
 template <>
@@ -933,7 +933,7 @@ struct pin<IOports::PORT0, IOpins::PIN08, IOfuncts::PIO1> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F7;
 };
 /**
- * @brief Specialization for Pin 8 on Port 0 with function USB Overcurrent Detect
+ * @brief Specialization for Pin 8 on Port 0 with function USB VBUS enable
  *
  */
 template <>
@@ -944,7 +944,7 @@ struct pin<IOports::PORT0, IOpins::PIN08, IOfuncts::USB_VBUS_EN> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F9;
 };
 /**
- * @brief Specialization for Pin 9 on Port 0 with function SPI0 clock
+ * @brief Specialization for Pin 9 on Port 0 with function SPI1 Chip select
  *
  */
 template <>
@@ -955,7 +955,7 @@ struct pin<IOports::PORT0, IOpins::PIN09, IOfuncts::SPI1_CS> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F1;
 };
 /**
- * @brief Specialization for Pin 9 on Port 0 with function UART1 Clear to send
+ * @brief Specialization for Pin 9 on Port 0 with function UART1 receive
  *
  */
 template <>
@@ -966,7 +966,7 @@ struct pin<IOports::PORT0, IOpins::PIN09, IOfuncts::UART1_RX> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F2;
 };
 /**
- * @brief Specialization for Pin 9 on Port 0 with function I2C1 SDA
+ * @brief Specialization for Pin 9 on Port 0 with function I2C0 SCL
  *
  */
 template <>
@@ -977,7 +977,7 @@ struct pin<IOports::PORT0, IOpins::PIN09, IOfuncts::I2C0_SCL> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F3;
 };
 /**
- * @brief Specialization for Pin 9 on Port 0 with function PWM3 A
+ * @brief Specialization for Pin 9 on Port 0 with function PWM4 B
  *
  */
 template <>
@@ -1032,7 +1032,7 @@ struct pin<IOports::PORT0, IOpins::PIN09, IOfuncts::USB_OVCUR_DET> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F9;
 };
 /**
- * @brief Specialization for Pin 10 on Port 0 with function SPI0 clock
+ * @brief Specialization for Pin 10 on Port 0 with function SPI1 clock
  *
  */
 template <>
@@ -1065,7 +1065,7 @@ struct pin<IOports::PORT0, IOpins::PIN10, IOfuncts::I2C1_SDA> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F3;
 };
 /**
- * @brief Specialization for Pin 10 on Port 0 with function PWM3 A
+ * @brief Specialization for Pin 10 on Port 0 with function PWM5 A
  *
  */
 template <>
@@ -1109,7 +1109,7 @@ struct pin<IOports::PORT0, IOpins::PIN10, IOfuncts::PIO1> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F7;
 };
 /**
- * @brief Specialization for Pin 10 on Port 0 with function USB Overcurrent Detect
+ * @brief Specialization for Pin 10 on Port 0 with function USB VBUS detection
  *
  */
 template <>
@@ -1120,7 +1120,7 @@ struct pin<IOports::PORT0, IOpins::PIN10, IOfuncts::USB_VBUS_DET> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F9;
 };
 /**
- * @brief Specialization for Pin 11 on Port 0 with function SPI0 clock
+ * @brief Specialization for Pin 11 on Port 0 with function SPI1 transmit
  *
  */
 template <>
@@ -1131,7 +1131,7 @@ struct pin<IOports::PORT0, IOpins::PIN11, IOfuncts::SPI1_TX> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F1;
 };
 /**
- * @brief Specialization for Pin 11 on Port 0 with function UART1 Clear to send
+ * @brief Specialization for Pin 11 on Port 0 with function UART1 request to send
  *
  */
 template <>
@@ -1142,7 +1142,7 @@ struct pin<IOports::PORT0, IOpins::PIN11, IOfuncts::UART1_RTS> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F2;
 };
 /**
- * @brief Specialization for Pin 11 on Port 0 with function I2C1 SDA
+ * @brief Specialization for Pin 11 on Port 0 with function I2C1 SCL
  *
  */
 template <>
@@ -1153,7 +1153,7 @@ struct pin<IOports::PORT0, IOpins::PIN11, IOfuncts::I2C1_SCL> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F3;
 };
 /**
- * @brief Specialization for Pin 11 on Port 0 with function PWM3 A
+ * @brief Specialization for Pin 11 on Port 0 with function PWM5 B
  *
  */
 template <>
@@ -1197,7 +1197,7 @@ struct pin<IOports::PORT0, IOpins::PIN11, IOfuncts::PIO1> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F7;
 };
 /**
- * @brief Specialization for Pin 11 on Port 0 with function USB Overcurrent Detect
+ * @brief Specialization for Pin 11 on Port 0 with function USB VBUS enable
  *
  */
 template <>
@@ -1208,7 +1208,7 @@ struct pin<IOports::PORT0, IOpins::PIN11, IOfuncts::USB_VBUS_EN> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F9;
 };
 /**
- * @brief Specialization for Pin 12 on Port 0 with function SPI0 clock
+ * @brief Specialization for Pin 12 on Port 0 with function SPI1 receive
  *
  */
 template <>
@@ -1219,7 +1219,7 @@ struct pin<IOports::PORT0, IOpins::PIN12, IOfuncts::SPI1_RX> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F1;
 };
 /**
- * @brief Specialization for Pin 12 on Port 0 with function UART1 Clear to send
+ * @brief Specialization for Pin 12 on Port 0 with function UART0 transmit
  *
  */
 template <>
@@ -1230,7 +1230,7 @@ struct pin<IOports::PORT0, IOpins::PIN12, IOfuncts::UART0_TX> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F2;
 };
 /**
- * @brief Specialization for Pin 12 on Port 0 with function I2C1 SDA
+ * @brief Specialization for Pin 12 on Port 0 with function I2C0 SDA
  *
  */
 template <>
@@ -1241,8 +1241,7 @@ struct pin<IOports::PORT0, IOpins::PIN12, IOfuncts::I2C0_SDA> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F3;
 };
 /**
- * @brief Specialization for Pin 12 on Port 0 with function PWM3 A
- *
+ * @brief Specialization for Pin 12 on Port 0 with function PWM6 A
  */
 template <>
 struct pin<IOports::PORT0, IOpins::PIN12, IOfuncts::PWM6A> {
@@ -1296,7 +1295,7 @@ struct pin<IOports::PORT0, IOpins::PIN12, IOfuncts::USB_OVCUR_DET> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F9;
 };
 /**
- * @brief Specialization for Pin 13 on Port 0 with function SPI0 clock
+ * @brief Specialization for Pin 13 on Port 0 with function SPI1 Chip select
  *
  */
 template <>
@@ -1307,7 +1306,7 @@ struct pin<IOports::PORT0, IOpins::PIN13, IOfuncts::SPI1_CS> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F1;
 };
 /**
- * @brief Specialization for Pin 13 on Port 0 with function UART1 Clear to send
+ * @brief Specialization for Pin 13 on Port 0 with function UART0 Receive
  *
  */
 template <>
@@ -1318,7 +1317,7 @@ struct pin<IOports::PORT0, IOpins::PIN13, IOfuncts::UART0_RX> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F2;
 };
 /**
- * @brief Specialization for Pin 13 on Port 0 with function I2C1 SDA
+ * @brief Specialization for Pin 13 on Port 0 with function I2C0 SCL
  *
  */
 template <>
@@ -1329,7 +1328,7 @@ struct pin<IOports::PORT0, IOpins::PIN13, IOfuncts::I2C0_SCL> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F3;
 };
 /**
- * @brief Specialization for Pin 13 on Port 0 with function PWM3 A
+ * @brief Specialization for Pin 13 on Port 0 with function PWM6 B
  *
  */
 template <>
@@ -1373,7 +1372,7 @@ struct pin<IOports::PORT0, IOpins::PIN13, IOfuncts::PIO1> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F7;
 };
 /**
- * @brief Specialization for Pin 13 on Port 0 with function USB Overcurrent Detect
+ * @brief Specialization for Pin 13 on Port 0 with function USB VBUS detection
  *
  */
 template <>
@@ -1384,7 +1383,7 @@ struct pin<IOports::PORT0, IOpins::PIN13, IOfuncts::USB_VBUS_DET> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F9;
 };
 /**
- * @brief Specialization for Pin 14 on Port 0 with function SPI0 clock
+ * @brief Specialization for Pin 14 on Port 0 with function SPI1 clock
  *
  */
 template <>
@@ -1395,7 +1394,7 @@ struct pin<IOports::PORT0, IOpins::PIN14, IOfuncts::SPI1_SCK> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F1;
 };
 /**
- * @brief Specialization for Pin 14 on Port 0 with function UART1 Clear to send
+ * @brief Specialization for Pin 14 on Port 0 with function UART0 Clear to send
  *
  */
 template <>
@@ -1417,7 +1416,7 @@ struct pin<IOports::PORT0, IOpins::PIN14, IOfuncts::I2C1_SDA> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F3;
 };
 /**
- * @brief Specialization for Pin 14 on Port 0 with function PWM3 A
+ * @brief Specialization for Pin 14 on Port 0 with function PWM7 A
  *
  */
 template <>
@@ -1461,7 +1460,7 @@ struct pin<IOports::PORT0, IOpins::PIN14, IOfuncts::PIO1> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F7;
 };
 /**
- * @brief Specialization for Pin 14 on Port 0 with function USB Overcurrent Detect
+ * @brief Specialization for Pin 14 on Port 0 with function USB VBUS enable
  *
  */
 template <>
@@ -1472,7 +1471,7 @@ struct pin<IOports::PORT0, IOpins::PIN14, IOfuncts::USB_VBUS_EN> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F9;
 };
 /**
- * @brief Specialization for Pin 15 on Port 0 with function SPI0 clock
+ * @brief Specialization for Pin 15 on Port 0 with function SPI1 transmit
  *
  */
 template <>
@@ -1483,7 +1482,7 @@ struct pin<IOports::PORT0, IOpins::PIN15, IOfuncts::SPI1_TX> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F1;
 };
 /**
- * @brief Specialization for Pin 15 on Port 0 with function UART1 Clear to send
+ * @brief Specialization for Pin 15 on Port 0 with function UART0 Request to send
  *
  */
 template <>
@@ -1494,7 +1493,7 @@ struct pin<IOports::PORT0, IOpins::PIN15, IOfuncts::UART0_RTS> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F2;
 };
 /**
- * @brief Specialization for Pin 15 on Port 0 with function I2C1 SDA
+ * @brief Specialization for Pin 15 on Port 0 with function I2C1 SCL
  *
  */
 template <>
@@ -1505,7 +1504,7 @@ struct pin<IOports::PORT0, IOpins::PIN15, IOfuncts::I2C1_SCL> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F3;
 };
 /**
- * @brief Specialization for Pin 15 on Port 0 with function PWM3 A
+ * @brief Specialization for Pin 15 on Port 0 with function PWM7 B
  *
  */
 template <>
@@ -1560,7 +1559,7 @@ struct pin<IOports::PORT0, IOpins::PIN15, IOfuncts::USB_OVCUR_DET> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F9;
 };
 /**
- * @brief Specialization for Pin 16 on Port 0 with function SPI0 clock
+ * @brief Specialization for Pin 16 on Port 0 with function SPI0 receive
  *
  */
 template <>
@@ -1571,7 +1570,7 @@ struct pin<IOports::PORT0, IOpins::PIN16, IOfuncts::SPI0_RX> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F1;
 };
 /**
- * @brief Specialization for Pin 16 on Port 0 with function UART1 Clear to send
+ * @brief Specialization for Pin 16 on Port 0 with function UART0 transmit
  *
  */
 template <>
@@ -1582,7 +1581,7 @@ struct pin<IOports::PORT0, IOpins::PIN16, IOfuncts::UART0_TX> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F2;
 };
 /**
- * @brief Specialization for Pin 16 on Port 0 with function I2C1 SDA
+ * @brief Specialization for Pin 16 on Port 0 with function I2C0 SDA
  *
  */
 template <>
@@ -1593,7 +1592,7 @@ struct pin<IOports::PORT0, IOpins::PIN16, IOfuncts::I2C0_SDA> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F3;
 };
 /**
- * @brief Specialization for Pin 16 on Port 0 with function PWM3 A
+ * @brief Specialization for Pin 16 on Port 0 with function PWM0 A
  *
  */
 template <>
@@ -1637,7 +1636,7 @@ struct pin<IOports::PORT0, IOpins::PIN16, IOfuncts::PIO1> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F7;
 };
 /**
- * @brief Specialization for Pin 16 on Port 0 with function USB Overcurrent Detect
+ * @brief Specialization for Pin 16 on Port 0 with function USB VBUS detection
  *
  */
 template <>
@@ -1648,7 +1647,7 @@ struct pin<IOports::PORT0, IOpins::PIN16, IOfuncts::USB_VBUS_DET> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F9;
 };
 /**
- * @brief Specialization for Pin 17 on Port 0 with function SPI0 clock
+ * @brief Specialization for Pin 17 on Port 0 with function SPI0 chip select
  *
  */
 template <>
@@ -1659,7 +1658,7 @@ struct pin<IOports::PORT0, IOpins::PIN17, IOfuncts::SPI0_CS> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F1;
 };
 /**
- * @brief Specialization for Pin 17 on Port 0 with function UART1 Clear to send
+ * @brief Specialization for Pin 17 on Port 0 with function UART0 Receive
  *
  */
 template <>
@@ -1670,7 +1669,7 @@ struct pin<IOports::PORT0, IOpins::PIN17, IOfuncts::UART0_RX> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F2;
 };
 /**
- * @brief Specialization for Pin 17 on Port 0 with function I2C1 SDA
+ * @brief Specialization for Pin 17 on Port 0 with function I2C0 SCL
  *
  */
 template <>
@@ -1681,7 +1680,7 @@ struct pin<IOports::PORT0, IOpins::PIN17, IOfuncts::I2C0_SCL> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F3;
 };
 /**
- * @brief Specialization for Pin 17 on Port 0 with function PWM3 A
+ * @brief Specialization for Pin 17 on Port 0 with function PWM0 B
  *
  */
 template <>
@@ -1725,7 +1724,7 @@ struct pin<IOports::PORT0, IOpins::PIN17, IOfuncts::PIO1> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F7;
 };
 /**
- * @brief Specialization for Pin 17 on Port 0 with function USB Overcurrent Detect
+ * @brief Specialization for Pin 17 on Port 0 with function USB VBUS enable
  *
  */
 template <>
@@ -1747,7 +1746,7 @@ struct pin<IOports::PORT0, IOpins::PIN18, IOfuncts::SPI0_SCK> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F1;
 };
 /**
- * @brief Specialization for Pin 18 on Port 0 with function UART1 Clear to send
+ * @brief Specialization for Pin 18 on Port 0 with function UART0 Clear to send
  *
  */
 template <>
@@ -1769,7 +1768,7 @@ struct pin<IOports::PORT0, IOpins::PIN18, IOfuncts::I2C1_SDA> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F3;
 };
 /**
- * @brief Specialization for Pin 18 on Port 0 with function PWM3 A
+ * @brief Specialization for Pin 18 on Port 0 with function PWM1 A
  *
  */
 template <>
@@ -1824,7 +1823,7 @@ struct pin<IOports::PORT0, IOpins::PIN18, IOfuncts::USB_OVCUR_DET> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F9;
 };
 /**
- * @brief Specialization for Pin 19 on Port 0 with function SPI0 clock
+ * @brief Specialization for Pin 19 on Port 0 with function SPI0 transmit
  *
  */
 template <>
@@ -1835,7 +1834,7 @@ struct pin<IOports::PORT0, IOpins::PIN19, IOfuncts::SPI0_TX> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F1;
 };
 /**
- * @brief Specialization for Pin 19 on Port 0 with function UART1 Clear to send
+ * @brief Specialization for Pin 19 on Port 0 with function UART0 Request to send
  *
  */
 template <>
@@ -1846,7 +1845,7 @@ struct pin<IOports::PORT0, IOpins::PIN19, IOfuncts::UART0_RTS> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F2;
 };
 /**
- * @brief Specialization for Pin 19 on Port 0 with function I2C1 SDA
+ * @brief Specialization for Pin 19 on Port 0 with function I2C1 SCL
  *
  */
 template <>
@@ -1857,7 +1856,7 @@ struct pin<IOports::PORT0, IOpins::PIN19, IOfuncts::I2C1_SCL> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F3;
 };
 /**
- * @brief Specialization for Pin 19 on Port 0 with function PWM3 A
+ * @brief Specialization for Pin 19 on Port 0 with function PWM1 B
  *
  */
 template <>
@@ -1901,7 +1900,7 @@ struct pin<IOports::PORT0, IOpins::PIN19, IOfuncts::PIO1> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F7;
 };
 /**
- * @brief Specialization for Pin 19 on Port 0 with function USB Overcurrent Detect
+ * @brief Specialization for Pin 19 on Port 0 with function USB VBUS detection
  *
  */
 template <>
@@ -1912,7 +1911,7 @@ struct pin<IOports::PORT0, IOpins::PIN19, IOfuncts::USB_VBUS_DET> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F9;
 };
 /**
- * @brief Specialization for Pin 20 on Port 0 with function SPI0 clock
+ * @brief Specialization for Pin 20 on Port 0 with function SPI0 receive
  *
  */
 template <>
@@ -1923,7 +1922,7 @@ struct pin<IOports::PORT0, IOpins::PIN20, IOfuncts::SPI0_RX> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F1;
 };
 /**
- * @brief Specialization for Pin 20 on Port 0 with function UART1 Clear to send
+ * @brief Specialization for Pin 20 on Port 0 with function UART1 transmit
  *
  */
 template <>
@@ -1934,7 +1933,7 @@ struct pin<IOports::PORT0, IOpins::PIN20, IOfuncts::UART1_TX> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F2;
 };
 /**
- * @brief Specialization for Pin 20 on Port 0 with function I2C1 SDA
+ * @brief Specialization for Pin 20 on Port 0 with function I2C0 SDA
  *
  */
 template <>
@@ -1945,7 +1944,7 @@ struct pin<IOports::PORT0, IOpins::PIN20, IOfuncts::I2C0_SDA> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F3;
 };
 /**
- * @brief Specialization for Pin 20 on Port 0 with function PWM3 A
+ * @brief Specialization for Pin 20 on Port 0 with function PWM2 A
  *
  */
 template <>
@@ -2000,7 +1999,7 @@ struct pin<IOports::PORT0, IOpins::PIN20, IOfuncts::CLK_GPIN0> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F8;
 };
 /**
- * @brief Specialization for Pin 20 on Port 0 with function USB Overcurrent Detect
+ * @brief Specialization for Pin 20 on Port 0 with function USB VBUS enable
  *
  */
 template <>
@@ -2022,7 +2021,7 @@ struct pin<IOports::PORT0, IOpins::PIN21, IOfuncts::SPI0_CS> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F1;
 };
 /**
- * @brief Specialization for Pin 21 on Port 0 with function UART1 Clear to send
+ * @brief Specialization for Pin 21 on Port 0 with function UART1 receive
  *
  */
 template <>
@@ -2033,7 +2032,7 @@ struct pin<IOports::PORT0, IOpins::PIN21, IOfuncts::UART1_RX> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F2;
 };
 /**
- * @brief Specialization for Pin 21 on Port 0 with function I2C1 SDA
+ * @brief Specialization for Pin 21 on Port 0 with function I2C0 SCL
  *
  */
 template <>
@@ -2044,7 +2043,7 @@ struct pin<IOports::PORT0, IOpins::PIN21, IOfuncts::I2C0_SCL> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F3;
 };
 /**
- * @brief Specialization for Pin 21 on Port 0 with function PWM3 A
+ * @brief Specialization for Pin 21 on Port 0 with function PWM2 B
  *
  */
 template <>
@@ -2088,7 +2087,7 @@ struct pin<IOports::PORT0, IOpins::PIN21, IOfuncts::PIO1> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F7;
 };
 /**
- * @brief Specialization for Pin 21 on Port 0 with function Clock pin input 0
+ * @brief Specialization for Pin 21 on Port 0 with function Clock pin output 0
  *
  */
 template <>
@@ -2187,7 +2186,7 @@ struct pin<IOports::PORT0, IOpins::PIN22, IOfuncts::PIO1> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F7;
 };
 /**
- * @brief Specialization for Pin 22 on Port 0 with function Clock pin input 0
+ * @brief Specialization for Pin 22 on Port 0 with function Clock pin input 1
  *
  */
 template <>
@@ -2198,7 +2197,7 @@ struct pin<IOports::PORT0, IOpins::PIN22, IOfuncts::CLK_GPIN1> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F8;
 };
 /**
- * @brief Specialization for Pin 22 on Port 0 with function USB Overcurrent Detect
+ * @brief Specialization for Pin 22 on Port 0 with function USB VBUS detection
  *
  */
 template <>
@@ -2209,7 +2208,7 @@ struct pin<IOports::PORT0, IOpins::PIN22, IOfuncts::USB_VBUS_DET> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F9;
 };
 /**
- * @brief Specialization for Pin 23 on Port 0 with function SPI0 clock
+ * @brief Specialization for Pin 23 on Port 0 with function SPI0 transmit
  *
  */
 template <>
@@ -2220,7 +2219,7 @@ struct pin<IOports::PORT0, IOpins::PIN23, IOfuncts::SPI0_TX> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F1;
 };
 /**
- * @brief Specialization for Pin 23 on Port 0 with function UART1 Clear to send
+ * @brief Specialization for Pin 23 on Port 0 with function UART1 request to send
  *
  */
 template <>
@@ -2231,7 +2230,7 @@ struct pin<IOports::PORT0, IOpins::PIN23, IOfuncts::UART1_RTS> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F2;
 };
 /**
- * @brief Specialization for Pin 23 on Port 0 with function I2C1 SDA
+ * @brief Specialization for Pin 23 on Port 0 with function I2C1 SCL
  *
  */
 template <>
@@ -2242,7 +2241,7 @@ struct pin<IOports::PORT0, IOpins::PIN23, IOfuncts::I2C1_SCL> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F3;
 };
 /**
- * @brief Specialization for Pin 23 on Port 0 with function PWM3 A
+ * @brief Specialization for Pin 23 on Port 0 with function PWM3 B
  *
  */
 template <>
@@ -2286,7 +2285,7 @@ struct pin<IOports::PORT0, IOpins::PIN23, IOfuncts::PIO1> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F7;
 };
 /**
- * @brief Specialization for Pin 23 on Port 0 with function Clock pin input 0
+ * @brief Specialization for Pin 23 on Port 0 with function Clock pin output 1
  *
  */
 template <>
@@ -2297,7 +2296,7 @@ struct pin<IOports::PORT0, IOpins::PIN23, IOfuncts::CLK_GPOUT1> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F8;
 };
 /**
- * @brief Specialization for Pin 23 on Port 0 with function USB Overcurrent Detect
+ * @brief Specialization for Pin 23 on Port 0 with function USB VBUS enable
  *
  */
 template <>
@@ -2308,7 +2307,7 @@ struct pin<IOports::PORT0, IOpins::PIN23, IOfuncts::USB_VBUS_EN> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F9;
 };
 /**
- * @brief Specialization for Pin 24 on Port 0 with function SPI0 clock
+ * @brief Specialization for Pin 24 on Port 0 with function SPI1 receive
  *
  */
 template <>
@@ -2319,7 +2318,7 @@ struct pin<IOports::PORT0, IOpins::PIN24, IOfuncts::SPI1_RX> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F1;
 };
 /**
- * @brief Specialization for Pin 24 on Port 0 with function UART1 Clear to send
+ * @brief Specialization for Pin 24 on Port 0 with function UART1 transmit
  *
  */
 template <>
@@ -2330,7 +2329,7 @@ struct pin<IOports::PORT0, IOpins::PIN24, IOfuncts::UART1_TX> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F2;
 };
 /**
- * @brief Specialization for Pin 24 on Port 0 with function I2C1 SDA
+ * @brief Specialization for Pin 24 on Port 0 with function I2C0 SDA
  *
  */
 template <>
@@ -2341,7 +2340,7 @@ struct pin<IOports::PORT0, IOpins::PIN24, IOfuncts::I2C0_SDA> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F3;
 };
 /**
- * @brief Specialization for Pin 24 on Port 0 with function PWM3 A
+ * @brief Specialization for Pin 24 on Port 0 with function PWM4 A
  *
  */
 template <>
@@ -2385,7 +2384,7 @@ struct pin<IOports::PORT0, IOpins::PIN24, IOfuncts::PIO1> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F7;
 };
 /**
- * @brief Specialization for Pin 24 on Port 0 with function Clock pin input 0
+ * @brief Specialization for Pin 24 on Port 0 with function Clock pin output 2
  *
  */
 template <>
@@ -2407,7 +2406,7 @@ struct pin<IOports::PORT0, IOpins::PIN24, IOfuncts::USB_OVCUR_DET> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F9;
 };
 /**
- * @brief Specialization for Pin 25 on Port 0 with function SPI0 clock
+ * @brief Specialization for Pin 25 on Port 0 with function SPI1 Chip select
  *
  */
 template <>
@@ -2418,7 +2417,7 @@ struct pin<IOports::PORT0, IOpins::PIN25, IOfuncts::SPI1_CS> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F1;
 };
 /**
- * @brief Specialization for Pin 25 on Port 0 with function UART1 Clear to send
+ * @brief Specialization for Pin 25 on Port 0 with function UART1 receive
  *
  */
 template <>
@@ -2429,7 +2428,7 @@ struct pin<IOports::PORT0, IOpins::PIN25, IOfuncts::UART1_RX> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F2;
 };
 /**
- * @brief Specialization for Pin 25 on Port 0 with function I2C1 SDA
+ * @brief Specialization for Pin 25 on Port 0 with function I2C0 SCL
  *
  */
 template <>
@@ -2440,7 +2439,7 @@ struct pin<IOports::PORT0, IOpins::PIN25, IOfuncts::I2C0_SCL> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F3;
 };
 /**
- * @brief Specialization for Pin 25 on Port 0 with function PWM3 A
+ * @brief Specialization for Pin 25 on Port 0 with function PWM4 B
  *
  */
 template <>
@@ -2484,7 +2483,7 @@ struct pin<IOports::PORT0, IOpins::PIN25, IOfuncts::PIO1> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F7;
 };
 /**
- * @brief Specialization for Pin 25 on Port 0 with function Clock pin input 0
+ * @brief Specialization for Pin 25 on Port 0 with function Clock pin output 3
  *
  */
 template <>
@@ -2495,7 +2494,7 @@ struct pin<IOports::PORT0, IOpins::PIN25, IOfuncts::CLK_GPOUT3> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F8;
 };
 /**
- * @brief Specialization for Pin 25 on Port 0 with function USB Overcurrent Detect
+ * @brief Specialization for Pin 25 on Port 0 with function USB VBUS detection
  *
  */
 template <>
@@ -2506,7 +2505,7 @@ struct pin<IOports::PORT0, IOpins::PIN25, IOfuncts::USB_VBUS_DET> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F9;
 };
 /**
- * @brief Specialization for Pin 26 on Port 0 with function SPI0 clock
+ * @brief Specialization for Pin 26 on Port 0 with function SPI1 clock
  *
  */
 template <>
@@ -2539,7 +2538,7 @@ struct pin<IOports::PORT0, IOpins::PIN26, IOfuncts::I2C1_SDA> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F3;
 };
 /**
- * @brief Specialization for Pin 26 on Port 0 with function PWM3 A
+ * @brief Specialization for Pin 26 on Port 0 with function PWM5 A
  *
  */
 template <>
@@ -2583,7 +2582,7 @@ struct pin<IOports::PORT0, IOpins::PIN26, IOfuncts::PIO1> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F7;
 };
 /**
- * @brief Specialization for Pin 26 on Port 0 with function USB Overcurrent Detect
+ * @brief Specialization for Pin 26 on Port 0 with function USB VBUS enable
  *
  */
 template <>
@@ -2594,7 +2593,7 @@ struct pin<IOports::PORT0, IOpins::PIN26, IOfuncts::USB_VBUS_EN> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F9;
 };
 /**
- * @brief Specialization for Pin 27 on Port 0 with function SPI0 clock
+ * @brief Specialization for Pin 27 on Port 0 with function SPI1 transmit
  *
  */
 template <>
@@ -2605,7 +2604,7 @@ struct pin<IOports::PORT0, IOpins::PIN27, IOfuncts::SPI1_TX> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F1;
 };
 /**
- * @brief Specialization for Pin 27 on Port 0 with function UART1 Clear to send
+ * @brief Specialization for Pin 27 on Port 0 with function UART1 request to send
  *
  */
 template <>
@@ -2616,7 +2615,7 @@ struct pin<IOports::PORT0, IOpins::PIN27, IOfuncts::UART1_RTS> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F2;
 };
 /**
- * @brief Specialization for Pin 27 on Port 0 with function I2C1 SDA
+ * @brief Specialization for Pin 27 on Port 0 with function I2C1 SCL
  *
  */
 template <>
@@ -2627,7 +2626,7 @@ struct pin<IOports::PORT0, IOpins::PIN27, IOfuncts::I2C1_SCL> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F3;
 };
 /**
- * @brief Specialization for Pin 27 on Port 0 with function PWM3 A
+ * @brief Specialization for Pin 27 on Port 0 with function PWM5 A
  *
  */
 template <>
@@ -2682,7 +2681,7 @@ struct pin<IOports::PORT0, IOpins::PIN27, IOfuncts::USB_OVCUR_DET> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F9;
 };
 /**
- * @brief Specialization for Pin 28 on Port 0 with function SPI0 clock
+ * @brief Specialization for Pin 28 on Port 0 with function SPI1 receive
  *
  */
 template <>
@@ -2693,7 +2692,7 @@ struct pin<IOports::PORT0, IOpins::PIN28, IOfuncts::SPI1_RX> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F1;
 };
 /**
- * @brief Specialization for Pin 28 on Port 0 with function UART1 Clear to send
+ * @brief Specialization for Pin 28 on Port 0 with function UART0 transmit
  *
  */
 template <>
@@ -2704,7 +2703,7 @@ struct pin<IOports::PORT0, IOpins::PIN28, IOfuncts::UART0_TX> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F2;
 };
 /**
- * @brief Specialization for Pin 28 on Port 0 with function I2C1 SDA
+ * @brief Specialization for Pin 28 on Port 0 with function I2C0 SDA
  *
  */
 template <>
@@ -2715,7 +2714,7 @@ struct pin<IOports::PORT0, IOpins::PIN28, IOfuncts::I2C0_SDA> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F3;
 };
 /**
- * @brief Specialization for Pin 28 on Port 0 with function PWM3 A
+ * @brief Specialization for Pin 28 on Port 0 with function PWM6 A
  *
  */
 template <>
@@ -2759,7 +2758,7 @@ struct pin<IOports::PORT0, IOpins::PIN28, IOfuncts::PIO1> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F7;
 };
 /**
- * @brief Specialization for Pin 28 on Port 0 with function USB Overcurrent Detect
+ * @brief Specialization for Pin 28 on Port 0 with function USB VBUS detection
  *
  */
 template <>
@@ -2770,7 +2769,7 @@ struct pin<IOports::PORT0, IOpins::PIN28, IOfuncts::USB_VBUS_DET> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F9;
 };
 /**
- * @brief Specialization for Pin 29 on Port 0 with function SPI0 clock
+ * @brief Specialization for Pin 29 on Port 0 with function SPI1 Chip select
  *
  */
 template <>
@@ -2781,7 +2780,7 @@ struct pin<IOports::PORT0, IOpins::PIN29, IOfuncts::SPI1_CS> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F1;
 };
 /**
- * @brief Specialization for Pin 29 on Port 0 with function UART1 Clear to send
+ * @brief Specialization for Pin 29 on Port 0 with function UART0 Receive
  *
  */
 template <>
@@ -2792,7 +2791,7 @@ struct pin<IOports::PORT0, IOpins::PIN29, IOfuncts::UART0_RX> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F2;
 };
 /**
- * @brief Specialization for Pin 29 on Port 0 with function I2C1 SDA
+ * @brief Specialization for Pin 29 on Port 0 with function I2C0 SCL
  *
  */
 template <>
@@ -2803,7 +2802,7 @@ struct pin<IOports::PORT0, IOpins::PIN29, IOfuncts::I2C0_SCL> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F3;
 };
 /**
- * @brief Specialization for Pin 29 on Port 0 with function PWM3 A
+ * @brief Specialization for Pin 29 on Port 0 with function PWM6 B
  *
  */
 template <>
@@ -2847,7 +2846,7 @@ struct pin<IOports::PORT0, IOpins::PIN29, IOfuncts::PIO1> {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F7;
 };
 /**
- * @brief Specialization for Pin 29 on Port 0 with function USB Overcurrent Detect
+ * @brief Specialization for Pin 29 on Port 0 with function USB VBUS enable
  *
  */
 template <>
