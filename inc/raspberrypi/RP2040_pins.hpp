@@ -5,7 +5,7 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file RP2040 pin interface register interface
+ * \file RP2040 pin definitions
  *
  * Inspired by: https://cppformortals.com/2020/03/06/traits-for-stm32-pin-functions/
  *
@@ -763,6 +763,2096 @@ struct pin<IOports::PORT0, IOpins::PIN06, IOfuncts::PIO1> {
 template <>
 struct pin<IOports::PORT0, IOpins::PIN06, IOfuncts::USB_OVCUR_DET> {
   static constexpr std::uint8_t pinIndex = 6u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F9;
+};
+/**
+ * @brief Specialization for Pin 7 on Port 0 with function SPI0 clock
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN07, IOfuncts::SPI0_TX> {
+  static constexpr std::uint8_t pinIndex = 7u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F1;
+};
+/**
+ * @brief Specialization for Pin 7 on Port 0 with function UART1 Clear to send
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN07, IOfuncts::UART1_RTS> {
+  static constexpr std::uint8_t pinIndex = 7u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F2;
+};
+/**
+ * @brief Specialization for Pin 7 on Port 0 with function I2C1 SDA
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN07, IOfuncts::I2C1_SCL> {
+  static constexpr std::uint8_t pinIndex = 7u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F3;
+};
+/**
+ * @brief Specialization for Pin 7 on Port 0 with function PWM3 A
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN07, IOfuncts::PWM3B> {
+  static constexpr std::uint8_t pinIndex = 7u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F4;
+};
+/**
+ * @brief Specialization for Pin 7 on Port 0 with function SIO
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN07, IOfuncts::SIO> {
+  static constexpr std::uint8_t pinIndex = 7u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F5;
+};
+/**
+ * @brief Specialization for Pin 7 on Port 0 with function PIO0
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN07, IOfuncts::PIO0> {
+  static constexpr std::uint8_t pinIndex = 7u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F6;
+};
+/**
+ * @brief Specialization for Pin 7 on Port 0 with function PIO1
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN07, IOfuncts::PIO1> {
+  static constexpr std::uint8_t pinIndex = 7u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F7;
+};
+/**
+ * @brief Specialization for Pin 7 on Port 0 with function USB Overcurrent Detect
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN07, IOfuncts::USB_VBUS_DET> {
+  static constexpr std::uint8_t pinIndex = 7u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F9;
+};
+/**
+ * @brief Specialization for Pin 8 on Port 0 with function SPI0 clock
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN08, IOfuncts::SPI1_RX> {
+  static constexpr std::uint8_t pinIndex = 8u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F1;
+};
+/**
+ * @brief Specialization for Pin 8 on Port 0 with function UART1 Clear to send
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN08, IOfuncts::UART1_TX> {
+  static constexpr std::uint8_t pinIndex = 8u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F2;
+};
+/**
+ * @brief Specialization for Pin 8 on Port 0 with function I2C1 SDA
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN08, IOfuncts::I2C0_SDA> {
+  static constexpr std::uint8_t pinIndex = 8u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F3;
+};
+/**
+ * @brief Specialization for Pin 8 on Port 0 with function PWM3 A
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN08, IOfuncts::PWM4A> {
+  static constexpr std::uint8_t pinIndex = 8u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F4;
+};
+/**
+ * @brief Specialization for Pin 8 on Port 0 with function SIO
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN08, IOfuncts::SIO> {
+  static constexpr std::uint8_t pinIndex = 8u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F5;
+};
+/**
+ * @brief Specialization for Pin 8 on Port 0 with function PIO0
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN08, IOfuncts::PIO0> {
+  static constexpr std::uint8_t pinIndex = 8u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F6;
+};
+/**
+ * @brief Specialization for Pin 8 on Port 0 with function PIO1
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN08, IOfuncts::PIO1> {
+  static constexpr std::uint8_t pinIndex = 8u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F7;
+};
+/**
+ * @brief Specialization for Pin 8 on Port 0 with function USB Overcurrent Detect
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN08, IOfuncts::USB_VBUS_EN> {
+  static constexpr std::uint8_t pinIndex = 8u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F9;
+};
+/**
+ * @brief Specialization for Pin 9 on Port 0 with function SPI0 clock
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN09, IOfuncts::SPI1_CS> {
+  static constexpr std::uint8_t pinIndex = 9u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F1;
+};
+/**
+ * @brief Specialization for Pin 9 on Port 0 with function UART1 Clear to send
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN09, IOfuncts::UART1_RX> {
+  static constexpr std::uint8_t pinIndex = 9u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F2;
+};
+/**
+ * @brief Specialization for Pin 9 on Port 0 with function I2C1 SDA
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN09, IOfuncts::I2C0_SCL> {
+  static constexpr std::uint8_t pinIndex = 9u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F3;
+};
+/**
+ * @brief Specialization for Pin 9 on Port 0 with function PWM3 A
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN09, IOfuncts::PWM4B> {
+  static constexpr std::uint8_t pinIndex = 9u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F4;
+};
+/**
+ * @brief Specialization for Pin 9 on Port 0 with function SIO
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN09, IOfuncts::SIO> {
+  static constexpr std::uint8_t pinIndex = 9u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F5;
+};
+/**
+ * @brief Specialization for Pin 9 on Port 0 with function PIO0
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN09, IOfuncts::PIO0> {
+  static constexpr std::uint8_t pinIndex = 9u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F6;
+};
+/**
+ * @brief Specialization for Pin 9 on Port 0 with function PIO1
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN09, IOfuncts::PIO1> {
+  static constexpr std::uint8_t pinIndex = 9u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F7;
+};
+/**
+ * @brief Specialization for Pin 9 on Port 0 with function USB Overcurrent Detect
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN09, IOfuncts::USB_OVCUR_DET> {
+  static constexpr std::uint8_t pinIndex = 9u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F9;
+};
+/**
+ * @brief Specialization for Pin 10 on Port 0 with function SPI0 clock
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN10, IOfuncts::SPI1_SCK> {
+  static constexpr std::uint8_t pinIndex = 10u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F1;
+};
+/**
+ * @brief Specialization for Pin 10 on Port 0 with function UART1 Clear to send
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN10, IOfuncts::UART1_CTS> {
+  static constexpr std::uint8_t pinIndex = 10u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F2;
+};
+/**
+ * @brief Specialization for Pin 10 on Port 0 with function I2C1 SDA
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN10, IOfuncts::I2C1_SDA> {
+  static constexpr std::uint8_t pinIndex = 10u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F3;
+};
+/**
+ * @brief Specialization for Pin 10 on Port 0 with function PWM3 A
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN10, IOfuncts::PWM5A> {
+  static constexpr std::uint8_t pinIndex = 10u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F4;
+};
+/**
+ * @brief Specialization for Pin 10 on Port 0 with function SIO
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN10, IOfuncts::SIO> {
+  static constexpr std::uint8_t pinIndex = 10u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F5;
+};
+/**
+ * @brief Specialization for Pin 10 on Port 0 with function PIO0
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN10, IOfuncts::PIO0> {
+  static constexpr std::uint8_t pinIndex = 10u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F6;
+};
+/**
+ * @brief Specialization for Pin 10 on Port 0 with function PIO1
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN10, IOfuncts::PIO1> {
+  static constexpr std::uint8_t pinIndex = 10u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F7;
+};
+/**
+ * @brief Specialization for Pin 10 on Port 0 with function USB Overcurrent Detect
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN10, IOfuncts::USB_VBUS_DET> {
+  static constexpr std::uint8_t pinIndex = 10u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F9;
+};
+/**
+ * @brief Specialization for Pin 11 on Port 0 with function SPI0 clock
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN11, IOfuncts::SPI1_TX> {
+  static constexpr std::uint8_t pinIndex = 11u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F1;
+};
+/**
+ * @brief Specialization for Pin 11 on Port 0 with function UART1 Clear to send
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN11, IOfuncts::UART1_RTS> {
+  static constexpr std::uint8_t pinIndex = 11u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F2;
+};
+/**
+ * @brief Specialization for Pin 11 on Port 0 with function I2C1 SDA
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN11, IOfuncts::I2C1_SCL> {
+  static constexpr std::uint8_t pinIndex = 11u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F3;
+};
+/**
+ * @brief Specialization for Pin 11 on Port 0 with function PWM3 A
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN11, IOfuncts::PWM5B> {
+  static constexpr std::uint8_t pinIndex = 11u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F4;
+};
+/**
+ * @brief Specialization for Pin 11 on Port 0 with function SIO
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN11, IOfuncts::SIO> {
+  static constexpr std::uint8_t pinIndex = 11u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F5;
+};
+/**
+ * @brief Specialization for Pin 11 on Port 0 with function PIO0
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN11, IOfuncts::PIO0> {
+  static constexpr std::uint8_t pinIndex = 11u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F6;
+};
+/**
+ * @brief Specialization for Pin 11 on Port 0 with function PIO1
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN11, IOfuncts::PIO1> {
+  static constexpr std::uint8_t pinIndex = 11u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F7;
+};
+/**
+ * @brief Specialization for Pin 11 on Port 0 with function USB Overcurrent Detect
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN11, IOfuncts::USB_VBUS_EN> {
+  static constexpr std::uint8_t pinIndex = 11u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F9;
+};
+/**
+ * @brief Specialization for Pin 12 on Port 0 with function SPI0 clock
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN12, IOfuncts::SPI1_RX> {
+  static constexpr std::uint8_t pinIndex = 12u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F1;
+};
+/**
+ * @brief Specialization for Pin 12 on Port 0 with function UART1 Clear to send
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN12, IOfuncts::UART0_TX> {
+  static constexpr std::uint8_t pinIndex = 12u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F2;
+};
+/**
+ * @brief Specialization for Pin 12 on Port 0 with function I2C1 SDA
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN12, IOfuncts::I2C0_SDA> {
+  static constexpr std::uint8_t pinIndex = 12u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F3;
+};
+/**
+ * @brief Specialization for Pin 12 on Port 0 with function PWM3 A
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN12, IOfuncts::PWM6A> {
+  static constexpr std::uint8_t pinIndex = 12u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F4;
+};
+/**
+ * @brief Specialization for Pin 12 on Port 0 with function SIO
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN12, IOfuncts::SIO> {
+  static constexpr std::uint8_t pinIndex = 12u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F5;
+};
+/**
+ * @brief Specialization for Pin 12 on Port 0 with function PIO0
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN12, IOfuncts::PIO0> {
+  static constexpr std::uint8_t pinIndex = 12u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F6;
+};
+/**
+ * @brief Specialization for Pin 12 on Port 0 with function PIO1
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN12, IOfuncts::PIO1> {
+  static constexpr std::uint8_t pinIndex = 12u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F7;
+};
+/**
+ * @brief Specialization for Pin 12 on Port 0 with function USB Overcurrent Detect
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN12, IOfuncts::USB_OVCUR_DET> {
+  static constexpr std::uint8_t pinIndex = 12u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F9;
+};
+/**
+ * @brief Specialization for Pin 13 on Port 0 with function SPI0 clock
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN13, IOfuncts::SPI1_CS> {
+  static constexpr std::uint8_t pinIndex = 13u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F1;
+};
+/**
+ * @brief Specialization for Pin 13 on Port 0 with function UART1 Clear to send
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN13, IOfuncts::UART0_RX> {
+  static constexpr std::uint8_t pinIndex = 13u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F2;
+};
+/**
+ * @brief Specialization for Pin 13 on Port 0 with function I2C1 SDA
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN13, IOfuncts::I2C0_SCL> {
+  static constexpr std::uint8_t pinIndex = 13u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F3;
+};
+/**
+ * @brief Specialization for Pin 13 on Port 0 with function PWM3 A
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN13, IOfuncts::PWM6B> {
+  static constexpr std::uint8_t pinIndex = 13u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F4;
+};
+/**
+ * @brief Specialization for Pin 13 on Port 0 with function SIO
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN13, IOfuncts::SIO> {
+  static constexpr std::uint8_t pinIndex = 13u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F5;
+};
+/**
+ * @brief Specialization for Pin 13 on Port 0 with function PIO0
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN13, IOfuncts::PIO0> {
+  static constexpr std::uint8_t pinIndex = 13u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F6;
+};
+/**
+ * @brief Specialization for Pin 13 on Port 0 with function PIO1
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN13, IOfuncts::PIO1> {
+  static constexpr std::uint8_t pinIndex = 13u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F7;
+};
+/**
+ * @brief Specialization for Pin 13 on Port 0 with function USB Overcurrent Detect
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN13, IOfuncts::USB_VBUS_DET> {
+  static constexpr std::uint8_t pinIndex = 13u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F9;
+};
+/**
+ * @brief Specialization for Pin 14 on Port 0 with function SPI0 clock
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN14, IOfuncts::SPI1_SCK> {
+  static constexpr std::uint8_t pinIndex = 14u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F1;
+};
+/**
+ * @brief Specialization for Pin 14 on Port 0 with function UART1 Clear to send
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN14, IOfuncts::UART0_CTS> {
+  static constexpr std::uint8_t pinIndex = 14u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F2;
+};
+/**
+ * @brief Specialization for Pin 14 on Port 0 with function I2C1 SDA
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN14, IOfuncts::I2C1_SDA> {
+  static constexpr std::uint8_t pinIndex = 14u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F3;
+};
+/**
+ * @brief Specialization for Pin 14 on Port 0 with function PWM3 A
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN14, IOfuncts::PWM7A> {
+  static constexpr std::uint8_t pinIndex = 14u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F4;
+};
+/**
+ * @brief Specialization for Pin 14 on Port 0 with function SIO
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN14, IOfuncts::SIO> {
+  static constexpr std::uint8_t pinIndex = 14u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F5;
+};
+/**
+ * @brief Specialization for Pin 14 on Port 0 with function PIO0
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN14, IOfuncts::PIO0> {
+  static constexpr std::uint8_t pinIndex = 14u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F6;
+};
+/**
+ * @brief Specialization for Pin 14 on Port 0 with function PIO1
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN14, IOfuncts::PIO1> {
+  static constexpr std::uint8_t pinIndex = 14u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F7;
+};
+/**
+ * @brief Specialization for Pin 14 on Port 0 with function USB Overcurrent Detect
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN14, IOfuncts::USB_VBUS_EN> {
+  static constexpr std::uint8_t pinIndex = 14u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F9;
+};
+/**
+ * @brief Specialization for Pin 15 on Port 0 with function SPI0 clock
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN15, IOfuncts::SPI1_TX> {
+  static constexpr std::uint8_t pinIndex = 15u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F1;
+};
+/**
+ * @brief Specialization for Pin 15 on Port 0 with function UART1 Clear to send
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN15, IOfuncts::UART0_RTS> {
+  static constexpr std::uint8_t pinIndex = 15u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F2;
+};
+/**
+ * @brief Specialization for Pin 15 on Port 0 with function I2C1 SDA
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN15, IOfuncts::I2C1_SCL> {
+  static constexpr std::uint8_t pinIndex = 15u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F3;
+};
+/**
+ * @brief Specialization for Pin 15 on Port 0 with function PWM3 A
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN15, IOfuncts::PWM7B> {
+  static constexpr std::uint8_t pinIndex = 15u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F4;
+};
+/**
+ * @brief Specialization for Pin 15 on Port 0 with function SIO
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN15, IOfuncts::SIO> {
+  static constexpr std::uint8_t pinIndex = 15u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F5;
+};
+/**
+ * @brief Specialization for Pin 15 on Port 0 with function PIO0
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN15, IOfuncts::PIO0> {
+  static constexpr std::uint8_t pinIndex = 15u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F6;
+};
+/**
+ * @brief Specialization for Pin 15 on Port 0 with function PIO1
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN15, IOfuncts::PIO1> {
+  static constexpr std::uint8_t pinIndex = 15u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F7;
+};
+/**
+ * @brief Specialization for Pin 15 on Port 0 with function USB Overcurrent Detect
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN15, IOfuncts::USB_OVCUR_DET> {
+  static constexpr std::uint8_t pinIndex = 15u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F9;
+};
+/**
+ * @brief Specialization for Pin 16 on Port 0 with function SPI0 clock
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN16, IOfuncts::SPI0_RX> {
+  static constexpr std::uint8_t pinIndex = 16u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F1;
+};
+/**
+ * @brief Specialization for Pin 16 on Port 0 with function UART1 Clear to send
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN16, IOfuncts::UART0_TX> {
+  static constexpr std::uint8_t pinIndex = 16u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F2;
+};
+/**
+ * @brief Specialization for Pin 16 on Port 0 with function I2C1 SDA
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN16, IOfuncts::I2C0_SDA> {
+  static constexpr std::uint8_t pinIndex = 16u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F3;
+};
+/**
+ * @brief Specialization for Pin 16 on Port 0 with function PWM3 A
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN16, IOfuncts::PWM0A> {
+  static constexpr std::uint8_t pinIndex = 16u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F4;
+};
+/**
+ * @brief Specialization for Pin 16 on Port 0 with function SIO
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN16, IOfuncts::SIO> {
+  static constexpr std::uint8_t pinIndex = 16u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F5;
+};
+/**
+ * @brief Specialization for Pin 16 on Port 0 with function PIO0
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN16, IOfuncts::PIO0> {
+  static constexpr std::uint8_t pinIndex = 16u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F6;
+};
+/**
+ * @brief Specialization for Pin 16 on Port 0 with function PIO1
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN16, IOfuncts::PIO1> {
+  static constexpr std::uint8_t pinIndex = 16u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F7;
+};
+/**
+ * @brief Specialization for Pin 16 on Port 0 with function USB Overcurrent Detect
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN16, IOfuncts::USB_VBUS_DET> {
+  static constexpr std::uint8_t pinIndex = 16u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F9;
+};
+/**
+ * @brief Specialization for Pin 17 on Port 0 with function SPI0 clock
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN17, IOfuncts::SPI0_CS> {
+  static constexpr std::uint8_t pinIndex = 17u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F1;
+};
+/**
+ * @brief Specialization for Pin 17 on Port 0 with function UART1 Clear to send
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN17, IOfuncts::UART0_RX> {
+  static constexpr std::uint8_t pinIndex = 17u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F2;
+};
+/**
+ * @brief Specialization for Pin 17 on Port 0 with function I2C1 SDA
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN17, IOfuncts::I2C0_SCL> {
+  static constexpr std::uint8_t pinIndex = 17u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F3;
+};
+/**
+ * @brief Specialization for Pin 17 on Port 0 with function PWM3 A
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN17, IOfuncts::PWM0B> {
+  static constexpr std::uint8_t pinIndex = 17u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F4;
+};
+/**
+ * @brief Specialization for Pin 17 on Port 0 with function SIO
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN17, IOfuncts::SIO> {
+  static constexpr std::uint8_t pinIndex = 17u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F5;
+};
+/**
+ * @brief Specialization for Pin 17 on Port 0 with function PIO0
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN17, IOfuncts::PIO0> {
+  static constexpr std::uint8_t pinIndex = 17u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F6;
+};
+/**
+ * @brief Specialization for Pin 17 on Port 0 with function PIO1
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN17, IOfuncts::PIO1> {
+  static constexpr std::uint8_t pinIndex = 17u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F7;
+};
+/**
+ * @brief Specialization for Pin 17 on Port 0 with function USB Overcurrent Detect
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN17, IOfuncts::USB_VBUS_EN> {
+  static constexpr std::uint8_t pinIndex = 17u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F9;
+};
+/**
+ * @brief Specialization for Pin 18 on Port 0 with function SPI0 clock
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN18, IOfuncts::SPI0_SCK> {
+  static constexpr std::uint8_t pinIndex = 18u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F1;
+};
+/**
+ * @brief Specialization for Pin 18 on Port 0 with function UART1 Clear to send
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN18, IOfuncts::UART0_CTS> {
+  static constexpr std::uint8_t pinIndex = 18u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F2;
+};
+/**
+ * @brief Specialization for Pin 18 on Port 0 with function I2C1 SDA
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN18, IOfuncts::I2C1_SDA> {
+  static constexpr std::uint8_t pinIndex = 18u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F3;
+};
+/**
+ * @brief Specialization for Pin 18 on Port 0 with function PWM3 A
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN18, IOfuncts::PWM1A> {
+  static constexpr std::uint8_t pinIndex = 18u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F4;
+};
+/**
+ * @brief Specialization for Pin 18 on Port 0 with function SIO
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN18, IOfuncts::SIO> {
+  static constexpr std::uint8_t pinIndex = 18u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F5;
+};
+/**
+ * @brief Specialization for Pin 18 on Port 0 with function PIO0
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN18, IOfuncts::PIO0> {
+  static constexpr std::uint8_t pinIndex = 18u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F6;
+};
+/**
+ * @brief Specialization for Pin 18 on Port 0 with function PIO1
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN18, IOfuncts::PIO1> {
+  static constexpr std::uint8_t pinIndex = 18u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F7;
+};
+/**
+ * @brief Specialization for Pin 18 on Port 0 with function USB Overcurrent Detect
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN18, IOfuncts::USB_OVCUR_DET> {
+  static constexpr std::uint8_t pinIndex = 18u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F9;
+};
+/**
+ * @brief Specialization for Pin 19 on Port 0 with function SPI0 clock
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN19, IOfuncts::SPI0_TX> {
+  static constexpr std::uint8_t pinIndex = 19u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F1;
+};
+/**
+ * @brief Specialization for Pin 19 on Port 0 with function UART1 Clear to send
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN19, IOfuncts::UART0_RTS> {
+  static constexpr std::uint8_t pinIndex = 19u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F2;
+};
+/**
+ * @brief Specialization for Pin 19 on Port 0 with function I2C1 SDA
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN19, IOfuncts::I2C1_SCL> {
+  static constexpr std::uint8_t pinIndex = 19u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F3;
+};
+/**
+ * @brief Specialization for Pin 19 on Port 0 with function PWM3 A
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN19, IOfuncts::PWM1B> {
+  static constexpr std::uint8_t pinIndex = 19u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F4;
+};
+/**
+ * @brief Specialization for Pin 19 on Port 0 with function SIO
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN19, IOfuncts::SIO> {
+  static constexpr std::uint8_t pinIndex = 19u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F5;
+};
+/**
+ * @brief Specialization for Pin 19 on Port 0 with function PIO0
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN19, IOfuncts::PIO0> {
+  static constexpr std::uint8_t pinIndex = 19u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F6;
+};
+/**
+ * @brief Specialization for Pin 19 on Port 0 with function PIO1
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN19, IOfuncts::PIO1> {
+  static constexpr std::uint8_t pinIndex = 19u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F7;
+};
+/**
+ * @brief Specialization for Pin 19 on Port 0 with function USB Overcurrent Detect
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN19, IOfuncts::USB_VBUS_DET> {
+  static constexpr std::uint8_t pinIndex = 19u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F9;
+};
+/**
+ * @brief Specialization for Pin 20 on Port 0 with function SPI0 clock
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN20, IOfuncts::SPI0_RX> {
+  static constexpr std::uint8_t pinIndex = 20u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F1;
+};
+/**
+ * @brief Specialization for Pin 20 on Port 0 with function UART1 Clear to send
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN20, IOfuncts::UART1_TX> {
+  static constexpr std::uint8_t pinIndex = 20u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F2;
+};
+/**
+ * @brief Specialization for Pin 20 on Port 0 with function I2C1 SDA
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN20, IOfuncts::I2C0_SDA> {
+  static constexpr std::uint8_t pinIndex = 20u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F3;
+};
+/**
+ * @brief Specialization for Pin 20 on Port 0 with function PWM3 A
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN20, IOfuncts::PWM2A> {
+  static constexpr std::uint8_t pinIndex = 20u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F4;
+};
+/**
+ * @brief Specialization for Pin 20 on Port 0 with function SIO
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN20, IOfuncts::SIO> {
+  static constexpr std::uint8_t pinIndex = 20u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F5;
+};
+/**
+ * @brief Specialization for Pin 20 on Port 0 with function PIO0
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN20, IOfuncts::PIO0> {
+  static constexpr std::uint8_t pinIndex = 20u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F6;
+};
+/**
+ * @brief Specialization for Pin 20 on Port 0 with function PIO1
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN20, IOfuncts::PIO1> {
+  static constexpr std::uint8_t pinIndex = 20u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F7;
+};
+/**
+ * @brief Specialization for Pin 20 on Port 0 with function Clock pin input 0
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN20, IOfuncts::CLK_GPIN0> {
+  static constexpr std::uint8_t pinIndex = 20u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F8;
+};
+/**
+ * @brief Specialization for Pin 20 on Port 0 with function USB Overcurrent Detect
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN20, IOfuncts::USB_VBUS_EN> {
+  static constexpr std::uint8_t pinIndex = 20u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F9;
+};
+/**
+ * @brief Specialization for Pin 21 on Port 0 with function SPI0 clock
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN21, IOfuncts::SPI0_CS> {
+  static constexpr std::uint8_t pinIndex = 21u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F1;
+};
+/**
+ * @brief Specialization for Pin 21 on Port 0 with function UART1 Clear to send
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN21, IOfuncts::UART1_RX> {
+  static constexpr std::uint8_t pinIndex = 21u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F2;
+};
+/**
+ * @brief Specialization for Pin 21 on Port 0 with function I2C1 SDA
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN21, IOfuncts::I2C0_SCL> {
+  static constexpr std::uint8_t pinIndex = 21u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F3;
+};
+/**
+ * @brief Specialization for Pin 21 on Port 0 with function PWM3 A
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN21, IOfuncts::PWM2B> {
+  static constexpr std::uint8_t pinIndex = 21u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F4;
+};
+/**
+ * @brief Specialization for Pin 21 on Port 0 with function SIO
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN21, IOfuncts::SIO> {
+  static constexpr std::uint8_t pinIndex = 21u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F5;
+};
+/**
+ * @brief Specialization for Pin 21 on Port 0 with function PIO0
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN21, IOfuncts::PIO0> {
+  static constexpr std::uint8_t pinIndex = 21u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F6;
+};
+/**
+ * @brief Specialization for Pin 21 on Port 0 with function PIO1
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN21, IOfuncts::PIO1> {
+  static constexpr std::uint8_t pinIndex = 21u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F7;
+};
+/**
+ * @brief Specialization for Pin 21 on Port 0 with function Clock pin input 0
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN21, IOfuncts::CLK_GPOUT0> {
+  static constexpr std::uint8_t pinIndex = 21u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F8;
+};
+/**
+ * @brief Specialization for Pin 21 on Port 0 with function USB Overcurrent Detect
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN21, IOfuncts::USB_OVCUR_DET> {
+  static constexpr std::uint8_t pinIndex = 21u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F9;
+};
+/**
+ * @brief Specialization for Pin 22 on Port 0 with function SPI0 clock
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN22, IOfuncts::SPI0_SCK> {
+  static constexpr std::uint8_t pinIndex = 22u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F1;
+};
+/**
+ * @brief Specialization for Pin 22 on Port 0 with function UART1 Clear to send
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN22, IOfuncts::UART1_CTS> {
+  static constexpr std::uint8_t pinIndex = 22u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F2;
+};
+/**
+ * @brief Specialization for Pin 22 on Port 0 with function I2C1 SDA
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN22, IOfuncts::I2C1_SDA> {
+  static constexpr std::uint8_t pinIndex = 22u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F3;
+};
+/**
+ * @brief Specialization for Pin 22 on Port 0 with function PWM3 A
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN22, IOfuncts::PWM3A> {
+  static constexpr std::uint8_t pinIndex = 22u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F4;
+};
+/**
+ * @brief Specialization for Pin 22 on Port 0 with function SIO
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN22, IOfuncts::SIO> {
+  static constexpr std::uint8_t pinIndex = 22u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F5;
+};
+/**
+ * @brief Specialization for Pin 22 on Port 0 with function PIO0
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN22, IOfuncts::PIO0> {
+  static constexpr std::uint8_t pinIndex = 22u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F6;
+};
+/**
+ * @brief Specialization for Pin 22 on Port 0 with function PIO1
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN22, IOfuncts::PIO1> {
+  static constexpr std::uint8_t pinIndex = 22u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F7;
+};
+/**
+ * @brief Specialization for Pin 22 on Port 0 with function Clock pin input 0
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN22, IOfuncts::CLK_GPIN1> {
+  static constexpr std::uint8_t pinIndex = 22u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F8;
+};
+/**
+ * @brief Specialization for Pin 22 on Port 0 with function USB Overcurrent Detect
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN22, IOfuncts::USB_VBUS_DET> {
+  static constexpr std::uint8_t pinIndex = 22u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F9;
+};
+/**
+ * @brief Specialization for Pin 23 on Port 0 with function SPI0 clock
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN23, IOfuncts::SPI0_TX> {
+  static constexpr std::uint8_t pinIndex = 23u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F1;
+};
+/**
+ * @brief Specialization for Pin 23 on Port 0 with function UART1 Clear to send
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN23, IOfuncts::UART1_RTS> {
+  static constexpr std::uint8_t pinIndex = 23u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F2;
+};
+/**
+ * @brief Specialization for Pin 23 on Port 0 with function I2C1 SDA
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN23, IOfuncts::I2C1_SCL> {
+  static constexpr std::uint8_t pinIndex = 23u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F3;
+};
+/**
+ * @brief Specialization for Pin 23 on Port 0 with function PWM3 A
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN23, IOfuncts::PWM3B> {
+  static constexpr std::uint8_t pinIndex = 23u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F4;
+};
+/**
+ * @brief Specialization for Pin 23 on Port 0 with function SIO
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN23, IOfuncts::SIO> {
+  static constexpr std::uint8_t pinIndex = 23u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F5;
+};
+/**
+ * @brief Specialization for Pin 23 on Port 0 with function PIO0
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN23, IOfuncts::PIO0> {
+  static constexpr std::uint8_t pinIndex = 23u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F6;
+};
+/**
+ * @brief Specialization for Pin 23 on Port 0 with function PIO1
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN23, IOfuncts::PIO1> {
+  static constexpr std::uint8_t pinIndex = 23u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F7;
+};
+/**
+ * @brief Specialization for Pin 23 on Port 0 with function Clock pin input 0
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN23, IOfuncts::CLK_GPOUT1> {
+  static constexpr std::uint8_t pinIndex = 23u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F8;
+};
+/**
+ * @brief Specialization for Pin 23 on Port 0 with function USB Overcurrent Detect
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN23, IOfuncts::USB_VBUS_EN> {
+  static constexpr std::uint8_t pinIndex = 23u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F9;
+};
+/**
+ * @brief Specialization for Pin 24 on Port 0 with function SPI0 clock
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN24, IOfuncts::SPI1_RX> {
+  static constexpr std::uint8_t pinIndex = 24u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F1;
+};
+/**
+ * @brief Specialization for Pin 24 on Port 0 with function UART1 Clear to send
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN24, IOfuncts::UART1_TX> {
+  static constexpr std::uint8_t pinIndex = 24u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F2;
+};
+/**
+ * @brief Specialization for Pin 24 on Port 0 with function I2C1 SDA
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN24, IOfuncts::I2C0_SDA> {
+  static constexpr std::uint8_t pinIndex = 24u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F3;
+};
+/**
+ * @brief Specialization for Pin 24 on Port 0 with function PWM3 A
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN24, IOfuncts::PWM4A> {
+  static constexpr std::uint8_t pinIndex = 24u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F4;
+};
+/**
+ * @brief Specialization for Pin 24 on Port 0 with function SIO
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN24, IOfuncts::SIO> {
+  static constexpr std::uint8_t pinIndex = 24u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F5;
+};
+/**
+ * @brief Specialization for Pin 24 on Port 0 with function PIO0
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN24, IOfuncts::PIO0> {
+  static constexpr std::uint8_t pinIndex = 24u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F6;
+};
+/**
+ * @brief Specialization for Pin 24 on Port 0 with function PIO1
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN24, IOfuncts::PIO1> {
+  static constexpr std::uint8_t pinIndex = 24u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F7;
+};
+/**
+ * @brief Specialization for Pin 24 on Port 0 with function Clock pin input 0
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN24, IOfuncts::CLK_GPOUT2> {
+  static constexpr std::uint8_t pinIndex = 24u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F8;
+};
+/**
+ * @brief Specialization for Pin 24 on Port 0 with function USB Overcurrent Detect
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN24, IOfuncts::USB_OVCUR_DET> {
+  static constexpr std::uint8_t pinIndex = 24u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F9;
+};
+/**
+ * @brief Specialization for Pin 25 on Port 0 with function SPI0 clock
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN25, IOfuncts::SPI1_CS> {
+  static constexpr std::uint8_t pinIndex = 25u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F1;
+};
+/**
+ * @brief Specialization for Pin 25 on Port 0 with function UART1 Clear to send
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN25, IOfuncts::UART1_RX> {
+  static constexpr std::uint8_t pinIndex = 25u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F2;
+};
+/**
+ * @brief Specialization for Pin 25 on Port 0 with function I2C1 SDA
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN25, IOfuncts::I2C0_SCL> {
+  static constexpr std::uint8_t pinIndex = 25u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F3;
+};
+/**
+ * @brief Specialization for Pin 25 on Port 0 with function PWM3 A
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN25, IOfuncts::PWM4B> {
+  static constexpr std::uint8_t pinIndex = 25u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F4;
+};
+/**
+ * @brief Specialization for Pin 25 on Port 0 with function SIO
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN25, IOfuncts::SIO> {
+  static constexpr std::uint8_t pinIndex = 25u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F5;
+};
+/**
+ * @brief Specialization for Pin 25 on Port 0 with function PIO0
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN25, IOfuncts::PIO0> {
+  static constexpr std::uint8_t pinIndex = 25u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F6;
+};
+/**
+ * @brief Specialization for Pin 25 on Port 0 with function PIO1
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN25, IOfuncts::PIO1> {
+  static constexpr std::uint8_t pinIndex = 25u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F7;
+};
+/**
+ * @brief Specialization for Pin 25 on Port 0 with function Clock pin input 0
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN25, IOfuncts::CLK_GPOUT3> {
+  static constexpr std::uint8_t pinIndex = 25u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F8;
+};
+/**
+ * @brief Specialization for Pin 25 on Port 0 with function USB Overcurrent Detect
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN25, IOfuncts::USB_VBUS_DET> {
+  static constexpr std::uint8_t pinIndex = 25u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F9;
+};
+/**
+ * @brief Specialization for Pin 26 on Port 0 with function SPI0 clock
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN26, IOfuncts::SPI1_SCK> {
+  static constexpr std::uint8_t pinIndex = 26u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F1;
+};
+/**
+ * @brief Specialization for Pin 26 on Port 0 with function UART1 Clear to send
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN26, IOfuncts::UART1_CTS> {
+  static constexpr std::uint8_t pinIndex = 26u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F2;
+};
+/**
+ * @brief Specialization for Pin 26 on Port 0 with function I2C1 SDA
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN26, IOfuncts::I2C1_SDA> {
+  static constexpr std::uint8_t pinIndex = 26u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F3;
+};
+/**
+ * @brief Specialization for Pin 26 on Port 0 with function PWM3 A
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN26, IOfuncts::PWM5A> {
+  static constexpr std::uint8_t pinIndex = 26u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F4;
+};
+/**
+ * @brief Specialization for Pin 26 on Port 0 with function SIO
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN26, IOfuncts::SIO> {
+  static constexpr std::uint8_t pinIndex = 26u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F5;
+};
+/**
+ * @brief Specialization for Pin 26 on Port 0 with function PIO0
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN26, IOfuncts::PIO0> {
+  static constexpr std::uint8_t pinIndex = 26u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F6;
+};
+/**
+ * @brief Specialization for Pin 26 on Port 0 with function PIO1
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN26, IOfuncts::PIO1> {
+  static constexpr std::uint8_t pinIndex = 26u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F7;
+};
+/**
+ * @brief Specialization for Pin 26 on Port 0 with function USB Overcurrent Detect
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN26, IOfuncts::USB_VBUS_EN> {
+  static constexpr std::uint8_t pinIndex = 26u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F9;
+};
+/**
+ * @brief Specialization for Pin 27 on Port 0 with function SPI0 clock
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN27, IOfuncts::SPI1_TX> {
+  static constexpr std::uint8_t pinIndex = 27u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F1;
+};
+/**
+ * @brief Specialization for Pin 27 on Port 0 with function UART1 Clear to send
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN27, IOfuncts::UART1_RTS> {
+  static constexpr std::uint8_t pinIndex = 27u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F2;
+};
+/**
+ * @brief Specialization for Pin 27 on Port 0 with function I2C1 SDA
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN27, IOfuncts::I2C1_SCL> {
+  static constexpr std::uint8_t pinIndex = 27u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F3;
+};
+/**
+ * @brief Specialization for Pin 27 on Port 0 with function PWM3 A
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN27, IOfuncts::PWM5B> {
+  static constexpr std::uint8_t pinIndex = 27u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F4;
+};
+/**
+ * @brief Specialization for Pin 27 on Port 0 with function SIO
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN27, IOfuncts::SIO> {
+  static constexpr std::uint8_t pinIndex = 27u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F5;
+};
+/**
+ * @brief Specialization for Pin 27 on Port 0 with function PIO0
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN27, IOfuncts::PIO0> {
+  static constexpr std::uint8_t pinIndex = 27u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F6;
+};
+/**
+ * @brief Specialization for Pin 27 on Port 0 with function PIO1
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN27, IOfuncts::PIO1> {
+  static constexpr std::uint8_t pinIndex = 27u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F7;
+};
+/**
+ * @brief Specialization for Pin 27 on Port 0 with function USB Overcurrent Detect
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN27, IOfuncts::USB_OVCUR_DET> {
+  static constexpr std::uint8_t pinIndex = 27u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F9;
+};
+/**
+ * @brief Specialization for Pin 28 on Port 0 with function SPI0 clock
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN28, IOfuncts::SPI1_RX> {
+  static constexpr std::uint8_t pinIndex = 28u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F1;
+};
+/**
+ * @brief Specialization for Pin 28 on Port 0 with function UART1 Clear to send
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN28, IOfuncts::UART0_TX> {
+  static constexpr std::uint8_t pinIndex = 28u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F2;
+};
+/**
+ * @brief Specialization for Pin 28 on Port 0 with function I2C1 SDA
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN28, IOfuncts::I2C0_SDA> {
+  static constexpr std::uint8_t pinIndex = 28u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F3;
+};
+/**
+ * @brief Specialization for Pin 28 on Port 0 with function PWM3 A
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN28, IOfuncts::PWM6A> {
+  static constexpr std::uint8_t pinIndex = 28u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F4;
+};
+/**
+ * @brief Specialization for Pin 28 on Port 0 with function SIO
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN28, IOfuncts::SIO> {
+  static constexpr std::uint8_t pinIndex = 28u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F5;
+};
+/**
+ * @brief Specialization for Pin 28 on Port 0 with function PIO0
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN28, IOfuncts::PIO0> {
+  static constexpr std::uint8_t pinIndex = 28u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F6;
+};
+/**
+ * @brief Specialization for Pin 28 on Port 0 with function PIO1
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN28, IOfuncts::PIO1> {
+  static constexpr std::uint8_t pinIndex = 28u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F7;
+};
+/**
+ * @brief Specialization for Pin 28 on Port 0 with function USB Overcurrent Detect
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN28, IOfuncts::USB_VBUS_DET> {
+  static constexpr std::uint8_t pinIndex = 28u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F9;
+};
+/**
+ * @brief Specialization for Pin 29 on Port 0 with function SPI0 clock
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN29, IOfuncts::SPI1_CS> {
+  static constexpr std::uint8_t pinIndex = 29u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F1;
+};
+/**
+ * @brief Specialization for Pin 29 on Port 0 with function UART1 Clear to send
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN29, IOfuncts::UART0_RX> {
+  static constexpr std::uint8_t pinIndex = 29u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F2;
+};
+/**
+ * @brief Specialization for Pin 29 on Port 0 with function I2C1 SDA
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN29, IOfuncts::I2C0_SCL> {
+  static constexpr std::uint8_t pinIndex = 29u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F3;
+};
+/**
+ * @brief Specialization for Pin 29 on Port 0 with function PWM3 A
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN29, IOfuncts::PWM6B> {
+  static constexpr std::uint8_t pinIndex = 29u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F4;
+};
+/**
+ * @brief Specialization for Pin 29 on Port 0 with function SIO
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN29, IOfuncts::SIO> {
+  static constexpr std::uint8_t pinIndex = 29u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F5;
+};
+/**
+ * @brief Specialization for Pin 29 on Port 0 with function PIO0
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN29, IOfuncts::PIO0> {
+  static constexpr std::uint8_t pinIndex = 29u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F6;
+};
+/**
+ * @brief Specialization for Pin 29 on Port 0 with function PIO1
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN29, IOfuncts::PIO1> {
+  static constexpr std::uint8_t pinIndex = 29u;
+  static constexpr std::uint32_t pinMask = 1 << pinIndex;
+  static constexpr std::uint8_t portIndex = 0u;
+  static constexpr IOfunctSelects functionSelect = IOfunctSelects::F7;
+};
+/**
+ * @brief Specialization for Pin 29 on Port 0 with function USB Overcurrent Detect
+ *
+ */
+template <>
+struct pin<IOports::PORT0, IOpins::PIN29, IOfuncts::USB_VBUS_EN> {
+  static constexpr std::uint8_t pinIndex = 29u;
   static constexpr std::uint32_t pinMask = 1 << pinIndex;
   static constexpr std::uint8_t portIndex = 0u;
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F9;
