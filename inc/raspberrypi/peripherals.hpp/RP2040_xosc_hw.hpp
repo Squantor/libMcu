@@ -18,11 +18,11 @@ namespace xosc {
  *
  */
 struct peripheral {
-  uint32_t CTRL;    /**< Control */
-  uint32_t STATUS;  /**< Status */
-  uint32_t DORMANT; /**< Pause control */
-  uint32_t STARTUP; /**< Startup delay */
-  uint32_t COUNT;   /**< Down counter */
+  volatile std::uint32_t CTRL;    /**< Control */
+  volatile std::uint32_t STATUS;  /**< Status */
+  volatile std::uint32_t DORMANT; /**< Pause control */
+  volatile std::uint32_t STARTUP; /**< Startup delay */
+  volatile std::uint32_t COUNT;   /**< Down counter */
 };
 namespace CTRL {
 constexpr inline std::uint32_t RESERVED_MASK = 0x00FF'FFFF; /**< mask for allowed bits */
