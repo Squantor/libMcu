@@ -385,7 +385,8 @@ typedef enum {
 #endif
 
 // includes that define the registers namespace go here.
-#include "peripherals.hpp/RP2040_sio_hw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_sio_hw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_xosc_hw.hpp"
 
 // device peripheral specific headers go here
 // these need to go after registers namespace definitions as they are used here
@@ -394,5 +395,6 @@ typedef enum {
 // includes that use the registers namespace go here
 // need to go after registers namespaces and device specific headers
 #include "peripherals.hpp/RP2040_sio_sw_gpio.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_xosc_sw.hpp"
 
 #endif
