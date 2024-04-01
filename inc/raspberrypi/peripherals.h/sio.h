@@ -76,9 +76,9 @@ typedef volatile struct {
   uint32_t SPINLOCK[32];       /**< Spinlock registers */
 } SIO_Type;
 
-#include "raspberrypi/sio_gpio.h"
-#include "raspberrypi/sio_ipc.h"
-#include "raspberrypi/sio_div.h"
-#include "raspberrypi/sio_interp.h"
+#include "raspberrypi/peripherals.h/sio_gpio.h"
+#include "raspberrypi/peripherals.h/sio_ipc.h"
+#include "raspberrypi/peripherals.h/sio_div.h"
+#include "raspberrypi/peripherals.h/sio_interp.h"
 
 #endif

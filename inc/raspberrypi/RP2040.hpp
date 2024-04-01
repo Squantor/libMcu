@@ -377,7 +377,7 @@ typedef enum {
 // #include "usbctrl_dpram.h"
 // #include "usbctrl_regs.h"
 // #include "pio.h"
-#include "sio.h"
+#include "raspberrypi/peripherals.h/sio.h"
 // #include "ppb.h"
 
 #ifdef __cplusplus
