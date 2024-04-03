@@ -25,7 +25,7 @@ struct xosc : libMcuLL::peripheralBase {
    *
    * @return return pointer to peripheral
    */
-  static hw::xosc::peripheral* acmpPeripheral() {
+  static hw::xosc::peripheral* xoscPeripheral() {
     return reinterpret_cast<hw::xosc::peripheral*>(xoscAddress);
   }
 

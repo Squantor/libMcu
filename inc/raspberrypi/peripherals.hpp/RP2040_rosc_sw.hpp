@@ -25,7 +25,7 @@ struct rosc : libMcuLL::peripheralBase {
    *
    * @return return pointer to peripheral
    */
-  static hw::rosc::peripheral* acmpPeripheral() {
+  static hw::rosc::peripheral* roscPeripheral() {
     return reinterpret_cast<hw::rosc::peripheral*>(roscAddress);
   }
 
