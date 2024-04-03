@@ -14,7 +14,7 @@ namespace libMcuLL {
 namespace sw {
 namespace sysinfo {
 template <libMcuLL::sysinfoBaseAddress const& sysinfoAddress_>
-struct rosc : libMcuLL::peripheralBase {
+struct sysinfo : libMcuLL::peripheralBase {
   /**
    * @brief Base initialization function
    *
@@ -25,8 +25,8 @@ struct rosc : libMcuLL::peripheralBase {
    *
    * @return return pointer to peripheral
    */
-  static hw::rosc::peripheral* sysinfoPeripheral() {
-    return reinterpret_cast<hw::rosc::peripheral*>(sysinfoAddress);
+  static hw::sysinfo::peripheral* sysinfoPeripheral() {
+    return reinterpret_cast<hw::sysinfo::peripheral*>(sysinfoAddress);
   }
 
  private:
