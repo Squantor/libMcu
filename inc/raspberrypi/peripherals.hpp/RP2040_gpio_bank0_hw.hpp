@@ -18,12 +18,159 @@ namespace gpioBank0 {
  *
  */
 struct peripheral {
-  volatile std::uint32_t CHIP_ID;       /**< JEDEC JEP-106 chip identifier */
-  volatile std::uint32_t PLATFORM;      /**< Platform register */
-  volatile std::uint32_t GITREF_RP2040; /**< Git hash of the chip source. */
+  struct {
+    const volatile std::uint32_t STATUS; /**< GPIO status */
+    volatile std::uint32_t CTRL;         /**< GPIO control */
+  } GPIO[30];
+  volatile std::uint32_t INTR[4];              /**< Raw interrupts */
+  volatile std::uint32_t PROC0_INTE[4];        /**< Interrupt Enable for proc0 */
+  volatile std::uint32_t PROC0_INTF[4];        /**< Interrupt Force for proc0 */
+  volatile const std::uint32_t PROC0_INTS[4];  /**< Interrupt status after masking & forcing for proc0 */
+  volatile std::uint32_t PROC1_INTE[4];        /**< Interrupt Enable for proc1 */
+  volatile std::uint32_t PROC1_INTF[4];        /**< Interrupt Force for proc1 */
+  volatile const std::uint32_t PROC1_INTS[4];  /**< Interrupt status after masking & forcing for proc1 */
+  volatile std::uint32_t DORMANT_WAKE_INTE[4]; /**< Interrupt Enable for dormant_wake */
+  volatile std::uint32_t DORMANT_WAKE_INTF[4]; /**< Interrupt Force for dormant_wake */
+  volatile std::uint32_t DORMANT_WAKE_INTS[4]; /**< Interrupt status after masking & forcing for dormant_wake */
 };
-namespace CHIP_ID {
-constexpr inline std::uint32_t RESERVED_MASK = 0xFFFF'FFFF; /**< Mask for allowed bits */
+namespace STATUS {
+constexpr inline std::uint32_t RESERVED_MASK{0x050A'3300}; /**< Mask for allowed bits */
+constexpr inline std::uint32_t IRQTOPROC_MASK{1 << 26};    /**< Interrupt to processors, after override */
+constexpr inline std::uint32_t IRQFROMPAD_MASK{1 << 24};   /**< Interrupt to processors, before override */
+constexpr inline std::uint32_t INTOPERI_MASK{1 << 19};     /**< Input signal to peripheral, after override */
+constexpr inline std::uint32_t INFROMPAD_MASK{1 << 17};    /**< Input signal from pad, before override */
+constexpr inline std::uint32_t OETOPAD_MASK{1 << 13};      /**< Output enable to pad after register override */
+constexpr inline std::uint32_t OEFROMPERI_MASK{1 << 12};   /**< Output enable from selected peripheral, before override */
+constexpr inline std::uint32_t OUTTOPAD_MASK{1 << 9};      /**< Output signal to pad after register override */
+constexpr inline std::uint32_t OUTFROMPERI_MASK{1 << 8};   /**< Output signal from selected peripheral, before override */
+}  // namespace STATUS
+namespace CTRL {
+constexpr inline std::uint32_t RESERVED_MASK{0x0000'0000}; /**< Mask for allowed bits */
+constexpr inline std::uint32_t IRQOVER_NO_INV{0x0};        /**< Dont invert the interrupt */
+constexpr inline std::uint32_t IRQOVER_INV{0x1};           /**< Invert the interrupt */
+constexpr inline std::uint32_t IRQOVER_LOW{0x2};           /**< Set interrupt low */
+constexpr inline std::uint32_t IRQOVER_HIGH{0x3};          /**< Set interrupt high */
+/**
+ * @brief Format IRQOVER field to CTRL register
+ * @param setting IRQ override setting, look at IRQOVER_ settings
+ * @return IRQOVER field formatted to CTRL register
+ */
+constexpr inline std::uint32_t IRQOVER(std::uint32_t setting) {
+  return setting << 28;
+}
+constexpr inline std::uint32_t INOVER_NO_INV{0x0}; /**< Dont invert the peripheral input */
+constexpr inline std::uint32_t INOVER_INV{0x1};    /**< Invert the peripheral input */
+constexpr inline std::uint32_t INOVER_LOW{0x2};    /**< Drive peripheral input low */
+constexpr inline std::uint32_t INOVER_HIGH{0x3};   /**< Drive peripheral input high */
+/**
+ * @brief Format INOVER field to CTRL register
+ * @param setting peripheral input override setting, look at INOVER_ settings
+ * @return INOVER field formatted to CTRL register
+ */
+constexpr inline std::uint32_t INOVER(std::uint32_t setting) {
+  return setting << 16;
+}
+constexpr inline std::uint32_t OEOVER_NO_INV{0x0}; /**< Dont invert the peripheral output */
+constexpr inline std::uint32_t OEOVER_INV{0x1};    /**< Invert the peripheral output */
+constexpr inline std::uint32_t OEOVER_LOW{0x2};    /**< Drive output low */
+constexpr inline std::uint32_t OEOVER_HIGH{0x3};   /**< Drive output high */
+/**
+ * @brief Format OEOVER field to CTRL register
+ * @param setting peripheral output override setting, look at OEOVER_ settings
+ * @return OEOVER field formatted to CTRL register
+ */
+constexpr inline std::uint32_t OEOVER(std::uint32_t setting) {
+  return setting << 12;
+}
+constexpr inline std::uint32_t F0{1};    /**< Function 0 */
+constexpr inline std::uint32_t F1{2};    /**< Function 1 */
+constexpr inline std::uint32_t F2{3};    /**< Function 2 */
+constexpr inline std::uint32_t F3{4};    /**< Function 4 */
+constexpr inline std::uint32_t F4{5};    /**< Function 5 */
+constexpr inline std::uint32_t F5{6};    /**< Function 6 */
+constexpr inline std::uint32_t F6{7};    /**< Function 7 */
+constexpr inline std::uint32_t F7{8};    /**< Function 8 */
+constexpr inline std::uint32_t F8{9};    /**< Function 9 */
+constexpr inline std::uint32_t F9{10};   /**< Function 10 */
+constexpr inline std::uint32_t NONE{31}; /**< No function selected*/
+/**
+ * @brief Format FUNCSEL field to CTRL register
+ * @param setting peripheral function select setting
+ * @return FUNCSEL field formatted to CTRL register
+ */
+constexpr inline std::uint32_t FUNCSEL(std::uint32_t setting) {
+  return setting << 12;
+}
+}  // namespace CTRL
+namespace INTR {
+constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFF}; /**< Mask for allowed bits */
+/**
+ * @brief Map gpio number to INTR index
+ * @param gpio gpio to map to a INTR index
+ * @return index into the INTR array
+ */
+constexpr inline std::uint32_t indexing(std::uint32_t gpio) {
+  return gpio >> 3;
+}
+/**
+ * @brief Generate mask for raw interrupt low level sensing
+ * @param gpio gpio to generate the mask for
+ * @return mask that can be applied to INTR register
+ */
+constexpr inline std::uint32_t LEVEL_LOW_MASK(std::uint32_t gpio) {
+  return 1 << ((gpio >> 2) + 0);
+}
+/**
+ * @brief Generate mask for raw interrupt high level sensing
+ * @param gpio gpio to generate the mask for
+ * @return mask that can be applied to INTR register
+ */
+constexpr inline std::uint32_t LEVEL_HIGH_MASK(std::uint32_t gpio) {
+  return 1 << ((gpio >> 2) + 1);
+}
+/**
+ * @brief Generate mask for raw interrupt falling edge sensing
+ * @param gpio gpio to generate the mask for
+ * @return mask that can be applied to INTR register
+ */
+constexpr inline std::uint32_t EDGE_LOW_MASK(std::uint32_t gpio) {
+  return 1 << ((gpio >> 2) + 2);
+}
+/**
+ * @brief Generate mask for raw interrupt rising edge sensing
+ * @param gpio gpio to generate the mask for
+ * @return mask that can be applied to INTR register
+ */
+constexpr inline std::uint32_t EDGE_HIGH_MASK(std::uint32_t gpio) {
+  return 1 << ((gpio >> 2) + 3);
+}
+}  // namespace INTR
+namespace PROC0_INTE {
+constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFF}; /**< Mask for allowed bits */
+}
+namespace PROC0_INTF {
+constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFF}; /**< Mask for allowed bits */
+}
+namespace PROC0_INTS {
+constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFF}; /**< Mask for allowed bits */
+}
+namespace PROC1_INTE {
+constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFF}; /**< Mask for allowed bits */
+}
+namespace PROC1_INTF {
+constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFF}; /**< Mask for allowed bits */
+}
+namespace PROC1_INTS {
+constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFF}; /**< Mask for allowed bits */
+}
+namespace DORMANT_WAKE_INTE {
+constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFF}; /**< Mask for allowed bits */
+}
+namespace DORMANT_WAKE_INTF {
+constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFF}; /**< Mask for allowed bits */
+}
+namespace DORMANT_WAKE_INTS {
+constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFF}; /**< Mask for allowed bits */
 }
 }  // namespace gpioBank0
 }  // namespace hw

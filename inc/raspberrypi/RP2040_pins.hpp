@@ -128,15 +128,15 @@ enum class IOfuncts : std::uint8_t {
  *
  */
 enum class IOfunctSelects : std::uint8_t {
-  F1 = 0x0,    /**< Function 1 selected */
-  F2 = 0x1,    /**< Function 2 selected */
-  F3 = 0x2,    /**< Function 3 selected */
-  F4 = 0x3,    /**< Function 4 selected */
-  F5 = 0x4,    /**< Function 5 selected */
-  F6 = 0x5,    /**< Function 6 selected */
-  F7 = 0x6,    /**< Function 7 selected */
-  F8 = 0x7,    /**< Function 8 selected */
-  F9 = 0x8,    /**< Function 9 selected */
+  F1 = 0x1,    /**< Function 1 selected */
+  F2 = 0x2,    /**< Function 2 selected */
+  F3 = 0x3,    /**< Function 3 selected */
+  F4 = 0x4,    /**< Function 4 selected */
+  F5 = 0x5,    /**< Function 5 selected */
+  F6 = 0x6,    /**< Function 6 selected */
+  F7 = 0x7,    /**< Function 7 selected */
+  F8 = 0x8,    /**< Function 8 selected */
+  F9 = 0x9,    /**< Function 9 selected */
   NONE = 0x1F, /**< No Function selected */
 };
 
