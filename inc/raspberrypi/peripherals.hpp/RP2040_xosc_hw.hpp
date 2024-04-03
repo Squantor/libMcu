@@ -32,10 +32,10 @@ constexpr inline std::uint32_t FREQ_15MHZ = 0xAA0 << 0;     /**< 15MHz oscillato
 }  // namespace CTRL
 namespace STATUS {
 constexpr inline std::uint32_t RESERVED_MASK = 0x8100'1003; /**< mask for allowed bits */
-constexpr inline std::uint32_t STABLE_MASK = (1 << 31);     /**< Oscillator running and stable */
-constexpr inline std::uint32_t BADWRITE_MASK = (1 << 24);   /**< Bad value written */
-constexpr inline std::uint32_t ENABLED_MASK = (1 << 12);    /**< oscillator just enabled */
-constexpr inline std::uint32_t FREQ_RANGE_MASK = (3 << 0);  /**< frequency range setting */
+constexpr inline std::uint32_t STABLE_MASK = 1 << 31;       /**< Oscillator running and stable */
+constexpr inline std::uint32_t BADWRITE_MASK = 1 << 24;     /**< Bad value written */
+constexpr inline std::uint32_t ENABLED_MASK = 1 << 12;      /**< oscillator just enabled */
+constexpr inline std::uint32_t FREQ_RANGE_MASK = 3 << 0;    /**< frequency range setting */
 }  // namespace STATUS
 namespace DORMANT {
 constexpr inline std::uint32_t RESERVED_MASK = 0x0000'0000; /**< mask for allowed bits */
@@ -44,8 +44,16 @@ constexpr inline std::uint32_t WAKE = 0x77616B65;           /**< set oscillator 
 }  // namespace DORMANT
 namespace STARTUP {
 constexpr inline std::uint32_t RESERVED_MASK = 0x0010'3FFF; /**< mask for allowed bits */
-constexpr inline std::uint32_t X4 = (1 << 20);              /**< Multiply delay by 4 */
-constexpr inline std::uint32_t DELAY_MASK = (0x3FFF < 0);   /**< Delay counter mask */
+constexpr inline std::uint32_t X4 = 1 << 20;                /**< Multiply delay by 4 */
+constexpr inline std::uint32_t DELAY_MASK = 0x3FFF << 0;    /**< Delay counter mask */
+/**
+ * @brief Format DELAY field to STARTUP register
+ * @param delay delay of crystal startup handover, in multipes of 256 of the xtal period
+ * @return DELAY field formatted to STARTUP register
+ */
+constexpr inline std::uint32_t DELAY(uint32_t delay) {
+  return DELAY_MASK & (delay << 0);
+}
 }  // namespace STARTUP
 namespace COUNT {
 constexpr inline std::uint32_t RESERVED_MASK = 0x0000'00FF; /**< mask for allowed bits */
