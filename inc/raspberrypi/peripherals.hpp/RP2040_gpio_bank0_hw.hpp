@@ -34,22 +34,22 @@ struct peripheral {
   volatile std::uint32_t DORMANT_WAKE_INTS[4]; /**< Interrupt status after masking & forcing for dormant_wake */
 };
 namespace STATUS {
-constexpr inline std::uint32_t RESERVED_MASK{0x050A'3300}; /**< Mask for allowed bits */
-constexpr inline std::uint32_t IRQTOPROC_MASK{1 << 26};    /**< Interrupt to processors, after override */
-constexpr inline std::uint32_t IRQFROMPAD_MASK{1 << 24};   /**< Interrupt to processors, before override */
-constexpr inline std::uint32_t INTOPERI_MASK{1 << 19};     /**< Input signal to peripheral, after override */
-constexpr inline std::uint32_t INFROMPAD_MASK{1 << 17};    /**< Input signal from pad, before override */
-constexpr inline std::uint32_t OETOPAD_MASK{1 << 13};      /**< Output enable to pad after register override */
-constexpr inline std::uint32_t OEFROMPERI_MASK{1 << 12};   /**< Output enable from selected peripheral, before override */
-constexpr inline std::uint32_t OUTTOPAD_MASK{1 << 9};      /**< Output signal to pad after register override */
-constexpr inline std::uint32_t OUTFROMPERI_MASK{1 << 8};   /**< Output signal from selected peripheral, before override */
+constexpr inline std::uint32_t RESERVED_MASK{0x050A'3300u}; /**< Mask for allowed bits */
+constexpr inline std::uint32_t IRQTOPROC_MASK{1u << 26};    /**< Interrupt to processors, after override */
+constexpr inline std::uint32_t IRQFROMPAD_MASK{1u << 24};   /**< Interrupt to processors, before override */
+constexpr inline std::uint32_t INTOPERI_MASK{1u << 19};     /**< Input signal to peripheral, after override */
+constexpr inline std::uint32_t INFROMPAD_MASK{1u << 17};    /**< Input signal from pad, before override */
+constexpr inline std::uint32_t OETOPAD_MASK{1u << 13};      /**< Output enable to pad after register override */
+constexpr inline std::uint32_t OEFROMPERI_MASK{1u << 12};   /**< Output enable from selected peripheral, before override */
+constexpr inline std::uint32_t OUTTOPAD_MASK{1u << 9};      /**< Output signal to pad after register override */
+constexpr inline std::uint32_t OUTFROMPERI_MASK{1u << 8};   /**< Output signal from selected peripheral, before override */
 }  // namespace STATUS
 namespace CTRL {
-constexpr inline std::uint32_t RESERVED_MASK{0x0000'0000}; /**< Mask for allowed bits */
-constexpr inline std::uint32_t IRQOVER_NO_INV{0x0};        /**< Dont invert the interrupt */
-constexpr inline std::uint32_t IRQOVER_INV{0x1};           /**< Invert the interrupt */
-constexpr inline std::uint32_t IRQOVER_LOW{0x2};           /**< Set interrupt low */
-constexpr inline std::uint32_t IRQOVER_HIGH{0x3};          /**< Set interrupt high */
+constexpr inline std::uint32_t RESERVED_MASK{0x0000'0000u}; /**< Mask for allowed bits */
+constexpr inline std::uint32_t IRQOVER_NO_INV{0x0u};        /**< Dont invert the interrupt */
+constexpr inline std::uint32_t IRQOVER_INV{0x1u};           /**< Invert the interrupt */
+constexpr inline std::uint32_t IRQOVER_LOW{0x2u};           /**< Set interrupt low */
+constexpr inline std::uint32_t IRQOVER_HIGH{0x3u};          /**< Set interrupt high */
 /**
  * @brief Format IRQOVER field to CTRL register
  * @param setting IRQ override setting, look at IRQOVER_ settings
@@ -58,10 +58,10 @@ constexpr inline std::uint32_t IRQOVER_HIGH{0x3};          /**< Set interrupt hi
 constexpr inline std::uint32_t IRQOVER(std::uint32_t setting) {
   return setting << 28;
 }
-constexpr inline std::uint32_t INOVER_NO_INV{0x0}; /**< Dont invert the peripheral input */
-constexpr inline std::uint32_t INOVER_INV{0x1};    /**< Invert the peripheral input */
-constexpr inline std::uint32_t INOVER_LOW{0x2};    /**< Drive peripheral input low */
-constexpr inline std::uint32_t INOVER_HIGH{0x3};   /**< Drive peripheral input high */
+constexpr inline std::uint32_t INOVER_NO_INV{0x0u}; /**< Dont invert the peripheral input */
+constexpr inline std::uint32_t INOVER_INV{0x1u};    /**< Invert the peripheral input */
+constexpr inline std::uint32_t INOVER_LOW{0x2u};    /**< Drive peripheral input low */
+constexpr inline std::uint32_t INOVER_HIGH{0x3u};   /**< Drive peripheral input high */
 /**
  * @brief Format INOVER field to CTRL register
  * @param setting peripheral input override setting, look at INOVER_ settings
@@ -70,10 +70,10 @@ constexpr inline std::uint32_t INOVER_HIGH{0x3};   /**< Drive peripheral input h
 constexpr inline std::uint32_t INOVER(std::uint32_t setting) {
   return setting << 16;
 }
-constexpr inline std::uint32_t OEOVER_NO_INV{0x0}; /**< Dont invert the peripheral output */
-constexpr inline std::uint32_t OEOVER_INV{0x1};    /**< Invert the peripheral output */
-constexpr inline std::uint32_t OEOVER_LOW{0x2};    /**< Drive output low */
-constexpr inline std::uint32_t OEOVER_HIGH{0x3};   /**< Drive output high */
+constexpr inline std::uint32_t OEOVER_NO_INV{0x0u}; /**< Dont invert the peripheral output */
+constexpr inline std::uint32_t OEOVER_INV{0x1u};    /**< Invert the peripheral output */
+constexpr inline std::uint32_t OEOVER_LOW{0x2u};    /**< Drive output low */
+constexpr inline std::uint32_t OEOVER_HIGH{0x3u};   /**< Drive output high */
 /**
  * @brief Format OEOVER field to CTRL register
  * @param setting peripheral output override setting, look at OEOVER_ settings
@@ -82,16 +82,16 @@ constexpr inline std::uint32_t OEOVER_HIGH{0x3};   /**< Drive output high */
 constexpr inline std::uint32_t OEOVER(std::uint32_t setting) {
   return setting << 12;
 }
-constexpr inline std::uint32_t F1{1};    /**< Function 1 */
-constexpr inline std::uint32_t F2{2};    /**< Function 2 */
-constexpr inline std::uint32_t F3{3};    /**< Function 4 */
-constexpr inline std::uint32_t F4{4};    /**< Function 5 */
-constexpr inline std::uint32_t F5{5};    /**< Function 6 */
-constexpr inline std::uint32_t F6{6};    /**< Function 7 */
-constexpr inline std::uint32_t F7{7};    /**< Function 8 */
-constexpr inline std::uint32_t F8{8};    /**< Function 9 */
-constexpr inline std::uint32_t F9{9};    /**< Function 10 */
-constexpr inline std::uint32_t NONE{31}; /**< No function selected*/
+constexpr inline std::uint32_t F1{1u};    /**< Function 1 */
+constexpr inline std::uint32_t F2{2u};    /**< Function 2 */
+constexpr inline std::uint32_t F3{3u};    /**< Function 4 */
+constexpr inline std::uint32_t F4{4u};    /**< Function 5 */
+constexpr inline std::uint32_t F5{5u};    /**< Function 6 */
+constexpr inline std::uint32_t F6{6u};    /**< Function 7 */
+constexpr inline std::uint32_t F7{7u};    /**< Function 8 */
+constexpr inline std::uint32_t F8{8u};    /**< Function 9 */
+constexpr inline std::uint32_t F9{9u};    /**< Function 10 */
+constexpr inline std::uint32_t NONE{31u}; /**< No function selected*/
 /**
  * @brief Format FUNCSEL field to CTRL register
  * @param setting peripheral function select setting

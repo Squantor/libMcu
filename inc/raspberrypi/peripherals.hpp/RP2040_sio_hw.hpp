@@ -87,61 +87,61 @@ struct peripheral {
 };
 
 namespace CPUID {
-constexpr inline std::uint32_t RESERVED_MASK = 0x0000'0000; /**< mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x0000'0000u}; /**< mask for allowed bits */
 }  // namespace CPUID
 namespace GPIO_IN {
-constexpr inline std::uint32_t RESERVED_MASK = 0xC000'0000; /**< mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0xC000'0000u}; /**< mask for allowed bits */
 }  // namespace GPIO_IN
 namespace GPIO_HI_IN {
-constexpr inline std::uint32_t RESERVED_MASK = 0xFFFF'FFE0; /**< mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFE0u}; /**< mask for allowed bits */
 }  // namespace GPIO_HI_IN
 namespace GPIO_OUT {
-constexpr inline std::uint32_t RESERVED_MASK = 0xC000'0000; /**< mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0xC000'0000u}; /**< mask for allowed bits */
 }  // namespace GPIO_OUT
 namespace GPIO_OUT_SET {
-constexpr inline std::uint32_t RESERVED_MASK = 0xC000'0000; /**< mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0xC000'0000u}; /**< mask for allowed bits */
 }  // namespace GPIO_OUT_SET
 namespace GPIO_OUT_CLR {
-constexpr inline std::uint32_t RESERVED_MASK = 0xC000'0000; /**< mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0xC000'0000u}; /**< mask for allowed bits */
 }  // namespace GPIO_OUT_CLR
 namespace GPIO_OUT_XOR {
-constexpr inline std::uint32_t RESERVED_MASK = 0xC000'0000; /**< mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0xC000'0000u}; /**< mask for allowed bits */
 }  // namespace GPIO_OUT_XOR
 namespace GPIO_OE {
-constexpr inline std::uint32_t RESERVED_MASK = 0xC000'0000; /**< mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0xC000'0000u}; /**< mask for allowed bits */
 }  // namespace GPIO_OE
 namespace GPIO_OE_SET {
-constexpr inline std::uint32_t RESERVED_MASK = 0xC000'0000; /**< mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0xC000'0000u}; /**< mask for allowed bits */
 }  // namespace GPIO_OE_SET
 namespace GPIO_OE_CLR {
-constexpr inline std::uint32_t RESERVED_MASK = 0xC000'0000; /**< mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0xC000'0000u}; /**< mask for allowed bits */
 }  // namespace GPIO_OE_CLR
 namespace GPIO_OE_XOR {
-constexpr inline std::uint32_t RESERVED_MASK = 0xC000'0000; /**< mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0xC000'0000u}; /**< mask for allowed bits */
 }  // namespace GPIO_OE_XOR
 namespace GPIO_HI_OUT {
-constexpr inline std::uint32_t RESERVED_MASK = 0xFFFF'FFE0; /**< mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFE0u}; /**< mask for allowed bits */
 }  // namespace GPIO_HI_OUT
 namespace GPIO_HI_OUT_SET {
-constexpr inline std::uint32_t RESERVED_MASK = 0xFFFF'FFE0; /**< mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFE0u}; /**< mask for allowed bits */
 }  // namespace GPIO_HI_OUT_SET
 namespace GPIO_HI_OUT_CLR {
-constexpr inline std::uint32_t RESERVED_MASK = 0xFFFF'FFE0; /**< mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFE0u}; /**< mask for allowed bits */
 }  // namespace GPIO_HI_OUT_CLR
 namespace GPIO_HI_OUT_XOR {
-constexpr inline std::uint32_t RESERVED_MASK = 0xFFFF'FFE0; /**< mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFE0u}; /**< mask for allowed bits */
 }  // namespace GPIO_HI_OUT_XOR
 namespace GPIO_HI_OE {
-constexpr inline std::uint32_t RESERVED_MASK = 0xFFFF'FFE0; /**< mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFE0u}; /**< mask for allowed bits */
 }  // namespace GPIO_HI_OE
 namespace GPIO_HI_OE_SET {
-constexpr inline std::uint32_t RESERVED_MASK = 0xFFFF'FFE0; /**< mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFE0u}; /**< mask for allowed bits */
 }  // namespace GPIO_HI_OE_SET
 namespace GPIO_HI_OE_CLR {
-constexpr inline std::uint32_t RESERVED_MASK = 0xFFFF'FFE0; /**< mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFE0u}; /**< mask for allowed bits */
 }  // namespace GPIO_HI_OE_CLR
 namespace GPIO_HI_OE_XOR {
-constexpr inline std::uint32_t RESERVED_MASK = 0xFFFF'FFE0; /**< mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFE0u}; /**< mask for allowed bits */
 }  // namespace GPIO_HI_OE_XOR
 }  // namespace sio
 }  // namespace hw
