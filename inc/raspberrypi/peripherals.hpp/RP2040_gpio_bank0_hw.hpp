@@ -82,16 +82,15 @@ constexpr inline std::uint32_t OEOVER_HIGH{0x3};   /**< Drive output high */
 constexpr inline std::uint32_t OEOVER(std::uint32_t setting) {
   return setting << 12;
 }
-constexpr inline std::uint32_t F0{1};    /**< Function 0 */
-constexpr inline std::uint32_t F1{2};    /**< Function 1 */
-constexpr inline std::uint32_t F2{3};    /**< Function 2 */
-constexpr inline std::uint32_t F3{4};    /**< Function 4 */
-constexpr inline std::uint32_t F4{5};    /**< Function 5 */
-constexpr inline std::uint32_t F5{6};    /**< Function 6 */
-constexpr inline std::uint32_t F6{7};    /**< Function 7 */
-constexpr inline std::uint32_t F7{8};    /**< Function 8 */
-constexpr inline std::uint32_t F8{9};    /**< Function 9 */
-constexpr inline std::uint32_t F9{10};   /**< Function 10 */
+constexpr inline std::uint32_t F1{1};    /**< Function 1 */
+constexpr inline std::uint32_t F2{2};    /**< Function 2 */
+constexpr inline std::uint32_t F3{3};    /**< Function 4 */
+constexpr inline std::uint32_t F4{4};    /**< Function 5 */
+constexpr inline std::uint32_t F5{5};    /**< Function 6 */
+constexpr inline std::uint32_t F6{6};    /**< Function 7 */
+constexpr inline std::uint32_t F7{7};    /**< Function 8 */
+constexpr inline std::uint32_t F8{8};    /**< Function 9 */
+constexpr inline std::uint32_t F9{9};    /**< Function 10 */
 constexpr inline std::uint32_t NONE{31}; /**< No function selected*/
 /**
  * @brief Format FUNCSEL field to CTRL register
@@ -147,31 +146,274 @@ constexpr inline std::uint32_t EDGE_HIGH_MASK(std::uint32_t gpio) {
 }  // namespace INTR
 namespace PROC0_INTE {
 constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFF}; /**< Mask for allowed bits */
+/**
+ * @brief Map gpio number to INTE index
+ * @param gpio gpio to map to a INTE index
+ * @return index into the INTE array
+ */
+constexpr inline std::uint32_t indexing(std::uint32_t gpio) {
+  return gpio >> 3;
 }
+/**
+ * @brief Generate mask for raw interrupt low level sensing
+ * @param gpio gpio to generate the mask for
+ * @return mask that can be applied to INTE register
+ */
+constexpr inline std::uint32_t LEVEL_LOW_MASK(std::uint32_t gpio) {
+  return 1 << ((gpio >> 2) + 0);
+}
+/**
+ * @brief Generate mask for raw interrupt high level sensing
+ * @param gpio gpio to generate the mask for
+ * @return mask that can be applied to INTE register
+ */
+constexpr inline std::uint32_t LEVEL_HIGH_MASK(std::uint32_t gpio) {
+  return 1 << ((gpio >> 2) + 1);
+}
+/**
+ * @brief Generate mask for raw interrupt falling edge sensing
+ * @param gpio gpio to generate the mask for
+ * @return mask that can be applied to INTE register
+ */
+constexpr inline std::uint32_t EDGE_LOW_MASK(std::uint32_t gpio) {
+  return 1 << ((gpio >> 2) + 2);
+}
+/**
+ * @brief Generate mask for raw interrupt rising edge sensing
+ * @param gpio gpio to generate the mask for
+ * @return mask that can be applied to INTE register
+ */
+constexpr inline std::uint32_t EDGE_HIGH_MASK(std::uint32_t gpio) {
+  return 1 << ((gpio >> 2) + 3);
+}
+}  // namespace PROC0_INTE
 namespace PROC0_INTF {
 constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFF}; /**< Mask for allowed bits */
+/**
+ * @brief Map gpio number to INTF index
+ * @param gpio gpio to map to a INTF index
+ * @return index into the INTF array
+ */
+constexpr inline std::uint32_t indexing(std::uint32_t gpio) {
+  return gpio >> 3;
 }
+/**
+ * @brief Generate mask for raw interrupt low level sensing
+ * @param gpio gpio to generate the mask for
+ * @return mask that can be applied to INTF register
+ */
+constexpr inline std::uint32_t LEVEL_LOW_MASK(std::uint32_t gpio) {
+  return 1 << ((gpio >> 2) + 0);
+}
+/**
+ * @brief Generate mask for raw interrupt high level sensing
+ * @param gpio gpio to generate the mask for
+ * @return mask that can be applied to INTF register
+ */
+constexpr inline std::uint32_t LEVEL_HIGH_MASK(std::uint32_t gpio) {
+  return 1 << ((gpio >> 2) + 1);
+}
+/**
+ * @brief Generate mask for raw interrupt falling edge sensing
+ * @param gpio gpio to generate the mask for
+ * @return mask that can be applied to INTF register
+ */
+constexpr inline std::uint32_t EDGE_LOW_MASK(std::uint32_t gpio) {
+  return 1 << ((gpio >> 2) + 2);
+}
+/**
+ * @brief Generate mask for raw interrupt rising edge sensing
+ * @param gpio gpio to generate the mask for
+ * @return mask that can be applied to INTF register
+ */
+constexpr inline std::uint32_t EDGE_HIGH_MASK(std::uint32_t gpio) {
+  return 1 << ((gpio >> 2) + 3);
+}
+}  // namespace PROC0_INTF
 namespace PROC0_INTS {
 constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFF}; /**< Mask for allowed bits */
+/**
+ * @brief Map gpio number to INTS index
+ * @param gpio gpio to map to a INTS index
+ * @return index into the INTS array
+ */
+constexpr inline std::uint32_t indexing(std::uint32_t gpio) {
+  return gpio >> 3;
 }
+/**
+ * @brief Generate mask for raw interrupt low level sensing
+ * @param gpio gpio to generate the mask for
+ * @return mask that can be applied to INTS register
+ */
+constexpr inline std::uint32_t LEVEL_LOW_MASK(std::uint32_t gpio) {
+  return 1 << ((gpio >> 2) + 0);
+}
+/**
+ * @brief Generate mask for raw interrupt high level sensing
+ * @param gpio gpio to generate the mask for
+ * @return mask that can be applied to INTS register
+ */
+constexpr inline std::uint32_t LEVEL_HIGH_MASK(std::uint32_t gpio) {
+  return 1 << ((gpio >> 2) + 1);
+}
+/**
+ * @brief Generate mask for raw interrupt falling edge sensing
+ * @param gpio gpio to generate the mask for
+ * @return mask that can be applied to INTS register
+ */
+constexpr inline std::uint32_t EDGE_LOW_MASK(std::uint32_t gpio) {
+  return 1 << ((gpio >> 2) + 2);
+}
+/**
+ * @brief Generate mask for raw interrupt rising edge sensing
+ * @param gpio gpio to generate the mask for
+ * @return mask that can be applied to INTS register
+ */
+constexpr inline std::uint32_t EDGE_HIGH_MASK(std::uint32_t gpio) {
+  return 1 << ((gpio >> 2) + 3);
+}
+}  // namespace PROC0_INTS
 namespace PROC1_INTE {
 constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFF}; /**< Mask for allowed bits */
+/**
+ * @brief Map gpio number to INTE index
+ * @param gpio gpio to map to a INTE index
+ * @return index into the INTE array
+ */
+constexpr inline std::uint32_t indexing(std::uint32_t gpio) {
+  return gpio >> 3;
 }
+/**
+ * @brief Generate mask for raw interrupt low level sensing
+ * @param gpio gpio to generate the mask for
+ * @return mask that can be applied to INTE register
+ */
+constexpr inline std::uint32_t LEVEL_LOW_MASK(std::uint32_t gpio) {
+  return 1 << ((gpio >> 2) + 0);
+}
+/**
+ * @brief Generate mask for raw interrupt high level sensing
+ * @param gpio gpio to generate the mask for
+ * @return mask that can be applied to INTE register
+ */
+constexpr inline std::uint32_t LEVEL_HIGH_MASK(std::uint32_t gpio) {
+  return 1 << ((gpio >> 2) + 1);
+}
+/**
+ * @brief Generate mask for raw interrupt falling edge sensing
+ * @param gpio gpio to generate the mask for
+ * @return mask that can be applied to INTE register
+ */
+constexpr inline std::uint32_t EDGE_LOW_MASK(std::uint32_t gpio) {
+  return 1 << ((gpio >> 2) + 2);
+}
+/**
+ * @brief Generate mask for raw interrupt rising edge sensing
+ * @param gpio gpio to generate the mask for
+ * @return mask that can be applied to INTE register
+ */
+constexpr inline std::uint32_t EDGE_HIGH_MASK(std::uint32_t gpio) {
+  return 1 << ((gpio >> 2) + 3);
+}
+}  // namespace PROC1_INTE
 namespace PROC1_INTF {
 constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFF}; /**< Mask for allowed bits */
+/**
+ * @brief Map gpio number to INTF index
+ * @param gpio gpio to map to a INTF index
+ * @return index into the INTF array
+ */
+constexpr inline std::uint32_t indexing(std::uint32_t gpio) {
+  return gpio >> 3;
 }
+/**
+ * @brief Generate mask for raw interrupt low level sensing
+ * @param gpio gpio to generate the mask for
+ * @return mask that can be applied to INTF register
+ */
+constexpr inline std::uint32_t LEVEL_LOW_MASK(std::uint32_t gpio) {
+  return 1 << ((gpio >> 2) + 0);
+}
+/**
+ * @brief Generate mask for raw interrupt high level sensing
+ * @param gpio gpio to generate the mask for
+ * @return mask that can be applied to INTF register
+ */
+constexpr inline std::uint32_t LEVEL_HIGH_MASK(std::uint32_t gpio) {
+  return 1 << ((gpio >> 2) + 1);
+}
+/**
+ * @brief Generate mask for raw interrupt falling edge sensing
+ * @param gpio gpio to generate the mask for
+ * @return mask that can be applied to INTF register
+ */
+constexpr inline std::uint32_t EDGE_LOW_MASK(std::uint32_t gpio) {
+  return 1 << ((gpio >> 2) + 2);
+}
+/**
+ * @brief Generate mask for raw interrupt rising edge sensing
+ * @param gpio gpio to generate the mask for
+ * @return mask that can be applied to INTF register
+ */
+constexpr inline std::uint32_t EDGE_HIGH_MASK(std::uint32_t gpio) {
+  return 1 << ((gpio >> 2) + 3);
+}
+}  // namespace PROC1_INTF
 namespace PROC1_INTS {
 constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFF}; /**< Mask for allowed bits */
+/**
+ * @brief Map gpio number to INTS index
+ * @param gpio gpio to map to a INTS index
+ * @return index into the INTS array
+ */
+constexpr inline std::uint32_t indexing(std::uint32_t gpio) {
+  return gpio >> 3;
 }
+/**
+ * @brief Generate mask for raw interrupt low level sensing
+ * @param gpio gpio to generate the mask for
+ * @return mask that can be applied to INTS register
+ */
+constexpr inline std::uint32_t LEVEL_LOW_MASK(std::uint32_t gpio) {
+  return 1 << ((gpio >> 2) + 0);
+}
+/**
+ * @brief Generate mask for raw interrupt high level sensing
+ * @param gpio gpio to generate the mask for
+ * @return mask that can be applied to INTS register
+ */
+constexpr inline std::uint32_t LEVEL_HIGH_MASK(std::uint32_t gpio) {
+  return 1 << ((gpio >> 2) + 1);
+}
+/**
+ * @brief Generate mask for raw interrupt falling edge sensing
+ * @param gpio gpio to generate the mask for
+ * @return mask that can be applied to INTS register
+ */
+constexpr inline std::uint32_t EDGE_LOW_MASK(std::uint32_t gpio) {
+  return 1 << ((gpio >> 2) + 2);
+}
+/**
+ * @brief Generate mask for raw interrupt rising edge sensing
+ * @param gpio gpio to generate the mask for
+ * @return mask that can be applied to INTS register
+ */
+constexpr inline std::uint32_t EDGE_HIGH_MASK(std::uint32_t gpio) {
+  return 1 << ((gpio >> 2) + 3);
+}
+}  // namespace PROC1_INTS
 namespace DORMANT_WAKE_INTE {
 constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFF}; /**< Mask for allowed bits */
-}
+/* TODO: bit definitions */
+}  // namespace DORMANT_WAKE_INTE
 namespace DORMANT_WAKE_INTF {
 constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFF}; /**< Mask for allowed bits */
-}
+/* TODO: bit definitions */
+}  // namespace DORMANT_WAKE_INTF
 namespace DORMANT_WAKE_INTS {
 constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFF}; /**< Mask for allowed bits */
-}
+/* TODO: bit definitions */
+}  // namespace DORMANT_WAKE_INTS
 }  // namespace gpioBank0
 }  // namespace hw
 }  // namespace libMcuLL
