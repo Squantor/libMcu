@@ -386,6 +386,7 @@ typedef enum {
 // includes that define the registers namespace go here.
 #include "raspberrypi/peripherals.hpp/RP2040_adc_hw.hpp"
 #include "raspberrypi/peripherals.hpp/RP2040_busctrl_hw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_clocks_hw.hpp"
 #include "raspberrypi/peripherals.hpp/RP2040_dma_hw.hpp"
 #include "raspberrypi/peripherals.hpp/RP2040_gpio_bank0_hw.hpp"
 #include "raspberrypi/peripherals.hpp/RP2040_gpio_qspi_hw.hpp"
@@ -423,6 +424,7 @@ typedef enum {
 // need to go after registers namespaces and device specific headers
 #include "raspberrypi/peripherals.hpp/RP2040_adc_sw.hpp"
 #include "raspberrypi/peripherals.hpp/RP2040_busctrl_sw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_clocks_sw.hpp"
 #include "raspberrypi/peripherals.hpp/RP2040_dma_sw.hpp"
 #include "raspberrypi/peripherals.hpp/RP2040_gpio_bank0_sw.hpp"
 #include "raspberrypi/peripherals.hpp/RP2040_gpio_qspi_sw.hpp"
