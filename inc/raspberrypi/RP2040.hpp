@@ -116,7 +116,6 @@ constexpr inline std::uint32_t pio1Base{0x5030'0000u};          /**< PIO1 base a
 constexpr inline std::uint32_t sioBase{0xD000'0000u};           /**< SIO base address */
 constexpr inline std::uint32_t ppbBase{0xE000'0000u};           /**< PPB base address */
 
-constexpr inline libMcuLL::WWDTbaseAddress wwdtAddress{0x4000'0000u}; /**< Windowed watchdog base address */
 constexpr inline libMcuLL::xipCtrlBaseAddress xipCtrlAddress{xipCtrlBase + peripheralOffsetNormal};
 constexpr inline libMcuLL::xipCtrlBaseAddress xipCtrlXorAddress{xipCtrlBase + peripheralOffsetXor};
 constexpr inline libMcuLL::xipCtrlBaseAddress xipCtrlSetAddress{xipCtrlBase + peripheralOffsetSet};
@@ -385,12 +384,36 @@ typedef enum {
 #endif
 
 // includes that define the registers namespace go here.
-#include "raspberrypi/peripherals.hpp/RP2040_sio_hw.hpp"
-#include "raspberrypi/peripherals.hpp/RP2040_xosc_hw.hpp"
-#include "raspberrypi/peripherals.hpp/RP2040_rosc_hw.hpp"
-#include "raspberrypi/peripherals.hpp/RP2040_sysinfo_hw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_adc_hw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_busctrl_hw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_dma_hw.hpp"
 #include "raspberrypi/peripherals.hpp/RP2040_gpio_bank0_hw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_gpio_qspi_hw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_i2c_hw.hpp"
 #include "raspberrypi/peripherals.hpp/RP2040_pads_bank0_hw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_pads_qspi_hw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_pio_hw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_pll_hw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_ppb_hw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_psm_hw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_pwm_hw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_resets_hw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_rosc_hw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_rtc_hw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_sio_hw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_spi_hw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_syscfg_hw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_sysinfo_hw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_tbman_hw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_timer_hw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_uart_hw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_usbctrl_dpram_hw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_usbctrl_regs_hw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_vreg_chip_reset_hw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_watchdog_hw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_xip_ctrl_hw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_xip_ssi_hw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_xosc_hw.hpp"
 
 // device peripheral specific headers go here
 // these need to go after registers namespace definitions as they are used here
@@ -398,11 +421,34 @@ typedef enum {
 
 // includes that use the registers namespace go here
 // need to go after registers namespaces and device specific headers
-#include "peripherals.hpp/RP2040_sio_sw_gpio.hpp"
-#include "raspberrypi/peripherals.hpp/RP2040_xosc_sw.hpp"
-#include "raspberrypi/peripherals.hpp/RP2040_rosc_sw.hpp"
-#include "raspberrypi/peripherals.hpp/RP2040_sysinfo_sw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_adc_sw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_busctrl_sw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_dma_sw.hpp"
 #include "raspberrypi/peripherals.hpp/RP2040_gpio_bank0_sw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_gpio_qspi_sw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_i2c_sw.hpp"
 #include "raspberrypi/peripherals.hpp/RP2040_pads_bank0_sw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_pads_qspi_sw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_pio_sw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_pll_sw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_ppb_sw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_psm_sw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_pwm_sw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_resets_sw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_rosc_sw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_rtc_sw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_sio_gpio_sw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_spi_sw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_syscfg_sw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_sysinfo_sw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_tbman_sw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_timer_sw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_uart_sw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_usbctrl_sw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_vreg_chip_reset_sw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_watchdog_sw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_xip_ctrl_sw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_xip_ssi_sw.hpp"
+#include "raspberrypi/peripherals.hpp/RP2040_xosc_sw.hpp"
 
 #endif
