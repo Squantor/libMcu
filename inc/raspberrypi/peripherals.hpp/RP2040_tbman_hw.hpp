@@ -18,11 +18,11 @@ namespace tbman {
  *
  */
 struct peripheral {
-  volatile std::uint32_t DUMMY; /**< Fill in */
+  volatile std::uint32_t PLATFORM; /**< Fill in */
 };
-namespace DUMMY {
-constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /**< Mask for allowed bits */
-}  // namespace DUMMY
+namespace PLATFORM {
+constexpr inline std::uint32_t RESERVED_MASK{0x0000'0001u}; /**< Mask for allowed bits */
+}  // namespace PLATFORM
 }  // namespace tbman
 }  // namespace hw
 }  // namespace libMcuLL
