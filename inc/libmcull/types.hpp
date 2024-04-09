@@ -58,27 +58,27 @@ struct mpuBaseAddress : hwAddressBase {};     /**< MPU */
 struct mtbBaseAddress : hwAddressBase {};     /**< MTB */
 
 /* Peripheral address types used by all microcontrollers */
-struct I2CbaseAddress : hwAddressBase {};   /**< I2C */
-struct SPIbaseAddress : hwAddressBase {};   /**< SPI */
-struct USARTbaseAddress : hwAddressBase {}; /**< USART */
-struct CRCbaseAddress : hwAddressBase {};   /**< CRC engine */
-struct GPIObaseAddress : hwAddressBase {};  /**< GPIO */
-struct dmaBaseAddress : hwAddressBase {};   /**< DMA */
-struct dacBaseAddress : hwAddressBase {};   /**< DAC */
-struct adcBaseAddress : hwAddressBase {};   /**< ADC */
+struct i2cBaseAddress : hwAddressBase {};  /**< I2C */
+struct spiBaseAddress : hwAddressBase {};  /**< SPI */
+struct uartBaseAddress : hwAddressBase {}; /**< UART */
+struct crcBaseAddress : hwAddressBase {};  /**< CRC engine */
+struct gpioBaseAddress : hwAddressBase {}; /**< GPIO */
+struct dmaBaseAddress : hwAddressBase {};  /**< DMA */
+struct dacBaseAddress : hwAddressBase {};  /**< DAC */
+struct adcBaseAddress : hwAddressBase {};  /**< ADC */
 
 /* Peripheral address types used by NXP LPC microcontrollers */
-struct WWDTbaseAddress : hwAddressBase {};     /**< NXP LPC Windowed watchdog */
-struct MRTbaseAddress : hwAddressBase {};      /**< NXP LPC Multi rate timer*/
-struct WKTbaseAddress : hwAddressBase {};      /**< NXP LPC Wakeup timer */
-struct SWMbaseAddress : hwAddressBase {};      /**< NXP LPC Switch Matrix */
-struct PMUbaseAddress : hwAddressBase {};      /**< NXP LPC Power management unit */
-struct ACMPbaseAddress : hwAddressBase {};     /**< NXP LPC Analog comparator */
-struct FMCbaseAddress : hwAddressBase {};      /**< NXP LPC Flash controller */
-struct IOCONbaseAddress : hwAddressBase {};    /**< NXP LPC IO control */
-struct SYSCONbaseAddress : hwAddressBase {};   /**< NXP LPC System control*/
-struct SCTbaseAddress : hwAddressBase {};      /**< NXP LPC state configurable timer */
-struct PININTbaseAddress : hwAddressBase {};   /**< NXP LPC Pin interrupt */
+struct wwdtBaseAddress : hwAddressBase {};     /**< NXP LPC Windowed watchdog */
+struct mrtBaseAddress : hwAddressBase {};      /**< NXP LPC Multi rate timer*/
+struct wktBaseAddress : hwAddressBase {};      /**< NXP LPC Wakeup timer */
+struct swmBaseAddress : hwAddressBase {};      /**< NXP LPC Switch Matrix */
+struct pmuBaseAddress : hwAddressBase {};      /**< NXP LPC Power management unit */
+struct acmpBaseAddress : hwAddressBase {};     /**< NXP LPC Analog comparator */
+struct fmcBaseAddress : hwAddressBase {};      /**< NXP LPC Flash controller */
+struct ioconBaseAddress : hwAddressBase {};    /**< NXP LPC IO control */
+struct sysconBaseAddress : hwAddressBase {};   /**< NXP LPC System control*/
+struct sctBaseAddress : hwAddressBase {};      /**< NXP LPC state configurable timer */
+struct pinintBaseAddress : hwAddressBase {};   /**< NXP LPC Pin interrupt */
 struct faimBaseAddress : hwAddressBase {};     /**< NXP LPC fast memory initialization */
 struct inputMuxBaseAddress : hwAddressBase {}; /**< NXP LPC input multiplexer  */
 struct ctimerBaseAddress : hwAddressBase {};   /**< NXP LPC standard counter/timer */
@@ -97,10 +97,9 @@ struct psmBaseAddress : hwAddressBase {};
 struct ioBank0BaseAddress : hwAddressBase {};
 struct ioQspiBaseAddress : hwAddressBase {};
 struct padsBank0BaseAddress : hwAddressBase {};
-struct padsQspi0BaseAddress : hwAddressBase {};
+struct padsQspiBaseAddress : hwAddressBase {};
 struct xoscBaseAddress : hwAddressBase {};
-struct pllSysBaseAddress : hwAddressBase {};
-struct pllUsbBaseAddress : hwAddressBase {};
+struct pllBaseAddress : hwAddressBase {};
 struct busCtrlBaseAddress : hwAddressBase {};
 struct pwmBaseAddress : hwAddressBase {};
 struct timerBaseAddress : hwAddressBase {};
