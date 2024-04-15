@@ -1,0 +1,29 @@
+/*
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2024 Bart Bilos
+ * For conditions of distribution and use, see LICENSE file
+ */
+/**
+ * \file RP2040 pads software interface definitions
+ */
+#ifndef RP2040_PADS_SW_HPP
+#define RP2040_PADS_SW_HPP
+
+namespace libMcuLL {
+namespace sw {
+namespace pads {
+
+using namespace libMcuLL;
+
+enum class driveModes : std::uint32_t {
+  DRIVE_2MA = hw::pads::GPIO::DRIVE_2MA,   /**< 2 milliampere drive strength */
+  DRIVE_4MA = hw::pads::GPIO::DRIVE_4MA,   /**< 4 milliampere drive strength */
+  DRIVE_8MA = hw::pads::GPIO::DRIVE_8MA,   /**< 8 milliampere drive strength */
+  DRIVE_12MA = hw::pads::GPIO::DRIVE_12MA, /**< 12 milliampere drive strength */
+};
+
+}  // namespace pads
+}  // namespace sw
+}  // namespace libMcuLL
+#endif

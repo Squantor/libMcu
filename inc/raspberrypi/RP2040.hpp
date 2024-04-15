@@ -153,6 +153,10 @@ constexpr inline libMcuLL::xipCtrlBaseAddress xipCtrlClrAddress{xipCtrlBase + pe
 // #define PADS_BANK0_XOR ((PADS_BANK0_Type *)(PADS_BANK0_BASE + OFFSET_XOR))
 // #define PADS_BANK0_SET ((PADS_BANK0_Type *)(PADS_BANK0_BASE + OFFSET_SET))
 // #define PADS_BANK0_CLR ((PADS_BANK0_Type *)(PADS_BANK0_BASE + OFFSET_CLR))
+constexpr inline libMcuLL::padsBank0BaseAddress padsBank0Address{padsBank0Base + peripheralOffsetNormal};
+constexpr inline libMcuLL::padsBank0BaseAddress padsBank0XorAddress{padsBank0Base + peripheralOffsetXor};
+constexpr inline libMcuLL::padsBank0BaseAddress padsBank0SetAddress{padsBank0Base + peripheralOffsetSet};
+constexpr inline libMcuLL::padsBank0BaseAddress padsBank0ClrAddress{padsBank0Base + peripheralOffsetClear};
 // #define PADS_QSPI ((PADS_QSPI_Type *)(PADS_QSPI_BASE + OFFSET_NORMAL))
 // #define PADS_QSPI_XOR ((PADS_QSPI_Type *)(PADS_QSPI_BASE + OFFSET_XOR))
 // #define PADS_QSPI_SET ((PADS_QSPI_Type *)(PADS_QSPI_BASE + OFFSET_SET))
