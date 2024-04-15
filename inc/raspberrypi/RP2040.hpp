@@ -86,8 +86,8 @@ constexpr inline std::uint32_t syscfgBase{0x4000'4000u};        /**< System conf
 constexpr inline std::uint32_t clocksBase{0x4000'8000u};        /**< clocks base address */
 constexpr inline std::uint32_t resetsBase{0x4000'C000u};        /**< resets base address */
 constexpr inline std::uint32_t psmBase{0x4001'0000u};           /**< PSM base address */
-constexpr inline std::uint32_t ioBank0Base{0x4001'4000u};       /**< IO bank0 base address */
-constexpr inline std::uint32_t ioQspiBase{0x4001'8000u};        /**< IO QSPI base address */
+constexpr inline std::uint32_t gpioBank0Base{0x4001'4000u};     /**< IO bank0 base address */
+constexpr inline std::uint32_t gpioQspiBase{0x4001'8000u};      /**< IO QSPI base address */
 constexpr inline std::uint32_t padsBank0Base{0x4001'C000u};     /**< pads Bank0 base address */
 constexpr inline std::uint32_t padsQspiBase{0x4002'0000u};      /**< pads QSPI base address */
 constexpr inline std::uint32_t xoscBase{0x4002'4000u};          /**< Crystal oscillator base address */
@@ -145,6 +145,10 @@ constexpr inline libMcuLL::xipCtrlBaseAddress xipCtrlClrAddress{xipCtrlBase + pe
 // #define IO_BANK0_XOR ((IO_BANK0_Type *)(IO_BANK0_BASE + OFFSET_XOR))
 // #define IO_BANK0_SET ((IO_BANK0_Type *)(IO_BANK0_BASE + OFFSET_SET))
 // #define IO_BANK0_CLR ((IO_BANK0_Type *)(IO_BANK0_BASE + OFFSET_CLR))
+constexpr inline libMcuLL::ioBank0BaseAddress gpioBank0Address{gpioBank0Base + peripheralOffsetNormal};
+constexpr inline libMcuLL::ioBank0BaseAddress gpioBank0XorAddress{gpioBank0Base + peripheralOffsetXor};
+constexpr inline libMcuLL::ioBank0BaseAddress gpioBank0SetAddress{gpioBank0Base + peripheralOffsetSet};
+constexpr inline libMcuLL::ioBank0BaseAddress gpioBank0ClrAddress{gpioBank0Base + peripheralOffsetClear};
 // #define IO_QSPI ((IO_QSPI_Type *)(IO_QSPI_BASE + OFFSET_NORMAL))
 // #define IO_QSPI_XOR ((IO_QSPI_Type *)(IO_QSPI_BASE + OFFSET_XOR))
 // #define IO_QSPI_SET ((IO_QSPI_Type *)(IO_QSPI_BASE + OFFSET_SET))

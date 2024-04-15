@@ -70,10 +70,10 @@ constexpr inline std::uint32_t INOVER_HIGH{0x3u};   /**< Drive peripheral input 
 constexpr inline std::uint32_t INOVER(std::uint32_t setting) {
   return setting << 16;
 }
-constexpr inline std::uint32_t OEOVER_NO_INV{0x0u}; /**< Dont invert the peripheral output */
-constexpr inline std::uint32_t OEOVER_INV{0x1u};    /**< Invert the peripheral output */
-constexpr inline std::uint32_t OEOVER_LOW{0x2u};    /**< Drive output low */
-constexpr inline std::uint32_t OEOVER_HIGH{0x3u};   /**< Drive output high */
+constexpr inline std::uint32_t OEOVER_NO_INV{0x0u}; /**< Dont invert the peripheral output enable */
+constexpr inline std::uint32_t OEOVER_INV{0x1u};    /**< Invert the peripheral output enable */
+constexpr inline std::uint32_t OEOVER_LOW{0x2u};    /**< Disable output */
+constexpr inline std::uint32_t OEOVER_HIGH{0x3u};   /**< Enable output */
 /**
  * @brief Format OEOVER field to CTRL register
  * @param setting peripheral output override setting, look at OEOVER_ settings
@@ -81,6 +81,18 @@ constexpr inline std::uint32_t OEOVER_HIGH{0x3u};   /**< Drive output high */
  */
 constexpr inline std::uint32_t OEOVER(std::uint32_t setting) {
   return setting << 12;
+}
+constexpr inline std::uint32_t OUTOVER_NO_INV{0x0u}; /**< Dont invert the peripheral output */
+constexpr inline std::uint32_t OUTOVER_INV{0x1u};    /**< Invert the peripheral output */
+constexpr inline std::uint32_t OUTOVER_LOW{0x2u};    /**< Drive output low */
+constexpr inline std::uint32_t OUTOVER_HIGH{0x3u};   /**< Drive output high */
+/**
+ * @brief Format OUTOVER field to CTRL register
+ * @param setting peripheral output override setting, look at OUTOVER_ settings
+ * @return OUTOVER field formatted to CTRL register
+ */
+constexpr inline std::uint32_t OUTOVER(std::uint32_t setting) {
+  return setting << 8;
 }
 constexpr inline std::uint32_t F1{1u};    /**< Function 1 */
 constexpr inline std::uint32_t F2{2u};    /**< Function 2 */
@@ -98,7 +110,7 @@ constexpr inline std::uint32_t NONE{31u}; /**< No function selected*/
  * @return FUNCSEL field formatted to CTRL register
  */
 constexpr inline std::uint32_t FUNCSEL(std::uint32_t setting) {
-  return setting << 12;
+  return setting << 0;
 }
 }  // namespace CTRL
 namespace INTR {
