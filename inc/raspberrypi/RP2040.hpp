@@ -137,6 +137,10 @@ constexpr inline libMcuLL::xipCtrlBaseAddress xipCtrlClrAddress{xipCtrlBase + pe
 // #define RESETS_XOR ((RESETS_Type *)(RESETS_BASE + OFFSET_XOR))
 // #define RESETS_SET ((RESETS_Type *)(RESETS_BASE + OFFSET_SET))
 // #define RESETS_CLR ((RESETS_Type *)(RESETS_BASE + OFFSET_CLR))
+constexpr inline libMcuLL::resetsBaseAddress resetsAddress{resetsBase + peripheralOffsetNormal};
+constexpr inline libMcuLL::resetsBaseAddress resetsXorAddress{resetsBase + peripheralOffsetXor};
+constexpr inline libMcuLL::resetsBaseAddress resetsSetAddress{resetsBase + peripheralOffsetSet};
+constexpr inline libMcuLL::resetsBaseAddress resetsClrAddress{resetsBase + peripheralOffsetClear};
 // #define PSM ((PSM_Type *)(PSM_BASE + OFFSET_NORMAL))
 // #define PSM_XOR ((PSM_Type *)(PSM_BASE + OFFSET_XOR))
 // #define PSM_SET ((PSM_Type *)(PSM_BASE + OFFSET_SET))
