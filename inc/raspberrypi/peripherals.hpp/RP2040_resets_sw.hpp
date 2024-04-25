@@ -42,24 +42,19 @@ enum peripheralResets : std::uint32_t {
 };
 /**
  * @brief resets peripheral
- *
  * @tparam resetsAddress_  base resets peripheral address
- * @tparam resetsSetAddress_ set bit resets peripheral address
- * @tparam resetsClrAddress_ clear bit resets peripheral address
  */
-template <libMcuLL::resetsBaseAddress const& resetsAddress_, libMcuLL::resetsBaseAddress const& resetsSetAddress_,
-          libMcuLL::resetsBaseAddress const& resetsClrAddress_>
+template <libMcuLL::resetsBaseAddress const& resetsAddress_>
 struct resets : libMcuLL::peripheralBase {
   /**
    * @brief Resets peripherals and waits until they have been reset
-   *
    * @param peripheralBits     bit set of peripherals to reset, see RESETS_RESET_Enum for peripherals
    * @param timeout     how many times to check if the status set
    * @return         returns zero when timed out or nonzero when resets are executed
    */
   constexpr inline std::uint32_t reset(uint32_t peripheralBits, uint32_t timeout) {
-    resetsSetPeripheral()->RESET = peripheralBits;
-    resetsClrPeripheral()->RESET = peripheralBits;
+    resetsPeripheralSet()->RESET = peripheralBits;
+    resetsPeripheralClear()->RESET = peripheralBits;
     // wait until resets have arrived
     while ((~resetsPeripheral()->RESET_DONE & peripheralBits) && (timeout > 0)) {
       timeout--;
@@ -67,34 +62,36 @@ struct resets : libMcuLL::peripheralBase {
     return timeout;
   }
   /**
-   * @brief get registers from peripheral
-   *
+   * @brief get registers from peripheral for normal access
    * @return return pointer to peripheral
    */
   static hw::resets::peripheral* resetsPeripheral() {
-    return reinterpret_cast<hw::resets::peripheral*>(resetsAddress);
+    return reinterpret_cast<hw::resets::peripheral*>(resetsAddress + hw::peripheralOffsetNormal);
   }
   /**
-   * @brief get set registers from peripheral
-   *
-   * @return return pointer to set peripheral
+   * @brief get registers from peripheral for atomic set access
+   * @return return pointer to peripheral
    */
-  static hw::resets::peripheral* resetsSetPeripheral() {
-    return reinterpret_cast<hw::resets::peripheral*>(resetsSetAddress);
+  static hw::resets::peripheral* resetsPeripheralSet() {
+    return reinterpret_cast<hw::resets::peripheral*>(resetsAddress + hw::peripheralOffsetSet);
   }
   /**
-   * @brief get clear registers from peripheral
-   *
-   * @return return pointer to clear peripheral
+   * @brief get registers from peripheral for atomic Clear access
+   * @return return pointer to peripheral
    */
-  static hw::resets::peripheral* resetsClrPeripheral() {
-    return reinterpret_cast<hw::resets::peripheral*>(resetsClrAddress);
+  static hw::resets::peripheral* resetsPeripheralClear() {
+    return reinterpret_cast<hw::resets::peripheral*>(resetsAddress + hw::peripheralOffsetClear);
+  }
+  /**
+   * @brief get registers from peripheral for atomic XOR access
+   * @return return pointer to peripheral
+   */
+  static hw::resets::peripheral* resetsPeripheralXor() {
+    return reinterpret_cast<hw::resets::peripheral*>(resetsAddress + hw::peripheralOffsetXor);
   }
 
  private:
-  static constexpr libMcuLL::hwAddressType resetsAddress{resetsAddress_};       /**< peripheral address */
-  static constexpr libMcuLL::hwAddressType resetsSetAddress{resetsSetAddress_}; /**< peripheral address for setting bits */
-  static constexpr libMcuLL::hwAddressType resetsClrAddress{resetsClrAddress_}; /**< peripheral address for clearing bits */
+  static constexpr libMcuLL::hwAddressType resetsAddress{resetsAddress_}; /**< peripheral address */
 };
 }  // namespace resets
 }  // namespace sw

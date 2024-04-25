@@ -265,10 +265,7 @@ constexpr inline libMcuLL::padsBank0BaseAddress padsBank0ClrAddress{padsBank0Bas
 // #define SIO_XOR ((SIO_Type *)(SIO_BASE + OFFSET_XOR))
 // #define SIO_SET ((SIO_Type *)(SIO_BASE + OFFSET_SET))
 // #define SIO_CLR ((SIO_Type *)(SIO_BASE + OFFSET_CLR))
-constexpr inline libMcuLL::sioBaseAddress sioAddress{xipCtrlBase + peripheralOffsetNormal};
-constexpr inline libMcuLL::sioBaseAddress sioXorAddress{xipCtrlBase + peripheralOffsetXor};
-constexpr inline libMcuLL::sioBaseAddress sioSetAddress{xipCtrlBase + peripheralOffsetSet};
-constexpr inline libMcuLL::sioBaseAddress sioClrAddress{xipCtrlBase + peripheralOffsetClear};
+constexpr inline libMcuLL::sioBaseAddress sioAddress{sioBase + peripheralOffsetNormal};
 // #define PPB ((PPB_Type *)(PPB_BASE + OFFSET_NORMAL))
 // #define PPB_XOR ((PPB_Type *)(PPB_BASE + OFFSET_XOR))
 // #define PPB_SET ((PPB_Type *)(PPB_BASE + OFFSET_SET))

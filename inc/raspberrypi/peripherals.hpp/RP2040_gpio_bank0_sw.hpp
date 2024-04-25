@@ -21,6 +21,16 @@ struct gpioBank0 : libMcuLL::peripheralBase {
    */
   constexpr void init() {}
   /**
+   * @brief
+   * @tparam PIN pin instance
+   * @param pin reference to pin instance
+   */
+  template <typename PIN>
+  constexpr void setup(PIN& pin) {
+    gpioBank0Peripheral()->GPIO[pin.pinIndex].CTRL = hw::gpioBank0::CTRL::FUNCSEL(static_cast<std::uint32_t>(pin.functionSelect));
+  }
+  // TODO: Make setup method with overrides
+  /**
    * @brief get registers from peripheral
    *
    * @return return pointer to peripheral

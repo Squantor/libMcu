@@ -13,20 +13,82 @@
 namespace libMcuLL {
 namespace sw {
 namespace sioGpio {
-template <libMcuLL::sioBaseAddress const& sioAddress_>
+template <libMcuLL::sioBaseAddress const &sioAddress_>
 struct sioGpio : libMcuLL::peripheralBase {
   /**
-   * @brief Base initialization function
-   *
+   * @brief Set gpio pin to output mode
+   * @tparam PIN pin instance
+   * @param pin reference to pin instance
    */
-  constexpr void init() {}
+  template <typename PIN>
+  constexpr void output(PIN &pin) {
+    sioPeripheral()->GPIO_OE_SET = pin.pinMask;
+  }
   /**
-   * @brief get registers from peripheral
-   *
+   * @brief Set gpio pin to input mode
+   * @tparam PIN pin instance
+   * @param pin reference to pin instance
+   */
+  template <typename PIN>
+  constexpr void input(PIN &pin) {
+    sioPeripheral()->GPIO_OE_CLR = pin.pinMask;
+  }
+  /**
+   * @brief Set gpio pin to high
+   * @tparam PIN pin instance
+   * @param pin reference to pin instance
+   */
+  template <typename PIN>
+  constexpr void high(PIN &pin) {
+    sioPeripheral()->GPIO_OUT_SET = pin.pinMask;
+  }
+  /**
+   * @brief Set gpio pin to low
+   * @tparam PIN pin instance
+   * @param pin reference to pin instance
+   */
+  template <typename PIN>
+  constexpr void low(PIN &pin) {
+    sioPeripheral()->GPIO_OUT_CLR = pin.pinMask;
+  }
+  /**
+   * @brief Toggle gpio pin
+   * @tparam PIN pin instance
+   * @param pin reference to pin instance
+   */
+  template <typename PIN>
+  constexpr void toggle(PIN &pin) {
+    sioPeripheral()->GPIO_OUT_XOR = pin.pinMask;
+  }
+  /**
+   * @brief Get the gpio pin state
+   * @tparam PIN pin instance
+   * @param pin reference to pin instance
+   * @return std::uint32_t pin state, 0 for low, non zero for high
+   */
+  template <typename PIN>
+  constexpr std::uint32_t get(PIN &pin) {
+    return sioPeripheral()->GPIO_IN & pin.pinMask;
+  }
+  /**
+   * @brief Set the gpio pin state
+   * @tparam PIN pin instance
+   * @param pin reference to pin instance
+   * @param setting pin state, 0 for low, 1 for high
+   */
+  template <typename PIN>
+  constexpr void set(PIN &pin, std::uint32_t setting) {
+    if (setting)
+      sioPeripheral()->GPIO_OUT_SET = pin.pinMask;
+    else
+      sioPeripheral()->GPIO_OUT_CLR = pin.pinMask;
+  }
+  /**
+   * @brief get registers from peripheral for normal access
    * @return return pointer to peripheral
    */
-  static hw::sio::peripheral* sioPeripheral() {
-    return reinterpret_cast<hw::sio::peripheral*>(sioAddress);
+  static hw::sio::peripheral *sioPeripheral() {
+    return reinterpret_cast<hw::sio::peripheral *>(sioAddress + hw::peripheralOffsetNormal);
   }
 
  private:
