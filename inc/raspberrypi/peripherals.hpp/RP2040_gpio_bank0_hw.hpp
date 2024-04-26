@@ -45,7 +45,7 @@ constexpr inline std::uint32_t OUTTOPAD_MASK{1u << 9};      /**< Output signal t
 constexpr inline std::uint32_t OUTFROMPERI_MASK{1u << 8};   /**< Output signal from selected peripheral, before override */
 }  // namespace STATUS
 namespace CTRL {
-constexpr inline std::uint32_t RESERVED_MASK{0x0000'0000u}; /**< Mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x3003'331Fu}; /**< Mask for allowed bits */
 constexpr inline std::uint32_t IRQOVER_NO_INV{0x0u};        /**< Dont invert the interrupt */
 constexpr inline std::uint32_t IRQOVER_INV{0x1u};           /**< Invert the interrupt */
 constexpr inline std::uint32_t IRQOVER_LOW{0x2u};           /**< Set interrupt low */
