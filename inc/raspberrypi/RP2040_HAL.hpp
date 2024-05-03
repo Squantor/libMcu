@@ -10,4 +10,6 @@
 #ifndef RP2040_HAL_HPP
 #define RP2040_HAL_HPP
 
+#include "raspberrypi/HAL/RP2040_pins.hpp"
+
 #endif
