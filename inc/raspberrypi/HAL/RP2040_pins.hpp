@@ -71,7 +71,7 @@ struct pins {
    * @return return pointer to peripheral
    */
   static hw::gpioBank0::peripheral* gpioBank0Peripheral() {
-    return reinterpret_cast<hw::gpioBank0::peripheral*>(gpioBank0Address + libMcuLL::hw::peripheralOffsetNormal);
+    return reinterpret_cast<hw::gpioBank0::peripheral*>(ioBank0Address + libMcuLL::hw::peripheralOffsetNormal);
   }
   /**
    * @brief get registers from peripheral
@@ -79,7 +79,7 @@ struct pins {
    * @return return pointer to peripheral
    */
   static hw::gpioBank0::peripheral* gpioBank0PeripheralSet() {
-    return reinterpret_cast<hw::gpioBank0::peripheral*>(gpioBank0Address + libMcuLL::hw::peripheralOffsetSet);
+    return reinterpret_cast<hw::gpioBank0::peripheral*>(ioBank0Address + libMcuLL::hw::peripheralOffsetSet);
   }
   /**
    * @brief get registers from peripheral
@@ -87,7 +87,7 @@ struct pins {
    * @return return pointer to peripheral
    */
   static hw::gpioBank0::peripheral* gpioBank0PeripheralClear() {
-    return reinterpret_cast<hw::gpioBank0::peripheral*>(gpioBank0Address + libMcuLL::hw::peripheralOffsetClear);
+    return reinterpret_cast<hw::gpioBank0::peripheral*>(ioBank0Address + libMcuLL::hw::peripheralOffsetClear);
   }
   /**
    * @brief get registers from peripheral
@@ -95,7 +95,7 @@ struct pins {
    * @return return pointer to peripheral
    */
   static hw::gpioBank0::peripheral* gpioBank0PeripheralToggle() {
-    return reinterpret_cast<hw::gpioBank0::peripheral*>(gpioBank0Address + libMcuLL::hw::peripheralOffsetXor);
+    return reinterpret_cast<hw::gpioBank0::peripheral*>(ioBank0Address + libMcuLL::hw::peripheralOffsetXor);
   }
   /**
    * @brief get registers from peripheral
@@ -131,7 +131,7 @@ struct pins {
   }
 
   static constexpr hwAddressType padsBank0Address = padsBank0Address_; /**< pads bank 0 peripheral address */
-  static constexpr hwAddressType gpioBank0Address = gpioBank0Address_; /**< gpio bank 0 peripheral address */
+  static constexpr hwAddressType ioBank0Address = gpioBank0Address_;   /**< gpio bank 0 peripheral address */
 };
 }  // namespace pins
 }  // namespace libmcuhal

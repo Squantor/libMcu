@@ -79,130 +79,45 @@ constexpr inline std::uint32_t peripheralOffsetXor{0x0000'1000u};    /**< XORed 
 constexpr inline std::uint32_t peripheralOffsetSet{0x0000'2000u};    /**< Set peripheral register access offset */
 constexpr inline std::uint32_t peripheralOffsetClear{0x0000'3000u};  /**< Clear peripheral register access offset */
 
-constexpr inline std::uint32_t xipCtrlBase{0x1400'0000u};       /**< XIP control base address */
-constexpr inline std::uint32_t xipSsiBase{0x1800'0000u};        /**< XIP SSI base address */
-constexpr inline std::uint32_t sysinfoBase{0x4000'0000u};       /**< Sysinfo base address */
-constexpr inline std::uint32_t syscfgBase{0x4000'4000u};        /**< System configuration base address */
-constexpr inline std::uint32_t clocksBase{0x4000'8000u};        /**< clocks base address */
-constexpr inline std::uint32_t resetsBase{0x4000'C000u};        /**< resets base address */
-constexpr inline std::uint32_t psmBase{0x4001'0000u};           /**< PSM base address */
-constexpr inline std::uint32_t gpioBank0Base{0x4001'4000u};     /**< IO bank0 base address */
-constexpr inline std::uint32_t gpioQspiBase{0x4001'8000u};      /**< IO QSPI base address */
-constexpr inline std::uint32_t padsBank0Base{0x4001'C000u};     /**< pads Bank0 base address */
-constexpr inline std::uint32_t padsQspiBase{0x4002'0000u};      /**< pads QSPI base address */
-constexpr inline std::uint32_t xoscBase{0x4002'4000u};          /**< Crystal oscillator base address */
-constexpr inline std::uint32_t pllSysBase{0x4002'8000u};        /**< system PLL base address */
-constexpr inline std::uint32_t pllUsbBase{0x4002'C000u};        /**< USB PLL base address */
-constexpr inline std::uint32_t busctrlBase{0x4003'0000u};       /**< Bus control base address */
-constexpr inline std::uint32_t uart0Base{0x4003'4000u};         /**< UART0 base address */
-constexpr inline std::uint32_t uart1Base{0x4003'8000u};         /**< UART1 base address */
-constexpr inline std::uint32_t spi0Base{0x400'3C000u};          /**< SPI0 base address */
-constexpr inline std::uint32_t spi1Base{0x4004'0000u};          /**< SPI1 base address */
-constexpr inline std::uint32_t i2c0Base{0x4004'4000u};          /**< I2C0 base address */
-constexpr inline std::uint32_t i2c1Base{0x4004'8000u};          /**< I2C1 base address */
-constexpr inline std::uint32_t adcBase{0x4004'C000u};           /**< ADC base address */
-constexpr inline std::uint32_t pwmBase{0x4005'0000u};           /**< PWM base address */
-constexpr inline std::uint32_t timerBase{0x4005'4000u};         /**< timer base address */
-constexpr inline std::uint32_t watchdogBase{0x4005'8000u};      /**< watchdog base address */
-constexpr inline std::uint32_t rtcBase{0x4005'C000u};           /**< RTC base address */
-constexpr inline std::uint32_t roscBase{0x4006'0000u};          /**< ROSC base address */
-constexpr inline std::uint32_t vregChipResetBase{0x4006'4000u}; /**< Voltage regulator and chip reset base address */
-constexpr inline std::uint32_t tbmanBase{0x4006'C000u};         /**< tbman base address */
-constexpr inline std::uint32_t dmaBase{0x5000'0000u};           /**< DMA base address */
-constexpr inline std::uint32_t usbCtrlDPramBase{0x5010'0000u};  /**< USB Dual port RAM base address */
-constexpr inline std::uint32_t usbCtrlRegsBase{0x5011'0000u};   /**< USB control registers base address */
-constexpr inline std::uint32_t pio0Base{0x5020'0000u};          /**< PIO0 base address */
-constexpr inline std::uint32_t pio1Base{0x5030'0000u};          /**< PIO1 base address */
-constexpr inline std::uint32_t sioBase{0xD000'0000u};           /**< SIO base address */
-constexpr inline std::uint32_t ppbBase{0xE000'0000u};           /**< PPB base address */
-
-constexpr inline libMcuLL::xipCtrlBaseAddress xipCtrlAddress{xipCtrlBase + peripheralOffsetNormal};
-// #define XIP_SSI ((XIP_SSI_Type *)(XIP_SSI_BASE + OFFSET_NORMAL))
-// #define SYSINFO ((SYSINFO_Type *)(SYSINFO_BASE + OFFSET_NORMAL))
-// #define SYSCFG ((SYSCFG_Type *)(SYSCFG_BASE + OFFSET_NORMAL))
-// #define CLOCKS ((CLOCKS_Type *)(CLOCKS_BASE + OFFSET_NORMAL))
-// #define RESETS ((RESETS_Type *)(RESETS_BASE + OFFSET_NORMAL))
-constexpr inline libMcuLL::resetsBaseAddress resetsAddress{resetsBase + peripheralOffsetNormal};
-// #define PSM ((PSM_Type *)(PSM_BASE + OFFSET_NORMAL))
-// #define IO_BANK0 ((IO_BANK0_Type *)(IO_BANK0_BASE + OFFSET_NORMAL))
-constexpr inline libMcuLL::ioBank0BaseAddress gpioBank0Address{gpioBank0Base + peripheralOffsetNormal};
-// #define IO_QSPI ((IO_QSPI_Type *)(IO_QSPI_BASE + OFFSET_NORMAL))
-// #define PADS_BANK0 ((PADS_BANK0_Type *)(PADS_BANK0_BASE + OFFSET_NORMAL))
-constexpr inline libMcuLL::padsBank0BaseAddress padsBank0Address{padsBank0Base + peripheralOffsetNormal};
-// #define PADS_QSPI ((PADS_QSPI_Type *)(PADS_QSPI_BASE + OFFSET_NORMAL))
-// #define XOSC ((XOSC_Type *)(XOSC_BASE + OFFSET_NORMAL))
-// #define PLL_SYS ((PLL_Type *)(PLL_SYS_BASE + OFFSET_NORMAL))
-// #define PLL_USB ((PLL_Type *)(PLL_USB_BASE + OFFSET_NORMAL))
-// #define BUSCTRL ((BUSCTRL_Type *)(BUSCTRL_BASE + OFFSET_NORMAL))
-// #define UART0 ((UART_Type *)(UART0_BASE + OFFSET_NORMAL))
-// #define UART1 ((UART_Type *)(UART1_BASE + OFFSET_NORMAL))
-// #define SPI0 ((SPI_Type *)(SPI0_BASE + OFFSET_NORMAL))
-// #define SPI1 ((SPI_Type *)(SPI1_BASE + OFFSET_NORMAL))
-// #define I2C0 ((I2C_Type *)(I2C0_BASE + OFFSET_NORMAL))
-// #define I2C1 ((I2C_Type *)(I2C1_BASE + OFFSET_NORMAL))
-// #define ADC ((ADC_Type *)(ADC_BASE + OFFSET_NORMAL))
-// #define PWM ((PWM_Type *)(PWM_BASE + OFFSET_NORMAL))
-// #define TIMER ((TIMER_Type *)(TIMER_BASE + OFFSET_NORMAL))
-// #define WATCHDOG ((WATCHDOG_Type *)(WATCHDOG_BASE + OFFSET_NORMAL))
-// #define RTC ((RTC_Type *)(RTC_BASE + OFFSET_NORMAL))
-// #define ROSC ((ROSC_Type *)(ROSC_BASE + OFFSET_NORMAL))
-// #define VREG_AND_CHIP_RESET ((VREG_AND_CHIP_RESET_Type *)(VREG_AND_CHIP_RESET_BASE + OFFSET_NORMAL))
-// #define TBMAN ((TBMAN_Type *)(TBMAN_BASE + OFFSET_NORMAL))
-// #define DMA ((DMA_Type *)(DMA_BASE + OFFSET_NORMAL))
-// #define USBCTRL_DPRAM ((USBCTRL_DPRAM_Type *)(USBCTRL_DPRAM_BASE + OFFSET_NORMAL))
-// #define USBCTRL_REGS ((USBCTRL_REGS_Type *)(USBCTRL_REGS_BASE + OFFSET_NORMAL))
-// #define PIO0 ((PIO_Type *)(PIO0_BASE + OFFSET_NORMAL))
-// #define PIO1 ((PIO_Type *)(PIO1_BASE + OFFSET_NORMAL))
-// #define SIO ((SIO_Type *)(SIO_BASE + OFFSET_NORMAL))
-constexpr inline libMcuLL::sioBaseAddress sioAddress{sioBase + peripheralOffsetNormal};
-// #define PPB ((PPB_Type *)(PPB_BASE + OFFSET_NORMAL))
+constexpr inline libMcuLL::xipCtrlBaseAddress xipCtrlAddress{0x1400'0000u};             /**< XIP control base address */
+constexpr inline libMcuLL::xipSsiBaseAddress xipSsiAddress{0x1800'0000u};               /**< XIP SSI base address */
+constexpr inline libMcuLL::sysinfoBaseAddress sysinfoAddress{0x4000'0000u};             /**< sysinfo base address */
+constexpr inline libMcuLL::syscfgBaseAddress syscfgAddress{0x4000'4000u};               /**< syscfg base address */
+constexpr inline libMcuLL::clocksBaseAddress clocksAddress{0x4000'8000u};               /**< clocks base address */
+constexpr inline libMcuLL::resetsBaseAddress resetsAddress{0x4000'C000u};               /**< resets base address */
+constexpr inline libMcuLL::psmBaseAddress psmAddress{0x4001'0000u};                     /**< psm base address */
+constexpr inline libMcuLL::ioBank0BaseAddress ioBank0Address{0x4001'4000u};             /**< io bank0 base address */
+constexpr inline libMcuLL::ioQspiBaseAddress ioQspiAddress{0x4001'8000u};               /**< io qspi base address */
+constexpr inline libMcuLL::padsBank0BaseAddress padsBank0Address{0x4001'C000u};         /**< pads bank0 base address */
+constexpr inline libMcuLL::padsQspiBaseAddress padsQspiAddress{0x4002'0000u};           /**< pads qspi base address */
+constexpr inline libMcuLL::xoscBaseAddress xoscAddress{0x4002'4000u};                   /**< Crystal oscillator base address */
+constexpr inline libMcuLL::pllBaseAddress pllSysAddress{0x4002'8000u};                  /**< system PLL base address */
+constexpr inline libMcuLL::pllBaseAddress pllUsbAddress{0x4002'C000u};                  /**< USB PLL base address */
+constexpr inline libMcuLL::busCtrlBaseAddress busCtrlAddress{0x4003'0000u};             /**< Bus control base address */
+constexpr inline libMcuLL::uartBaseAddress uart0Address{0x4003'4000u};                  /**< UART0 base address */
+constexpr inline libMcuLL::uartBaseAddress uart1Address{0x4003'8000u};                  /**< UART1 base address */
+constexpr inline libMcuLL::spiBaseAddress spi0Address{0x400'3C000u};                    /**< SPI0 base address */
+constexpr inline libMcuLL::spiBaseAddress spi1Address{0x4004'0000u};                    /**< SPI1 base address */
+constexpr inline libMcuLL::i2cBaseAddress i2c0Address{0x4004'4000u};                    /**< I2C0 base address */
+constexpr inline libMcuLL::i2cBaseAddress i2c1Address{0x4004'8000u};                    /**< I2C1 base address */
+constexpr inline libMcuLL::adcBaseAddress adcAddress{0x4004'C000u};                     /**< ADC base address */
+constexpr inline libMcuLL::pwmBaseAddress pwmAddress{0x4005'0000u};                     /**< PWM base address */
+constexpr inline libMcuLL::timerBaseAddress timerAddress{0x4005'4000u};                 /**< timer base address */
+constexpr inline libMcuLL::watchdogBaseAddress watchdogAddress{0x4005'8000u};           /**< watchdog base address */
+constexpr inline libMcuLL::rtcBaseAddress rtcAddress{0x4005'C000u};                     /**< RTC base address */
+constexpr inline libMcuLL::roscBaseAddress roscAddress{0x4006'0000u};                   /**< ROSC base address */
+constexpr inline libMcuLL::vregChipResetBaseAddress vregChipResetAddress{0x4006'4000u}; /**< VREG and reset base address */
+constexpr inline libMcuLL::tbmanBaseAddress tbmanAddress{0x4006'C000u};                 /**< tbman base address */
+constexpr inline libMcuLL::dmaBaseAddress dmaAddress{0x5000'0000u};                     /**< DMA base address */
+constexpr inline libMcuLL::usbCtrlDPramBaseAddress usbCtrlDpRamAddress{0x5010'0000u};   /**< USB Dual port RAM base address */
+constexpr inline libMcuLL::usbCtrlRegsBaseAddress usbCtrlRegsAddress{0x5011'0000u};     /**< USB control registers base address */
+constexpr inline libMcuLL::pioBaseAddress pio0Address{0x5020'0000u};                    /**< PIO0 base address */
+constexpr inline libMcuLL::pioBaseAddress pio1Address{0x5030'0000u};                    /**< PIO1 base address */
+constexpr inline libMcuLL::sioBaseAddress sioAddress{0xD000'0000u};                     /**< SIO base address */
+constexpr inline libMcuLL::ppbBaseAddress ppbAddress{0xE000'0000u};                     /**< PPB base address */
 
 }  // namespace hw
 }  // namespace libMcuLL
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-// default configuration options, override with your own!
-// #include "RP2040_default.h"
-
-// Peripheral definition includes
-// #include "xip_ctrl.h"
-// #include "xip_ssi.h"
-// #include "sysinfo.h"
-// #include "syscfg.h"
-// #include "clocks.h"
-// #include "resets.h"
-// #include "psm.h"
-// #include "io_bank0.h"
-// #include "io_qspi.h"
-// #include "pads_bank0.h"
-// #include "pads_qspi.h"
-// #include "xosc.h"
-// #include "pll.h"
-// #include "busctrl.h"
-// #include "uart.h"
-// #include "spi.h"
-// #include "i2c.h"
-// #include "adc.h"
-// #include "pwm.h"
-// #include "timer.h"
-// #include "watchdog.h"
-// #include "rtc.h"
-// #include "rosc.h"
-// #include "vreg_and_chip_reset.h"
-// #include "tbman.h"
-// #include "dma.h"
-// #include "usbctrl_dpram.h"
-// #include "usbctrl_regs.h"
-// #include "pio.h"
-// #include "raspberrypi/peripherals.h/sio.h"
-// #include "ppb.h"
-
-#ifdef __cplusplus
-}
-#endif
 
 // includes that define the registers namespace go here.
 #include "raspberrypi/peripherals.hpp/RP2040_adc_hw.hpp"
@@ -273,5 +188,21 @@ extern "C" {
 #include "raspberrypi/peripherals.hpp/RP2040_xip_ctrl_sw.hpp"
 #include "raspberrypi/peripherals.hpp/RP2040_xip_ssi_sw.hpp"
 #include "raspberrypi/peripherals.hpp/RP2040_xosc_sw.hpp"
+
+namespace libMcuLL {
+
+// predefined peripheral types
+using padsBank0PeripheralType = sw::padsBank0::padsBank0<hw::padsBank0Address>;
+using gpioBank0PeripheralType = sw::gpioBank0::gpioBank0<hw::ioBank0Address>;
+using resetsPeripheralType = sw::resets::resets<hw::resetsAddress>;
+using sioGpioPeripheralType = sw::sioGpio::sioGpio<hw::sioAddress>;
+using uart0PeripheralType = sw::uart::uart<hw::uart0Address>;
+using uart1PeripheralType = sw::uart::uart<hw::uart1Address>;
+using spi0PeripheralType = sw::spi::spi<hw::spi0Address>;
+using spi1PeripheralType = sw::spi::spi<hw::spi1Address>;
+using i2c0PeripheralType = sw::i2c::i2c<hw::i2c0Address>;
+using i2c1PeripheralType = sw::i2c::i2c<hw::i2c1Address>;
+
+}  // namespace libMcuLL
 
 #endif

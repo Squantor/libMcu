@@ -36,11 +36,11 @@ struct gpioBank0 : libMcuLL::peripheralBase {
    * @return return pointer to peripheral
    */
   static hw::gpioBank0::peripheral* gpioBank0Peripheral() {
-    return reinterpret_cast<hw::gpioBank0::peripheral*>(gpioBank0Address);
+    return reinterpret_cast<hw::gpioBank0::peripheral*>(ioBank0Address);
   }
 
  private:
-  static constexpr libMcuLL::hwAddressType gpioBank0Address = gpioBank0Address_; /**< peripheral address */
+  static constexpr libMcuLL::hwAddressType ioBank0Address = gpioBank0Address_; /**< peripheral address */
 };
 }  // namespace gpioBank0
 }  // namespace sw
