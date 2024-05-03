@@ -5,10 +5,10 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file Main entry point for the raspberry RP2040 microcontroller definitions
+ * \file Main entry point for the raspberry RP2040 Low level microcontroller definitions
  */
-#ifndef RP2040_HPP
-#define RP2040_HPP
+#ifndef RP2040_LL_HPP
+#define RP2040_LL_HPP
 
 namespace libMcuLL {
 namespace hw {
