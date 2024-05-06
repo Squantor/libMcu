@@ -12,6 +12,8 @@
 
 #include "raspberrypi/HAL/RP2040_pins.hpp"
 
-using pinsHalType = libmcuhal::pins::pins<libMcuLL::hw::padsBank0Address, libMcuLL::hw::ioBank0Address>;
+namespace libMcuLL {
+using pinsHalType = libMcuHal::pins::pins<libMcuLL::hw::padsBank0Address, libMcuLL::hw::ioBank0Address>;
+}
 
 #endif

@@ -10,7 +10,7 @@
 #ifndef RP2040_PINS
 #define RP2040_PINS
 
-namespace libmcuhal {
+namespace libMcuHal {
 namespace pins {
 using namespace libMcuLL;
 enum class driveModes : std::uint32_t {
@@ -62,6 +62,17 @@ struct pins {
       padsBank0Peripheral()->GPIO[pin.pinIndex] = setting;
     } else
       static_assert(pin.port == hw::IOports::QSPI, "Does not support QSPI pins yet");
+  }
+  /**
+   * @brief resets pin to reset defaults
+   *
+   * @tparam T pin template parameter type
+   * @param pin reference to pin
+   */
+  template <typename T>
+  void reset(T& pin) {
+    gpioBank0Peripheral()->GPIO[pin.pinIndex].CTRL = hw::gpioBank0::CTRL::DEFAULT;
+    padsBank0Peripheral()->GPIO[pin.pinIndex] = hw::padsBank0::GPIO::DEFAULT;
   }
 
  private:
@@ -134,6 +145,6 @@ struct pins {
   static constexpr hwAddressType ioBank0Address = gpioBank0Address_;   /**< gpio bank 0 peripheral address */
 };
 }  // namespace pins
-}  // namespace libmcuhal
+}  // namespace libMcuHal
 
 #endif
