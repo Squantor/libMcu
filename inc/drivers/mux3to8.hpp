@@ -13,6 +13,7 @@
 namespace libMcuDriver::mux {
 
 using namespace libMcuHal;
+// template <auto &gpioPeripheral, auto &notEnablePin, auto &A0Pin>
 template <auto &gpioPeripheral>
 struct mux3to8 {
   void initialize() {
@@ -22,8 +23,11 @@ struct mux3to8 {
  private:
   // add constraints here
   using peripheralType = std::remove_reference<decltype(gpioPeripheral)>::type;
-  // static_assert(std::is_same<libMcuHal::gpio::gpio, peripheralType>::value, "peripheral is not a libMcuHal::gpio");
-  static_assert(std::is_base_of<libMcuHal::halGpioBase, peripheralType>::value, "peripheral is not a Hal Gpio Class");
+  // using notEnablePinType = std::remove_reference<decltype(notEnablePin)>::type;
+  // using A0PinType = std::remove_reference<decltype(A0Pin)>::type;
+  static_assert(std::is_base_of<libMcuHal::halGpioBase, peripheralType>::value, "gpioPeripheral is not a Hal Gpio Class");
+  // static_assert(std::is_base_of<libMcu::pinBase, notEnablePinType>::value, "gpioPeripheral is not a Hal Gpio Class");
+  // static_assert(std::is_base_of<libMcu::pinBase, A0PinType>::value, "gpioPeripheral is not a Hal Gpio Class");
 };
 }  // namespace libMcuDriver::mux
 

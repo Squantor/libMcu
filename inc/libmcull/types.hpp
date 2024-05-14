@@ -1,17 +1,20 @@
 /*
  * SPDX-License-Identifier: MIT
  *
- * Copyright (c) 2023 Bart Bilos
+ * Copyright (c) 2024 Bart Bilos
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file types used by libMcuLL
+ * \file types used by libMcu
  */
 #ifndef TYPES_HPP
 #define TYPES_HPP
 
-namespace libMcuLL {
-
+/**
+ * @brief LibMcu wide used types
+ *
+ */
+namespace libMcu {
 /**
  * @brief defines a constant for typesafety
  *
@@ -29,6 +32,17 @@ struct constant {
 };
 
 /**
+ * @brief Base class where all pin traits are based of from
+ * This baseclass is used as a base derivation for the pin traits. We can use the base to typecheck passing pins to various
+ * drivers/functions
+ *
+ */
+struct pinBase {};
+
+}  // namespace libMcu
+namespace libMcuLL {
+
+/**
  * @brief Peripheral base class that all peripherals should inherit from
  *
  * You will never copy/move a peripheral, they are "eternal" with respect to program lifetime
@@ -43,8 +57,8 @@ struct peripheralBase {
   peripheralBase& operator=(peripheralBase&&) = delete;
 };
 
-using hwAddressBase = constant<std::uint32_t>;      /**< base type definition of a memory address */
-using hwAddressType = typename hwAddressBase::type; /**< type definition of a memory address */
+using hwAddressBase = libMcu::constant<std::uint32_t>; /**< base type definition of a memory address */
+using hwAddressType = typename hwAddressBase::type;    /**< type definition of a memory address */
 
 struct memoryAddress : hwAddressBase {}; /**< generic memory address */
 
@@ -114,7 +128,7 @@ struct sioBaseAddress : hwAddressBase {};
 struct ppbBaseAddress : hwAddressBase {};
 
 /* I2C general definitions */
-using i2cDeviceAddressBase = constant<std::uint8_t>;
+using i2cDeviceAddressBase = libMcu::constant<std::uint8_t>;
 using i2cDeviceAddressType = typename i2cDeviceAddressBase::type;
 
 struct i2cDeviceAddress : i2cDeviceAddressBase {}; /**< General purpose I2C address type */
