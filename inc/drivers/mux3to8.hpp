@@ -13,44 +13,51 @@
 namespace libMcuDriver::mux {
 
 using namespace libMcuHal;
-// template <auto &gpioPeripheral, auto &notEnablePin, auto &A0Pin>
-template <auto &gpioPeripheral, typename notEnablePinType, typename a0PinType, typename a1PinType, typename a2PinType>
+/**
+ * @brief 3to8 multiplexer driver
+ *
+ * @tparam &gpioHal object reference to a GPIO Hal object
+ * @tparam notEnablePinType trait template type for the not enable pin
+ * @tparam a0PinType trait template type for A0 pin
+ * @tparam a1PinType trait template type for A1 pin
+ * @tparam a2PinType trait template type for A2 pin
+ */
+template <auto &gpioHal, typename notEnablePinType, typename a0PinType, typename a1PinType, typename a2PinType>
 struct mux3to8 {
   /**
-   * @brief
-   *
+   * @brief setup gpio pins to outputs and default to disabled multiplexer
    */
   void initialize() {
-    gpioPeripheral.high(notEnablePin);
-    gpioPeripheral.output(notEnablePin);
-    gpioPeripheral.output(a0Pin);
-    gpioPeripheral.output(a1Pin);
-    gpioPeripheral.output(a2Pin);
+    gpioHal.high(notEnablePin);
+    gpioHal.output(notEnablePin);
+    gpioHal.output(a0Pin);
+    gpioHal.output(a1Pin);
+    gpioHal.output(a2Pin);
   }
 
   /**
-   * @brief
+   * @brief setup multiplexer
    *
-   * @param enable
-   * @param value
+   * @param enable enable or disable
+   * @param value which value to multiplex
    */
   void set(bool enable, std::uint32_t value) {
     if (value & 0x01)
-      gpioPeripheral.high(a0Pin);
+      gpioHal.high(a0Pin);
     else
-      gpioPeripheral.low(a0Pin);
+      gpioHal.low(a0Pin);
     if (value & 0x02)
-      gpioPeripheral.high(a1Pin);
+      gpioHal.high(a1Pin);
     else
-      gpioPeripheral.low(a1Pin);
+      gpioHal.low(a1Pin);
     if (value & 0x04)
-      gpioPeripheral.high(a2Pin);
+      gpioHal.high(a2Pin);
     else
-      gpioPeripheral.low(a2Pin);
+      gpioHal.low(a2Pin);
     if (enable)
-      gpioPeripheral.low(notEnablePin);
+      gpioHal.low(notEnablePin);
     else
-      gpioPeripheral.high(notEnablePin);
+      gpioHal.high(notEnablePin);
   }
 
  private:
@@ -60,8 +67,8 @@ struct mux3to8 {
   static constexpr a2PinType a2Pin{};
 
   // add constraints here
-  using peripheralType = std::remove_reference<decltype(gpioPeripheral)>::type;
-  static_assert(std::is_base_of<libMcuHal::halGpioBase, peripheralType>::value, "gpioPeripheral is not derived from halGpioBase");
+  using halType = std::remove_reference<decltype(gpioHal)>::type;
+  static_assert(std::is_base_of<libMcuHal::halGpioBase, halType>::value, "gpioPeripheral is not derived from halGpioBase");
   static_assert(std::is_base_of<libMcu::pinBase, notEnablePinType>::value, "notEnablePinType is not derived from pinBase");
   static_assert(std::is_base_of<libMcu::pinBase, a0PinType>::value, "a0PinType is not derived from pinBase");
   static_assert(std::is_base_of<libMcu::pinBase, a1PinType>::value, "a1PinType is not derived from pinBase");
