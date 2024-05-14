@@ -13,14 +13,17 @@
 namespace libMcuDriver::mux {
 
 using namespace libMcuHal;
-template <gpioHalType gpioPeripheral_>
+template <auto &gpioPeripheral>
 struct mux3to8 {
   void initialize() {
-    // gpioPeripheral.output(notEnablePin);
+    gpioPeripheral.initialize();
   }
 
  private:
-  static constexpr gpioHalType gpioPeripheral = gpioPeripheral_;
+  // add constraints here
+  using peripheralType = std::remove_reference<decltype(gpioPeripheral)>::type;
+  // static_assert(std::is_same<libMcuHal::gpio::gpio, peripheralType>::value, "peripheral is not a libMcuHal::gpio");
+  static_assert(std::is_base_of<libMcuHal::halGpioBase, peripheralType>::value, "peripheral is not a Hal Gpio Class");
 };
 }  // namespace libMcuDriver::mux
 

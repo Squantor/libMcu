@@ -22,7 +22,7 @@ enum class pullModes : std::uint32_t {
 
 template <padsBank0BaseAddress const& padsBank0Address_, ioBank0BaseAddress const& gpioBank0Address_,
           sioBaseAddress const& sioAddress_>
-struct gpio {
+struct gpio : halGpioBase {
   /**
    * @brief Initialize the gpio HAL
    */

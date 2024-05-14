@@ -34,8 +34,7 @@ struct constant {
  * You will never copy/move a peripheral, they are "eternal" with respect to program lifetime
  *
  */
-class peripheralBase {
- public:
+struct peripheralBase {
   peripheralBase() = default;
   ~peripheralBase() = default;
   peripheralBase(const peripheralBase&) = delete;
@@ -123,5 +122,23 @@ struct i2cDeviceAddress : i2cDeviceAddressBase {}; /**< General purpose I2C addr
 using isrLambda = std::add_pointer<void()>::type;
 
 }  // namespace libMcuLL
+namespace libMcuHal {
+/**
+ * @brief Hal base class that all Hal classes should inherit from
+ *
+ * You will never copy/move a hal object, they are "eternal" with respect to program lifetime
+ *
+ */
+struct halBase {
+  halBase() = default;
+  ~halBase() = default;
+  halBase(const halBase&) = delete;
+  halBase& operator=(const halBase&) = delete;
+  halBase(halBase&&) = delete;
+  halBase& operator=(halBase&&) = delete;
+};
+/* Hal base classes */
+struct halGpioBase : halBase {};
+}  // namespace libMcuHal
 
 #endif
