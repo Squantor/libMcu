@@ -202,6 +202,8 @@ using spi0PeripheralType = sw::spi::spi<hw::spi0Address>;
 using spi1PeripheralType = sw::spi::spi<hw::spi1Address>;
 using i2c0PeripheralType = sw::i2c::i2c<hw::i2c0Address>;
 using i2c1PeripheralType = sw::i2c::i2c<hw::i2c1Address>;
+using clocksPeripheralType = sw::clocks::clocks<hw::clocksAddress>;
+using xoscPeripheralType = sw::xosc::xosc<hw::xoscAddress>;
 
 }  // namespace libMcuLL
 

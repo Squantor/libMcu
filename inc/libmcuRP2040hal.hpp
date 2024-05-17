@@ -18,6 +18,7 @@
 #include <limits>
 #include "libmcull/results.hpp"
 #include "libmcull/types.hpp"
+#include "libmcull/functions.hpp"
 
 #if defined(MCU_RP2040)
 #include "raspberrypi/RP2040_LL.hpp"

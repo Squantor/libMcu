@@ -10,9 +10,7 @@
 #ifndef RP2040_XOSC_HW_HPP
 #define RP2040_XOSC_HW_HPP
 
-namespace libMcuLL {
-namespace hw {
-namespace xosc {
+namespace libMcuLL::hw::xosc {
 /**
  * @brief XOSC register definitions
  *
@@ -26,8 +24,8 @@ struct peripheral {
 };
 namespace CTRL {
 constexpr inline std::uint32_t RESERVED_MASK{0x00FF'FFFFu}; /**< mask for allowed bits */
-constexpr inline std::uint32_t ENABLE{0xD1Eu << 12};        /**< Magic value to enable */
-constexpr inline std::uint32_t DISABLE{0xFABu << 12};       /**< Magic value to disable */
+constexpr inline std::uint32_t ENABLE{0xFABu << 12};        /**< Magic value to enable */
+constexpr inline std::uint32_t DISABLE{0xD1Eu << 12};       /**< Magic value to disable */
 constexpr inline std::uint32_t FREQ_15MHZ{0xAA0u << 0};     /**< 15MHz oscillator range*/
 }  // namespace CTRL
 namespace STATUS {
@@ -58,7 +56,5 @@ constexpr inline std::uint32_t DELAY(uint32_t delay) {
 namespace COUNT {
 constexpr inline std::uint32_t RESERVED_MASK{0x0000'00FF}; /**< mask for allowed bits */
 }  // namespace COUNT
-}  // namespace xosc
-}  // namespace hw
-}  // namespace libMcuLL
+}  // namespace libMcuLL::hw::xosc
 #endif

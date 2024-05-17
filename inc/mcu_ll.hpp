@@ -21,6 +21,7 @@
 #include <limits>
 #include "libmcull/results.hpp"
 #include "libmcull/types.hpp"
+#include "libmcull/functions.hpp"
 
 #if defined(MCU_LPC812M101DH20)
 #include "nxp/LPC812M101DH20.hpp"
