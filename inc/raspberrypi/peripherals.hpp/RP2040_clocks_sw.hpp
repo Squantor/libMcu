@@ -49,6 +49,14 @@ struct clocks : libMcuLL::peripheralBase {
    * @brief Base initialization function
    */
   constexpr void init() {}
+  /**
+   * @brief Setup gpio clock output
+   * @param generator GPIO output clock source to set
+   * @param source clock source to output
+   * @param divisor divisor value, 0 means max division
+   * @param fraction fractional value
+   * @param delay delay of 3 input clocks for disable
+   */
   constexpr void setupGpout(clockgenerators generator, gpoutSources source, std::uint32_t divisor, std::uint32_t fraction,
                             std::uint32_t delay) {
     std::uint32_t index = static_cast<std::uint32_t>(generator);
