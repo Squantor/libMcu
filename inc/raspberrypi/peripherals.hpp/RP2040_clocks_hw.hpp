@@ -72,18 +72,58 @@ constexpr inline std::uint32_t PHASE(std::uint32_t phase) {
 constexpr inline std::uint32_t DC50{1u << 12};              /**< Enable duty cycle correction for odd divisors */
 constexpr inline std::uint32_t ENABLE{1u << 11};            /**< Starts and stops clock generator cleanly */
 constexpr inline std::uint32_t KILL{1u << 10};              /**< kills the clock generator */
-constexpr inline std::uint32_t AUXSRC_MASK{0xFu << 5};      /**< Clock source mask */
-constexpr inline std::uint32_t GPOUT_SRC_PLL_SYS{0u << 5};  /**< GPOUT source is system PLL */
-constexpr inline std::uint32_t GPOUT_SRC_GPIN0{1u << 5};    /**< GPOUT source is clock input 0 */
-constexpr inline std::uint32_t GPOUT_SRC_GPIN1{2u << 5};    /**< GPOUT source is clock input 1 */
-constexpr inline std::uint32_t GPOUT_SRC_PLL_USB{3u << 5};  /**< GPOUT source is USB PLL */
-constexpr inline std::uint32_t GPOUT_SRC_ROSC{4u << 5};     /**< GPOUT source is ROSC */
-constexpr inline std::uint32_t GPOUT_SRC_XOSC{5u << 5};     /**< GPOUT source is XOSC */
-constexpr inline std::uint32_t GPOUT_SRC_CLK_SYS{6u << 5};  /**< GPOUT source is system clock */
-constexpr inline std::uint32_t GPOUT_SRC_CLK_USB{7u << 5};  /**< GPOUT source is USB clock */
-constexpr inline std::uint32_t GPOUT_SRC_CLK_ADC{8u << 5};  /**< GPOUT source is ADC clock */
-constexpr inline std::uint32_t GPOUT_SRC_CLK_RTC{9u << 5};  /**< GPOUT source is RTC clock */
-constexpr inline std::uint32_t GPOUT_SRC_CLK_REF{10u << 5}; /**< GPOUT source is reference clock */
+constexpr inline std::uint32_t AUXSRC_MASK{0xFu << 5};      /**< Auxillairy clock source mask */
+constexpr inline std::uint32_t SRCSRC_MASK{3u << 0};        /**< Glitchless clock source mask */
+constexpr inline std::uint32_t GPOUT_AUX_PLL_SYS{0u << 5};  /**< GPOUT aux source is system PLL */
+constexpr inline std::uint32_t GPOUT_AUX_GPIN0{1u << 5};    /**< GPOUT aux source is clock input 0 */
+constexpr inline std::uint32_t GPOUT_AUX_GPIN1{2u << 5};    /**< GPOUT aux source is clock input 1 */
+constexpr inline std::uint32_t GPOUT_AUX_PLL_USB{3u << 5};  /**< GPOUT aux source is USB PLL */
+constexpr inline std::uint32_t GPOUT_AUX_ROSC{4u << 5};     /**< GPOUT aux source is ROSC */
+constexpr inline std::uint32_t GPOUT_AUX_XOSC{5u << 5};     /**< GPOUT aux source is XOSC */
+constexpr inline std::uint32_t GPOUT_AUX_CLK_SYS{6u << 5};  /**< GPOUT aux source is system clock */
+constexpr inline std::uint32_t GPOUT_AUX_CLK_USB{7u << 5};  /**< GPOUT aux source is USB clock */
+constexpr inline std::uint32_t GPOUT_AUX_CLK_ADC{8u << 5};  /**< GPOUT aux source is ADC clock */
+constexpr inline std::uint32_t GPOUT_AUX_CLK_RTC{9u << 5};  /**< GPOUT aux source is RTC clock */
+constexpr inline std::uint32_t GPOUT_AUX_CLK_REF{10u << 5}; /**< GPOUT aux source is REF clock */
+constexpr inline std::uint32_t REF_AUX_PLL_USB{0u << 5};    /**< REF clock aux source is USB PLL */
+constexpr inline std::uint32_t REF_AUX_GPIN0{1u << 5};      /**< REF clock aux source is GPIN 0 */
+constexpr inline std::uint32_t REF_AUX_GPIN1{2u << 5};      /**< REF clock aux source is GPIN 1 */
+constexpr inline std::uint32_t REF_SRC_ROSC{0u << 0};       /**< REF clock main source is ROSC */
+constexpr inline std::uint32_t REF_SRC_AUX{1u << 0};        /**< REF clock main source is aux mux */
+constexpr inline std::uint32_t REF_SRC_XOSC{2u << 0};       /**< REF clock main source is XOSC */
+constexpr inline std::uint32_t SYS_AUX_PLL_SYS{0u << 5};    /**< system clock aux source is SYS PLL */
+constexpr inline std::uint32_t SYS_AUX_PLL_USB{1u << 5};    /**< system clock aux source is USB PLL */
+constexpr inline std::uint32_t SYS_AUX_ROSC{2u << 5};       /**< system clock aux source is ROSC */
+constexpr inline std::uint32_t SYS_AUX_XOSC{3u << 5};       /**< system clock aux source is XOSC */
+constexpr inline std::uint32_t SYS_AUX_GPIN0{4u << 5};      /**< system clock aux source is GPIN0 */
+constexpr inline std::uint32_t SYS_AUX_GPIN1{5u << 5};      /**< system clock aux source is GPIN1 */
+constexpr inline std::uint32_t SYS_SRC_CLK_REF{0u << 0};    /**< sytem clock src source is REF clock*/
+constexpr inline std::uint32_t SYS_SRC_AUX{1u << 0};        /**< sytem clock src source is aux mux */
+constexpr inline std::uint32_t PERI_AUX_CLK_SYS{0u << 5};   /**< Peripheral clock aux source is system clock */
+constexpr inline std::uint32_t PERI_AUX_PLL_SYS{1u << 5};   /**< Peripheral clock aux source is SYS PLL */
+constexpr inline std::uint32_t PERI_AUX_PLL_USB{2u << 5};   /**< Peripheral clock aux source is USB PLL */
+constexpr inline std::uint32_t PERI_AUX_ROSC{3u << 5};      /**< Peripheral clock aux source is ROSC */
+constexpr inline std::uint32_t PERI_AUX_XOSC{4u << 5};      /**< Peripheral clock aux source is XOSC */
+constexpr inline std::uint32_t PERI_AUX_GPIN0{5u << 5};     /**< Peripheral clock aux source is GPIN0 */
+constexpr inline std::uint32_t PERI_AUX_GPIN1{6u << 5};     /**< Peripheral clock aux source is GPIN1 */
+constexpr inline std::uint32_t USB_AUX_PLL_USB{0u << 5};    /**< USB clock aux source is USB PLL */
+constexpr inline std::uint32_t USB_AUX_PLL_SYS{1u << 5};    /**< USB clock aux source is SYS PLL */
+constexpr inline std::uint32_t USB_AUX_ROSC{2u << 5};       /**< USB clock aux source is ROSC */
+constexpr inline std::uint32_t USB_AUX_XOSC{3u << 5};       /**< USB clock aux source is XOSC */
+constexpr inline std::uint32_t USB_AUX_GPIN0{4u << 5};      /**< USB clock aux source is GPIN0 */
+constexpr inline std::uint32_t USB_AUX_GPIN1{5u << 5};      /**< USB clock aux source is GPIN1 */
+constexpr inline std::uint32_t ADC_AUX_PLL_USB{0u << 5};    /**< ADC clock aux source is USB PLL */
+constexpr inline std::uint32_t ADC_AUX_PLL_SYS{1u << 5};    /**< ADC clock aux source is SYS PLL */
+constexpr inline std::uint32_t ADC_AUX_ROSC{2u << 5};       /**< ADC clock aux source is ROSC */
+constexpr inline std::uint32_t ADC_AUX_XOSC{3u << 5};       /**< ADC clock aux source is XOSC */
+constexpr inline std::uint32_t ADC_AUX_GPIN0{4u << 5};      /**< ADC clock aux source is GPIN0 */
+constexpr inline std::uint32_t ADC_AUX_GPIN1{5u << 5};      /**< ADC clock aux source is GPIN1 */
+constexpr inline std::uint32_t RTC_AUX_PLL_USB{0u << 5};    /**< RTC clock aux source is USB PLL */
+constexpr inline std::uint32_t RTC_AUX_PLL_SYS{1u << 5};    /**< RTC clock aux source is SYS PLL */
+constexpr inline std::uint32_t RTC_AUX_ROSC{2u << 5};       /**< RTC clock aux source is ROSC */
+constexpr inline std::uint32_t RTC_AUX_XOSC{3u << 5};       /**< RTC clock aux source is XOSC */
+constexpr inline std::uint32_t RTC_AUX_GPIN0{4u << 5};      /**< RTC clock aux source is GPIN0 */
+constexpr inline std::uint32_t RTC_AUX_GPIN1{5u << 5};      /**< RTC clock aux source is GPIN1 */
 }  // namespace CTRL
 namespace DIV {
 constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /**< Mask for allowed bits */
@@ -106,6 +146,18 @@ constexpr inline std::uint32_t FRAC(std::uint32_t fractional) {
 }  // namespace DIV
 namespace SELECTED {
 constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /**< Mask for allowed bits */
+constexpr inline std::uint32_t DEFAULT{1u << 0};            /**< Default value for glitchless mux */
+constexpr inline std::uint32_t REF_SRC_ROSC{1u << 0};       /**< ROSC selected by Glitchless mux */
+constexpr inline std::uint32_t REF_SRC_AUX{1u << 1};        /**< AUX mux selected by Glitchless mux */
+constexpr inline std::uint32_t REF_SRC_XOSC{1u << 2};       /**< XOSC selected by Glitchless mux */
+/**
+ * @brief format clock source index to bit field in the clock selected register
+ * @param index clock source index
+ * @return formatted bit mask for SELECTED register
+ */
+constexpr inline std::uint32_t index2Selected(uint32_t index) {
+  return 1u << index;
+}
 }  // namespace SELECTED
 namespace CLK_SYS_RESUS_CTRL {
 constexpr inline std::uint32_t RESERVED_MASK{0x0001'11FFu}; /**< Mask for allowed bits */
