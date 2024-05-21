@@ -9,8 +9,7 @@
  */
 #ifndef CORTEXM_SW_HPP
 #define CORTEXM_SW_HPP
-namespace libMcuLL {
-namespace sw {
+namespace libMcu::sw {
 
 /**
  * @brief No operation
@@ -147,7 +146,6 @@ __attribute__((always_inline)) static inline std::uint32_t ror(std::uint32_t val
  */
 #define LIBMCULL_BKPT(value) __asm volatile("bkpt " #value)
 
-}  // namespace sw
-}  // namespace libMcuLL
+}  // namespace libMcu::sw
 
 #endif

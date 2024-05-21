@@ -86,11 +86,11 @@ struct scb {
    *
    */
   [[noreturn]] constexpr void reset() {
-    libMcuLL::sw::dsb();
+    libMcu::sw::dsb();
     scbPeripheral()->AIRCR = AIRCR::VECTKEY_KEY | AIRCR::SYSRESETREQ;
-    libMcuLL::sw::dsb();
+    libMcu::sw::dsb();
     while (1) {
-      libMcuLL::sw::nop();
+      libMcu::sw::nop();
     }
   }
 

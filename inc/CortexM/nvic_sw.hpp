@@ -72,8 +72,8 @@ struct nvic {
       std::uint32_t index = getInterruptIndex(interrupt);
       std::uint32_t bitIndex = getInterruptBit(interrupt);
       nvicPeripheral()->ICER[index] = ICER::CLRENA(bitIndex);
-      libMcuLL::sw::dsb();
-      libMcuLL::sw::isb();
+      libMcu::sw::dsb();
+      libMcu::sw::isb();
     }
   }
   /**
