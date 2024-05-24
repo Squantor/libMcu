@@ -34,7 +34,6 @@ struct pll : libMcuLL::peripheralBase {
   }
   /**
    * @brief get registers from peripheral
-   *
    * @return return pointer to peripheral
    */
   static hw::pll::peripheral* pllPeripheral() {
