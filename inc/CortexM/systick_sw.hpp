@@ -100,5 +100,4 @@ struct systick {
   isrLambda callback;
 };
 }  // namespace libMcuLL::sw::systick
-
 #endif

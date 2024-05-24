@@ -9,9 +9,7 @@
  */
 #ifndef SCB_SW_HPP
 #define SCB_SW_HPP
-namespace libMcuLL {
-namespace sw {
-namespace scb {
+namespace libMcuLL::sw::scb {
 using namespace hw::scb;
 template <libMcuLL::scbBaseAddress const& scbAddress_>
 struct scb {
@@ -96,7 +94,5 @@ struct scb {
 
   static constexpr libMcuLL::hwAddressType scbAddress = scbAddress_; /**< scb peripheral address */
 };
-}  // namespace scb
-}  // namespace sw
-}  // namespace libMcuLL
+}  // namespace libMcuLL::sw::scb
 #endif

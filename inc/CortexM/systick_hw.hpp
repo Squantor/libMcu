@@ -9,9 +9,7 @@
  */
 #ifndef SYSTICK_HW_HPP
 #define SYSTICK_HW_HPP
-namespace libMcuLL {
-namespace hw {
-namespace systick {
+namespace libMcuLL::hw::systick {
 struct peripheral {
   volatile std::uint32_t CSR;         /**< systick control and status register */
   volatile std::uint32_t RVR;         /**< systick reload value register */
@@ -25,7 +23,6 @@ constexpr inline std::uint32_t TICKINT = (1 << 1);         /**< enable systick i
 constexpr inline std::uint32_t CLKSOURCE_EXT = (0 << 2);   /**< select external reference clock */
 constexpr inline std::uint32_t CLKSOURCE_PROC = (1 << 2);  /**< select processor clock */
 constexpr inline std::uint32_t COUNTFLAG_MASK = (1 << 16); /** 1 if counter passed 0 after last read */
-
 }  // namespace CSR
 namespace RVR {
 constexpr inline std::uint32_t RESERVED_MASK = 0x00FFFFFF; /**< register mask for allowed bits */
@@ -49,8 +46,5 @@ constexpr inline std::uint32_t TENMS_MASK = 0x00FFFFFFFF;  /**< reload counter v
 constexpr inline std::uint32_t SKEW_MASK = (1 << 30);      /**< indicates TENMS is rounded from non integer ratio */
 constexpr inline std::uint32_t NOREF_MASK = (1 << 31);     /**< indicates if there is a reference clock */
 }  // namespace CALIB
-
-}  // namespace systick
-}  // namespace hw
-}  // namespace libMcuLL
+}  // namespace libMcuLL::hw::systick
 #endif

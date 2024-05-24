@@ -9,9 +9,7 @@
  */
 #ifndef NVIC_SW_HPP
 #define NVIC_SW_HPP
-namespace libMcuLL {
-namespace sw {
-namespace nvic {
+namespace libMcuLL::sw::nvic {
 using namespace hw::nvic;
 using namespace hw::scb;
 template <libMcuLL::nvicBaseAddress const& nvicAddress_, libMcuLL::scbBaseAddress const& scbAddress_>
@@ -175,8 +173,5 @@ struct nvic {
   static constexpr libMcuLL::hwAddressType nvicAddress = nvicAddress_; /**< nvic peripheral address */
   static constexpr libMcuLL::hwAddressType scbAddress = scbAddress_;   /**< scb peripheral address */
 };
-}  // namespace nvic
-}  // namespace sw
-}  // namespace libMcuLL
-
+}  // namespace libMcuLL::sw::nvic
 #endif

@@ -9,9 +9,7 @@
  */
 #ifndef NVIC_HW_HPP
 #define NVIC_HW_HPP
-namespace libMcuLL {
-namespace hw {
-namespace nvic {
+namespace libMcuLL::hw::nvic {
 struct peripheral {
   volatile std::uint32_t ISER[1U]; /**< interrupt set enable register */
   std::uint32_t RESERVED0[31U];
@@ -98,8 +96,6 @@ constexpr inline std::uint32_t IPR(std::uint32_t registerValue, std::uint32_t in
 }
 }  // namespace IP
 
-}  // namespace nvic
-}  // namespace hw
-}  // namespace libMcuLL
+}  // namespace libMcuLL::hw::nvic
 
 #endif
