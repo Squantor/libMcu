@@ -5,41 +5,11 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file types used by libMcu
+ * \file types used by libMcuLL
  */
-#ifndef TYPES_HPP
-#define TYPES_HPP
+#ifndef LIBMCULL_TYPES_HPP
+#define LIBMCULL_TYPES_HPP
 
-/**
- * @brief LibMcu wide used types
- *
- */
-namespace libMcu {
-/**
- * @brief defines a constant for typesafety
- *
- * @tparam C_ type of constant
- */
-template <typename C_>
-struct constant {
-  using type = C_;
-
-  constexpr operator C_() const {
-    return value;
-  }
-
-  C_ value;
-};
-
-/**
- * @brief Base class where all pin traits are based of from
- * This baseclass is used as a base derivation for the pin traits. We can use the base to typecheck passing pins to various
- * drivers/functions
- *
- */
-struct pinBase {};
-
-}  // namespace libMcu
 namespace libMcuLL {
 
 /**
@@ -133,26 +103,5 @@ using i2cDeviceAddressType = typename i2cDeviceAddressBase::type;
 
 struct i2cDeviceAddress : i2cDeviceAddressBase {}; /**< General purpose I2C address type */
 
-using isrLambda = std::add_pointer<void()>::type;
-
 }  // namespace libMcuLL
-namespace libMcuHal {
-/**
- * @brief Hal base class that all Hal classes should inherit from
- *
- * You will never copy/move a hal object, they are "eternal" with respect to program lifetime
- *
- */
-struct halBase {
-  halBase() = default;
-  ~halBase() = default;
-  halBase(const halBase&) = delete;
-  halBase& operator=(const halBase&) = delete;
-  halBase(halBase&&) = delete;
-  halBase& operator=(halBase&&) = delete;
-};
-/* Hal base classes */
-struct halGpioBase : halBase {};
-}  // namespace libMcuHal
-
 #endif

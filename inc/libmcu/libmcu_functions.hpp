@@ -7,8 +7,8 @@
 /**
  * \file helper functions used by libMcu
  */
-#ifndef FUNCTIONS_HPP
-#define FUNCTIONS_HPP
+#ifndef LIBMCU_FUNCTIONS_HPP
+#define LIBMCU_FUNCTIONS_HPP
 
 namespace libMcu::sw {
 inline void delay(std::uint32_t cycles) {

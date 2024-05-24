@@ -5,17 +5,15 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file result types used by libMcuLL
+ * \file result types used by libMcu
  */
-#ifndef RESULTS_HPP
-#define RESULTS_HPP
+#ifndef LIBMCU_RESULTS_HPP
+#define LIBMCU_RESULTS_HPP
 
-namespace libMcuLL {
+namespace libMcu {
 /**
- * @brief result class for libMcuLL
- *
- * Mostly used by asynchronous operations
- *
+ * @brief result class used in libMcu for various return values
+ * Predominantly used in libMcuHal and libMcuDriver
  */
 enum class results : std::uint32_t {
   NO_ERROR,  /**< No error */
@@ -27,6 +25,6 @@ enum class results : std::uint32_t {
   CLAIMED,   /**< Interface has been successfully claimed */
   UNCLAIMED, /**< Interface has been successfully unclaimed */
 };
-}  // namespace libMcuLL
+}  // namespace libMcu
 
 #endif

@@ -9,10 +9,9 @@
  */
 #ifndef SYSTICK_SW_HPP
 #define SYSTICK_SW_HPP
-namespace libMcuLL {
-namespace sw {
-namespace systick {
+namespace libMcuLL::sw::systick {
 using namespace hw::systick;
+using namespace libMcu;
 template <libMcuLL::systickBaseAddress const& nvicAddress_>
 struct systick {
   /**
@@ -100,8 +99,6 @@ struct systick {
   static constexpr libMcuLL::hwAddressType nvicAddress = nvicAddress_; /**< peripheral address */
   isrLambda callback;
 };
-}  // namespace systick
-}  // namespace sw
-}  // namespace libMcuLL
+}  // namespace libMcuLL::sw::systick
 
 #endif
