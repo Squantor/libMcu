@@ -54,6 +54,7 @@ constexpr inline std::uint32_t FRF_MOTOROLA{0u << 4};  /**< Motorola Frame forma
 constexpr inline std::uint32_t FRF_TI{1u << 4};        /**< TI Frame format */
 constexpr inline std::uint32_t FRF_NATIONAL{2u << 4};  /**< National Microwire Frame format */
 constexpr inline std::uint32_t FORMAT_MASK{0xFu << 4}; /**< Format mask */
+constexpr inline std::uint32_t DSS_MASK{0xFu << 0};    /**< Data size mask */
 constexpr inline std::uint32_t DSS_4BIT{3u << 0};      /**< 4 bit data */
 constexpr inline std::uint32_t DSS_5BIT{4u << 0};      /**< 5 bit data */
 constexpr inline std::uint32_t DSS_6BIT{5u << 0};      /**< 6 bit data */
@@ -67,6 +68,14 @@ constexpr inline std::uint32_t DSS_13BIT{12u << 0};    /**< 13 bit data */
 constexpr inline std::uint32_t DSS_14BIT{13u << 0};    /**< 14 bit data */
 constexpr inline std::uint32_t DSS_15BIT{14u << 0};    /**< 15 bit data */
 constexpr inline std::uint32_t DSS_16BIT{15u << 0};    /**< 16 bit data */
+/**
+ * @brief Format DSS field to SSPCR0 register
+ * @param bitSize amount of bits to transfer, values between 4 and 16 are valid
+ * @return SCR field formatted to SSPCR0 register
+ */
+constexpr inline std::uint32_t DSS(std::uint32_t bitSize) {
+  return (bitSize - 1) << 0;
+}
 }  // namespace SSPCR0
 namespace SSPCR1 {
 constexpr inline std::uint32_t RESERVED_MASK{0x0000'000Fu}; /**< Mask for allowed bits */

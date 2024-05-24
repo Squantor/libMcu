@@ -61,6 +61,36 @@ struct spi : libMcuLL::peripheralBase {
   // TODO: SPI master initialisation method with frame format selection
   // TODO: SPI slave initialisation method with standard waveform
   // TODO: SPI slave initialisation method with waveform selection
+  constexpr void write() {}
+  constexpr void read() {}
+  constexpr void readWrite(const std::span<std::uint16_t> transmitBuffer, std::span<std::uint16_t> receiveBuffer,
+                           std::uint32_t bitcount) {
+    size_t transmitIndex = 0u;
+    size_t receiveIndex = 0u;
+    spiPeripheral()->SSPCR0 = (spiPeripheral()->SSPCR0 & ~hw::spi::SSPCR0::DSS_MASK) | hw::spi::SSPCR0::DSS(bitcount);
+    spiPeripheral()->SSPCR1 = hw::spi::SSPCR1::SSE;
+    while (transmitIndex != transmitBuffer.size()) {
+      // TX FIFO not full? Add one element, as we loop we will fill the TX buffer in short order
+      if (spiPeripheral()->SSPSR & hw::spi::SSPSR::TNF_MASK) {
+        spiPeripheral()->SSPDR = transmitBuffer[transmitIndex];
+        transmitIndex++;
+      }
+      // if we get some data in the mean time, put it in the receive buffer
+      if (spiPeripheral()->SSPSR & hw::spi::SSPSR::RNE_MASK) {
+        receiveBuffer[receiveIndex] = spiPeripheral()->SSPDR;
+        receiveIndex++;
+      }
+    }
+    // receive remaining data
+    while (transmitIndex > receiveIndex) {
+      if (spiPeripheral()->SSPSR & hw::spi::SSPSR::RNE_MASK) {
+        receiveBuffer[receiveIndex] = spiPeripheral()->SSPDR;
+        receiveIndex++;
+      }
+    }
+    spiPeripheralClear()->SSPCR1 = hw::spi::SSPCR1::SSE;
+  }
+
   /**
    * @brief Set the SPI peripheral bit rate
    *
@@ -71,17 +101,38 @@ struct spi : libMcuLL::peripheralBase {
    */
   constexpr std::uint32_t setBitRate(std::uint32_t bitRate) {
     // compute divider and truncate so we can observe a possible round off
-    std::uint16_t divider = static_cast<std::uint16_t>(FREQ_PERI / bitRate);
+    std::uint16_t divider = static_cast<std::uint16_t>(FREQ_PERI / 2 / bitRate);
+    spiPeripheral()->SSPCPSR = 2; /* divide by two as a minimum */
     spiPeripheral()->SSPCR0 = (spiPeripheral()->SSPCR0 & ~hw::spi::SSPCR0::SCR_MASK) | hw::spi::SSPCR0::SCR(divider);
-    return FREQ_PERI / divider;
+    return FREQ_PERI / 2 / divider;
   }
   /**
    * @brief get registers from peripheral
-   *
    * @return return pointer to peripheral
    */
   static hw::spi::peripheral* spiPeripheral() {
     return reinterpret_cast<hw::spi::peripheral*>(spiAddress);
+  }
+  /**
+   * @brief get registers from peripheral for atomic set access
+   * @return return pointer to peripheral
+   */
+  static hw::spi::peripheral* spiPeripheralSet() {
+    return reinterpret_cast<hw::spi::peripheral*>(spiAddress + hw::peripheralOffsetSet);
+  }
+  /**
+   * @brief get registers from peripheral for atomic Clear access
+   * @return return pointer to peripheral
+   */
+  static hw::spi::peripheral* spiPeripheralClear() {
+    return reinterpret_cast<hw::spi::peripheral*>(spiAddress + hw::peripheralOffsetClear);
+  }
+  /**
+   * @brief get registers from peripheral for atomic XOR access
+   * @return return pointer to peripheral
+   */
+  static hw::spi::peripheral* spiPeripheralXor() {
+    return reinterpret_cast<hw::spi::peripheral*>(spiAddress + hw::peripheralOffsetXor);
   }
 
  private:
