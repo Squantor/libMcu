@@ -14,7 +14,7 @@ namespace libMcuLL {
 namespace sw {
 namespace crc {
 using namespace hw::crc;
-template <libMcuLL::CRCbaseAddress crcAddress_>
+template <libMcuLL::crcBaseAddress crcAddress_>
 struct crc : libMcuLL::peripheralBase {
   /**
    * @brief get registers from peripheral

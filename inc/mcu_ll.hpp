@@ -19,9 +19,10 @@
 #include <span>
 #include <type_traits>
 #include <limits>
-#include "libmcull/results.hpp"
-#include "libmcull/types.hpp"
-#include "libmcull/functions.hpp"
+#include "libmcu/libmcu_results.hpp"
+#include "libmcu/libmcu_types.hpp"
+#include "libmcu/libmcu_functions.hpp"
+#include "libmcu/libmcull_types.hpp"
 
 #if defined(MCU_LPC812M101DH20)
 #include "nxp/LPC812M101DH20.hpp"

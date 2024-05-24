@@ -14,7 +14,7 @@ namespace libMcuLL {
 namespace sw {
 namespace wwdt {
 using namespace hw::wwdt;
-template <libMcuLL::WWDTbaseAddress wwdtAddress_>
+template <libMcuLL::wwdtBaseAddress wwdtAddress_>
 struct wwdt {
   static constexpr libMcuLL::hwAddressType wwdtAddress = wwdtAddress_; /**< peripheral address */
   /**

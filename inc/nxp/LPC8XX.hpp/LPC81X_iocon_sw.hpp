@@ -63,7 +63,7 @@ enum class i2cmodes : std::uint32_t {
   I2C_FAST = PIO::I2C_FAST, /**< fast mode plus I2C */
 };
 
-template <libMcuLL::IOCONbaseAddress ioconAddress_>
+template <libMcuLL::ioconBaseAddress ioconAddress_>
 struct iocon : libMcuLL::peripheralBase {
   /**
    * @brief Setup normal IOCON pin

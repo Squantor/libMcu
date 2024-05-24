@@ -14,7 +14,7 @@ namespace libMcuLL {
 namespace sw {
 namespace pmu {
 using namespace hw::pmu;
-template <libMcuLL::PMUbaseAddress pmuAddress_>
+template <libMcuLL::pmuBaseAddress pmuAddress_>
 struct pmu {
   /**
    * @brief get registers from peripheral

@@ -14,7 +14,7 @@ namespace libMcuLL {
 namespace sw {
 namespace pin_int {
 using namespace hw::gpio;
-template <libMcuLL::PININTbaseAddress pinintAddress_>
+template <libMcuLL::pinintBaseAddress pinintAddress_>
 struct pinint : peripheralBase {
   /**
    * @brief get registers from peripheral

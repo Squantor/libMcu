@@ -104,7 +104,7 @@ enum class captureCondition : std::uint32_t {
   CAPTURE_HIGH = EV_CTRL::IOCOND_HIGH, /**< Capture high levels */
 };
 
-template <libMcuLL::SCTbaseAddress sctAddress_>
+template <libMcuLL::sctBaseAddress sctAddress_>
 struct sct : libMcuLL::peripheralBase {
   /**
    * @brief Setup SCT to unified 32 bit timer

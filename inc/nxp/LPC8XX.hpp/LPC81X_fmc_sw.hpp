@@ -20,7 +20,7 @@ enum class waitstates : std::uint32_t {
   WAIT_2_CLOCK = FLASHCFG::FLASHTIM_2_CLOCK, /**< 2 clock flash waitstate, use up to 30MHz clock */
 };
 
-template <libMcuLL::FMCbaseAddress fmcAddress_>
+template <libMcuLL::fmcBaseAddress fmcAddress_>
 struct fmc {
   /**
    * @brief Change flash controller wait states

@@ -14,7 +14,7 @@ namespace libMcuLL {
 namespace sw {
 namespace wkt {
 using namespace hw::wkt;
-template <libMcuLL::WKTbaseAddress wktAddress_>
+template <libMcuLL::wktBaseAddress wktAddress_>
 struct wkt {
   /**
    * @brief get registers from peripheral

@@ -136,7 +136,7 @@ constexpr peripheralPowers operator|(const peripheralPowers a, const peripheralP
   return static_cast<peripheralPowers>(static_cast<uint32_t>(a) | static_cast<uint32_t>(b));
 }
 
-template <libMcuLL::SYSCONbaseAddress sysconAddress_>
+template <libMcuLL::sysconBaseAddress sysconAddress_>
 struct syscon : libMcuLL::peripheralBase {
   /**
    * @brief reset a peripheral

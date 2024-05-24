@@ -25,7 +25,7 @@ using namespace hw::spi;
  * @tparam chipEnables enum of available chip enables
  * @tparam transferType datatype to use for data transfers
  */
-template <libMcuLL::SPIbaseAddress spiAddress_, typename chipEnables, typename transferType>
+template <libMcuLL::spiBaseAddress spiAddress_, typename chipEnables, typename transferType>
 struct spiSync : libMcuLL::peripheralBase {
   /**
    * @brief Initialise SPI peripheral as master device

@@ -14,7 +14,7 @@ namespace libMcuLL {
 namespace sw {
 namespace gpio {
 using namespace hw::gpio;
-template <libMcuLL::GPIObaseAddress const &gpioAddress_>
+template <libMcuLL::gpioBaseAddress const &gpioAddress_>
 struct gpio : libMcuLL::peripheralBase {
   /**
    * @brief Set gpio pin to output mode

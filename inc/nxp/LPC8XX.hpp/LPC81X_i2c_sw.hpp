@@ -14,7 +14,7 @@ namespace libMcuLL {
 namespace sw {
 namespace i2c {
 using namespace hw::i2c;
-template <libMcuLL::I2CbaseAddress i2cAddress_>
+template <libMcuLL::i2cBaseAddress i2cAddress_>
 struct i2c : libMcuLL::peripheralBase {
   /**
    * @brief Initialize I2C master

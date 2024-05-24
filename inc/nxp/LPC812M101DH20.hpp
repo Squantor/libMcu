@@ -64,27 +64,27 @@ enum class interrupts : int8_t {
 namespace libMcuLL::hw {
 // Define peripheral addresses on APB0 bus
 // rename these when full c++ functionality is finished, remove _cpp postfix
-constexpr inline libMcuLL::WWDTbaseAddress wwdtAddress{0x4000'0000u};     /**< Windowed watchdog base address */
-constexpr inline libMcuLL::MRTbaseAddress mrtAddress{0x4000'4000u};       /**< multi rate timer base address */
-constexpr inline libMcuLL::WKTbaseAddress wktAddress{0x4000'8000u};       /**< wakeup timer base address */
-constexpr inline libMcuLL::SWMbaseAddress swmAddress{0x4000'C000u};       /**< Switch matrix base address */
-constexpr inline libMcuLL::PMUbaseAddress pmuAddress{0x4002'0000u};       /**< Power management unit base address */
-constexpr inline libMcuLL::ACMPbaseAddress acmpAddress{0x4002'4000u};     /**< Analog comparator base address */
-constexpr inline libMcuLL::FMCbaseAddress fmcAddress{0x4004'0000u};       /**< Flash memory controller base address */
-constexpr inline libMcuLL::IOCONbaseAddress ioconAddress{0x4004'4000u};   /**< I/O control base address */
-constexpr inline libMcuLL::SYSCONbaseAddress sysconAddress{0x4004'8000u}; /**< System control base address */
-constexpr inline libMcuLL::I2CbaseAddress i2c0Address{0x4005'0000u};      /**< I2C 0 base address */
-constexpr inline libMcuLL::SPIbaseAddress spi0Address{0x4005'8000u};      /**< SPI 0 base address */
-constexpr inline libMcuLL::SPIbaseAddress spi1Address{0x4005'C000u};      /**< SPI 1 base address */
-constexpr inline libMcuLL::USARTbaseAddress usart0Address{0x4006'4000u};  /**< USART 0 base address */
-constexpr inline libMcuLL::USARTbaseAddress usart1Address{0x4006'8000u};  /**< USART 1 base address */
-constexpr inline libMcuLL::USARTbaseAddress usart2Address{0x4006'C000u};  /**< USART 2 base address */
+constexpr inline libMcuLL::wwdtBaseAddress wwdtAddress{0x4000'0000u};     /**< Windowed watchdog base address */
+constexpr inline libMcuLL::mrtBaseAddress mrtAddress{0x4000'4000u};       /**< multi rate timer base address */
+constexpr inline libMcuLL::wktBaseAddress wktAddress{0x4000'8000u};       /**< wakeup timer base address */
+constexpr inline libMcuLL::swmBaseAddress swmAddress{0x4000'C000u};       /**< Switch matrix base address */
+constexpr inline libMcuLL::pmuBaseAddress pmuAddress{0x4002'0000u};       /**< Power management unit base address */
+constexpr inline libMcuLL::acmpBaseAddress acmpAddress{0x4002'4000u};     /**< Analog comparator base address */
+constexpr inline libMcuLL::fmcBaseAddress fmcAddress{0x4004'0000u};       /**< Flash memory controller base address */
+constexpr inline libMcuLL::ioconBaseAddress ioconAddress{0x4004'4000u};   /**< I/O control base address */
+constexpr inline libMcuLL::sysconBaseAddress sysconAddress{0x4004'8000u}; /**< System control base address */
+constexpr inline libMcuLL::i2cBaseAddress i2c0Address{0x4005'0000u};      /**< I2C 0 base address */
+constexpr inline libMcuLL::spiBaseAddress spi0Address{0x4005'8000u};      /**< SPI 0 base address */
+constexpr inline libMcuLL::spiBaseAddress spi1Address{0x4005'C000u};      /**< SPI 1 base address */
+constexpr inline libMcuLL::uartBaseAddress usart0Address{0x4006'4000u};   /**< USART 0 base address */
+constexpr inline libMcuLL::uartBaseAddress usart1Address{0x4006'8000u};   /**< USART 1 base address */
+constexpr inline libMcuLL::uartBaseAddress usart2Address{0x4006'C000u};   /**< USART 2 base address */
 /* AHB peripherals */
-constexpr inline libMcuLL::CRCbaseAddress crcAddress{0x5000'0000u}; /**< CRC calculator base address */
-constexpr inline libMcuLL::SCTbaseAddress sctAddress{0x5000'4000u}; /**< State configurable timer 0 base address */
+constexpr inline libMcuLL::crcBaseAddress crcAddress{0x5000'0000u}; /**< CRC calculator base address */
+constexpr inline libMcuLL::sctBaseAddress sctAddress{0x5000'4000u}; /**< State configurable timer 0 base address */
 /* Direct connected peripherals */
-constexpr inline libMcuLL::GPIObaseAddress gpioAddress{0xA000'0000u};     /**< General Purpose I/O base address */
-constexpr inline libMcuLL::PININTbaseAddress pinintAddress{0xA000'4000u}; /**< Pin interrupt base address */
+constexpr inline libMcuLL::gpioBaseAddress gpioAddress{0xA000'0000u};     /**< General Purpose I/O base address */
+constexpr inline libMcuLL::pinintBaseAddress pinintAddress{0xA000'4000u}; /**< Pin interrupt base address */
 }  // namespace libMcuLL::hw
 
 // includes that define the registers namespace go here.

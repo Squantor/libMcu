@@ -75,7 +75,7 @@ enum class ladderReferenceSetting : std::uint32_t {
   VDDCMP = LAD::LADREF_VDDCMP, /**< ladder reference is VDDCMP pin */
 };
 
-template <libMcuLL::ACMPbaseAddress const& acmpAddress_>
+template <libMcuLL::acmpBaseAddress const& acmpAddress_>
 struct acmp : libMcuLL::peripheralBase {
   /**
    * @brief Setup analog comparator

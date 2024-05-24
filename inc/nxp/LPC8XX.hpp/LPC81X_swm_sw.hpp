@@ -14,7 +14,7 @@ namespace libMcuLL {
 namespace sw {
 namespace swm {
 using namespace hw::swm;
-template <libMcuLL::SWMbaseAddress swmAddress_>
+template <libMcuLL::swmBaseAddress swmAddress_>
 struct swm : libMcuLL::peripheralBase {
   /**
    * @brief set pin to a function

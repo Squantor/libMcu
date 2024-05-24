@@ -14,7 +14,7 @@ namespace libMcuLL {
 namespace sw {
 namespace mrt {
 using namespace hw::mrt;
-template <libMcuLL::MRTbaseAddress mrtAddress_>
+template <libMcuLL::mrtBaseAddress mrtAddress_>
 struct mrt : libMcuLL::peripheralBase {
   /**
    * @brief get registers from peripheral

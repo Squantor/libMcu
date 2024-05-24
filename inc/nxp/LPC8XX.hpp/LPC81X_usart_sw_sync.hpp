@@ -23,7 +23,7 @@ using namespace hw::usart;
  * @tparam usartAddress_ Peripheral base usartAddress
  * @tparam transferType datatype to use for data transfers
  */
-template <libMcuLL::USARTbaseAddress usartAddress_, typename transferType>
+template <libMcuLL::uartBaseAddress usartAddress_, typename transferType>
 struct usartSync : libMcuLL::peripheralBase {
   /**
    * @brief Setup USART to 8n1
