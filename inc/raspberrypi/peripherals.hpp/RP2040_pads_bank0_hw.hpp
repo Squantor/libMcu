@@ -12,9 +12,7 @@
 
 #include <raspberrypi/peripherals.hpp/RP2040_pads_hw.hpp>
 
-namespace libMcuLL {
-namespace hw {
-namespace padsBank0 {
+namespace libMcuLL::hw::padsBank0 {
 
 using namespace libMcuLL::hw::pads;
 /**
@@ -69,8 +67,5 @@ constexpr inline std::uint32_t PDE{1u << 2};      /**< Pulldown enable */
 constexpr inline std::uint32_t SCHMITT{1u << 1};  /**< Schmitt trigger enable */
 constexpr inline std::uint32_t SLEWFAST{1u << 0}; /**< Fast slew rate control */
 }  // namespace SWD
-
-}  // namespace padsBank0
-}  // namespace hw
-}  // namespace libMcuLL
+}  // namespace libMcuLL::hw::padsBank0
 #endif

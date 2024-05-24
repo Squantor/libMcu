@@ -10,9 +10,7 @@
 #ifndef RP2040_PLL_HW_HPP
 #define RP2040_PLL_HW_HPP
 
-namespace libMcuLL {
-namespace hw {
-namespace pll {
+namespace libMcuLL::hw::pll {
 /**
  * @brief I2C register definitions
  *
@@ -58,7 +56,5 @@ constexpr inline std::uint32_t POSTDIV(std::uint32_t divider1, std::uint32_t div
   return (divider1 << 16) | (divider2 << 12);
 }
 }  // namespace PRIM
-}  // namespace pll
-}  // namespace hw
-}  // namespace libMcuLL
+}  // namespace libMcuLL::hw::pll
 #endif

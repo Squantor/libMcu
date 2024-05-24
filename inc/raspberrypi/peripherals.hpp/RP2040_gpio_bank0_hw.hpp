@@ -10,9 +10,7 @@
 #ifndef RP2040_GPIO_BANK0_HW_HPP
 #define RP2040_GPIO_BANK0_HW_HPP
 
-namespace libMcuLL {
-namespace hw {
-namespace gpioBank0 {
+namespace libMcuLL::hw::gpioBank0 {
 /**
  * @brief GPIO  register definitions
  *
@@ -427,7 +425,5 @@ namespace DORMANT_WAKE_INTS {
 constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFF}; /**< Mask for allowed bits */
 /* TODO: bit definitions */
 }  // namespace DORMANT_WAKE_INTS
-}  // namespace gpioBank0
-}  // namespace hw
-}  // namespace libMcuLL
+}  // namespace libMcuLL::hw::gpioBank0
 #endif

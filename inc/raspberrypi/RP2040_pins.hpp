@@ -12,8 +12,7 @@
 #ifndef RP2040_PINS_HPP
 #define RP2040_PINS_HPP
 
-namespace libMcuLL {
-namespace hw {
+namespace libMcuLL::hw {
 
 /**
  * @brief Available pins on RP2040
@@ -2608,9 +2607,6 @@ struct pin<IOports::PORT0, IOpins::PIN29, IOfuncts::USB_VBUS_EN> : libMcu::pinBa
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::F9;
   static constexpr IOports port = IOports::PORT0;
 };
-
 // TODO QSPI pins
-
-}  // namespace hw
-}  // namespace libMcuLL
+}  // namespace libMcuLL::hw
 #endif

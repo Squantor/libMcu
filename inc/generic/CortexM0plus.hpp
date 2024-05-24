@@ -10,8 +10,7 @@
 #ifndef CORTEXM0PLUS_HPP
 #define CORTEXM0PLUS_HPP
 
-namespace libMcuLL {
-namespace hw {
+namespace libMcuLL::hw {
 // MCU configuration options
 namespace core {
 constexpr inline std::uint32_t revision = 0x0001; /**< Revision number */
@@ -42,8 +41,7 @@ enum class interrupts : int8_t {
   dummy1 = 1,   /**< used only for the tests */
   dummy12 = 12, /**< used only for the tests */
 };
-}  // namespace hw
-}  // namespace libMcuLL
+}  // namespace libMcuLL::hw
 
 #include <CortexM/cortex_m0plus.hpp>
 

@@ -10,9 +10,7 @@
 #ifndef RP2040_ADC_SW_HPP
 #define RP2040_ADC_SW_HPP
 
-namespace libMcuLL {
-namespace sw {
-namespace adc {
+namespace libMcuLL::sw::adc {
 template <libMcuLL::adcBaseAddress const& adcAddress_>
 struct adc : libMcuLL::peripheralBase {
   /**
@@ -32,7 +30,5 @@ struct adc : libMcuLL::peripheralBase {
  private:
   static constexpr libMcuLL::hwAddressType adcAddress = adcAddress_; /**< peripheral address */
 };
-}  // namespace adc
-}  // namespace sw
-}  // namespace libMcuLL
+}  // namespace libMcuLL::sw::adc
 #endif

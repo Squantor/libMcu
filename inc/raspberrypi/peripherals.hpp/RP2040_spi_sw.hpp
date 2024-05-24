@@ -10,9 +10,7 @@
 #ifndef RP2040_SPI_SW_HPP
 #define RP2040_SPI_SW_HPP
 
-namespace libMcuLL {
-namespace sw {
-namespace spi {
+namespace libMcuLL::sw::spi {
 using namespace libMcuLL;
 /**
  * @brief Frame formats available
@@ -113,7 +111,5 @@ struct spi : libMcuLL::peripheralBase {
  private:
   static constexpr libMcuLL::hwAddressType spiAddress{spiAddress_}; /**< peripheral address */
 };
-}  // namespace spi
-}  // namespace sw
-}  // namespace libMcuLL
+}  // namespace libMcuLL::sw::spi
 #endif

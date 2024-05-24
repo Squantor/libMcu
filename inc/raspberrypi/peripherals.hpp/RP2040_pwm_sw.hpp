@@ -10,9 +10,7 @@
 #ifndef RP2040_PWM_SW_HPP
 #define RP2040_PWM_SW_HPP
 
-namespace libMcuLL {
-namespace sw {
-namespace pwm {
+namespace libMcuLL::sw::pwm {
 template <libMcuLL::pwmBaseAddress const& pwmAddress_>
 struct pwm : libMcuLL::peripheralBase {
   /**
@@ -32,7 +30,5 @@ struct pwm : libMcuLL::peripheralBase {
  private:
   static constexpr libMcuLL::hwAddressType pwmAddress{pwmAddress_}; /**< peripheral address */
 };
-}  // namespace pwm
-}  // namespace sw
-}  // namespace libMcuLL
+}  // namespace libMcuLL::sw::pwm
 #endif

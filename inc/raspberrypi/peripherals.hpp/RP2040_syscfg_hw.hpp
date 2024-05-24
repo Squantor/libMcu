@@ -10,9 +10,7 @@
 #ifndef RP2040_SYSCFG_HW_HPP
 #define RP2040_SYSCFG_HW_HPP
 
-namespace libMcuLL {
-namespace hw {
-namespace syscfg {
+namespace libMcuLL::hw::syscfg {
 /**
  * @brief System config register definitions
  *
@@ -47,7 +45,5 @@ constexpr inline std::uint32_t RESERVED_MASK{0x0000'00FFu}; /**< Mask for allowe
 namespace MEMPOWERDOWN {
 constexpr inline std::uint32_t RESERVED_MASK{0x0000'00FFu}; /**< Mask for allowed bits */
 }  // namespace MEMPOWERDOWN
-}  // namespace syscfg
-}  // namespace hw
-}  // namespace libMcuLL
+}  // namespace libMcuLL::hw::syscfg
 #endif

@@ -10,9 +10,7 @@
 #ifndef RP2040_PSM_SW_HPP
 #define RP2040_PSM_SW_HPP
 
-namespace libMcuLL {
-namespace sw {
-namespace psm {
+namespace libMcuLL::sw::psm {
 template <libMcuLL::psmBaseAddress const& psmAddress_>
 struct psm : libMcuLL::peripheralBase {
   /**
@@ -32,7 +30,5 @@ struct psm : libMcuLL::peripheralBase {
  private:
   static constexpr libMcuLL::hwAddressType psmAddress{psmAddress_}; /**< peripheral address */
 };
-}  // namespace psm
-}  // namespace sw
-}  // namespace libMcuLL
+}  // namespace libMcuLL::sw::psm
 #endif

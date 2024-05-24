@@ -10,9 +10,7 @@
 #ifndef RP2040_TBMAN_HW_HPP
 #define RP2040_TBMAN_HW_HPP
 
-namespace libMcuLL {
-namespace hw {
-namespace tbman {
+namespace libMcuLL::hw::tbman {
 /**
  * @brief Testbench manager register definitions
  *
@@ -23,7 +21,5 @@ struct peripheral {
 namespace PLATFORM {
 constexpr inline std::uint32_t RESERVED_MASK{0x0000'0001u}; /**< Mask for allowed bits */
 }  // namespace PLATFORM
-}  // namespace tbman
-}  // namespace hw
-}  // namespace libMcuLL
+}  // namespace libMcuLL::hw::tbman
 #endif

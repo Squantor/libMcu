@@ -10,9 +10,7 @@
 #ifndef RP2040_XIP_CTRL_HW_HPP
 #define RP2040_XIP_CTRL_HW_HPP
 
-namespace libMcuLL {
-namespace hw {
-namespace xip {
+namespace libMcuLL::hw::xip {
 /**
  * @brief Execute In Place register definitions
  *
@@ -23,7 +21,5 @@ struct peripheral {
 namespace DUMMY {
 constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /**< Mask for allowed bits */
 }  // namespace DUMMY
-}  // namespace xip
-}  // namespace hw
-}  // namespace libMcuLL
+}  // namespace libMcuLL::hw::xip
 #endif

@@ -12,9 +12,7 @@
 
 #include <raspberrypi/peripherals.hpp/RP2040_pads_sw.hpp>
 
-namespace libMcuLL {
-namespace sw {
-namespace padsBank0 {
+namespace libMcuLL::sw::padsBank0 {
 
 using namespace libMcuLL::sw::pads;
 
@@ -58,7 +56,5 @@ struct padsBank0 : libMcuLL::peripheralBase {
  private:
   static constexpr libMcuLL::hwAddressType padsBank0Address = padsBank0Address_; /**< peripheral address */
 };
-}  // namespace padsBank0
-}  // namespace sw
-}  // namespace libMcuLL
+}  // namespace libMcuLL::sw::padsBank0
 #endif

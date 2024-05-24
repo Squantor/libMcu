@@ -10,9 +10,7 @@
 #ifndef RP2040_RESETS_SW_HPP
 #define RP2040_RESETS_SW_HPP
 
-namespace libMcuLL {
-namespace sw {
-namespace resets {
+namespace libMcuLL::sw::resets {
 enum peripheralResets : std::uint32_t {
   USBCTRL = hw::resets::RESET::USBCTRL,       /**< USB controller reset bit */
   UART1 = hw::resets::RESET::UART1,           /**< UART 1 reset bit */
@@ -93,7 +91,5 @@ struct resets : libMcuLL::peripheralBase {
  private:
   static constexpr libMcuLL::hwAddressType resetsAddress{resetsAddress_}; /**< peripheral address */
 };
-}  // namespace resets
-}  // namespace sw
-}  // namespace libMcuLL
+}  // namespace libMcuLL::sw::resets
 #endif

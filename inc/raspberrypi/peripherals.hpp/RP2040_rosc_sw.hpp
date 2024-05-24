@@ -10,9 +10,7 @@
 #ifndef RP2040_ROSC_SW_HPP
 #define RP2040_ROSC_SW_HPP
 
-namespace libMcuLL {
-namespace sw {
-namespace rosc {
+namespace libMcuLL::sw::rosc {
 template <libMcuLL::roscBaseAddress const& roscAddress_>
 struct rosc : libMcuLL::peripheralBase {
   /**
@@ -32,7 +30,5 @@ struct rosc : libMcuLL::peripheralBase {
  private:
   static constexpr libMcuLL::hwAddressType roscAddress = roscAddress_; /**< peripheral address */
 };
-}  // namespace rosc
-}  // namespace sw
-}  // namespace libMcuLL
+}  // namespace libMcuLL::sw::rosc
 #endif

@@ -10,9 +10,7 @@
 #ifndef RP2040_PIO_HW_HPP
 #define RP2040_PIO_HW_HPP
 
-namespace libMcuLL {
-namespace hw {
-namespace pio {
+namespace libMcuLL::hw::pio {
 /**
  * @brief PIO register definitions
  *
@@ -23,7 +21,5 @@ struct peripheral {
 namespace DUMMY {
 constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /**< Mask for allowed bits */
 }  // namespace DUMMY
-}  // namespace pio
-}  // namespace hw
-}  // namespace libMcuLL
+}  // namespace libMcuLL::hw::pio
 #endif

@@ -10,9 +10,7 @@
 #ifndef RP2040_I2C_HW_HPP
 #define RP2040_I2C_HW_HPP
 
-namespace libMcuLL {
-namespace hw {
-namespace i2c {
+namespace libMcuLL::hw::i2c {
 /**
  * @brief I2C register definitions
  *
@@ -23,7 +21,5 @@ struct peripheral {
 namespace DUMMY {
 constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /**< Mask for allowed bits */
 }  // namespace DUMMY
-}  // namespace i2c
-}  // namespace hw
-}  // namespace libMcuLL
+}  // namespace libMcuLL::hw::i2c
 #endif

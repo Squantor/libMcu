@@ -10,9 +10,7 @@
 #ifndef RP2040_GPIO_BANK0_SW_HPP
 #define RP2040_GPIO_BANK0_SW_HPP
 
-namespace libMcuLL {
-namespace sw {
-namespace gpioBank0 {
+namespace libMcuLL::sw::gpioBank0 {
 template <libMcuLL::ioBank0BaseAddress const& gpioBank0Address_>
 struct gpioBank0 : libMcuLL::peripheralBase {
   /**
@@ -42,7 +40,5 @@ struct gpioBank0 : libMcuLL::peripheralBase {
  private:
   static constexpr libMcuLL::hwAddressType ioBank0Address = gpioBank0Address_; /**< peripheral address */
 };
-}  // namespace gpioBank0
-}  // namespace sw
-}  // namespace libMcuLL
+}  // namespace libMcuLL::sw::gpioBank0
 #endif

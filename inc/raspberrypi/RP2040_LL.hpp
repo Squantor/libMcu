@@ -10,8 +10,7 @@
 #ifndef RP2040_LL_HPP
 #define RP2040_LL_HPP
 
-namespace libMcuLL {
-namespace hw {
+namespace libMcuLL::hw {
 
 // MCU configuration options
 namespace core {
@@ -66,13 +65,11 @@ enum class interrupts : int8_t {
   i2c1 = 24,
   rtc = 26,
 };
-}  // namespace hw
-}  // namespace libMcuLL
+}  // namespace libMcuLL::hw
 
 #include <CortexM/cortex_m0plus.hpp>
 
-namespace libMcuLL {
-namespace hw {
+namespace libMcuLL::hw {
 
 constexpr inline std::uint32_t peripheralOffsetNormal{0x0000'0000u}; /**< normal peripheral register access offset */
 constexpr inline std::uint32_t peripheralOffsetXor{0x0000'1000u};    /**< XORed peripheral register access offset */
@@ -116,8 +113,7 @@ constexpr inline libMcuLL::pioBaseAddress pio1Address{0x5030'0000u};            
 constexpr inline libMcuLL::sioBaseAddress sioAddress{0xD000'0000u};                     /**< SIO base address */
 constexpr inline libMcuLL::ppbBaseAddress ppbAddress{0xE000'0000u};                     /**< PPB base address */
 
-}  // namespace hw
-}  // namespace libMcuLL
+}  // namespace libMcuLL::hw
 
 // includes that define the registers namespace go here.
 #include "raspberrypi/peripherals.hpp/RP2040_adc_hw.hpp"

@@ -10,9 +10,7 @@
 #ifndef RP2040_RESETS_HW_HPP
 #define RP2040_RESETS_HW_HPP
 
-namespace libMcuLL {
-namespace hw {
-namespace resets {
+namespace libMcuLL::hw::resets {
 /**
  * @brief resets register definitions
  */
@@ -105,7 +103,5 @@ constexpr inline std::uint32_t DMA{1u << 2};                /**< DMA reset bit *
 constexpr inline std::uint32_t BUSCTRL{1u << 1};            /**< Buscontrol reset bit */
 constexpr inline std::uint32_t ADC{1u << 0};                /**< ADC reset bit */
 }  // namespace RESET_DONE
-}  // namespace resets
-}  // namespace hw
-}  // namespace libMcuLL
+}  // namespace libMcuLL::hw::resets
 #endif

@@ -10,9 +10,7 @@
 #ifndef RP2040_TIMER_HW_HPP
 #define RP2040_TIMER_HW_HPP
 
-namespace libMcuLL {
-namespace hw {
-namespace timer {
+namespace libMcuLL::hw::timer {
 /**
  * @brief Timer register definitions
  *
@@ -23,7 +21,5 @@ struct peripheral {
 namespace DUMMY {
 constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /**< Mask for allowed bits */
 }  // namespace DUMMY
-}  // namespace timer
-}  // namespace hw
-}  // namespace libMcuLL
+}  // namespace libMcuLL::hw::timer
 #endif

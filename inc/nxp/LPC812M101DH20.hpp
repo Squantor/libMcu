@@ -8,8 +8,7 @@
 #ifndef LPC812M101DH20_HPP
 #define LPC812M101DH20_HPP
 
-namespace libMcuLL {
-namespace hw {
+namespace libMcuLL::hw {
 
 // MCU configuration options
 namespace core {
@@ -58,14 +57,11 @@ enum class interrupts : int8_t {
   PININT6 = 30,
   PININT7 = 31,
 };
-}  // namespace hw
-}  // namespace libMcuLL
+}  // namespace libMcuLL::hw
 
 #include <CortexM/cortex_m0plus.hpp>
 
-namespace libMcuLL {
-namespace hw {
-
+namespace libMcuLL::hw {
 // Define peripheral addresses on APB0 bus
 // rename these when full c++ functionality is finished, remove _cpp postfix
 constexpr inline libMcuLL::WWDTbaseAddress wwdtAddress{0x4000'0000u};     /**< Windowed watchdog base address */
@@ -83,17 +79,13 @@ constexpr inline libMcuLL::SPIbaseAddress spi1Address{0x4005'C000u};      /**< S
 constexpr inline libMcuLL::USARTbaseAddress usart0Address{0x4006'4000u};  /**< USART 0 base address */
 constexpr inline libMcuLL::USARTbaseAddress usart1Address{0x4006'8000u};  /**< USART 1 base address */
 constexpr inline libMcuLL::USARTbaseAddress usart2Address{0x4006'C000u};  /**< USART 2 base address */
-
 /* AHB peripherals */
 constexpr inline libMcuLL::CRCbaseAddress crcAddress{0x5000'0000u}; /**< CRC calculator base address */
 constexpr inline libMcuLL::SCTbaseAddress sctAddress{0x5000'4000u}; /**< State configurable timer 0 base address */
-
 /* Direct connected peripherals */
 constexpr inline libMcuLL::GPIObaseAddress gpioAddress{0xA000'0000u};     /**< General Purpose I/O base address */
 constexpr inline libMcuLL::PININTbaseAddress pinintAddress{0xA000'4000u}; /**< Pin interrupt base address */
-
-}  // namespace hw
-}  // namespace libMcuLL
+}  // namespace libMcuLL::hw
 
 // includes that define the registers namespace go here.
 #include "LPC8XX.hpp/LPC81X_iocon_hw.hpp"

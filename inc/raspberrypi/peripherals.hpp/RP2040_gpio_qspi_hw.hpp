@@ -10,9 +10,7 @@
 #ifndef RP2040_GPIO_QSPI_HW_HPP
 #define RP2040_GPIO_QSPI_HW_HPP
 
-namespace libMcuLL {
-namespace hw {
-namespace gpioQspi {
+namespace libMcuLL::hw::gpioQspi {
 /**
  * @brief DMA register definitions
  *
@@ -23,7 +21,5 @@ struct peripheral {
 namespace DUMMY {
 constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /**< Mask for allowed bits */
 }  // namespace DUMMY
-}  // namespace gpioQspi
-}  // namespace hw
-}  // namespace libMcuLL
+}  // namespace libMcuLL::hw::gpioQspi
 #endif

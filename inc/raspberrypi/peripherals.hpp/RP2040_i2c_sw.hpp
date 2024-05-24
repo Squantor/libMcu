@@ -10,9 +10,7 @@
 #ifndef RP2040_I2C_SW_HPP
 #define RP2040_I2C_SW_HPP
 
-namespace libMcuLL {
-namespace sw {
-namespace i2c {
+namespace libMcuLL::sw::i2c {
 template <libMcuLL::i2cBaseAddress const& i2cAddress_>
 struct i2c : libMcuLL::peripheralBase {
   /**
@@ -32,7 +30,5 @@ struct i2c : libMcuLL::peripheralBase {
  private:
   static constexpr libMcuLL::hwAddressType i2cAddress = i2cAddress_; /**< peripheral address */
 };
-}  // namespace i2c
-}  // namespace sw
-}  // namespace libMcuLL
+}  // namespace libMcuLL::sw::i2c
 #endif

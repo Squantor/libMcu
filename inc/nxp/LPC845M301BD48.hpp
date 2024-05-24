@@ -10,8 +10,7 @@
 #ifndef LPC845M301BD48_HPP
 #define LPC845M301BD48_HPP
 
-namespace libMcuLL {
-namespace hw {
+namespace libMcuLL::hw {
 
 // MCU configuration options
 namespace core {
@@ -72,21 +71,17 @@ enum class interrupts : std::int8_t {
   pinint6_uart3 = 30, /**< Pin interrupt 6 or pattern match engine slice 6 interrupt or UART3 interrupt */
   pinint7_uart4 = 31  /**< Pin interrupt 7 or pattern match engine slice 7 interrupt or UART4 interrupt */
 };
-}  // namespace hw
-}  // namespace libMcuLL
+}  // namespace libMcuLL::hw
 
 #include <CortexM/cortex_m0plus.hpp>
 
-namespace libMcuLL {
-namespace hw {
-
+namespace libMcuLL::hw {
 /* Base addresses */
 constexpr inline libMcuLL::memoryAddress flashBaseAddress{0x0000'0000u};
 constexpr inline libMcuLL::memoryAddress ramBaseAddress{0x1000'0000u};
 constexpr inline libMcuLL::memoryAddress romBaseAddress{0xF001'FF10u};
 constexpr inline libMcuLL::memoryAddress apb0BaseAddress{0x4000'0000u};
 constexpr inline libMcuLL::memoryAddress ahbBaseAddress{0x5000'0000u};
-
 /* APB peripherals, see UM11029 2.2.1 */
 constexpr inline libMcuLL::WWDTbaseAddress wwdtAddress{0x4000'0000u};         /**< Windowed watchdog base address */
 constexpr inline libMcuLL::MRTbaseAddress mrt0Address{0x4000'4000u};          /**< multi rate timer base address */
@@ -114,19 +109,16 @@ constexpr inline libMcuLL::USARTbaseAddress usart0Address{0x4006'4000u};      /*
 constexpr inline libMcuLL::USARTbaseAddress usart1Address{0x4006'8000u};      /**< USART 1 base address */
 constexpr inline libMcuLL::USARTbaseAddress usart2Address{0x4006'C000u};      /**< USART 2 base address */
 constexpr inline libMcuLL::USARTbaseAddress usart3Address{0x4007'0000u};      /**< USART 3 base address */
-
 /* AHB peripherals, see UM11029 2.2.1 */
 constexpr inline libMcuLL::CRCbaseAddress crcAddress{0x5000'0000u};  /**< CRC calculator base address */
 constexpr inline libMcuLL::SCTbaseAddress sct0Address{0x5000'4000u}; /**< State configurable timer 0 base address */
 constexpr inline libMcuLL::dmaBaseAddress dmaAddress{0x5000'8000u};  /**< DMA 0 base address */
 constexpr inline libMcuLL::mtbBaseAddress mtbAddress{0x5000'C000u};  /**< MTB base address */
-
 /* Direct connected peripherals */
 constexpr inline libMcuLL::GPIObaseAddress gpioAddress{0xA000'0000u};     /**< General Purpose I/O base address */
 constexpr inline libMcuLL::PININTbaseAddress pinintAddress{0xA000'4000u}; /**< Pin interrupt base address */
-
-}  // namespace hw
-namespace dma {
+}  // namespace libMcuLL::hw
+namespace libMcuLL::dma {
 /*!
  * @brief Enumeration for the DMA hardware request
  *
@@ -161,8 +153,7 @@ enum class dmaRequestSources : std::uint8_t {
   dac1 = 23U,       /**< DAC1 DMA REQUEST  */
   capt = 24U,       /**< CAPT DMA  */
 };
-}  // namespace dma
-}  // namespace libMcuLL
+}  // namespace libMcuLL::dma
 
 // includes that define the registers namespace go here.
 #include "LPC8XX.hpp/LPC84X_iocon_hw.hpp"
