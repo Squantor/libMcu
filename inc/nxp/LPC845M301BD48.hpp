@@ -83,40 +83,40 @@ constexpr inline libMcuLL::memoryAddress romBaseAddress{0xF001'FF10u};
 constexpr inline libMcuLL::memoryAddress apb0BaseAddress{0x4000'0000u};
 constexpr inline libMcuLL::memoryAddress ahbBaseAddress{0x5000'0000u};
 /* APB peripherals, see UM11029 2.2.1 */
-constexpr inline libMcuLL::WWDTbaseAddress wwdtAddress{0x4000'0000u};         /**< Windowed watchdog base address */
-constexpr inline libMcuLL::MRTbaseAddress mrt0Address{0x4000'4000u};          /**< multi rate timer base address */
-constexpr inline libMcuLL::WKTbaseAddress wktAddress{0x4000'8000u};           /**< wakeup timer base address */
-constexpr inline libMcuLL::SWMbaseAddress swmAddress{0x4000'C000u};           /**< Switch matrix base address */
+constexpr inline libMcuLL::wwdtBaseAddress wwdtAddress{0x4000'0000u};         /**< Windowed watchdog base address */
+constexpr inline libMcuLL::mrtBaseAddress mrt0Address{0x4000'4000u};          /**< multi rate timer base address */
+constexpr inline libMcuLL::wktBaseAddress wktAddress{0x4000'8000u};           /**< wakeup timer base address */
+constexpr inline libMcuLL::swmBaseAddress swmAddress{0x4000'C000u};           /**< Switch matrix base address */
 constexpr inline libMcuLL::faimBaseAddress faimAddress{0x4001'0000u};         /**< Fast memory init base address */
 constexpr inline libMcuLL::dacBaseAddress dac0Address{0x4001'4000u};          /**< DAC 0 base address */
 constexpr inline libMcuLL::dacBaseAddress dac1Address{0x4001'8000u};          /**< DAC 1 base address */
 constexpr inline libMcuLL::adcBaseAddress adc0Address{0x4001'C000u};          /**< ADC 0 matrix base address */
-constexpr inline libMcuLL::PMUbaseAddress pmuAddress{0x4002'0000u};           /**< Power management unit base address */
-constexpr inline libMcuLL::ACMPbaseAddress acmpAddress{0x4002'4000u};         /**< Analog comparator base address */
+constexpr inline libMcuLL::pmuBaseAddress pmuAddress{0x4002'0000u};           /**< Power management unit base address */
+constexpr inline libMcuLL::acmpBaseAddress acmpAddress{0x4002'4000u};         /**< Analog comparator base address */
 constexpr inline libMcuLL::inputMuxBaseAddress inputMuxAddress{0x4002'C000u}; /**< Flash memory controller base address */
-constexpr inline libMcuLL::I2CbaseAddress i2c2Address{0x4003'0000u};          /**< I2C 2 base address */
-constexpr inline libMcuLL::I2CbaseAddress i2c3Address{0x4003'4000u};          /**< I2C 3 base address */
+constexpr inline libMcuLL::i2cBaseAddress i2c2Address{0x4003'0000u};          /**< I2C 2 base address */
+constexpr inline libMcuLL::i2cBaseAddress i2c3Address{0x4003'4000u};          /**< I2C 3 base address */
 constexpr inline libMcuLL::ctimerBaseAddress ctimer0Address{0x4003'8000u};    /**< standard counter/timer 0 base address */
-constexpr inline libMcuLL::FMCbaseAddress fmcAddress{0x4004'0000u};           /**< Flash memory controller base address */
-constexpr inline libMcuLL::IOCONbaseAddress ioconAddress{0x4004'4000u};       /**< I/O control base address */
-constexpr inline libMcuLL::SYSCONbaseAddress sysconAddress{0x4004'8000u};     /**< System control base address */
-constexpr inline libMcuLL::I2CbaseAddress i2c0Address{0x4005'0000u};          /**< I2C 0 base address */
-constexpr inline libMcuLL::I2CbaseAddress i2c1Address{0x4005'4000u};          /**< I2C 1 base address */
-constexpr inline libMcuLL::SPIbaseAddress spi0Address{0x4005'8000u};          /**< SPI 0 base address */
-constexpr inline libMcuLL::SPIbaseAddress spi1Address{0x4005'C000u};          /**< SPI 1 base address */
+constexpr inline libMcuLL::fmcBaseAddress fmcAddress{0x4004'0000u};           /**< Flash memory controller base address */
+constexpr inline libMcuLL::ioconBaseAddress ioconAddress{0x4004'4000u};       /**< I/O control base address */
+constexpr inline libMcuLL::sysconBaseAddress sysconAddress{0x4004'8000u};     /**< System control base address */
+constexpr inline libMcuLL::i2cBaseAddress i2c0Address{0x4005'0000u};          /**< I2C 0 base address */
+constexpr inline libMcuLL::i2cBaseAddress i2c1Address{0x4005'4000u};          /**< I2C 1 base address */
+constexpr inline libMcuLL::spiBaseAddress spi0Address{0x4005'8000u};          /**< SPI 0 base address */
+constexpr inline libMcuLL::spiBaseAddress spi1Address{0x4005'C000u};          /**< SPI 1 base address */
 constexpr inline libMcuLL::captBaseAddress capt0Address{0x4006'0000u};        /**< Capacitive touch 0 base address */
-constexpr inline libMcuLL::USARTbaseAddress usart0Address{0x4006'4000u};      /**< USART 0 base address */
-constexpr inline libMcuLL::USARTbaseAddress usart1Address{0x4006'8000u};      /**< USART 1 base address */
-constexpr inline libMcuLL::USARTbaseAddress usart2Address{0x4006'C000u};      /**< USART 2 base address */
-constexpr inline libMcuLL::USARTbaseAddress usart3Address{0x4007'0000u};      /**< USART 3 base address */
+constexpr inline libMcuLL::uartBaseAddress usart0Address{0x4006'4000u};       /**< USART 0 base address */
+constexpr inline libMcuLL::uartBaseAddress usart1Address{0x4006'8000u};       /**< USART 1 base address */
+constexpr inline libMcuLL::uartBaseAddress usart2Address{0x4006'C000u};       /**< USART 2 base address */
+constexpr inline libMcuLL::uartBaseAddress usart3Address{0x4007'0000u};       /**< USART 3 base address */
 /* AHB peripherals, see UM11029 2.2.1 */
-constexpr inline libMcuLL::CRCbaseAddress crcAddress{0x5000'0000u};  /**< CRC calculator base address */
-constexpr inline libMcuLL::SCTbaseAddress sct0Address{0x5000'4000u}; /**< State configurable timer 0 base address */
+constexpr inline libMcuLL::crcBaseAddress crcAddress{0x5000'0000u};  /**< CRC calculator base address */
+constexpr inline libMcuLL::sctBaseAddress sct0Address{0x5000'4000u}; /**< State configurable timer 0 base address */
 constexpr inline libMcuLL::dmaBaseAddress dmaAddress{0x5000'8000u};  /**< DMA 0 base address */
 constexpr inline libMcuLL::mtbBaseAddress mtbAddress{0x5000'C000u};  /**< MTB base address */
 /* Direct connected peripherals */
-constexpr inline libMcuLL::GPIObaseAddress gpioAddress{0xA000'0000u};     /**< General Purpose I/O base address */
-constexpr inline libMcuLL::PININTbaseAddress pinintAddress{0xA000'4000u}; /**< Pin interrupt base address */
+constexpr inline libMcuLL::gpioBaseAddress gpioAddress{0xA000'0000u};     /**< General Purpose I/O base address */
+constexpr inline libMcuLL::pinintBaseAddress pinintAddress{0xA000'4000u}; /**< Pin interrupt base address */
 }  // namespace libMcuLL::hw
 namespace libMcuLL::dma {
 /*!
