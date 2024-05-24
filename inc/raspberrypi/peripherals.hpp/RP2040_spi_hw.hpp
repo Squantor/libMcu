@@ -38,6 +38,8 @@ struct peripheral {
 };
 namespace SSPCR0 {
 constexpr inline std::uint32_t RESERVED_MASK{0x0000'FFFFu}; /**< Mask for allowed bits */
+
+constexpr inline std::uint32_t SCR_MASK{0xFFu << 8}; /**< Mask for SCR */
 /**
  * @brief Format SCR field to SSPCR0 register
  * @param rate Serial clock rate
@@ -46,24 +48,25 @@ constexpr inline std::uint32_t RESERVED_MASK{0x0000'FFFFu}; /**< Mask for allowe
 constexpr inline std::uint32_t SCR(uint32_t rate) {
   return rate << 8;
 }
-constexpr inline std::uint32_t SPH{1u << 7};          /**< SSPCLKOUT phase for motorola format*/
-constexpr inline std::uint32_t SPO{1u << 6};          /**< SSPCLKOUT polarity for motorola format*/
-constexpr inline std::uint32_t FRF_MOTOROLA{0u << 4}; /**< Motorola Frame format */
-constexpr inline std::uint32_t FRF_TI{1u << 4};       /**< TI Frame format */
-constexpr inline std::uint32_t FRF_NATIONAL{2u << 4}; /**< National Microwire Frame format */
-constexpr inline std::uint32_t DSS_4BIT{3u << 0};     /**< 4 bit data */
-constexpr inline std::uint32_t DSS_5BIT{4u << 0};     /**< 5 bit data */
-constexpr inline std::uint32_t DSS_6BIT{5u << 0};     /**< 6 bit data */
-constexpr inline std::uint32_t DSS_7BIT{6u << 0};     /**< 7 bit data */
-constexpr inline std::uint32_t DSS_8BIT{7u << 0};     /**< 8 bit data */
-constexpr inline std::uint32_t DSS_9BIT{8u << 0};     /**< 9 bit data */
-constexpr inline std::uint32_t DSS_10BIT{9u << 0};    /**< 10 bit data */
-constexpr inline std::uint32_t DSS_11BIT{10u << 0};   /**< 11 bit data */
-constexpr inline std::uint32_t DSS_12BIT{11u << 0};   /**< 12 bit data */
-constexpr inline std::uint32_t DSS_13BIT{12u << 0};   /**< 13 bit data */
-constexpr inline std::uint32_t DSS_14BIT{13u << 0};   /**< 14 bit data */
-constexpr inline std::uint32_t DSS_15BIT{14u << 0};   /**< 15 bit data */
-constexpr inline std::uint32_t DSS_16BIT{15u << 0};   /**< 16 bit data */
+constexpr inline std::uint32_t SPH{1u << 7};           /**< SSPCLKOUT phase for motorola format*/
+constexpr inline std::uint32_t SPO{1u << 6};           /**< SSPCLKOUT polarity for motorola format*/
+constexpr inline std::uint32_t FRF_MOTOROLA{0u << 4};  /**< Motorola Frame format */
+constexpr inline std::uint32_t FRF_TI{1u << 4};        /**< TI Frame format */
+constexpr inline std::uint32_t FRF_NATIONAL{2u << 4};  /**< National Microwire Frame format */
+constexpr inline std::uint32_t FORMAT_MASK{0xFu << 4}; /**< Format mask */
+constexpr inline std::uint32_t DSS_4BIT{3u << 0};      /**< 4 bit data */
+constexpr inline std::uint32_t DSS_5BIT{4u << 0};      /**< 5 bit data */
+constexpr inline std::uint32_t DSS_6BIT{5u << 0};      /**< 6 bit data */
+constexpr inline std::uint32_t DSS_7BIT{6u << 0};      /**< 7 bit data */
+constexpr inline std::uint32_t DSS_8BIT{7u << 0};      /**< 8 bit data */
+constexpr inline std::uint32_t DSS_9BIT{8u << 0};      /**< 9 bit data */
+constexpr inline std::uint32_t DSS_10BIT{9u << 0};     /**< 10 bit data */
+constexpr inline std::uint32_t DSS_11BIT{10u << 0};    /**< 11 bit data */
+constexpr inline std::uint32_t DSS_12BIT{11u << 0};    /**< 12 bit data */
+constexpr inline std::uint32_t DSS_13BIT{12u << 0};    /**< 13 bit data */
+constexpr inline std::uint32_t DSS_14BIT{13u << 0};    /**< 14 bit data */
+constexpr inline std::uint32_t DSS_15BIT{14u << 0};    /**< 15 bit data */
+constexpr inline std::uint32_t DSS_16BIT{15u << 0};    /**< 16 bit data */
 }  // namespace SSPCR0
 namespace SSPCR1 {
 constexpr inline std::uint32_t RESERVED_MASK{0x0000'000Fu}; /**< Mask for allowed bits */
