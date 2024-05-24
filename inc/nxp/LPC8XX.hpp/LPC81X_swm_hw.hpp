@@ -10,9 +10,7 @@
 #ifndef LPC81X_SMW_REGS_HPP
 #define LPC81X_SWM_REGS_HPP
 
-namespace libMcuLL {
-namespace hw {
-namespace swm {
+namespace libMcuLL::hw::swm {
 
 enum pinAssign : std::uint8_t {
   PIO0_0 = 0u,     /**< assign to pin P0_0. */
@@ -701,8 +699,5 @@ struct peripheral {
   volatile std::uint32_t RESERVED0[103]; /**< reserved*/
   volatile std::uint32_t PINENABLE0;     /**< Pin Enable register */
 };
-}  // namespace swm
-}  // namespace hw
-}  // namespace libMcuLL
-
+}  // namespace libMcuLL::hw::swm
 #endif

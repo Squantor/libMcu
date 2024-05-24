@@ -9,9 +9,7 @@
  */
 #ifndef LPC81X_ACMP_HPP
 #define LPC81X_ACMP_HPP
-namespace libMcuLL {
-namespace sw {
-namespace acmp {
+namespace libMcuLL::sw::acmp {
 using namespace hw::acmp;
 
 /**
@@ -159,8 +157,5 @@ struct acmp : libMcuLL::peripheralBase {
  private:
   static constexpr libMcuLL::hwAddressType acmpAddress = acmpAddress_; /**< peripheral address */
 };
-}  // namespace acmp
-}  // namespace sw
-}  // namespace libMcuLL
-
+}  // namespace libMcuLL::sw::acmp
 #endif

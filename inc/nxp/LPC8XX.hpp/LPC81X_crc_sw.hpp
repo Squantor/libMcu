@@ -10,9 +10,7 @@
 #ifndef LPC81X_CRC_HPP
 #define LPC81X_CRC_HPP
 
-namespace libMcuLL {
-namespace sw {
-namespace crc {
+namespace libMcuLL::sw::crc {
 using namespace hw::crc;
 template <libMcuLL::crcBaseAddress crcAddress_>
 struct crc : libMcuLL::peripheralBase {
@@ -28,8 +26,5 @@ struct crc : libMcuLL::peripheralBase {
  private:
   static constexpr libMcuLL::hwAddressType crcAddress = crcAddress_; /**< peripheral address */
 };
-}  // namespace crc
-}  // namespace sw
-}  // namespace libMcuLL
-
+}  // namespace libMcuLL::sw::crc
 #endif

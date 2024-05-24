@@ -10,8 +10,7 @@
 #ifndef LPC8XX_SPI_REGS_HPP
 #define LPC8XX_SPI_REGS_HPP
 
-namespace registers {
-namespace spi {
+namespace registers::spi {
 /**
  * @brief   SPI register definitions
  *
@@ -96,7 +95,5 @@ constexpr inline std::uint32_t LEN(std::uint32_t length) {
   return ((length - 1) & 0x0F) << 24;
 }
 }  // namespace TXDATCTL
-}  // namespace spi
-}  // namespace registers
-
+}  // namespace registers::spi
 #endif

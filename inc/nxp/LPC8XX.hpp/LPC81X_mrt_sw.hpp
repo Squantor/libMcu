@@ -10,9 +10,7 @@
 #ifndef LPC81X_MRT_HPP
 #define LPC81X_MRT_HPP
 
-namespace libMcuLL {
-namespace sw {
-namespace mrt {
+namespace libMcuLL::sw::mrt {
 using namespace hw::mrt;
 template <libMcuLL::mrtBaseAddress mrtAddress_>
 struct mrt : libMcuLL::peripheralBase {
@@ -28,8 +26,5 @@ struct mrt : libMcuLL::peripheralBase {
  private:
   static constexpr libMcuLL::hwAddressType mrtAddress = mrtAddress_; /**< peripheral address */
 };
-}  // namespace mrt
-}  // namespace sw
-}  // namespace libMcuLL
-
+}  // namespace libMcuLL::sw::mrt
 #endif

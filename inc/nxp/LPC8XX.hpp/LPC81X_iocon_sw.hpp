@@ -10,9 +10,7 @@
 #ifndef LPC81X_IOCON_HPP
 #define LPC81X_IOCON_HPP
 
-namespace libMcuLL {
-namespace sw {
-namespace iocon {
+namespace libMcuLL::sw::iocon {
 using namespace hw::iocon;
 
 /**
@@ -158,8 +156,5 @@ struct iocon : libMcuLL::peripheralBase {
  private:
   static constexpr libMcuLL::hwAddressType ioconAddress = ioconAddress_; /**< peripheral address */
 };
-}  // namespace iocon
-}  // namespace sw
-}  // namespace libMcuLL
-
+}  // namespace libMcuLL::sw::iocon
 #endif

@@ -12,9 +12,7 @@
 
 #include "nxp/LPC8XX.hpp/LPC81X_usart_sw_common.hpp"
 
-namespace libMcuLL {
-namespace sw {
-namespace usart {
+namespace libMcuLL::sw::usart {
 namespace detail {
 
 enum class synchonousStates : std::uint8_t {
@@ -201,8 +199,5 @@ struct usartAsync : libMcuLL::peripheralBase {
   std::span<transferType> transactionWriteData;                          /**< data to write */
   std::span<transferType> transactionReadData;                           /**< where to put read data in */
 };
-}  // namespace usart
-}  // namespace sw
-}  // namespace libMcuLL
-
+}  // namespace libMcuLL::sw::usart
 #endif

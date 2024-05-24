@@ -14,9 +14,7 @@
 #ifndef LPC81X_SCT_SW_HPP
 #define LPC81X_SCT_SW_HPP
 
-namespace libMcuLL {
-namespace sw {
-namespace sct {
+namespace libMcuLL::sw::sct {
 using namespace hw::sct;
 
 enum class countingMode : std::uint32_t {
@@ -255,8 +253,5 @@ struct sct : libMcuLL::peripheralBase {
  private:
   static constexpr libMcuLL::hwAddressType sctAddress = sctAddress_; /**< peripheral address */
 };
-}  // namespace sct
-}  // namespace sw
-}  // namespace libMcuLL
-
+}  // namespace libMcuLL::sw::sct
 #endif

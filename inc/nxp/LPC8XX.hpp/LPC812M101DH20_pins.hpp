@@ -10,8 +10,7 @@
 
 #ifndef LPC812M101DH20_PINS_HPP
 #define LPC812M101DH20_PINS_HPP
-namespace libMcuLL {
-namespace hw {
+namespace libMcuLL::hw {
 
 enum pinTypeFlags : std::uint8_t {
   NORMAL = 0u,          /**< Normal pin without any special handling */
@@ -323,7 +322,6 @@ template <IOports T_PORT, bool DUMMY = false>
 struct port {
   static_assert(DUMMY, "This I/O port configuration is invalid!");
 };
-
 /**
  * @brief Specialization for Port 0
  *
@@ -332,8 +330,5 @@ template <>
 struct port<IOports::PORT0> {
   static constexpr std::uint8_t gpioPortIndex = 0u;
 };
-
-}  // namespace hw
-}  // namespace libMcuLL
-
+}  // namespace libMcuLL::hw
 #endif

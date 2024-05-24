@@ -10,9 +10,7 @@
 #ifndef LPC81X_WWDT_REGS_HPP
 #define LPC81X_WWDT_REGS_HPP
 
-namespace libMcuLL {
-namespace hw {
-namespace wwdt {
+namespace libMcuLL::hw::wwdt {
 
 /**
  * @brief windowed watchdog register definitions
@@ -28,8 +26,5 @@ struct peripheral {
   volatile std::uint32_t WINDOW;  /**< contains the Watchdog window value. */
 };
 
-}  // namespace wwdt
-}  // namespace hw
-}  // namespace libMcuLL
-
+}  // namespace libMcuLL::hw::wwdt
 #endif

@@ -10,9 +10,7 @@
 #ifndef LPC81X_SPI_REGS_HPP
 #define LPC81X_SPI_REGS_HPP
 
-namespace libMcuLL {
-namespace hw {
-namespace spi {
+namespace libMcuLL::hw::spi {
 
 /**
  * @brief SPI register definitions
@@ -199,8 +197,5 @@ constexpr inline std::uint32_t TXUR = (1 << 3);             /**< Transmitter und
 constexpr inline std::uint32_t SSA = (1 << 4);              /**< Slave Select Assert */
 constexpr inline std::uint32_t SSD = (1 << 5);              /**< Slave Select Deassert */
 }  // namespace INTSTAT
-}  // namespace spi
-}  // namespace hw
-}  // namespace libMcuLL
-
+}  // namespace libMcuLL::hw::spi
 #endif

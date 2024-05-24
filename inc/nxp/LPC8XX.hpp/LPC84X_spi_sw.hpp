@@ -12,8 +12,7 @@
 
 #include <span>
 
-namespace instances {
-namespace spi {
+namespace instances::spi {
 
 using namespace registers::spi;
 
@@ -161,7 +160,5 @@ struct spi {
     receiveBuffer[index] = RXDAT::RXDAT(spiPeripheral()->RXDAT);
   }
 };
-}  // namespace spi
-}  // namespace instances
-
+}  // namespace instances::spi
 #endif

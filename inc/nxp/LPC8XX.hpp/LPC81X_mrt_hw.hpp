@@ -10,9 +10,7 @@
 #ifndef LPC81X_MRT_REGS_HPP
 #define LPC81X_MRT_REGS_HPP
 
-namespace libMcuLL {
-namespace hw {
-namespace mrt {
+namespace libMcuLL::hw::mrt {
 
 struct mrtChannel {
   volatile std::uint32_t INTVAL; /* Timer interval register */
@@ -28,8 +26,5 @@ struct peripheral {
   volatile std::uint32_t IRQ_FLAG;
 };
 
-}  // namespace mrt
-}  // namespace hw
-}  // namespace libMcuLL
-
+}  // namespace libMcuLL::hw::mrt
 #endif

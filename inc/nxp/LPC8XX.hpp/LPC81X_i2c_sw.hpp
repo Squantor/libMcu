@@ -10,9 +10,7 @@
 #ifndef LPC81X_I2C_HPP
 #define LPC81X_I2C_HPP
 
-namespace libMcuLL {
-namespace sw {
-namespace i2c {
+namespace libMcuLL::sw::i2c {
 using namespace hw::i2c;
 template <libMcuLL::i2cBaseAddress i2cAddress_>
 struct i2c : libMcuLL::peripheralBase {
@@ -102,8 +100,5 @@ struct i2c : libMcuLL::peripheralBase {
  private:
   static constexpr libMcuLL::hwAddressType i2cAddress = i2cAddress_; /**< peripheral address */
 };
-}  // namespace i2c
-}  // namespace sw
-}  // namespace libMcuLL
-
+}  // namespace libMcuLL::sw::i2c
 #endif

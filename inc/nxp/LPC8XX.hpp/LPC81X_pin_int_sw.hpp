@@ -10,9 +10,7 @@
 #ifndef LPC81X_PIN_INT_HPP
 #define LPC81X_PIN_INT_HPP
 
-namespace libMcuLL {
-namespace sw {
-namespace pin_int {
+namespace libMcuLL::sw::pin_int {
 using namespace hw::gpio;
 template <libMcuLL::pinintBaseAddress pinintAddress_>
 struct pinint : peripheralBase {
@@ -28,8 +26,5 @@ struct pinint : peripheralBase {
  private:
   static constexpr libMcuLL::hwAddressType pinintAddress = pinintAddress_; /**< peripheral address */
 };
-}  // namespace pin_int
-}  // namespace sw
-}  // namespace libMcuLL
-
+}  // namespace libMcuLL::sw::pin_int
 #endif

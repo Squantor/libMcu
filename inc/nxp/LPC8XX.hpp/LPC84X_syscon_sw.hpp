@@ -10,9 +10,7 @@
 #ifndef LPC84X_SYSCON_HPP
 #define LPC84X_SYSCON_HPP
 
-namespace libMcuLL {
-namespace sw {
-namespace syscon {
+namespace libMcuLL::sw::syscon {
 using namespace hw::syscon;
 
 /**
@@ -269,8 +267,5 @@ struct syscon : libMcuLL::peripheralBase {
  private:
   constexpr static libMcuLL::hwAddressType sysconAddress = sysconAddress_; /**< peripheral address */
 };
-}  // namespace syscon
-}  // namespace sw
-}  // namespace libMcuLL
-
+}  // namespace libMcuLL::sw::syscon
 #endif

@@ -10,9 +10,7 @@
 #ifndef LPC81X_WWDT_HPP
 #define LPC81X_WWDT_HPP
 
-namespace libMcuLL {
-namespace sw {
-namespace wwdt {
+namespace libMcuLL::sw::wwdt {
 using namespace hw::wwdt;
 template <libMcuLL::wwdtBaseAddress wwdtAddress_>
 struct wwdt {
@@ -26,8 +24,5 @@ struct wwdt {
     return reinterpret_cast<hw::wwdt::peripheral *>(wwdtAddress);
   }
 };
-}  // namespace wwdt
-}  // namespace sw
-}  // namespace libMcuLL
-
+}  // namespace libMcuLL::sw::wwdt
 #endif

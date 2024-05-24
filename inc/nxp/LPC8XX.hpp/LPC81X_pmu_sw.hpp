@@ -10,9 +10,7 @@
 #ifndef LPC81X_PMU_HPP
 #define LPC81X_PMU_HPP
 
-namespace libMcuLL {
-namespace sw {
-namespace pmu {
+namespace libMcuLL::sw::pmu {
 using namespace hw::pmu;
 template <libMcuLL::pmuBaseAddress pmuAddress_>
 struct pmu {
@@ -28,8 +26,5 @@ struct pmu {
  private:
   static constexpr libMcuLL::hwAddressType pmuAddress = pmuAddress_; /**< peripheral address */
 };
-}  // namespace pmu
-}  // namespace sw
-}  // namespace libMcuLL
-
+}  // namespace libMcuLL::sw::pmu
 #endif

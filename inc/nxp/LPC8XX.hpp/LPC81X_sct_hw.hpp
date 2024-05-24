@@ -10,9 +10,7 @@
 #ifndef LPC81X_SCT_HW_HPP
 #define LPC81X_SCT_HW_HPP
 
-namespace libMcuLL {
-namespace hw {
-namespace sct {
+namespace libMcuLL::hw::sct {
 
 static constexpr inline std::uint8_t inputCount = 4u;  /**< Number of inputs this SCT supports*/
 static constexpr inline std::uint8_t outputCount = 4u; /**< Number of outputs this SCT supports */
@@ -547,8 +545,5 @@ constexpr inline std::uint32_t CLR(std::uint32_t event) {
 }
 }  // namespace OUT_CLR
 
-}  // namespace sct
-}  // namespace hw
-}  // namespace libMcuLL
-
+}  // namespace libMcuLL::hw::sct
 #endif

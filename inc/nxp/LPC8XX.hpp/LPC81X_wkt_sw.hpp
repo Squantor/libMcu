@@ -10,9 +10,7 @@
 #ifndef LPC81X_WKT_HPP
 #define LPC81X_WKT_HPP
 
-namespace libMcuLL {
-namespace sw {
-namespace wkt {
+namespace libMcuLL::sw::wkt {
 using namespace hw::wkt;
 template <libMcuLL::wktBaseAddress wktAddress_>
 struct wkt {
@@ -28,8 +26,5 @@ struct wkt {
  private:
   static constexpr libMcuLL::hwAddressType wktAddress = wktAddress_; /**< peripheral address */
 };
-}  // namespace wkt
-}  // namespace sw
-}  // namespace libMcuLL
-
+}  // namespace libMcuLL::sw::wkt
 #endif

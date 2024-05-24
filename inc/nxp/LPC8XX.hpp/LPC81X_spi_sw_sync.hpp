@@ -12,9 +12,7 @@
 
 #include <nxp/LPC8XX.hpp/LPC81X_spi_sw_common.hpp>
 
-namespace libMcuLL {
-namespace sw {
-namespace spi {
+namespace libMcuLL::sw::spi {
 
 using namespace hw::spi;
 
@@ -175,8 +173,5 @@ struct spiSync : libMcuLL::peripheralBase {
  private:
   static constexpr libMcuLL::hwAddressType spiAddress = spiAddress_; /**< peripheral spiAddress */
 };
-}  // namespace spi
-}  // namespace sw
-}  // namespace libMcuLL
-
+}  // namespace libMcuLL::sw::spi
 #endif

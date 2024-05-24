@@ -10,9 +10,7 @@
 #ifndef LPC81X_PIN_INT_REGS_HPP
 #define LPC81X_PIN_INT_REGS_HPP
 
-namespace libMcuLL {
-namespace hw {
-namespace pinint {
+namespace libMcuLL::hw::pinint {
 
 /**
  * @brief pin interrupt register definitions
@@ -34,8 +32,5 @@ struct peripheral {
   volatile std::uint32_t PMCFG;  /**< Pattern match interrupt bit slice configuration register */
 };
 
-}  // namespace pinint
-}  // namespace hw
-}  // namespace libMcuLL
-
+}  // namespace libMcuLL::hw::pinint
 #endif

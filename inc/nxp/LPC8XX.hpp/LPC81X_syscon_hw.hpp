@@ -10,9 +10,7 @@
 #ifndef LPC81X_SYSCON_REGS_HPP
 #define LPC81X_SYSCON_REGS_HPP
 
-namespace libMcuLL {
-namespace hw {
-namespace syscon {
+namespace libMcuLL::hw::syscon {
 
 /**
  * @brief sysctl register definitions
@@ -251,9 +249,5 @@ constexpr inline std::uint32_t RESERVED_MASK = 0x000080EFu; /**< register mask f
 namespace DEVICEID {
 constexpr inline std::uint32_t RESERVED_MASK = 0x00000000u; /**< register mask for allowed bits */
 }
-
-}  // namespace syscon
-}  // namespace hw
-}  // namespace libMcuLL
-
+}  // namespace libMcuLL::hw::syscon
 #endif

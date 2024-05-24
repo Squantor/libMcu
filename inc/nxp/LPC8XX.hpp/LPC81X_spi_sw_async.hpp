@@ -12,11 +12,10 @@
 
 #include "LPC81X_spi_sw_common.hpp"
 
-namespace libMcuLL {
-namespace sw {
-namespace spi {
+namespace libMcuLL::sw::spi {
 namespace detail {
 
+// TODO need to remove and make use of libmcu::return
 enum class asynchronousStates : std::uint8_t {
   IDLE,           /**< Interface is idle, ready to be claimed */
   CLAIMED,        /**< Interface is claimed, ready to transact */
@@ -330,8 +329,5 @@ struct spiAsync : libMcuLL::peripheralBase {
     std::numeric_limits<transferType>::digits;                       /**< Amount of bits in datatransfer type */
   static constexpr libMcuLL::hwAddressType spiAddress = spiAddress_; /**< peripheral address */
 };
-}  // namespace spi
-}  // namespace sw
-}  // namespace libMcuLL
-
+}  // namespace libMcuLL::sw::spi
 #endif

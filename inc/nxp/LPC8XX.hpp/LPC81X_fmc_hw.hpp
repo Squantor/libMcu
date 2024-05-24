@@ -10,9 +10,7 @@
 #ifndef LPC81X_FMC_REGS_HPP
 #define LPC81X_FMC_REGS_HPP
 
-namespace libMcuLL {
-namespace hw {
-namespace fmc {
+namespace libMcuLL::hw::fmc {
 
 /**
  * @brief flash controller register definitions
@@ -42,8 +40,5 @@ namespace FMSW {
 constexpr inline std::uint32_t RESERVED_MASK = 0x00000000u; /**< register mask for allowed bits */
 }  // namespace FMSW
 
-}  // namespace fmc
-}  // namespace hw
-}  // namespace libMcuLL
-
+}  // namespace libMcuLL::hw::fmc
 #endif

@@ -9,9 +9,7 @@
  */
 #ifndef LPC84X_GPIO_REGS_HPP
 #define LPC84X_GPIO_REGS_HPP
-namespace libMcuLL {
-namespace hw {
-namespace gpio {
+namespace libMcuLL::hw::gpio {
 
 /**
  * @brief gpio register definitions
@@ -28,9 +26,5 @@ struct peripheral {
   volatile std::uint32_t CLR[32];   /**< Clear port n */
   volatile std::uint32_t NOT[32];   /**< Toggle port n */
 };
-
-}  // namespace gpio
-}  // namespace hw
-}  // namespace libMcuLL
-
+}  // namespace libMcuLL::hw::gpio
 #endif

@@ -18,8 +18,8 @@ namespace libMcuHal {
 using namespace libMcuLL::hw;
 using pinsHalType = pins::pins<padsBank0Address, ioBank0Address>;
 using gpioHalType = gpio::gpio<padsBank0Address, ioBank0Address, sioAddress>;
-using spi0SyncHalType = libMcuHal::spi::spi<libMcuLL::hw::spi0Address>;
-using spi1SyncHalType = libMcuHal::spi::spi<libMcuLL::hw::spi1Address>;
+using spi0SyncHalType = spi::spi<libMcuLL::hw::spi0Address>;
+using spi1SyncHalType = spi::spi<libMcuLL::hw::spi1Address>;
 }  // namespace libMcuHal
 
 #endif

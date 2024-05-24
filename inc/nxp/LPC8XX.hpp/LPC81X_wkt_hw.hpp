@@ -10,9 +10,7 @@
 #ifndef LPC81X_WKT_REGS_HPP
 #define LPC81X_WKT_REGS_HPP
 
-namespace libMcuLL {
-namespace hw {
-namespace wkt {
+namespace libMcuLL::hw::wkt {
 
 /**
  * @brief wakeup timer register definitions
@@ -23,9 +21,5 @@ struct peripheral {
   std::uint32_t Reserved[2];
   volatile std::uint32_t COUNT; /**< Alarm/Wakeup Timer Counter register */
 };
-
-}  // namespace wkt
-}  // namespace hw
-}  // namespace libMcuLL
-
+}  // namespace libMcuLL::hw::wkt
 #endif

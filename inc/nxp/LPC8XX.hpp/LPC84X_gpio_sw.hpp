@@ -10,9 +10,7 @@
 #ifndef LPC84X_GPIO_HPP
 #define LPC84X_GPIO_HPP
 
-namespace libMcuLL {
-namespace sw {
-namespace gpio {
+namespace libMcuLL::sw::gpio {
 using namespace hw::gpio;
 template <libMcuLL::gpioBaseAddress const &gpioAddress_>
 struct gpio : libMcuLL::peripheralBase {
@@ -222,8 +220,5 @@ struct gpio : libMcuLL::peripheralBase {
  private:
   static constexpr libMcuLL::hwAddressType gpioAddress = gpioAddress_; /**< peripheral address */
 };
-}  // namespace gpio
-}  // namespace sw
-}  // namespace libMcuLL
-
+}  // namespace libMcuLL::sw::gpio
 #endif

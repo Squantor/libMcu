@@ -12,9 +12,7 @@
 
 #include "nxp/LPC8XX.hpp/LPC81X_usart_sw_common.hpp"
 
-namespace libMcuLL {
-namespace sw {
-namespace usart {
+namespace libMcuLL::sw::usart {
 using namespace hw::usart;
 
 /**
@@ -99,8 +97,5 @@ struct usartSync : libMcuLL::peripheralBase {
  private:
   static constexpr libMcuLL::hwAddressType usartAddress = usartAddress_; /**< peripheral usartAddress */
 };
-}  // namespace usart
-}  // namespace sw
-}  // namespace libMcuLL
-
+}  // namespace libMcuLL::sw::usart
 #endif
