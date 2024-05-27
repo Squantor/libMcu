@@ -18,6 +18,9 @@ struct i2c : libMcuLL::peripheralBase {
    *
    */
   constexpr void init() {}
+
+  constexpr void setup(std::uint32_t bitRate) {}
+  // TODO setup slave with slave address
   /**
    * @brief get registers from peripheral
    *
