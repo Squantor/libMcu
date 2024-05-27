@@ -155,7 +155,7 @@ struct acmp : libMcuLL::peripheralBase {
   }
 
  private:
-  static constexpr libMcuLL::hwAddressType acmpAddress = acmpAddress_; /**< peripheral address */
+  static constexpr libMcuLL::hwAddressType acmpAddress{acmpAddress_}; /**< peripheral address */
 };
 }  // namespace libMcuLL::sw::acmp
 #endif
