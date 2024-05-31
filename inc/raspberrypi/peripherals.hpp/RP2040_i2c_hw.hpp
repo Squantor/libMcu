@@ -87,16 +87,16 @@ namespace IC_DATA_CMD {
 constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /**< Mask for allowed bits */
 }  // namespace IC_DATA_CMD
 namespace IC_SS_SCL_HCNT {
-constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /**< Mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x0000'FFFFu}; /**< Mask for allowed bits */
 }  // namespace IC_SS_SCL_HCNT
 namespace IC_SS_SCL_LCNT {
-constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /**< Mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x0000'FFFFu}; /**< Mask for allowed bits */
 }  // namespace IC_SS_SCL_LCNT
 namespace IC_FS_SCL_HCNT {
-constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /**< Mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x0000'FFFFu}; /**< Mask for allowed bits */
 }  // namespace IC_FS_SCL_HCNT
 namespace IC_FS_SCL_LCNT {
-constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /**< Mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x0000'FFFFu}; /**< Mask for allowed bits */
 }  // namespace IC_FS_SCL_LCNT
 namespace IC_INTR_STAT {
 constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /**< Mask for allowed bits */
@@ -147,7 +147,9 @@ namespace IC_CLR_GEN_CALL {
 constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /**< Mask for allowed bits */
 }  // namespace IC_CLR_GEN_CALL
 namespace IC_ENABLE {
-constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /**< Mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x0000'0003u}; /**< Mask for allowed bits */
+constexpr inline std::uint32_t ABORT{1u << 1};              /**< Abort everything in progress*/
+constexpr inline std::uint32_t ENABLE{1u << 0};             /**< Enable TX command processing */
 }  // namespace IC_ENABLE
 namespace IC_STATUS {
 constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /**< Mask for allowed bits */
@@ -156,7 +158,25 @@ namespace IC_TXFLR {
 constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /**< Mask for allowed bits */
 }  // namespace IC_TXFLR
 namespace IC_SDA_HOLD {
-constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /**< Mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x00FF'FFFFu};      /**< Mask for allowed bits */
+constexpr inline std::uint32_t IC_SDA_RX_HOLD_MASK{0x00FF'0000}; /**< Mask for SDA RX hold time */
+constexpr inline std::uint32_t IC_SDA_TX_HOLD_MASK{0x0000'FFFF}; /**< Mask for SDA TX hold time */
+/**
+ * @brief Format IC_SDA_RX_HOLD field to IC_SDA_HOLD register
+ * @param clocks clocks to hold SDA when acting as receiver
+ * @return IC_SDA_RX_HOLD field formatted to IC_SDA_HOLD register
+ */
+constexpr inline std::uint32_t IC_SDA_RX_HOLD(std::uint32_t clocks) {
+  return clocks << 16;
+}
+/**
+ * @brief Format IC_SDA_TX_HOLD field to IC_SDA_HOLD register
+ * @param clocks clocks to hold SDA when acting as transmitter
+ * @return IC_SDA_TX_HOLD field formatted to IC_SDA_HOLD register
+ */
+constexpr inline std::uint32_t IC_SDA_TX_HOLD(std::uint32_t clocks) {
+  return clocks << 0;
+}
 }  // namespace IC_SDA_HOLD
 namespace IC_TX_ABRT_SOURCE {
 constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /**< Mask for allowed bits */
@@ -165,7 +185,9 @@ namespace IC_SLV_DATA_NACK_ONLY {
 constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /**< Mask for allowed bits */
 }  // namespace IC_SLV_DATA_NACK_ONLY
 namespace IC_DMA_CR {
-constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /**< Mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x0000'0003u}; /**< Mask for allowed bits */
+constexpr inline std::uint32_t TDMAE = (1u << 1);           /**< Transmit DMA enable */
+constexpr inline std::uint32_t RDMAE = (0u << 1);           /**< Receive DMA enable*/
 }  // namespace IC_DMA_CR
 namespace IC_DMA_TDLR {
 constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /**< Mask for allowed bits */
