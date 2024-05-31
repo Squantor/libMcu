@@ -79,12 +79,19 @@ constexpr inline std::uint32_t MASTER_MODE{1u << 0};           /**< Enable maste
 }  // namespace IC_CON
 namespace IC_TAR {
 constexpr inline std::uint32_t RESERVED_MASK{0x0000'07FFu}; /**< Mask for allowed bits */
+constexpr inline std::uint32_t SPECIAL{1u << 11};           /**< special byte transmission */
+constexpr inline std::uint32_t GC_OR_START{1u << 10};       /**< GENERAL_CALL or START byte transmission */
 }  // namespace IC_TAR
 namespace IC_SAR {
 constexpr inline std::uint32_t RESERVED_MASK{0x0000'03FFu}; /**< Mask for allowed bits */
 }  // namespace IC_SAR
 namespace IC_DATA_CMD {
-constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /**< Mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x0000'0FFFu};    /**< Mask for allowed bits */
+constexpr inline std::uint32_t FIRST_DATA_BYTE_FLAG{1u << 11}; /**< First data byte received */
+constexpr inline std::uint32_t RESTART{1u << 10};              /**< issue RESTART before byte TX/RX */
+constexpr inline std::uint32_t STOP{1u << 9};                  /**< Send STOP after byte TX/RX */
+constexpr inline std::uint32_t CMD_READ{1u << 8};              /**< master read */
+constexpr inline std::uint32_t CMD_WRITE{0u << 8};             /**< master write */
 }  // namespace IC_DATA_CMD
 namespace IC_SS_SCL_HCNT {
 constexpr inline std::uint32_t RESERVED_MASK{0x0000'FFFFu}; /**< Mask for allowed bits */
@@ -105,7 +112,20 @@ namespace IC_INTR_MASK {
 constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /**< Mask for allowed bits */
 }  // namespace IC_INTR_MASK
 namespace IC_RAW_INTR_STAT {
-constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /**< Mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x0000'1FFFu}; /**< Mask for allowed bits */
+constexpr inline std::uint32_t RESTART_DET(1u << 12);       /**< */
+constexpr inline std::uint32_t GEN_CALL(1u << 11);          /**< */
+constexpr inline std::uint32_t START_DET(1u << 10);         /**< */
+constexpr inline std::uint32_t STOP_DET(1u << 9);           /**< */
+constexpr inline std::uint32_t ACTIVITY(1u << 8);           /**< */
+constexpr inline std::uint32_t RX_DONE(1u << 7);            /**< */
+constexpr inline std::uint32_t TX_ABRT(1u << 6);            /**< */
+constexpr inline std::uint32_t RD_REQ(1u << 5);             /**< */
+constexpr inline std::uint32_t TX_EMPTY(1u << 4);           /**< Depends on mode, TX fifo is empty  */
+constexpr inline std::uint32_t TX_OVER(1u << 3);            /**< */
+constexpr inline std::uint32_t RX_FULL(1u << 2);            /**< */
+constexpr inline std::uint32_t RX_OVER(1u << 1);            /**< */
+constexpr inline std::uint32_t RX_UNDER(1u << 0);           /**< */
 }  // namespace IC_RAW_INTR_STAT
 namespace IC_RX_TL {
 constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /**< Mask for allowed bits */

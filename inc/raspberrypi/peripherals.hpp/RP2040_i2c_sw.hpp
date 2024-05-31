@@ -88,10 +88,20 @@ struct i2c : libMcuLL::peripheralBase {
    * @param transmitBuffer data to send
    */
   constexpr void write(libMcuLL::i2cDeviceAddress address, const std::span<std::uint8_t> transmitBuffer) {
-    std::uint32_t i2cAddress = static_cast<std::uint32_t>(address.value) << 1;
+    std::uint32_t i2cAddress = static_cast<std::uint32_t>(address.value);
     i2cPeripheral()->IC_ENABLE = IC_ENABLE::ABORT;
     i2cPeripheral()->IC_TAR = i2cAddress;
     i2cPeripheral()->IC_ENABLE = IC_ENABLE::ENABLE;
+    // write data in loop to DATA_CMD but stop at last byte
+    std::size_t index = 0;
+    for (; index < transmitBuffer.size() - 1; index++) {
+      i2cPeripheral()->IC_DATA_CMD = transmitBuffer[index];
+      while (!(i2cPeripheral()->IC_RAW_INTR_STAT & IC_RAW_INTR_STAT::TX_EMPTY))
+        libMcu::sw::nop();
+    }
+    i2cPeripheral()->IC_DATA_CMD = transmitBuffer[index] | IC_DATA_CMD::STOP;
+    while (!(i2cPeripheral()->IC_RAW_INTR_STAT & IC_RAW_INTR_STAT::TX_EMPTY))
+      libMcu::sw::nop();
   }
   /**
    * @brief Read data from I2C device
@@ -99,7 +109,7 @@ struct i2c : libMcuLL::peripheralBase {
    * @param receiveBuffer place to put read data, needs to be at least size 1!
    */
   constexpr void read(libMcuLL::i2cDeviceAddress address, std::span<std::uint8_t> receiveBuffer) {
-    std::uint32_t i2cAddress = static_cast<std::uint32_t>(address.value) << 1;
+    std::uint32_t i2cAddress = static_cast<std::uint32_t>(address.value);
   }
   /**
    * @brief get registers from peripheral
