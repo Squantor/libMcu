@@ -88,13 +88,13 @@ struct i2c : libMcuLL::peripheralBase {
    * @param transmitBuffer data to send, should at least contain one byte!
    * @param maxTime maximum amount of iterations to wait between each I2C operation
    */
-  constexpr libMcu::results write(libMcuLL::i2cDeviceAddress address, const std::span<std::uint8_t> transmitBuffer,
+  constexpr libMcu::results write(libMcuLL::i2cDeviceAddress address, std::span<const std::uint8_t> transmitBuffer,
                                   std::uint32_t maxTime) {
     std::uint32_t i2cAddress = static_cast<std::uint32_t>(address.value);
     i2cPeripheral()->IC_ENABLE = IC_ENABLE::ABORT;
     i2cPeripheral()->IC_TAR = i2cAddress;
     i2cPeripheral()->IC_ENABLE = IC_ENABLE::ENABLE;
-    // write data in loop to DATA_CMD but stop at last byte
+    // write data in loop to DATA_CMD
     std::size_t index = 0;
     std::uint32_t timeout;
     for (; index < transmitBuffer.size(); index++) {
@@ -102,11 +102,10 @@ struct i2c : libMcuLL::peripheralBase {
         i2cPeripheral()->IC_DATA_CMD = transmitBuffer[index] | IC_DATA_CMD::STOP;
       else
         i2cPeripheral()->IC_DATA_CMD = transmitBuffer[index];
-      // loop until operation completed/timed out
+      // loop until operation completed/timed out, TODO change this loop to be more like RX loop
       timeout = maxTime;
       while (!(i2cPeripheral()->IC_RAW_INTR_STAT & IC_RAW_INTR_STAT::TX_EMPTY) && !(timeout == 0)) {
         timeout = timeout - 1;
-        libMcu::sw::nop();
       }
       // check conditions of byte transfer
       if (timeout == 0)
@@ -118,9 +117,10 @@ struct i2c : libMcuLL::peripheralBase {
     return libMcu::results::DONE;
   // error handling
   timeout:
-    // TODO put I2C in a valid state
+    i2cPeripheral()->IC_ENABLE = IC_ENABLE::ABORT;
     return libMcu::results::TIMEOUT;
   txAbort:
+    // TODO change TX abort handling to be more like RX abort
     libMcu::results result{libMcu::results::ERROR};
     std::uint32_t txAbortReason{i2cPeripheral()->IC_TX_ABRT_SOURCE};
     if (txAbortReason & IC_TX_ABRT_SOURCE::ABRT_7B_ADDR_NOACK)
@@ -135,8 +135,46 @@ struct i2c : libMcuLL::peripheralBase {
    * @param address I2C device to read from
    * @param receiveBuffer place to put read data, needs to be at least size 1!
    */
-  constexpr void read(libMcuLL::i2cDeviceAddress address, std::span<std::uint8_t> receiveBuffer) {
+  constexpr libMcu::results read(libMcuLL::i2cDeviceAddress address, std::span<std::uint8_t> receiveBuffer, std::uint32_t maxTime) {
     std::uint32_t i2cAddress = static_cast<std::uint32_t>(address.value);
+    i2cPeripheral()->IC_ENABLE = IC_ENABLE::ABORT;
+    i2cPeripheral()->IC_TAR = i2cAddress;
+    i2cPeripheral()->IC_ENABLE = IC_ENABLE::ENABLE;
+    // read data in loop to DATA_CMD
+    std::size_t index = 0;
+    std::uint32_t timeout;
+    std::uint32_t abortReason;
+    bool aborted = false;
+    for (; index < receiveBuffer.size(); index++) {
+      if (index == receiveBuffer.size() - 1)  // special handling for last byte
+        i2cPeripheral()->IC_DATA_CMD = IC_DATA_CMD::STOP | IC_DATA_CMD::CMD_READ;
+      else
+        i2cPeripheral()->IC_DATA_CMD = IC_DATA_CMD::CMD_READ;
+      // loop until operation completed/timed out
+      timeout = maxTime;
+      do {
+        abortReason = i2cPeripheral()->IC_TX_ABRT_SOURCE;
+        if (i2cPeripheral()->IC_CLR_TX_ABRT)
+          aborted = true;
+        timeout = timeout - 1;
+      } while (!(timeout == 0) && !aborted && !i2cPeripheral()->IC_RXFLR);
+      // check conditions of byte transfer
+      if (timeout == 0)
+        goto timeout;
+      if (aborted)
+        goto abort;
+      receiveBuffer[index] = i2cPeripheral()->IC_DATA_CMD;
+    }
+    return libMcu::results::DONE;
+  // error handling
+  timeout:
+    i2cPeripheral()->IC_ENABLE = IC_ENABLE::ABORT;
+    return libMcu::results::TIMEOUT;
+  abort:
+    libMcu::results result{libMcu::results::ERROR};
+    if (abortReason & IC_TX_ABRT_SOURCE::ABRT_7B_ADDR_NOACK)
+      result = libMcu::results::INVALID_ADDRESS;
+    return result;
   }
   /**
    * @brief get registers from peripheral
