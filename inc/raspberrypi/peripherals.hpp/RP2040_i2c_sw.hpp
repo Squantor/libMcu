@@ -109,10 +109,9 @@ struct i2c : libMcuLL::peripheralBase {
         abortReason = i2cPeripheral()->IC_TX_ABRT_SOURCE;
         if (i2cPeripheral()->IC_CLR_TX_ABRT)
           goto abort;
-        timeout = timeout - 1;
-      } while (!(timeout == 0) && !(i2cPeripheral()->IC_RAW_INTR_STAT & IC_RAW_INTR_STAT::TX_EMPTY));
-      if (timeout == 0)
-        goto timeout;
+        if (!timeout--)
+          goto timeout;
+      } while (!(i2cPeripheral()->IC_RAW_INTR_STAT & IC_RAW_INTR_STAT::TX_EMPTY));
     }
     return libMcu::results::DONE;
   // error handling
@@ -126,11 +125,11 @@ struct i2c : libMcuLL::peripheralBase {
       result = libMcu::results::INVALID_ADDRESS;
     else if (abortReason & IC_TX_ABRT_SOURCE::ABRT_TXDATA_NOACK)
       result = libMcu::results::TRANSFER_ERROR;
-    i2cPeripheral()->IC_CLR_TX_ABRT;  // read clears TX abort
     return result;
   }
   /**
    * @brief Read data from I2C device
+   * abort handling is a bit different from transmit as it seems that some abort reasons are slower when reading
    * @param address I2C device to read from
    * @param receiveBuffer place to put read data, needs to be at least size 1!
    */
@@ -152,12 +151,12 @@ struct i2c : libMcuLL::peripheralBase {
       timeout = maxTime;
       do {
         abortReason = i2cPeripheral()->IC_TX_ABRT_SOURCE;
-        if (i2cPeripheral()->IC_CLR_TX_ABRT)
+        // we check TX abort flag instead of tx abort register, otherwise we miss some tx abort reasons
+        if (i2cPeripheral()->IC_RAW_INTR_STAT & IC_RAW_INTR_STAT::TX_ABRT)
           goto abort;
-        timeout = timeout - 1;
-      } while (!(timeout == 0) && !i2cPeripheral()->IC_RXFLR);
-      if (timeout == 0)
-        goto timeout;
+        if (!timeout--)
+          goto timeout;
+      } while (!i2cPeripheral()->IC_RXFLR);
       receiveBuffer[index] = i2cPeripheral()->IC_DATA_CMD;
     }
     return libMcu::results::DONE;
@@ -169,6 +168,7 @@ struct i2c : libMcuLL::peripheralBase {
     libMcu::results result{libMcu::results::ERROR};
     if (abortReason & IC_TX_ABRT_SOURCE::ABRT_7B_ADDR_NOACK)
       result = libMcu::results::INVALID_ADDRESS;
+    i2cPeripheral()->IC_CLR_TX_ABRT;
     return result;
   }
   /**
