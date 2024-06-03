@@ -85,23 +85,50 @@ struct i2c : libMcuLL::peripheralBase {
   /**
    * @brief Write data to I2C device
    * @param address I2C device to write to
-   * @param transmitBuffer data to send
+   * @param transmitBuffer data to send, should at least contain one byte!
+   * @param maxTime maximum amount of iterations to wait between each I2C operation
    */
-  constexpr void write(libMcuLL::i2cDeviceAddress address, const std::span<std::uint8_t> transmitBuffer) {
+  constexpr libMcu::results write(libMcuLL::i2cDeviceAddress address, const std::span<std::uint8_t> transmitBuffer,
+                                  std::uint32_t maxTime) {
     std::uint32_t i2cAddress = static_cast<std::uint32_t>(address.value);
     i2cPeripheral()->IC_ENABLE = IC_ENABLE::ABORT;
     i2cPeripheral()->IC_TAR = i2cAddress;
     i2cPeripheral()->IC_ENABLE = IC_ENABLE::ENABLE;
     // write data in loop to DATA_CMD but stop at last byte
     std::size_t index = 0;
-    for (; index < transmitBuffer.size() - 1; index++) {
-      i2cPeripheral()->IC_DATA_CMD = transmitBuffer[index];
-      while (!(i2cPeripheral()->IC_RAW_INTR_STAT & IC_RAW_INTR_STAT::TX_EMPTY))
+    std::uint32_t timeout;
+    for (; index < transmitBuffer.size(); index++) {
+      if (index == transmitBuffer.size() - 1)  // special handling for last byte
+        i2cPeripheral()->IC_DATA_CMD = transmitBuffer[index] | IC_DATA_CMD::STOP;
+      else
+        i2cPeripheral()->IC_DATA_CMD = transmitBuffer[index];
+      // loop until operation completed/timed out
+      timeout = maxTime;
+      while (!(i2cPeripheral()->IC_RAW_INTR_STAT & IC_RAW_INTR_STAT::TX_EMPTY) && !(timeout == 0)) {
+        timeout = timeout - 1;
         libMcu::sw::nop();
+      }
+      // check conditions of byte transfer
+      if (timeout == 0)
+        goto timeout;
+      std::uint32_t peripheralState = i2cPeripheral()->IC_RAW_INTR_STAT;
+      if (peripheralState & IC_RAW_INTR_STAT::TX_ABRT)
+        goto txAbort;
     }
-    i2cPeripheral()->IC_DATA_CMD = transmitBuffer[index] | IC_DATA_CMD::STOP;
-    while (!(i2cPeripheral()->IC_RAW_INTR_STAT & IC_RAW_INTR_STAT::TX_EMPTY))
-      libMcu::sw::nop();
+    return libMcu::results::DONE;
+  // error handling
+  timeout:
+    // TODO put I2C in a valid state
+    return libMcu::results::TIMEOUT;
+  txAbort:
+    libMcu::results result{libMcu::results::ERROR};
+    std::uint32_t txAbortReason{i2cPeripheral()->IC_TX_ABRT_SOURCE};
+    if (txAbortReason & IC_TX_ABRT_SOURCE::ABRT_7B_ADDR_NOACK)
+      result = libMcu::results::INVALID_ADDRESS;
+    else if (txAbortReason & IC_TX_ABRT_SOURCE::ABRT_TXDATA_NOACK)
+      result = libMcu::results::TRANSFER_ERROR;
+    i2cPeripheral()->IC_CLR_TX_ABRT;  // read clears TX abort
+    return result;
   }
   /**
    * @brief Read data from I2C device

@@ -13,17 +13,19 @@
 namespace libMcu {
 /**
  * @brief result class used in libMcu for various return values
- * Predominantly used in libMcuHal and libMcuDriver
  */
 enum class results : std::uint32_t {
-  NO_ERROR,  /**< No error */
-  ERROR,     /**< Error has occured */
-  STARTED,   /**< Operation started */
-  BUSY,      /**< Operation Busy */
-  DONE,      /**< Operation completed*/
-  IN_USE,    /**< Currently in use */
-  CLAIMED,   /**< Interface has been successfully claimed */
-  UNCLAIMED, /**< Interface has been successfully unclaimed */
+  NO_ERROR,        /**< No error */
+  ERROR,           /**< Error has occured */
+  STARTED,         /**< Operation started */
+  BUSY,            /**< Operation Busy */
+  DONE,            /**< Operation completed*/
+  IN_USE,          /**< Currently in use */
+  CLAIMED,         /**< Interface has been successfully claimed */
+  UNCLAIMED,       /**< Interface has been successfully unclaimed */
+  TIMEOUT,         /**< Operation timed out */
+  INVALID_ADDRESS, /**< Invalid address */
+  TRANSFER_ERROR,  /**< Error occured during data transfer*/
 };
 }  // namespace libMcu
 

@@ -199,7 +199,32 @@ constexpr inline std::uint32_t IC_SDA_TX_HOLD(std::uint32_t clocks) {
 }
 }  // namespace IC_SDA_HOLD
 namespace IC_TX_ABRT_SOURCE {
-constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /**< Mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0xFF81'FFFFu}; /**< Mask for allowed bits */
+/**
+ * @brief Formats the TX_FLUSH_CNT field from IC_TX_ABRT_SOURCE to a value
+ * @param inputRegister IC_TX_ABRT_SOURCE register
+ * @return number of TX FIFO data commands that are flushed due to TX_ABRT
+ */
+constexpr inline std::uint32_t TX_FLUSH_CNT(uint32_t inputRegister) {
+  return inputRegister >> 23;
+}
+constexpr inline std::uint32_t ABRT_USER_ABRT_FLAG{1 << 16};  /**< User transfer abort */
+constexpr inline std::uint32_t ABRT_SLVRD_INTX{1 << 15};      /**< */
+constexpr inline std::uint32_t ABRT_SLV_ARBLOST{1 << 14};     /**< Slave lost bus while transmitting */
+constexpr inline std::uint32_t ABRT_SLVFLUSH_TXFIFO{1 << 13}; /**< Slave received read command and data in TX FIFO */
+constexpr inline std::uint32_t ARB_LOST{1 << 12};             /**< Arbitration lost */
+constexpr inline std::uint32_t ABRT_MASTER_DIS{1 << 11};      /**< */
+constexpr inline std::uint32_t ABRT_10B_RD_NORSTRT{1 << 10};  /**< */
+constexpr inline std::uint32_t ABRT_SBYTE_NORSTRT{1 << 9};    /**< */
+constexpr inline std::uint32_t ABRT_HS_NORSTRT{1 << 8};       /**< */
+constexpr inline std::uint32_t ABRT_SBYTE_ACKDET{1 << 7};     /**< */
+constexpr inline std::uint32_t ABRT_HS_ACKDET{1 << 6};        /**< */
+constexpr inline std::uint32_t ABRT_GCALL_READ{1 << 5};       /**< */
+constexpr inline std::uint32_t ABRT_GCALL_NOACK{1 << 4};      /**< */
+constexpr inline std::uint32_t ABRT_TXDATA_NOACK{1 << 3};     /**< */
+constexpr inline std::uint32_t ABRT_10ADDR2_NOACK{1 << 2};    /**< */
+constexpr inline std::uint32_t ABRT_10ADDR1_NOACK{1 << 1};    /**< */
+constexpr inline std::uint32_t ABRT_7B_ADDR_NOACK{1 << 0};    /**< 7bit address was not acknowledged */
 }  // namespace IC_TX_ABRT_SOURCE
 namespace IC_SLV_DATA_NACK_ONLY {
 constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /**< Mask for allowed bits */
