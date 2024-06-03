@@ -97,35 +97,34 @@ struct i2c : libMcuLL::peripheralBase {
     // write data in loop to DATA_CMD
     std::size_t index = 0;
     std::uint32_t timeout;
+    std::uint32_t abortReason;
     for (; index < transmitBuffer.size(); index++) {
       if (index == transmitBuffer.size() - 1)  // special handling for last byte
         i2cPeripheral()->IC_DATA_CMD = transmitBuffer[index] | IC_DATA_CMD::STOP;
       else
         i2cPeripheral()->IC_DATA_CMD = transmitBuffer[index];
-      // loop until operation completed/timed out, TODO change this loop to be more like RX loop
+      // loop until timeout/abort/completed
       timeout = maxTime;
-      while (!(i2cPeripheral()->IC_RAW_INTR_STAT & IC_RAW_INTR_STAT::TX_EMPTY) && !(timeout == 0)) {
+      do {
+        abortReason = i2cPeripheral()->IC_TX_ABRT_SOURCE;
+        if (i2cPeripheral()->IC_CLR_TX_ABRT)
+          goto abort;
         timeout = timeout - 1;
-      }
-      // check conditions of byte transfer
+      } while (!(timeout == 0) && !(i2cPeripheral()->IC_RAW_INTR_STAT & IC_RAW_INTR_STAT::TX_EMPTY));
       if (timeout == 0)
         goto timeout;
-      std::uint32_t peripheralState = i2cPeripheral()->IC_RAW_INTR_STAT;
-      if (peripheralState & IC_RAW_INTR_STAT::TX_ABRT)
-        goto txAbort;
     }
     return libMcu::results::DONE;
   // error handling
   timeout:
     i2cPeripheral()->IC_ENABLE = IC_ENABLE::ABORT;
     return libMcu::results::TIMEOUT;
-  txAbort:
+  abort:
     // TODO change TX abort handling to be more like RX abort
     libMcu::results result{libMcu::results::ERROR};
-    std::uint32_t txAbortReason{i2cPeripheral()->IC_TX_ABRT_SOURCE};
-    if (txAbortReason & IC_TX_ABRT_SOURCE::ABRT_7B_ADDR_NOACK)
+    if (abortReason & IC_TX_ABRT_SOURCE::ABRT_7B_ADDR_NOACK)
       result = libMcu::results::INVALID_ADDRESS;
-    else if (txAbortReason & IC_TX_ABRT_SOURCE::ABRT_TXDATA_NOACK)
+    else if (abortReason & IC_TX_ABRT_SOURCE::ABRT_TXDATA_NOACK)
       result = libMcu::results::TRANSFER_ERROR;
     i2cPeripheral()->IC_CLR_TX_ABRT;  // read clears TX abort
     return result;
@@ -144,25 +143,21 @@ struct i2c : libMcuLL::peripheralBase {
     std::size_t index = 0;
     std::uint32_t timeout;
     std::uint32_t abortReason;
-    bool aborted = false;
     for (; index < receiveBuffer.size(); index++) {
       if (index == receiveBuffer.size() - 1)  // special handling for last byte
         i2cPeripheral()->IC_DATA_CMD = IC_DATA_CMD::STOP | IC_DATA_CMD::CMD_READ;
       else
         i2cPeripheral()->IC_DATA_CMD = IC_DATA_CMD::CMD_READ;
-      // loop until operation completed/timed out
+      // loop until timeout/abort/completed
       timeout = maxTime;
       do {
         abortReason = i2cPeripheral()->IC_TX_ABRT_SOURCE;
         if (i2cPeripheral()->IC_CLR_TX_ABRT)
-          aborted = true;
+          goto abort;
         timeout = timeout - 1;
-      } while (!(timeout == 0) && !aborted && !i2cPeripheral()->IC_RXFLR);
-      // check conditions of byte transfer
+      } while (!(timeout == 0) && !i2cPeripheral()->IC_RXFLR);
       if (timeout == 0)
         goto timeout;
-      if (aborted)
-        goto abort;
       receiveBuffer[index] = i2cPeripheral()->IC_DATA_CMD;
     }
     return libMcu::results::DONE;
