@@ -129,7 +129,7 @@ struct i2c : libMcuLL::peripheralBase {
   }
   /**
    * @brief Read data from I2C device
-   * abort handling is a bit different from transmit as it seems that some abort reasons are slower when reading
+   * abort handling is a bit different from transmit as it seems that some abort reasons are slower when readingc
    * @param address I2C device to read from
    * @param receiveBuffer place to put read data, needs to be at least size 1!
    */
