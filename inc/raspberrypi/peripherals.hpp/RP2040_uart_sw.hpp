@@ -26,7 +26,7 @@ struct uart : libMcuLL::peripheralBase {
    * @return actual baud rate
    */
   constexpr std::uint32_t setup(std::uint32_t baudrate) {
-    uartPeripheralClear()->UARTCR = UARTCR::UARTEN;
+    uartPeripheralClear()->UARTCR = UARTCR::TXE | UARTCR::RXE | UARTCR::UARTEN;
     // baud rate calculations
     std::uint32_t divisor = (8 * FREQ_PERI / baudrate);
     std::uint32_t divIntegral = divisor >> 7;
