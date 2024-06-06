@@ -51,7 +51,41 @@ struct uart : libMcuLL::peripheralBase {
     uartPeripheral()->UARTDMACR = UARTDMACR::TXDMAE | UARTDMACR::RXDMAE;
     return (4 * FREQ_PERI) / (64 * divIntegral + divFractional);
   }
-  // add setup with format settings
+  // TODO: add setup with format settings
+  // write
+  constexpr void write(std::span<const std::uint8_t> transmitBuffer) {
+    for (const std::uint8_t& character : transmitBuffer) {
+      while ((uartPeripheral()->UARTFR & UARTFR::TXFF_FLAG))
+        libMcu::sw::nop();
+      uartPeripheral()->UARTDR = character;
+    }
+  }
+  // read, data, timeout
+  constexpr libMcu::results read(std::span<std::uint8_t> receiveBuffer, std::uint32_t timeout) {
+    std::uint32_t countdown;
+    for (std::uint8_t& character : receiveBuffer) {
+      countdown = timeout;
+      while ((uartPeripheral()->UARTFR & UARTFR::RXFE_FLAG) && countdown) {
+        countdown = countdown - 1;
+      }
+      if (countdown == 0)
+        return libMcu::results::TIMEOUT;
+      std::uint32_t receivedData = uartPeripheral()->UARTDR;
+      if (receivedData & UARTDR::ERROR_MASK) {
+        if (receivedData & UARTDR::OE_FLAG)
+          return libMcu::results::OVERRUN;
+        else if (receivedData & UARTDR::BE_FLAG)
+          return libMcu::results::BREAK;
+        else if (receivedData & UARTDR::PE_FLAG)
+          return libMcu::results::PARITY;
+        else if (receivedData & UARTDR::FE_FLAG)
+          return libMcu::results::FRAMING;
+      }
+      character = static_cast<std::uint8_t>(receivedData);
+    }
+    return libMcu::results::NO_ERROR;
+  }
+
   /**
    * @brief get registers from peripheral
    *

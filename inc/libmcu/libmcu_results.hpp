@@ -26,6 +26,10 @@ enum class results : std::uint32_t {
   TIMEOUT,         /**< Operation timed out */
   INVALID_ADDRESS, /**< Invalid address */
   TRANSFER_ERROR,  /**< Error occured during data transfer*/
+  OVERRUN,         /**< buffer overrun */
+  FRAMING,         /**< Framing error*/
+  PARITY,          /**< Parity error */
+  BREAK,           /**< Break error */
 };
 }  // namespace libMcu
 

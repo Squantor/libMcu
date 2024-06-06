@@ -48,6 +48,7 @@ constexpr inline std::uint32_t OE_FLAG{1u << 11};           /**< RX FIFO overrun
 constexpr inline std::uint32_t BE_FLAG{1u << 10};           /**< Break error */
 constexpr inline std::uint32_t PE_FLAG{1u << 9};            /**< Parity error */
 constexpr inline std::uint32_t FE_FLAG{1u << 8};            /**< Framing error */
+constexpr inline std::uint32_t ERROR_MASK{0xFu << 8};       /**< Mask for all the error flags*/
 constexpr inline std::uint32_t DATA_MASK{0xFFu << 0};       /**< Mask for data byte */
 /**
  * @brief Format DATA field to UARTDR register
