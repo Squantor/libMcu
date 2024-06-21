@@ -314,14 +314,14 @@ C definitions to C++. Step by step, C++ bits will go below
 */
 
 namespace peripherals {
-constexpr static inline uint32_t SPI0_cpp = 0x4005'8000u; /**< TODO, rename to their names when refactoring is done */
-constexpr static inline uint32_t SPI1_cpp = 0x4005'C000u; /**< TODO, rename to their names when refactoring is done */
+constexpr static inline uint32_t SPI0_cpp{0x4005'8000u}; /**< TODO, rename to their names when refactoring is done */
+constexpr static inline uint32_t SPI1_cpp{0x4005'C000u}; /**< TODO, rename to their names when refactoring is done */
 }  // namespace peripherals
 
 // includes that define the registers namespace go here.
 #include "LPC8XX.hpp/LPC8XX_spi_hw.hpp"
 
 // includes that use the registers namespace go here
-#include "LPC8XX.hpp/LPC84X_spi_sw.hpp"
+#include "LPC8XX.hpp/LPC84X_spi_ll.hpp"
 
 #endif
