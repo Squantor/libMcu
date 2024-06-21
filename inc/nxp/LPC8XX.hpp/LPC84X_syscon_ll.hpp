@@ -5,12 +5,12 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC840 series system control functions
+ * \file LPC840 series system control low level functions
  */
 #ifndef LPC84X_SYSCON_LL_HPP
 #define LPC84X_SYSCON_LL_HPP
 
-namespace libMcu::LL::syscon {
+namespace libMcu::ll::syscon {
 namespace hardware = libMcu::hw::syscon;
 
 /**
@@ -269,5 +269,5 @@ struct syscon : libMcuLL::peripheralBase {
  private:
   constexpr static libMcuLL::hwAddressType sysconAddress = sysconAddress_; /**< peripheral address */
 };
-}  // namespace libMcu::LL::syscon
+}  // namespace libMcu::ll::syscon
 #endif

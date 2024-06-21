@@ -5,10 +5,10 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC840 series GPIO functions
+ * \file LPC840 series GPIO low level functions
  */
-#ifndef LPC84X_GPIO_HPP
-#define LPC84X_GPIO_HPP
+#ifndef LPC84X_GPIO_LL_HPP
+#define LPC84X_GPIO_LL_HPP
 
 namespace libMcu::ll::gpio {
 namespace hardware = libMcu::hw::gpio;

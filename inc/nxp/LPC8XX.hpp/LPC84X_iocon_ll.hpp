@@ -5,7 +5,7 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC840 series IOCON functions
+ * \file LPC840 series IOCON  low level functions
  */
 #ifndef LPC84X_IOCON_LL_HPP
 #define LPC84X_IOCON_LL_HPP
