@@ -9,6 +9,9 @@
  * Main entry point, one giant list of microcontroller targets that are supported.
  * Keep this header as small as possible, warnings definitions keep them in the
  * MCU specific headers.
+ *
+ * TODO: depricate this file
+ *
  */
 #ifndef MCU_LL_HPP
 #define MCU_LL_HPP
@@ -26,8 +29,6 @@
 
 #if defined(MCU_LPC812M101DH20)
 #include "nxp/LPC812M101DH20.hpp"
-#elif defined(MCU_LPC845M301BD48)
-#include "nxp/LPC845M301BD48.hpp"
 #elif defined(MCU_LPC844M201BD64)
 #include "nxp/LPC844M201BD64.hpp"
 #elif defined(MCU_CortexM0)

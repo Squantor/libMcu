@@ -10,6 +10,17 @@
 #ifndef LPC845M301BD48_HPP
 #define LPC845M301BD48_HPP
 
+#include <cstdint>
+#include <cstddef>
+#include <array>
+#include <span>
+#include <type_traits>
+#include <limits>
+#include "libmcu/libmcu_results.hpp"
+#include "libmcu/libmcu_types.hpp"
+#include "libmcu/libmcu_functions.hpp"
+#include "libmcu/libmcull_types.hpp"
+
 namespace libMcuLL::hw {
 
 // MCU configuration options
