@@ -7,10 +7,10 @@
 /**
  * \file LPC840 series SWM register interface
  */
-#ifndef LPC84X_SMW_REGS_HPP
-#define LPC84X_SWM_REGS_HPP
+#ifndef LPC84X_SMW_HW_HPP
+#define LPC84X_SWM_HW_HPP
 
-namespace libMcuLL::hw::swm {
+namespace libMcu::hw::swm {
 
 enum pinAssign : std::uint8_t {
   PIO0_0 = 0u,     /**< assign to pin P0_0. */
@@ -735,5 +735,5 @@ struct peripheral {
   volatile std::uint32_t RESERVED0[103]; /**< reserved*/
   volatile std::uint32_t PINENABLE0;     /**< Pin Enable register */
 };
-}  // namespace libMcuLL::hw::swm
+}  // namespace libMcu::hw::swm
 #endif

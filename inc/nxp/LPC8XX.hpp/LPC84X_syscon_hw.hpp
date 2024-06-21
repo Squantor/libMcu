@@ -7,10 +7,10 @@
 /**
  * \file LPC840 system control GPIO register interface
  */
-#ifndef LPC84X_SYSCON_REGS_HPP
-#define LPC84X_SYSCON_REGS_HPP
+#ifndef LPC84X_SYSCON_HW_HPP
+#define LPC84X_SYSCON_HW_HPP
 
-namespace libMcuLL::hw::syscon {
+namespace libMcu::hw::syscon {
 
 /**
  * @brief sysctl register definitions
@@ -249,5 +249,5 @@ constexpr inline std::uint32_t RESERVED_MASK{0x0000'80EFu}; /**< register mask f
 namespace DEVICEID {
 constexpr inline std::uint32_t RESERVED_MASK{0x0000'0000u}; /**< register mask for allowed bits */
 }
-}  // namespace libMcuLL::hw::syscon
+}  // namespace libMcu::hw::syscon
 #endif

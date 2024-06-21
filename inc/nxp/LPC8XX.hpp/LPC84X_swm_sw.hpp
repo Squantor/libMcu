@@ -5,13 +5,13 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC840 series SWM functions
+ * \file LPC840 series SWM low level functions
  */
-#ifndef LPC84X_SWM_HPP
-#define LPC84X_SWM_HPP
+#ifndef LPC84X_SWM_LL_HPP
+#define LPC84X_SWM_LL_HPP
 
-namespace libMcuLL::sw::swm {
-using namespace hw::swm;
+namespace libMcu::ll::swm {
+namespace hardware = libMcu::hw::swm;
 template <libMcuLL::swmBaseAddress swmAddress_>
 struct swm : libMcuLL::peripheralBase {
   /**
@@ -71,12 +71,12 @@ struct swm : libMcuLL::peripheralBase {
    *
    * @return return pointer to registers
    */
-  constexpr hw::swm::peripheral *swmPeripheral() {
-    return reinterpret_cast<hw::swm::peripheral *>(swmAddress);
+  constexpr hardware::peripheral *swmPeripheral() {
+    return reinterpret_cast<hardware::peripheral *>(swmAddress);
   }
 
  private:
   static constexpr libMcuLL::hwAddressType swmAddress = swmAddress_; /**< peripheral address */
 };
-}  // namespace libMcuLL::sw::swm
+}  // namespace libMcu::ll::swm
 #endif
