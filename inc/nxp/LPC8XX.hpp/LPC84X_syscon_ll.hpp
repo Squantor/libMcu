@@ -66,36 +66,48 @@ enum class pllClockSources : std::uint32_t {
  * @brief main clock sources
  */
 enum class mainClockSources : std::uint32_t {
-  IRC = 0,     /**< IRC oscillator */
-  PLL_IN = 1,  /**< PLL input */
-  WDOSC = 2,   /**< Watchdog oscillator */
-  PLL_OUT = 3, /**< PLL output */
+  IRC = 0u,     /**< IRC oscillator */
+  PLL_IN = 1u,  /**< PLL input */
+  WDOSC = 2u,   /**< Watchdog oscillator */
+  PLL_OUT = 3u, /**< PLL output */
 };
 
 /**
  * @brief Peripheral clock enable options
  */
 enum class peripheralClocks : std::uint32_t {
-  SYS = (1 << 0),      /**< AHB bus, APB bridge and the processor core */
-  ROM = (1 << 1),      /**< ROM */
-  RAM = (1 << 2),      /**< RAM */
-  FLASHREG = (1 << 3), /**< Flash register interface */
-  FLASH = (1 << 4),    /**< Flash */
-  I2C = (1 << 5),      /**< I2C */
-  GPIO = (1 << 6),     /**< GPIO */
-  SWM = (1 << 7),      /**< Switch Matrix */
-  SCT = (1 << 8),      /**< State configurable timer */
-  WKT = (1 << 9),      /**< self wake-up timer */
-  MRT = (1 << 10),     /**< multi-rate timer */
-  SPI0 = (1 << 11),    /**< SPI0 */
-  SPI1 = (1 << 12),    /**< SPI1 */
-  CRC = (1 << 13),     /**< CRC */
-  UART0 = (1 << 14),   /**< UART0 */
-  UART1 = (1 << 15),   /**< UART1 */
-  UART2 = (1 << 16),   /**< UART2 */
-  WWDT = (1 << 17),    /**< WWDT */
-  IOCON = (1 << 18),   /**< IOCON */
-  ACMP = (1 << 19),    /**< analog comparator */
+  SYS = (1u << 0),       /**< AHB bus, APB bridge and the processor core */
+  ROM = (1u << 1),       /**< ROM */
+  RAM = (1u << 2),       /**< RAM */
+  FLASHREG = (1u << 3),  /**< Flash register interface */
+  FLASH = (1u << 4),     /**< Flash */
+  I2C0 = (1u << 5),      /**< I2C */
+  GPIO0 = (1u << 6),     /**< GPIO 0*/
+  SWM = (1u << 7),       /**< Switch Matrix */
+  SCT = (1u << 8),       /**< State configurable timer */
+  WKT = (1u << 9),       /**< self wake-up timer */
+  MRT = (1u << 10),      /**< multi-rate timer */
+  SPI0 = (1u << 11),     /**< SPI0 */
+  SPI1 = (1u << 12),     /**< SPI1 */
+  CRC = (1u << 13),      /**< CRC */
+  UART0 = (1u << 14),    /**< UART0 */
+  UART1 = (1u << 15),    /**< UART1 */
+  UART2 = (1u << 16),    /**< UART2 */
+  WWDT = (1u << 17),     /**< WWDT */
+  IOCON = (1u << 18),    /**< IOCON */
+  ACMP = (1u << 19),     /**< analog comparator */
+  GPIO1 = (1u << 20),    /**< GPIO 1 */
+  I2C1 = (1u << 21),     /**< I2C 1 */
+  I2C2 = (1u << 22),     /**< I2C 2 */
+  I2C3 = (1u << 23),     /**< I2C 3 */
+  ADC = (1u << 24),      /**< I2C 1 */
+  CTIMER0 = (1u << 25),  /**< CTIMER 0 */
+  MTB = (1u << 26),      /**< MTB */
+  DAC0 = (1u << 27),     /**< DAC 0 */
+  GPIO_INT = (1u << 28), /**< GPIO pin interrupt */
+  DMA = (1u << 29),      /**< DMA */
+  UART3 = (1u << 30),    /**< UART 3 */
+  UART4 = (1u << 31),    /**< UART 4 */
 };
 
 /**
@@ -104,6 +116,7 @@ enum class peripheralClocks : std::uint32_t {
  * @param a peripheral clock
  * @param b peripheral clock
  * @return ored value of peripheral clock
+ * TODO: remove as this bloats in debug mode
  */
 constexpr peripheralClocks operator|(const peripheralClocks a, const peripheralClocks b) {
   return static_cast<peripheralClocks>(static_cast<uint32_t>(a) | static_cast<uint32_t>(b));
@@ -113,14 +126,14 @@ constexpr peripheralClocks operator|(const peripheralClocks a, const peripheralC
  * @brief Peripheral power down reset options
  */
 enum peripheralPowers : std::uint32_t {
-  IRCOUT = (1 << 0), /**< IRC oscillator output */
-  IRC = (1 << 1),    /**< IRC oscillator*/
-  FLASH = (1 << 2),  /**< Flash*/
-  BOD = (1 << 3),    /**< BOD*/
-  SYSOSC = (1 << 5), /**< Crystal oscillator*/
-  WDTOSC = (1 << 6), /**< Watchdog oscillator*/
-  SYSPLL = (1 << 7), /**< System PLL*/
-  ACMP = (1 << 15),  /**< Analog comparator*/
+  IRCOUT = (1u << 0), /**< IRC oscillator output */
+  IRC = (1u << 1),    /**< IRC oscillator*/
+  FLASH = (1u << 2),  /**< Flash*/
+  BOD = (1u << 3),    /**< BOD*/
+  SYSOSC = (1u << 5), /**< Crystal oscillator*/
+  WDTOSC = (1u << 6), /**< Watchdog oscillator*/
+  SYSPLL = (1u << 7), /**< System PLL*/
+  ACMP = (1u << 15),  /**< Analog comparator*/
 };
 
 /**
@@ -129,6 +142,7 @@ enum peripheralPowers : std::uint32_t {
  * @param a peripheral power setting
  * @param b peripheral power setting
  * @return ored value of peripheral power
+ * * TODO: remove as this bloats in debug mode
  */
 constexpr peripheralPowers operator|(const peripheralPowers a, const peripheralPowers b) {
   return static_cast<peripheralPowers>(static_cast<uint32_t>(a) | static_cast<uint32_t>(b));
@@ -139,12 +153,13 @@ struct syscon : libMcuLL::peripheralBase {
   /**
    * @brief reset a peripheral
    *
-   * @param setting bit setting from peripheralResets enum
+   * @param setting bit setting from peripheralResets enum, TODO change this to std::uin32_t
    */
   constexpr void resetPeripherals(peripheralResets setting) {
+    // TODO add PRESETCTRL1
     std::uint32_t resets = static_cast<std::uint32_t>(setting);
-    sysconPeripheral()->PRESETCTRL = sysconPeripheral()->PRESETCTRL & ~resets;
-    sysconPeripheral()->PRESETCTRL = sysconPeripheral()->PRESETCTRL | resets;
+    sysconPeripheral()->PRESETCTRL0 = sysconPeripheral()->PRESETCTRL0 & ~resets;
+    sysconPeripheral()->PRESETCTRL0 = sysconPeripheral()->PRESETCTRL0 | resets;
   }
   /**
    * @brief Set the System PLL Control
@@ -204,26 +219,19 @@ struct syscon : libMcuLL::peripheralBase {
    *
    * @param setting bit setting from peripheralClocks
    */
-  constexpr void enablePeripheralClocks(peripheralClocks setting) {
-    sysconPeripheral()->SYSAHBCLKCTRL =
-      sysconPeripheral()->SYSAHBCLKCTRL | (hardware::SYSAHBCLKCTRL::RESERVED_MASK & static_cast<std::uint32_t>(setting));
+  constexpr void enablePeripheralClocks(std::uint32_t setting) {
+    // TODO: Also add SYSAHBCLKCTRL1
+    sysconPeripheral()->SYSAHBCLKCTRL0 =
+      sysconPeripheral()->SYSAHBCLKCTRL0 | (hardware::SYSAHBCLKCTRL::RESERVED_MASK & static_cast<std::uint32_t>(setting));
   }
   /**
    * @brief disable peripheral clocks
    *
    * @param setting bit setting from peripheralClocks
    */
-  constexpr void disablePeripheralClocks(peripheralClocks setting) {
-    sysconPeripheral()->SYSAHBCLKCTRL =
-      sysconPeripheral()->SYSAHBCLKCTRL & ~(hardware::SYSAHBCLKCTRL::RESERVED_MASK & static_cast<std::uint32_t>(setting));
-  }
-  /**
-   * @brief Set the Usart Clock Divider
-   *
-   * @param setting clock divisor
-   */
-  constexpr void setUsartClockDivider(std::uint32_t setting) {
-    sysconPeripheral()->UARTCLKDIV = setting;
+  constexpr void disablePeripheralClocks(std::uint32_t setting) {
+    sysconPeripheral()->SYSAHBCLKCTRL0 =
+      sysconPeripheral()->SYSAHBCLKCTRL0 & ~(hardware::SYSAHBCLKCTRL::RESERVED_MASK & static_cast<std::uint32_t>(setting));
   }
   /**
    * @brief Power up a peripheral
@@ -255,7 +263,7 @@ struct syscon : libMcuLL::peripheralBase {
    * @return 0x00008122 is returned for LPC842M101JTB16
    */
   constexpr std::uint32_t getChipId(void) {
-    return sysconPeripheral()->DEVICEID;
+    return sysconPeripheral()->DEVICE_ID;
   }
   /**
    * @brief get registers from peripheral

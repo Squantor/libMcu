@@ -25,7 +25,7 @@ namespace libMcuLL::hw {
 
 // MCU configuration options
 namespace core {
-constexpr inline std::uint32_t revision{0x0001}; /**< Revision number */
+constexpr inline std::uint32_t revision{0x0000}; /**< Revision number */
 }  // namespace core
 namespace mpu {
 constexpr inline bool present{false}; /**< Presence of memory protection unit */
@@ -95,8 +95,8 @@ constexpr inline libMcuLL::memoryAddress apb0BaseAddress{0x4000'0000u};
 constexpr inline libMcuLL::memoryAddress ahbBaseAddress{0x5000'0000u};
 /* APB peripherals, see UM11029 2.2.1 */
 constexpr inline libMcuLL::wwdtBaseAddress wwdtAddress{0x4000'0000u};         /**< Windowed watchdog base address */
-constexpr inline libMcuLL::mrtBaseAddress mrt0Address{0x4000'4000u};          /**< multi rate timer base address */
-constexpr inline libMcuLL::wktBaseAddress wktAddress{0x4000'8000u};           /**< wakeup timer base address */
+constexpr inline libMcuLL::mrtBaseAddress mrt0Address{0x4000'4000u};          /**< Multi rate timer base address */
+constexpr inline libMcuLL::wktBaseAddress wktAddress{0x4000'8000u};           /**< Wakeup timer base address */
 constexpr inline libMcuLL::swmBaseAddress swmAddress{0x4000'C000u};           /**< Switch matrix base address */
 constexpr inline libMcuLL::faimBaseAddress faimAddress{0x4001'0000u};         /**< Fast memory init base address */
 constexpr inline libMcuLL::dacBaseAddress dac0Address{0x4001'4000u};          /**< DAC 0 base address */
@@ -104,10 +104,10 @@ constexpr inline libMcuLL::dacBaseAddress dac1Address{0x4001'8000u};          /*
 constexpr inline libMcuLL::adcBaseAddress adc0Address{0x4001'C000u};          /**< ADC 0 matrix base address */
 constexpr inline libMcuLL::pmuBaseAddress pmuAddress{0x4002'0000u};           /**< Power management unit base address */
 constexpr inline libMcuLL::acmpBaseAddress acmpAddress{0x4002'4000u};         /**< Analog comparator base address */
-constexpr inline libMcuLL::inputMuxBaseAddress inputMuxAddress{0x4002'C000u}; /**< Flash memory controller base address */
+constexpr inline libMcuLL::inputMuxBaseAddress inputMuxAddress{0x4002'C000u}; /**< Input multiplexer base address */
 constexpr inline libMcuLL::i2cBaseAddress i2c2Address{0x4003'0000u};          /**< I2C 2 base address */
 constexpr inline libMcuLL::i2cBaseAddress i2c3Address{0x4003'4000u};          /**< I2C 3 base address */
-constexpr inline libMcuLL::ctimerBaseAddress ctimer0Address{0x4003'8000u};    /**< standard counter/timer 0 base address */
+constexpr inline libMcuLL::ctimerBaseAddress ctimer0Address{0x4003'8000u};    /**< Standard counter/timer 0 base address */
 constexpr inline libMcuLL::fmcBaseAddress fmcAddress{0x4004'0000u};           /**< Flash memory controller base address */
 constexpr inline libMcuLL::ioconBaseAddress ioconAddress{0x4004'4000u};       /**< I/O control base address */
 constexpr inline libMcuLL::sysconBaseAddress sysconAddress{0x4004'8000u};     /**< System control base address */
@@ -132,45 +132,63 @@ constexpr inline libMcuLL::pinintBaseAddress pinintAddress{0xA000'4000u}; /**< P
 namespace libMcuLL::dma {
 /*!
  * @brief Enumeration for the DMA hardware request
- *
  * Defines the structure for the DMA hardware request collections. The user can configure the
- * hardware request to trigger the DMA transfer accordingly. The index
- * of the hardware request varies according  to the to SoC.
+ * hardware request to trigger the DMA transfer accordingly. The index of the hardware request varies according to MCU .
  */
 enum class dmaRequestSources : std::uint8_t {
-  usart0rx = 0U,    /**< USART0 RX DMA  */
-  usart0tx = 1U,    /**< USART0 TX DMA  */
-  usart1rx = 2U,    /**< USART1 RX DMA  */
-  usart1tx = 3U,    /**< USART1 TX DMA  */
-  usart2rx = 4U,    /**< USART2 RX DMA  */
-  usart2tx = 5U,    /**< USART2 TX DMA  */
-  usart3rx = 6U,    /**< USART3 RX DMA  */
-  usart3tx = 7U,    /**< USART3 TX DMA  */
-  usart4rx = 8U,    /**< USART4 RX DMA  */
-  usart4tx = 9U,    /**< USART4 TX DMA  */
-  spi0rx = 10U,     /**< SPI0 RX DMA  */
-  spi0tx = 11U,     /**< SPI0 TX DMA  */
-  spi1rx = 12U,     /**< SPI1 RX DMA  */
-  spi1tx = 13U,     /**< SPI1 TX DMA  */
-  i2c0slave = 14U,  /**< I2C0 SLAVE DMA  */
-  i2c0master = 15U, /**< I2C0 MASTER DMA  */
-  i2c1slave = 16U,  /**< I2C1 SLAVE DMA  */
-  i2c1master = 17U, /**< I2C1 MASTER DMA  */
-  i2c2slave = 18U,  /**< I2C2 SLAVE DMA  */
-  i2c2master = 19U, /**< I2C2 MASTER DMA  */
-  i2c3slave = 20U,  /**< I2C3 SLAVE DMA  */
-  i2c3master = 21U, /**< I2C3 MASTER DMA  */
-  dac0 = 22U,       /**< DAC0 DMA REQUEST  */
-  dac1 = 23U,       /**< DAC1 DMA REQUEST  */
-  capt = 24U,       /**< CAPT DMA  */
+  usart0rx = 0u,    /**< USART0 RX DMA  */
+  usart0tx = 1u,    /**< USART0 TX DMA  */
+  usart1rx = 2u,    /**< USART1 RX DMA  */
+  usart1tx = 3u,    /**< USART1 TX DMA  */
+  usart2rx = 4u,    /**< USART2 RX DMA  */
+  usart2tx = 5u,    /**< USART2 TX DMA  */
+  usart3rx = 6u,    /**< USART3 RX DMA  */
+  usart3tx = 7u,    /**< USART3 TX DMA  */
+  usart4rx = 8u,    /**< USART4 RX DMA  */
+  usart4tx = 9u,    /**< USART4 TX DMA  */
+  spi0rx = 10u,     /**< SPI0 RX DMA  */
+  spi0tx = 11u,     /**< SPI0 TX DMA  */
+  spi1rx = 12u,     /**< SPI1 RX DMA  */
+  spi1tx = 13u,     /**< SPI1 TX DMA  */
+  i2c0slave = 14u,  /**< I2C0 SLAVE DMA  */
+  i2c0master = 15u, /**< I2C0 MASTER DMA  */
+  i2c1slave = 16u,  /**< I2C1 SLAVE DMA  */
+  i2c1master = 17u, /**< I2C1 MASTER DMA  */
+  i2c2slave = 18u,  /**< I2C2 SLAVE DMA  */
+  i2c2master = 19u, /**< I2C2 MASTER DMA  */
+  i2c3slave = 20u,  /**< I2C3 SLAVE DMA  */
+  i2c3master = 21u, /**< I2C3 MASTER DMA  */
+  dac0 = 22u,       /**< DAC0 DMA REQUEST  */
+  dac1 = 23u,       /**< DAC1 DMA REQUEST  */
+  capt = 24u,       /**< CAPT DMA  */
 };
 }  // namespace libMcuLL::dma
 
 // includes that define the registers namespace go here.
-#include "LPC8XX.hpp/LPC84X_iocon_hw.hpp"
+#include "LPC8XX.hpp/LPC84X_wwdt_hw.hpp"
+#include "LPC8XX.hpp/LPC84X_mrt_hw.hpp"
+#include "LPC8XX.hpp/LPC84X_wkt_hw.hpp"
 #include "LPC8XX.hpp/LPC84X_swm_hw.hpp"
-#include "LPC8XX.hpp/LPC84X_gpio_hw.hpp"
+#include "LPC8XX.hpp/LPC84X_faim_hw.hpp"
+#include "LPC8XX.hpp/LPC84X_dac_hw.hpp"
+#include "LPC8XX.hpp/LPC84X_adc_hw.hpp"
+#include "LPC8XX.hpp/LPC84X_pmu_hw.hpp"
+#include "LPC8XX.hpp/LPC84X_acmp_hw.hpp"
+#include "LPC8XX.hpp/LPC84X_inmux_hw.hpp"
+#include "LPC8XX.hpp/LPC84X_i2c_hw.hpp"
+#include "LPC8XX.hpp/LPC84X_ctimer_hw.hpp"
+#include "LPC8XX.hpp/LPC84X_fmc_hw.hpp"
+#include "LPC8XX.hpp/LPC84X_iocon_hw.hpp"
 #include "LPC8XX.hpp/LPC84X_syscon_hw.hpp"
+#include "LPC8XX.hpp/LPC84X_spi_hw.hpp"
+#include "LPC8XX.hpp/LPC84X_capt_hw.hpp"
+#include "LPC8XX.hpp/LPC84X_usart_hw.hpp"
+#include "LPC8XX.hpp/LPC84X_crc_hw.hpp"
+#include "LPC8XX.hpp/LPC84X_sct_hw.hpp"
+#include "LPC8XX.hpp/LPC84X_dma_hw.hpp"
+#include "LPC8XX.hpp/LPC84X_mtb_hw.hpp"
+#include "LPC8XX.hpp/LPC84X_gpio_hw.hpp"
+#include "LPC8XX.hpp/LPC84X_pinint_hw.hpp"
 
 // device peripheral specific headers go here
 // these need to go after registers namespace definitions as they are used here

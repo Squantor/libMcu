@@ -17,54 +17,75 @@ namespace libMcu::hw::syscon {
  *
  */
 struct peripheral {
-  volatile std::uint32_t SYSMEMREMAP;    /**<  System memory remap (R/W) */
-  volatile std::uint32_t PRESETCTRL;     /**<  Peripheral reset control (R/W) */
-  volatile std::uint32_t SYSPLLCTRL;     /**<  System PLL control (R/W) */
-  volatile std::uint32_t SYSPLLSTAT;     /**<  System PLL status (R/W ) */
-  std::uint32_t RESERVED0[4];            /**< reserved */
-  volatile std::uint32_t SYSOSCCTRL;     /**<  System oscillator control (R/W) */
-  volatile std::uint32_t WDTOSCCTRL;     /**< Watchdog oscillator control (R/W) */
-  volatile std::uint32_t RESERVED1[2];   /**< reserved */
-  volatile std::uint32_t SYSRSTSTAT;     /**< System reset status Register (R/W ) */
-  std::uint32_t RESERVED2[3];            /**< reserved */
-  volatile std::uint32_t SYSPLLCLKSEL;   /**< System PLL clock source select (R/W) */
-  volatile std::uint32_t SYSPLLCLKUEN;   /**< System PLL clock source update enable (R/W) */
-  std::uint32_t RESERVED3[10];           /**< reserved */
-  volatile std::uint32_t MAINCLKSEL;     /**< Main clock source select (R/W) */
-  volatile std::uint32_t MAINCLKUEN;     /**< Main clock source update enable (R/W) */
-  volatile std::uint32_t SYSAHBCLKDIV;   /**< System AHB clock divider (R/W) */
-  std::uint32_t RESERVED4[1];            /**< reserved */
-  volatile std::uint32_t SYSAHBCLKCTRL;  /**< System AHB clock control (R/W) */
-  std::uint32_t RESERVED5[4];            /**< reserved */
-  volatile std::uint32_t UARTCLKDIV;     /**< UART clock divider (R/W) */
-  std::uint32_t RESERVED6[18];           /**< reserved */
-  volatile std::uint32_t CLKOUTSEL;      /**< CLKOUT clock source select (R/W) */
-  volatile std::uint32_t CLKOUTUEN;      /**< CLKOUT clock source update enable (R/W) */
-  volatile std::uint32_t CLKOUTDIV;      /**< CLKOUT clock divider (R/W) */
-  std::uint32_t RESERVED7;               /**< reserved */
-  volatile std::uint32_t UARTFRGDIV;     /**< UART fractional divider SUB(R/W) */
-  volatile std::uint32_t UARTFRGMULT;    /**< UART fractional divider ADD(R/W) */
-  std::uint32_t RESERVED8[1];            /**< reserved */
-  volatile std::uint32_t EXTTRACECMD;    /**< External trace buffer command register  */
-  volatile std::uint32_t PIOPORCAP0;     /**< POR captured PIO status 0 (R/ ) */
-  std::uint32_t RESERVED9[12];           /**< reserved */
-  volatile std::uint32_t IOCONCLKDIV[7]; /**< Peripheral clock for IOCON block glitch filter */
-  volatile std::uint32_t BODCTRL;        /**< BOD control (R/W) */
-  volatile std::uint32_t SYSTCKCAL;      /**< System tick counter calibration (R/W) */
-  std::uint32_t RESERVED10[6];           /**< reserved */
-  volatile std::uint32_t IRQLATENCY;     /**< IRQ delay */
-  volatile std::uint32_t NMISRC;         /**< NMI Source Control     */
-  volatile std::uint32_t PINTSEL[8];     /**< GPIO Pin Interrupt Select register 0 */
-  std::uint32_t RESERVED11[27];          /**< reserved */
-  volatile std::uint32_t STARTERP0;      /**< Start logic signal enable Register 0 (R/W) */
-  std::uint32_t RESERVED12[3];           /**< reserved */
-  volatile std::uint32_t STARTERP1;      /**< Start logic signal enable Register 0 (R/W) */
-  std::uint32_t RESERVED13[6];           /**< reserved */
-  volatile std::uint32_t PDSLEEPCFG;     /**< Power-down states in Deep-sleep mode (R/W) */
-  volatile std::uint32_t PDAWAKECFG;     /**< Power-down states after wake-up (R/W) */
-  volatile std::uint32_t PDRUNCFG;       /**< Power-down configuration Register (R/W) */
-  std::uint32_t RESERVED14[111];         /**< reserved */
-  volatile const std::uint32_t DEVICEID; /**< Device ID (R/ ) */
+  volatile std::uint32_t SYSMEMREMAP;        /**< System Remap register */
+  std::uint8_t RESERVED_0[4];                /**< Reserved */
+  volatile std::uint32_t SYSPLLCTRL;         /**< PLL control */
+  volatile const std::uint32_t SYSPLLSTAT;   /**< PLL status */
+  std::uint8_t RESERVED_1[16];               /**< Reserved */
+  volatile std::uint32_t SYSOSCCTRL;         /**< system oscillator control */
+  volatile std::uint32_t WDTOSCCTRL;         /**< Watchdog oscillator control */
+  volatile std::uint32_t FROOSCCTRL;         /**< FRO oscillator control */
+  std::uint8_t RESERVED_2[4];                /**< Reserved */
+  volatile std::uint32_t FRODIRECTCLKUEN;    /**< FRO direct clock source update enable register */
+  std::uint8_t RESERVED_3[4];                /**< Reserved */
+  volatile std::uint32_t SYSRSTSTAT;         /**< System reset status register */
+  std::uint8_t RESERVED_4[4];                /**< Reserved */
+  volatile std::uint32_t SYSPLLCLKSEL;       /**< System PLL clock source select register */
+  volatile std::uint32_t SYSPLLCLKUEN;       /**< System PLL clock source update enable register */
+  volatile std::uint32_t MAINCLKPLLSEL;      /**< Main clock source select register */
+  volatile std::uint32_t MAINCLKPLLUEN;      /**< Main clock source update enable register */
+  volatile std::uint32_t MAINCLKSEL;         /**< Main clock source select register */
+  volatile std::uint32_t MAINCLKUEN;         /**< Main clock source update enable register */
+  volatile std::uint32_t SYSAHBCLKDIV;       /**< System clock divider register */
+  std::uint8_t RESERVED_5[4];                /**< Reserved */
+  volatile std::uint32_t CAPTCLKSEL;         /**< CAPT clock source select register */
+  volatile std::uint32_t ADCCLKSEL;          /**< ADC clock source select register */
+  volatile std::uint32_t ADCCLKDIV;          /**< ADC clock divider register */
+  volatile std::uint32_t SCTCLKSEL;          /**< SCT clock source select register */
+  volatile std::uint32_t SCTCLKDIV;          /**< SCT clock divider register */
+  volatile std::uint32_t EXTCLKSEL;          /**< external clock source select register */
+  std::uint8_t RESERVED_6[8];                /**< Reserved */
+  volatile std::uint32_t SYSAHBCLKCTRL0;     /**< System clock group 0 control register */
+  volatile std::uint32_t SYSAHBCLKCTRL1;     /**< System clock group 1 control register */
+  volatile std::uint32_t PRESETCTRL0;        /**< Peripheral reset group 0 control register */
+  volatile std::uint32_t PRESETCTRL1;        /**< Peripheral reset group 1 control register */
+  volatile std::uint32_t FCLKSEL[11];        /**< peripheral clock source select register */
+  std::uint8_t RESERVED_7[20];               /**< Reserved */
+  struct {                                   /* */
+    volatile std::uint32_t FRGDIV;           /**< fractional generator N divider value register */
+    volatile std::uint32_t FRGMULT;          /**< fractional generator N multiplier value register */
+    volatile std::uint32_t FRGCLKSEL;        /**< FRG N clock source select register */
+    std::uint8_t RESERVED_0[4];              /**< Reserved */
+  } FRG[2];                                  /**< Fractional Generator array */
+  volatile std::uint32_t CLKOUTSEL;          /**< CLKOUT clock source select register */
+  volatile std::uint32_t CLKOUTDIV;          /**< CLKOUT clock divider registers */
+  std::uint8_t RESERVED_8[4];                /**< Reserved */
+  volatile std::uint32_t EXTTRACECMD;        /**< External trace buffer command register */
+  volatile const std::uint32_t PIOPORCAP[2]; /**< POR captured PIO N status register(PIO0 has 32 PIOs, PIO1 has 22 PIOs) */
+  std::uint8_t RESERVED_9[44];               /**< Reserved */
+  volatile std::uint32_t IOCONCLKDIV6;       /**< Peripheral clock 6 to the IOCON block for programmable glitch filter */
+  volatile std::uint32_t IOCONCLKDIV5;       /**< Peripheral clock 6 to the IOCON block for programmable glitch filter */
+  volatile std::uint32_t IOCONCLKDIV4;       /**< Peripheral clock 4 to the IOCON block for programmable glitch filter */
+  volatile std::uint32_t IOCONCLKDIV3;       /**< Peripheral clock 3 to the IOCON block for programmable glitch filter */
+  volatile std::uint32_t IOCONCLKDIV2;       /**< Peripheral clock 2 to the IOCON block for programmable glitch filter */
+  volatile std::uint32_t IOCONCLKDIV1;       /**< Peripheral clock 1 to the IOCON block for programmable glitch filter */
+  volatile std::uint32_t IOCONCLKDIV0;       /**< Peripheral clock 0 to the IOCON block for programmable glitch filter */
+  volatile std::uint32_t BODCTRL;            /**< BOD control register */
+  volatile std::uint32_t SYSTCKCAL;          /**< System tick timer calibration register */
+  std::uint8_t RESERVED_10[24];              /**< Reserved */
+  volatile std::uint32_t IRQLATENCY;         /**< IRQ latency register */
+  volatile std::uint32_t NMISRC;             /**< NMI source selection register */
+  volatile std::uint32_t PINTSEL[8];         /**< Pin interrupt select registers N, array offset */
+  std::uint8_t RESERVED_11[108];             /**< Reserved */
+  volatile std::uint32_t STARTERP0;          /**< Start logic 0 pin wake-up enable register 0 */
+  std::uint8_t RESERVED_12[12];              /**< Reserved */
+  volatile std::uint32_t STARTERP1;          /**< Start logic 0 pin wake-up enable register 1 */
+  std::uint8_t RESERVED_13[24];              /**< Reserved */
+  volatile std::uint32_t PDSLEEPCFG;         /**< Deep-sleep configuration register */
+  volatile std::uint32_t PDAWAKECFG;         /**< Wake-up configuration register */
+  volatile std::uint32_t PDRUNCFG;           /**< Power configuration register */
+  std::uint8_t RESERVED_14[444];             /**< Reserved */
+  volatile const std::uint32_t DEVICE_ID;    /**< Part ID register */
 };
 
 namespace SYSMEMREMAP {

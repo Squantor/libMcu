@@ -27,6 +27,9 @@ constexpr inline std::uint32_t PULLUP{2u << 3};        /**< Pullup enabled */
 constexpr inline std::uint32_t REPEATER{3u << 3};      /**< Repeater mode */
 constexpr inline std::uint32_t HYS{1u << 5};           /**< Hysteresis enable */
 constexpr inline std::uint32_t INV{1u << 6};           /**< Invert input enable */
+constexpr inline std::uint32_t I2C_STD{0u << 8};       /**< standard/fast I2C mode */
+constexpr inline std::uint32_t IO_STD{1u << 8};        /**< standard I/O functionality */
+constexpr inline std::uint32_t I2C_FAST{2u << 8};      /**< fast mode plus I2C */
 constexpr inline std::uint32_t OD{1u << 10};           /**< Open drain enable */
 constexpr inline std::uint32_t BYPASS{0u << 11};       /**< Bypassed input filter */
 constexpr inline std::uint32_t CYCLES1{1u << 11};      /**< 1 clock cycle pulses are filtered */
@@ -39,9 +42,7 @@ constexpr inline std::uint32_t IOCONCLKDIV3{3u << 13}; /**< use IOCONCLKDIV3 in 
 constexpr inline std::uint32_t IOCONCLKDIV4{4u << 13}; /**< use IOCONCLKDIV4 in SYSCON */
 constexpr inline std::uint32_t IOCONCLKDIV5{5u << 13}; /**< use IOCONCLKDIV5 in SYSCON */
 constexpr inline std::uint32_t IOCONCLKDIV6{6u << 13}; /**< use IOCONCLKDIV6 in SYSCON */
-constexpr inline std::uint32_t I2C_STD{0u << 8};       /**< standard/fast I2C mode */
-constexpr inline std::uint32_t IO_STD{1u << 8};        /**< standard I/O functionality */
-constexpr inline std::uint32_t I2C_FAST{2u << 8};      /**< fast mode plus I2C */
+constexpr inline std::uint32_t DACMODE{1 << 16};       /**< DAC mode enable */
 }  // namespace PIO
 }  // namespace libMcu::hw::iocon
 #endif

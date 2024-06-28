@@ -731,9 +731,29 @@ struct pinFunction<pinFunctions::VDDCMP> {
  *
  */
 struct peripheral {
-  volatile std::uint32_t PINASSIGN[9];   /**< Pin Assign register array */
-  volatile std::uint32_t RESERVED0[103]; /**< reserved*/
-  volatile std::uint32_t PINENABLE0;     /**< Pin Enable register */
+  union {                                  /* offset: 0x0 */
+    struct {                               /* offset: 0x0 */
+      volatile std::uint32_t PINASSIGN0;   /**< Pin assign register for U0_TXD, U0_RXD, U0_RTS, U0_CTS */
+      volatile std::uint32_t PINASSIGN1;   /**< Pin assign register for U0_SCLK, U1_TXD, U1_RXD, U1_RT */
+      volatile std::uint32_t PINASSIGN2;   /**< Pin assign register for U1_CTS, U1_SCLK, U2_TXD, U2_RXD */
+      volatile std::uint32_t PINASSIGN3;   /**< Pin assign register for U2_RTS, U2_CTS, U2_SCLK, SPI0_SCK */
+      volatile std::uint32_t PINASSIGN4;   /**< Pin assign register for SPI0_MOSI, SPI0_MISO, SPI0_SSEL0, SPI0_SSEL1 */
+      volatile std::uint32_t PINASSIGN5;   /**< Pin assign register for SPI0_SSEL2, SPI0_SSEL3, SPI1_SCK, SPI1_MOSI */
+      volatile std::uint32_t PINASSIGN6;   /**< Pin assign register for SPI1_MISO, SPI1_SSEL0, SPI1_SSEL1, SCT0_IN0 */
+      volatile std::uint32_t PINASSIGN7;   /**< Pin assign register for SCT_IN1, SCT_IN2, SCT_IN3, SCT_OUT0 */
+      volatile std::uint32_t PINASSIGN8;   /**< Pin assign register for SCT_OUT1, SCT_OUT2, SCT_OUT3, SCT_OUT4 */
+      volatile std::uint32_t PINASSIGN9;   /**< Pin assign register for SCT_OUT5, SCT_OUT6, I2C1_SDA, I2C1_SCL */
+      volatile std::uint32_t PINASSIGN10;  /**< Pin assign register for I2C2_SDA, I2C2_SCL, I2C3_SDA, I2C3_SCL */
+      volatile std::uint32_t PINASSIGN11;  /**< Pin assign register for COMP0_OUT, CLKOUT, GPIOINT_BMATCH, UART3_TXD */
+      volatile std::uint32_t PINASSIGN12;  /**< Pin assign register for UART3_RXD, UART3_SCLK, UART4_TXD, UART4_RXD */
+      volatile std::uint32_t PINASSIGN13;  /**< Pin assign register for UART4_SCLK, T0_MAT0, T0_MAT1, T0_MAT2 */
+      volatile std::uint32_t PINASSIGN14;  /**< Pin assign register for T0_MAT3, T0_CAP0, T0_CAP1, T0_CAP2 */
+    } PINASSIGN;                           /**< Pin assignment register  */
+    volatile std::uint32_t PINASSIGNS[15]; /**< Pin assign register array */
+  };                                       /* */
+  std::uint8_t RESERVED_0[388];            /**< Reserved */
+  volatile std::uint32_t PINENABLE0;       /**< Pin enable register 0. Enables fixed-pin functions */
+  volatile std::uint32_t PINENABLE1;       /**< Pin enable register 1. Enables fixed-pin functions */
 };
 }  // namespace libMcu::hw::swm
 #endif
