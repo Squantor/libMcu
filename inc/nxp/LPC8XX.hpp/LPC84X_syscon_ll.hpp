@@ -53,7 +53,6 @@ enum peripheralResets1 : std::uint32_t {
   FRG0_RESET = hardware::PRESETCTRL1::FRG0, /**< FRG0 peripheral reset */
   FRG1_RESET = hardware::PRESETCTRL1::FRG1, /**< FRG1 peripheral reset */
 };
-
 /**
  * @brief PLL post divider options
  */
@@ -63,19 +62,43 @@ enum pllPostDivider : std::uint32_t {
   DIV_8 = hardware::SYSPLLCTRL::PSEL_DIV8,   /**< PLL post division ration of 8 */
   DIV_16 = hardware::SYSPLLCTRL::PSEL_DIV16, /**< PLL post division ration of 16 */
 };
-
 /**
  * @brief PLL source options
  */
 enum pllClockSources : std::uint32_t {
 };
-
 /**
  * @brief main clock sources
  */
 enum mainClockSources : std::uint32_t {
 };
-
+/**
+ * @brief Peripherals to set the clock source of
+ */
+enum class peripheralClockSelects : std::uint32_t {
+  UART0 = hardware::FCLKSEL::UART0, /**< UART0 clock select */
+  UART1 = hardware::FCLKSEL::UART1, /**< UART1 clock select */
+  UART2 = hardware::FCLKSEL::UART2, /**< UART2 clock select */
+  UART3 = hardware::FCLKSEL::UART3, /**< UART3 clock select */
+  UART4 = hardware::FCLKSEL::UART4, /**< UART4 clock select */
+  I2C0 = hardware::FCLKSEL::I2C0,   /**< I2C0 clock select */
+  I2C1 = hardware::FCLKSEL::I2C1,   /**< I2C1 clock select */
+  I2C2 = hardware::FCLKSEL::I2C2,   /**< I2C2 clock select */
+  I2C3 = hardware::FCLKSEL::I2C3,   /**< I2C3 clock select */
+  SPI0 = hardware::FCLKSEL::SPI0,   /**< SPI0 clock select */
+  SPI1 = hardware::FCLKSEL::SPI1,   /**< SPI1 clock select */
+};
+/**
+ * @brief Peripheral clock options
+ */
+enum class peripheralClocks : std::uint32_t {
+  FRO = hardware::FCLKSEL::FRO,         /**< FRO clock source */
+  MAIN = hardware::FCLKSEL::MAIN,       /**< Main clock source */
+  FRG0 = hardware::FCLKSEL::FRG0,       /**< Fractional clock generator 0 */
+  FRG1 = hardware::FCLKSEL::FRG1,       /**< Fractional clock generator 1 */
+  FRO_DIV = hardware::FCLKSEL::FRO_DIV, /**< FRO divided by 2 clock source  */
+  NONE = hardware::FCLKSEL::NONE,       /**< No clock source */
+};
 /**
  * @brief Peripheral clock enable options section 0
  */
@@ -91,7 +114,6 @@ enum peripheralClocks1 : std::uint32_t {
   CAPT_CLOCK = hardware::SYSAHBCLKCTRL1::CAPT, /**< CAPT clock enable */
   DAC1_CLOCK = hardware::SYSAHBCLKCTRL1::DAC1, /**< DAC1 clock enable */
 };
-
 /**
  * @brief Peripheral power down reset options
  */
@@ -100,18 +122,6 @@ enum peripheralPowers : std::uint32_t {
 
 template <libMcuLL::sysconBaseAddress sysconAddress_>
 struct syscon : libMcuLL::peripheralBase {
-  /**
-   * @brief reset a peripheral
-   *
-   * @param setting0 bit setting from peripheralResets enum
-   * @param setting1 bit setting from peripheralResets enum
-   */
-  constexpr void resetPeripherals(std::uint32_t setting0, std::uint32_t setting1) {
-    sysconPeripheral()->PRESETCTRL0 = sysconPeripheral()->PRESETCTRL0 & ~setting0;
-    sysconPeripheral()->PRESETCTRL0 = sysconPeripheral()->PRESETCTRL0 | setting0;
-    sysconPeripheral()->PRESETCTRL1 = sysconPeripheral()->PRESETCTRL1 & ~setting1;
-    sysconPeripheral()->PRESETCTRL1 = sysconPeripheral()->PRESETCTRL1 | setting1;
-  }
   /**
    * @brief Set the System PLL Control
    *
@@ -139,7 +149,6 @@ struct syscon : libMcuLL::peripheralBase {
   }
   /**
    * @brief   Select PLL clock source
-   *
    * @param   source      Clock source of the PLL
    */
   constexpr void selectPllClock(pllClockSources setting) {
@@ -149,7 +158,6 @@ struct syscon : libMcuLL::peripheralBase {
   }
   /**
    * @brief Select main clock source
-   *
    * @param setting clock source from mainClockSources enum
    */
   constexpr void selectMainClock(mainClockSources setting) {
@@ -159,7 +167,6 @@ struct syscon : libMcuLL::peripheralBase {
   }
   /**
    * @brief Set the System Clock Divider
-   *
    * @param setting divison factor, 0 is disable, 1 is 1, the maximum is 255
    */
   constexpr void setSystemClockDivider(std::uint32_t setting) {
@@ -167,28 +174,56 @@ struct syscon : libMcuLL::peripheralBase {
   }
   /**
    * @brief enable peripheral clocks
-   *
    * @param setting bit setting from peripheralClocks
    */
-  constexpr void enablePeripheralClocks(std::uint32_t setting0, std::uint32_t setting1) {}
+  constexpr void enablePeripheralClocks(std::uint32_t setting0, std::uint32_t setting1) {
+    sysconPeripheral()->SYSAHBCLKCTRL0 = sysconPeripheral()->SYSAHBCLKCTRL0 | setting0;
+    sysconPeripheral()->SYSAHBCLKCTRL1 = sysconPeripheral()->SYSAHBCLKCTRL1 | setting1;
+  }
   /**
    * @brief disable peripheral clocks
-   *
    * @param setting bit setting from peripheralClocks
    */
-  constexpr void disablePeripheralClocks(std::uint32_t setting0, std::uint32_t setting1) {}
+  constexpr void disablePeripheralClocks(std::uint32_t setting0, std::uint32_t setting1) {
+    sysconPeripheral()->SYSAHBCLKCTRL0 = sysconPeripheral()->SYSAHBCLKCTRL0 & ~setting0;
+    sysconPeripheral()->SYSAHBCLKCTRL1 = sysconPeripheral()->SYSAHBCLKCTRL1 & ~setting1;
+  }
+  /**
+   * @brief reset a peripheral
+   * @param setting0 bit setting from peripheralResets enum
+   * @param setting1 bit setting from peripheralResets enum
+   */
+  constexpr void resetPeripherals(std::uint32_t setting0, std::uint32_t setting1) {
+    sysconPeripheral()->PRESETCTRL0 = sysconPeripheral()->PRESETCTRL0 & ~setting0;
+    sysconPeripheral()->PRESETCTRL0 = sysconPeripheral()->PRESETCTRL0 | setting0;
+    sysconPeripheral()->PRESETCTRL1 = sysconPeripheral()->PRESETCTRL1 & ~setting1;
+    sysconPeripheral()->PRESETCTRL1 = sysconPeripheral()->PRESETCTRL1 | setting1;
+  }
+  /**
+   * @brief Set the peripheral clock to a specific clock
+   * @param peripheral peripheral to set the clock input of
+   * @param clock clock to connect to the peripheral
+   */
+  constexpr void peripheralClockSource(peripheralClockSelects peripheral, peripheralClocks clock) {
+    size_t index = static_cast<size_t>(peripheral);
+    sysconPeripheral()->FCLKSEL[index] = static_cast<std::uint32_t>(clock);
+  }
   /**
    * @brief Power up a peripheral
    *
    * @param setting bit setting from peripheralPowers enum
    */
-  constexpr void powerPeripherals(std::uint32_t setting) {}
+  constexpr void powerPeripherals(std::uint32_t setting) {
+    sysconPeripheral()->PDRUNCFG = sysconPeripheral()->PDRUNCFG | setting;
+  }
   /**
    * @brief Power down a peripheral
    *
    * @param setting bit setting from peripheralPowers enum
    */
-  constexpr void depowerPeripherals(std::uint32_t setting) {}
+  constexpr void depowerPeripherals(std::uint32_t setting) {
+    sysconPeripheral()->PDRUNCFG = (sysconPeripheral()->PDRUNCFG & ~setting) | hardware::PDRUNCFG::RESERVED_BITS;
+  }
   /**
    * @brief Get the DEVICE ID
    *

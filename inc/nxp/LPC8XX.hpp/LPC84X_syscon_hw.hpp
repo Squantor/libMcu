@@ -57,7 +57,7 @@ struct peripheral {
   volatile std::uint32_t SYSAHBCLKCTRL1;     /**< System clock group 1 control register */
   volatile std::uint32_t PRESETCTRL0;        /**< Peripheral reset group 0 control register */
   volatile std::uint32_t PRESETCTRL1;        /**< Peripheral reset group 1 control register */
-  volatile std::uint32_t FCLKSEL[11];        /**< peripheral clock source select register TODO: add enum class for selects */
+  volatile std::uint32_t FCLKSEL[11];        /**< peripheral clock source select register */
   std::uint8_t RESERVED_7[20];               /**< Reserved */
   struct {                                   /* */
     volatile std::uint32_t FRGDIV;           /**< fractional generator N divider value register */
@@ -306,8 +306,25 @@ constexpr inline std::uint32_t FRG0{1u << 3};               /**< Fractional baud
 constexpr inline std::uint32_t FRG1{1u << 4};               /**< Fractional baud rate generator 1 reset control */
 }  // namespace PRESETCTRL1
 namespace FCLKSEL {
-constexpr inline std::uint32_t RESERVED_MASK{0x0000'0000u}; /**< register mask for allowed bits */
-}
+constexpr inline std::uint32_t RESERVED_MASK{0x0000'0007u}; /**< register mask for allowed bits */
+constexpr inline std::size_t UART0{0u};                     /**< UART0 clock select index */
+constexpr inline std::size_t UART1{1u};                     /**< UART1 clock select index */
+constexpr inline std::size_t UART2{2u};                     /**< UART2 clock select index */
+constexpr inline std::size_t UART3{3u};                     /**< UART3 clock select index */
+constexpr inline std::size_t UART4{4u};                     /**< UART4 clock select index */
+constexpr inline std::size_t I2C0{5u};                      /**< I2C0 clock select index */
+constexpr inline std::size_t I2C1{6u};                      /**< I2C1 clock select index */
+constexpr inline std::size_t I2C2{7u};                      /**< I2C2 clock select index */
+constexpr inline std::size_t I2C3{8u};                      /**< I2C3 clock select index */
+constexpr inline std::size_t SPI0{9u};                      /**< SPI0 clock select index */
+constexpr inline std::size_t SPI1{10u};                     /**< SPI1 clock select index */
+constexpr inline std::uint32_t FRO{0u << 0};                /**< FRO clock select */
+constexpr inline std::uint32_t MAIN{1u << 0};               /**< Main clock select */
+constexpr inline std::uint32_t FRG0{2u << 0};               /**< Fractional generator 0 clock select */
+constexpr inline std::uint32_t FRG1{3u << 0};               /**< Fractional generator 1 clock select */
+constexpr inline std::uint32_t FRO_DIV{4u << 0};            /**< FRO divided by 2 clock select */
+constexpr inline std::uint32_t NONE{7u << 0};               /**< No clock selected */
+}  // namespace FCLKSEL
 namespace FRGDIV {
 constexpr inline std::uint32_t RESERVED_MASK{0x0000'0000u}; /**< register mask for allowed bits */
 }
@@ -367,8 +384,20 @@ namespace PDAWAKECFG {
 constexpr inline std::uint32_t RESERVED_MASK{0x0000'0000u}; /**< register mask for allowed bits */
 }
 namespace PDRUNCFG {
-constexpr inline std::uint32_t RESERVED_MASK{0x0000'80EFu}; /**< register mask for allowed bits */
-}
+constexpr inline std::uint32_t RESERVED_MASK{0x0000'E0FFu}; /**< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_BITS{0x0000'0D00u}; /**< Bits that need to always be set */
+constexpr inline std::uint32_t FROOUT{1 << 0};              /**< FRO oscillator output power */
+constexpr inline std::uint32_t FRO{1 << 1};                 /**< FRO oscillator power */
+constexpr inline std::uint32_t FLASH{1 << 2};               /**< Flash power */
+constexpr inline std::uint32_t BOD{1 << 3};                 /**< BOD power */
+constexpr inline std::uint32_t ADC{1 << 4};                 /**< ADC power */
+constexpr inline std::uint32_t SYSOSC{1 << 5};              /**< Crystal oscillator power */
+constexpr inline std::uint32_t WDTOSC{1 << 6};              /**< Watchdog oscillator power */
+constexpr inline std::uint32_t SYSPLL{1 << 5};              /**< System PLL oscillator power */
+constexpr inline std::uint32_t DAC0{1 << 5};                /**< DAC0 power */
+constexpr inline std::uint32_t DAC1{1 << 5};                /**< DAC1 power */
+constexpr inline std::uint32_t ACMP{1 << 5};                /**< ACMP power */
+}  // namespace PDRUNCFG
 namespace DEVICEID {
 constexpr inline std::uint32_t RESERVED_MASK{0x0000'0000u}; /**< register mask for allowed bits */
 }  // namespace DEVICEID
