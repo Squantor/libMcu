@@ -10,7 +10,7 @@
 #ifndef LIBMCULL_TYPES_HPP
 #define LIBMCULL_TYPES_HPP
 
-namespace libMcuLL {
+namespace libMcu {
 
 /**
  * @brief Peripheral base class that all peripherals should inherit from
@@ -103,5 +103,5 @@ using i2cDeviceAddressType = typename i2cDeviceAddressBase::type;
 
 struct i2cDeviceAddress : i2cDeviceAddressBase {}; /**< General purpose I2C address type */
 
-}  // namespace libMcuLL
+}  // namespace libMcu
 #endif

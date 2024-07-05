@@ -9,10 +9,9 @@
  */
 #ifndef SYSTICK_SW_HPP
 #define SYSTICK_SW_HPP
-namespace libMcuLL::sw::systick {
-using namespace hw::systick;
-using namespace libMcu;
-template <libMcuLL::systickBaseAddress const& nvicAddress_>
+namespace libMcu::sw::systick {
+namespace hardware = libMcu::hw::systick;
+template <libMcu::systickBaseAddress const& nvicAddress_>
 struct systick {
   /**
    * @brief Construct a new systick object
@@ -25,8 +24,8 @@ struct systick {
    *
    * @return return pointer to analog comparator registers
    */
-  static hw::systick::peripheral* nvicPeripheral() {
-    return reinterpret_cast<hw::systick::peripheral*>(nvicAddress);
+  static hardware::peripheral* nvicPeripheral() {
+    return reinterpret_cast<hardware::peripheral*>(nvicAddress);
   }
   /**
    * @brief setup systick peripheral
@@ -61,19 +60,19 @@ struct systick {
    * @return zero if not, non zero if so
    */
   constexpr std::uint32_t getZeroPass() {
-    return nvicPeripheral()->CSR & CSR::COUNTFLAG_MASK;
+    return nvicPeripheral()->CSR & hardware::CSR::COUNTFLAG_MASK;
   }
 
   /**
    * @brief start the systick peripheral without any interrupts
    */
   constexpr void start() {
-    nvicPeripheral()->CSR = CSR::CLKSOURCE_PROC | CSR::ENABLE;
+    nvicPeripheral()->CSR = hardware::CSR::CLKSOURCE_PROC | hardware::CSR::ENABLE;
   }
 
   constexpr void start(isrLambda lambda) {
     callback = lambda;
-    nvicPeripheral()->CSR = CSR::CLKSOURCE_PROC | CSR::ENABLE | CSR::TICKINT;
+    nvicPeripheral()->CSR = hardware::CSR::CLKSOURCE_PROC | hardware::CSR::ENABLE | hardware::CSR::TICKINT;
   }
 
   // TODO start(lambda) for callbacks when interrupts, depends on NVIC
@@ -83,7 +82,7 @@ struct systick {
    *
    */
   constexpr void stop() {
-    nvicPeripheral()->CSR = CSR::CLKSOURCE_PROC;
+    nvicPeripheral()->CSR = hardware::CSR::CLKSOURCE_PROC;
   }
 
   /**
@@ -96,8 +95,8 @@ struct systick {
     callback();
   }
 
-  static constexpr libMcuLL::hwAddressType nvicAddress = nvicAddress_; /**< peripheral address */
+  static constexpr libMcu::hwAddressType nvicAddress = nvicAddress_; /**< peripheral address */
   isrLambda callback;
 };
-}  // namespace libMcuLL::sw::systick
+}  // namespace libMcu::sw::systick
 #endif

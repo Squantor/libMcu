@@ -9,9 +9,9 @@
  */
 #ifndef SCB_SW_HPP
 #define SCB_SW_HPP
-namespace libMcuLL::sw::scb {
+namespace libMcu::sw::scb {
 using namespace hw::scb;
-template <libMcuLL::scbBaseAddress const& scbAddress_>
+template <libMcu::scbBaseAddress const& scbAddress_>
 struct scb {
   /**
    * @brief Construct a new systick object
@@ -92,7 +92,7 @@ struct scb {
     }
   }
 
-  static constexpr libMcuLL::hwAddressType scbAddress = scbAddress_; /**< scb peripheral address */
+  static constexpr libMcu::hwAddressType scbAddress = scbAddress_; /**< scb peripheral address */
 };
-}  // namespace libMcuLL::sw::scb
+}  // namespace libMcu::sw::scb
 #endif

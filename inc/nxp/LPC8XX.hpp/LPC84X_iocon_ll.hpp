@@ -61,8 +61,8 @@ enum class i2cmodes : std::uint32_t {
   I2C_FAST = hardware::PIO::I2C_FAST, /**< fast mode plus I2C */
 };
 
-template <libMcuLL::ioconBaseAddress ioconAddress_>
-struct iocon : libMcuLL::peripheralBase {
+template <libMcu::ioconBaseAddress ioconAddress_>
+struct iocon : libMcu::peripheralBase {
   /**
    * @brief Setup normal IOCON pin
    *
@@ -154,7 +154,7 @@ struct iocon : libMcuLL::peripheralBase {
   }
 
  private:
-  static constexpr libMcuLL::hwAddressType ioconAddress = ioconAddress_; /**< peripheral address */
+  static constexpr libMcu::hwAddressType ioconAddress = ioconAddress_; /**< peripheral address */
 };
 }  // namespace libMcu::ll::iocon
 #endif

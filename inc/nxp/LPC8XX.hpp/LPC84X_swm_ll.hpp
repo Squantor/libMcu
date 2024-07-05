@@ -12,8 +12,8 @@
 
 namespace libMcu::ll::swm {
 namespace hardware = libMcu::hw::swm;
-template <libMcuLL::swmBaseAddress swmAddress_>
-struct swm : libMcuLL::peripheralBase {
+template <libMcu::swmBaseAddress swmAddress_>
+struct swm : libMcu::peripheralBase {
   /**
    * @brief set pin to a function
    *
@@ -76,7 +76,7 @@ struct swm : libMcuLL::peripheralBase {
   }
 
  private:
-  static constexpr libMcuLL::hwAddressType swmAddress = swmAddress_; /**< peripheral address */
+  static constexpr libMcu::hwAddressType swmAddress = swmAddress_; /**< peripheral address */
 };
 }  // namespace libMcu::ll::swm
 #endif

@@ -120,8 +120,8 @@ enum peripheralClocks1 : std::uint32_t {
 enum peripheralPowers : std::uint32_t {
 };
 
-template <libMcuLL::sysconBaseAddress sysconAddress_>
-struct syscon : libMcuLL::peripheralBase {
+template <libMcu::sysconBaseAddress sysconAddress_>
+struct syscon : libMcu::peripheralBase {
   /**
    * @brief Set the System PLL Control
    *
@@ -248,7 +248,7 @@ struct syscon : libMcuLL::peripheralBase {
   }
 
  private:
-  constexpr static libMcuLL::hwAddressType sysconAddress = sysconAddress_; /**< peripheral address */
+  constexpr static libMcu::hwAddressType sysconAddress = sysconAddress_; /**< peripheral address */
 };
 }  // namespace libMcu::ll::syscon
 #endif

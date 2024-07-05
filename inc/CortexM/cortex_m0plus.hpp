@@ -10,16 +10,16 @@
 #ifndef CORTEX_M0_PLUS_HPP
 #define CORTEX_M0_PLUS_HPP
 
-namespace libMcuLL::hw {
+namespace libMcu::hw {
 
 // core peripheral definitions
-constexpr inline libMcuLL::scsBaseAddress scsAddress{0xE000'E000UL};         /**< systemcontrol space base address */
-constexpr inline libMcuLL::systickBaseAddress systickAddress{0xE000'E010UL}; /**< systick base address*/
-constexpr inline libMcuLL::nvicBaseAddress nvicAddress{0xE000'E100UL};       /**< NVIC base address */
-constexpr inline libMcuLL::scbBaseAddress scbAddress{0xE000'ED00UL};         /** SCB base address */
-constexpr inline libMcuLL::mpuBaseAddress mpuAddress{0xE000'ED90UL};         /**< MPU base address */
+constexpr inline libMcu::scsBaseAddress scsAddress{0xE000'E000UL};         /**< systemcontrol space base address */
+constexpr inline libMcu::systickBaseAddress systickAddress{0xE000'E010UL}; /**< systick base address*/
+constexpr inline libMcu::nvicBaseAddress nvicAddress{0xE000'E100UL};       /**< NVIC base address */
+constexpr inline libMcu::scbBaseAddress scbAddress{0xE000'ED00UL};         /** SCB base address */
+constexpr inline libMcu::mpuBaseAddress mpuAddress{0xE000'ED90UL};         /**< MPU base address */
 
-}  // namespace libMcuLL::hw
+}  // namespace libMcu::hw
 
 #include "cortex_m_sw.hpp"
 
