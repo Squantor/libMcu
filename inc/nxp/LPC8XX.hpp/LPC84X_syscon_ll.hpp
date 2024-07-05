@@ -75,7 +75,7 @@ enum mainClockSources : std::uint32_t {
 /**
  * @brief Peripherals to set the clock source of
  */
-enum class peripheralClockSelects : std::uint32_t {
+enum class clockSourceSelects : std::uint32_t {
   UART0 = hardware::FCLKSEL::UART0, /**< UART0 clock select */
   UART1 = hardware::FCLKSEL::UART1, /**< UART1 clock select */
   UART2 = hardware::FCLKSEL::UART2, /**< UART2 clock select */
@@ -91,7 +91,7 @@ enum class peripheralClockSelects : std::uint32_t {
 /**
  * @brief Peripheral clock options
  */
-enum class peripheralClocks : std::uint32_t {
+enum class clockSources : std::uint32_t {
   FRO = hardware::FCLKSEL::FRO,         /**< FRO clock source */
   MAIN = hardware::FCLKSEL::MAIN,       /**< Main clock source */
   FRG0 = hardware::FCLKSEL::FRG0,       /**< Fractional clock generator 0 */
@@ -102,22 +102,49 @@ enum class peripheralClocks : std::uint32_t {
 /**
  * @brief Peripheral clock enable options section 0
  */
-enum peripheralClocks0 : std::uint32_t {
-  ROM_CLOCK = hardware::SYSAHBCLKCTRL0::ROM,     /**< ROM clock enable */
-  RAM_CLOCK = hardware::SYSAHBCLKCTRL0::RAM0_1,  /**< RAM clock enable */
-  FLASH_CLOCK = hardware::SYSAHBCLKCTRL0::FLASH, /**< Flash clock enable */
+enum clockEnables0 : std::uint32_t {
+  ROM_CLOCK = hardware::SYSAHBCLKCTRL0::ROM,           /**< ROM clock enable */
+  RAM_CLOCK = hardware::SYSAHBCLKCTRL0::RAM0_1,        /**< RAM clock enable */
+  FLASH_CLOCK = hardware::SYSAHBCLKCTRL0::FLASH,       /**< Flash clock enable */
+  I2C0_CLOCK = hardware::SYSAHBCLKCTRL0::I2C0,         /**< I2C0 clock enable */
+  GPIO0_CLOCK = hardware::SYSAHBCLKCTRL0::GPIO0,       /**< GPIO0 clock enable */
+  SWM_CLOCK = hardware::SYSAHBCLKCTRL0::SWM,           /**< SWM clock enable */
+  SCT_CLOCK = hardware::SYSAHBCLKCTRL0::SCT,           /**< SCT clock enable */
+  WKT_CLOCK = hardware::SYSAHBCLKCTRL0::WKT,           /**< WKT clock enable */
+  MRT_CLOCK = hardware::SYSAHBCLKCTRL0::MRT,           /**< MRT clock enable */
+  SPI0_CLOCK = hardware::SYSAHBCLKCTRL0::SPI0,         /**< SPI0 clock enable */
+  SPI1_CLOCK = hardware::SYSAHBCLKCTRL0::SPI1,         /**< SPI1 clock enable */
+  CRC_CLOCK = hardware::SYSAHBCLKCTRL0::CRC,           /**< CRC clock enable */
+  UART0_CLOCK = hardware::SYSAHBCLKCTRL0::UART0,       /**< UART0 clock enable */
+  UART1_CLOCK = hardware::SYSAHBCLKCTRL0::UART1,       /**< UART1 clock enable */
+  UART2_CLOCK = hardware::SYSAHBCLKCTRL0::UART2,       /**< UART2 clock enable */
+  WWDT_CLOCK = hardware::SYSAHBCLKCTRL0::WWDT,         /**< WWDT clock enable */
+  IOCON_CLOCK = hardware::SYSAHBCLKCTRL0::IOCON,       /**< IOCON clock enable */
+  ACMP_CLOCK = hardware::SYSAHBCLKCTRL0::ACMP,         /**< ACMP clock enable */
+  GPIO1_CLOCK = hardware::SYSAHBCLKCTRL0::GPIO1,       /**< GPIO1 clock enable */
+  I2C1_CLOCK = hardware::SYSAHBCLKCTRL0::I2C1,         /**< I2C1 clock enable */
+  I2C2_CLOCK = hardware::SYSAHBCLKCTRL0::I2C2,         /**< I2C2 clock enable */
+  I2C3_CLOCK = hardware::SYSAHBCLKCTRL0::I2C3,         /**< I2C3 clock enable */
+  ADC_CLOCK = hardware::SYSAHBCLKCTRL0::ADC,           /**< ADC clock enable */
+  CTIMER0_CLOCK = hardware::SYSAHBCLKCTRL0::CTIMER0,   /**< CTIMER0 clock enable */
+  MTB_CLOCK = hardware::SYSAHBCLKCTRL0::MTB,           /**< MTB clock enable */
+  DAC0_CLOCK = hardware::SYSAHBCLKCTRL0::DAC0,         /**< DAC0 clock enable */
+  GPIO_INT_CLOCK = hardware::SYSAHBCLKCTRL0::GPIO_INT, /**< GPIO_INT clock enable */
+  DMA_CLOCK = hardware::SYSAHBCLKCTRL0::DMA,           /**< DMA clock enable */
+  UART3_CLOCK = hardware::SYSAHBCLKCTRL0::UART3,       /**< UART3 clock enable */
+  UART4_CLOCK = hardware::SYSAHBCLKCTRL0::UART4,       /**< UART4 clock enable */
 };
 /**
  * @brief Peripheral clock enable options section 1
  */
-enum peripheralClocks1 : std::uint32_t {
+enum ClockEnables1 : std::uint32_t {
   CAPT_CLOCK = hardware::SYSAHBCLKCTRL1::CAPT, /**< CAPT clock enable */
   DAC1_CLOCK = hardware::SYSAHBCLKCTRL1::DAC1, /**< DAC1 clock enable */
 };
 /**
  * @brief Peripheral power down reset options
  */
-enum peripheralPowers : std::uint32_t {
+enum powerEnables : std::uint32_t {
 };
 
 template <libMcu::sysconBaseAddress sysconAddress_>
@@ -204,14 +231,14 @@ struct syscon : libMcu::peripheralBase {
    * @param peripheral peripheral to set the clock input of
    * @param clock clock to connect to the peripheral
    */
-  constexpr void peripheralClockSource(peripheralClockSelects peripheral, peripheralClocks clock) {
+  constexpr void peripheralClockSource(clockSourceSelects peripheral, clockSources clock) {
     size_t index = static_cast<size_t>(peripheral);
     sysconPeripheral()->FCLKSEL[index] = static_cast<std::uint32_t>(clock);
   }
   /**
    * @brief Power up a peripheral
    *
-   * @param setting bit setting from peripheralPowers enum
+   * @param setting bit setting from powerEnables enum
    */
   constexpr void powerPeripherals(std::uint32_t setting) {
     sysconPeripheral()->PDRUNCFG = sysconPeripheral()->PDRUNCFG | setting;
@@ -219,7 +246,7 @@ struct syscon : libMcu::peripheralBase {
   /**
    * @brief Power down a peripheral
    *
-   * @param setting bit setting from peripheralPowers enum
+   * @param setting bit setting from powerEnables enum
    */
   constexpr void depowerPeripherals(std::uint32_t setting) {
     sysconPeripheral()->PDRUNCFG = (sysconPeripheral()->PDRUNCFG & ~setting) | hardware::PDRUNCFG::RESERVED_BITS;
