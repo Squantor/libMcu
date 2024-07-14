@@ -15,60 +15,57 @@ namespace hardware = libMcu::hw::syscon;
 
 /**
  * @brief Peripheral reset for first setting
- * TODO: change this into a namespace
  */
-enum peripheralResets0 : std::uint32_t {
-  FLASH_RESET = hardware::PRESETCTRL0::FLASH,     /**< FLASH peripheral reset */
-  I2C0_RESET = hardware::PRESETCTRL0::I2C0,       /**< I2C0 peripheral reset */
-  GPIO0_RESET = hardware::PRESETCTRL0::GPIO0,     /**< GPIO0 peripheral reset */
-  SWM_RESET = hardware::PRESETCTRL0::SWM,         /**< SWM peripheral reset */
-  SCT_RESET = hardware::PRESETCTRL0::SCT,         /**< SCT peripheral reset */
-  WKT_RESET = hardware::PRESETCTRL0::WKT,         /**< WKT peripheral reset */
-  MRT_RESET = hardware::PRESETCTRL0::MRT,         /**< MRT peripheral reset */
-  SPI0_RESET = hardware::PRESETCTRL0::SPI0,       /**< SPI0 peripheral reset */
-  SPI1_RESET = hardware::PRESETCTRL0::SPI1,       /**< SPI1 peripheral reset */
-  CRC_RESET = hardware::PRESETCTRL0::CRC,         /**< CRC peripheral reset */
-  UART0_RESET = hardware::PRESETCTRL0::UART0,     /**< UART0 peripheral reset */
-  UART1_RESET = hardware::PRESETCTRL0::UART1,     /**< UART1 peripheral reset */
-  UART2_RESET = hardware::PRESETCTRL0::UART2,     /**< UART2 peripheral reset */
-  IOCON_RESET = hardware::PRESETCTRL0::IOCON,     /**< IOCON peripheral reset */
-  ACMP_RESET = hardware::PRESETCTRL0::ACMP,       /**< ACMP peripheral reset */
-  GPIO1_RESET = hardware::PRESETCTRL0::GPIO1,     /**< GPIO1 peripheral reset */
-  I2C1_RESET = hardware::PRESETCTRL0::I2C1,       /**< I2C1 peripheral reset */
-  I2C2_RESET = hardware::PRESETCTRL0::I2C2,       /**< I2C2 peripheral reset */
-  I2C3_RESET = hardware::PRESETCTRL0::I2C3,       /**< I2C3 peripheral reset */
-  ADC_RESET = hardware::PRESETCTRL0::ADC,         /**< ADC peripheral reset */
-  CTIMER0_RESET = hardware::PRESETCTRL0::CTIMER0, /**< CTIMER0 peripheral reset */
-  DAC0_RESET = hardware::PRESETCTRL0::DAC0,       /**< DAC0 peripheral reset */
-  GPIOINT_RESET = hardware::PRESETCTRL0::GPIOINT, /**< GPIOINT peripheral reset */
-  DMA_RESET = hardware::PRESETCTRL0::DMA,         /**< DMA peripheral reset */
-  UART3_RESET = hardware::PRESETCTRL0::UART3,     /**< UART3 peripheral reset */
-  UART4_RESET = hardware::PRESETCTRL0::UART4,     /**< UART4 peripheral reset */
-};
+namespace peripheralResets0 {
+constexpr inline std::uint32_t FLASH = hardware::PRESETCTRL0::FLASH;     /**< FLASH peripheral reset */
+constexpr inline std::uint32_t I2C0 = hardware::PRESETCTRL0::I2C0;       /**< I2C0 peripheral reset */
+constexpr inline std::uint32_t GPIO0 = hardware::PRESETCTRL0::GPIO0;     /**< GPIO0 peripheral reset */
+constexpr inline std::uint32_t SWM = hardware::PRESETCTRL0::SWM;         /**< SWM peripheral reset */
+constexpr inline std::uint32_t SCT = hardware::PRESETCTRL0::SCT;         /**< SCT peripheral reset */
+constexpr inline std::uint32_t WKT = hardware::PRESETCTRL0::WKT;         /**< WKT peripheral reset */
+constexpr inline std::uint32_t MRT = hardware::PRESETCTRL0::MRT;         /**< MRT peripheral reset */
+constexpr inline std::uint32_t SPI0 = hardware::PRESETCTRL0::SPI0;       /**< SPI0 peripheral reset */
+constexpr inline std::uint32_t SPI1 = hardware::PRESETCTRL0::SPI1;       /**< SPI1 peripheral reset */
+constexpr inline std::uint32_t CRC = hardware::PRESETCTRL0::CRC;         /**< CRC peripheral reset */
+constexpr inline std::uint32_t UART0 = hardware::PRESETCTRL0::UART0;     /**< UART0 peripheral reset */
+constexpr inline std::uint32_t UART1 = hardware::PRESETCTRL0::UART1;     /**< UART1 peripheral reset */
+constexpr inline std::uint32_t UART2 = hardware::PRESETCTRL0::UART2;     /**< UART2 peripheral reset */
+constexpr inline std::uint32_t IOCON = hardware::PRESETCTRL0::IOCON;     /**< IOCON peripheral reset */
+constexpr inline std::uint32_t ACMP = hardware::PRESETCTRL0::ACMP;       /**< ACMP peripheral reset */
+constexpr inline std::uint32_t GPIO1 = hardware::PRESETCTRL0::GPIO1;     /**< GPIO1 peripheral reset */
+constexpr inline std::uint32_t I2C1 = hardware::PRESETCTRL0::I2C1;       /**< I2C1 peripheral reset */
+constexpr inline std::uint32_t I2C2 = hardware::PRESETCTRL0::I2C2;       /**< I2C2 peripheral reset */
+constexpr inline std::uint32_t I2C3 = hardware::PRESETCTRL0::I2C3;       /**< I2C3 peripheral reset */
+constexpr inline std::uint32_t ADC = hardware::PRESETCTRL0::ADC;         /**< ADC peripheral reset */
+constexpr inline std::uint32_t CTIMER0 = hardware::PRESETCTRL0::CTIMER0; /**< CTIMER0 peripheral reset */
+constexpr inline std::uint32_t DAC0 = hardware::PRESETCTRL0::DAC0;       /**< DAC0 peripheral reset */
+constexpr inline std::uint32_t GPIOINT = hardware::PRESETCTRL0::GPIOINT; /**< GPIOINT peripheral reset */
+constexpr inline std::uint32_t DMA = hardware::PRESETCTRL0::DMA;         /**< DMA peripheral reset */
+constexpr inline std::uint32_t UART3 = hardware::PRESETCTRL0::UART3;     /**< UART3 peripheral reset */
+constexpr inline std::uint32_t UART4 = hardware::PRESETCTRL0::UART4;     /**< UART4 peripheral reset */
+}  // namespace peripheralResets0
 /**
  * @brief Peripheral resets for second setting
- * TODO: change this into a namespace
  */
-enum peripheralResets1 : std::uint32_t {
-  CAPT_RESET = hardware::PRESETCTRL1::CAPT, /**< CAPT peripheral reset */
-  DAC1_RESET = hardware::PRESETCTRL1::DAC1, /**< DAC1 peripheral reset */
-  FRG0_RESET = hardware::PRESETCTRL1::FRG0, /**< FRG0 peripheral reset */
-  FRG1_RESET = hardware::PRESETCTRL1::FRG1, /**< FRG1 peripheral reset */
-};
+namespace peripheralResets1 {
+constexpr inline std::uint32_t CAPT = hardware::PRESETCTRL1::CAPT; /**< CAPT peripheral reset */
+constexpr inline std::uint32_t DAC1 = hardware::PRESETCTRL1::DAC1; /**< DAC1 peripheral reset */
+constexpr inline std::uint32_t FRG0 = hardware::PRESETCTRL1::FRG0; /**< FRG0 peripheral reset */
+constexpr inline std::uint32_t FRG1 = hardware::PRESETCTRL1::FRG1; /**< FRG1 peripheral reset */
+}  // namespace peripheralResets1
 /**
  * @brief PLL post divider options
- * TODO: change this into a namespace
  */
-enum pllPostDivider : std::uint32_t {
+enum class pllPostDivider : std::uint32_t {
   DIV_2 = hardware::SYSPLLCTRL::PSEL_DIV2,   /**< PLL post division ration of 2 */
   DIV_4 = hardware::SYSPLLCTRL::PSEL_DIV4,   /**< PLL post division ration of 4 */
   DIV_8 = hardware::SYSPLLCTRL::PSEL_DIV8,   /**< PLL post division ration of 8 */
   DIV_16 = hardware::SYSPLLCTRL::PSEL_DIV16, /**< PLL post division ration of 16 */
-};
+};                                           // namespace pllPostDivider
 /**
  * @brief PLL source options
  */
-enum pllClockSources : std::uint32_t {
+enum class pllClockSources : std::uint32_t {
 };
 /**
  * @brief main clock sources options
@@ -107,67 +104,66 @@ enum class clockSources : std::uint32_t {
   NONE = hardware::FCLKSEL::NONE,       /**< No clock source */
 };
 /**
- * @brief Peripheral clock enable options section 0
- * TODO: change this into a namespace
+ * @brief Peripheral clock enable/disable options section 0
  */
-enum clockEnables0 : std::uint32_t {
-  ROM_CLOCK = hardware::SYSAHBCLKCTRL0::ROM,           /**< ROM clock enable */
-  RAM_CLOCK = hardware::SYSAHBCLKCTRL0::RAM0_1,        /**< RAM clock enable */
-  FLASH_CLOCK = hardware::SYSAHBCLKCTRL0::FLASH,       /**< Flash clock enable */
-  I2C0_CLOCK = hardware::SYSAHBCLKCTRL0::I2C0,         /**< I2C0 clock enable */
-  GPIO0_CLOCK = hardware::SYSAHBCLKCTRL0::GPIO0,       /**< GPIO0 clock enable */
-  SWM_CLOCK = hardware::SYSAHBCLKCTRL0::SWM,           /**< SWM clock enable */
-  SCT_CLOCK = hardware::SYSAHBCLKCTRL0::SCT,           /**< SCT clock enable */
-  WKT_CLOCK = hardware::SYSAHBCLKCTRL0::WKT,           /**< WKT clock enable */
-  MRT_CLOCK = hardware::SYSAHBCLKCTRL0::MRT,           /**< MRT clock enable */
-  SPI0_CLOCK = hardware::SYSAHBCLKCTRL0::SPI0,         /**< SPI0 clock enable */
-  SPI1_CLOCK = hardware::SYSAHBCLKCTRL0::SPI1,         /**< SPI1 clock enable */
-  CRC_CLOCK = hardware::SYSAHBCLKCTRL0::CRC,           /**< CRC clock enable */
-  UART0_CLOCK = hardware::SYSAHBCLKCTRL0::UART0,       /**< UART0 clock enable */
-  UART1_CLOCK = hardware::SYSAHBCLKCTRL0::UART1,       /**< UART1 clock enable */
-  UART2_CLOCK = hardware::SYSAHBCLKCTRL0::UART2,       /**< UART2 clock enable */
-  WWDT_CLOCK = hardware::SYSAHBCLKCTRL0::WWDT,         /**< WWDT clock enable */
-  IOCON_CLOCK = hardware::SYSAHBCLKCTRL0::IOCON,       /**< IOCON clock enable */
-  ACMP_CLOCK = hardware::SYSAHBCLKCTRL0::ACMP,         /**< ACMP clock enable */
-  GPIO1_CLOCK = hardware::SYSAHBCLKCTRL0::GPIO1,       /**< GPIO1 clock enable */
-  I2C1_CLOCK = hardware::SYSAHBCLKCTRL0::I2C1,         /**< I2C1 clock enable */
-  I2C2_CLOCK = hardware::SYSAHBCLKCTRL0::I2C2,         /**< I2C2 clock enable */
-  I2C3_CLOCK = hardware::SYSAHBCLKCTRL0::I2C3,         /**< I2C3 clock enable */
-  ADC_CLOCK = hardware::SYSAHBCLKCTRL0::ADC,           /**< ADC clock enable */
-  CTIMER0_CLOCK = hardware::SYSAHBCLKCTRL0::CTIMER0,   /**< CTIMER0 clock enable */
-  MTB_CLOCK = hardware::SYSAHBCLKCTRL0::MTB,           /**< MTB clock enable */
-  DAC0_CLOCK = hardware::SYSAHBCLKCTRL0::DAC0,         /**< DAC0 clock enable */
-  GPIO_INT_CLOCK = hardware::SYSAHBCLKCTRL0::GPIO_INT, /**< GPIO_INT clock enable */
-  DMA_CLOCK = hardware::SYSAHBCLKCTRL0::DMA,           /**< DMA clock enable */
-  UART3_CLOCK = hardware::SYSAHBCLKCTRL0::UART3,       /**< UART3 clock enable */
-  UART4_CLOCK = hardware::SYSAHBCLKCTRL0::UART4,       /**< UART4 clock enable */
-};
+namespace peripheralClocks0 {
+constexpr inline std::uint32_t ROM = hardware::SYSAHBCLKCTRL0::ROM;           /**< ROM clock enable */
+constexpr inline std::uint32_t RAM = hardware::SYSAHBCLKCTRL0::RAM0_1;        /**< RAM clock enable */
+constexpr inline std::uint32_t FLASH = hardware::SYSAHBCLKCTRL0::FLASH;       /**< Flash clock enable */
+constexpr inline std::uint32_t I2C0 = hardware::SYSAHBCLKCTRL0::I2C0;         /**< I2C0 clock enable */
+constexpr inline std::uint32_t GPIO0 = hardware::SYSAHBCLKCTRL0::GPIO0;       /**< GPIO0 clock enable */
+constexpr inline std::uint32_t SWM = hardware::SYSAHBCLKCTRL0::SWM;           /**< SWM clock enable */
+constexpr inline std::uint32_t SCT = hardware::SYSAHBCLKCTRL0::SCT;           /**< SCT clock enable */
+constexpr inline std::uint32_t WKT = hardware::SYSAHBCLKCTRL0::WKT;           /**< WKT clock enable */
+constexpr inline std::uint32_t MRT = hardware::SYSAHBCLKCTRL0::MRT;           /**< MRT clock enable */
+constexpr inline std::uint32_t SPI0 = hardware::SYSAHBCLKCTRL0::SPI0;         /**< SPI0 clock enable */
+constexpr inline std::uint32_t SPI1 = hardware::SYSAHBCLKCTRL0::SPI1;         /**< SPI1 clock enable */
+constexpr inline std::uint32_t CRC = hardware::SYSAHBCLKCTRL0::CRC;           /**< CRC clock enable */
+constexpr inline std::uint32_t UART0 = hardware::SYSAHBCLKCTRL0::UART0;       /**< UART0 clock enable */
+constexpr inline std::uint32_t UART1 = hardware::SYSAHBCLKCTRL0::UART1;       /**< UART1 clock enable */
+constexpr inline std::uint32_t UART2 = hardware::SYSAHBCLKCTRL0::UART2;       /**< UART2 clock enable */
+constexpr inline std::uint32_t WWDT = hardware::SYSAHBCLKCTRL0::WWDT;         /**< WWDT clock enable */
+constexpr inline std::uint32_t IOCON = hardware::SYSAHBCLKCTRL0::IOCON;       /**< IOCON clock enable */
+constexpr inline std::uint32_t ACMP = hardware::SYSAHBCLKCTRL0::ACMP;         /**< ACMP clock enable */
+constexpr inline std::uint32_t GPIO1 = hardware::SYSAHBCLKCTRL0::GPIO1;       /**< GPIO1 clock enable */
+constexpr inline std::uint32_t I2C1 = hardware::SYSAHBCLKCTRL0::I2C1;         /**< I2C1 clock enable */
+constexpr inline std::uint32_t I2C2 = hardware::SYSAHBCLKCTRL0::I2C2;         /**< I2C2 clock enable */
+constexpr inline std::uint32_t I2C3 = hardware::SYSAHBCLKCTRL0::I2C3;         /**< I2C3 clock enable */
+constexpr inline std::uint32_t ADC = hardware::SYSAHBCLKCTRL0::ADC;           /**< ADC clock enable */
+constexpr inline std::uint32_t CTIMER0 = hardware::SYSAHBCLKCTRL0::CTIMER0;   /**< CTIMER0 clock enable */
+constexpr inline std::uint32_t MTB = hardware::SYSAHBCLKCTRL0::MTB;           /**< MTB clock enable */
+constexpr inline std::uint32_t DAC0 = hardware::SYSAHBCLKCTRL0::DAC0;         /**< DAC0 clock enable */
+constexpr inline std::uint32_t GPIO_INT = hardware::SYSAHBCLKCTRL0::GPIO_INT; /**< GPIO_INT clock enable */
+constexpr inline std::uint32_t DMA = hardware::SYSAHBCLKCTRL0::DMA;           /**< DMA clock enable */
+constexpr inline std::uint32_t UART3 = hardware::SYSAHBCLKCTRL0::UART3;       /**< UART3 clock enable */
+constexpr inline std::uint32_t UART4 = hardware::SYSAHBCLKCTRL0::UART4;       /**< UART4 clock enable */
+}  // namespace peripheralClocks0
 /**
- * @brief Peripheral clock enable options section 1
- * TODO: change this into a namespace and merge with clock enables
+ * @brief Peripheral clock enable/disable options section 1
  */
-enum ClockEnables1 : std::uint32_t {
-  CAPT_CLOCK = hardware::SYSAHBCLKCTRL1::CAPT, /**< CAPT clock enable */
-  DAC1_CLOCK = hardware::SYSAHBCLKCTRL1::DAC1, /**< DAC1 clock enable */
-};
+namespace peripheralClocks1 {
+constexpr inline std::uint32_t CAPT = hardware::SYSAHBCLKCTRL1::CAPT; /**< CAPT clock enable */
+constexpr inline std::uint32_t DAC1 = hardware::SYSAHBCLKCTRL1::DAC1; /**< DAC1 clock enable */
+}  // namespace peripheralClocks1
 /**
  * @brief Peripheral power up/down options
- * TODO: change this into a namespace
  */
-enum powerOptions : std::uint32_t {
-  FROOUT = hardware::PDRUNCFG::FROOUT, /**< FRO oscillator output power */
-  FRO = hardware::PDRUNCFG::FRO,       /**< FRO oscillator power */
-  FLASH = hardware::PDRUNCFG::FLASH,   /**< Flash power */
-  BOD = hardware::PDRUNCFG::BOD,       /**< BOD power */
-  ADC = hardware::PDRUNCFG::ADC,       /**< ADC power */
-  SYSOSC = hardware::PDRUNCFG::SYSOSC, /**< Crystal oscillator power */
-  WDTOSC = hardware::PDRUNCFG::WDTOSC, /**< Watchdog oscillator power */
-  SYSPLL = hardware::PDRUNCFG::SYSPLL, /**< System PLL oscillator power */
-  DAC0 = hardware::PDRUNCFG::DAC0,     /**< DAC0 power */
-  DAC1 = hardware::PDRUNCFG::DAC1,     /**< DAC1 power */
-  ACMP = hardware::PDRUNCFG::ACMP,     /**< ACMP power */
-};
-
+namespace powerOptions {
+constexpr inline std::uint32_t FROOUT = hardware::PDRUNCFG::FROOUT; /**< FRO oscillator output power */
+constexpr inline std::uint32_t FRO = hardware::PDRUNCFG::FRO;       /**< FRO oscillator power */
+constexpr inline std::uint32_t FLASH = hardware::PDRUNCFG::FLASH;   /**< Flash power */
+constexpr inline std::uint32_t BOD = hardware::PDRUNCFG::BOD;       /**< BOD power */
+constexpr inline std::uint32_t ADC = hardware::PDRUNCFG::ADC;       /**< ADC power */
+constexpr inline std::uint32_t SYSOSC = hardware::PDRUNCFG::SYSOSC; /**< Crystal oscillator power */
+constexpr inline std::uint32_t WDTOSC = hardware::PDRUNCFG::WDTOSC; /**< Watchdog oscillator power */
+constexpr inline std::uint32_t SYSPLL = hardware::PDRUNCFG::SYSPLL; /**< System PLL oscillator power */
+constexpr inline std::uint32_t DAC0 = hardware::PDRUNCFG::DAC0;     /**< DAC0 power */
+constexpr inline std::uint32_t DAC1 = hardware::PDRUNCFG::DAC1;     /**< DAC1 power */
+constexpr inline std::uint32_t ACMP = hardware::PDRUNCFG::ACMP;     /**< ACMP power */
+}  // namespace powerOptions
+/**
+ * @brief Clock output sources
+ */
 enum class clockOutSources : std::uint32_t {
   FRO = hardware::CLKOUTSEL::FRO,           /**< FRO clock source */
   MAIN = hardware::CLKOUTSEL::MAIN,         /**< Main clock source */
@@ -184,7 +180,7 @@ struct syscon : libMcu::peripheralBase {
    * @param msel Feedback divider ratio, 0 divides by 1, 31 divides by 32
    * @param psel Post divider ratio, acceptable values in pllPostDivider enum
    */
-  constexpr void setSystemPllControl(std::uint32_t msel, pllPostDivider psel) {
+  constexpr void setSystemPllControl(std::uint32_t msel, std::uint32_t psel) {
     sysconPeripheral()->SYSPLLCTRL = hardware::SYSPLLCTRL::MSEL(msel) | static_cast<std::uint32_t>(psel);
   }
   /**
