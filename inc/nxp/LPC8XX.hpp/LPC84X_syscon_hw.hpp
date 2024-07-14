@@ -22,7 +22,6 @@ enum class clockSourceSelects : std::size_t {
 
 /**
  * @brief sysctl register definitions
- *
  */
 struct peripheral {
   volatile std::uint32_t SYSMEMREMAP;        /**< System Remap register */
@@ -105,7 +104,6 @@ namespace SYSPLLCTRL {
 constexpr inline std::uint32_t RESERVED_MASK{0x0000'007Fu}; /**< register mask for allowed bits */
 /**
  * @brief Format feedback divider value
- *
  * @param divider feedback divider value, 0 is division by 1 to 31 is division by 32
  * @return formatted data for SYSPLLCTRL
  */
@@ -132,7 +130,6 @@ namespace WDTOSCCTRL {
 constexpr inline std::uint32_t RESERVED_MASK{0x0000'01FFu}; /**< register mask for allowed bits */
 /**
  * @brief Format divider for Fclkana
- *
  * @param divider divider for Fclkana, 0 is 2, 1 is 4 and 31 is 64
  * @return formatted data for DIVSEL
  */
@@ -204,7 +201,6 @@ namespace SYSAHBCLKDIV {
 constexpr inline std::uint32_t RESERVED_MASK{0x0000'00FFu}; /**< register mask for allowed bits */
 /**
  * @brief Format system clock divider
- *
  * @param divider 0 is system clock disabled, 1 divide by 1, 255 divide by 255
  * @return formatted data for SYSAHBCLKDIV
  */
@@ -335,11 +331,25 @@ namespace FRGCLKSEL {
 constexpr inline std::uint32_t RESERVED_MASK{0x0000'0000u}; /**< register mask for allowed bits */
 }
 namespace CLKOUTSEL {
-constexpr inline std::uint32_t RESERVED_MASK{0x0000'0000u}; /**< register mask for allowed bits */
-}
+constexpr inline std::uint32_t RESERVED_MASK{0x0000'0007u}; /**< register mask for allowed bits */
+constexpr inline std::uint32_t FRO{0u << 0};                /**< FRO */
+constexpr inline std::uint32_t MAIN{1u << 0};               /**< Main clock */
+constexpr inline std::uint32_t SYS_PLL{0u << 0};            /**< System PLL */
+constexpr inline std::uint32_t EXTERNAL{0u << 0};           /**< External clock */
+constexpr inline std::uint32_t WATCHDOG{0u << 0};           /**< Watchdog oscillator */
+}  // namespace CLKOUTSEL
 namespace CLKOUTDIV {
-constexpr inline std::uint32_t RESERVED_MASK{0x0000'0000u}; /**< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x0000'00FFu}; /**< register mask for allowed bits */
+
+/**
+ * @brief Format clock output divider value
+ * @param divisor divisor value for clock output
+ * @return formatted divider value for CLKOUTDIV
+ */
+constexpr inline std::uint32_t DIV(std::uint32_t divisor) {
+  return divisor << 0;
 }
+}  // namespace CLKOUTDIV
 namespace EXTTRACECMD {
 constexpr inline std::uint32_t RESERVED_MASK{0x0000'0000u}; /**< register mask for allowed bits */
 }

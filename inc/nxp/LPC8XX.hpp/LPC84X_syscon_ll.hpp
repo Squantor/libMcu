@@ -147,6 +147,14 @@ enum ClockEnables1 : std::uint32_t {
 enum powerEnables : std::uint32_t {
 };
 
+enum class clockOutSources : std::uint32_t {
+  FRO = hardware::CLKOUTSEL::FRO,           /**< FRO clock source */
+  MAIN = hardware::CLKOUTSEL::MAIN,         /**< Main clock source */
+  SYS_PLL = hardware::CLKOUTSEL::SYS_PLL,   /**< System PLL clock source */
+  EXTERNAL = hardware::CLKOUTSEL::EXTERNAL, /**< External clock source */
+  WATCHDOG = hardware::CLKOUTSEL::WATCHDOG, /**< Watchdog oscillator clock source */
+};
+
 template <libMcu::sysconBaseAddress sysconAddress_>
 struct syscon : libMcu::peripheralBase {
   /**
@@ -235,6 +243,14 @@ struct syscon : libMcu::peripheralBase {
     size_t index = static_cast<size_t>(peripheral);
     sysconPeripheral()->FCLKSEL[index] = static_cast<std::uint32_t>(clock);
   }
+
+  constexpr void setClockOutput(clockOutSources source, std::uint32_t divisor) {
+    // disable clock to prevent overspeed
+    sysconPeripheral()->CLKOUTDIV = hardware::CLKOUTDIV::DIV(0);
+    sysconPeripheral()->CLKOUTSEL = static_cast<std::uint32_t>(source);
+    sysconPeripheral()->CLKOUTDIV = hardware::CLKOUTDIV::DIV(divisor);
+  }
+
   /**
    * @brief Power up a peripheral
    *
