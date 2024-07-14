@@ -15,6 +15,7 @@ namespace hardware = libMcu::hw::syscon;
 
 /**
  * @brief Peripheral reset for first setting
+ * TODO: change this into a namespace
  */
 enum peripheralResets0 : std::uint32_t {
   FLASH_RESET = hardware::PRESETCTRL0::FLASH,     /**< FLASH peripheral reset */
@@ -46,6 +47,7 @@ enum peripheralResets0 : std::uint32_t {
 };
 /**
  * @brief Peripheral resets for second setting
+ * TODO: change this into a namespace
  */
 enum peripheralResets1 : std::uint32_t {
   CAPT_RESET = hardware::PRESETCTRL1::CAPT, /**< CAPT peripheral reset */
@@ -55,6 +57,7 @@ enum peripheralResets1 : std::uint32_t {
 };
 /**
  * @brief PLL post divider options
+ * TODO: change this into a namespace
  */
 enum pllPostDivider : std::uint32_t {
   DIV_2 = hardware::SYSPLLCTRL::PSEL_DIV2,   /**< PLL post division ration of 2 */
@@ -68,10 +71,14 @@ enum pllPostDivider : std::uint32_t {
 enum pllClockSources : std::uint32_t {
 };
 /**
- * @brief main clock sources
+ * @brief main clock sources options
  */
-enum mainClockSources : std::uint32_t {
-};
+enum class mainClockSources : std::uint32_t {
+  FRO = hardware::MAINCLKSEL::FRO,         /**< main clock source is FRO */
+  EXTCLK = hardware::MAINCLKSEL::EXTCLK,   /**< main clock source is external clock */
+  WDTOSC = hardware::MAINCLKSEL::WDTOSC,   /**< main clock source is WDT oscillator */
+  FRO_DIV = hardware::MAINCLKSEL::FRO_DIV, /**< main clock source is FRO/2 */
+};                                         // namespace mainClockSources
 /**
  * @brief Peripherals to set the clock source of
  */
@@ -101,6 +108,7 @@ enum class clockSources : std::uint32_t {
 };
 /**
  * @brief Peripheral clock enable options section 0
+ * TODO: change this into a namespace
  */
 enum clockEnables0 : std::uint32_t {
   ROM_CLOCK = hardware::SYSAHBCLKCTRL0::ROM,           /**< ROM clock enable */
@@ -136,15 +144,28 @@ enum clockEnables0 : std::uint32_t {
 };
 /**
  * @brief Peripheral clock enable options section 1
+ * TODO: change this into a namespace and merge with clock enables
  */
 enum ClockEnables1 : std::uint32_t {
   CAPT_CLOCK = hardware::SYSAHBCLKCTRL1::CAPT, /**< CAPT clock enable */
   DAC1_CLOCK = hardware::SYSAHBCLKCTRL1::DAC1, /**< DAC1 clock enable */
 };
 /**
- * @brief Peripheral power down reset options
+ * @brief Peripheral power up/down options
+ * TODO: change this into a namespace
  */
-enum powerEnables : std::uint32_t {
+enum powerOptions : std::uint32_t {
+  FROOUT = hardware::PDRUNCFG::FROOUT, /**< FRO oscillator output power */
+  FRO = hardware::PDRUNCFG::FRO,       /**< FRO oscillator power */
+  FLASH = hardware::PDRUNCFG::FLASH,   /**< Flash power */
+  BOD = hardware::PDRUNCFG::BOD,       /**< BOD power */
+  ADC = hardware::PDRUNCFG::ADC,       /**< ADC power */
+  SYSOSC = hardware::PDRUNCFG::SYSOSC, /**< Crystal oscillator power */
+  WDTOSC = hardware::PDRUNCFG::WDTOSC, /**< Watchdog oscillator power */
+  SYSPLL = hardware::PDRUNCFG::SYSPLL, /**< System PLL oscillator power */
+  DAC0 = hardware::PDRUNCFG::DAC0,     /**< DAC0 power */
+  DAC1 = hardware::PDRUNCFG::DAC1,     /**< DAC1 power */
+  ACMP = hardware::PDRUNCFG::ACMP,     /**< ACMP power */
 };
 
 enum class clockOutSources : std::uint32_t {
@@ -250,14 +271,13 @@ struct syscon : libMcu::peripheralBase {
     sysconPeripheral()->CLKOUTSEL = static_cast<std::uint32_t>(source);
     sysconPeripheral()->CLKOUTDIV = hardware::CLKOUTDIV::DIV(divisor);
   }
-
   /**
    * @brief Power up a peripheral
    *
    * @param setting bit setting from powerEnables enum
    */
   constexpr void powerPeripherals(std::uint32_t setting) {
-    sysconPeripheral()->PDRUNCFG = sysconPeripheral()->PDRUNCFG | setting;
+    sysconPeripheral()->PDRUNCFG = (sysconPeripheral()->PDRUNCFG & ~setting) | hardware::PDRUNCFG::RESERVED_BITS;
   }
   /**
    * @brief Power down a peripheral
@@ -265,7 +285,7 @@ struct syscon : libMcu::peripheralBase {
    * @param setting bit setting from powerEnables enum
    */
   constexpr void depowerPeripherals(std::uint32_t setting) {
-    sysconPeripheral()->PDRUNCFG = (sysconPeripheral()->PDRUNCFG & ~setting) | hardware::PDRUNCFG::RESERVED_BITS;
+    sysconPeripheral()->PDRUNCFG = sysconPeripheral()->PDRUNCFG | setting;
   }
   /**
    * @brief Get the DEVICE ID
