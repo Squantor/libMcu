@@ -61,21 +61,32 @@ enum class pllPostDivider : std::uint32_t {
   DIV_4 = hardware::SYSPLLCTRL::PSEL_DIV4,   /**< PLL post division ration of 4 */
   DIV_8 = hardware::SYSPLLCTRL::PSEL_DIV8,   /**< PLL post division ration of 8 */
   DIV_16 = hardware::SYSPLLCTRL::PSEL_DIV16, /**< PLL post division ration of 16 */
-};                                           // namespace pllPostDivider
+};  // namespace pllPostDivider
 /**
  * @brief PLL source options
  */
 enum class pllClockSources : std::uint32_t {
+  FRO = hardware::SYSPLLCLKSEL::FRO,        /**< FRO clock source */
+  EXT = hardware::SYSPLLCLKSEL::EXT,        /**< External clock */
+  WDO = hardware::SYSPLLCLKSEL::WDO,        /**< Watchdog oscillator*/
+  FRO_DIV = hardware::SYSPLLCLKSEL::FRO_DIV /**< FRO divided clock source */
 };
+/**
+ * @brief main clock pll sources options
+ */
+enum class mainClockPllSources : std::uint32_t {
+  PRE = hardware::MAINCLKPLLSEL::PRE,       /**< Select main clock before PLL*/
+  SYSPLL = hardware::MAINCLKPLLSEL::SYSPLL, /**< select main clock PLL*/
+};  // namespace mainClockSources
 /**
  * @brief main clock sources options
  */
 enum class mainClockSources : std::uint32_t {
   FRO = hardware::MAINCLKSEL::FRO,         /**< main clock source is FRO */
-  EXTCLK = hardware::MAINCLKSEL::EXTCLK,   /**< main clock source is external clock */
-  WDTOSC = hardware::MAINCLKSEL::WDTOSC,   /**< main clock source is WDT oscillator */
+  EXT = hardware::MAINCLKSEL::EXT,         /**< main clock source is external clock */
+  WDO = hardware::MAINCLKSEL::WDO,         /**< main clock source is WDT oscillator */
   FRO_DIV = hardware::MAINCLKSEL::FRO_DIV, /**< main clock source is FRO/2 */
-};                                         // namespace mainClockSources
+};  // namespace mainClockSources
 /**
  * @brief Peripherals to set the clock source of
  */
@@ -180,7 +191,7 @@ struct syscon : libMcu::peripheralBase {
    * @param msel Feedback divider ratio, 0 divides by 1, 31 divides by 32
    * @param psel Post divider ratio, acceptable values in pllPostDivider enum
    */
-  constexpr void setSystemPllControl(std::uint32_t msel, std::uint32_t psel) {
+  constexpr void setSystemPllControl(std::uint32_t msel, pllPostDivider psel) {
     sysconPeripheral()->SYSPLLCTRL = hardware::SYSPLLCTRL::MSEL(msel) | static_cast<std::uint32_t>(psel);
   }
   /**
@@ -207,6 +218,15 @@ struct syscon : libMcu::peripheralBase {
     sysconPeripheral()->SYSPLLCLKSEL = static_cast<std::uint32_t>(setting);
     sysconPeripheral()->SYSPLLCLKUEN = hardware::SYSPLLCLKUEN::NO_CHANGE;
     sysconPeripheral()->SYSPLLCLKUEN = hardware::SYSPLLCLKUEN::UPDATE;
+  }
+  /**
+   * @brief Select main clock PLL source
+   * @param setting clock source from mainClockSources enum
+   */
+  constexpr void selectMainPllClock(mainClockPllSources setting) {
+    sysconPeripheral()->MAINCLKPLLSEL = static_cast<std::uint32_t>(setting);
+    sysconPeripheral()->MAINCLKPLLUEN = hardware::MAINCLKPLLUEN::NO_CHANGE;
+    sysconPeripheral()->MAINCLKPLLUEN = hardware::MAINCLKPLLUEN::UPDATE;
   }
   /**
    * @brief Select main clock source

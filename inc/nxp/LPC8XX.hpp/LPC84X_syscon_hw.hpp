@@ -172,7 +172,7 @@ constexpr inline std::uint32_t RESERVED_MASK{0x0000'0003u}; /**< register mask f
 constexpr inline std::uint32_t FRO{0u << 0};                /**< PLL clock source is FRO */
 constexpr inline std::uint32_t EXT{1u << 0};                /**< PLL clock source is external clock */
 constexpr inline std::uint32_t WDO{2u << 0};                /**< PLL clock source is watchdog oscillator */
-constexpr inline std::uint32_t FRODIV{3u << 0};             /**< PLL clock source is FRO divider */
+constexpr inline std::uint32_t FRO_DIV{3u << 0};            /**< PLL clock source is FRO divider */
 }  // namespace SYSPLLCLKSEL
 namespace SYSPLLCLKUEN {
 constexpr inline std::uint32_t RESERVED_MASK{0x0000'0001u}; /**< register mask for allowed bits */
@@ -181,15 +181,19 @@ constexpr inline std::uint32_t UPDATE{1u << 0};             /**< update clock so
 }  // namespace SYSPLLCLKUEN
 namespace MAINCLKPLLSEL {
 constexpr inline std::uint32_t RESERVED_MASK{0x0000'0003u}; /**< register mask for allowed bits */
-}
+constexpr inline std::uint32_t PRE{0 << 0};                 /**< select clock before PLL */
+constexpr inline std::uint32_t SYSPLL{1 << 0};              /**< select clock after PLL */
+}  // namespace MAINCLKPLLSEL
 namespace MAINCLKPLLUEN {
-constexpr inline std::uint32_t RESERVED_MASK{0x0000'0000u}; /**< register mask for allowed bits */
-}
+constexpr inline std::uint32_t RESERVED_MASK{0x0000'0001u}; /**< register mask for allowed bits */
+constexpr inline std::uint32_t NO_CHANGE{0u << 0};          /**< No change of clock source */
+constexpr inline std::uint32_t UPDATE{1u << 0};             /**< update clock source */
+}  // namespace MAINCLKPLLUEN
 namespace MAINCLKSEL {
 constexpr inline std::uint32_t RESERVED_MASK{0x0000'0003u}; /**< register mask for allowed bits */
 constexpr inline std::uint32_t FRO{0u << 0};                /**< main clock source is FRO */
-constexpr inline std::uint32_t EXTCLK{1u << 0};             /**< main clock source is external clock */
-constexpr inline std::uint32_t WDTOSC{2u << 0};             /**< main clock source is WDT oscillator */
+constexpr inline std::uint32_t EXT{1u << 0};                /**< main clock source is external clock */
+constexpr inline std::uint32_t WDO{2u << 0};                /**< main clock source is WDT oscillator */
 constexpr inline std::uint32_t FRO_DIV{3u << 0};            /**< main clock source is FRO/2 */
 }  // namespace MAINCLKSEL
 namespace MAINCLKUEN {
@@ -403,10 +407,10 @@ constexpr inline std::uint32_t BOD{1 << 3};                 /**< BOD power */
 constexpr inline std::uint32_t ADC{1 << 4};                 /**< ADC power */
 constexpr inline std::uint32_t SYSOSC{1 << 5};              /**< Crystal oscillator power */
 constexpr inline std::uint32_t WDTOSC{1 << 6};              /**< Watchdog oscillator power */
-constexpr inline std::uint32_t SYSPLL{1 << 5};              /**< System PLL oscillator power */
-constexpr inline std::uint32_t DAC0{1 << 5};                /**< DAC0 power */
-constexpr inline std::uint32_t DAC1{1 << 5};                /**< DAC1 power */
-constexpr inline std::uint32_t ACMP{1 << 5};                /**< ACMP power */
+constexpr inline std::uint32_t SYSPLL{1 << 7};              /**< System PLL oscillator power */
+constexpr inline std::uint32_t DAC0{1 << 13};               /**< DAC0 power */
+constexpr inline std::uint32_t DAC1{1 << 14};               /**< DAC1 power */
+constexpr inline std::uint32_t ACMP{1 << 15};               /**< ACMP power */
 }  // namespace PDRUNCFG
 namespace DEVICEID {
 constexpr inline std::uint32_t RESERVED_MASK{0x0000'0000u}; /**< register mask for allowed bits */
