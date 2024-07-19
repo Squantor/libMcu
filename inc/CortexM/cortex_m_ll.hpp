@@ -7,9 +7,9 @@
 /**
  * \file cortex m functions
  */
-#ifndef CORTEXM_SW_HPP
-#define CORTEXM_SW_HPP
-namespace libMcu::sw {
+#ifndef CORTEX_M_LL_HPP
+#define CORTEX_M_LL_HPP
+namespace libMcu::ll {
 
 /**
  * @brief No operation
@@ -146,6 +146,6 @@ __attribute__((always_inline)) static inline std::uint32_t ror(std::uint32_t val
  */
 #define LIBMCULL_BKPT(value) __asm volatile("bkpt " #value)
 
-}  // namespace libMcu::sw
+}  // namespace libMcu::ll
 
 #endif

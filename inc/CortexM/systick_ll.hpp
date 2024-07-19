@@ -7,9 +7,9 @@
 /**
  * \file systick functions
  */
-#ifndef SYSTICK_SW_HPP
-#define SYSTICK_SW_HPP
-namespace libMcu::sw::systick {
+#ifndef SYSTICK_LL_HPP
+#define SYSTICK_LL_HPP
+namespace libMcu::ll::systick {
 namespace hardware = libMcu::hw::systick;
 template <libMcu::systickBaseAddress const& nvicAddress_>
 struct systick {
@@ -98,5 +98,5 @@ struct systick {
   static constexpr libMcu::hwAddressType nvicAddress = nvicAddress_; /**< peripheral address */
   isrLambda callback;
 };
-}  // namespace libMcu::sw::systick
+}  // namespace libMcu::ll::systick
 #endif

@@ -7,9 +7,9 @@
 /**
  * \file nvic functions
  */
-#ifndef NVIC_SW_HPP
-#define NVIC_SW_HPP
-namespace libMcu::sw::nvic {
+#ifndef NVIC_LL_HPP
+#define NVIC_LL_HPP
+namespace libMcu::ll::nvic {
 using namespace hw::nvic;
 using namespace hw::scb;
 template <libMcu::nvicBaseAddress const& nvicAddress_, libMcu::scbBaseAddress const& scbAddress_>
@@ -70,8 +70,8 @@ struct nvic {
       std::uint32_t index = getInterruptIndex(interrupt);
       std::uint32_t bitIndex = getInterruptBit(interrupt);
       nvicPeripheral()->ICER[index] = ICER::CLRENA(bitIndex);
-      libMcu::sw::dsb();
-      libMcu::sw::isb();
+      libMcu::ll::dsb();
+      libMcu::ll::isb();
     }
   }
   /**
@@ -173,5 +173,5 @@ struct nvic {
   static constexpr libMcu::hwAddressType nvicAddress = nvicAddress_; /**< nvic peripheral address */
   static constexpr libMcu::hwAddressType scbAddress = scbAddress_;   /**< scb peripheral address */
 };
-}  // namespace libMcu::sw::nvic
+}  // namespace libMcu::ll::nvic
 #endif

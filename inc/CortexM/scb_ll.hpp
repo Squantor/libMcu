@@ -7,9 +7,9 @@
 /**
  * \file scb functions
  */
-#ifndef SCB_SW_HPP
-#define SCB_SW_HPP
-namespace libMcu::sw::scb {
+#ifndef SCB_LL_HPP
+#define SCB_LL_HPP
+namespace libMcu::ll::scb {
 using namespace hw::scb;
 template <libMcu::scbBaseAddress const& scbAddress_>
 struct scb {
@@ -84,15 +84,15 @@ struct scb {
    *
    */
   [[noreturn]] constexpr void reset() {
-    libMcu::sw::dsb();
+    libMcu::ll::dsb();
     scbPeripheral()->AIRCR = AIRCR::VECTKEY_KEY | AIRCR::SYSRESETREQ;
-    libMcu::sw::dsb();
+    libMcu::ll::dsb();
     while (1) {
-      libMcu::sw::nop();
+      libMcu::ll::nop();
     }
   }
 
   static constexpr libMcu::hwAddressType scbAddress = scbAddress_; /**< scb peripheral address */
 };
-}  // namespace libMcu::sw::scb
+}  // namespace libMcu::ll::scb
 #endif
