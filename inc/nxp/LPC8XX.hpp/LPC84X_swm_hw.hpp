@@ -260,34 +260,34 @@ enum class pinFunctions : std::uint8_t {
   XTALOUT,         /**< Crystal oscillator output */
   RESETN,          /**< Reset */
   CLKIN,           /**< Clock Input */
-  VDDCMP,          /**< analog comparator vdd input */
-  I2C0_SDA,        /**< I2C0 SDA */
-  I2C0_SCL,        /**< I2C0 SCL */
-  ADC_0,           /** ADC 0 input */
-  ADC_1,           /** ADC 1 input */
-  ADC_2,           /** ADC 2 input */
-  ADC_3,           /** ADC 3 input */
-  ADC_4,           /** ADC 4 input */
-  ADC_5,           /** ADC 5 input */
-  ADC_6,           /** ADC 6 input */
-  ADC_7,           /** ADC 7 input */
-  ADC_8,           /** ADC 8 input */
-  ADC_9,           /** ADC 9 input */
-  ADC_10,          /** ADC 10 input */
-  ADC_11,          /** ADC 10 input */
-  DACOUT0,         /** DAC 0 output */
-  DACOUT1,         /** DAC 1 output */
-  CAPT_X0,         /** Capacitive touch X0 */
-  CAPT_X1,         /** Capacitive touch X1 */
-  CAPT_X2,         /** Capacitive touch X2 */
-  CAPT_X3,         /** Capacitive touch X3 */
-  CAPT_X4,         /** Capacitive touch X4 */
-  CAPT_X5,         /** Capacitive touch X5 */
-  CAPT_X6,         /** Capacitive touch X6 */
-  CAPT_X7,         /** Capacitive touch X7 */
-  CAPT_X8,         /** Capacitive touch X8 */
-  CAPT_YL,         /** Capacitive touch YL */
-  CAPT_YH,         /** Capacitive touch YH */
+  VDDCMP_I,        /**< analog comparator vdd input */
+  I2C0_SDA_IO,     /**< I2C0 SDA */
+  I2C0_SCL_IO,     /**< I2C0 SCL */
+  ADC_0_I,         /** ADC 0 input */
+  ADC_1_I,         /** ADC 1 input */
+  ADC_2_I,         /** ADC 2 input */
+  ADC_3_I,         /** ADC 3 input */
+  ADC_4_I,         /** ADC 4 input */
+  ADC_5_I,         /** ADC 5 input */
+  ADC_6_I,         /** ADC 6 input */
+  ADC_7_I,         /** ADC 7 input */
+  ADC_8_I,         /** ADC 8 input */
+  ADC_9_I,         /** ADC 9 input */
+  ADC_10_I,        /** ADC 10 input */
+  ADC_11_I,        /** ADC 10 input */
+  DACOUT0_O,       /** DAC 0 output */
+  DACOUT1_O,       /** DAC 1 output */
+  CAPT_X0_I,       /** Capacitive touch X0 */
+  CAPT_X1_I,       /** Capacitive touch X1 */
+  CAPT_X2_I,       /** Capacitive touch X2 */
+  CAPT_X3_I,       /** Capacitive touch X3 */
+  CAPT_X4_I,       /** Capacitive touch X4 */
+  CAPT_X5_I,       /** Capacitive touch X5 */
+  CAPT_X6_I,       /** Capacitive touch X6 */
+  CAPT_X7_I,       /** Capacitive touch X7 */
+  CAPT_X8_I,       /** Capacitive touch X8 */
+  CAPT_YL_I,       /** Capacitive touch YL */
+  CAPT_YH_I,       /** Capacitive touch YH */
 };
 /**
  * @brief
@@ -1022,7 +1022,7 @@ struct pinFunction<pinFunctions::CLKIN> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::VDDCMP> {
+struct pinFunction<pinFunctions::VDDCMP_I> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::FIXED0};
   static constexpr pinAssign pio{pinAssign::PIO0_6};
   static constexpr functionFixed0 mask{functionFixed0::VDDCMP};
@@ -1032,7 +1032,7 @@ struct pinFunction<pinFunctions::VDDCMP> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::I2C0_SDA> {
+struct pinFunction<pinFunctions::I2C0_SDA_IO> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::FIXED0};
   static constexpr pinAssign pio{pinAssign::PIO0_11};
   static constexpr functionFixed0 mask{functionFixed0::I2C0_SDA};
@@ -1042,7 +1042,7 @@ struct pinFunction<pinFunctions::I2C0_SDA> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::I2C0_SCL> {
+struct pinFunction<pinFunctions::I2C0_SCL_IO> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::FIXED0};
   static constexpr pinAssign pio{pinAssign::PIO0_10};
   static constexpr functionFixed0 mask{functionFixed0::I2C0_SCL};
@@ -1052,7 +1052,7 @@ struct pinFunction<pinFunctions::I2C0_SCL> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::ADC_0> {
+struct pinFunction<pinFunctions::ADC_0_I> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::FIXED0};
   static constexpr pinAssign pio{pinAssign::PIO0_7};
   static constexpr functionFixed0 mask{functionFixed0::ADC_0};
@@ -1062,7 +1062,7 @@ struct pinFunction<pinFunctions::ADC_0> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::ADC_1> {
+struct pinFunction<pinFunctions::ADC_1_I> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::FIXED0};
   static constexpr pinAssign pio{pinAssign::PIO0_6};
   static constexpr functionFixed0 mask{functionFixed0::ADC_1};
@@ -1072,7 +1072,7 @@ struct pinFunction<pinFunctions::ADC_1> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::ADC_2> {
+struct pinFunction<pinFunctions::ADC_2_I> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::FIXED0};
   static constexpr pinAssign pio{pinAssign::PIO0_14};
   static constexpr functionFixed0 mask{functionFixed0::ADC_2};
@@ -1082,7 +1082,7 @@ struct pinFunction<pinFunctions::ADC_2> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::ADC_3> {
+struct pinFunction<pinFunctions::ADC_3_I> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::FIXED0};
   static constexpr pinAssign pio{pinAssign::PIO0_23};
   static constexpr functionFixed0 mask{functionFixed0::ADC_3};
@@ -1092,7 +1092,7 @@ struct pinFunction<pinFunctions::ADC_3> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::ADC_4> {
+struct pinFunction<pinFunctions::ADC_4_I> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::FIXED0};
   static constexpr pinAssign pio{pinAssign::PIO0_22};
   static constexpr functionFixed0 mask{functionFixed0::ADC_4};
@@ -1102,7 +1102,7 @@ struct pinFunction<pinFunctions::ADC_4> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::ADC_5> {
+struct pinFunction<pinFunctions::ADC_5_I> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::FIXED0};
   static constexpr pinAssign pio{pinAssign::PIO0_21};
   static constexpr functionFixed0 mask{functionFixed0::ADC_5};
@@ -1112,7 +1112,7 @@ struct pinFunction<pinFunctions::ADC_5> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::ADC_6> {
+struct pinFunction<pinFunctions::ADC_6_I> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::FIXED0};
   static constexpr pinAssign pio{pinAssign::PIO0_20};
   static constexpr functionFixed0 mask{functionFixed0::ADC_6};
@@ -1122,7 +1122,7 @@ struct pinFunction<pinFunctions::ADC_6> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::ADC_7> {
+struct pinFunction<pinFunctions::ADC_7_I> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::FIXED0};
   static constexpr pinAssign pio{pinAssign::PIO0_19};
   static constexpr functionFixed0 mask{functionFixed0::ADC_7};
@@ -1132,7 +1132,7 @@ struct pinFunction<pinFunctions::ADC_7> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::ADC_8> {
+struct pinFunction<pinFunctions::ADC_8_I> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::FIXED0};
   static constexpr pinAssign pio{pinAssign::PIO0_18};
   static constexpr functionFixed0 mask{functionFixed0::ADC_8};
@@ -1142,7 +1142,7 @@ struct pinFunction<pinFunctions::ADC_8> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::ADC_9> {
+struct pinFunction<pinFunctions::ADC_9_I> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::FIXED0};
   static constexpr pinAssign pio{pinAssign::PIO0_17};
   static constexpr functionFixed0 mask{functionFixed0::ADC_9};
@@ -1152,7 +1152,7 @@ struct pinFunction<pinFunctions::ADC_9> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::ADC_10> {
+struct pinFunction<pinFunctions::ADC_10_I> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::FIXED0};
   static constexpr pinAssign pio{pinAssign::PIO0_13};
   static constexpr functionFixed0 mask{functionFixed0::ADC_10};
@@ -1162,7 +1162,7 @@ struct pinFunction<pinFunctions::ADC_10> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::ADC_11> {
+struct pinFunction<pinFunctions::ADC_11_I> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::FIXED0};
   static constexpr pinAssign pio{pinAssign::PIO0_4};
   static constexpr functionFixed0 mask{functionFixed0::ADC_11};
@@ -1172,7 +1172,7 @@ struct pinFunction<pinFunctions::ADC_11> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::DACOUT0> {
+struct pinFunction<pinFunctions::DACOUT0_O> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::FIXED0};
   static constexpr pinAssign pio{pinAssign::PIO0_17};
   static constexpr functionFixed0 mask{functionFixed0::DACOUT0};
@@ -1182,7 +1182,7 @@ struct pinFunction<pinFunctions::DACOUT0> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::DACOUT1> {
+struct pinFunction<pinFunctions::DACOUT1_O> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::FIXED0};
   static constexpr pinAssign pio{pinAssign::PIO0_29};
   static constexpr functionFixed0 mask{functionFixed0::DACOUT1};
@@ -1192,7 +1192,7 @@ struct pinFunction<pinFunctions::DACOUT1> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::CAPT_X0> {
+struct pinFunction<pinFunctions::CAPT_X0_I> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::FIXED0};
   static constexpr pinAssign pio{pinAssign::PIO0_31};
   static constexpr functionFixed0 mask{functionFixed0::CAPT_X0};
@@ -1202,7 +1202,7 @@ struct pinFunction<pinFunctions::CAPT_X0> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::CAPT_X1> {
+struct pinFunction<pinFunctions::CAPT_X1_I> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::FIXED0};
   static constexpr pinAssign pio{pinAssign::PIO1_0};
   static constexpr functionFixed0 mask{functionFixed0::CAPT_X1};
@@ -1212,7 +1212,7 @@ struct pinFunction<pinFunctions::CAPT_X1> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::CAPT_X2> {
+struct pinFunction<pinFunctions::CAPT_X2_I> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::FIXED0};
   static constexpr pinAssign pio{pinAssign::PIO1_1};
   static constexpr functionFixed0 mask{functionFixed0::CAPT_X2};
@@ -1222,7 +1222,7 @@ struct pinFunction<pinFunctions::CAPT_X2> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::CAPT_X3> {
+struct pinFunction<pinFunctions::CAPT_X3_I> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::FIXED0};
   static constexpr pinAssign pio{pinAssign::PIO1_2};
   static constexpr functionFixed0 mask{functionFixed0::CAPT_X3};
@@ -1232,7 +1232,7 @@ struct pinFunction<pinFunctions::CAPT_X3> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::CAPT_X4> {
+struct pinFunction<pinFunctions::CAPT_X4_I> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::FIXED1};
   static constexpr pinAssign pio{pinAssign::PIO1_3};
   static constexpr functionFixed1 mask{functionFixed1::CAPT_X4};
@@ -1242,7 +1242,7 @@ struct pinFunction<pinFunctions::CAPT_X4> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::CAPT_X5> {
+struct pinFunction<pinFunctions::CAPT_X5_I> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::FIXED1};
   static constexpr pinAssign pio{pinAssign::PIO1_4};
   static constexpr functionFixed1 mask{functionFixed1::CAPT_X5};
@@ -1252,7 +1252,7 @@ struct pinFunction<pinFunctions::CAPT_X5> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::CAPT_X6> {
+struct pinFunction<pinFunctions::CAPT_X6_I> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::FIXED1};
   static constexpr pinAssign pio{pinAssign::PIO1_5};
   static constexpr functionFixed1 mask{functionFixed1::CAPT_X6};
@@ -1262,7 +1262,7 @@ struct pinFunction<pinFunctions::CAPT_X6> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::CAPT_X7> {
+struct pinFunction<pinFunctions::CAPT_X7_I> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::FIXED1};
   static constexpr pinAssign pio{pinAssign::PIO1_6};
   static constexpr functionFixed1 mask{functionFixed1::CAPT_X7};
@@ -1272,7 +1272,7 @@ struct pinFunction<pinFunctions::CAPT_X7> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::CAPT_X8> {
+struct pinFunction<pinFunctions::CAPT_X8_I> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::FIXED1};
   static constexpr pinAssign pio{pinAssign::PIO1_7};
   static constexpr functionFixed1 mask{functionFixed1::CAPT_X8};
@@ -1282,7 +1282,7 @@ struct pinFunction<pinFunctions::CAPT_X8> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::CAPT_YL> {
+struct pinFunction<pinFunctions::CAPT_YL_I> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::FIXED1};
   static constexpr pinAssign pio{pinAssign::PIO1_8};
   static constexpr functionFixed1 mask{functionFixed1::CAPT_YL};
@@ -1292,7 +1292,7 @@ struct pinFunction<pinFunctions::CAPT_YL> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::CAPT_YH> {
+struct pinFunction<pinFunctions::CAPT_YH_I> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::FIXED1};
   static constexpr pinAssign pio{pinAssign::PIO1_9};
   static constexpr functionFixed1 mask{functionFixed1::CAPT_YH};
@@ -1321,10 +1321,10 @@ struct peripheral {
       volatile std::uint32_t PINASSIGN14;  /**< Pin assign register for T0_MAT3, T0_CAP0, T0_CAP1, T0_CAP2 */
     } PINASSIGN;                           /**< Pin assignment register  */
     volatile std::uint32_t PINASSIGNS[15]; /**< Pin assign register array */
-  };                                       /* */
-  std::uint8_t RESERVED_0[388];            /**< Reserved */
-  volatile std::uint32_t PINENABLE0;       /**< Pin enable register 0. Enables fixed-pin functions */
-  volatile std::uint32_t PINENABLE1;       /**< Pin enable register 1. Enables fixed-pin functions */
+  }; /* */
+  std::uint8_t RESERVED_0[388];      /**< Reserved */
+  volatile std::uint32_t PINENABLE0; /**< Pin enable register 0. Enables fixed-pin functions */
+  volatile std::uint32_t PINENABLE1; /**< Pin enable register 1. Enables fixed-pin functions */
 };
 }  // namespace libMcu::hw::swm
 #endif
