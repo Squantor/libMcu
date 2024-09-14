@@ -78,7 +78,7 @@ struct gpio : libMcu::peripheralBase {
    */
   template <typename PIN>
   constexpr std::uint32_t get(PIN &pin) {
-    return gpioPeripheral()->W[pin.gpioPortIndex][pin.gpioPinIndex];
+    return gpioPeripheral()->B[pin.gpioPortIndex][pin.gpioPinIndex];
   }
 
   /**
@@ -90,7 +90,7 @@ struct gpio : libMcu::peripheralBase {
    */
   template <typename PIN>
   constexpr void set(PIN &pin, std::uint32_t setting) {
-    gpioPeripheral()->W[pin.gpioPortIndex][pin.gpioPinIndex] = setting;
+    gpioPeripheral()->B[pin.gpioPortIndex][pin.gpioPinIndex] = setting;
   }
 
   /**
