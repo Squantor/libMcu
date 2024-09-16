@@ -7,8 +7,8 @@
 /**
  * \file Main entry point for the LPC845M301BD48 microcontroller definitions
  */
-#ifndef LPC845M301BD48_HPP
-#define LPC845M301BD48_HPP
+#ifndef LIBMCU_LPC845M301BD48_LL_HPP
+#define LIBMCU_LPC845M301BD48_LL_HPP
 
 #include <cstdint>
 #include <cstddef>
@@ -16,10 +16,11 @@
 #include <span>
 #include <type_traits>
 #include <limits>
-#include "libmcu/libmcu_results.hpp"
-#include "libmcu/libmcu_types.hpp"
-#include "libmcu/libmcu_functions.hpp"
-#include "libmcu/libmcull_types.hpp"
+#include "../libmcu/libmcu_results.hpp"
+#include "../libmcu/libmcu_types.hpp"
+#include "../libmcu/libmcu_functions.hpp"
+#include "../libmcu/libmcull_types.hpp"
+#include "../libmcu/ringbuffer.hpp"
 
 namespace libMcu::hw {
 

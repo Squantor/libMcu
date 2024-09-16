@@ -16,13 +16,13 @@
 #include <span>
 #include <type_traits>
 #include <limits>
-#include "libmcu/libmcu_results.hpp"
-#include "libmcu/libmcu_types.hpp"
-#include "libmcu/libmcu_functions.hpp"
-#include "libmcu/libmcull_types.hpp"
+#include "../libmcu/libmcu_results.hpp"
+#include "../libmcu/libmcu_types.hpp"
+#include "../libmcu/libmcu_functions.hpp"
+#include "../libmcu/libmcull_types.hpp"
 
 #if defined(MCU_RP2040)
-#include "raspberrypi/RP2040_LL.hpp"
+#include "RP2040_LL.hpp"
 #else
 #error "Unknown or unsupported microcontroller defined, use MCU_Microcontroller"
 #endif
