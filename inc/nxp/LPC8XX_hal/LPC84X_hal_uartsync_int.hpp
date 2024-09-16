@@ -66,18 +66,6 @@ struct uartSync {
   }
   /**
    * @brief blocking USART transmit
-   * @param input C style string to read from
-   */
-  /*
-  void write(const char* input) {
-    std::size_t maxIndex = strlen(input);
-    for (std::size_t index = 0; index < maxIndex; index++) {
-      write(input[index]);
-    }
-  }
-  */
-  /**
-   * @brief blocking USART transmit
    * @param buffer data to transmit via USART
    */
   constexpr void write(std::span<const transferType> buffer) {
