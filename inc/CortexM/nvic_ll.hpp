@@ -9,7 +9,10 @@
  */
 #ifndef NVIC_LL_HPP
 #define NVIC_LL_HPP
-namespace libMcu::ll::nvic {
+namespace libMcuLL::nvic {
+// TODO change this to below idioms
+// namespace hardware = libMcuLL::hw::usart;
+// namespace nvic = libMcuLL::hw::nvic;
 using namespace hw::nvic;
 using namespace hw::scb;
 template <libMcu::nvicBaseAddress const& nvicAddress_, libMcu::scbBaseAddress const& scbAddress_>
@@ -50,7 +53,7 @@ struct nvic {
    *
    * @param interrupt interrupt number
    */
-  constexpr void enable(libMcu::hw::interrupts interrupt) {
+  constexpr void enable(libMcuLL::hw::interrupts interrupt) {
     std::int32_t number = static_cast<std::uint32_t>(interrupt);
     if (number >= 0) {
       std::uint32_t index = getInterruptIndex(interrupt);
@@ -64,14 +67,14 @@ struct nvic {
    *
    * @param interrupt interrupt number
    */
-  constexpr void disable(libMcu::hw::interrupts interrupt) {
+  constexpr void disable(libMcuLL::hw::interrupts interrupt) {
     std::int32_t number = static_cast<std::uint32_t>(interrupt);
     if (number >= 0) {
       std::uint32_t index = getInterruptIndex(interrupt);
       std::uint32_t bitIndex = getInterruptBit(interrupt);
       nvicPeripheral()->ICER[index] = ICER::CLRENA(bitIndex);
-      libMcu::ll::dsb();
-      libMcu::ll::isb();
+      libMcuLL::dsb();
+      libMcuLL::isb();
     }
   }
   /**
@@ -79,7 +82,7 @@ struct nvic {
    *
    * @param interrupt interrupt number
    */
-  constexpr void setPending(libMcu::hw::interrupts interrupt) {
+  constexpr void setPending(libMcuLL::hw::interrupts interrupt) {
     std::int32_t number = static_cast<std::uint32_t>(interrupt);
     if (number >= 0) {
       std::uint32_t index = getInterruptIndex(interrupt);
@@ -93,7 +96,7 @@ struct nvic {
    *
    * @param interrupt interrupt number
    */
-  constexpr void clearPending(libMcu::hw::interrupts interrupt) {
+  constexpr void clearPending(libMcuLL::hw::interrupts interrupt) {
     std::int32_t number = static_cast<std::uint32_t>(interrupt);
     if (number >= 0) {
       std::uint32_t index = getInterruptIndex(interrupt);
@@ -109,7 +112,7 @@ struct nvic {
    * @return true interrupt pending
    * @return false interrupt not pending
    */
-  constexpr bool getPending(libMcu::hw::interrupts interrupt) {
+  constexpr bool getPending(libMcuLL::hw::interrupts interrupt) {
     std::int32_t number = static_cast<std::uint32_t>(interrupt);
     if (number >= 0) {
       std::uint32_t index = getInterruptIndex(interrupt);
@@ -122,7 +125,7 @@ struct nvic {
     return false;
   }
 
-  constexpr void setPriority(libMcu::hw::interrupts interrupt, std::uint32_t priority) {
+  constexpr void setPriority(libMcuLL::hw::interrupts interrupt, std::uint32_t priority) {
     std::int32_t number = static_cast<std::int32_t>(interrupt);
     if (number >= 0) {
       std::uint32_t index = getInterruptPrioIndex(number);
@@ -142,7 +145,7 @@ struct nvic {
    * @param interrupt interrupt number, MUST BE POSITIVE
    * @return interrupt register index
    */
-  constexpr uint32_t getInterruptIndex(libMcu::hw::interrupts interrupt) {
+  constexpr uint32_t getInterruptIndex(libMcuLL::hw::interrupts interrupt) {
     return static_cast<std::uint32_t>(interrupt) >> 5;
   }
 
@@ -154,7 +157,7 @@ struct nvic {
    * @param interrupt interrupt number, MUST BE POSITIVE
    * @return interrupt register bit
    */
-  constexpr uint32_t getInterruptBit(libMcu::hw::interrupts interrupt) {
+  constexpr uint32_t getInterruptBit(libMcuLL::hw::interrupts interrupt) {
     return static_cast<std::uint32_t>(interrupt) & 0x1F;
   }
 
@@ -173,5 +176,5 @@ struct nvic {
   static constexpr libMcu::hwAddressType nvicAddress = nvicAddress_; /**< nvic peripheral address */
   static constexpr libMcu::hwAddressType scbAddress = scbAddress_;   /**< scb peripheral address */
 };
-}  // namespace libMcu::ll::nvic
+}  // namespace libMcuLL::nvic
 #endif

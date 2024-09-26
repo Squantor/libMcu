@@ -9,8 +9,8 @@
  */
 #ifndef SYSTICK_LL_HPP
 #define SYSTICK_LL_HPP
-namespace libMcu::ll::systick {
-namespace hardware = libMcu::hw::systick;
+namespace libMcuLL::systick {
+namespace hardware = libMcuLL::hw::systick;
 template <libMcu::systickBaseAddress const& systickAddress_>
 struct systick {
   /**
@@ -70,7 +70,7 @@ struct systick {
     systickPeripheral()->CSR = hardware::CSR::CLKSOURCE_PROC | hardware::CSR::ENABLE;
   }
 
-  constexpr void start(isrLambda lambda) {
+  constexpr void start(libMcu::isrLambda lambda) {
     callback = lambda;
     systickPeripheral()->CSR = hardware::CSR::CLKSOURCE_PROC | hardware::CSR::ENABLE | hardware::CSR::TICKINT;
   }
@@ -96,7 +96,7 @@ struct systick {
   }
 
   static constexpr libMcu::hwAddressType systickAddress = systickAddress_; /**< peripheral address */
-  isrLambda callback;
+  libMcu::isrLambda callback;
 };
-}  // namespace libMcu::ll::systick
+}  // namespace libMcuLL::systick
 #endif

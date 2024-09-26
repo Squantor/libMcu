@@ -22,7 +22,7 @@
 #include "../libmcu/libmcull_types.hpp"
 #include "../libmcu/ringbuffer.hpp"
 
-namespace libMcu::hw {
+namespace libMcuLL::hw {
 
 // MCU configuration options
 namespace core {
@@ -83,11 +83,11 @@ enum class interrupts : std::int8_t {
   pinint6_uart3 = 30, /**< Pin interrupt 6 or pattern match engine slice 6 interrupt or UART3 interrupt */
   pinint7_uart4 = 31  /**< Pin interrupt 7 or pattern match engine slice 7 interrupt or UART4 interrupt */
 };
-}  // namespace libMcu::hw
+}  // namespace libMcuLL::hw
 
 #include <CortexM/cortex_m0plus.hpp>
 
-namespace libMcu::hw {
+namespace libMcuLL::hw {
 /* Base addresses */
 constexpr inline libMcu::memoryAddress flashBaseAddress{0x0000'0000u};
 constexpr inline libMcu::memoryAddress ramBaseAddress{0x1000'0000u};
@@ -129,8 +129,9 @@ constexpr inline libMcu::mtbBaseAddress mtbAddress{0x5000'C000u};  /**< MTB base
 /* Direct connected peripherals */
 constexpr inline libMcu::gpioBaseAddress gpioAddress{0xA000'0000u};     /**< General Purpose I/O base address */
 constexpr inline libMcu::pinintBaseAddress pinintAddress{0xA000'4000u}; /**< Pin interrupt base address */
-}  // namespace libMcu::hw
-namespace libMcu::dma {
+}  // namespace libMcuLL::hw
+
+namespace libMcuLL::dma {
 /*!
  * @brief Enumeration for the DMA hardware request
  * Defines the structure for the DMA hardware request collections. The user can configure the
@@ -163,44 +164,45 @@ enum class dmaRequestSources : std::uint8_t {
   dac1 = 23u,       /**< DAC1 DMA REQUEST  */
   capt = 24u,       /**< CAPT DMA  */
 };
-}  // namespace libMcu::dma
+}  // namespace libMcuLL::dma
 
 // includes that define the registers namespace go here.
-#include "LPC8XX.hpp/LPC84X_wwdt_hw.hpp"
-#include "LPC8XX.hpp/LPC84X_mrt_hw.hpp"
-#include "LPC8XX.hpp/LPC84X_wkt_hw.hpp"
-#include "LPC8XX.hpp/LPC84X_swm_hw.hpp"
-#include "LPC8XX.hpp/LPC84X_faim_hw.hpp"
-#include "LPC8XX.hpp/LPC84X_dac_hw.hpp"
-#include "LPC8XX.hpp/LPC84X_adc_hw.hpp"
-#include "LPC8XX.hpp/LPC84X_pmu_hw.hpp"
-#include "LPC8XX.hpp/LPC84X_acmp_hw.hpp"
-#include "LPC8XX.hpp/LPC84X_inmux_hw.hpp"
-#include "LPC8XX.hpp/LPC84X_i2c_hw.hpp"
-#include "LPC8XX.hpp/LPC84X_ctimer_hw.hpp"
-#include "LPC8XX.hpp/LPC84X_fmc_hw.hpp"
-#include "LPC8XX.hpp/LPC84X_iocon_hw.hpp"
-#include "LPC8XX.hpp/LPC84X_syscon_hw.hpp"
-#include "LPC8XX.hpp/LPC84X_spi_hw.hpp"
-#include "LPC8XX.hpp/LPC84X_capt_hw.hpp"
-#include "LPC8XX.hpp/LPC84X_usart_hw.hpp"
-#include "LPC8XX.hpp/LPC84X_crc_hw.hpp"
-#include "LPC8XX.hpp/LPC84X_sct_hw.hpp"
-#include "LPC8XX.hpp/LPC84X_dma_hw.hpp"
-#include "LPC8XX.hpp/LPC84X_mtb_hw.hpp"
-#include "LPC8XX.hpp/LPC84X_gpio_hw.hpp"
-#include "LPC8XX.hpp/LPC84X_pinint_hw.hpp"
+#include "LPC8XX_HW/LPC84X_wwdt_hw.hpp"
+#include "LPC8XX_HW/LPC84X_mrt_hw.hpp"
+#include "LPC8XX_HW/LPC84X_wkt_hw.hpp"
+#include "LPC8XX_HW/LPC84X_swm_hw.hpp"
+#include "LPC8XX_HW/LPC84X_faim_hw.hpp"
+#include "LPC8XX_HW/LPC84X_dac_hw.hpp"
+#include "LPC8XX_HW/LPC84X_adc_hw.hpp"
+#include "LPC8XX_HW/LPC84X_pmu_hw.hpp"
+#include "LPC8XX_HW/LPC84X_acmp_hw.hpp"
+#include "LPC8XX_HW/LPC84X_inmux_hw.hpp"
+#include "LPC8XX_HW/LPC84X_i2c_hw.hpp"
+#include "LPC8XX_HW/LPC84X_ctimer_hw.hpp"
+#include "LPC8XX_HW/LPC84X_fmc_hw.hpp"
+#include "LPC8XX_HW/LPC84X_iocon_hw.hpp"
+#include "LPC8XX_HW/LPC84X_syscon_hw.hpp"
+#include "LPC8XX_HW/LPC84X_spi_hw.hpp"
+#include "LPC8XX_HW/LPC84X_capt_hw.hpp"
+#include "LPC8XX_HW/LPC84X_usart_hw.hpp"
+#include "LPC8XX_HW/LPC84X_crc_hw.hpp"
+#include "LPC8XX_HW/LPC84X_sct_hw.hpp"
+#include "LPC8XX_HW/LPC84X_dma_hw.hpp"
+#include "LPC8XX_HW/LPC84X_mtb_hw.hpp"
+#include "LPC8XX_HW/LPC84X_gpio_hw.hpp"
+#include "LPC8XX_HW/LPC84X_pinint_hw.hpp"
 
 // device peripheral specific headers go here
 // these need to go after registers namespace definitions as they are used here
-#include "LPC8XX.hpp/LPC845M301BD48_pins.hpp"
+#include "LPC8XX_HW/LPC845M301BD48_pins.hpp"
 
 // includes that use the registers namespace go here
 // need to go after registers namespaces and device specific headers
-#include "LPC8XX.hpp/LPC84X_swm_ll.hpp"
-#include "LPC8XX.hpp/LPC84X_iocon_ll.hpp"
-#include "LPC8XX.hpp/LPC84X_syscon_ll.hpp"
-#include "LPC8XX.hpp/LPC84X_usart_ll.hpp"
-#include "LPC8XX.hpp/LPC84X_gpio_ll.hpp"
+#include "LPC8XX_LL/LPC84X_swm_ll.hpp"
+#include "LPC8XX_LL/LPC84X_iocon_ll.hpp"
+#include "LPC8XX_LL/LPC84X_syscon_ll.hpp"
+#include "LPC8XX_LL/LPC84X_usart_ll.hpp"
+#include "LPC8XX_LL/LPC84X_gpio_ll.hpp"
+#include "LPC8XX_LL/LPC84X_adc_ll.hpp"
 
 #endif

@@ -9,7 +9,7 @@
  */
 #ifndef SYSTICK_HW_HPP
 #define SYSTICK_HW_HPP
-namespace libMcu::hw::systick {
+namespace libMcuLL::hw::systick {
 struct peripheral {
   volatile std::uint32_t CSR;         /**< systick control and status register */
   volatile std::uint32_t RVR;         /**< systick reload value register */

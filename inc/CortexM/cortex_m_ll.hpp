@@ -9,7 +9,7 @@
  */
 #ifndef CORTEX_M_LL_HPP
 #define CORTEX_M_LL_HPP
-namespace libMcu::ll {
+namespace libMcuLL {
 
 /**
  * @brief No operation
@@ -146,6 +146,6 @@ __attribute__((always_inline)) static inline std::uint32_t ror(std::uint32_t val
  */
 #define LIBMCULL_BKPT(value) __asm volatile("bkpt " #value)
 
-}  // namespace libMcu::ll
+}  // namespace libMcuLL
 
 #endif
