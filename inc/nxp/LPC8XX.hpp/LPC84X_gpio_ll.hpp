@@ -132,7 +132,7 @@ struct gpio : libMcu::peripheralBase {
    */
   template <typename PORT>
   constexpr void portSet(PORT &port, std::uint32_t setting, std::uint32_t mask) {
-    gpioPeripheral()->DIR[port.gpioPortIndex] = (gpioPeripheral()->DIR[port.gpioPortIndex] & ~mask) | (setting & mask);
+    gpioPeripheral()->PIN[port.gpioPortIndex] = (gpioPeripheral()->DIR[port.gpioPortIndex] & ~mask) | (setting & mask);
   }
 
   /**
@@ -144,7 +144,7 @@ struct gpio : libMcu::peripheralBase {
    */
   template <typename PORT>
   constexpr void portSet(PORT &port, std::uint32_t setting) {
-    gpioPeripheral()->DIR[port.gpioPortIndex] = setting;
+    gpioPeripheral()->PIN[port.gpioPortIndex] = setting;
   }
 
   /**
