@@ -82,13 +82,14 @@ constexpr inline std::uint32_t SEQ_ENA{1u << 31};            /**< Enable sequenc
 }  // namespace SEQ_CTRL
 namespace SEQ_GDAT {
 constexpr inline std::uint32_t RESERVED_MASK{0xFC0F'FFF0u}; /**< Register mask for allowed bits */
+constexpr inline std::uint32_t RESULT_MASK{0x0000'FFF0};
 /**
  * @brief format SEQ_GDAT register to extract RESULT field
  * @param register SEQ_GDAT register
  * @return extracted RESULT field
  */
 constexpr inline std::uint32_t RESULT(std::uint32_t data) {
-  return data >> 4;
+  return (data & RESULT_MASK) >> 4;
 }
 /**
  * @brief format SEQ_GDAT register to extract CHN field
@@ -103,13 +104,14 @@ constexpr inline std::uint32_t DATAVALID_FLAG{1u << 31}; /**< Valid data availab
 }  // namespace SEQ_GDAT
 namespace DAT {
 constexpr inline std::uint32_t RESERVED_MASK{0xFC0F'FFF0u}; /**< Register mask for allowed bits */
+constexpr inline std::uint32_t RESULT_MASK{0x0000'FFF0};
 /**
  * @brief format SEQ_GDAT register to extract RESULT field
  * @param register SEQ_GDAT register
  * @return extracted RESULT field
  */
 constexpr inline std::uint32_t RESULT(std::uint32_t data) {
-  return data >> 4;
+  return (data & RESULT_MASK) >> 4;
 }
 /**
  * @brief format SEQ_GDAT register to extract CHN field
