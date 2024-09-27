@@ -19,7 +19,6 @@ enum pinTypeFlags : std::uint8_t {
 };
 /**
  * @brief Available pins on LPC845M301BD48
- *
  */
 enum class IOpins : std::uint8_t {
   PIN00, /**< Pin 0 */
@@ -57,11 +56,37 @@ enum class IOpins : std::uint8_t {
 };
 /**
  * @brief Available ports on LPC845M301BD48
- *
  */
 enum class IOports : std::uint8_t {
   PORT0, /**< Port 0 */
   PORT1, /**< Port 1 */
+};
+/**
+ * @brief ADC inputs
+ */
+enum class ADCpins : std::uint8_t {
+  PIN0,  /**< ADC input 0 */
+  PIN1,  /**< ADC input 1 */
+  PIN2,  /**< ADC input 2 */
+  PIN3,  /**< ADC input 3 */
+  PIN4,  /**< ADC input 4 */
+  PIN5,  /**< ADC input 5 */
+  PIN6,  /**< ADC input 6 */
+  PIN7,  /**< ADC input 7 */
+  PIN8,  /**< ADC input 8 */
+  PIN9,  /**< ADC input 9 */
+  PIN10, /**< ADC input 10 */
+  PIN11, /**< ADC input 10 */
+};
+/**
+ * @brief Analog comparator inputs
+ */
+enum class ACMPpins : std::uint8_t {
+  PIN1, /**< Analog comparator input 1 */
+  PIN2, /**< Analog comparator input 2 */
+  PIN3, /**< Analog comparator input 3 */
+  PIN4, /**< Analog comparator input 4 */
+  PIN5, /**< Analog comparator input 5 */
 };
 /**
  * @brief base I/O pin template
@@ -83,6 +108,7 @@ struct pin<IOports::PORT0, IOpins::PIN00> {
   static constexpr std::uint8_t gpioPinIndex{0u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
+  static constexpr std::uint8_t acmpPinIndex{1u};
   static constexpr hardware::pinAssign pio{hardware::pinAssign::PIO0_0};
 };
 /**
@@ -95,6 +121,7 @@ struct pin<IOports::PORT0, IOpins::PIN01> {
   static constexpr std::uint8_t gpioPinIndex{1u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
+  static constexpr std::uint8_t acmpPinIndex{2u};
   static constexpr hardware::pinAssign pio{hardware::pinAssign::PIO0_1};
 };
 /**
@@ -155,6 +182,7 @@ struct pin<IOports::PORT0, IOpins::PIN06> {
   static constexpr std::uint8_t gpioPinIndex{6u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
+  static constexpr std::uint8_t adcPinIndex{6u};
   static constexpr hardware::pinAssign pio{hardware::pinAssign::PIO0_6};
 };
 /**
@@ -167,6 +195,7 @@ struct pin<IOports::PORT0, IOpins::PIN07> {
   static constexpr std::uint8_t gpioPinIndex{7u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
+  static constexpr std::uint8_t adcPinIndex{0u};
   static constexpr hardware::pinAssign pio{hardware::pinAssign::PIO0_7};
 };
 /**
@@ -239,6 +268,7 @@ struct pin<IOports::PORT0, IOpins::PIN13> {
   static constexpr std::uint8_t gpioPinIndex{13u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
+  static constexpr std::uint8_t adcPinIndex{13u};
   static constexpr hardware::pinAssign pio{hardware::pinAssign::PIO0_13};
 };
 /**
@@ -251,6 +281,8 @@ struct pin<IOports::PORT0, IOpins::PIN14> {
   static constexpr std::uint8_t gpioPinIndex{14u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
+  static constexpr std::uint8_t adcPinIndex{2u};
+  static constexpr std::uint8_t acmpPinIndex{3u};
   static constexpr hardware::pinAssign pio{hardware::pinAssign::PIO0_14};
 };
 /**
@@ -287,6 +319,7 @@ struct pin<IOports::PORT0, IOpins::PIN17> {
   static constexpr std::uint8_t gpioPinIndex{17u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
+  static constexpr std::uint8_t adcPinIndex{9u};
   static constexpr hardware::pinAssign pio{hardware::pinAssign::PIO0_17};
 };
 /**
@@ -299,6 +332,7 @@ struct pin<IOports::PORT0, IOpins::PIN18> {
   static constexpr std::uint8_t gpioPinIndex{18u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
+  static constexpr std::uint8_t adcPinIndex{8u};
   static constexpr hardware::pinAssign pio{hardware::pinAssign::PIO0_18};
 };
 /**
@@ -312,6 +346,7 @@ struct pin<IOports::PORT0, IOpins::PIN19> {
   static constexpr std::uint8_t gpioPinIndex{19u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
+  static constexpr std::uint8_t adcPinIndex{7u};
   static constexpr hardware::pinAssign pio{hardware::pinAssign::PIO0_19};
 };
 /**
@@ -325,6 +360,7 @@ struct pin<IOports::PORT0, IOpins::PIN20> {
   static constexpr std::uint8_t gpioPinIndex{20u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
+  static constexpr std::uint8_t adcPinIndex{6u};
   static constexpr hardware::pinAssign pio{hardware::pinAssign::PIO0_20};
 };
 /**
@@ -337,6 +373,7 @@ struct pin<IOports::PORT0, IOpins::PIN21> {
   static constexpr std::uint8_t gpioPinIndex{21u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
+  static constexpr std::uint8_t adcPinIndex{5u};
   static constexpr hardware::pinAssign pio{hardware::pinAssign::PIO0_21};
 };
 /**
@@ -349,6 +386,7 @@ struct pin<IOports::PORT0, IOpins::PIN22> {
   static constexpr std::uint8_t gpioPinIndex{22u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
+  static constexpr std::uint8_t adcPinIndex{4u};
   static constexpr hardware::pinAssign pio{hardware::pinAssign::PIO0_22};
 };
 /**
@@ -361,6 +399,8 @@ struct pin<IOports::PORT0, IOpins::PIN23> {
   static constexpr std::uint8_t gpioPinIndex{23u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
+  static constexpr std::uint8_t adcPinIndex{3u};
+  static constexpr std::uint8_t acmpPinIndex{4u};
   static constexpr hardware::pinAssign pio{hardware::pinAssign::PIO0_23};
 };
 /**
@@ -446,6 +486,7 @@ struct pin<IOports::PORT0, IOpins::PIN30> {
   static constexpr std::uint8_t gpioPinIndex{30u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
+  static constexpr std::uint8_t acmpPinIndex{5u};
   static constexpr hardware::pinAssign pio{hardware::pinAssign::PIO0_30};
 };
 /**

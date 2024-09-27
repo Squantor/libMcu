@@ -63,7 +63,6 @@ enum uartStatus : std::uint32_t {
 
 /**
  * @brief synchronous USART peripheral instance
- *
  * @tparam usartAddress_ Peripheral base usartAddress
  * @tparam transferType datatype to use for data transfers
  */
@@ -71,7 +70,6 @@ template <libMcu::uartBaseAddress usartAddress_, typename transferType>
 struct usart : libMcu::peripheralBase {
   /**
    * @brief Setup USART to 8n1
-   *
    * @param baudRate Baud rate value
    * @return std::uint32_t actual baud rate
    */
@@ -84,7 +82,6 @@ struct usart : libMcu::peripheralBase {
   }
   /**
    * @brief Setup USART
-   *
    * @param baudRate Baud rate value
    * @param lengthBits bit length of transmissions, see uartLength enum for options
    * @param parity parity type of transmissions, see uartParity enum for options
@@ -100,7 +97,6 @@ struct usart : libMcu::peripheralBase {
   }
   /**
    * @brief return uart status
-   *
    * @return std::uint32_t one to one copy of the status register, see bit masks for options
    */
   constexpr std::uint32_t status() {
@@ -108,7 +104,6 @@ struct usart : libMcu::peripheralBase {
   }
   /**
    * @brief Send data out of the UART
-   *
    * @param data data to send, amount is sent according to configuration
    */
   constexpr void write(transferType data) {
@@ -116,7 +111,6 @@ struct usart : libMcu::peripheralBase {
   }
   /**
    * @brief Read data from UART
-   *
    * @param data reference to put received data in
    */
   constexpr void read(transferType &data) {
@@ -124,7 +118,6 @@ struct usart : libMcu::peripheralBase {
   }
   /**
    * @brief Read data and status from UART
-   *
    * @param data reference to put received data in
    * @param status reference to put received status in
    */
@@ -135,7 +128,6 @@ struct usart : libMcu::peripheralBase {
   }
   /**
    * @brief get registers from peripheral
-   *
    * @return return pointer to usart registers
    */
   constexpr static hardware::usart *usartPeripheral() {
