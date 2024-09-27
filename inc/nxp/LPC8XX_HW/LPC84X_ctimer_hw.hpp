@@ -10,11 +10,11 @@
 #ifndef LPC84X_CTIMER_HW_HPP
 #define LPC84X_CTIMER_HW_HPP
 
-namespace libMcuLL::hw::ctimer {
+namespace libMcuHw::ctimer {
 /**
  * @brief Ctimer register definitions
  */
-struct peripheral {
+struct ctimer {
   volatile std::uint32_t IR;          /**< Interrupt Register */
   volatile std::uint32_t TCR;         /**< Timer Control Register */
   volatile std::uint32_t TC;          /**< Timer Counter */
@@ -30,5 +30,5 @@ struct peripheral {
   volatile std::uint32_t PWMC;        /**< PWM Control Register */
   volatile std::uint32_t MSR[4];      /**< Match Shadow Register */
 };
-}  // namespace libMcuLL::hw::ctimer
+}  // namespace libMcuHw::ctimer
 #endif

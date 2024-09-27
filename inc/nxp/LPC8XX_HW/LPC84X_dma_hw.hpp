@@ -10,11 +10,11 @@
 #ifndef LPC84X_DMA_HW_HPP
 #define LPC84X_DMA_HW_HPP
 
-namespace libMcuLL::hw::dma {
+namespace libMcuHw::dma {
 /**
  * @brief DMA register definitions
  */
-struct peripheral {
+struct dma {
   volatile std::uint32_t CTRL;              /**< DMA control */
   volatile const std::uint32_t INTSTAT;     /**< Interrupt status */
   volatile std::uint32_t SRAMBASE;          /**< SRAM address of the channel configuration table */
@@ -52,5 +52,5 @@ struct peripheral {
     std::uint8_t RESERVED_0[4];             /**< Reserved */
   } CHANNEL[25];                            /**< Specific DMA channel  */
 };
-}  // namespace libMcuLL::hw::dma
+}  // namespace libMcuHw::dma
 #endif

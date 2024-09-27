@@ -10,11 +10,11 @@
 #ifndef LPC84X_SCT_HW_HPP
 #define LPC84X_SCT_HW_HPP
 
-namespace libMcuLL::hw::sct {
+namespace libMcuHw::sct {
 /**
  * @brief SCT register definitions
  */
-struct peripheral {
+struct sct {
   volatile std::uint32_t CONFIG;    /**< SCT configuration register */
   union {                           /* */
     struct {                        /* */
@@ -128,5 +128,5 @@ struct peripheral {
     volatile std::uint32_t CLR;   /**< SCT output 0 clear register */
   } OUT[7];                       /**< Output register  */
 };
-}  // namespace libMcuLL::hw::sct
+}  // namespace libMcuHw::sct
 #endif

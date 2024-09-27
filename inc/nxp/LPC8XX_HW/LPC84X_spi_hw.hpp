@@ -10,11 +10,11 @@
 #ifndef LPC84X_SPI_HW_HPP
 #define LPC84X_SPI_HW_HPP
 
-namespace libMcuLL::hw::spi {
+namespace libMcuHw::spi {
 /**
  * @brief SPI register definitions
  */
-struct peripheral {
+struct spi {
   volatile std::uint32_t CFG;           /**< SPI Configuration register */
   volatile std::uint32_t DLY;           /**< SPI Delay register */
   volatile std::uint32_t STAT;          /**< SPI Status */
@@ -27,5 +27,5 @@ struct peripheral {
   volatile std::uint32_t DIV;           /**< SPI clock Divider */
   volatile const std::uint32_t INTSTAT; /**< SPI Interrupt Status */
 };
-}  // namespace libMcuLL::hw::spi
+}  // namespace libMcuHw::spi
 #endif

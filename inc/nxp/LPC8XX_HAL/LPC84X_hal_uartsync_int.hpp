@@ -13,8 +13,8 @@
 #include "LPC84X_hal_uart_common.hpp"
 
 namespace libMcuHal::usart {
-namespace hardware = libMcuLL::hw::usart;
-namespace nvic = libMcuLL::hw::nvic;
+namespace hardware = libMcuHw::usart;
+namespace nvic = libMcuHw::nvic;
 
 template <libMcu::uartBaseAddress const& uartBaseAddress_, libMcu::nvicBaseAddress const& nvicBaseAddress_, typename transferType,
           std::size_t bufSize>
@@ -127,15 +127,15 @@ struct uartSync {
    * @brief access uart registers
    * @return return pointer to peripheral
    */
-  static hardware::peripheral* usartPeripheral() {
-    return reinterpret_cast<hardware::peripheral*>(uartBaseAddress);
+  static hardware::usart* usartPeripheral() {
+    return reinterpret_cast<hardware::usart*>(uartBaseAddress);
   }
   /**
    * @brief access nvic registers
    * @return return pointer to peripheral
    */
-  static nvic::peripheral* nvicPeripheral() {
-    return reinterpret_cast<nvic::peripheral*>(nvicBaseAddress);
+  static nvic::nvic* nvicPeripheral() {
+    return reinterpret_cast<nvic::nvic*>(nvicBaseAddress);
   }
 
   static constexpr libMcu::hwAddressType uartBaseAddress = uartBaseAddress_; /**< UART peripheral address */

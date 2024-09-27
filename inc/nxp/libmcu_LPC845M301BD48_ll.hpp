@@ -22,7 +22,7 @@
 #include "../libmcu/libmcull_types.hpp"
 #include "../libmcu/ringbuffer.hpp"
 
-namespace libMcuLL::hw {
+namespace libMcuHw {
 
 // MCU configuration options
 namespace core {
@@ -83,11 +83,11 @@ enum class interrupts : std::int8_t {
   pinint6_uart3 = 30, /**< Pin interrupt 6 or pattern match engine slice 6 interrupt or UART3 interrupt */
   pinint7_uart4 = 31  /**< Pin interrupt 7 or pattern match engine slice 7 interrupt or UART4 interrupt */
 };
-}  // namespace libMcuLL::hw
+}  // namespace libMcuHw
 
 #include <CortexM/cortex_m0plus.hpp>
 
-namespace libMcuLL::hw {
+namespace libMcuHw {
 /* Base addresses */
 constexpr inline libMcu::memoryAddress flashBaseAddress{0x0000'0000u};
 constexpr inline libMcu::memoryAddress ramBaseAddress{0x1000'0000u};
@@ -129,9 +129,9 @@ constexpr inline libMcu::mtbBaseAddress mtbAddress{0x5000'C000u};  /**< MTB base
 /* Direct connected peripherals */
 constexpr inline libMcu::gpioBaseAddress gpioAddress{0xA000'0000u};     /**< General Purpose I/O base address */
 constexpr inline libMcu::pinintBaseAddress pinintAddress{0xA000'4000u}; /**< Pin interrupt base address */
-}  // namespace libMcuLL::hw
+}  // namespace libMcuHw
 
-namespace libMcuLL::dma {
+namespace libMcuHw::dma {
 /*!
  * @brief Enumeration for the DMA hardware request
  * Defines the structure for the DMA hardware request collections. The user can configure the
@@ -164,7 +164,7 @@ enum class dmaRequestSources : std::uint8_t {
   dac1 = 23u,       /**< DAC1 DMA REQUEST  */
   capt = 24u,       /**< CAPT DMA  */
 };
-}  // namespace libMcuLL::dma
+}  // namespace libMcuHw::dma
 
 // includes that define the registers namespace go here.
 #include "LPC8XX_HW/LPC84X_wwdt_hw.hpp"
@@ -194,7 +194,7 @@ enum class dmaRequestSources : std::uint8_t {
 
 // device peripheral specific headers go here
 // these need to go after registers namespace definitions as they are used here
-#include "LPC8XX_HW/LPC845M301BD48_pins.hpp"
+#include "LPC8XX_PINS/LPC845M301BD48_pins.hpp"
 
 // includes that use the registers namespace go here
 // need to go after registers namespaces and device specific headers

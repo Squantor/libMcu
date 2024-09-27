@@ -10,13 +10,13 @@
 #ifndef LPC84X_GPIO_HW_HPP
 #define LPC84X_GPIO_HW_HPP
 
-namespace libMcuLL::hw::gpio {
+namespace libMcuHw::gpio {
 
 /**
  * @brief gpio register definitions
  *
  */
-struct peripheral {
+struct gpio {
   volatile std::uint8_t B[2][32];   /**< Byte pin registers for all port 0 and 1 GPIO pins */
   std::uint8_t RESERVED_0[4032];    /**< Reserved */
   volatile std::uint32_t W[2][32];  /**< Word pin registers for all port 0 and 1 GPIO pins */
@@ -41,5 +41,5 @@ struct peripheral {
   std::uint8_t RESERVED_10[120];    /**< Reserved */
   volatile std::uint32_t DIRNOT[2]; /**< Toggle pin direction bits for port */
 };
-}  // namespace libMcuLL::hw::gpio
+}  // namespace libMcuHw::gpio
 #endif

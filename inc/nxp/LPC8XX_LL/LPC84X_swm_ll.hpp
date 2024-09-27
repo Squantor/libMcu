@@ -11,7 +11,7 @@
 #define LPC84X_SWM_LL_HPP
 
 namespace libMcuLL::swm {
-namespace hardware = libMcuLL::hw::swm;
+namespace hardware = libMcuHw::swm;
 template <libMcu::swmBaseAddress swmAddress_>
 struct swm : libMcu::peripheralBase {
   /**
@@ -24,15 +24,15 @@ struct swm : libMcu::peripheralBase {
    */
   template <typename PIN, typename FUNC>
   constexpr void setup(PIN &pin, FUNC &function) {
-    if constexpr (FUNC::type == hw::swm::pinFunctionTypes::MOVABLE) {
+    if constexpr (FUNC::type == hardware::pinFunctionTypes::MOVABLE) {
       // create a mask for resetting the pin setting
       constexpr std::uint32_t mask = ~(0xFFu << function.shift);
       swmPeripheral()->PINASSIGNS[function.index] =
         (swmPeripheral()->PINASSIGNS[function.index] & mask) | (pin.pio << function.shift);
-    } else if constexpr (FUNC::type == hw::swm::pinFunctionTypes::FIXED0) {
+    } else if constexpr (FUNC::type == hardware::pinFunctionTypes::FIXED0) {
       static_assert(PIN::pio == FUNC::pio, "this function is not available on this pin!");
       swmPeripheral()->PINENABLE0 = swmPeripheral()->PINENABLE0 & ~function.mask;
-    } else if constexpr (FUNC::type == hw::swm::pinFunctionTypes::FIXED1) {
+    } else if constexpr (FUNC::type == hardware::pinFunctionTypes::FIXED1) {
       static_assert(PIN::pio == FUNC::pio, "this function is not available on this pin!");
       swmPeripheral()->PINENABLE1 = swmPeripheral()->PINENABLE1 & ~function.mask;
     }
@@ -40,14 +40,14 @@ struct swm : libMcu::peripheralBase {
 
   template <typename PIN, typename FUNC>
   constexpr void clear([[maybe_unused]] PIN &pin, FUNC &function) {
-    if constexpr (FUNC::type == hw::swm::pinFunctionTypes::MOVABLE) {
+    if constexpr (FUNC::type == hardware::pinFunctionTypes::MOVABLE) {
       // create a mask for unassigning pin setting
       constexpr std::uint32_t mask = (0xFFu << function.shift);
       swmPeripheral()->PINASSIGNS[function.index] = (swmPeripheral()->PINASSIGNS[function.index] | mask);
-    } else if constexpr (FUNC::type == hw::swm::pinFunctionTypes::FIXED0) {
+    } else if constexpr (FUNC::type == hardware::pinFunctionTypes::FIXED0) {
       static_assert(PIN::pio == FUNC::pio, "this function is not available on this pin!");
       swmPeripheral()->PINENABLE0 = swmPeripheral()->PINENABLE0 | function.mask;
-    } else if constexpr (FUNC::type == hw::swm::pinFunctionTypes::FIXED1) {
+    } else if constexpr (FUNC::type == hardware::pinFunctionTypes::FIXED1) {
       static_assert(PIN::pio == FUNC::pio, "this function is not available on this pin!");
       swmPeripheral()->PINENABLE1 = swmPeripheral()->PINENABLE1 | function.mask;
     }
@@ -75,8 +75,8 @@ struct swm : libMcu::peripheralBase {
    *
    * @return return pointer to registers
    */
-  constexpr hardware::peripheral *swmPeripheral() {
-    return reinterpret_cast<hardware::peripheral *>(swmAddress);
+  constexpr hardware::swm *swmPeripheral() {
+    return reinterpret_cast<hardware::swm *>(swmAddress);
   }
 
  private:

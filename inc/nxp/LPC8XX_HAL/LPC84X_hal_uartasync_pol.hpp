@@ -13,7 +13,7 @@
 #include "LPC84X_hal_uart_common.hpp"
 
 namespace libMcuHal::usart {
-namespace hardware = libMcuLL::hw::usart;
+namespace hardware = libMcuHw::usart;
 
 template <libMcu::uartBaseAddress const& uartBaseAddress_, typename transferType>
 struct uartAsync {
@@ -167,8 +167,8 @@ struct uartAsync {
    * @brief get registers from peripheral
    * @return return pointer to peripheral
    */
-  static hardware::peripheral* usartPeripheral() {
-    return reinterpret_cast<hardware::peripheral*>(uartBaseAddress);
+  static hardware::usart* usartPeripheral() {
+    return reinterpret_cast<hardware::usart*>(uartBaseAddress);
   }
 
   static constexpr libMcu::hwAddressBase uartBaseAddress = uartBaseAddress_; /**< uart peripheral address */

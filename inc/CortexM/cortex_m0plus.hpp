@@ -10,7 +10,7 @@
 #ifndef CORTEX_M0_PLUS_HPP
 #define CORTEX_M0_PLUS_HPP
 
-namespace libMcuLL::hw {
+namespace libMcuHw {
 
 // core peripheral definitions
 constexpr inline libMcu::scsBaseAddress scsAddress{0xE000'E000UL};         /**< systemcontrol space base address */
@@ -19,7 +19,7 @@ constexpr inline libMcu::nvicBaseAddress nvicAddress{0xE000'E100UL};       /**< 
 constexpr inline libMcu::scbBaseAddress scbAddress{0xE000'ED00UL};         /** SCB base address */
 constexpr inline libMcu::mpuBaseAddress mpuAddress{0xE000'ED90UL};         /**< MPU base address */
 
-}  // namespace libMcuLL::hw
+}  // namespace libMcuHw
 
 #include "cortex_m_ll.hpp"
 

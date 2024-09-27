@@ -10,11 +10,11 @@
 #ifndef LPC84X_ADC_HW_HPP
 #define LPC84X_ADC_HW_HPP
 
-namespace libMcuLL::hw::adc {
+namespace libMcuHw::adc {
 /**
  * @brief Analog to Digital converter register definitions
  */
-struct peripheral {
+struct adc {
   volatile std::uint32_t CTRL;              /**< ADC Control register */
   std::uint8_t RESERVED_0[4];               /**< Reserved */
   volatile std::uint32_t SEQ_CTRL[2];       /**< ADC Conversion Sequence-n control register */
@@ -76,5 +76,5 @@ constexpr inline std::uint32_t RESERVED_MASK{0xF3FF'FFFFu}; /**< register mask f
 namespace TRM {
 constexpr inline std::uint32_t RESERVED_MASK{0x0000'0020u}; /**< register mask for allowed bits */
 }
-}  // namespace libMcuLL::hw::adc
+}  // namespace libMcuHw::adc
 #endif

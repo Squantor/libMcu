@@ -10,7 +10,7 @@
 #ifndef LPC84X_SMW_HW_HPP
 #define LPC84X_SWM_HW_HPP
 
-namespace libMcuLL::hw::swm {
+namespace libMcuHw::swm {
 /**
  * @brief
  */
@@ -1299,9 +1299,8 @@ struct pinFunction<pinFunctions::CAPT_YH_I> {
 };
 /**
  * @brief SWM register definitions
- *
  */
-struct peripheral {
+struct swm {
   union {                                  /* offset: 0x0 */
     struct {                               /* offset: 0x0 */
       volatile std::uint32_t PINASSIGN0;   /**< Pin assign register for U0_TXD, U0_RXD, U0_RTS, U0_CTS */
@@ -1326,5 +1325,5 @@ struct peripheral {
   volatile std::uint32_t PINENABLE0; /**< Pin enable register 0. Enables fixed-pin functions */
   volatile std::uint32_t PINENABLE1; /**< Pin enable register 1. Enables fixed-pin functions */
 };
-}  // namespace libMcuLL::hw::swm
+}  // namespace libMcuHw::swm
 #endif

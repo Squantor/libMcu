@@ -10,7 +10,7 @@
 #ifndef LPC84X_SYSCON_HW_HPP
 #define LPC84X_SYSCON_HW_HPP
 
-namespace libMcuLL::hw::syscon {
+namespace libMcuHw::syscon {
 
 enum class clockSourceSelects : std::size_t {
   UART0 = 0u,
@@ -23,7 +23,7 @@ enum class clockSourceSelects : std::size_t {
 /**
  * @brief sysctl register definitions
  */
-struct peripheral {
+struct syscon {
   volatile std::uint32_t SYSMEMREMAP;        /**< System Remap register */
   std::uint8_t RESERVED_0[4];                /**< Reserved */
   volatile std::uint32_t SYSPLLCTRL;         /**< PLL control */
@@ -415,5 +415,5 @@ constexpr inline std::uint32_t ACMP{1 << 15};               /**< ACMP power */
 namespace DEVICEID {
 constexpr inline std::uint32_t RESERVED_MASK{0x0000'0000u}; /**< register mask for allowed bits */
 }  // namespace DEVICEID
-}  // namespace libMcuLL::hw::syscon
+}  // namespace libMcuHw::syscon
 #endif

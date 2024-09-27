@@ -10,11 +10,11 @@
 #ifndef LPC84X_CRC_HW_HPP
 #define LPC84X_CRC_HW_HPP
 
-namespace libMcuLL::hw::crc {
+namespace libMcuHw::crc {
 /**
  * @brief CRC register definitions
  */
-struct peripheral {
+struct crc {
   volatile std::uint32_t MODE;        /**< CRC mode register */
   volatile std::uint32_t SEED;        /**< CRC seed register */
   union {                             /* */
@@ -22,5 +22,5 @@ struct peripheral {
     volatile std::uint32_t WR_DATA;   /**< CRC data register */
   };
 };
-}  // namespace libMcuLL::hw::crc
+}  // namespace libMcuHw::crc
 #endif

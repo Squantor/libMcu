@@ -10,13 +10,13 @@
 #ifndef LPC84X_ACMP_HW_HPP
 #define LPC84X_ACMP_HW_HPP
 
-namespace libMcuLL::hw::acmp {
+namespace libMcuHw::acmp {
 /**
  * @brief ACMP register definitions
  */
-struct peripheral {
+struct acmp {
   volatile std::uint32_t CTRL; /**< Comparator control register */
   volatile std::uint32_t LAD;  /**< Voltage ladder register */
 };
-}  // namespace libMcuLL::hw::acmp
+}  // namespace libMcuHw::acmp
 #endif

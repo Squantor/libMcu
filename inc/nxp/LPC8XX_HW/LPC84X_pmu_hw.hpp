@@ -10,14 +10,14 @@
 #ifndef LPC84X_PMU_HW_HPP
 #define LPC84X_PMU_HW_HPP
 
-namespace libMcuLL::hw::pmu {
+namespace libMcuHw::pmu {
 /**
  * @brief PMU register definitions
  */
-struct peripheral {
+struct pmu {
   volatile std::uint32_t PCON;     /**< Power control register */
   volatile std::uint32_t GPREG[4]; /**< General purpose register N */
   volatile std::uint32_t DPDCTRL;  /**< Deep power-down control register */
 };
-}  // namespace libMcuLL::hw::pmu
+}  // namespace libMcuHw::pmu
 #endif

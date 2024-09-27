@@ -11,7 +11,7 @@
 #define LPC84X_USART_HPP
 
 namespace libMcuLL::usart {
-namespace hardware = libMcuLL::hw::usart;
+namespace hardware = libMcuHw::usart;
 /**
  * @brief amount of bits to transmit
  */
@@ -138,8 +138,8 @@ struct usart : libMcu::peripheralBase {
    *
    * @return return pointer to usart registers
    */
-  constexpr static hw::usart::peripheral *usartPeripheral() {
-    return reinterpret_cast<hw::usart::peripheral *>(usartAddress);
+  constexpr static hardware::usart *usartPeripheral() {
+    return reinterpret_cast<hardware::usart *>(usartAddress);
   }
 
  private:

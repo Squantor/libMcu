@@ -10,11 +10,11 @@
 #ifndef LPC84X_PININT_HW_HPP
 #define LPC84X_PININT_HW_HPP
 
-namespace libMcuLL::hw::pinint {
+namespace libMcuHw::pinint {
 /**
  * @brief PININT register definitions
  */
-struct peripheral {
+struct pinint {
   volatile std::uint32_t ISEL;   /**< Pin Interrupt Mode register */
   volatile std::uint32_t IENR;   /**< Pin interrupt level or rising edge interrupt enable register */
   volatile std::uint32_t SIENR;  /**< Pin interrupt level or rising edge interrupt set register */
@@ -29,5 +29,5 @@ struct peripheral {
   volatile std::uint32_t PMSRC;  /**< Pattern match interrupt bit-slice source register */
   volatile std::uint32_t PMCFG;  /**< Pattern match interrupt bit slice configuration register */
 };
-}  // namespace libMcuLL::hw::pinint
+}  // namespace libMcuHw::pinint
 #endif

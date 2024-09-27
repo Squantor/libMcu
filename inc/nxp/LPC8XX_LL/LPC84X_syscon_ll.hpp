@@ -11,7 +11,7 @@
 #define LPC84X_SYSCON_LL_HPP
 
 namespace libMcuLL::syscon {
-namespace hardware = libMcuLL::hw::syscon;
+namespace hardware = libMcuHw::syscon;
 
 /**
  * @brief Peripheral reset for first setting
@@ -322,8 +322,8 @@ struct syscon : libMcu::peripheralBase {
    *
    * @return return pointer to syscon registers
    */
-  constexpr static hw::syscon::peripheral *sysconPeripheral() {
-    return reinterpret_cast<hw::syscon::peripheral *>(sysconAddress);
+  constexpr static hardware::syscon *sysconPeripheral() {
+    return reinterpret_cast<hardware::syscon *>(sysconAddress);
   }
 
  private:

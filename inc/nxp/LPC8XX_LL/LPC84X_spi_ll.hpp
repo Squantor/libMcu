@@ -10,6 +10,8 @@
 #ifndef LPC84X_SPI_HPP
 #define LPC84X_SPI_HPP
 
+// TODO: Requires reachitecting!
+
 namespace libMcuLL::spi {
 
 /**

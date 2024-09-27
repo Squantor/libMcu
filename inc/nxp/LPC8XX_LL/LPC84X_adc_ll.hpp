@@ -11,6 +11,6 @@
 #define LPC84X_ADC_LL_HPP
 
 namespace libMcuLL::adc {
-namespace hardware = libMcuLL::hw::adc;
+namespace hardware = libMcuHw::adc;
 }
 #endif

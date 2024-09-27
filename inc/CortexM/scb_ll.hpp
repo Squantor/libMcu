@@ -10,7 +10,7 @@
 #ifndef SCB_LL_HPP
 #define SCB_LL_HPP
 namespace libMcuLL::scb {
-using namespace hw::scb;
+namespace hardware = libMcuHw::scb;
 template <libMcu::scbBaseAddress const& scbAddress_>
 struct scb {
   /**
@@ -18,23 +18,12 @@ struct scb {
    *
    */
   scb() {}
-
-  /**
-   * @brief get registers from SCB peripheral
-   *
-   * @return return pointer to scb peripheral
-   */
-  static hw::scb::peripheral* scbPeripheral() {
-    return reinterpret_cast<hw::scb::peripheral*>(scbAddress);
-  }
-
   /**
    * @brief Setup scb
    *
    * Nothing to setup here
    */
   constexpr void init() {}
-
   /**
    * @brief Get the allowed bits mask from the VTOR register
    *
@@ -47,7 +36,6 @@ struct scb {
     scbPeripheral()->VTOR = backupRegister;
     return vtorMask;
   }
-
   /**
    * @brief set vector table to specific address
    *
@@ -56,11 +44,10 @@ struct scb {
    * @param vectorTable address to an array of uint32_t's that contains the interrupt vector table
    */
   constexpr void setVtor(std::uint32_t* vectorTable) {
-    static_assert(libMcuLL::hw::vtor::present == true);
+    static_assert(libMcuHw::vtor::present == true);
     std::uint32_t vtorAddress = reinterpret_cast<std::uint32_t>(vectorTable);
-    scbPeripheral()->VTOR = VTOR::TBLOFF(vtorAddress);
+    scbPeripheral()->VTOR = hardware::VTOR::TBLOFF(vtorAddress);
   }
-
   /**
    * @brief Set the system sleep behaviour in various conditions
    *
@@ -71,25 +58,32 @@ struct scb {
   constexpr void setSleepBehaviour(bool eventIsWakeup, bool sleepIsDeep, bool sleepOnIsrExit) {
     std::uint32_t newScr = 0UL;
     if (eventIsWakeup)
-      newScr |= SCR::SEVONPEND;
+      newScr |= hardware::SCR::SEVONPEND;
     if (sleepIsDeep)
-      newScr |= SCR::SLEEPDEEP;
+      newScr |= hardware::SCR::SLEEPDEEP;
     if (sleepOnIsrExit)
-      newScr |= SCR::SLEEPONEXIT;
+      newScr |= hardware::SCR::SLEEPONEXIT;
     scbPeripheral()->SCR = newScr;
   }
-
   /**
    * @brief Resets the system
    *
    */
   [[noreturn]] constexpr void reset() {
     libMcuLL::dsb();
-    scbPeripheral()->AIRCR = AIRCR::VECTKEY_KEY | AIRCR::SYSRESETREQ;
+    scbPeripheral()->AIRCR = hardware::AIRCR::VECTKEY_KEY | hardware::AIRCR::SYSRESETREQ;
     libMcuLL::dsb();
     while (1) {
       libMcuLL::nop();
     }
+  }
+  /**
+   * @brief get registers from SCB peripheral
+   *
+   * @return return pointer to scb peripheral
+   */
+  static hardware::scb* scbPeripheral() {
+    return reinterpret_cast<hardware::scb*>(scbAddress);
   }
 
   static constexpr libMcu::hwAddressType scbAddress = scbAddress_; /**< scb peripheral address */

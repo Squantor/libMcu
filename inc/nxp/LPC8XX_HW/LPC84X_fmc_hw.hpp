@@ -10,11 +10,11 @@
 #ifndef LPC84X_FMC_HW_HPP
 #define LPC84X_FMC_HW_HPP
 
-namespace libMcuLL::hw::fmc {
+namespace libMcuHw::fmc {
 /**
  * @brief FMC register definitions
  */
-struct peripheral {
+struct fmc {
   std::uint8_t RESERVED_0[16];            /**< Reserved */
   volatile std::uint32_t FLASHCFG;        /**< Flash configuration register */
   std::uint8_t RESERVED_1[12];            /**< Reserved */
@@ -27,5 +27,5 @@ struct peripheral {
   std::uint8_t RESERVED_4[4];             /**< Reserved */
   volatile const std::uint32_t FMSTATCLR; /**< Clear FLASH signature generation status bit */
 };
-}  // namespace libMcuLL::hw::fmc
+}  // namespace libMcuHw::fmc
 #endif

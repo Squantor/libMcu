@@ -10,11 +10,11 @@
 #ifndef LPC84X_I2C_HW_HPP
 #define LPC84X_I2C_HW_HPP
 
-namespace libMcuLL::hw::i2c {
+namespace libMcuHw::i2c {
 /**
  * @brief I2C register definitions
  */
-struct peripheral {
+struct i2c {
   volatile std::uint32_t CFG;            /**< Configuration for shared functions */
   volatile std::uint32_t STAT;           /**< Status register for Master, Slave, and Monitor functions */
   volatile std::uint32_t INTENSET;       /**< Interrupt Enable Set and read register */
@@ -34,5 +34,5 @@ struct peripheral {
   std::uint8_t RESERVED_2[36];           /**< Reserved */
   volatile const std::uint32_t MONRXDAT; /**< Monitor receiver data register */
 };
-}  // namespace libMcuLL::hw::i2c
+}  // namespace libMcuHw::i2c
 #endif

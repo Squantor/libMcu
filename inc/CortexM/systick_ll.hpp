@@ -10,7 +10,7 @@
 #ifndef SYSTICK_LL_HPP
 #define SYSTICK_LL_HPP
 namespace libMcuLL::systick {
-namespace hardware = libMcuLL::hw::systick;
+namespace hardware = libMcuHw::systick;
 template <libMcu::systickBaseAddress const& systickAddress_>
 struct systick {
   /**
@@ -24,8 +24,8 @@ struct systick {
    *
    * @return return pointer to analog comparator registers
    */
-  static hardware::peripheral* systickPeripheral() {
-    return reinterpret_cast<hardware::peripheral*>(systickAddress);
+  static hardware::systick* systickPeripheral() {
+    return reinterpret_cast<hardware::systick*>(systickAddress);
   }
   /**
    * @brief setup systick peripheral

@@ -10,12 +10,12 @@
 #ifndef LPC84X_WWDT_HW_HPP
 #define LPC84X_WWDT_HW_HPP
 
-namespace libMcuLL::hw::wwdt {
+namespace libMcuHw::wwdt {
 
 /**
  * @brief wwdt register definitions
  */
-struct peripheral {
+struct wwdt {
   volatile std::uint32_t MOD;      /**< Watchdog mode register */
   volatile std::uint32_t TC;       /**< Watchdog timer constant register */
   volatile std::uint32_t FEED;     /**< Watchdog feed sequence register. Writing 0xAA then 0x55 feeds the watchdog  */
@@ -24,5 +24,5 @@ struct peripheral {
   volatile std::uint32_t WARNINT;  /**< Watchdog Warning Interrupt compare value */
   volatile std::uint32_t WINDOW;   /**< Watchdog Window compare valu */
 };
-}  // namespace libMcuLL::hw::wwdt
+}  // namespace libMcuHw::wwdt
 #endif

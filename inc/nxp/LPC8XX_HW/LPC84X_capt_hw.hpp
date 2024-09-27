@@ -10,11 +10,11 @@
 #ifndef LPC84X_CAPT_HW_HPP
 #define LPC84X_CAPT_HW_HPP
 
-namespace libMcuLL::hw::capt {
+namespace libMcuHw::capt {
 /**
  * @brief CAPT register definitions
  */
-struct peripheral {
+struct capt {
   volatile std::uint32_t CTRL;          /**< Configuration and control */
   volatile std::uint32_t STATUS;        /**< Status from triggers and time-outs */
   volatile std::uint32_t POLL_TCNT;     /**< Polling counter and measurement counter rules */
@@ -27,5 +27,5 @@ struct peripheral {
   std::uint8_t RESERVED_2[4056];        /**< Reserved */
   volatile const std::uint32_t ID;      /**< Block ID */
 };
-}  // namespace libMcuLL::hw::capt
+}  // namespace libMcuHw::capt
 #endif

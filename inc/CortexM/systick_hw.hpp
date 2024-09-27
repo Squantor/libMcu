@@ -9,8 +9,8 @@
  */
 #ifndef SYSTICK_HW_HPP
 #define SYSTICK_HW_HPP
-namespace libMcuLL::hw::systick {
-struct peripheral {
+namespace libMcuHw::systick {
+struct systick {
   volatile std::uint32_t CSR;         /**< systick control and status register */
   volatile std::uint32_t RVR;         /**< systick reload value register */
   volatile std::uint32_t CVR;         /**< systick current value register */
@@ -46,5 +46,5 @@ constexpr inline std::uint32_t TENMS_MASK = 0x00FFFFFFFF;  /**< reload counter v
 constexpr inline std::uint32_t SKEW_MASK = (1 << 30);      /**< indicates TENMS is rounded from non integer ratio */
 constexpr inline std::uint32_t NOREF_MASK = (1 << 31);     /**< indicates if there is a reference clock */
 }  // namespace CALIB
-}  // namespace libMcu::hw::systick
+}  // namespace libMcuHw::systick
 #endif

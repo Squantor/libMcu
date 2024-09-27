@@ -11,7 +11,7 @@
 #define LPC84X_HAL_UART_COMMON_HPP
 
 namespace libMcuHal::usart {
-namespace hardware = libMcuLL::hw::usart;
+namespace hardware = libMcuHw::usart;
 
 /**
  * @brief amount of bits to transmit

@@ -11,7 +11,7 @@
 #define LPC84X_GPIO_LL_HPP
 
 namespace libMcuLL::gpio {
-namespace hardware = libMcuLL::hw::gpio;
+namespace hardware = libMcuHw::gpio;
 template <libMcu::gpioBaseAddress const &gpioAddress_>
 struct gpio : libMcu::peripheralBase {
   /**
@@ -213,8 +213,8 @@ struct gpio : libMcu::peripheralBase {
    *
    * @return return pointer to gpio registers
    */
-  constexpr hardware::peripheral *gpioPeripheral() {
-    return reinterpret_cast<hardware::peripheral *>(gpioAddress);
+  constexpr hardware::gpio *gpioPeripheral() {
+    return reinterpret_cast<hardware::gpio *>(gpioAddress);
   }
 
  private:

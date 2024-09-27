@@ -10,13 +10,13 @@
 #ifndef LPC84X_IOCON_HW_HPP
 #define LPC84X_IOCON_HW_HPP
 
-namespace libMcuLL::hw::iocon {
+namespace libMcuHw::iocon {
 
 /**
  * @brief IOCON register definitions
  *
  */
-struct peripheral {
+struct iocon {
   volatile std::uint32_t PIO[56]; /**< Pin control registers */
 };
 
@@ -44,5 +44,5 @@ constexpr inline std::uint32_t IOCONCLKDIV5{5u << 13}; /**< use IOCONCLKDIV5 in 
 constexpr inline std::uint32_t IOCONCLKDIV6{6u << 13}; /**< use IOCONCLKDIV6 in SYSCON */
 constexpr inline std::uint32_t DACMODE{1 << 16};       /**< DAC mode enable */
 }  // namespace PIO
-}  // namespace libMcuLL::hw::iocon
+}  // namespace libMcuHw::iocon
 #endif

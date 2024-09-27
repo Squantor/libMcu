@@ -9,8 +9,8 @@
  */
 #ifndef SCB_HW_HPP
 #define SCB_HW_HPP
-namespace libMcuLL::hw::scb {
-struct peripheral {
+namespace libMcuHw::scb {
+struct scb {
   const volatile std::uint32_t CPUID; /**< CPUID Base Register */
   volatile std::uint32_t ICSR;        /**< Interrupt Control and State Register */
   volatile std::uint32_t VTOR;        /**< Vector Table Offset Register */
@@ -44,7 +44,7 @@ constexpr inline std::uint32_t NMIPENDSET = (0x1UL) << 31;        /**< Activate 
 namespace VTOR {
 constexpr inline std::uint32_t RESERVED_MASK = 0xFFFFFF80UL; /**< register mask for allowed bits */
 constexpr inline std::uint32_t TBLOFF(std::uint32_t address) {
-  return address & libMcuLL::hw::vtor::addressMask;
+  return address & libMcuHw::vtor::addressMask;
 }
 }  // namespace VTOR
 namespace AIRCR {
@@ -74,5 +74,5 @@ namespace SHCSR {
 constexpr inline std::uint32_t RESERVED_MASK = 0x00008000;        /**< register mask for allowed bits */
 constexpr inline std::uint32_t SVCALLPENDED_MASK = (0x1UL) << 15; /**< SVCALL is pending */
 }  // namespace SHCSR
-}  // namespace libMcuLL::hw::scb
+}  // namespace libMcuHw::scb
 #endif
