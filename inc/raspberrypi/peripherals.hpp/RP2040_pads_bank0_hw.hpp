@@ -10,7 +10,7 @@
 #ifndef RP2040_PADS_BANK0_HW_HPP
 #define RP2040_PADS_BANK0_HW_HPP
 
-#include <raspberrypi/peripherals.hpp/RP2040_pads_hw.hpp>
+#include "RP2040_pads_hw.hpp"
 
 namespace libMcuLL::hw::padsBank0 {
 

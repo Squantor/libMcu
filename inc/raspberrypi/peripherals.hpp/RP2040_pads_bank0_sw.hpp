@@ -10,15 +10,15 @@
 #ifndef RP2040_PADS_BANK0_SW_HPP
 #define RP2040_PADS_BANK0_SW_HPP
 
-#include <raspberrypi/peripherals.hpp/RP2040_pads_sw.hpp>
+#include "RP2040_pads_sw.hpp"
 
 namespace libMcuLL::sw::padsBank0 {
 
 using namespace libMcuLL::sw::pads;
 
-template <libMcuLL::padsBank0BaseAddress const& padsBank0Address_>
+template <libMcu::padsBank0BaseAddress const& padsBank0Address_>
 // TODO voltage select method
-struct padsBank0 : libMcuLL::peripheralBase {
+struct padsBank0 : libMcu::peripheralBase {
   /**
    * @brief Setup pin pads
    * @tparam T pin trait template
@@ -54,7 +54,7 @@ struct padsBank0 : libMcuLL::peripheralBase {
   }
 
  private:
-  static constexpr libMcuLL::hwAddressType padsBank0Address = padsBank0Address_; /**< peripheral address */
+  static constexpr libMcu::hwAddressType padsBank0Address = padsBank0Address_; /**< peripheral address */
 };
 }  // namespace libMcuLL::sw::padsBank0
 #endif
