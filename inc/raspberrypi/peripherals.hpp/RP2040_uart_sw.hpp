@@ -11,9 +11,9 @@
 #define RP2040_UART_SW_HPP
 
 namespace libMcuLL::sw::uart {
-using namespace libMcuLL::hw::uart;
-template <libMcuLL::uartBaseAddress const& uartAddress_>
-struct uart : libMcuLL::peripheralBase {
+using namespace libMcuHw::uart;
+template <libMcu::uartBaseAddress const& uartAddress_>
+struct uart : libMcu::peripheralBase {
   /**
    * @brief Base initialization function
    *
@@ -56,7 +56,7 @@ struct uart : libMcuLL::peripheralBase {
   constexpr void write(std::span<const std::uint8_t> transmitBuffer) {
     for (const std::uint8_t& character : transmitBuffer) {
       while ((uartPeripheral()->UARTFR & UARTFR::TXFF_FLAG))
-        libMcu::sw::nop();
+        libMcuLL::nop();
       uartPeripheral()->UARTDR = character;
     }
   }
@@ -91,33 +91,33 @@ struct uart : libMcuLL::peripheralBase {
    *
    * @return return pointer to peripheral
    */
-  static hw::uart::peripheral* uartPeripheral() {
-    return reinterpret_cast<hw::uart::peripheral*>(uartAddress);
+  static libMcuHw::uart::peripheral* uartPeripheral() {
+    return reinterpret_cast<libMcuHw::uart::peripheral*>(uartAddress);
   }
   /**
    * @brief get registers from peripheral for atomic set access
    * @return return pointer to peripheral
    */
-  static hw::uart::peripheral* uartPeripheralSet() {
-    return reinterpret_cast<hw::uart::peripheral*>(uartAddress + hw::peripheralOffsetSet);
+  static libMcuHw::uart::peripheral* uartPeripheralSet() {
+    return reinterpret_cast<libMcuHw::uart::peripheral*>(uartAddress + libMcuHw::peripheralOffsetSet);
   }
   /**
    * @brief get registers from peripheral for atomic Clear access
    * @return return pointer to peripheral
    */
-  static hw::uart::peripheral* uartPeripheralClear() {
-    return reinterpret_cast<hw::uart::peripheral*>(uartAddress + hw::peripheralOffsetClear);
+  static libMcuHw::uart::peripheral* uartPeripheralClear() {
+    return reinterpret_cast<libMcuHw::uart::peripheral*>(uartAddress + libMcuHw::peripheralOffsetClear);
   }
   /**
    * @brief get registers from peripheral for atomic XOR access
    * @return return pointer to peripheral
    */
-  static hw::uart::peripheral* uartPeripheralXor() {
-    return reinterpret_cast<hw::uart::peripheral*>(uartAddress + hw::peripheralOffsetXor);
+  static libMcuHw::uart::peripheral* uartPeripheralXor() {
+    return reinterpret_cast<libMcuHw::uart::peripheral*>(uartAddress + libMcuHw::peripheralOffsetXor);
   }
 
  private:
-  static constexpr libMcuLL::hwAddressType uartAddress{uartAddress_}; /**< peripheral address */
+  static constexpr libMcu::hwAddressType uartAddress{uartAddress_}; /**< peripheral address */
 };
 }  // namespace libMcuLL::sw::uart
 #endif

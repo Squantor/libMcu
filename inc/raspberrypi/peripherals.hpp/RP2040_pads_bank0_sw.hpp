@@ -14,6 +14,8 @@
 
 namespace libMcuLL::sw::padsBank0 {
 
+namespace hardware = libMcuHw::padsBank0;
+
 using namespace libMcuLL::sw::pads;
 
 template <libMcu::padsBank0BaseAddress const& padsBank0Address_>
@@ -31,16 +33,16 @@ struct padsBank0 : libMcu::peripheralBase {
    */
   template <typename T>
   constexpr void setup(T& pin, driveModes driveStrength, bool pullUpEnable, bool pullDownEnable, bool schmittOn, bool fastSlew) {
-    uint32_t setting = hw::pads::GPIO::IE;  // Safe default setting
+    uint32_t setting = hardware::GPIO::IE;  // Safe default setting
     if (pullUpEnable)
-      setting = setting | hw::pads::GPIO::PUE;
+      setting = setting | hardware::GPIO::PUE;
     if (pullDownEnable)
-      setting = setting | hw::pads::GPIO::PDE;
+      setting = setting | hardware::GPIO::PDE;
     if (schmittOn)
-      setting = setting | hw::pads::GPIO::SCHMITT;
+      setting = setting | hardware::GPIO::SCHMITT;
     if (fastSlew)
-      setting = setting | hw::pads::GPIO::SLEWFAST;
-    setting = setting | hw::pads::GPIO::DRIVE(static_cast<std::uint32_t>(driveStrength));
+      setting = setting | hardware::GPIO::SLEWFAST;
+    setting = setting | hardware::GPIO::DRIVE(static_cast<std::uint32_t>(driveStrength));
     padsBank0Peripheral()->GPIO[pin.pinIndex] = setting;
   }
   // TODO simplified setup methods
@@ -49,8 +51,8 @@ struct padsBank0 : libMcu::peripheralBase {
    *
    * @return return pointer to peripheral
    */
-  static hw::padsBank0::peripheral* padsBank0Peripheral() {
-    return reinterpret_cast<hw::padsBank0::peripheral*>(padsBank0Address);
+  static libMcuHw::padsBank0::peripheral* padsBank0Peripheral() {
+    return reinterpret_cast<libMcuHw::padsBank0::peripheral*>(padsBank0Address);
   }
 
  private:

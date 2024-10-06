@@ -11,8 +11,8 @@
 #define RP2040_PADS_QSPI_SW_HPP
 
 namespace libMcuLL::sw::padsQspi {
-template <libMcuLL::padsQspiBaseAddress const& padsQspiAddress_>
-struct padsQspi : libMcuLL::peripheralBase {
+template <libMcu::padsQspiBaseAddress const& padsQspiAddress_>
+struct padsQspi : libMcu::peripheralBase {
   /**
    * @brief Base initialization function
    *
@@ -23,12 +23,12 @@ struct padsQspi : libMcuLL::peripheralBase {
    *
    * @return return pointer to peripheral
    */
-  static hw::padsQspi::peripheral* padsQspiPeripheral() {
-    return reinterpret_cast<hw::padsQspi::peripheral*>(padsQspiAddress);
+  static libMcuHw::padsQspi::peripheral* padsQspiPeripheral() {
+    return reinterpret_cast<libMcuHw::padsQspi::peripheral*>(padsQspiAddress);
   }
 
  private:
-  static constexpr libMcuLL::hwAddressType padsQspiAddress = padsQspiAddress_; /**< peripheral address */
+  static constexpr libMcu::hwAddressType padsQspiAddress = padsQspiAddress_; /**< peripheral address */
 };
 }  // namespace libMcuLL::sw::padsQspi
 #endif

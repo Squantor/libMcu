@@ -11,8 +11,8 @@
 #define RP2040_SYSINFO_SW_HPP
 
 namespace libMcuLL::sw::sysinfo {
-template <libMcuLL::sysinfoBaseAddress const& sysinfoAddress_>
-struct sysinfo : libMcuLL::peripheralBase {
+template <libMcu::sysinfoBaseAddress const& sysinfoAddress_>
+struct sysinfo : libMcu::peripheralBase {
   /**
    * @brief Base initialization function
    *
@@ -23,12 +23,12 @@ struct sysinfo : libMcuLL::peripheralBase {
    *
    * @return return pointer to peripheral
    */
-  static hw::sysinfo::peripheral* sysinfoPeripheral() {
-    return reinterpret_cast<hw::sysinfo::peripheral*>(sysinfoAddress);
+  static libMcuHw::sysinfo::peripheral* sysinfoPeripheral() {
+    return reinterpret_cast<libMcuHw::sysinfo::peripheral*>(sysinfoAddress);
   }
 
  private:
-  static constexpr libMcuLL::hwAddressType sysinfoAddress = sysinfoAddress_; /**< peripheral address */
+  static constexpr libMcu::hwAddressType sysinfoAddress = sysinfoAddress_; /**< peripheral address */
 };
 }  // namespace libMcuLL::sw::sysinfo
 #endif

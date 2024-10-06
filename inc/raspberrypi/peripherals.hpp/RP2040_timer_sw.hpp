@@ -11,8 +11,8 @@
 #define RP2040_TIMER_SW_HPP
 
 namespace libMcuLL::sw::timer {
-template <libMcuLL::timerBaseAddress const& timerAddress_>
-struct timer : libMcuLL::peripheralBase {
+template <libMcu::timerBaseAddress const& timerAddress_>
+struct timer : libMcu::peripheralBase {
   /**
    * @brief Base initialization function
    *
@@ -23,12 +23,12 @@ struct timer : libMcuLL::peripheralBase {
    *
    * @return return pointer to peripheral
    */
-  static hw::timer::peripheral* timerPeripheral() {
-    return reinterpret_cast<hw::timer::peripheral*>(timerAddress);
+  static libMcuHw::timer::peripheral* timerPeripheral() {
+    return reinterpret_cast<libMcuHw::timer::peripheral*>(timerAddress);
   }
 
  private:
-  static constexpr libMcuLL::hwAddressType timerAddress{timerAddress_}; /**< peripheral address */
+  static constexpr libMcu::hwAddressType timerAddress{timerAddress_}; /**< peripheral address */
 };
 }  // namespace libMcuLL::sw::timer
 #endif

@@ -11,8 +11,8 @@
 #define RP2040_SIO_GPIO_SW_HPP
 
 namespace libMcuLL::sw::sioGpio {
-template <libMcuLL::sioBaseAddress const &sioAddress_>
-struct sioGpio : libMcuLL::peripheralBase {
+template <libMcu::sioBaseAddress const &sioAddress_>
+struct sioGpio : libMcu::peripheralBase {
   /**
    * @brief Set gpio pin to output mode
    * @tparam PIN pin instance
@@ -85,12 +85,12 @@ struct sioGpio : libMcuLL::peripheralBase {
    * @brief get registers from peripheral for normal access
    * @return return pointer to peripheral
    */
-  static hw::sio::peripheral *sioPeripheral() {
-    return reinterpret_cast<hw::sio::peripheral *>(sioAddress + hw::peripheralOffsetNormal);
+  static libMcuHw::sio::peripheral *sioPeripheral() {
+    return reinterpret_cast<libMcuHw::sio::peripheral *>(sioAddress + libMcuHw::peripheralOffsetNormal);
   }
 
  private:
-  static constexpr libMcuLL::hwAddressType sioAddress{sioAddress_}; /**< peripheral address */
+  static constexpr libMcu::hwAddressType sioAddress{sioAddress_}; /**< peripheral address */
 };
 }  // namespace libMcuLL::sw::sioGpio
 #endif

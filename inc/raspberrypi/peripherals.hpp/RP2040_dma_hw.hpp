@@ -10,7 +10,7 @@
 #ifndef RP2040_DMA_HW_HPP
 #define RP2040_DMA_HW_HPP
 
-namespace libMcuLL::hw::dma {
+namespace libMcuHw::dma {
 /**
  * @brief DMA register definitions
  *

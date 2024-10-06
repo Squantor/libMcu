@@ -11,8 +11,8 @@
 #define RP2040_XIP_CTRL_SW_HPP
 
 namespace libMcuLL::sw::xip {
-template <libMcuLL::xipCtrlBaseAddress const& xipCtrlAddress_>
-struct xipCtrl : libMcuLL::peripheralBase {
+template <libMcu::xipCtrlBaseAddress const& xipCtrlAddress_>
+struct xipCtrl : libMcu::peripheralBase {
   /**
    * @brief Base initialization function
    *
@@ -23,12 +23,12 @@ struct xipCtrl : libMcuLL::peripheralBase {
    *
    * @return return pointer to peripheral
    */
-  static hw::xip::peripheral* xipCtrlPeripheral() {
-    return reinterpret_cast<hw::xip::peripheral*>(xipCtrlAddress);
+  static libMcuHw::xip::peripheral* xipCtrlPeripheral() {
+    return reinterpret_cast<libMcuHw::xip::peripheral*>(xipCtrlAddress);
   }
 
  private:
-  static constexpr libMcuLL::hwAddressType xipCtrlAddress{xipCtrlAddress_}; /**< peripheral address */
+  static constexpr libMcu::hwAddressType xipCtrlAddress{xipCtrlAddress_}; /**< peripheral address */
 };
 }  // namespace libMcuLL::sw::xip
 #endif

@@ -11,8 +11,8 @@
 #define RP2040_DMA_SW_HPP
 
 namespace libMcuLL::sw::dma {
-template <libMcuLL::dmaBaseAddress const& dmaAddress_>
-struct dma : libMcuLL::peripheralBase {
+template <libMcu::dmaBaseAddress const& dmaAddress_>
+struct dma : libMcu::peripheralBase {
   /**
    * @brief Base initialization function
    *
@@ -23,12 +23,12 @@ struct dma : libMcuLL::peripheralBase {
    *
    * @return return pointer to peripheral
    */
-  static hw::dma::peripheral* dmaPeripheral() {
-    return reinterpret_cast<hw::dma::peripheral*>(dmaAddress);
+  static libMcuHw::dma::peripheral* dmaPeripheral() {
+    return reinterpret_cast<libMcuHw::dma::peripheral*>(dmaAddress);
   }
 
  private:
-  static constexpr libMcuLL::hwAddressType dmaAddress = dmaAddress_; /**< peripheral address */
+  static constexpr libMcu::hwAddressType dmaAddress = dmaAddress_; /**< peripheral address */
 };
 }  // namespace libMcuLL::sw::dma
 #endif

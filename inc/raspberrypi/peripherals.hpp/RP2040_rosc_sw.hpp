@@ -11,8 +11,8 @@
 #define RP2040_ROSC_SW_HPP
 
 namespace libMcuLL::sw::rosc {
-template <libMcuLL::roscBaseAddress const& roscAddress_>
-struct rosc : libMcuLL::peripheralBase {
+template <libMcu::roscBaseAddress const& roscAddress_>
+struct rosc : libMcu::peripheralBase {
   /**
    * @brief Base initialization function
    *
@@ -23,12 +23,12 @@ struct rosc : libMcuLL::peripheralBase {
    *
    * @return return pointer to peripheral
    */
-  static hw::rosc::peripheral* roscPeripheral() {
-    return reinterpret_cast<hw::rosc::peripheral*>(roscAddress);
+  static libMcuHw::rosc::peripheral* roscPeripheral() {
+    return reinterpret_cast<libMcuHw::rosc::peripheral*>(roscAddress);
   }
 
  private:
-  static constexpr libMcuLL::hwAddressType roscAddress = roscAddress_; /**< peripheral address */
+  static constexpr libMcu::hwAddressType roscAddress = roscAddress_; /**< peripheral address */
 };
 }  // namespace libMcuLL::sw::rosc
 #endif

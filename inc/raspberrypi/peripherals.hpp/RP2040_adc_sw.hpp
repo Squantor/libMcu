@@ -11,8 +11,8 @@
 #define RP2040_ADC_SW_HPP
 
 namespace libMcuLL::sw::adc {
-template <libMcuLL::adcBaseAddress const& adcAddress_>
-struct adc : libMcuLL::peripheralBase {
+template <libMcu::adcBaseAddress const& adcAddress_>
+struct adc : libMcu::peripheralBase {
   /**
    * @brief Base initialization function
    *
@@ -23,12 +23,12 @@ struct adc : libMcuLL::peripheralBase {
    *
    * @return return pointer to peripheral
    */
-  static hw::adc::peripheral* adcPeripheral() {
-    return reinterpret_cast<hw::adc::peripheral*>(adcAddress);
+  static libMcuHw::adc::peripheral* adcPeripheral() {
+    return reinterpret_cast<libMcuHw::adc::peripheral*>(adcAddress);
   }
 
  private:
-  static constexpr libMcuLL::hwAddressType adcAddress = adcAddress_; /**< peripheral address */
+  static constexpr libMcu::hwAddressType adcAddress = adcAddress_; /**< peripheral address */
 };
 }  // namespace libMcuLL::sw::adc
 #endif

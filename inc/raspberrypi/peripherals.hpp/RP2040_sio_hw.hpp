@@ -10,7 +10,7 @@
 #ifndef RP2040_SIO_HW_HPP
 #define RP2040_SIO_HW_HPP
 
-namespace libMcuLL::hw::sio {
+namespace libMcuHw::sio {
 /**
  * @brief SIO register definitions
  *
@@ -140,6 +140,6 @@ constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFE0u}; /**< mask for allowe
 namespace GPIO_HI_OE_XOR {
 constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFE0u}; /**< mask for allowed bits */
 }  // namespace GPIO_HI_OE_XOR
-}  // namespace libMcuLL::hw::sio
+}  // namespace libMcuHw::sio
 
 #endif

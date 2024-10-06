@@ -10,7 +10,7 @@
 #ifndef RP2040_SPI_HW_HPP
 #define RP2040_SPI_HW_HPP
 
-namespace libMcuLL::hw::spi {
+namespace libMcuHw::spi {
 /**
  * @brief SPI register definitions
  *
@@ -129,5 +129,5 @@ constexpr inline std::uint32_t RESERVED_MASK{0x0000'0003u}; /**< Mask for allowe
 constexpr inline std::uint32_t TXDMAE{1u << 1};             /**< Transmit DMA Enable */
 constexpr inline std::uint32_t RXDMAE{1u << 0};             /**< Receive DMA Enable */
 }  // namespace SSPDMACR
-}  // namespace libMcuLL::hw::spi
+}  // namespace libMcuHw::spi
 #endif

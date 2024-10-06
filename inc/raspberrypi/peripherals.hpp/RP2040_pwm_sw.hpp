@@ -11,8 +11,8 @@
 #define RP2040_PWM_SW_HPP
 
 namespace libMcuLL::sw::pwm {
-template <libMcuLL::pwmBaseAddress const& pwmAddress_>
-struct pwm : libMcuLL::peripheralBase {
+template <libMcu::pwmBaseAddress const& pwmAddress_>
+struct pwm : libMcu::peripheralBase {
   /**
    * @brief Base initialization function
    *
@@ -23,12 +23,12 @@ struct pwm : libMcuLL::peripheralBase {
    *
    * @return return pointer to peripheral
    */
-  static hw::pwm::peripheral* pwmPeripheral() {
-    return reinterpret_cast<hw::pwm::peripheral*>(pwmAddress);
+  static libMcuHw::pwm::peripheral* pwmPeripheral() {
+    return reinterpret_cast<libMcuHw::pwm::peripheral*>(pwmAddress);
   }
 
  private:
-  static constexpr libMcuLL::hwAddressType pwmAddress{pwmAddress_}; /**< peripheral address */
+  static constexpr libMcu::hwAddressType pwmAddress{pwmAddress_}; /**< peripheral address */
 };
 }  // namespace libMcuLL::sw::pwm
 #endif

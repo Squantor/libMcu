@@ -11,8 +11,8 @@
 #define RP2040_PIO_SW_HPP
 
 namespace libMcuLL::sw::pio {
-template <libMcuLL::pioBaseAddress const& pioAddress_>
-struct pio : libMcuLL::peripheralBase {
+template <libMcu::pioBaseAddress const& pioAddress_>
+struct pio : libMcu::peripheralBase {
   /**
    * @brief Base initialization function
    *
@@ -23,12 +23,12 @@ struct pio : libMcuLL::peripheralBase {
    *
    * @return return pointer to peripheral
    */
-  static hw::pio::peripheral* pioPeripheral() {
-    return reinterpret_cast<hw::pio::peripheral*>(pioAddress);
+  static libMcuHw::pio::peripheral* pioPeripheral() {
+    return reinterpret_cast<libMcuHw::pio::peripheral*>(pioAddress);
   }
 
  private:
-  static constexpr libMcuLL::hwAddressType pioAddress = pioAddress_; /**< peripheral address */
+  static constexpr libMcu::hwAddressType pioAddress = pioAddress_; /**< peripheral address */
 };
 }  // namespace libMcuLL::sw::pio
 #endif

@@ -124,16 +124,16 @@ enum class IOfuncts : std::uint8_t {
  * TODO: Need to change to a common gpio namespace
  */
 enum class IOfunctSelects : std::uint8_t {
-  F1 = libMcuLL::hw::gpioBank0::CTRL::F1,     /**< Function 1 selected */
-  F2 = libMcuLL::hw::gpioBank0::CTRL::F2,     /**< Function 2 selected */
-  F3 = libMcuLL::hw::gpioBank0::CTRL::F3,     /**< Function 3 selected */
-  F4 = libMcuLL::hw::gpioBank0::CTRL::F4,     /**< Function 4 selected */
-  F5 = libMcuLL::hw::gpioBank0::CTRL::F5,     /**< Function 5 selected */
-  F6 = libMcuLL::hw::gpioBank0::CTRL::F6,     /**< Function 6 selected */
-  F7 = libMcuLL::hw::gpioBank0::CTRL::F7,     /**< Function 7 selected */
-  F8 = libMcuLL::hw::gpioBank0::CTRL::F8,     /**< Function 8 selected */
-  F9 = libMcuLL::hw::gpioBank0::CTRL::F9,     /**< Function 9 selected */
-  NONE = libMcuLL::hw::gpioBank0::CTRL::NONE, /**< No Function selected */
+  F1 = libMcuHw::gpioBank0::CTRL::F1,     /**< Function 1 selected */
+  F2 = libMcuHw::gpioBank0::CTRL::F2,     /**< Function 2 selected */
+  F3 = libMcuHw::gpioBank0::CTRL::F3,     /**< Function 3 selected */
+  F4 = libMcuHw::gpioBank0::CTRL::F4,     /**< Function 4 selected */
+  F5 = libMcuHw::gpioBank0::CTRL::F5,     /**< Function 5 selected */
+  F6 = libMcuHw::gpioBank0::CTRL::F6,     /**< Function 6 selected */
+  F7 = libMcuHw::gpioBank0::CTRL::F7,     /**< Function 7 selected */
+  F8 = libMcuHw::gpioBank0::CTRL::F8,     /**< Function 8 selected */
+  F9 = libMcuHw::gpioBank0::CTRL::F9,     /**< Function 9 selected */
+  NONE = libMcuHw::gpioBank0::CTRL::NONE, /**< No Function selected */
 };
 
 /**

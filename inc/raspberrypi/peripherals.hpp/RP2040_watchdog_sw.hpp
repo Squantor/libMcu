@@ -11,8 +11,8 @@
 #define RP2040_WATCHDOG_SW_HPP
 
 namespace libMcuLL::sw::watchdog {
-template <libMcuLL::watchdogBaseAddress const& watchdogAddress_>
-struct watchdog : libMcuLL::peripheralBase {
+template <libMcu::watchdogBaseAddress const& watchdogAddress_>
+struct watchdog : libMcu::peripheralBase {
   /**
    * @brief Base initialization function
    *
@@ -23,12 +23,12 @@ struct watchdog : libMcuLL::peripheralBase {
    *
    * @return return pointer to peripheral
    */
-  static hw::watchdog::peripheral* watchdogPeripheral() {
-    return reinterpret_cast<hw::watchdog::peripheral*>(watchdogAddress);
+  static libMcuHw::watchdog::peripheral* watchdogPeripheral() {
+    return reinterpret_cast<libMcuHw::watchdog::peripheral*>(watchdogAddress);
   }
 
  private:
-  static constexpr libMcuLL::hwAddressType watchdogAddress{watchdogAddress_}; /**< peripheral address */
+  static constexpr libMcu::hwAddressType watchdogAddress{watchdogAddress_}; /**< peripheral address */
 };
 }  // namespace libMcuLL::sw::watchdog
 #endif

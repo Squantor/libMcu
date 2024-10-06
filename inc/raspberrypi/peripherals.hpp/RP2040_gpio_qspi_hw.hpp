@@ -10,7 +10,7 @@
 #ifndef RP2040_GPIO_QSPI_HW_HPP
 #define RP2040_GPIO_QSPI_HW_HPP
 
-namespace libMcuLL::hw::gpioQspi {
+namespace libMcuHw::gpioQspi {
 /**
  * @brief DMA register definitions
  *

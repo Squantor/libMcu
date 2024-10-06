@@ -11,8 +11,8 @@
 #define RP2040_USBCTRL_SW_HPP
 
 namespace libMcuLL::sw::usbctrl {
-template <libMcuLL::usbCtrlRegsBaseAddress const& usbctrlAddress_>
-struct usbctrl : libMcuLL::peripheralBase {
+template <libMcu::usbCtrlRegsBaseAddress const& usbctrlAddress_>
+struct usbctrl : libMcu::peripheralBase {
   /**
    * @brief Base initialization function
    *
@@ -23,12 +23,12 @@ struct usbctrl : libMcuLL::peripheralBase {
    *
    * @return return pointer to peripheral
    */
-  static hw::usbCtrl::peripheral* usbctrlPeripheral() {
-    return reinterpret_cast<hw::usbCtrl::peripheral*>(usbctrlAddress);
+  static libMcuHw::usbCtrl::peripheral* usbctrlPeripheral() {
+    return reinterpret_cast<libMcuHw::usbCtrl::peripheral*>(usbctrlAddress);
   }
 
  private:
-  static constexpr libMcuLL::hwAddressType usbctrlAddress{usbctrlAddress_}; /**< peripheral address */
+  static constexpr libMcu::hwAddressType usbctrlAddress{usbctrlAddress_}; /**< peripheral address */
 };
 }  // namespace libMcuLL::sw::usbctrl
 #endif

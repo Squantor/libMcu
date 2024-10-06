@@ -10,7 +10,7 @@
 #ifndef RP2040_PADS_HW_HPP
 #define RP2040_PADS_HW_HPP
 
-namespace libMcuLL::hw::pads {
+namespace libMcuHw::pads {
 
 namespace VOLTAGE_SELECT {
 constexpr inline std::uint32_t RESERVED_MASK{0x0000'0001u}; /**< Mask for allowed bits */

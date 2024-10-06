@@ -12,13 +12,11 @@
 
 namespace libMcuLL::sw::pads {
 
-using namespace libMcuLL;
-
 enum class driveModes : std::uint32_t {
-  DRIVE_2MA = hw::pads::GPIO::DRIVE_2MA,   /**< 2 milliampere drive strength */
-  DRIVE_4MA = hw::pads::GPIO::DRIVE_4MA,   /**< 4 milliampere drive strength */
-  DRIVE_8MA = hw::pads::GPIO::DRIVE_8MA,   /**< 8 milliampere drive strength */
-  DRIVE_12MA = hw::pads::GPIO::DRIVE_12MA, /**< 12 milliampere drive strength */
+  DRIVE_2MA = libMcuHw::pads::GPIO::DRIVE_2MA,   /**< 2 milliampere drive strength */
+  DRIVE_4MA = libMcuHw::pads::GPIO::DRIVE_4MA,   /**< 4 milliampere drive strength */
+  DRIVE_8MA = libMcuHw::pads::GPIO::DRIVE_8MA,   /**< 8 milliampere drive strength */
+  DRIVE_12MA = libMcuHw::pads::GPIO::DRIVE_12MA, /**< 12 milliampere drive strength */
 };
 }  // namespace libMcuLL::sw::pads
 #endif

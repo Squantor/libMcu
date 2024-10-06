@@ -11,8 +11,8 @@
 #define RP2040_SYSCFG_SW_HPP
 
 namespace libMcuLL::sw::syscfg {
-template <libMcuLL::syscfgBaseAddress const& syscfgAddress_>
-struct syscfg : libMcuLL::peripheralBase {
+template <libMcu::syscfgBaseAddress const& syscfgAddress_>
+struct syscfg : libMcu::peripheralBase {
   /**
    * @brief Base initialization function
    *
@@ -23,12 +23,12 @@ struct syscfg : libMcuLL::peripheralBase {
    *
    * @return return pointer to peripheral
    */
-  static hw::syscfg::peripheral* syscfgPeripheral() {
-    return reinterpret_cast<hw::syscfg::peripheral*>(syscfgAddress);
+  static libMcuHw::syscfg::peripheral* syscfgPeripheral() {
+    return reinterpret_cast<libMcuHw::syscfg::peripheral*>(syscfgAddress);
   }
 
  private:
-  static constexpr libMcuLL::hwAddressType syscfgAddress{syscfgAddress_}; /**< peripheral address */
+  static constexpr libMcu::hwAddressType syscfgAddress{syscfgAddress_}; /**< peripheral address */
 };
 }  // namespace libMcuLL::sw::syscfg
 #endif

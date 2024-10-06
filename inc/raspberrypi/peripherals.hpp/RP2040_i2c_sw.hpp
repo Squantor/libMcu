@@ -11,17 +11,17 @@
 #define RP2040_I2C_SW_HPP
 
 namespace libMcuLL::sw::i2c {
-using namespace libMcuLL::hw::i2c;
+using namespace libMcuHw::i2c;
 /**
  * @brief I2C speed modes
  */
 enum class i2cModes : std::uint32_t {
-  STANDARD = hw::i2c::IC_CON::SPEED_STD,
-  FAST = hw::i2c::IC_CON::SPEED_FAST,
-  HIGH = hw::i2c::IC_CON::SPEED_HIGH,
+  STANDARD = IC_CON::SPEED_STD,
+  FAST = IC_CON::SPEED_FAST,
+  HIGH = IC_CON::SPEED_HIGH,
 };
-template <libMcuLL::i2cBaseAddress const& i2cAddress_>
-struct i2c : libMcuLL::peripheralBase {
+template <libMcu::i2cBaseAddress const& i2cAddress_>
+struct i2c : libMcu::peripheralBase {
   /**
    * @brief Base initialization function
    *
@@ -88,7 +88,7 @@ struct i2c : libMcuLL::peripheralBase {
    * @param transmitBuffer data to send, should at least contain one byte!
    * @param maxTime maximum amount of iterations to wait between each I2C operation
    */
-  constexpr libMcu::results write(libMcuLL::i2cDeviceAddress address, std::span<const std::uint8_t> transmitBuffer,
+  constexpr libMcu::results write(libMcu::i2cDeviceAddress address, std::span<const std::uint8_t> transmitBuffer,
                                   std::uint32_t maxTime) {
     std::uint32_t i2cAddress = static_cast<std::uint32_t>(address.value);
     i2cPeripheral()->IC_ENABLE = IC_ENABLE::ABORT;
@@ -133,7 +133,7 @@ struct i2c : libMcuLL::peripheralBase {
    * @param address I2C device to read from
    * @param receiveBuffer place to put read data, needs to be at least size 1!
    */
-  constexpr libMcu::results read(libMcuLL::i2cDeviceAddress address, std::span<std::uint8_t> receiveBuffer, std::uint32_t maxTime) {
+  constexpr libMcu::results read(libMcu::i2cDeviceAddress address, std::span<std::uint8_t> receiveBuffer, std::uint32_t maxTime) {
     std::uint32_t i2cAddress = static_cast<std::uint32_t>(address.value);
     i2cPeripheral()->IC_ENABLE = IC_ENABLE::ABORT;
     i2cPeripheral()->IC_TAR = i2cAddress;
@@ -176,33 +176,33 @@ struct i2c : libMcuLL::peripheralBase {
    *
    * @return return pointer to peripheral
    */
-  static hw::i2c::peripheral* i2cPeripheral() {
-    return reinterpret_cast<hw::i2c::peripheral*>(i2cAddress);
+  static libMcuHw::i2c::peripheral* i2cPeripheral() {
+    return reinterpret_cast<libMcuHw::i2c::peripheral*>(i2cAddress);
   }
   /**
    * @brief get registers from peripheral for atomic set access
    * @return return pointer to peripheral
    */
-  static hw::i2c::peripheral* i2cPeripheralSet() {
-    return reinterpret_cast<hw::i2c::peripheral*>(i2cAddress + hw::peripheralOffsetSet);
+  static libMcuHw::i2c::peripheral* i2cPeripheralSet() {
+    return reinterpret_cast<libMcuHw::i2c::peripheral*>(i2cAddress + libMcuHw::peripheralOffsetSet);
   }
   /**
    * @brief get registers from peripheral for atomic Clear access
    * @return return pointer to peripheral
    */
-  static hw::i2c::peripheral* i2cPeripheralClear() {
-    return reinterpret_cast<hw::i2c::peripheral*>(i2cAddress + hw::peripheralOffsetClear);
+  static libMcuHw::i2c::peripheral* i2cPeripheralClear() {
+    return reinterpret_cast<libMcuHw::i2c::peripheral*>(i2cAddress + libMcuHw::peripheralOffsetClear);
   }
   /**
    * @brief get registers from peripheral for atomic XOR access
    * @return return pointer to peripheral
    */
-  static hw::i2c::peripheral* i2cPeripheralXor() {
-    return reinterpret_cast<hw::i2c::peripheral*>(i2cAddress + hw::peripheralOffsetXor);
+  static libMcuHw::i2c::peripheral* i2cPeripheralXor() {
+    return reinterpret_cast<libMcuHw::i2c::peripheral*>(i2cAddress + libMcuHw::peripheralOffsetXor);
   }
 
  private:
-  static constexpr libMcuLL::hwAddressType i2cAddress = i2cAddress_; /**< peripheral address */
+  static constexpr libMcu::hwAddressType i2cAddress = i2cAddress_; /**< peripheral address */
 };
 }  // namespace libMcuLL::sw::i2c
 #endif

@@ -10,7 +10,7 @@
 #ifndef RP2040_I2C_HW_HPP
 #define RP2040_I2C_HW_HPP
 
-namespace libMcuLL::hw::i2c {
+namespace libMcuHw::i2c {
 /**
  * @brief I2C register definitions
  *

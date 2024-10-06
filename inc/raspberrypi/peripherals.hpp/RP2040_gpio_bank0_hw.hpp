@@ -10,7 +10,7 @@
 #ifndef RP2040_GPIO_BANK0_HW_HPP
 #define RP2040_GPIO_BANK0_HW_HPP
 
-namespace libMcuLL::hw::gpioBank0 {
+namespace libMcuHw::gpioBank0 {
 /**
  * @brief GPIO  register definitions
  *

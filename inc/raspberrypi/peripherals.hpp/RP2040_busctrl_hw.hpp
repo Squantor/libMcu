@@ -10,7 +10,7 @@
 #ifndef RP2040_BUSCTRL_HW_HPP
 #define RP2040_BUSCTRL_HW_HPP
 
-namespace libMcuLL::hw::busctrl {
+namespace libMcuHw::busctrl {
 /**
  * @brief Bus control register definitions
  *
@@ -21,5 +21,5 @@ struct peripheral {
 namespace DUMMY {
 constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /**< Mask for allowed bits */
 }  // namespace DUMMY
-}  // namespace libMcuLL::hw::busctrl
+}  // namespace libMcuHw::busctrl
 #endif

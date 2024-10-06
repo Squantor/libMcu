@@ -185,24 +185,4 @@ constexpr inline libMcuLL::ppbBaseAddress ppbAddress{0xE000'0000u};             
 #include "raspberrypi/peripherals.hpp/RP2040_xip_ssi_sw.hpp"
 #include "raspberrypi/peripherals.hpp/RP2040_xosc_sw.hpp"
 
-namespace libMcuLL {
-
-// predefined peripheral types
-using padsBank0PeripheralType = sw::padsBank0::padsBank0<hw::padsBank0Address>;
-using gpioBank0PeripheralType = sw::gpioBank0::gpioBank0<hw::ioBank0Address>;
-using resetsPeripheralType = sw::resets::resets<hw::resetsAddress>;
-using sioGpioPeripheralType = sw::sioGpio::sioGpio<hw::sioAddress>;
-using uart0PeripheralType = sw::uart::uart<hw::uart0Address>;
-using uart1PeripheralType = sw::uart::uart<hw::uart1Address>;
-using spi0PeripheralType = sw::spi::spi<hw::spi0Address>;
-using spi1PeripheralType = sw::spi::spi<hw::spi1Address>;
-using i2c0PeripheralType = sw::i2c::i2c<hw::i2c0Address>;
-using i2c1PeripheralType = sw::i2c::i2c<hw::i2c1Address>;
-using clocksPeripheralType = sw::clocks::clocks<hw::clocksAddress>;
-using xoscPeripheralType = sw::xosc::xosc<hw::xoscAddress>;
-using pllSysPeripheralType = sw::pll::pll<hw::pllSysAddress>;
-using pllUsbPeripheralType = sw::pll::pll<hw::pllUsbAddress>;
-
-}  // namespace libMcuLL
-
 #endif

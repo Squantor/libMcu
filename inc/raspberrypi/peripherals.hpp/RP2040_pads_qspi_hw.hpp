@@ -10,7 +10,7 @@
 #ifndef RP2040_PADS_QSPI_HW_HPP
 #define RP2040_PADS_QSPI_HW_HPP
 
-namespace libMcuLL::hw::padsQspi {
+namespace libMcuHw::padsQspi {
 /**
  * @brief I2C register definitions
  *

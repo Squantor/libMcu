@@ -12,9 +12,9 @@
 
 #include "RP2040_pads_hw.hpp"
 
-namespace libMcuLL::hw::padsBank0 {
+namespace libMcuHw::padsBank0 {
 
-using namespace libMcuLL::hw::pads;
+using namespace libMcuHw::pads;
 /**
  * @brief Bank 0 pads definition
  *
@@ -67,5 +67,5 @@ constexpr inline std::uint32_t PDE{1u << 2};      /**< Pulldown enable */
 constexpr inline std::uint32_t SCHMITT{1u << 1};  /**< Schmitt trigger enable */
 constexpr inline std::uint32_t SLEWFAST{1u << 0}; /**< Fast slew rate control */
 }  // namespace SWD
-}  // namespace libMcuLL::hw::padsBank0
+}  // namespace libMcuHw::padsBank0
 #endif

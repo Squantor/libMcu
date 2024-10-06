@@ -11,8 +11,8 @@
 #define RP2040_RTC_SW_HPP
 
 namespace libMcuLL::sw::rtc {
-template <libMcuLL::rtcBaseAddress const& rtcAddress_>
-struct rtc : libMcuLL::peripheralBase {
+template <libMcu::rtcBaseAddress const& rtcAddress_>
+struct rtc : libMcu::peripheralBase {
   /**
    * @brief Base initialization function
    *
@@ -23,12 +23,12 @@ struct rtc : libMcuLL::peripheralBase {
    *
    * @return return pointer to peripheral
    */
-  static hw::rtc::peripheral* rtcPeripheral() {
-    return reinterpret_cast<hw::rtc::peripheral*>(rtcAddress);
+  static libMcuHw::rtc::peripheral* rtcPeripheral() {
+    return reinterpret_cast<libMcuHw::rtc::peripheral*>(rtcAddress);
   }
 
  private:
-  static constexpr libMcuLL::hwAddressType rtcAddress{rtcAddress_}; /**< peripheral address */
+  static constexpr libMcu::hwAddressType rtcAddress{rtcAddress_}; /**< peripheral address */
 };
 }  // namespace libMcuLL::sw::rtc
 #endif
