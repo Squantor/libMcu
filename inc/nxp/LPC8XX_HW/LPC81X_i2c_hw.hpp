@@ -14,9 +14,8 @@ namespace libMcuLL::hw::i2c {
 
 /**
  * @brief I2C bus register definitions
- *
  */
-struct peripheral {
+struct i2c {
   volatile std::uint32_t CFG;                /**< Configuration for shared functions */
   volatile std::uint32_t STAT;               /**< Status register for Master, Slave, and Monitor functions */
   volatile std::uint32_t INTENSET;           /**< Interrupt Enable Set and read register */

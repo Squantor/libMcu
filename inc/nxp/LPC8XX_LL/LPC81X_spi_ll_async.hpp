@@ -231,8 +231,8 @@ struct spiAsync : libMcu::peripheralBase {
    *
    * @return return pointer to spi registers
    */
-  static hw::spi::peripheral *spiPeripheral() {
-    return reinterpret_cast<hw::spi::peripheral *>(spiAddress);
+  static hw::spi::spi *spiPeripheral() {
+    return reinterpret_cast<hw::spi::spi *>(spiAddress);
   }
 
  private:
@@ -326,7 +326,7 @@ struct spiAsync : libMcu::peripheralBase {
   chipEnables transactionDeviceEnable;          /**< Disable chip after transaction */
   bool transactionDisableDevice;                /**< Do we disable chip select after transaction */
   static constexpr std::uint8_t elementBitCnt =
-    std::numeric_limits<transferType>::digits;                       /**< Amount of bits in datatransfer type */
+    std::numeric_limits<transferType>::digits;                     /**< Amount of bits in datatransfer type */
   static constexpr libMcu::hwAddressType spiAddress = spiAddress_; /**< peripheral address */
 };
 }  // namespace libMcuLL::sw::spi

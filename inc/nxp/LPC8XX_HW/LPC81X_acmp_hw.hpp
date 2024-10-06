@@ -15,7 +15,7 @@ namespace libMcuLL::hw::acmp {
  * @brief analog comparator register definitions
  *
  */
-struct peripheral {
+struct acmp {
   volatile std::uint32_t CTRL; /**<  Analog Comparator control register */
   volatile std::uint32_t LAD;  /**<  Voltage ladder register */
 };

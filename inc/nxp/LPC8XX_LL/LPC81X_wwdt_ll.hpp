@@ -20,8 +20,8 @@ struct wwdt {
    *
    * @return return pointer to windowed watchdog registers
    */
-  static hw::wwdt::peripheral *wwdtPeripheral() {
-    return reinterpret_cast<hw::wwdt::peripheral *>(wwdtAddress);
+  static hw::wwdt::wwdt *wwdtPeripheral() {
+    return reinterpret_cast<hw::wwdt::wwdt *>(wwdtAddress);
   }
 };
 }  // namespace libMcuLL::sw::wwdt

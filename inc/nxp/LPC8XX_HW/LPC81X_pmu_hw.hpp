@@ -14,9 +14,8 @@ namespace libMcuLL::hw::pmu {
 
 /**
  * @brief power management register definitions
- *
  */
-struct peripheral {
+struct pmu {
   volatile std::uint32_t PCON;     /**< Power control Register (R/W) */
   volatile std::uint32_t GPREG[4]; /**< General purpose Registers 0..3 (R/W) */
   volatile std::uint32_t DPDCTRL;  /**< Deep power-down control register (R/W) */

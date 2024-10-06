@@ -13,9 +13,8 @@ namespace libMcuLL::hw::gpio {
 
 /**
  * @brief gpio register definitions
- *
  */
-struct peripheral {
+struct gpio {
   volatile std::uint8_t B[128][32]; /**< Byte pin registers ports 0 to n; pins PIOn_0 to PIOn_31 */
   volatile std::uint32_t W[32][32]; /**< Word pin registers port 0 to n */
   volatile std::uint32_t DIR[32];   /**< Direction registers port n */

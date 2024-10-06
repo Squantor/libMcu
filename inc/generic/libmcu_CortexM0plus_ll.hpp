@@ -7,10 +7,22 @@
 /**
  * \file Main entry point for a generic cortex M0+ microcontroller definitions
  */
-#ifndef CORTEXM0PLUS_HPP
-#define CORTEXM0PLUS_HPP
+#ifndef LIBMCU_CORTEXM0PLUS_LL_HPP
+#define LIBMCU_CORTEXM0PLUS_LL_HPP
 
-namespace libMcuLL::hw {
+#include <cstdint>
+#include <cstddef>
+#include <array>
+#include <span>
+#include <type_traits>
+#include <limits>
+#include "../libmcu/libmcu_results.hpp"
+#include "../libmcu/libmcu_types.hpp"
+#include "../libmcu/libmcu_functions.hpp"
+#include "../libmcu/libmcull_types.hpp"
+#include "../libmcu/ringbuffer.hpp"
+
+namespace libMcuHw {
 // MCU configuration options
 namespace core {
 constexpr inline std::uint32_t revision = 0x0001; /**< Revision number */
@@ -41,8 +53,8 @@ enum class interrupts : int8_t {
   dummy1 = 1,   /**< used only for the tests */
   dummy12 = 12, /**< used only for the tests */
 };
-}  // namespace libMcuLL::hw
+}  // namespace libMcuHw
 
-#include <CortexM/cortex_m0plus.hpp>
+#include "../CortexM/cortex_m0plus.hpp"
 
 #endif

@@ -14,9 +14,8 @@ namespace libMcuLL::hw::crc {
 
 /**
  * @brief gpio register definitions
- *
  */
-struct peripheral {
+struct crc {
   volatile std::uint32_t MODE; /**< CRC Mode Register */
   volatile std::uint32_t SEED; /**< CRC SEED Register */
   union {

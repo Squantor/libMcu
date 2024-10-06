@@ -22,7 +22,7 @@ static constexpr inline std::uint8_t stateCount = 2u;  /**< Number of states*/
  * @brief state configurable timer register definitions
  *
  */
-struct peripheral {
+struct sct {
   volatile std::uint32_t CONFIG; /**< configuration Register*/
   union {
     volatile std::uint32_t CTRL; /**< SCT control register*/

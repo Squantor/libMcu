@@ -14,9 +14,8 @@ namespace libMcuLL::hw::spi {
 
 /**
  * @brief SPI register definitions
- *
  */
-struct peripheral {
+struct spi {
   volatile std::uint32_t CFG;           /**< SPI Configuration register */
   volatile std::uint32_t DLY;           /**< SPI Delay register */
   volatile std::uint32_t STAT;          /**< SPI Status register */

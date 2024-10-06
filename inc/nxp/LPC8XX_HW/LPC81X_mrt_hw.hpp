@@ -12,6 +12,10 @@
 
 namespace libMcuLL::hw::mrt {
 
+/**
+ * @brief
+ * @todo try and fold this in mrt peripheral?
+ */
 struct mrtChannel {
   volatile std::uint32_t INTVAL; /* Timer interval register */
   volatile std::uint32_t TIMER;  /* Timer register */
@@ -19,7 +23,10 @@ struct mrtChannel {
   volatile std::uint32_t STAT;   /* Timer status register */
 };
 
-struct peripheral {
+/**
+ * @brief
+ */
+struct mrt {
   mrtChannel CHANNEL[4];
   volatile std::uint32_t RESERVED1[45];
   volatile std::uint32_t IDLE_CH;

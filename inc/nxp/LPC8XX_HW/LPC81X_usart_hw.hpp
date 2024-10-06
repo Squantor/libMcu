@@ -14,9 +14,8 @@ namespace libMcuLL::hw::usart {
 
 /**
  * @brief USART register definitions
- *
  */
-struct peripheral {
+struct usart {
   volatile std::uint32_t CFG;             /**< USART Configuration register. */
   volatile std::uint32_t CTL;             /**< USART Control register. */
   volatile std::uint32_t STAT;            /**< USART Status register. */
@@ -28,7 +27,6 @@ struct peripheral {
   volatile std::uint32_t BRG;             /**< Baud Rate Generator register. */
   volatile const std::uint32_t INTSTAT;   /**< Interrupt status register. */
 };
-
 namespace CFG {
 constexpr inline std::uint32_t RESERVED_MASK{0x0000'DA7Du}; /**< register mask for allowed bits */
 constexpr inline std::uint32_t ENABLE{1u << 0};             /**< Enable USART */

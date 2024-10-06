@@ -19,8 +19,8 @@ struct pinint : libMcu::peripheralBase {
    *
    * @return return pointer to pin interrupt registers
    */
-  constexpr static hw::pinint::peripheral *pinintPeripheral() {
-    return reinterpret_cast<hw::pinint::peripheral *>(pinintAddress);
+  constexpr static hw::pinint::pinint *pinintPeripheral() {
+    return reinterpret_cast<hw::pinint::pinint *>(pinintAddress);
   }
 
  private:

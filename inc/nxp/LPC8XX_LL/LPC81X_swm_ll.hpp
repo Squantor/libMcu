@@ -71,8 +71,8 @@ struct swm : libMcu::peripheralBase {
    *
    * @return return pointer to registers
    */
-  constexpr hw::swm::peripheral *swmPeripheral() {
-    return reinterpret_cast<hw::swm::peripheral *>(swmAddress);
+  constexpr hw::swm::swm *swmPeripheral() {
+    return reinterpret_cast<hw::swm::swm *>(swmAddress);
   }
 
  private:

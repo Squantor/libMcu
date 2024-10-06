@@ -10,7 +10,7 @@
 #ifndef RP2040_PADS_BANK0_SW_HPP
 #define RP2040_PADS_BANK0_SW_HPP
 
-#include "RP2040_pads_sw.hpp"
+#include "RP2040_pads_ll.hpp"
 
 namespace libMcuLL::padsBank0 {
 using namespace libMcuLL::pads;

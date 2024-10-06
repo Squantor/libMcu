@@ -14,9 +14,8 @@ namespace libMcuLL::hw::syscon {
 
 /**
  * @brief sysctl register definitions
- *
  */
-struct peripheral {
+struct syscon {
   volatile std::uint32_t SYSMEMREMAP;    /**<  System memory remap (R/W) */
   volatile std::uint32_t PRESETCTRL;     /**<  Peripheral reset control (R/W) */
   volatile std::uint32_t SYSPLLCTRL;     /**<  System PLL control (R/W) */
@@ -66,7 +65,6 @@ struct peripheral {
   std::uint32_t RESERVED14[111];         /**< reserved */
   volatile const std::uint32_t DEVICEID; /**< Device ID (R/ ) */
 };
-
 namespace SYSMEMREMAP {
 constexpr inline std::uint32_t RESERVED_MASK = 0x00000003u; /**< register mask for allowed bits */
 constexpr inline std::uint32_t MAP_BOOT = (0 << 0);         /**< Map interrupts to boot ROM */

@@ -14,9 +14,8 @@ namespace libMcuLL::hw::wkt {
 
 /**
  * @brief wakeup timer register definitions
- *
  */
-struct peripheral {
+struct wkt {
   volatile std::uint32_t CTRL; /**< Alarm/Wakeup Timer Control register */
   std::uint32_t Reserved[2];
   volatile std::uint32_t COUNT; /**< Alarm/Wakeup Timer Counter register */

@@ -11,7 +11,8 @@
 #define LPC81X_CRC_HPP
 
 namespace libMcuLL::sw::crc {
-using namespace hw::crc;
+namespace hardware = hw::crc;
+
 template <libMcu::crcBaseAddress crcAddress_>
 struct crc : libMcu::peripheralBase {
   /**
@@ -19,8 +20,8 @@ struct crc : libMcu::peripheralBase {
    *
    * @return return pointer to CRC registers
    */
-  constexpr static hw::crc::peripheral *crcPeripheral() {
-    return reinterpret_cast<hw::crc::peripheral *>(crcAddress_);
+  constexpr static hw::crc::crc *crcPeripheral() {
+    return reinterpret_cast<hw::crc::crc *>(crcAddress_);
   }
 
  private:

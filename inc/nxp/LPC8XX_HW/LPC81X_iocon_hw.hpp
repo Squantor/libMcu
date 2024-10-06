@@ -14,12 +14,10 @@ namespace libMcuLL::hw::iocon {
 
 /**
  * @brief IOCON register definitions
- *
  */
-struct peripheral {
+struct iocon {
   volatile std::uint32_t PIO[56]; /**< Pin control registers */
 };
-
 namespace PIO {
 constexpr inline std::uint32_t INACTIVE{0u << 3};      /**< No pullup/down */
 constexpr inline std::uint32_t PULLDOWN{1u << 3};      /**< Pulldown enabled */

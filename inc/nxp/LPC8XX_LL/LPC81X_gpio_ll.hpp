@@ -213,8 +213,8 @@ struct gpio : libMcu::peripheralBase {
    *
    * @return return pointer to gpio registers
    */
-  constexpr hw::gpio::peripheral *gpioPeripheral() {
-    return reinterpret_cast<hw::gpio::peripheral *>(gpioAddress);
+  constexpr hw::gpio::gpio *gpioPeripheral() {
+    return reinterpret_cast<hw::gpio::gpio *>(gpioAddress);
   }
 
  private:

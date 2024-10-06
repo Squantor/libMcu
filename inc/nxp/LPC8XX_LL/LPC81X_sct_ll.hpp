@@ -246,8 +246,8 @@ struct sct : libMcu::peripheralBase {
    *
    * @return return pointer to state configurable timer registers
    */
-  constexpr static hw::sct::peripheral *sctPeripheral() {
-    return reinterpret_cast<hw::sct::peripheral *>(sctAddress);
+  constexpr static hw::sct::sct *sctPeripheral() {
+    return reinterpret_cast<hw::sct::sct *>(sctAddress);
   }
 
  private:

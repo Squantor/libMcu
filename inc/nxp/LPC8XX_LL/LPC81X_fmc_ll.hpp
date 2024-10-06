@@ -35,8 +35,8 @@ struct fmc {
    *
    * @return return pointer to gpio registers
    */
-  constexpr static hw::fmc::peripheral *fmcPeripheral() {
-    return reinterpret_cast<hw::fmc::peripheral *>(fmcAddress);
+  constexpr static hw::fmc::fmc *fmcPeripheral() {
+    return reinterpret_cast<hw::fmc::fmc *>(fmcAddress);
   }
 
  private:

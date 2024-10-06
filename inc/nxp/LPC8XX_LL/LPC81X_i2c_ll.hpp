@@ -93,8 +93,8 @@ struct i2c : libMcu::peripheralBase {
    *
    * @return return pointer to i2c registers
    */
-  constexpr static hw::i2c::peripheral *i2cPeripheral() {
-    return reinterpret_cast<hw::i2c::peripheral *>(i2cAddress);
+  constexpr static hw::i2c::i2c *i2cPeripheral() {
+    return reinterpret_cast<hw::i2c::i2c *>(i2cAddress);
   }
 
  private:

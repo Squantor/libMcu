@@ -166,8 +166,8 @@ struct spiSync : libMcu::peripheralBase {
    *
    * @return return pointer to spi registers
    */
-  constexpr hw::spi::peripheral *spiPeripheral() {
-    return reinterpret_cast<hw::spi::peripheral *>(spiAddress);
+  constexpr hw::spi::spi *spiPeripheral() {
+    return reinterpret_cast<hw::spi::spi *>(spiAddress);
   }
 
  private:

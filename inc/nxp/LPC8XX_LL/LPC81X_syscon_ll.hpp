@@ -260,8 +260,8 @@ struct syscon : libMcu::peripheralBase {
    *
    * @return return pointer to syscon registers
    */
-  constexpr static hw::syscon::peripheral *sysconPeripheral() {
-    return reinterpret_cast<hw::syscon::peripheral *>(sysconAddress);
+  constexpr static hw::syscon::syscon *sysconPeripheral() {
+    return reinterpret_cast<hw::syscon::syscon *>(sysconAddress);
   }
 
  private:

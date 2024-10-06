@@ -149,8 +149,8 @@ struct iocon : libMcu::peripheralBase {
    *
    * @return return pointer to iocon registers
    */
-  static constexpr hw::iocon::peripheral *ioconPeripheral() {
-    return reinterpret_cast<hw::iocon::peripheral *>(ioconAddress);
+  static constexpr hw::iocon::iocon *ioconPeripheral() {
+    return reinterpret_cast<hw::iocon::iocon *>(ioconAddress);
   }
 
  private:

@@ -11,12 +11,13 @@
 #define LPC84X_ADC_HW_HPP
 
 namespace libMcuHw::adc {
-
+/**
+ * @brief
+ */
 enum sequencers : std::size_t {
   SEQA = 0, /**< ADC sequencer A */
   SEQB = 1, /**< ADC sequencer B */
 };
-
 /**
  * @brief Analog to Digital converter register definitions
  */

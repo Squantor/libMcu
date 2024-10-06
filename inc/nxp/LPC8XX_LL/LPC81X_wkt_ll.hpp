@@ -19,8 +19,8 @@ struct wkt {
    *
    * @return return pointer to wkt registers
    */
-  static hw::wkt::peripheral *wktPeripheral() {
-    return reinterpret_cast<hw::wkt::peripheral *>(wktAddress);
+  static hw::wkt::wkt *wktPeripheral() {
+    return reinterpret_cast<hw::wkt::wkt *>(wktAddress);
   }
 
  private:

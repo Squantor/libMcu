@@ -186,18 +186,18 @@ struct usartAsync : libMcu::peripheralBase {
    *
    * @return return pointer to usart registers
    */
-  static hw::usart::peripheral *usartPeripheral() {
-    return reinterpret_cast<hw::usart::peripheral *>(usartAddress);
+  static hw::usart::usart *usartPeripheral() {
+    return reinterpret_cast<hw::usart::usart *>(usartAddress);
   }
 
  private:
   static constexpr libMcu::hwAddressType usartAddress = usartAddress_; /**< peripheral address */
-  detail::synchonousStates transactionWriteState;                        /**< usart write transaction state */
-  detail::synchonousStates transactionReadState;                         /**< usart read transaction state */
-  std::size_t transactionWriteIndex;                                     /**< transaction write buffer index */
-  std::size_t transactionReadIndex;                                      /**< transaction read buffer index */
-  std::span<transferType> transactionWriteData;                          /**< data to write */
-  std::span<transferType> transactionReadData;                           /**< where to put read data in */
+  detail::synchonousStates transactionWriteState;                      /**< usart write transaction state */
+  detail::synchonousStates transactionReadState;                       /**< usart read transaction state */
+  std::size_t transactionWriteIndex;                                   /**< transaction write buffer index */
+  std::size_t transactionReadIndex;                                    /**< transaction read buffer index */
+  std::span<transferType> transactionWriteData;                        /**< data to write */
+  std::span<transferType> transactionReadData;                         /**< where to put read data in */
 };
 }  // namespace libMcuLL::sw::usart
 #endif

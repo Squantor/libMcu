@@ -7,8 +7,8 @@
 /**
  * @file Cortex M0 definitions and classes
  */
-#ifndef CORTEX_M0_PLUS_HPP
-#define CORTEX_M0_PLUS_HPP
+#ifndef CORTEX_M0PLUS_HPP
+#define CORTEX_M0PLUS_HPP
 
 namespace libMcuHw {
 

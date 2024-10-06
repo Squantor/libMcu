@@ -10,16 +10,15 @@
 #ifndef RP2040_HAL_HPP
 #define RP2040_HAL_HPP
 
-#include "raspberrypi/HAL/RP2040_pins.hpp"
-#include "raspberrypi/HAL/RP2040_gpio.hpp"
-#include "raspberrypi/HAL/RP2040_spi_sync.hpp"
+#include "RP2040_HAL/RP2040_hal_pins.hpp"
+#include "RP2040_HAL/RP2040_hal_gpio.hpp"
+#include "RP2040_HAL/RP2040_hal_spi_sync.hpp"
 
 namespace libMcuHal {
-using namespace libMcuLL::hw;
-using pinsHalType = pins::pins<padsBank0Address, ioBank0Address>;
-using gpioHalType = gpio::gpio<padsBank0Address, ioBank0Address, sioAddress>;
-using spi0SyncHalType = spi::spi<libMcuLL::hw::spi0Address>;
-using spi1SyncHalType = spi::spi<libMcuLL::hw::spi1Address>;
+using pinsHalType = pins::pins<libMcuHw::padsBank0Address, libMcuHw::ioBank0Address>;
+using gpioHalType = gpio::gpio<libMcuHw::padsBank0Address, libMcuHw::ioBank0Address, libMcuHw::sioAddress>;
+using spi0SyncHalType = spi::spi<libMcuHw::spi0Address>;
+using spi1SyncHalType = spi::spi<libMcuHw::spi1Address>;
 }  // namespace libMcuHal
 
 #endif

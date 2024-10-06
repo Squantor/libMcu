@@ -11,7 +11,9 @@
 #define LPC81X_SWM_REGS_HPP
 
 namespace libMcuLL::hw::swm {
-
+/**
+ * @brief
+ */
 enum pinAssign : std::uint8_t {
   PIO0_0 = 0u,     /**< assign to pin P0_0. */
   PIO0_1 = 1u,     /**< assign to pin P0_1. */
@@ -33,7 +35,9 @@ enum pinAssign : std::uint8_t {
   PIO0_17 = 17u,   /**< assign to pin P0_17. */
   PIO_NONE = 0xFFu /**< assign to nothing */
 };
-
+/**
+ * @brief
+ */
 enum functionMovable : std::uint8_t {
   USART0_TXD_O = 0u,     /**< UART0 TXD Output */
   USART0_RXD_I = 1u,     /**< UART0 RXD Input */
@@ -72,7 +76,9 @@ enum functionMovable : std::uint8_t {
   CLKOUT_O = 34u,        /**< CLKOUT Output */
   GPIO_INT_BMAT_O = 35u, /**< GPIO INT BMAT Output */
 };
-
+/**
+ * @brief
+ */
 enum functionFixed : std::uint16_t {
   ACMP_I1 = (1 << 0), /**< ACMP I1 */
   ACMP_I2 = (1 << 1), /**< ACMP I2 */
@@ -84,7 +90,9 @@ enum functionFixed : std::uint16_t {
   CLKIN = (1 << 7),   /**< Clock Input */
   VDDCMP = (1 << 8)   /**< ACMP VDD*/
 };
-
+/**
+ * @brief
+ */
 enum class pinFunctions : std::uint8_t {
   U0_TXD_O,        /**< UART0 TXD Output */
   U0_RXD_I,        /**< UART0 RXD Input */
@@ -132,16 +140,16 @@ enum class pinFunctions : std::uint8_t {
   CLKIN,           /**< Clock Input */
   VDDCMP,          /**< analog comparator vdd input */
 };
-
+/**
+ * @brief
+ */
 enum class pinFunctionTypes : std::uint8_t {
   MOVABLE, /**< Function is a movable function */
   FIXED,   /**< Function is a fixed pin function */
   CLEAR,   /**< This function clears */
 };
-
 /**
  * @brief pin function base template
- *
  * @tparam T_FUNC pin function
  * @tparam DUMMY  needed for the static_assert
  */
@@ -149,7 +157,6 @@ template <pinFunctions T_FUNC, bool DUMMY = false>
 struct pinFunction {
   static_assert(DUMMY, "This configuration is invalid!");
 };
-
 /**
  * @brief Template specialization for UART 0 TX output
  *
@@ -161,10 +168,8 @@ struct pinFunction<pinFunctions::U0_TXD_O> {
   static constexpr std::uint8_t index{0};
   static constexpr std::uint8_t shift{0};
 };
-
 /**
  * @brief Template specialization for UART 0 RX input
- *
  * @tparam pinfunction specialization
  */
 template <>
@@ -173,7 +178,6 @@ struct pinFunction<pinFunctions::U0_RXD_I> {
   static constexpr std::uint8_t index{0};
   static constexpr std::uint8_t shift{8};
 };
-
 /**
  * @brief Template specialization for UART 0 RTS output
  *
@@ -185,7 +189,6 @@ struct pinFunction<pinFunctions::U0_RTS_O> {
   static constexpr std::uint8_t index{0};
   static constexpr std::uint8_t shift{16};
 };
-
 /**
  * @brief Template specialization for UART 0 CTS input
  *
@@ -197,7 +200,6 @@ struct pinFunction<pinFunctions::U0_CTS_I> {
   static constexpr std::uint8_t index{0};
   static constexpr std::uint8_t shift{24};
 };
-
 /**
  * @brief Template specialization for UART 0 SCLK output
  *
@@ -209,7 +211,6 @@ struct pinFunction<pinFunctions::U0_SCLK_IO> {
   static constexpr std::uint8_t index{1};
   static constexpr std::uint8_t shift{0};
 };
-
 /**
  * @brief Template specialization for UART 1 TX output
  *
@@ -221,7 +222,6 @@ struct pinFunction<pinFunctions::U1_TXD_O> {
   static constexpr std::uint8_t index{1};
   static constexpr std::uint8_t shift{8};
 };
-
 /**
  * @brief Template specialization for UART 1 RX input
  *
@@ -233,7 +233,6 @@ struct pinFunction<pinFunctions::U1_RXD_I> {
   static constexpr std::uint8_t index{1};
   static constexpr std::uint8_t shift{16};
 };
-
 /**
  * @brief Template specialization for UART 1 RTS output
  *
@@ -245,7 +244,6 @@ struct pinFunction<pinFunctions::U1_RTS_O> {
   static constexpr std::uint8_t index{1};
   static constexpr std::uint8_t shift{24};
 };
-
 /**
  * @brief Template specialization for UART 1 CTS input
  *
@@ -257,7 +255,6 @@ struct pinFunction<pinFunctions::U1_CTS_I> {
   static constexpr std::uint8_t index{2};
   static constexpr std::uint8_t shift{0};
 };
-
 /**
  * @brief Template specialization for UART 1 SCLK input/output
  *
@@ -269,7 +266,6 @@ struct pinFunction<pinFunctions::U1_SCLK_IO> {
   static constexpr std::uint8_t index{2};
   static constexpr std::uint8_t shift{8};
 };
-
 /**
  * @brief Template specialization for UART 2 TX output
  *
@@ -281,7 +277,6 @@ struct pinFunction<pinFunctions::U2_TXD_O> {
   static constexpr std::uint8_t index{2};
   static constexpr std::uint8_t shift{16};
 };
-
 /**
  * @brief Template specialization for UART 2 RX input
  *
@@ -293,7 +288,6 @@ struct pinFunction<pinFunctions::U2_RXD_I> {
   static constexpr std::uint8_t index{2};
   static constexpr std::uint8_t shift{24};
 };
-
 /**
  * @brief Template specialization for UART 2 RTS output
  *
@@ -305,7 +299,6 @@ struct pinFunction<pinFunctions::U2_RTS_O> {
   static constexpr std::uint8_t index{3};
   static constexpr std::uint8_t shift{0};
 };
-
 /**
  * @brief Template specialization for UART 2 CTS input
  *
@@ -317,7 +310,6 @@ struct pinFunction<pinFunctions::U2_CTS_I> {
   static constexpr std::uint8_t index{3};
   static constexpr std::uint8_t shift{8};
 };
-
 /**
  * @brief Template specialization for UART 2 SCLK input/output
  *
@@ -329,7 +321,6 @@ struct pinFunction<pinFunctions::U2_SCLK_IO> {
   static constexpr std::uint8_t index{3};
   static constexpr std::uint8_t shift{16};
 };
-
 /**
  * @brief Template specialization for SPI 0 SCK input/output
  *
@@ -341,7 +332,6 @@ struct pinFunction<pinFunctions::SPI0_SCK_IO> {
   static constexpr std::uint8_t index{3};
   static constexpr std::uint8_t shift{24};
 };
-
 /**
  * @brief Template specialization for SPI 0 MOSI input/output
  *
@@ -365,7 +355,6 @@ struct pinFunction<pinFunctions::SPI0_MISO_IO> {
   static constexpr std::uint8_t index{4};
   static constexpr std::uint8_t shift{8};
 };
-
 /**
  * @brief Template specialization for SPI 0 SSEL input/output
  *
@@ -377,7 +366,6 @@ struct pinFunction<pinFunctions::SPI0_SSEL_IO> {
   static constexpr std::uint8_t index{4};
   static constexpr std::uint8_t shift{16};
 };
-
 /**
  * @brief Template specialization for SPI 1 SCK input/output
  *
@@ -389,7 +377,6 @@ struct pinFunction<pinFunctions::SPI1_SCK_IO> {
   static constexpr std::uint8_t index{4};
   static constexpr std::uint8_t shift{24};
 };
-
 /**
  * @brief Template specialization for SPI 1 MOSI input/output
  *
@@ -401,7 +388,6 @@ struct pinFunction<pinFunctions::SPI1_MOSI_IO> {
   static constexpr std::uint8_t index{5};
   static constexpr std::uint8_t shift{0};
 };
-
 /**
  * @brief Template specialization for SPI 1 MISO input/output
  *
@@ -413,7 +399,6 @@ struct pinFunction<pinFunctions::SPI1_MISO_IO> {
   static constexpr std::uint8_t index{5};
   static constexpr std::uint8_t shift{8};
 };
-
 /**
  * @brief Template specialization for SPI 1 SSEL input/output
  *
@@ -425,7 +410,6 @@ struct pinFunction<pinFunctions::SPI1_SSEL_IO> {
   static constexpr std::uint8_t index{5};
   static constexpr std::uint8_t shift{16};
 };
-
 /**
  * @brief Template specialization for SCT input 0
  *
@@ -437,7 +421,6 @@ struct pinFunction<pinFunctions::CTIN_0_I> {
   static constexpr std::uint8_t index{5};
   static constexpr std::uint8_t shift{24};
 };
-
 /**
  * @brief Template specialization for SCT input 1
  *
@@ -449,7 +432,6 @@ struct pinFunction<pinFunctions::CTIN_1_I> {
   static constexpr std::uint8_t index{6};
   static constexpr std::uint8_t shift{0};
 };
-
 /**
  * @brief Template specialization for SCT input 2
  *
@@ -461,7 +443,6 @@ struct pinFunction<pinFunctions::CTIN_2_I> {
   static constexpr std::uint8_t index{6};
   static constexpr std::uint8_t shift{8};
 };
-
 /**
  * @brief Template specialization for SCT input 3
  *
@@ -473,7 +454,6 @@ struct pinFunction<pinFunctions::CTIN_3_I> {
   static constexpr std::uint8_t index{6};
   static constexpr std::uint8_t shift{16};
 };
-
 /**
  * @brief Template specialization for SCT output 0
  *
@@ -485,7 +465,6 @@ struct pinFunction<pinFunctions::CTOUT_0_O> {
   static constexpr std::uint8_t index{6};
   static constexpr std::uint8_t shift{24};
 };
-
 /**
  * @brief Template specialization for SCT output 1
  *
@@ -497,7 +476,6 @@ struct pinFunction<pinFunctions::CTOUT_1_O> {
   static constexpr std::uint8_t index{7};
   static constexpr std::uint8_t shift{0};
 };
-
 /**
  * @brief Template specialization for SCT output 2
  *
@@ -509,7 +487,6 @@ struct pinFunction<pinFunctions::CTOUT_2_O> {
   static constexpr std::uint8_t index{7};
   static constexpr std::uint8_t shift{8};
 };
-
 /**
  * @brief Template specialization for SCT output 3
  *
@@ -521,7 +498,6 @@ struct pinFunction<pinFunctions::CTOUT_3_O> {
   static constexpr std::uint8_t index{7};
   static constexpr std::uint8_t shift{16};
 };
-
 /**
  * @brief Template specialization for I2C SDA input/output
  *
@@ -533,7 +509,6 @@ struct pinFunction<pinFunctions::I2C_SDA_IO> {
   static constexpr std::uint8_t index{7};
   static constexpr std::uint8_t shift{24};
 };
-
 /**
  * @brief Template specialization for I2C SCL input/output
  *
@@ -545,7 +520,6 @@ struct pinFunction<pinFunctions::I2C_SCL_IO> {
   static constexpr std::uint8_t index{8};
   static constexpr std::uint8_t shift{0};
 };
-
 /**
  * @brief Template specialization for analog comparator output
  *
@@ -557,7 +531,6 @@ struct pinFunction<pinFunctions::ACMP_O_O> {
   static constexpr std::uint8_t index{8};
   static constexpr std::uint8_t shift{8};
 };
-
 /**
  * @brief Template specialization for Clock output
  *
@@ -569,7 +542,6 @@ struct pinFunction<pinFunctions::CLKOUT_O> {
   static constexpr std::uint8_t index{8};
   static constexpr std::uint8_t shift{16};
 };
-
 /**
  * @brief Template specialization for GPIO pattern matcher output
  *
@@ -581,7 +553,6 @@ struct pinFunction<pinFunctions::GPIO_INT_BMAT_O> {
   static constexpr std::uint8_t index{8};
   static constexpr std::uint8_t shift{24};
 };
-
 /**
  * @brief Template specialization for analog comparator input 1
  *
@@ -593,7 +564,6 @@ struct pinFunction<pinFunctions::ACMP_I1> {
   static constexpr pinAssign pio{pinAssign::PIO0_0};
   static constexpr functionFixed mask{functionFixed::ACMP_I1};
 };
-
 /**
  * @brief Template specialization for analog comparator input 2
  *
@@ -605,7 +575,6 @@ struct pinFunction<pinFunctions::ACMP_I2> {
   static constexpr pinAssign pio{pinAssign::PIO0_1};
   static constexpr functionFixed mask{functionFixed::ACMP_I2};
 };
-
 /**
  * @brief Template specialization for SWD clock
  *
@@ -617,7 +586,6 @@ struct pinFunction<pinFunctions::SWCLK> {
   static constexpr pinAssign pio{pinAssign::PIO0_3};
   static constexpr functionFixed mask{functionFixed::SWCLK};
 };
-
 /**
  * @brief Template specialization for SWD input/output
  *
@@ -629,7 +597,6 @@ struct pinFunction<pinFunctions::SWDIO> {
   static constexpr pinAssign pio{pinAssign::PIO0_2};
   static constexpr functionFixed mask{functionFixed::SWDIO};
 };
-
 /**
  * @brief Template specialization for crystal input
  *
@@ -641,7 +608,6 @@ struct pinFunction<pinFunctions::XTALIN> {
   static constexpr pinAssign pio{pinAssign::PIO0_8};
   static constexpr functionFixed mask{functionFixed::XTALIN};
 };
-
 /**
  * @brief Template specialization for crystal output
  *
@@ -653,7 +619,6 @@ struct pinFunction<pinFunctions::XTALOUT> {
   static constexpr pinAssign pio{pinAssign::PIO0_9};
   static constexpr functionFixed mask{functionFixed::XTALOUT};
 };
-
 /**
  * @brief Template specialization for RESET input
  *
@@ -665,7 +630,6 @@ struct pinFunction<pinFunctions::RESET> {
   static constexpr pinAssign pio{pinAssign::PIO0_5};
   static constexpr functionFixed mask{functionFixed::RESET};
 };
-
 /**
  * @brief Template specialization for clock input
  *
@@ -677,7 +641,6 @@ struct pinFunction<pinFunctions::CLKIN> {
   static constexpr pinAssign pio{pinAssign::PIO0_1};
   static constexpr functionFixed mask{functionFixed::CLKIN};
 };
-
 /**
  * @brief Template specialization for analog comparator ladder VDD
  *
@@ -689,12 +652,11 @@ struct pinFunction<pinFunctions::VDDCMP> {
   static constexpr pinAssign pio{pinAssign::PIO0_6};
   static constexpr functionFixed mask{functionFixed::VDDCMP};
 };
-
 /**
  * @brief SWM register definitions
  *
  */
-struct peripheral {
+struct swm {
   volatile std::uint32_t PINASSIGN[9];   /**< Pin Assign register array */
   volatile std::uint32_t RESERVED0[103]; /**< reserved*/
   volatile std::uint32_t PINENABLE0;     /**< Pin Enable register */
