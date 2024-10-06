@@ -13,9 +13,8 @@
 namespace libMcuHw::watchdog {
 /**
  * @brief Watchdog register definitions
- *
  */
-struct peripheral {
+struct watchdog {
   volatile std::uint32_t DUMMY; /**< Fill in */
 };
 namespace DUMMY {

@@ -31,7 +31,7 @@ enum clockIndex : std::uint32_t {
  * @brief clocks register definitions
  *
  */
-struct peripheral {
+struct clocks {
   struct {
     volatile std::uint32_t CTRL;                     /**< Clock control */
     volatile std::uint32_t DIV;                      /**< Clock divisor */

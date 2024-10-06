@@ -11,20 +11,19 @@
 #define RP2040_VREG_CHIP_RESET_SW_HPP
 
 namespace libMcuLL::vregChipReset {
+namespace hardware = libMcuHw::vregChipReset;
 template <libMcu::vregChipResetBaseAddress const& vregChipResetAddress_>
 struct vregChipReset : libMcu::peripheralBase {
   /**
    * @brief Base initialization function
-   *
    */
   constexpr void init() {}
   /**
    * @brief get registers from peripheral
-   *
    * @return return pointer to peripheral
    */
-  static libMcuHw::vregChipReset::peripheral* vregChipResetPeripheral() {
-    return reinterpret_cast<libMcuHw::vregChipReset::peripheral*>(vregChipResetAddress);
+  static hardware::vregChipReset* vregChipResetPeripheral() {
+    return reinterpret_cast<hardware::vregChipReset*>(vregChipResetAddress);
   }
 
  private:

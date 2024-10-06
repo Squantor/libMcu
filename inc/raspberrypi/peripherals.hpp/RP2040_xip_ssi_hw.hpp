@@ -13,9 +13,8 @@
 namespace libMcuHw::xipSsi {
 /**
  * @brief Execute In Place serial interface register definitions
- *
  */
-struct peripheral {
+struct xipSsi {
   volatile std::uint32_t DUMMY; /**< Fill in */
 };
 namespace DUMMY {

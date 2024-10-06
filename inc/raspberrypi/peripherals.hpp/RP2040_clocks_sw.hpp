@@ -297,29 +297,29 @@ struct clocks : libMcu::peripheralBase {
    * @brief get registers from peripheral
    * @return return pointer to peripheral
    */
-  static hardware::peripheral* clocksPeripheral() {
-    return reinterpret_cast<hardware::peripheral*>(clocksAddress + libMcuHw::peripheralOffsetNormal);
+  static hardware::clocks* clocksPeripheral() {
+    return reinterpret_cast<hardware::clocks*>(clocksAddress + libMcuHw::peripheralOffsetNormal);
   }
   /**
    * @brief get registers from peripheral for atomic set access
    * @return return pointer to peripheral
    */
-  static hardware::peripheral* clocksPeripheralSet() {
-    return reinterpret_cast<hardware::peripheral*>(clocksAddress + libMcuHw::peripheralOffsetSet);
+  static hardware::clocks* clocksPeripheralSet() {
+    return reinterpret_cast<hardware::clocks*>(clocksAddress + libMcuHw::peripheralOffsetSet);
   }
   /**
    * @brief get registers from peripheral for atomic Clear access
    * @return return pointer to peripheral
    */
-  static hardware::peripheral* clocksPeripheralClear() {
-    return reinterpret_cast<hardware::peripheral*>(clocksAddress + libMcuHw::peripheralOffsetClear);
+  static hardware::clocks* clocksPeripheralClear() {
+    return reinterpret_cast<hardware::clocks*>(clocksAddress + libMcuHw::peripheralOffsetClear);
   }
   /**
    * @brief get registers from peripheral for atomic XOR access
    * @return return pointer to peripheral
    */
-  static hardware::peripheral* clocksPeripheralXor() {
-    return reinterpret_cast<hardware::peripheral*>(clocksAddress + libMcuHw::peripheralOffsetXor);
+  static hardware::clocks* clocksPeripheralXor() {
+    return reinterpret_cast<hardware::clocks*>(clocksAddress + libMcuHw::peripheralOffsetXor);
   }
 
  private:

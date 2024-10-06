@@ -13,9 +13,8 @@
 namespace libMcuHw::sysinfo {
 /**
  * @brief SYSINFO register definitions
- *
  */
-struct peripheral {
+struct sysinfo {
   volatile std::uint32_t CHIP_ID;       /**< JEDEC JEP-106 chip identifier */
   volatile std::uint32_t PLATFORM;      /**< Platform register */
   volatile std::uint32_t GITREF_RP2040; /**< Git hash of the chip source. */

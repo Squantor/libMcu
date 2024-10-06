@@ -13,9 +13,8 @@
 namespace libMcuHw::tbman {
 /**
  * @brief Testbench manager register definitions
- *
  */
-struct peripheral {
+struct tbman {
   volatile std::uint32_t PLATFORM; /**< Fill in */
 };
 namespace PLATFORM {

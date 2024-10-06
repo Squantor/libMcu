@@ -11,6 +11,11 @@
 #define RP2040_PPB_SW_HPP
 
 namespace libMcuLL::ppb {
+namespace hardware = libMcuHw::ppb;
+/**
+ * @brief
+ * @tparam ppbAddress_
+ */
 template <libMcu::ppbBaseAddress const& ppbAddress_>
 struct ppb : libMcu::peripheralBase {
   /**
@@ -23,8 +28,8 @@ struct ppb : libMcu::peripheralBase {
    *
    * @return return pointer to peripheral
    */
-  static libMcuHw::ppb::peripheral* ppbPeripheral() {
-    return reinterpret_cast<libMcuHw::ppb::peripheral*>(ppbAddress);
+  static hardware::ppb* ppbPeripheral() {
+    return reinterpret_cast<hardware::ppb*>(ppbAddress);
   }
 
  private:

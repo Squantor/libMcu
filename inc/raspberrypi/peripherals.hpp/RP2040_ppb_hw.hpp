@@ -13,9 +13,8 @@
 namespace libMcuHw::ppb {
 /**
  * @brief PPB register definitions
- *
  */
-struct peripheral {
+struct ppb {
   volatile std::uint32_t DUMMY; /**< Fill in */
 };
 namespace DUMMY {

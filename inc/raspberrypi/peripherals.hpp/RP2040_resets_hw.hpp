@@ -14,7 +14,7 @@ namespace libMcuHw::resets {
 /**
  * @brief resets register definitions
  */
-struct peripheral {
+struct resets {
   volatile std::uint32_t RESET;      /**< Reset control */
   volatile std::uint32_t WDSEL;      /**< Watchdog select */
   volatile std::uint32_t RESET_DONE; /**< Reset done */

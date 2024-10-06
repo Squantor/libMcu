@@ -34,8 +34,8 @@ struct gpioBank0 : libMcu::peripheralBase {
    *
    * @return return pointer to peripheral
    */
-  static libMcuHw::gpioBank0::peripheral* gpioBank0Peripheral() {
-    return reinterpret_cast<libMcuHw::gpioBank0::peripheral*>(ioBank0Address);
+  static libMcuHw::gpioBank0::gpioBank0* gpioBank0Peripheral() {
+    return reinterpret_cast<libMcuHw::gpioBank0::gpioBank0*>(ioBank0Address);
   }
 
  private:

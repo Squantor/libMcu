@@ -13,9 +13,8 @@
 namespace libMcuHw::timer {
 /**
  * @brief Timer register definitions
- *
  */
-struct peripheral {
+struct timer {
   volatile std::uint32_t DUMMY; /**< Fill in */
 };
 namespace DUMMY {

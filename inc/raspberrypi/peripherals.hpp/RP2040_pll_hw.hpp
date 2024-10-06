@@ -13,9 +13,8 @@
 namespace libMcuHw::pll {
 /**
  * @brief I2C register definitions
- *
  */
-struct peripheral {
+struct pll {
   volatile std::uint32_t CS;        /**< Control and Status */
   volatile std::uint32_t PWR;       /**< Controls the PLL power modes */
   volatile std::uint32_t FBDIV_INT; /**< Feedback divisor */

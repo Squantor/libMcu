@@ -13,9 +13,8 @@
 namespace libMcuHw::pio {
 /**
  * @brief PIO register definitions
- *
  */
-struct peripheral {
+struct pio {
   volatile std::uint32_t DUMMY; /**< Fill in */
 };
 namespace DUMMY {

@@ -13,9 +13,8 @@
 namespace libMcuHw::xosc {
 /**
  * @brief XOSC register definitions
- *
  */
-struct peripheral {
+struct xosc {
   volatile std::uint32_t CTRL;    /**< Control */
   volatile std::uint32_t STATUS;  /**< Status */
   volatile std::uint32_t DORMANT; /**< Pause control */

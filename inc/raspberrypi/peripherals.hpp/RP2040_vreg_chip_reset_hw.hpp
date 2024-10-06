@@ -13,9 +13,8 @@
 namespace libMcuHw::vregChipReset {
 /**
  * @brief Voltage regulator and chip reset register definitions
- *
  */
-struct peripheral {
+struct vregChipReset {
   volatile std::uint32_t DUMMY; /**< Fill in */
 };
 namespace DUMMY {

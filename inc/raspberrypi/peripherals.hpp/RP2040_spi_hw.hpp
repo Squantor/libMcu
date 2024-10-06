@@ -13,9 +13,8 @@
 namespace libMcuHw::spi {
 /**
  * @brief SPI register definitions
- *
  */
-struct peripheral {
+struct spi {
   volatile std::uint32_t SSPCR0;   /**< Control register 0 */
   volatile std::uint32_t SSPCR1;   /**< Control register 1 */
   volatile std::uint32_t SSPDR;    /**< Data register */

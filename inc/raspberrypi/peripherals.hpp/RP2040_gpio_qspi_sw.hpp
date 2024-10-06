@@ -23,8 +23,8 @@ struct gpioQspi : libMcu::peripheralBase {
    *
    * @return return pointer to peripheral
    */
-  static libMcuHw::gpioQspi::peripheral* gpioQspiPeripheral() {
-    return reinterpret_cast<libMcuHw::gpioQspi::peripheral*>(gpioQspiAddress);
+  static libMcuHw::gpioQspi::gpioQspi* gpioQspiPeripheral() {
+    return reinterpret_cast<libMcuHw::gpioQspi::gpioQspi*>(gpioQspiAddress);
   }
 
  private:

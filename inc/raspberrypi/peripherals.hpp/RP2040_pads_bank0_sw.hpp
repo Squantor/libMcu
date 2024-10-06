@@ -13,11 +13,13 @@
 #include "RP2040_pads_sw.hpp"
 
 namespace libMcuLL::padsBank0 {
-
+using namespace libMcuLL::pads;
 namespace hardware = libMcuHw::padsBank0;
 
-using namespace libMcuLL::pads;
-
+/**
+ * @brief
+ * @tparam padsBank0Address_
+ */
 template <libMcu::padsBank0BaseAddress const& padsBank0Address_>
 // TODO voltage select method
 struct padsBank0 : libMcu::peripheralBase {
@@ -51,8 +53,8 @@ struct padsBank0 : libMcu::peripheralBase {
    *
    * @return return pointer to peripheral
    */
-  static libMcuHw::padsBank0::peripheral* padsBank0Peripheral() {
-    return reinterpret_cast<libMcuHw::padsBank0::peripheral*>(padsBank0Address);
+  static libMcuHw::padsBank0::padsBank0* padsBank0Peripheral() {
+    return reinterpret_cast<libMcuHw::padsBank0::padsBank0*>(padsBank0Address);
   }
 
  private:

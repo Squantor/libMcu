@@ -13,9 +13,8 @@
 namespace libMcuHw::usbCtrlDpRam {
 /**
  * @brief USB dual port memory register definitions
- *
  */
-struct peripheral {
+struct usbCtrlDpRam {
   volatile std::uint32_t DUMMY; /**< Fill in */
 };
 namespace DUMMY {

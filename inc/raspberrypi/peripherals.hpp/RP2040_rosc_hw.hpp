@@ -13,9 +13,8 @@
 namespace libMcuHw::rosc {
 /**
  * @brief ROSC register definitions
- *
  */
-struct peripheral {
+struct rosc {
   volatile std::uint32_t CTRL;      /**< Control */
   volatile std::uint32_t FREQA;     /**< Freqency control A */
   volatile std::uint32_t FREQB;     /**< Frequency control B */

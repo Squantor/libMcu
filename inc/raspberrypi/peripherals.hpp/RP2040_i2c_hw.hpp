@@ -13,9 +13,8 @@
 namespace libMcuHw::i2c {
 /**
  * @brief I2C register definitions
- *
  */
-struct peripheral {
+struct i2c {
   volatile std::uint32_t IC_CON;                /**< I2C Control Register */
   volatile std::uint32_t IC_TAR;                /**< I2C Target Address Register */
   volatile std::uint32_t IC_SAR;                /**< I2C Slave Address Register */
@@ -264,5 +263,5 @@ constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /**< Mask for allowe
 namespace IC_COMP_TYPE {
 constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /**< Mask for allowed bits */
 }  // namespace IC_COMP_TYPE
-}  // namespace libMcuLL::hw::i2c
+}  // namespace libMcuHw::i2c
 #endif

@@ -13,9 +13,8 @@
 namespace libMcuHw::xip {
 /**
  * @brief Execute In Place register definitions
- *
  */
-struct peripheral {
+struct xip {
   volatile std::uint32_t DUMMY; /**< Fill in */
 };
 namespace DUMMY {

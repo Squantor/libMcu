@@ -11,20 +11,19 @@
 #define RP2040_SYSCFG_SW_HPP
 
 namespace libMcuLL::syscfg {
+namespace hardware = libMcuHw::syscfg;
 template <libMcu::syscfgBaseAddress const& syscfgAddress_>
 struct syscfg : libMcu::peripheralBase {
   /**
    * @brief Base initialization function
-   *
    */
   constexpr void init() {}
   /**
    * @brief get registers from peripheral
-   *
    * @return return pointer to peripheral
    */
-  static libMcuHw::syscfg::peripheral* syscfgPeripheral() {
-    return reinterpret_cast<libMcuHw::syscfg::peripheral*>(syscfgAddress);
+  static hardware::syscfg* syscfgPeripheral() {
+    return reinterpret_cast<hardware::syscfg*>(syscfgAddress);
   }
 
  private:

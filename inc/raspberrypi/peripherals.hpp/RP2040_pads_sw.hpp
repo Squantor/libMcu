@@ -11,7 +11,9 @@
 #define RP2040_PADS_SW_HPP
 
 namespace libMcuLL::pads {
-
+/**
+ * @brief
+ */
 enum class driveModes : std::uint32_t {
   DRIVE_2MA = libMcuHw::pads::GPIO::DRIVE_2MA,   /**< 2 milliampere drive strength */
   DRIVE_4MA = libMcuHw::pads::GPIO::DRIVE_4MA,   /**< 4 milliampere drive strength */

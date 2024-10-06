@@ -15,7 +15,7 @@ namespace libMcuHw::busctrl {
  * @brief Bus control register definitions
  *
  */
-struct peripheral {
+struct busctrl {
   volatile std::uint32_t DUMMY; /**< Fill in */
 };
 namespace DUMMY {

@@ -11,20 +11,19 @@
 #define RP2040_XIP_SSI_SW_HPP
 
 namespace libMcuLL::xipSsi {
+namespace hardware = libMcuHw::xipSsi;
 template <libMcu::xipSsiBaseAddress const& xipSsiAddress_>
 struct xipSsi : libMcu::peripheralBase {
   /**
    * @brief Base initialization function
-   *
    */
   constexpr void init() {}
   /**
    * @brief get registers from peripheral
-   *
    * @return return pointer to peripheral
    */
-  static libMcuHw::xipSsi::peripheral* xipSsiPeripheral() {
-    return reinterpret_cast<libMcuHw::xipSsi::peripheral*>(xipSsiAddress);
+  static hardware::xipSsi* xipSsiPeripheral() {
+    return reinterpret_cast<hardware::xipSsi*>(xipSsiAddress);
   }
 
  private:

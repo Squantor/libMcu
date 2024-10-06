@@ -15,7 +15,7 @@ namespace libMcuHw::adc {
  * @brief ADC register definitions
  *
  */
-struct peripheral {
+struct adc {
   volatile std::uint32_t DUMMY; /**< Fill in */
 };
 namespace DUMMY {

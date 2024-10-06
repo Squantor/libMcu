@@ -11,6 +11,7 @@
 #define RP2040_RTC_SW_HPP
 
 namespace libMcuLL::rtc {
+namespace hardware = libMcuHw::rtc;
 template <libMcu::rtcBaseAddress const& rtcAddress_>
 struct rtc : libMcu::peripheralBase {
   /**
@@ -23,8 +24,8 @@ struct rtc : libMcu::peripheralBase {
    *
    * @return return pointer to peripheral
    */
-  static libMcuHw::rtc::peripheral* rtcPeripheral() {
-    return reinterpret_cast<libMcuHw::rtc::peripheral*>(rtcAddress);
+  static hardware::rtc* rtcPeripheral() {
+    return reinterpret_cast<hardware::rtc*>(rtcAddress);
   }
 
  private:

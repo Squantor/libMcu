@@ -11,6 +11,11 @@
 #define RP2040_PWM_SW_HPP
 
 namespace libMcuLL::pwm {
+namespace hardware = libMcuHw::pwm;
+/**
+ * @brief
+ * @tparam pwmAddress_
+ */
 template <libMcu::pwmBaseAddress const& pwmAddress_>
 struct pwm : libMcu::peripheralBase {
   /**
@@ -23,8 +28,8 @@ struct pwm : libMcu::peripheralBase {
    *
    * @return return pointer to peripheral
    */
-  static libMcuHw::pwm::peripheral* pwmPeripheral() {
-    return reinterpret_cast<libMcuHw::pwm::peripheral*>(pwmAddress);
+  static hardware::pwm* pwmPeripheral() {
+    return reinterpret_cast<hardware::pwm*>(pwmAddress);
   }
 
  private:

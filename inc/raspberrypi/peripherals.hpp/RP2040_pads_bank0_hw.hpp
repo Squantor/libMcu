@@ -17,9 +17,8 @@ namespace libMcuHw::padsBank0 {
 using namespace libMcuHw::pads;
 /**
  * @brief Bank 0 pads definition
- *
  */
-struct peripheral {
+struct padsBank0 {
   volatile std::uint32_t VOLTAGE_SELECT; /**< Voltage select. Per bank control */
   volatile std::uint32_t GPIO[30];       /**< Pad control register */
   volatile std::uint32_t SWCLK;          /**< Pad control register */

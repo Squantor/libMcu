@@ -13,9 +13,8 @@
 namespace libMcuHw::usbCtrl {
 /**
  * @brief USB register definitions
- *
  */
-struct peripheral {
+struct usbCtrl {
   volatile std::uint32_t DUMMY; /**< Fill in */
 };
 namespace DUMMY {

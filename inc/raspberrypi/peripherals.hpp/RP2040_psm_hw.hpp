@@ -13,9 +13,8 @@
 namespace libMcuHw::psm {
 /**
  * @brief PSM register definitions
- *
  */
-struct peripheral {
+struct psm {
   volatile std::uint32_t DUMMY; /**< Fill in */
 };
 namespace DUMMY {

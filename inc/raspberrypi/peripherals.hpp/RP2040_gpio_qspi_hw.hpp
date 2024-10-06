@@ -12,14 +12,13 @@
 
 namespace libMcuHw::gpioQspi {
 /**
- * @brief DMA register definitions
- *
+ * @brief QSPI GPIO register definitions
  */
-struct peripheral {
+struct gpioQspi {
   volatile std::uint32_t DUMMY; /**< Fill in */
 };
 namespace DUMMY {
 constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /**< Mask for allowed bits */
 }  // namespace DUMMY
-}  // namespace libMcuLL::hw::gpioQspi
+}  // namespace libMcuHw::gpioQspi
 #endif

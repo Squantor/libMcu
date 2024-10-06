@@ -11,6 +11,7 @@
 #define RP2040_SIO_GPIO_SW_HPP
 
 namespace libMcuLL::sioGpio {
+namespace hardware = libMcuHw::sio;
 template <libMcu::sioBaseAddress const &sioAddress_>
 struct sioGpio : libMcu::peripheralBase {
   /**
@@ -85,8 +86,8 @@ struct sioGpio : libMcu::peripheralBase {
    * @brief get registers from peripheral for normal access
    * @return return pointer to peripheral
    */
-  static libMcuHw::sio::peripheral *sioPeripheral() {
-    return reinterpret_cast<libMcuHw::sio::peripheral *>(sioAddress + libMcuHw::peripheralOffsetNormal);
+  static hardware::sio *sioPeripheral() {
+    return reinterpret_cast<hardware::sio *>(sioAddress + libMcuHw::peripheralOffsetNormal);
   }
 
  private:

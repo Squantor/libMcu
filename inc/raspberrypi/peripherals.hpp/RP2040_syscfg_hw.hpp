@@ -13,9 +13,8 @@
 namespace libMcuHw::syscfg {
 /**
  * @brief System config register definitions
- *
  */
-struct peripheral {
+struct syscfg {
   volatile std::uint32_t PROC0_NMI_MASK;         /*!< Processor core 0 NMI source mask */
   volatile std::uint32_t PROC1_NMI_MASK;         /*!< Processor core 1 NMI source mask */
   volatile std::uint32_t PROC_CONFIG;            /*!< Configuration for processors */

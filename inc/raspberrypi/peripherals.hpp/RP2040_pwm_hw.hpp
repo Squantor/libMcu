@@ -13,9 +13,8 @@
 namespace libMcuHw::pwm {
 /**
  * @brief PWM register definitions
- *
  */
-struct peripheral {
+struct pwm {
   volatile std::uint32_t DUMMY; /**< Fill in */
 };
 namespace DUMMY {

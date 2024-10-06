@@ -11,6 +11,7 @@
 #define RP2040_ADC_SW_HPP
 
 namespace libMcuLL::adc {
+namespace hardware = libMcuHw::adc;
 template <libMcu::adcBaseAddress const& adcAddress_>
 struct adc : libMcu::peripheralBase {
   /**
@@ -23,8 +24,8 @@ struct adc : libMcu::peripheralBase {
    *
    * @return return pointer to peripheral
    */
-  static libMcuHw::adc::peripheral* adcPeripheral() {
-    return reinterpret_cast<libMcuHw::adc::peripheral*>(adcAddress);
+  static hardware::adc* adcPeripheral() {
+    return reinterpret_cast<hardware::adc*>(adcAddress);
   }
 
  private:

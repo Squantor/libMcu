@@ -15,7 +15,7 @@ namespace libMcuHw::sio {
  * @brief SIO register definitions
  *
  */
-struct peripheral {
+struct sio {
   volatile const uint32_t CPUID;        /**< Processor core identifier */
   volatile const uint32_t GPIO_IN;      /**< Input value for GPIO pins */
   volatile uint32_t GPIO_HI_IN;         /**< Input value for QSPI pins */

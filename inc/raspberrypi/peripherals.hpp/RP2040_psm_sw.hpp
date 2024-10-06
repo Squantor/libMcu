@@ -11,6 +11,11 @@
 #define RP2040_PSM_SW_HPP
 
 namespace libMcuLL::psm {
+namespace hardware = libMcuHw::psm;
+/**
+ * @brief
+ * @tparam psmAddress_
+ */
 template <libMcu::psmBaseAddress const& psmAddress_>
 struct psm : libMcu::peripheralBase {
   /**
@@ -23,8 +28,8 @@ struct psm : libMcu::peripheralBase {
    *
    * @return return pointer to peripheral
    */
-  static libMcuHw::psm::peripheral* psmPeripheral() {
-    return reinterpret_cast<libMcuHw::psm::peripheral*>(psmAddress);
+  static hardware::psm* psmPeripheral() {
+    return reinterpret_cast<hardware::psm*>(psmAddress);
   }
 
  private:

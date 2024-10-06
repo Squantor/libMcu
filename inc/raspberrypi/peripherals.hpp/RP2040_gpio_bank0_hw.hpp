@@ -15,7 +15,7 @@ namespace libMcuHw::gpioBank0 {
  * @brief GPIO  register definitions
  *
  */
-struct peripheral {
+struct gpioBank0 {
   struct {
     const volatile std::uint32_t STATUS; /**< GPIO status */
     volatile std::uint32_t CTRL;         /**< GPIO control */
@@ -425,5 +425,5 @@ namespace DORMANT_WAKE_INTS {
 constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFF}; /**< Mask for allowed bits */
 /* TODO: bit definitions */
 }  // namespace DORMANT_WAKE_INTS
-}  // namespace libMcuLL::hw::gpioBank0
+}  // namespace libMcuHw::gpioBank0
 #endif

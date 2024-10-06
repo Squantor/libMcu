@@ -11,6 +11,7 @@
 #define RP2040_DMA_SW_HPP
 
 namespace libMcuLL::dma {
+namespace hardware = libMcuHw::dma;
 template <libMcu::dmaBaseAddress const& dmaAddress_>
 struct dma : libMcu::peripheralBase {
   /**
@@ -23,8 +24,8 @@ struct dma : libMcu::peripheralBase {
    *
    * @return return pointer to peripheral
    */
-  static libMcuHw::dma::peripheral* dmaPeripheral() {
-    return reinterpret_cast<libMcuHw::dma::peripheral*>(dmaAddress);
+  static hardware::dma* dmaPeripheral() {
+    return reinterpret_cast<hardware::dma*>(dmaAddress);
   }
 
  private:

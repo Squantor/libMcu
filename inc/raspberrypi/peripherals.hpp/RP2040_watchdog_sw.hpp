@@ -11,20 +11,19 @@
 #define RP2040_WATCHDOG_SW_HPP
 
 namespace libMcuLL::watchdog {
+namespace hardware = libMcuHw::watchdog;
 template <libMcu::watchdogBaseAddress const& watchdogAddress_>
 struct watchdog : libMcu::peripheralBase {
   /**
    * @brief Base initialization function
-   *
    */
   constexpr void init() {}
   /**
    * @brief get registers from peripheral
-   *
    * @return return pointer to peripheral
    */
-  static libMcuHw::watchdog::peripheral* watchdogPeripheral() {
-    return reinterpret_cast<libMcuHw::watchdog::peripheral*>(watchdogAddress);
+  static hardware::watchdog* watchdogPeripheral() {
+    return reinterpret_cast<hardware::watchdog*>(watchdogAddress);
   }
 
  private:

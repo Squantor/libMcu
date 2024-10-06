@@ -15,7 +15,7 @@ namespace libMcuHw::dma {
  * @brief DMA register definitions
  *
  */
-struct peripheral {
+struct dma {
   volatile std::uint32_t DUMMY; /**< Fill in */
 };
 namespace DUMMY {

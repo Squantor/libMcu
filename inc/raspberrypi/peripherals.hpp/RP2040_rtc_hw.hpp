@@ -13,9 +13,8 @@
 namespace libMcuHw::rtc {
 /**
  * @brief RTC register definitions
- *
  */
-struct peripheral {
+struct rtc {
   volatile std::uint32_t DUMMY; /**< Fill in */
 };
 namespace DUMMY {

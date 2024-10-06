@@ -11,20 +11,23 @@
 #define RP2040_BUSCTRL_SW_HPP
 
 namespace libMcuLL::busctrl {
+namespace hardware = libMcuHw::busctrl;
+/**
+ * @brief
+ * @tparam busctrlAddress_
+ */
 template <libMcu::busCtrlBaseAddress const& busctrlAddress_>
 struct busctrl : libMcu::peripheralBase {
   /**
    * @brief Base initialization function
-   *
    */
   constexpr void init() {}
   /**
    * @brief get registers from peripheral
-   *
    * @return return pointer to peripheral
    */
-  static libMcuHw::busctrl::peripheral* busctrlPeripheral() {
-    return reinterpret_cast<libMcuHw::busctrl::peripheral*>(busctrlAddress);
+  static hardware::busctrl* busctrlPeripheral() {
+    return reinterpret_cast<hardware::busctrl*>(busctrlAddress);
   }
 
  private:

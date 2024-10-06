@@ -11,6 +11,7 @@
 #define RP2040_XOSC_SW_HPP
 
 namespace libMcuLL::xosc {
+namespace hardware = libMcuHw::xosc;
 template <libMcu::xoscBaseAddress const& xoscAddress_>
 struct xosc : libMcu::peripheralBase {
   /**
@@ -29,9 +30,9 @@ struct xosc : libMcu::peripheralBase {
    */
   constexpr inline uint32_t start(uint32_t delay, uint32_t timeout) {
     uint32_t count = timeout;
-    xoscPeripheral()->STARTUP = libMcuHw::xosc::STARTUP::DELAY(delay);
-    xoscPeripheral()->CTRL = libMcuHw::xosc::CTRL::FREQ_15MHZ | libMcuHw::xosc::CTRL::ENABLE;
-    while (0 == (xoscPeripheral()->STATUS & libMcuHw::xosc::STATUS::STABLE_MASK) && (count > 0))
+    xoscPeripheral()->STARTUP = hardware::STARTUP::DELAY(delay);
+    xoscPeripheral()->CTRL = hardware::CTRL::FREQ_15MHZ | hardware::CTRL::ENABLE;
+    while (0 == (xoscPeripheral()->STATUS & hardware::STATUS::STABLE_MASK) && (count > 0))
       count--;
     return count;
   }
@@ -40,29 +41,29 @@ struct xosc : libMcu::peripheralBase {
    *
    * @return return pointer to peripheral
    */
-  static libMcuHw::xosc::peripheral* xoscPeripheral() {
-    return reinterpret_cast<libMcuHw::xosc::peripheral*>(xoscAddress);
+  static hardware::xosc* xoscPeripheral() {
+    return reinterpret_cast<hardware::xosc*>(xoscAddress);
   }
   /**
    * @brief get registers from peripheral for atomic set access
    * @return return pointer to peripheral
    */
-  static libMcuHw::xosc::peripheral* xoscPeripheralSet() {
-    return reinterpret_cast<libMcuHw::xosc::peripheral*>(xoscAddress + libMcuHw::peripheralOffsetSet);
+  static hardware::xosc* xoscPeripheralSet() {
+    return reinterpret_cast<hardware::xosc*>(xoscAddress + libMcuHw::peripheralOffsetSet);
   }
   /**
    * @brief get registers from peripheral for atomic Clear access
    * @return return pointer to peripheral
    */
-  static libMcuHw::xosc::peripheral* xoscPeripheralClear() {
-    return reinterpret_cast<libMcuHw::xosc::peripheral*>(xoscAddress + libMcuHw::peripheralOffsetClear);
+  static hardware::xosc* xoscPeripheralClear() {
+    return reinterpret_cast<hardware::xosc*>(xoscAddress + libMcuHw::peripheralOffsetClear);
   }
   /**
    * @brief get registers from peripheral for atomic XOR access
    * @return return pointer to peripheral
    */
-  static libMcuHw::xosc::peripheral* xoscPeripheralXor() {
-    return reinterpret_cast<libMcuHw::xosc::peripheral*>(xoscAddress + libMcuHw::peripheralOffsetXor);
+  static hardware::xosc* xoscPeripheralXor() {
+    return reinterpret_cast<hardware::xosc*>(xoscAddress + libMcuHw::peripheralOffsetXor);
   }
 
  private:

@@ -11,12 +11,12 @@
 #define RP2040_UART_SW_HPP
 
 namespace libMcuLL::uart {
+namespace hardware = libMcuHw::uart;
 using namespace libMcuHw::uart;
 template <libMcu::uartBaseAddress const& uartAddress_>
 struct uart : libMcu::peripheralBase {
   /**
    * @brief Base initialization function
-   *
    */
   constexpr void init() {}
   /**
@@ -88,32 +88,31 @@ struct uart : libMcu::peripheralBase {
 
   /**
    * @brief get registers from peripheral
-   *
    * @return return pointer to peripheral
    */
-  static libMcuHw::uart::peripheral* uartPeripheral() {
-    return reinterpret_cast<libMcuHw::uart::peripheral*>(uartAddress);
+  static hardware::uart* uartPeripheral() {
+    return reinterpret_cast<hardware::uart*>(uartAddress);
   }
   /**
    * @brief get registers from peripheral for atomic set access
    * @return return pointer to peripheral
    */
-  static libMcuHw::uart::peripheral* uartPeripheralSet() {
-    return reinterpret_cast<libMcuHw::uart::peripheral*>(uartAddress + libMcuHw::peripheralOffsetSet);
+  static hardware::uart* uartPeripheralSet() {
+    return reinterpret_cast<hardware::uart*>(uartAddress + libMcuHw::peripheralOffsetSet);
   }
   /**
    * @brief get registers from peripheral for atomic Clear access
    * @return return pointer to peripheral
    */
-  static libMcuHw::uart::peripheral* uartPeripheralClear() {
-    return reinterpret_cast<libMcuHw::uart::peripheral*>(uartAddress + libMcuHw::peripheralOffsetClear);
+  static hardware::uart* uartPeripheralClear() {
+    return reinterpret_cast<hardware::uart*>(uartAddress + libMcuHw::peripheralOffsetClear);
   }
   /**
    * @brief get registers from peripheral for atomic XOR access
    * @return return pointer to peripheral
    */
-  static libMcuHw::uart::peripheral* uartPeripheralXor() {
-    return reinterpret_cast<libMcuHw::uart::peripheral*>(uartAddress + libMcuHw::peripheralOffsetXor);
+  static hardware::uart* uartPeripheralXor() {
+    return reinterpret_cast<hardware::uart*>(uartAddress + libMcuHw::peripheralOffsetXor);
   }
 
  private:

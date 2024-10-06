@@ -11,20 +11,19 @@
 #define RP2040_TBMAN_SW_HPP
 
 namespace libMcuLL::tbman {
+namespace hardware = libMcuHw::tbman;
 template <libMcu::tbmanBaseAddress const& tbmanAddress_>
 struct tbman : libMcu::peripheralBase {
   /**
    * @brief Base initialization function
-   *
    */
   constexpr void init() {}
   /**
    * @brief get registers from peripheral
-   *
    * @return return pointer to peripheral
    */
-  static libMcuHw::tbman::peripheral* tbmanPeripheral() {
-    return reinterpret_cast<libMcuHw::tbman::peripheral*>(tbmanAddress);
+  static hardware::tbman* tbmanPeripheral() {
+    return reinterpret_cast<hardware::tbman*>(tbmanAddress);
   }
 
  private:

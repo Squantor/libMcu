@@ -15,7 +15,7 @@ namespace libMcuHw::uart {
  * @brief UART register definitions
  *
  */
-struct peripheral {
+struct uart {
   volatile std::uint32_t UARTDR;         /**< Data Register */
   volatile std::uint32_t UARTRSR;        /**< Receive Status Register/Error Clear Register */
   volatile std::uint32_t reserved0[4];   /**< reserved */
