@@ -10,7 +10,7 @@
 #ifndef RP2040_USBCTRL_SW_HPP
 #define RP2040_USBCTRL_SW_HPP
 
-namespace libMcuLL::sw::usbctrl {
+namespace libMcuLL::usbctrl {
 template <libMcu::usbCtrlRegsBaseAddress const& usbctrlAddress_>
 struct usbctrl : libMcu::peripheralBase {
   /**
@@ -30,5 +30,5 @@ struct usbctrl : libMcu::peripheralBase {
  private:
   static constexpr libMcu::hwAddressType usbctrlAddress{usbctrlAddress_}; /**< peripheral address */
 };
-}  // namespace libMcuLL::sw::usbctrl
+}  // namespace libMcuLL::usbctrl
 #endif

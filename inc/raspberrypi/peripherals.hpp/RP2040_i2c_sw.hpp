@@ -10,7 +10,7 @@
 #ifndef RP2040_I2C_SW_HPP
 #define RP2040_I2C_SW_HPP
 
-namespace libMcuLL::sw::i2c {
+namespace libMcuLL::i2c {
 using namespace libMcuHw::i2c;
 /**
  * @brief I2C speed modes
@@ -204,5 +204,5 @@ struct i2c : libMcu::peripheralBase {
  private:
   static constexpr libMcu::hwAddressType i2cAddress = i2cAddress_; /**< peripheral address */
 };
-}  // namespace libMcuLL::sw::i2c
+}  // namespace libMcuLL::i2c
 #endif

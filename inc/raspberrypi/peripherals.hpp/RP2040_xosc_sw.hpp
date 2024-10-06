@@ -10,7 +10,7 @@
 #ifndef RP2040_XOSC_SW_HPP
 #define RP2040_XOSC_SW_HPP
 
-namespace libMcuLL::sw::xosc {
+namespace libMcuLL::xosc {
 template <libMcu::xoscBaseAddress const& xoscAddress_>
 struct xosc : libMcu::peripheralBase {
   /**
@@ -68,5 +68,5 @@ struct xosc : libMcu::peripheralBase {
  private:
   static constexpr libMcu::hwAddressType xoscAddress = xoscAddress_; /**< peripheral address */
 };
-}  // namespace libMcuLL::sw::xosc
+}  // namespace libMcuLL::xosc
 #endif

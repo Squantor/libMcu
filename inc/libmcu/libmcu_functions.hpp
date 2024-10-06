@@ -10,7 +10,7 @@
 #ifndef LIBMCU_FUNCTIONS_HPP
 #define LIBMCU_FUNCTIONS_HPP
 
-namespace libMcu::sw {
+namespace libMcuLL {
 inline void delay(std::uint32_t cycles) {
   asm volatile(
     ".syntax unified \n\t"
@@ -19,6 +19,6 @@ inline void delay(std::uint32_t cycles) {
     "bne 1b"
     : "+r"(cycles));
 }
-}  // namespace libMcu::sw
+}  // namespace libMcuLL
 
 #endif

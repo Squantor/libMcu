@@ -10,7 +10,7 @@
 #ifndef RP2040_RTC_SW_HPP
 #define RP2040_RTC_SW_HPP
 
-namespace libMcuLL::sw::rtc {
+namespace libMcuLL::rtc {
 template <libMcu::rtcBaseAddress const& rtcAddress_>
 struct rtc : libMcu::peripheralBase {
   /**
@@ -30,5 +30,5 @@ struct rtc : libMcu::peripheralBase {
  private:
   static constexpr libMcu::hwAddressType rtcAddress{rtcAddress_}; /**< peripheral address */
 };
-}  // namespace libMcuLL::sw::rtc
+}  // namespace libMcuLL::rtc
 #endif

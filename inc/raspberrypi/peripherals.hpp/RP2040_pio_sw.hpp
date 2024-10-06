@@ -10,7 +10,7 @@
 #ifndef RP2040_PIO_SW_HPP
 #define RP2040_PIO_SW_HPP
 
-namespace libMcuLL::sw::pio {
+namespace libMcuLL::pio {
 template <libMcu::pioBaseAddress const& pioAddress_>
 struct pio : libMcu::peripheralBase {
   /**
@@ -30,5 +30,5 @@ struct pio : libMcu::peripheralBase {
  private:
   static constexpr libMcu::hwAddressType pioAddress = pioAddress_; /**< peripheral address */
 };
-}  // namespace libMcuLL::sw::pio
+}  // namespace libMcuLL::pio
 #endif

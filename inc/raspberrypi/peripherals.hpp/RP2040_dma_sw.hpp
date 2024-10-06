@@ -10,7 +10,7 @@
 #ifndef RP2040_DMA_SW_HPP
 #define RP2040_DMA_SW_HPP
 
-namespace libMcuLL::sw::dma {
+namespace libMcuLL::dma {
 template <libMcu::dmaBaseAddress const& dmaAddress_>
 struct dma : libMcu::peripheralBase {
   /**
@@ -30,5 +30,5 @@ struct dma : libMcu::peripheralBase {
  private:
   static constexpr libMcu::hwAddressType dmaAddress = dmaAddress_; /**< peripheral address */
 };
-}  // namespace libMcuLL::sw::dma
+}  // namespace libMcuLL::dma
 #endif

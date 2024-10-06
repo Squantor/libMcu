@@ -10,7 +10,7 @@
 #ifndef RP2040_CLOCKS_SW_HPP
 #define RP2040_CLOCKS_SW_HPP
 
-namespace libMcuLL::sw::clocks {
+namespace libMcuLL::clocks {
 namespace hardware = libMcuHw::clocks;
 
 /**
@@ -156,7 +156,7 @@ struct clocks : libMcu::peripheralBase {
     switchSrc(index, hardware::CTRL::REF_SRC_ROSC);  // set clock source to safe default
     clocksPeripheral()->CLK[index].CTRL =
       (clocksPeripheral()->CLK[index].CTRL & ~hardware::CTRL::AUXSRC_MASK) | static_cast<std::uint32_t>(source);
-    libMcu::sw::delay(delay);
+    libMcuLL::delay(delay);
     switchSrc(index, hardware::CTRL::REF_SRC_AUX);
     clocksPeripheral()->CLK[index].DIV = divisorRegister;
   }
@@ -190,7 +190,7 @@ struct clocks : libMcu::peripheralBase {
     switchSrc(index, hardware::CTRL::SYS_SRC_CLK_REF);  // set clock source to safe default
     clocksPeripheral()->CLK[index].CTRL =
       (clocksPeripheral()->CLK[index].CTRL & ~hardware::CTRL::AUXSRC_MASK) | static_cast<std::uint32_t>(source);
-    libMcu::sw::delay(delay);
+    libMcuLL::delay(delay);
     switchSrc(index, hardware::CTRL::SYS_SRC_AUX);
     clocksPeripheral()->CLK[index].DIV = divisorRegister;
   }
@@ -288,7 +288,7 @@ struct clocks : libMcu::peripheralBase {
     if (divisorRegister > clocksPeripheral()->CLK[index].DIV)
       clocksPeripheral()->CLK[index].DIV = divisorRegister;
     clocksPeripheralClear()->CLK[index].CTRL = hardware::CTRL::ENABLE;
-    libMcu::sw::delay(delay);
+    libMcuLL::delay(delay);
     clocksPeripheral()->CLK[index].CTRL = (clocksPeripheral()->CLK[index].CTRL & ~hardware::CTRL::AUXSRC_MASK) | source;
     clocksPeripheralSet()->CLK[index].CTRL = hardware::CTRL::ENABLE;
     clocksPeripheral()->CLK[index].DIV = divisorRegister;
@@ -325,5 +325,5 @@ struct clocks : libMcu::peripheralBase {
  private:
   static constexpr libMcu::hwAddressType clocksAddress = clocksAddress_; /**< peripheral address */
 };
-}  // namespace libMcuLL::sw::clocks
+}  // namespace libMcuLL::clocks
 #endif

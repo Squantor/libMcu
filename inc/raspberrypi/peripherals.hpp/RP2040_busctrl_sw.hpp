@@ -10,7 +10,7 @@
 #ifndef RP2040_BUSCTRL_SW_HPP
 #define RP2040_BUSCTRL_SW_HPP
 
-namespace libMcuLL::sw::busctrl {
+namespace libMcuLL::busctrl {
 template <libMcu::busCtrlBaseAddress const& busctrlAddress_>
 struct busctrl : libMcu::peripheralBase {
   /**
@@ -30,5 +30,5 @@ struct busctrl : libMcu::peripheralBase {
  private:
   static constexpr libMcu::hwAddressType busctrlAddress = busctrlAddress_; /**< peripheral address */
 };
-}  // namespace libMcuLL::sw::busctrl
+}  // namespace libMcuLL::busctrl
 #endif

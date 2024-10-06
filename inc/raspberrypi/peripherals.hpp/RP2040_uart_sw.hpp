@@ -10,7 +10,7 @@
 #ifndef RP2040_UART_SW_HPP
 #define RP2040_UART_SW_HPP
 
-namespace libMcuLL::sw::uart {
+namespace libMcuLL::uart {
 using namespace libMcuHw::uart;
 template <libMcu::uartBaseAddress const& uartAddress_>
 struct uart : libMcu::peripheralBase {
@@ -119,5 +119,5 @@ struct uart : libMcu::peripheralBase {
  private:
   static constexpr libMcu::hwAddressType uartAddress{uartAddress_}; /**< peripheral address */
 };
-}  // namespace libMcuLL::sw::uart
+}  // namespace libMcuLL::uart
 #endif

@@ -10,7 +10,7 @@
 #ifndef RP2040_PLL_SW_HPP
 #define RP2040_PLL_SW_HPP
 
-namespace libMcuLL::sw::pll {
+namespace libMcuLL::pll {
 template <libMcu::pllBaseAddress const& pllAddress_>
 struct pll : libMcu::peripheralBase {
   /**
@@ -64,6 +64,6 @@ struct pll : libMcu::peripheralBase {
  private:
   static constexpr libMcu::hwAddressType pllAddress = pllAddress_; /**< peripheral address */
 };
-}  // namespace libMcuLL::sw::pll
+}  // namespace libMcuLL::pll
 
 #endif

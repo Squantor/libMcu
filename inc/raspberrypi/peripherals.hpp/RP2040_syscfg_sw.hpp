@@ -10,7 +10,7 @@
 #ifndef RP2040_SYSCFG_SW_HPP
 #define RP2040_SYSCFG_SW_HPP
 
-namespace libMcuLL::sw::syscfg {
+namespace libMcuLL::syscfg {
 template <libMcu::syscfgBaseAddress const& syscfgAddress_>
 struct syscfg : libMcu::peripheralBase {
   /**
@@ -30,5 +30,5 @@ struct syscfg : libMcu::peripheralBase {
  private:
   static constexpr libMcu::hwAddressType syscfgAddress{syscfgAddress_}; /**< peripheral address */
 };
-}  // namespace libMcuLL::sw::syscfg
+}  // namespace libMcuLL::syscfg
 #endif

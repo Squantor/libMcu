@@ -10,7 +10,7 @@
 #ifndef RP2040_VREG_CHIP_RESET_SW_HPP
 #define RP2040_VREG_CHIP_RESET_SW_HPP
 
-namespace libMcuLL::sw::vregChipReset {
+namespace libMcuLL::vregChipReset {
 template <libMcu::vregChipResetBaseAddress const& vregChipResetAddress_>
 struct vregChipReset : libMcu::peripheralBase {
   /**
@@ -30,5 +30,5 @@ struct vregChipReset : libMcu::peripheralBase {
  private:
   static constexpr libMcu::hwAddressType vregChipResetAddress{vregChipResetAddress_}; /**< peripheral address */
 };
-}  // namespace libMcuLL::sw::vregChipReset
+}  // namespace libMcuLL::vregChipReset
 #endif

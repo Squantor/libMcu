@@ -10,7 +10,7 @@
 #ifndef RP2040_SIO_GPIO_SW_HPP
 #define RP2040_SIO_GPIO_SW_HPP
 
-namespace libMcuLL::sw::sioGpio {
+namespace libMcuLL::sioGpio {
 template <libMcu::sioBaseAddress const &sioAddress_>
 struct sioGpio : libMcu::peripheralBase {
   /**
@@ -92,5 +92,5 @@ struct sioGpio : libMcu::peripheralBase {
  private:
   static constexpr libMcu::hwAddressType sioAddress{sioAddress_}; /**< peripheral address */
 };
-}  // namespace libMcuLL::sw::sioGpio
+}  // namespace libMcuLL::sioGpio
 #endif

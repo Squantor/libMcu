@@ -10,7 +10,7 @@
 #ifndef RP2040_XIP_CTRL_SW_HPP
 #define RP2040_XIP_CTRL_SW_HPP
 
-namespace libMcuLL::sw::xip {
+namespace libMcuLL::xip {
 template <libMcu::xipCtrlBaseAddress const& xipCtrlAddress_>
 struct xipCtrl : libMcu::peripheralBase {
   /**
@@ -30,5 +30,5 @@ struct xipCtrl : libMcu::peripheralBase {
  private:
   static constexpr libMcu::hwAddressType xipCtrlAddress{xipCtrlAddress_}; /**< peripheral address */
 };
-}  // namespace libMcuLL::sw::xip
+}  // namespace libMcuLL::xip
 #endif

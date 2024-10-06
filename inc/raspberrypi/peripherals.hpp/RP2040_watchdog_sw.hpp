@@ -10,7 +10,7 @@
 #ifndef RP2040_WATCHDOG_SW_HPP
 #define RP2040_WATCHDOG_SW_HPP
 
-namespace libMcuLL::sw::watchdog {
+namespace libMcuLL::watchdog {
 template <libMcu::watchdogBaseAddress const& watchdogAddress_>
 struct watchdog : libMcu::peripheralBase {
   /**
@@ -30,5 +30,5 @@ struct watchdog : libMcu::peripheralBase {
  private:
   static constexpr libMcu::hwAddressType watchdogAddress{watchdogAddress_}; /**< peripheral address */
 };
-}  // namespace libMcuLL::sw::watchdog
+}  // namespace libMcuLL::watchdog
 #endif
