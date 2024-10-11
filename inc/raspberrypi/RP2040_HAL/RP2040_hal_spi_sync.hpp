@@ -11,9 +11,8 @@
 #define RP2040_HAL_SPI
 
 namespace libMcuHal::spi {
-using namespace libMcuLL;
 
-template <spiBaseAddress const& spiBaseAddress_>
+template <libMcu::spiBaseAddress const& spiBaseAddress_>
 struct spi {
   /**
    * @brief Initialize the spi HAL
@@ -26,35 +25,35 @@ struct spi {
    *
    * @return return pointer to peripheral
    */
-  static hw::gpioBank0::peripheral* gpioBank0Peripheral() {
-    return reinterpret_cast<hw::gpioBank0::peripheral*>(spiBaseAddress + libMcuLL::hw::peripheralOffsetNormal);
+  static libMcuHw::gpioBank0::gpioBank0* gpioBank0Peripheral() {
+    return reinterpret_cast<libMcuHw::gpioBank0::gpioBank0*>(spiBaseAddress + libMcuHw::peripheralOffsetNormal);
   }
   /**
    * @brief get registers from peripheral
    *
    * @return return pointer to peripheral
    */
-  static hw::gpioBank0::peripheral* gpioBank0PeripheralSet() {
-    return reinterpret_cast<hw::gpioBank0::peripheral*>(spiBaseAddress + libMcuLL::hw::peripheralOffsetSet);
+  static libMcuHw::gpioBank0::gpioBank0* gpioBank0PeripheralSet() {
+    return reinterpret_cast<libMcuHw::gpioBank0::gpioBank0*>(spiBaseAddress + libMcuHw::peripheralOffsetSet);
   }
   /**
    * @brief get registers from peripheral
    *
    * @return return pointer to peripheral
    */
-  static hw::gpioBank0::peripheral* gpioBank0PeripheralClear() {
-    return reinterpret_cast<hw::gpioBank0::peripheral*>(spiBaseAddress + libMcuLL::hw::peripheralOffsetClear);
+  static libMcuHw::gpioBank0::gpioBank0* gpioBank0PeripheralClear() {
+    return reinterpret_cast<libMcuHw::gpioBank0::gpioBank0*>(spiBaseAddress + libMcuHw::peripheralOffsetClear);
   }
   /**
    * @brief get registers from peripheral
    *
    * @return return pointer to peripheral
    */
-  static hw::gpioBank0::peripheral* gpioBank0PeripheralToggle() {
-    return reinterpret_cast<hw::gpioBank0::peripheral*>(spiBaseAddress + libMcuLL::hw::peripheralOffsetXor);
+  static libMcuHw::gpioBank0::gpioBank0* gpioBank0PeripheralToggle() {
+    return reinterpret_cast<libMcuHw::gpioBank0::gpioBank0*>(spiBaseAddress + libMcuHw::peripheralOffsetXor);
   }
 
-  static constexpr hwAddressType spiBaseAddress = spiBaseAddress_; /**< spi peripheral address */
+  static constexpr libMcu::hwAddressType spiBaseAddress = spiBaseAddress_; /**< spi peripheral address */
 };
 }  // namespace libMcuHal::spi
 

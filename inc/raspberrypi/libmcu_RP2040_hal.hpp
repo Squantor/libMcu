@@ -10,23 +10,12 @@
 #ifndef LIBMCURP2040HAL_HPP
 #define LIBMCURP2040HAL_HPP
 
-#include <cstdint>
-#include <cstddef>
-#include <array>
-#include <span>
-#include <type_traits>
-#include <limits>
-#include "../libmcu/libmcu_results.hpp"
-#include "../libmcu/libmcu_types.hpp"
-#include "../libmcu/libmcu_functions.hpp"
-#include "../libmcu/libmcull_types.hpp"
+#include "libmcu_RP2040_ll.hpp"
+
 #include "../libmcu/libmcuhal_types.hpp"
 
-#if defined(MCU_RP2040)
-#include "RP2040_LL.hpp"
-#include "RP2040_HAL.hpp"
-#else
-#error "Unknown or unsupported microcontroller defined, use MCU_Microcontroller"
-#endif
+#include "RP2040_HAL/RP2040_hal_pins.hpp"
+#include "RP2040_HAL/RP2040_hal_gpio.hpp"
+#include "RP2040_HAL/RP2040_hal_spi_sync.hpp"
 
 #endif

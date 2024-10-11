@@ -11,18 +11,17 @@
 #define RP2040_HAL_GPIO
 
 namespace libMcuHal::gpio {
-namespace hardware = libMcuHw::gpio;
 
 enum class pullModes : std::uint32_t {
   NONE = 0,                             /**< No pullup modes */
-  PULLUP = hardware::pads::GPIO::PUE,   /**< Pullup */
-  PULLDOWN = hardware::pads::GPIO::PDE, /**< Pulldown */
+  PULLUP = libMcuHw::pads::GPIO::PUE,   /**< Pullup */
+  PULLDOWN = libMcuHw::pads::GPIO::PDE, /**< Pulldown */
   KEEPER = 0,                           /**< No bus keeper on RP2040 */
 };
 
 template <libMcu::padsBank0BaseAddress const& padsBank0Address_, libMcu::ioBank0BaseAddress const& gpioBank0Address_,
           libMcu::sioBaseAddress const& sioAddress_>
-struct gpio : halGpioBase {
+struct gpio : libMcuHal::halGpioBase {
   /**
    * @brief Initialize the gpio HAL
    */
@@ -34,9 +33,9 @@ struct gpio : halGpioBase {
    */
   template <typename PIN>
   constexpr void output(PIN& pin) {
-    if constexpr (pin.port == hardware::IOports::PORT0) {
+    if constexpr (pin.port == libMcuHw::IOports::PORT0) {
       sioPeripheral()->GPIO_OE_SET = pin.pinMask;
-    } else if constexpr (pin.port == hardware::IOports::PORT0) {
+    } else if constexpr (pin.port == libMcuHw::IOports::PORT0) {
       sioPeripheral()->GPIO_HI_OE_SET = pin.pinMask;
     } else {
       static_assert("Unknown port!");
@@ -49,9 +48,9 @@ struct gpio : halGpioBase {
    */
   template <typename PIN>
   constexpr void input(PIN& pin) {
-    if constexpr (pin.port == hardware::IOports::PORT0) {
+    if constexpr (pin.port == libMcuHw::IOports::PORT0) {
       sioPeripheral()->GPIO_OE_CLR = pin.pinMask;
-    } else if constexpr (pin.port == hardware::IOports::PORT0) {
+    } else if constexpr (pin.port == libMcuHw::IOports::PORT0) {
       sioPeripheral()->GPIO_HI_OE_CLR = pin.pinMask;
     } else {
       static_assert("Unknown port!");
@@ -64,9 +63,9 @@ struct gpio : halGpioBase {
    */
   template <typename PIN>
   constexpr void high(PIN& pin) {
-    if constexpr (pin.port == hardware::IOports::PORT0) {
+    if constexpr (pin.port == libMcuHw::IOports::PORT0) {
       sioPeripheral()->GPIO_OUT_SET = pin.pinMask;
-    } else if constexpr (pin.port == hardware::IOports::PORT0) {
+    } else if constexpr (pin.port == libMcuHw::IOports::PORT0) {
       sioPeripheral()->GPIO_HI_OUT_SET = pin.pinMask;
     } else {
       static_assert("Unknown port!");
@@ -79,9 +78,9 @@ struct gpio : halGpioBase {
    */
   template <typename PIN>
   constexpr void low(PIN& pin) {
-    if constexpr (pin.port == hardware::IOports::PORT0) {
+    if constexpr (pin.port == libMcuHw::IOports::PORT0) {
       sioPeripheral()->GPIO_OUT_CLR = pin.pinMask;
-    } else if constexpr (pin.port == hardware::IOports::PORT0) {
+    } else if constexpr (pin.port == libMcuHw::IOports::PORT0) {
       sioPeripheral()->GPIO_HI_OUT_CLR = pin.pinMask;
     } else {
       static_assert("Unknown port!");
@@ -94,9 +93,9 @@ struct gpio : halGpioBase {
    */
   template <typename PIN>
   constexpr void toggle(PIN& pin) {
-    if constexpr (pin.port == hardware::IOports::PORT0) {
+    if constexpr (pin.port == libMcuHw::IOports::PORT0) {
       sioPeripheral()->GPIO_OUT_XOR = pin.pinMask;
-    } else if constexpr (pin.port == hardware::IOports::PORT0) {
+    } else if constexpr (pin.port == libMcuHw::IOports::PORT0) {
       sioPeripheral()->GPIO_HI_OUT_XOR = pin.pinMask;
     } else {
       static_assert("Unknown port!");
@@ -110,12 +109,12 @@ struct gpio : halGpioBase {
    */
   template <typename PIN>
   constexpr void set(PIN& pin, std::uint32_t setting) {
-    if constexpr (pin.port == hardware::IOports::PORT0) {
+    if constexpr (pin.port == libMcuHw::IOports::PORT0) {
       if (setting)
         sioPeripheral()->GPIO_OUT_SET = pin.pinMask;
       else
         sioPeripheral()->GPIO_OUT_CLR = pin.pinMask;
-    } else if constexpr (pin.port == hardware::IOports::PORT0) {
+    } else if constexpr (pin.port == libMcuHw::IOports::PORT0) {
       if (setting)
         sioPeripheral()->GPIO_HI_OUT_SET = pin.pinMask;
       else
@@ -132,9 +131,9 @@ struct gpio : halGpioBase {
    */
   template <typename PIN>
   constexpr std::uint32_t get(PIN& pin) {
-    if constexpr (pin.port == hardware::IOports::PORT0) {
+    if constexpr (pin.port == libMcuHw::IOports::PORT0) {
       return sioPeripheral()->GPIO_IN & pin.pinMask;
-    } else if constexpr (pin.port == hardware::IOports::PORT0) {
+    } else if constexpr (pin.port == libMcuHw::IOports::PORT0) {
       return sioPeripheral()->GPIO_HI_IN & pin.pinMask;
     } else {
       static_assert("Unknown port!");
@@ -148,12 +147,12 @@ struct gpio : halGpioBase {
    */
   template <typename T>
   void pullmode(T& pin, pullModes pull) {
-    if constexpr (pin.port == hardware::IOports::PORT0) {
-      uint32_t setting = padsBank0Peripheral()->GPIO[pin.pinIndex] & ~(hardware::pads::GPIO::PDE | hardware::pads::GPIO::PUE);
+    if constexpr (pin.port == libMcuHw::IOports::PORT0) {
+      uint32_t setting = padsBank0Peripheral()->GPIO[pin.pinIndex] & ~(libMcuHw::pads::GPIO::PDE | libMcuHw::pads::GPIO::PUE);
       setting = setting | static_cast<std::uint32_t>(pull);
       padsBank0Peripheral()->GPIO[pin.pinIndex] = setting;
-    } else if constexpr (pin.port == hardware::IOports::PORT0) {
-      static_assert(pin.port == hardware::IOports::QSPI, "Does not support QSPI pins yet");
+    } else if constexpr (pin.port == libMcuHw::IOports::PORT0) {
+      static_assert(pin.port == libMcuHw::IOports::QSPI, "Does not support QSPI pins yet");
     } else {
       static_assert("Unknown port!");
     }
@@ -165,68 +164,68 @@ struct gpio : halGpioBase {
    *
    * @return return pointer to peripheral
    */
-  static hardware::padsBank0::peripheral* padsBank0Peripheral() {
-    return reinterpret_cast<hardware::padsBank0::peripheral*>(padsBank0Address + libMcuLL::hardware::peripheralOffsetNormal);
+  static libMcuHw::padsBank0::padsBank0* padsBank0Peripheral() {
+    return reinterpret_cast<libMcuHw::padsBank0::padsBank0*>(padsBank0Address + libMcuHw::peripheralOffsetNormal);
   }
   /**
    * @brief set registers from peripheral
    *
    * @return return pointer to peripheral
    */
-  static hardware::padsBank0::peripheral* padsBank0PeripheralSet() {
-    return reinterpret_cast<hardware::padsBank0::peripheral*>(padsBank0Address + libMcuLL::hardware::peripheralOffsetSet);
+  static libMcuHw::padsBank0::padsBank0* padsBank0PeripheralSet() {
+    return reinterpret_cast<libMcuHw::padsBank0::padsBank0*>(padsBank0Address + libMcuHw::peripheralOffsetSet);
   }
   /**
    * @brief clear registers from peripheral
    *
    * @return return pointer to peripheral
    */
-  static hardware::padsBank0::peripheral* padsBank0PeripheralClear() {
-    return reinterpret_cast<hardware::padsBank0::peripheral*>(padsBank0Address + libMcuLL::hardware::peripheralOffsetClear);
+  static libMcuHw::padsBank0::padsBank0* padsBank0PeripheralClear() {
+    return reinterpret_cast<libMcuHw::padsBank0::padsBank0*>(padsBank0Address + libMcuHw::peripheralOffsetClear);
   }
   /**
    * @brief toggle registers from peripheral
    *
    * @return return pointer to peripheral
    */
-  static hardware::padsBank0::peripheral* padsBank0PeripheralToggle() {
-    return reinterpret_cast<hardware::padsBank0::peripheral*>(padsBank0Address + libMcuLL::hardware::peripheralOffsetXor);
+  static libMcuHw::padsBank0::padsBank0* padsBank0PeripheralToggle() {
+    return reinterpret_cast<libMcuHw::padsBank0::padsBank0*>(padsBank0Address + libMcuHw::peripheralOffsetXor);
   }
   /**
    * @brief get registers from peripheral
    *
    * @return return pointer to peripheral
    */
-  static hardware::sio::peripheral* sioPeripheral() {
-    return reinterpret_cast<hardware::sio::peripheral*>(sioAddress + libMcuLL::hardware::peripheralOffsetNormal);
+  static libMcuHw::sio::sio* sioPeripheral() {
+    return reinterpret_cast<libMcuHw::sio::sio*>(sioAddress + libMcuHw::peripheralOffsetNormal);
   }
   /**
    * @brief set registers from peripheral
    *
    * @return return pointer to peripheral
    */
-  static hardware::sio::peripheral* sioPeripheralSet() {
-    return reinterpret_cast<hardware::sio::peripheral*>(sioAddress + libMcuLL::hardware::peripheralOffsetSet);
+  static libMcuHw::sio::sio* sioPeripheralSet() {
+    return reinterpret_cast<libMcuHw::sio::sio*>(sioAddress + libMcuHw::peripheralOffsetSet);
   }
   /**
    * @brief clear registers from peripheral
    *
    * @return return pointer to peripheral
    */
-  static hardware::sio::peripheral* sioPeripheralClear() {
-    return reinterpret_cast<hardware::sio::peripheral*>(sioAddress + libMcuLL::hardware::peripheralOffsetClear);
+  static libMcuHw::sio::sio* sioPeripheralClear() {
+    return reinterpret_cast<libMcuHw::sio::sio*>(sioAddress + libMcuHw::peripheralOffsetClear);
   }
   /**
    * @brief toggle registers from peripheral
    *
    * @return return pointer to peripheral
    */
-  static hardware::sio::peripheral* sioPeripheralToggle() {
-    return reinterpret_cast<hardware::sio::peripheral*>(sioAddress + libMcuLL::hardware::peripheralOffsetXor);
+  static libMcuHw::sio::sio* sioPeripheralToggle() {
+    return reinterpret_cast<libMcuHw::sio::sio*>(sioAddress + libMcuHw::peripheralOffsetXor);
   }
 
-  static constexpr hwAddressType padsBank0Address = padsBank0Address_; /**< pads bank 0 peripheral address */
-  static constexpr hwAddressType sioAddress = sioAddress_;             /**< SIO peripheral address*/
+  static constexpr libMcu::hwAddressType padsBank0Address = padsBank0Address_; /**< pads bank 0 peripheral address */
+  static constexpr libMcu::hwAddressType sioAddress = sioAddress_;             /**< SIO peripheral address*/
 };
 }  // namespace libMcuHal::gpio
 
