@@ -5,22 +5,13 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file Main entry point for a generic cortex M0+ microcontroller definitions
+ * \file libmcu_CortexM0plus_ll.hpp
+ * \brief Main entry point for a generic cortex M0+ microcontroller definitions
  */
 #ifndef LIBMCU_CORTEXM0PLUS_LL_HPP
 #define LIBMCU_CORTEXM0PLUS_LL_HPP
 
-#include <cstdint>
-#include <cstddef>
-#include <array>
-#include <span>
-#include <type_traits>
-#include <limits>
-#include "../libmcu/libmcu_results.hpp"
-#include "../libmcu/libmcu_types.hpp"
-#include "../libmcu/libmcu_functions.hpp"
-#include "../libmcu/libmcull_types.hpp"
-#include "../libmcu/ringbuffer.hpp"
+#include "../libmcu/libmcu.hpp"
 
 namespace libMcuHw {
 // MCU configuration options
