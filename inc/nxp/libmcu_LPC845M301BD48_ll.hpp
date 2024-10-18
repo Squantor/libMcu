@@ -185,6 +185,7 @@ enum class dmaRequestSources : std::uint8_t {
 // device peripheral specific headers go here
 // these need to go after registers namespace definitions as they are used here
 #include "LPC8XX_PINS/LPC845M301BD48_pins.hpp"
+#include "LPC8XX_CLOCK/LPC84X_clock_hw.hpp"
 
 // includes that use the registers namespace go here
 // need to go after registers namespaces and device specific headers
