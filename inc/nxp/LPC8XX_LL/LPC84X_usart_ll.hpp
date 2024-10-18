@@ -133,7 +133,11 @@ struct usart : libMcu::peripheralBase {
     data = static_cast<transferType>(regData & hardware::RXDATSTAT::DATA_MASK);
     status = regData & hardware::RXDATSTAT::STAT_MASK;
   }
-
+  /**
+   * @brief get the input clock of this UART peripheral
+   * @tparam config clock configuration
+   * @return current input clock frequency
+   */
   template <auto &config>
   constexpr std::uint32_t getInputClockFreq() {
     if constexpr (usartAddress == libMcuHw::usart0Address) {

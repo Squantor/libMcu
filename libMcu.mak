@@ -8,7 +8,7 @@
 # Version: 20220715
 
 # library settings
-NAME := libMcuLL
+NAME := libMcu
 
 # current makefile base dir relative to Makefile
 LIB_DIR := $(patsubst %/,%,$(dir $(lastword $(MAKEFILE_LIST))))

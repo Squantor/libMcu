@@ -32,13 +32,14 @@ struct uartSync {
    * @param baudRate Baud rate value
    * @return std::uint32_t actual baud rate
    */
+  template <auto& config>
   constexpr std::uint32_t init(std::uint32_t baudRate) {
-    std::uint32_t baudDivider = CLOCK_MAIN / (baudRate * 16);
+    std::uint32_t baudDivider = getInputClockFreq<config>() / (baudRate * 16);
     usartPeripheral()->BRG = baudDivider;
     usartPeripheral()->CFG = hardware::CFG::ENABLE | static_cast<std::uint32_t>(uartLength::SIZE_8) |
                              static_cast<std::uint32_t>(uartParity::NONE) | static_cast<std::uint32_t>(uartStop::STOP_1);
     usartPeripheral()->INTENSET = hardware::INTENSET::RXRDYEN;
-    return CLOCK_MAIN / 16 / baudDivider;
+    return getInputClockFreq<config>() / 16 / baudDivider;
   }
   /**
    * @brief Setup USART
@@ -48,13 +49,14 @@ struct uartSync {
    * @param stopBits Amount of stop bits, see uartStop enum for options
    * @return std::uint32_t actual baud rate
    */
+  template <auto& config>
   constexpr std::uint32_t init(std::uint32_t baudRate, uartLength lengthBits, uartParity parity, uartStop stopBits) {
-    std::uint32_t baudDivider = CLOCK_MAIN / (baudRate * 16);
+    std::uint32_t baudDivider = getInputClockFreq<config>() / (baudRate * 16);
     usartPeripheral()->BRG = baudDivider;
     usartPeripheral()->CFG = hardware::CFG::ENABLE | static_cast<std::uint32_t>(lengthBits) | static_cast<std::uint32_t>(parity) |
                              static_cast<std::uint32_t>(stopBits);
     usartPeripheral()->INTENSET = hardware::INTENSET::RXRDYEN;
-    return CLOCK_MAIN / 16 / baudDivider;
+    return getInputClockFreq<config>() / 16 / baudDivider;
   }
   /**
    * @brief blocking USART transmit
@@ -86,7 +88,8 @@ struct uartSync {
       }
     }
   }
-  /** @brief blocking USART receive
+  /** 
+   * @brief blocking USART receive
    * @param buffer data to receive from USART
    */
   constexpr void read(std::span<transferType> buffer) {
@@ -98,11 +101,13 @@ struct uartSync {
       }
     }
   }
-
+  /**
+   * @brief 
+   * @return constexpr std::uint32_t 
+   */
   constexpr std::uint32_t receiveDataAvailable() {
     return rxBuffer.level();
   }
-
   /**
    * @brief UART interrupt service routine
    */
@@ -120,6 +125,37 @@ struct uartSync {
       // TODO, what do we do if rx buffer is full?
       rxBuffer.pushFront(usartPeripheral()->RXDAT);
     }
+  }
+  /**
+   * @brief get the input clock of this UART peripheral
+   * @tparam config clock configuration
+   * @return current input clock frequency
+   */
+  template <auto& config>
+  constexpr std::uint32_t getInputClockFreq() {
+    if constexpr (uartBaseAddress == libMcuHw::usart0Address) {
+      if constexpr (config.uart0Source == libMcuHw::clock::periSource::MAIN) {
+        return config.mainFreq;
+      } else
+        static_assert(false, "unsupported peripheral source!");
+    } else if constexpr (uartBaseAddress == libMcuHw::usart1Address) {
+      if constexpr (config.uart1Source == libMcuHw::clock::periSource::MAIN) {
+        return config.mainFreq;
+      } else
+        static_assert(false, "unsupported peripheral source!");
+    } else if constexpr (uartBaseAddress == libMcuHw::usart2Address) {
+      if constexpr (config.uart2Source == libMcuHw::clock::periSource::MAIN) {
+        return config.mainFreq;
+      } else
+        static_assert(false, "unsupported peripheral source!");
+    } else if constexpr (uartBaseAddress == libMcuHw::usart3Address) {
+      if constexpr (config.uart3Source == libMcuHw::clock::periSource::MAIN) {
+        return config.mainFreq;
+      } else
+        static_assert(false, "unsupported peripheral source!");
+    } else
+      static_assert(false, "Unknown UART address!");
+    return 0;
   }
 
  private:

@@ -14,7 +14,7 @@
 namespace libMcuHw::clock {
 namespace sysconLL = libMcuLL::syscon;
 
-template <auto &sysconPeripheral, auto &config = defaultClocks>
+template <libMcuLL::syscon::syscon<libMcuHw::sysconAddress> &sysconPeripheral, auto &config = defaultClocks>
 constexpr void configureClocks() {
   // check if the wanted config is possible at all?
   static_assert(findClockFrequency(config.inputFreq, config.systemFreq) != 0, "Unable to find a clock configuration solution");

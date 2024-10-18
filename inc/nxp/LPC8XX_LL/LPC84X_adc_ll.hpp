@@ -14,9 +14,14 @@ namespace libMcuLL::adc {
 namespace hardware = libMcuHw::adc;
 template <libMcu::adcBaseAddress adcAddress_>
 struct adc : libMcu::peripheralBase {
+  /**
+   * @brief
+   * @tparam &config clock configuration
+   * @param rate sampling rate
+   */
   template <auto &config>
   constexpr void init(uint32_t rate) {
-    uint32_t maxRate{getInputClockFreq<config>() / 25};  // TODO, need to change clocking from defines to a config struct
+    uint32_t maxRate{getInputClockFreq<config>() / 25};
     // initiate hardware selfcal
     adcPeripheral()->CTRL = hardware::CTRL::CALMODE | hardware::CTRL::CLKDIV(maxRate / 500000);
     while (adcPeripheral()->CTRL & hardware::CTRL::CALMODE)
@@ -43,9 +48,19 @@ struct adc : libMcu::peripheralBase {
     } while (!(adcSample & hardware::DAT::DATAVALID_FLAG));
     return hardware::DAT::RESULT(adcSample);
   }
+  /**
+   * @brief Get input frequency of this peripheral
+   * @tparam &config clock configuration
+   * @return clock frequency for this peripheral with this input
+   */
   template <auto &config>
   constexpr std::uint32_t getInputClockFreq() {
-    return 60'000'000;
+    if constexpr (config.adcSource == libMcuHw::clock::periSource::SYS_PLL)
+      return config.mainFreq;
+    else if constexpr (config.adcSource == libMcuHw::clock::periSource::FRO)
+      return config.froFreq;
+    else
+      static_assert(false, "Not available/implemented clock source!");
   }
   /**
    * @brief get registers from peripheral
