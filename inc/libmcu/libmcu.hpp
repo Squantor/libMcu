@@ -23,5 +23,6 @@
 #include "libmcull_types.hpp"
 #include "ringbuffer.hpp"
 #include "libmcuhal_types.hpp"
+#include "libmcu_algorithms.hpp"
 
 #endif

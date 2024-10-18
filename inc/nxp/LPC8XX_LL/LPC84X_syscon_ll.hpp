@@ -187,7 +187,6 @@ template <libMcu::sysconBaseAddress sysconAddress_>
 struct syscon : libMcu::peripheralBase {
   /**
    * @brief Set the System PLL Control
-   *
    * @param msel Feedback divider ratio, 0 divides by 1, 31 divides by 32
    * @param psel Post divider ratio, acceptable values in pllPostDivider enum
    */
@@ -196,7 +195,6 @@ struct syscon : libMcu::peripheralBase {
   }
   /**
    * @brief Get the System Pll Status
-   *
    * @return 0 PLL not locked, 1 PLL locked
    */
   constexpr std::uint32_t getSystemPllStatus(void) {
@@ -204,7 +202,6 @@ struct syscon : libMcu::peripheralBase {
   }
   /**
    * @brief set system oscillator control
-   *
    * @param setting set register see registers::syscon::SYSOSCCTRL
    */
   constexpr void setSysOscControl(std::uint32_t setting) {
@@ -238,10 +235,10 @@ struct syscon : libMcu::peripheralBase {
     sysconPeripheral()->MAINCLKUEN = hardware::MAINCLKUEN::UPDATE;
   }
   /**
-   * @brief Set the System Clock Divider
+   * @brief Set the AHB system clock Divider
    * @param setting divison factor, 0 is disable, 1 is 1, the maximum is 255
    */
-  constexpr void setSystemClockDivider(std::uint32_t setting) {
+  constexpr void setMainClockDivider(std::uint32_t setting) {
     sysconPeripheral()->SYSAHBCLKDIV = hardware::SYSAHBCLKDIV::DIV(setting);
   }
   /**
@@ -280,7 +277,11 @@ struct syscon : libMcu::peripheralBase {
     size_t index = static_cast<size_t>(peripheral);
     sysconPeripheral()->FCLKSEL[index] = static_cast<std::uint32_t>(clock);
   }
-
+  /**
+   * @brief configure the clock output
+   * @param source clock source to output
+   * @param divisor divisor of the clock output
+   */
   constexpr void setClockOutput(clockOutSources source, std::uint32_t divisor) {
     // disable clock to prevent overspeed
     sysconPeripheral()->CLKOUTDIV = hardware::CLKOUTDIV::DIV(0);
@@ -289,7 +290,6 @@ struct syscon : libMcu::peripheralBase {
   }
   /**
    * @brief Power up a peripheral
-   *
    * @param setting bit setting from powerEnables enum
    */
   constexpr void powerPeripherals(std::uint32_t setting) {
@@ -297,7 +297,6 @@ struct syscon : libMcu::peripheralBase {
   }
   /**
    * @brief Power down a peripheral
-   *
    * @param setting bit setting from powerEnables enum
    */
   constexpr void depowerPeripherals(std::uint32_t setting) {
@@ -305,7 +304,6 @@ struct syscon : libMcu::peripheralBase {
   }
   /**
    * @brief Get the DEVICE ID
-   *
    * @return chip id value
    * @return 0x00008100 is returned for LPC840M021FN8
    * @return 0x00008110 is returned for LPC841M001JDH16
@@ -319,7 +317,6 @@ struct syscon : libMcu::peripheralBase {
   }
   /**
    * @brief get registers from peripheral
-   *
    * @return return pointer to syscon registers
    */
   constexpr static hardware::syscon *sysconPeripheral() {
