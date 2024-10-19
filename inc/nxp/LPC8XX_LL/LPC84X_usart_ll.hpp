@@ -73,9 +73,9 @@ struct usart : libMcu::peripheralBase {
    * @param baudRate Baud rate value
    * @return std::uint32_t actual baud rate
    */
-  template <auto &config>
+  template <const libMcuHw::clock::periClockConfig &t_clockConfig>
   constexpr std::uint32_t init(std::uint32_t baudRate) {
-    std::uint32_t peripheralFrequency = getInputClockFreq<config>();
+    std::uint32_t peripheralFrequency = getInputClockFreq<t_clockConfig>();
     // which peripheral address do I have?
     // select the UART from the configuration structure
     // read out clock frequency
@@ -93,9 +93,9 @@ struct usart : libMcu::peripheralBase {
    * @param stopBits Amount of stop bits, see uartStop enum for options
    * @return std::uint32_t actual baud rate
    */
-  template <auto &config>
+  template <const libMcuHw::clock::periClockConfig &t_clockConfig>
   constexpr std::uint32_t init(std::uint32_t baudRate, uartLength lengthBits, uartParity parity, uartStop stopBits) {
-    std::uint32_t peripheralFrequency = getInputClockFreq<config>();
+    std::uint32_t peripheralFrequency = getInputClockFreq<t_clockConfig>();
     std::uint32_t baudDivider = peripheralFrequency / (baudRate * 16);
     usartPeripheral()->BRG = baudDivider;
     usartPeripheral()->CFG = hardware::CFG::ENABLE | static_cast<std::uint32_t>(lengthBits) | static_cast<std::uint32_t>(parity) |
@@ -138,30 +138,22 @@ struct usart : libMcu::peripheralBase {
    * @tparam config clock configuration
    * @return current input clock frequency
    */
-  template <auto &config>
+  template <const libMcuHw::clock::periClockConfig &t_clockConfig>
   constexpr std::uint32_t getInputClockFreq() {
-    if constexpr (usartAddress == libMcuHw::usart0Address) {
-      if constexpr (config.uart0Source == libMcuHw::clock::periSource::MAIN) {
-        return config.mainFreq;
-      } else
-        static_assert(false, "unsupported peripheral source!");
-    } else if constexpr (usartAddress == libMcuHw::usart1Address) {
-      if constexpr (config.uart1Source == libMcuHw::clock::periSource::MAIN) {
-        return config.mainFreq;
-      } else
-        static_assert(false, "unsupported peripheral source!");
-    } else if constexpr (usartAddress == libMcuHw::usart2Address) {
-      if constexpr (config.uart2Source == libMcuHw::clock::periSource::MAIN) {
-        return config.mainFreq;
-      } else
-        static_assert(false, "unsupported peripheral source!");
-    } else if constexpr (usartAddress == libMcuHw::usart3Address) {
-      if constexpr (config.uart3Source == libMcuHw::clock::periSource::MAIN) {
-        return config.mainFreq;
-      } else
-        static_assert(false, "unsupported peripheral source!");
-    } else
-      static_assert(false, "Unknown UART address!");
+    // constexpr check if we configure the right peripheral
+    if constexpr ((usartAddress == libMcuHw::usart0Address) && (t_clockConfig.peripheral == libMcuHw::clock::periSelect::UART0))
+      return t_clockConfig.getFrequency();
+    else if constexpr ((usartAddress == libMcuHw::usart1Address) &&
+                       (t_clockConfig.peripheral == libMcuHw::clock::periSelect::UART1))
+      return t_clockConfig.getFrequency();
+    else if constexpr ((usartAddress == libMcuHw::usart2Address) &&
+                       (t_clockConfig.peripheral == libMcuHw::clock::periSelect::UART2))
+      return t_clockConfig.getFrequency();
+    else if constexpr ((usartAddress == libMcuHw::usart3Address) &&
+                       (t_clockConfig.peripheral == libMcuHw::clock::periSelect::UART3))
+      return t_clockConfig.getFrequency();
+    else
+      static_assert(false, "Clock config and peripherals unknown or not matching!");
     return 0;
   }
   /**
