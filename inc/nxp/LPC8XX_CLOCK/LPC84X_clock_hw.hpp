@@ -64,7 +64,13 @@ struct mcuClockConfig {
   static constexpr std::uint32_t inputFreq{t_inputFreq};
   static constexpr std::uint32_t mainFreq{findClockFrequency(t_inputFreq, t_systemFreq)};
   static constexpr std::uint32_t systemFreq{t_systemFreq};
-  static constexpr std::uint32_t froFreq{froDefaultClockFreq};
+  static consteval std::uint32_t froFreq() {
+    if constexpr (t_source == clockInputSources::FRO) {
+      return t_inputFreq;
+    } else {
+      return froDefaultClockFreq;
+    }
+  };
   // TODO fractional rate converters?
 };
 /**
