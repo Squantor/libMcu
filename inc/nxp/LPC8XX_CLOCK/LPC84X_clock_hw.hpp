@@ -59,12 +59,34 @@ enum class periSource : std::uint8_t {
  */
 template <clockInputSources t_source, std::uint32_t t_inputFreq, std::uint32_t t_systemFreq>
 struct mcuClockConfig {
-  static_assert(findClockFrequency(t_inputFreq, t_systemFreq) != 0, "Unable to find a clock configuration solution");
-  static constexpr clockInputSources source{t_source};
-  static constexpr std::uint32_t inputFreq{t_inputFreq};
-  static constexpr std::uint32_t mainFreq{findClockFrequency(t_inputFreq, t_systemFreq)};
-  static constexpr std::uint32_t systemFreq{t_systemFreq};
-  static consteval std::uint32_t froFreq() {
+  static constexpr clockInputSources source{t_source}; /*!< primary clock source for the microcontroller */
+  /**
+   * @brief Get frequency for the input clock source
+   * @retval frequency in Hertz
+   */
+  static consteval std::uint32_t getSourceFreq() {
+    return t_inputFreq;
+  }
+  /**
+   * @brief Get frequency for the main clock clock net
+   * @retval frequency in Hertz
+   */
+  static consteval std::uint32_t getMainFreq() {
+    static_assert(findClockFrequency(t_inputFreq, t_systemFreq) != 0, "Unable to find a clock configuration solution");
+    return findClockFrequency(t_inputFreq, t_systemFreq);
+  }
+  /**
+   * @brief Get frequency for the system clock net, this is also the CPU frequency
+   * @return frequency in Hertz
+   */
+  static consteval std::uint32_t getSystemFreq() {
+    return t_systemFreq;
+  }
+  /**
+   * @brief Get frequency for the FRO clock generator
+   * @return frequency in Hertz
+   */
+  static consteval std::uint32_t getFroFreq() {
     if constexpr (t_source == clockInputSources::FRO) {
       return t_inputFreq;
     } else {
@@ -85,9 +107,9 @@ struct periClockConfig {
   periSource source{t_source};
   static consteval std::uint32_t getFrequency() {
     if constexpr (t_source == periSource::FRO)
-      return t_clockConfig.froFreq;
+      return t_clockConfig.getFroFreq();
     else if constexpr (t_source == periSource::MAIN)
-      return t_clockConfig.mainFreq;
+      return t_clockConfig.getMainFreq();
     else if constexpr (t_source == periSource::FRG0)
       static_assert(false, "FRG0 input not implemented yet!");
     else if constexpr (t_source == periSource::FRG1)

@@ -309,18 +309,18 @@ struct syscon : libMcu::peripheralBase {
   template <const libMcuHw::clock::mcuClockConfig &config = libMcuHw::clock::defaultClocks>
   constexpr void configureMcuClocks() {
     // check if the wanted config is possible at all?
-    static_assert(libMcuHw::clock::findClockFrequency(config.inputFreq, config.systemFreq) != 0,
+    static_assert(libMcuHw::clock::findClockFrequency(config.getSourceFreq(), config.getSystemFreq()) != 0,
                   "Unable to find a clock configuration solution");
     // setup clock source
     if constexpr (config.source == libMcuHw::clock::clockInputSources::FRO) {
       // TODO support 24MHz FRO frequency
       // support romfunction FRO and get valid list of FRO frequency
-      if constexpr (config.inputFreq == libMcuHw::clock::froDefaultClockFreq)
+      if constexpr (config.getSourceFreq() == libMcuHw::clock::froDefaultClockFreq)
         selectMainClock(mainClockSources::FRO);
       else
         static_assert(false, "Unsupported FRO frequency!");
     } else if constexpr (config.source == libMcuHw::clock::clockInputSources::XTAL) {
-      if constexpr (config.inputFreq > 15'000'000) {
+      if constexpr (config.getSourceFreq() > 15'000'000) {
         setSysOscControl(libMcuHw::syscon::SYSOSCCTRL::NO_BYPASS | libMcuHw::syscon::SYSOSCCTRL::FREQ_15_25MHz);
       } else
         setSysOscControl(libMcuHw::syscon::SYSOSCCTRL::NO_BYPASS | libMcuHw::syscon::SYSOSCCTRL::FREQ_1_20MHz);
@@ -328,11 +328,12 @@ struct syscon : libMcu::peripheralBase {
       libMcuLL::delay(3000);
       selectMainClock(mainClockSources::EXT);
     }
-    // TODO: WDT clock source
+    // TODO: handle WDT clock source
+    // TODO: some peripherals can only use the PLL out as a clock source
     selectMainPllClock(mainClockPllSources::PRE);
     // can we achieve the frequency we need without using the PLL?
-    if constexpr (config.mainFreq == config.inputFreq) {
-      setMainClockDivider(config.mainFreq / config.systemFreq);
+    if constexpr (config.getMainFreq() == config.getSourceFreq()) {
+      setMainClockDivider(config.getMainFreq() / config.getSystemFreq());
     } else {
       if constexpr (config.source == libMcuHw::clock::clockInputSources::FRO) {
         selectPllClock(libMcuLL::syscon::pllClockSources::FRO);
@@ -340,12 +341,12 @@ struct syscon : libMcu::peripheralBase {
         selectPllClock(libMcuLL::syscon::pllClockSources::EXT);
       }
       depowerPeripherals(libMcuLL::syscon::powerOptions::SYSPLL);
-      setSystemPllControl(libMcuHw::clock::findSystemPllMsel(config.inputFreq, config.mainFreq),
-                          static_cast<libMcuLL::syscon::pllPostDivider>(libMcuHw::clock::findSystemPllPsel(config.mainFreq)));
+      setSystemPllControl(libMcuHw::clock::findSystemPllMsel(config.getSourceFreq(), config.getMainFreq()),
+                          static_cast<libMcuLL::syscon::pllPostDivider>(libMcuHw::clock::findSystemPllPsel(config.getMainFreq())));
       powerPeripherals(libMcuLL::syscon::powerOptions::SYSPLL);
       while (getSystemPllStatus() == 0)
         ;
-      setMainClockDivider(config.mainFreq / config.systemFreq);
+      setMainClockDivider(config.getMainFreq() / config.getSystemFreq());
       selectMainPllClock(libMcuLL::syscon::mainClockPllSources::SYSPLL);
     }
   }
