@@ -5,11 +5,11 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file Cortex M0+ definitions and classes
- * \brief Main entry point for Cortex M0+ support
+ * \file cortex_m0.hpp
+ * \brief Main entry point for Cortex M0 support
  */
-#ifndef CORTEX_M0PLUS_HPP
-#define CORTEX_M0PLUS_HPP
+#ifndef CORTEX_M0_HPP
+#define CORTEX_M0_HPP
 
 namespace libMcuHw {
 
@@ -18,7 +18,6 @@ constexpr inline libMcu::scsBaseAddress scsAddress{0xE000'E000UL};         /*!< 
 constexpr inline libMcu::systickBaseAddress systickAddress{0xE000'E010UL}; /*!< systick base address*/
 constexpr inline libMcu::nvicBaseAddress nvicAddress{0xE000'E100UL};       /*!< NVIC base address */
 constexpr inline libMcu::scbBaseAddress scbAddress{0xE000'ED00UL};         /*!< SCB base address */
-constexpr inline libMcu::mpuBaseAddress mpuAddress{0xE000'ED90UL};         /*!< MPU base address */
 
 }  // namespace libMcuHw
 
@@ -26,12 +25,9 @@ constexpr inline libMcu::mpuBaseAddress mpuAddress{0xE000'ED90UL};         /*!< 
 
 #include "systick_hw.hpp"
 #include "nvic_hw.hpp"
-#include "cm0p_scb_hw.hpp"
-#include "mpu_hw.hpp"
+#include "cm0_scb_hw.hpp"
 
 #include "systick_ll.hpp"
 #include "nvic_ll.hpp"
-#include "scb_ll.hpp"
-#include "mpu_ll.hpp"
 
 #endif
