@@ -13,7 +13,7 @@
 
 namespace libMcuHw::clock {
 
-constexpr inline std::uint32_t hsiDefaultClockFreq{8'000'000}; /**< HSI default clock frequency */
+constexpr inline std::uint32_t hsiDefaultClockFreq{8'000'000}; /*!< HSI default clock frequency */
 
 /**
  * @brief clock sources available for this microcontroller

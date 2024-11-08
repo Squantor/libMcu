@@ -18,104 +18,104 @@ namespace libMcuHw {
  * @brief Available pins on RP2040
  */
 enum class IOpins : std::uint8_t {
-  PIN00, /**< Pin 0 */
-  PIN01, /**< Pin 1 */
-  PIN02, /**< Pin 2 */
-  PIN03, /**< Pin 3 */
-  PIN04, /**< Pin 4 */
-  PIN05, /**< Pin 5 */
-  PIN06, /**< Pin 6 */
-  PIN07, /**< Pin 7 */
-  PIN08, /**< Pin 8 */
-  PIN09, /**< Pin 9 */
-  PIN10, /**< Pin 10 */
-  PIN11, /**< Pin 11 */
-  PIN12, /**< Pin 12 */
-  PIN13, /**< Pin 13 */
-  PIN14, /**< Pin 14 */
-  PIN15, /**< Pin 15 */
-  PIN16, /**< Pin 16 */
-  PIN17, /**< Pin 17 */
-  PIN18, /**< Pin 18 */
-  PIN19, /**< Pin 19 */
-  PIN20, /**< Pin 20 */
-  PIN21, /**< Pin 21 */
-  PIN22, /**< Pin 22 */
-  PIN23, /**< Pin 23 */
-  PIN24, /**< Pin 24 */
-  PIN25, /**< Pin 25 */
-  PIN26, /**< Pin 26 */
-  PIN27, /**< Pin 27 */
-  PIN28, /**< Pin 28 */
-  PIN29, /**< Pin 29 */
+  PIN00, /*!< Pin 0 */
+  PIN01, /*!< Pin 1 */
+  PIN02, /*!< Pin 2 */
+  PIN03, /*!< Pin 3 */
+  PIN04, /*!< Pin 4 */
+  PIN05, /*!< Pin 5 */
+  PIN06, /*!< Pin 6 */
+  PIN07, /*!< Pin 7 */
+  PIN08, /*!< Pin 8 */
+  PIN09, /*!< Pin 9 */
+  PIN10, /*!< Pin 10 */
+  PIN11, /*!< Pin 11 */
+  PIN12, /*!< Pin 12 */
+  PIN13, /*!< Pin 13 */
+  PIN14, /*!< Pin 14 */
+  PIN15, /*!< Pin 15 */
+  PIN16, /*!< Pin 16 */
+  PIN17, /*!< Pin 17 */
+  PIN18, /*!< Pin 18 */
+  PIN19, /*!< Pin 19 */
+  PIN20, /*!< Pin 20 */
+  PIN21, /*!< Pin 21 */
+  PIN22, /*!< Pin 22 */
+  PIN23, /*!< Pin 23 */
+  PIN24, /*!< Pin 24 */
+  PIN25, /*!< Pin 25 */
+  PIN26, /*!< Pin 26 */
+  PIN27, /*!< Pin 27 */
+  PIN28, /*!< Pin 28 */
+  PIN29, /*!< Pin 29 */
 };
 
 /**
  * @brief Available ports on RP2040
  */
 enum class IOports : std::uint8_t {
-  PORT0, /**< Port 0 */
-  QSPI,  /**< port QSPI */
+  PORT0, /*!< Port 0 */
+  QSPI,  /*!< port QSPI */
 };
 
 /**
  * @brief Available pin functions on RP2040
  */
 enum class IOfuncts : std::uint8_t {
-  SPI0_RX,       /**< SPI0 receive */
-  SPI0_TX,       /**< SPI0 transmit */
-  SPI0_CS,       /**< SPI0 Chip select */
-  SPI0_SCK,      /**< SPI0 clock */
-  SPI1_RX,       /**< SPI1 receive */
-  SPI1_TX,       /**< SPI1 transmit */
-  SPI1_CS,       /**< SPI1 Chip select */
-  SPI1_SCK,      /**< SPI1 clock */
-  UART0_TX,      /**< UART0 transmit */
-  UART0_RX,      /**< UART0 receive */
-  UART0_CTS,     /**< UART0 Clear to send */
-  UART0_RTS,     /**< UART0 Request to send */
-  UART1_TX,      /**< UART1 transmit */
-  UART1_RX,      /**< UART1 receive */
-  UART1_CTS,     /**< UART1 Clear to send */
-  UART1_RTS,     /**< UART1 Request to send */
-  I2C0_SCL,      /**< I2C0 clock */
-  I2C0_SDA,      /**< I2C0 data */
-  I2C1_SCL,      /**< I2C0 clock */
-  I2C1_SDA,      /**< I2C0 data */
-  SIO,           /**< SIO */
-  PIO0,          /**< PIO0 */
-  PIO1,          /**< PIO1 */
-  PWM0A,         /**< PWM0A */
-  PWM0B,         /**< PWM0A */
-  PWM1A,         /**< PWM1A */
-  PWM1B,         /**< PWM1A */
-  PWM2A,         /**< PWM2A */
-  PWM2B,         /**< PWM2A */
-  PWM3A,         /**< PWM3A */
-  PWM3B,         /**< PWM3A */
-  PWM4A,         /**< PWM4A */
-  PWM4B,         /**< PWM4A */
-  PWM5A,         /**< PWM5A */
-  PWM5B,         /**< PWM5A */
-  PWM6A,         /**< PWM6A */
-  PWM6B,         /**< PWM6A */
-  PWM7A,         /**< PWM7A */
-  PWM7B,         /**< PWM7A */
-  CLK_GPIN0,     /**< Clock pin in 0 */
-  CLK_GPOUT0,    /**< Clock pin out 0 */
-  CLK_GPIN1,     /**< Clock pin in 1 */
-  CLK_GPOUT1,    /**< Clock pin out 1 */
-  CLK_GPOUT2,    /**< Clock pin out 2 */
-  CLK_GPOUT3,    /**< Clock pin out 3 */
-  USB_OVCUR_DET, /**< USB overcurrent detection */
-  USB_VBUS_DET,  /**< USB bus voltage detection */
-  USB_VBUS_EN,   /**< USB bus voltage enable */
-  XIP_SCK,       /**< XIP clock */
-  XIP_CS,        /**< XIP chip select*/
-  XIP_SD0,       /**< XIP data pin 0 */
-  XIP_SD1,       /**< XIP data pin 1 */
-  XIP_SD2,       /**< XIP data pin 2 */
-  XIP_SD3,       /**< XIP data pin 3 */
+  SPI0_RX,       /*!< SPI0 receive */
+  SPI0_TX,       /*!< SPI0 transmit */
+  SPI0_CS,       /*!< SPI0 Chip select */
+  SPI0_SCK,      /*!< SPI0 clock */
+  SPI1_RX,       /*!< SPI1 receive */
+  SPI1_TX,       /*!< SPI1 transmit */
+  SPI1_CS,       /*!< SPI1 Chip select */
+  SPI1_SCK,      /*!< SPI1 clock */
+  UART0_TX,      /*!< UART0 transmit */
+  UART0_RX,      /*!< UART0 receive */
+  UART0_CTS,     /*!< UART0 Clear to send */
+  UART0_RTS,     /*!< UART0 Request to send */
+  UART1_TX,      /*!< UART1 transmit */
+  UART1_RX,      /*!< UART1 receive */
+  UART1_CTS,     /*!< UART1 Clear to send */
+  UART1_RTS,     /*!< UART1 Request to send */
+  I2C0_SCL,      /*!< I2C0 clock */
+  I2C0_SDA,      /*!< I2C0 data */
+  I2C1_SCL,      /*!< I2C0 clock */
+  I2C1_SDA,      /*!< I2C0 data */
+  SIO,           /*!< SIO */
+  PIO0,          /*!< PIO0 */
+  PIO1,          /*!< PIO1 */
+  PWM0A,         /*!< PWM0A */
+  PWM0B,         /*!< PWM0A */
+  PWM1A,         /*!< PWM1A */
+  PWM1B,         /*!< PWM1A */
+  PWM2A,         /*!< PWM2A */
+  PWM2B,         /*!< PWM2A */
+  PWM3A,         /*!< PWM3A */
+  PWM3B,         /*!< PWM3A */
+  PWM4A,         /*!< PWM4A */
+  PWM4B,         /*!< PWM4A */
+  PWM5A,         /*!< PWM5A */
+  PWM5B,         /*!< PWM5A */
+  PWM6A,         /*!< PWM6A */
+  PWM6B,         /*!< PWM6A */
+  PWM7A,         /*!< PWM7A */
+  PWM7B,         /*!< PWM7A */
+  CLK_GPIN0,     /*!< Clock pin in 0 */
+  CLK_GPOUT0,    /*!< Clock pin out 0 */
+  CLK_GPIN1,     /*!< Clock pin in 1 */
+  CLK_GPOUT1,    /*!< Clock pin out 1 */
+  CLK_GPOUT2,    /*!< Clock pin out 2 */
+  CLK_GPOUT3,    /*!< Clock pin out 3 */
+  USB_OVCUR_DET, /*!< USB overcurrent detection */
+  USB_VBUS_DET,  /*!< USB bus voltage detection */
+  USB_VBUS_EN,   /*!< USB bus voltage enable */
+  XIP_SCK,       /*!< XIP clock */
+  XIP_CS,        /*!< XIP chip select*/
+  XIP_SD0,       /*!< XIP data pin 0 */
+  XIP_SD1,       /*!< XIP data pin 1 */
+  XIP_SD2,       /*!< XIP data pin 2 */
+  XIP_SD3,       /*!< XIP data pin 3 */
 };
 
 /**
@@ -124,21 +124,20 @@ enum class IOfuncts : std::uint8_t {
  * TODO: Need to change to a common gpio namespace
  */
 enum class IOfunctSelects : std::uint8_t {
-  F1 = libMcuHw::gpioBank0::CTRL::F1,     /**< Function 1 selected */
-  F2 = libMcuHw::gpioBank0::CTRL::F2,     /**< Function 2 selected */
-  F3 = libMcuHw::gpioBank0::CTRL::F3,     /**< Function 3 selected */
-  F4 = libMcuHw::gpioBank0::CTRL::F4,     /**< Function 4 selected */
-  F5 = libMcuHw::gpioBank0::CTRL::F5,     /**< Function 5 selected */
-  F6 = libMcuHw::gpioBank0::CTRL::F6,     /**< Function 6 selected */
-  F7 = libMcuHw::gpioBank0::CTRL::F7,     /**< Function 7 selected */
-  F8 = libMcuHw::gpioBank0::CTRL::F8,     /**< Function 8 selected */
-  F9 = libMcuHw::gpioBank0::CTRL::F9,     /**< Function 9 selected */
-  NONE = libMcuHw::gpioBank0::CTRL::NONE, /**< No Function selected */
+  F1 = libMcuHw::gpioBank0::CTRL::F1,     /*!< Function 1 selected */
+  F2 = libMcuHw::gpioBank0::CTRL::F2,     /*!< Function 2 selected */
+  F3 = libMcuHw::gpioBank0::CTRL::F3,     /*!< Function 3 selected */
+  F4 = libMcuHw::gpioBank0::CTRL::F4,     /*!< Function 4 selected */
+  F5 = libMcuHw::gpioBank0::CTRL::F5,     /*!< Function 5 selected */
+  F6 = libMcuHw::gpioBank0::CTRL::F6,     /*!< Function 6 selected */
+  F7 = libMcuHw::gpioBank0::CTRL::F7,     /*!< Function 7 selected */
+  F8 = libMcuHw::gpioBank0::CTRL::F8,     /*!< Function 8 selected */
+  F9 = libMcuHw::gpioBank0::CTRL::F9,     /*!< Function 9 selected */
+  NONE = libMcuHw::gpioBank0::CTRL::NONE, /*!< No Function selected */
 };
 
 /**
  * @brief base I/O pin template
- *
  * @tparam T_PORT   IO port
  * @tparam T_PIN    IO pin
  * @tparam T_FUNCT  IO function

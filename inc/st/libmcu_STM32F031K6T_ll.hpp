@@ -138,6 +138,9 @@ constexpr inline libMcu::stmBaseAddress tim2Address{0x4000'0000u};      /*!< Tim
 // these need to go after registers namespace definitions as they are used here
 #include "STM32F0_CLOCK/STM32F0_clock_hw.hpp"
 
+// pin definitions
+#include "STM32F0_PINS/STM32F031K6T_pins.hpp"
+
 // includes that use the registers namespace go here
 // need to go after registers namespaces and device specific headers
 #include "STM32F0_LL/STM32F0_syscfg_ll.hpp"
