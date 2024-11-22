@@ -88,7 +88,7 @@ struct uartSync {
       }
     }
   }
-  /** 
+  /**
    * @brief blocking USART receive
    * @param buffer data to receive from USART
    */
@@ -102,8 +102,8 @@ struct uartSync {
     }
   }
   /**
-   * @brief 
-   * @return constexpr std::uint32_t 
+   * @brief
+   * @return constexpr std::uint32_t
    */
   constexpr std::uint32_t receiveDataAvailable() {
     return rxBuffer.level();
@@ -133,29 +133,7 @@ struct uartSync {
    */
   template <auto& config>
   constexpr std::uint32_t getInputClockFreq() {
-    if constexpr (uartBaseAddress == libMcuHw::usart0Address) {
-      if constexpr (config.uart0Source == libMcuHw::clock::periSource::MAIN) {
-        return config.mainFreq;
-      } else
-        static_assert(false, "unsupported peripheral source!");
-    } else if constexpr (uartBaseAddress == libMcuHw::usart1Address) {
-      if constexpr (config.uart1Source == libMcuHw::clock::periSource::MAIN) {
-        return config.mainFreq;
-      } else
-        static_assert(false, "unsupported peripheral source!");
-    } else if constexpr (uartBaseAddress == libMcuHw::usart2Address) {
-      if constexpr (config.uart2Source == libMcuHw::clock::periSource::MAIN) {
-        return config.mainFreq;
-      } else
-        static_assert(false, "unsupported peripheral source!");
-    } else if constexpr (uartBaseAddress == libMcuHw::usart3Address) {
-      if constexpr (config.uart3Source == libMcuHw::clock::periSource::MAIN) {
-        return config.mainFreq;
-      } else
-        static_assert(false, "unsupported peripheral source!");
-    } else
-      static_assert(false, "Unknown UART address!");
-    return 0;
+    return config.getFrequency();
   }
 
  private:
