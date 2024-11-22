@@ -19,37 +19,37 @@ namespace libMcuHw::clock {
  * @brief
  */
 enum class clockInputSources : std::uint8_t {
-  FRO,   /**< FRO clock oscillator */
-  XTAL,  /**< Crystal clock oscillator */
-  CLKIN, /**< Clock input pin */
+  FRO,   /*!< FRO clock oscillator */
+  XTAL,  /*!< Crystal clock oscillator */
+  CLKIN, /*!< Clock input pin */
   // TODO: WDT
 };
 /**
  * @brief
  */
 enum class periSelect : std::uint8_t {
-  UART0, /**< UART 0 peripheral */
-  UART1, /**< UART 1 peripheral */
-  UART2, /**< UART 2 peripheral */
-  UART3, /**< UART 3 peripheral */
-  I2C0,  /**< I2C 0 peripheral */
-  I2C1,  /**< I2C 1 peripheral */
-  I2C2,  /**< I2C 2 peripheral */
-  I2C3,  /**< I2C 3 peripheral */
-  SPI0,  /**< SPI 0 peripheral */
-  SPI1   /**< SPI 1 peripheral */
+  UART0, /*!< UART 0 peripheral */
+  UART1, /*!< UART 1 peripheral */
+  UART2, /*!< UART 2 peripheral */
+  UART3, /*!< UART 3 peripheral */
+  I2C0,  /*!< I2C 0 peripheral */
+  I2C1,  /*!< I2C 1 peripheral */
+  I2C2,  /*!< I2C 2 peripheral */
+  I2C3,  /*!< I2C 3 peripheral */
+  SPI0,  /*!< SPI 0 peripheral */
+  SPI1   /*!< SPI 1 peripheral */
 };
 /**
  * @brief
  */
 enum class periSource : std::uint8_t {
-  FRO,     /**< FRO oscillator */
-  MAIN,    /**< Main clock oscillator */
-  FRG0,    /**< Fractional clock generator 0 */
-  FRG1,    /**< Fractional clock generator 1 */
-  FRO_DIV, /**< FRO oscillator divided by 2 */
-  SYS_PLL, /**< System PLL */
-  NONE,    /**< No clock */
+  FRO,     /*!< FRO oscillator */
+  MAIN,    /*!< Main clock oscillator */
+  FRG0,    /*!< Fractional clock generator 0 */
+  FRG1,    /*!< Fractional clock generator 1 */
+  FRO_DIV, /*!< FRO oscillator divided by 2 */
+  SYS_PLL, /*!< System PLL */
+  NONE,    /*!< No clock */
 };
 /**
  * @brief Microcontroller clock configuration generation
@@ -121,7 +121,7 @@ struct periClockConfig {
     return 0;
   }
 };
-/**< */
+/*!< Default clock configuration for LPC840 series*/
 inline mcuClockConfig<clockInputSources::FRO, froDefaultClockFreq, froDefaultClockFreq> const defaultClocks;
 
 }  // namespace libMcuHw::clock
