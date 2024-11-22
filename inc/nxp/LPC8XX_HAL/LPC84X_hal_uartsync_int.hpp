@@ -34,8 +34,15 @@ struct uartSync {
    */
   template <auto& config>
   constexpr std::uint32_t init(std::uint32_t baudRate) {
-    std::uint32_t baudDivider = getInputClockFreq<config>() / (baudRate * 16);
-    usartPeripheral()->BRG = baudDivider;
+    // we upscale the input clock by 16 to detect rounding errors
+    std::uint32_t baudDivider = (getInputClockFreq<config>() * 16) / (baudRate * 16);
+    // check fractional part and round when needed
+    if ((baudDivider & 0x0F) < 7)
+      baudDivider = baudDivider >> 4;
+    else
+      baudDivider = (baudDivider >> 4) + 1;
+
+    usartPeripheral()->BRG = baudDivider - 1;
     usartPeripheral()->CFG = hardware::CFG::ENABLE | static_cast<std::uint32_t>(uartLength::SIZE_8) |
                              static_cast<std::uint32_t>(uartParity::NONE) | static_cast<std::uint32_t>(uartStop::STOP_1);
     usartPeripheral()->INTENSET = hardware::INTENSET::RXRDYEN;
