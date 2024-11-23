@@ -163,7 +163,7 @@ struct uartSync {
   static constexpr libMcu::hwAddressType nvicBaseAddress = nvicBaseAddress_; /**< NVIC peripheral address */
   libMcu::RingBuffer<transferType, bufSize> txBuffer;
   libMcu::RingBuffer<transferType, bufSize> rxBuffer;
-};  // namespace libMcu::hw::nvic
+};
 }  // namespace libMcuHal::usart
 
 #endif
