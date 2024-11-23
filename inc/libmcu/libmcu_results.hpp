@@ -30,6 +30,8 @@ enum class results : std::uint32_t {
   FRAMING,         /**< Framing error*/
   PARITY,          /**< Parity error */
   BREAK,           /**< Break error */
+  FULL,            /**< Buffer is full */
+  EMPTY,           /**< Buffer is empty */
 };
 }  // namespace libMcu
 
