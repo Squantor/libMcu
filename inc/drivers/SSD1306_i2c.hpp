@@ -22,13 +22,13 @@ struct SSD1306 {
   constexpr libMcu::results init() {
     return sendCommand(config.initCommands);
   }
-  constexpr libMcu::results sendCommand(std::span<const std::uint8_t> commands) {
+  constexpr libMcu::results sendCommand(const std::span<const std::uint8_t> commands) {
     return send(preambleCommand, commands);
   }
-  constexpr libMcu::results sendData(std::span<const std::uint8_t> data) {
+  constexpr libMcu::results sendData(const std::span<const std::uint8_t> data) {
     return send(preambleData, data);
   }
-  constexpr libMcu::results send(std::uint8_t action, std::span<const std::uint8_t> commands) {
+  constexpr libMcu::results send(std::uint8_t action, const std::span<const std::uint8_t> commands) {
     libMcu::results result;
     result = i2cHal.startMasterWrite(i2cAddress, action);
     if (result != libMcu::results::NO_ERROR)
