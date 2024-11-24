@@ -29,7 +29,7 @@ struct generic128x32 {
                                                                       setChargePump,
                                                                       chargePumpOn(true),
                                                                       setMemoryAddressingMode,
-                                                                      AddressingMode(horizontalMode),
+                                                                      AddressingMode(pageMode),
                                                                       setSegmentRemap(column127),
                                                                       comOutputScanDirection(remappedDirection),
                                                                       setComPinsHardware,

@@ -25,6 +25,14 @@ struct SSD1306 {
   constexpr libMcu::results sendCommand(const std::span<const std::uint8_t> commands) {
     return send(preambleCommand, commands);
   }
+  constexpr libMcu::results sendCommand(std::uint8_t command) {
+    std::array<std::uint8_t, 1> commands{command};
+    return sendCommand(commands);
+  }
+  constexpr libMcu::results sendCommand(std::uint8_t command, std::uint8_t argument) {
+    std::array<std::uint8_t, 2> commands{command, argument};
+    return sendCommand(commands);
+  }
   constexpr libMcu::results sendData(const std::span<const std::uint8_t> data) {
     return send(preambleData, data);
   }
@@ -39,6 +47,25 @@ struct SSD1306 {
   stopI2C:
     i2cHal.stopMaster();
     return result;
+  }
+  constexpr libMcu::results setContrast(std::uint8_t contrast) {
+    return sendCommand({setContrast, ContrastLevel(contrast)});
+  }
+  constexpr libMcu::results setDisplayRam(bool state) {
+    if (state == true)
+      return sendCommand(displayRam);
+    else
+      return sendCommand(displayOn);
+  }
+  constexpr libMcu::results invertDisplay(bool state) {
+    if (state == true)
+      return sendCommand(displayInvert);
+    else
+      return sendCommand(displayNormal);
+  }
+  constexpr libMcu::results setAddress(uint8_t column, uint8_t page) {
+    std::array<std::uint8_t, 3> commands{setPageStart(page), lowerColumnAddress(column), higherColumnAddress(column)};
+    return sendCommand(commands);
   }
 };
 
