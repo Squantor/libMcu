@@ -53,18 +53,36 @@ struct SSD1306 {
   }
   constexpr libMcu::results setDisplayRam(bool state) {
     if (state == true)
-      return sendCommand(displayRam);
+      return sendCommand(cmdDisplayRam);
     else
-      return sendCommand(displayOn);
+      return sendCommand(CmdDisplayOn);
   }
   constexpr libMcu::results invertDisplay(bool state) {
     if (state == true)
-      return sendCommand(displayInvert);
+      return sendCommand(cmdDisplayInvert);
     else
-      return sendCommand(displayNormal);
+      return sendCommand(cmdDisplayNormal);
   }
-  constexpr libMcu::results setAddress(uint8_t column, uint8_t page) {
-    std::array<std::uint8_t, 3> commands{setPageStart(page), lowerColumnAddress(column), higherColumnAddress(column)};
+  /**
+   * @brief Set the Address of the display pointer in page mode
+   * @param column column address
+   * @param page page address
+   * @return constexpr libMcu::results
+   */
+  constexpr libMcu::results setAddressInPageMode(uint8_t column, uint8_t page) {
+    std::array<std::uint8_t, 3> commands{cmdSetPageStart(page), cmdSetLowerColumnAddress(column),
+                                         cmdSetHigherColumnAddress(column)};
+    return sendCommand(commands);
+  }
+  constexpr libMcu::results setDisplayStartLine(uint32_t line) {
+    return sendCommand(cmdSetDisplayStartLine(line));
+  }
+  constexpr libMcu::results setColumnAddress(uint32_t start, uint32_t end) {
+    std::array<std::uint8_t, 3> commands{cmdSetColumnAddress, static_cast<std::uint8_t>(start), static_cast<std::uint8_t>(end)};
+    return sendCommand(commands);
+  }
+  constexpr libMcu::results setPageAddress(uint32_t start, uint32_t end) {
+    std::array<std::uint8_t, 3> commands{cmdSetPageAddress, static_cast<std::uint8_t>(start), static_cast<std::uint8_t>(end)};
     return sendCommand(commands);
   }
 };
