@@ -22,6 +22,12 @@ struct SSD1306 {
   constexpr libMcu::results init() {
     return sendCommand(config.initCommands);
   }
+  constexpr std::uint32_t getXsize() {
+    return config.xSize;
+  }
+  constexpr std::uint32_t getYsize() {
+    return config.ySize;
+  }
   constexpr libMcu::results sendCommand(const std::span<const std::uint8_t> commands) {
     return send(preambleCommand, commands);
   }
@@ -48,8 +54,13 @@ struct SSD1306 {
     i2cHal.stopMaster();
     return result;
   }
-  constexpr libMcu::results setContrast(std::uint8_t contrast) {
-    return sendCommand({setContrast, ContrastLevel(contrast)});
+  /**
+   * @brief Set the display contrast value
+   * @param contrast contrast value from 1 to 255
+   * @return status of I2C transaction
+   */
+  constexpr libMcu::results contrast(std::uint8_t value) {
+    return sendCommand(setContrast, ContrastLevel(value));
   }
   constexpr libMcu::results setDisplayRam(bool state) {
     if (state == true)
