@@ -25,6 +25,16 @@ struct spiSyncPol {
   spiSyncPol() {}
 
   template <const libMcuHw::clock::periClockConfig& t_clockConfig>
+  /**
+   * @brief Initialize SPI peripheral
+   * @param bitRate SPI bit rate
+   * @param selectPolarity Mask with chip select polarities for the 4 hardware chip selects
+   * @param preDelay Delay in SPI clocks between chip select assertion and first bit
+   * @param postDelay Delay in SPI clocks between last bit and chip select deassertion
+   * @param frameDelay Delay in SPI clocks between frames
+   * @param transferDelay Delay in SPI clocks between transfers
+   * @return actual SPI bit rate
+   */
   constexpr std::uint32_t init(std::uint32_t bitRate, std::uint32_t selectPolarity = 0, std::uint32_t preDelay = 0,
                                std::uint32_t postDelay = 0, std::uint32_t frameDelay = 0, std::uint32_t transferDelay = 0) {
     while (!(spiPeripheral()->STAT & hardware::STAT::MSTIDLE))
@@ -40,9 +50,19 @@ struct spiSyncPol {
     spiPeripheral()->CFG = config;
     return peripheralFrequency / divider;
   }
+
+  constexpr void write(const std::span<const uint8_t> data, const std::uint32_t bitSize, spiSlaveSelects select,
+                       bool endOfTransfer = true, bool lsbFirst = false) {
+    writeGeneric(data, bitSize, select, endOfTransfer, lsbFirst);
+  }
+  constexpr void write(const std::span<const uint16_t> data, const std::uint32_t bitSize, spiSlaveSelects select,
+                       bool endOfTransfer = true, bool lsbFirst = false) {
+    writeGeneric(data, bitSize, select, endOfTransfer, lsbFirst);
+  }
+
   template <typename bufferType>
-  constexpr void write(std::span<bufferType> data, const std::uint32_t bitSize, spiSlaveSelects select, bool endOfTransfer = true,
-                       bool lsbFirst = false) {
+  constexpr void writeGeneric(const std::span<const bufferType> data, const std::uint32_t bitSize, spiSlaveSelects select,
+                              bool endOfTransfer, bool lsbFirst) {
     // check if busy
     while (!(spiPeripheral()->STAT & hardware::STAT::MSTIDLE))
       ;
