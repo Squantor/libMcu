@@ -51,14 +51,12 @@ struct memlcd {
    * @brief send Vcom command and toggle the state
    */
   constexpr void toggleVcom() {
+    vcom = !vcom;
     std::array<std::uint16_t, 1> data = {0};
     if (vcom) {
       data[0] = cmdVcomHigh;
-      spiHal.write(data, 16u, slaveSelect, true, true);
-    } else
-      spiHal.write(data, 16u, slaveSelect, true, true);
-
-    vcom = !vcom;
+    }
+    spiHal.write(data, 16u, slaveSelect, true, true);
   }
   /**
    * @brief clear the display
@@ -69,9 +67,17 @@ struct memlcd {
   }
   /**
    * @brief Bulk transfer lines in the proper format the display expects
-   * @param data lines to transfer
+   * Will toggle the vcom signal depending on the state
+   * @param data lines to transfer in the format a sharp memory LCD expects
    */
-  constexpr void transferLines(const std::span<const std::uint16_t> data) {
+  constexpr void transferLines(const std::span<std::uint16_t> data) {
+    std::uint32_t header = data[0];
+    header |= cmdDataUpdate;
+    if (vcom)
+      header |= cmdVcomHigh;
+    else
+      header &= ~cmdVcomHigh;
+    data[0] = header;
     spiHal.write(data, 16u, slaveSelect, true, true);
   }
 
