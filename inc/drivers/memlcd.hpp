@@ -47,22 +47,17 @@ struct memlcd {
   consteval std::uint32_t getYSize() {
     return config::maxY;
   }
-  /**
-   * @brief send Vcom command and toggle the state
-   */
-  constexpr void toggleVcom() {
-    vcom = !vcom;
-    std::array<std::uint16_t, 1> data = {0};
-    if (vcom) {
-      data[0] = cmdVcomHigh;
-    }
+  constexpr void sendVcom() {
+    vcom = vcom ? 0x0000 : cmdVcomHigh;
+    std::array<std::uint16_t, 1> data = {vcom};
     spiHal.write(data, 16u, slaveSelect, true, true);
+    vcom = vcom ? 0x0000 : cmdVcomHigh;
   }
   /**
    * @brief clear the display
    */
   constexpr void clear(void) {
-    std::array<std::uint16_t, 1> data = {cmdAllClear};
+    std::array<std::uint16_t, 1> data = {cmdAllClear | vcom};
     spiHal.write(data, 16u, slaveSelect, true, true);
   }
   /**
@@ -71,17 +66,11 @@ struct memlcd {
    * @param data lines to transfer in the format a sharp memory LCD expects
    */
   constexpr void transferLines(const std::span<std::uint16_t> data) {
-    std::uint32_t header = data[0];
-    header |= cmdDataUpdate;
-    if (vcom)
-      header |= cmdVcomHigh;
-    else
-      header &= ~cmdVcomHigh;
-    data[0] = header;
+    data[0] = cmdDataUpdate | vcom | (data[0] & 0xFFF8);
     spiHal.write(data, 16u, slaveSelect, true, true);
   }
 
-  bool vcom;
+  std::uint16_t vcom;
 };
 
 }  // namespace libMcuDrv::memlcd
