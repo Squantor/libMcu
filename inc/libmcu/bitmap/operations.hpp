@@ -13,7 +13,7 @@
 #ifndef BIT_OPERATIONS_H
 #define BIT_OPERATIONS_H
 
-namespace util {
+namespace libMcu::bitmap {
 /**
  * @brief operations
  *

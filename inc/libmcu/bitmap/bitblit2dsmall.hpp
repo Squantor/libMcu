@@ -17,7 +17,7 @@
 #include <libmcu/bitmap/operations.hpp>
 #include <libmcu/bitmap/readmodifywrite.hpp>
 
-namespace util {
+namespace libMcu::bitmap {
 
 /**
  * @brief

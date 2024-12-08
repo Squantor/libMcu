@@ -17,7 +17,7 @@
 #include <cstdint>
 #include <libmcu/bitmap/operations.hpp>
 
-namespace util {
+namespace libMcu::bitmap {
 /**
  * @brief Read, modifies and writes from source to destination with operation, the source is shifted and masked
  *
