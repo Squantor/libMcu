@@ -5,20 +5,21 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file helper functions used by libMcu
+ * @file libmcu_functions.hpp
+ * @brief helper functions used by libMcu
  */
 #ifndef LIBMCU_FUNCTIONS_HPP
 #define LIBMCU_FUNCTIONS_HPP
 
-namespace libMcuLL {
-inline void delay(std::uint32_t cycles) {
-  asm volatile(
-    ".syntax unified \n\t"
-    "1: \n\t"
-    "subs %0, #1 \n\t"
-    "bne 1b"
-    : "+r"(cycles));
+#include <climits>
+
+namespace libMcu {
+
+template <typename T>
+constexpr size_t bitsInType() {
+  return sizeof(T) * CHAR_BIT;
 }
-}  // namespace libMcuLL
+
+}  // namespace libMcu
 
 #endif
