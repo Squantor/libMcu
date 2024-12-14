@@ -19,6 +19,66 @@
 #include <libmcu/bitmap/readmodifywrite.hpp>
 
 namespace libMcu::bitmap {
+
+/**
+ * @brief Bitblit routine for equal typed source and destination
+ * source and destination are max 32 bit
+ * @tparam bitsPerPixel bits per pixel
+ * @tparam destType unsigned type for destination
+ * @tparam srcType unsigned type for source
+ * @param destBuf buffer to copy pixels to
+ * @param destPos offset in pixels
+ * @param srcBuf buffer to copy pixels from
+ * @param srcPos offset in pixels
+ * @param count number of pixels
+ * @param op operation to apply on the source
+ */
+template <std::size_t bitsPerPixel, typename destType, typename srcType>
+void bitblitInEqOu(std::span<destType> destBuf, std::size_t destPos, std::span<const srcType> srcBuf, std::size_t srcPos,
+                   std::size_t count, bitblitOperation op) noexcept {
+  // setup phase:
+  destType srcMask, destMask;
+  // generate constants
+  constexpr std::size_t bitsPerElement = libMcu::bitsInType<destType>();
+  // generate bit positions
+  std::size_t destBitIndex = destPos * bitsPerPixel;
+  std::size_t srcBitIndex = srcPos * bitsPerPixel;
+  // generate pointers
+  // integer division has truncation which is an advantage
+  destType *destPtr = &destBuf[destBitIndex / bitsPerElement];
+  const srcType *srcPtr = &srcBuf[srcBitIndex / bitsPerElement];
+  // precompute runtime values
+  // prestep phase:
+  srcMask = static_cast<destType>(0xFFFFFFFF);  // we ignore 64 bit for now
+  // build source mask
+  srcMask = srcMask << (srcBitIndex % bitsPerElement);
+  destMask = static_cast<destType>(0xFFFFFFFF);  // we ignore 64 bit for now
+
+  // pixel transfer loop phase:
+  // requires iteraction counter
+  // poststep phase:
+}
+
+template <std::size_t bitsPerPixel, typename destType, typename srcType>
+void bitblitInGrOu(std::span<destType> destBuf, std::size_t destPos, std::span<const srcType> srcBuf, std::size_t srcPos,
+                   std::size_t count, bitblitOperation op) noexcept {}
+
+template <std::size_t bitsPerPixel, typename destType, typename srcType>
+void bitblitInSmOu(std::span<destType> destBuf, std::size_t destPos, std::span<const srcType> srcBuf, std::size_t srcPos,
+                   std::size_t count, bitblitOperation op) noexcept {}
+
+template <std::size_t bitsPerPixel, typename destType, typename srcType>
+void bitblit(std::span<destType> destBuf, std::size_t destPos, std::span<const srcType> srcBuf, std::size_t srcPos,
+             std::size_t count, bitblitOperation op) noexcept {
+  //! @todo assert if types are not unsigned
+  if constexpr (sizeof(srcType) < sizeof(destType))
+    return bitblitInGrOu<bitsPerPixel>(destBuf, destPos, srcBuf, srcPos, count, op);
+  else if constexpr (sizeof(srcType) > sizeof(destType))
+    return bitblitInSmOu<bitsPerPixel>(destBuf, destPos, srcBuf, srcPos, count, op);
+  else
+    return bitblitInEqOu<bitsPerPixel>(destBuf, destPos, srcBuf, srcPos, count, op);
+}
+
 /**
  * @brief 1d bitblit operation
  * Destination/sources are max 32 bit
@@ -32,6 +92,8 @@ namespace libMcu::bitmap {
  * @param srcBitWidth source width in bits
  * @param op Boolean operation to perform
  */
+/*
+// Second version of bitblit but defunct for now
 template <typename destType, typename srcType>
 void bitblit1d(std::span<destType> destBuf, std::size_t destBitPos, std::span<const srcType> srcBuf, std::size_t srcBitWidth,
                bitblitOperation op) noexcept {
@@ -73,7 +135,7 @@ void bitblit1d(std::span<destType> destBuf, std::size_t destBitPos, std::span<co
     readModifyWrite(*destPtr, *srcPtr, mask, 0, op);
   }
 }
-
+*/
 /**
  * @brief 1d bitblit operation
  * @todo More type flexibility, now more or less hardcoded to using uint8_t
