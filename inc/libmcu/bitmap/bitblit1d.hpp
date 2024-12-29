@@ -21,6 +21,47 @@
 namespace libMcu::bitmap {
 
 /**
+ * @brief writes a pixel to destination element
+ * @tparam destType unsigned destination type
+ * @tparam srcType unsigned source type
+ * @param destBuf element to write single pixel to
+ * @param destShift offset to write to destination
+ * @param srcMask amount of bits to apply from source
+ * @param srcPixel source data
+ * @param op operation to perform
+ */
+template <typename destType, typename srcType>
+void pixelOperation(destType &destBuf, std::size_t destShift, destType srcMask, srcType srcPixel, bitblitOperation op) noexcept {
+  static_assert(!std::numeric_limits<destType>::is_signed && !std::numeric_limits<srcType>::is_signed,
+                "readModifyWrite only accepts unsigned types!");
+  static_assert(std::numeric_limits<destType>::digits >= std::numeric_limits<srcType>::digits,
+                "source should have equal or less bits then destination!");
+  destType input = destBuf;
+  destType data = (srcMask & srcPixel) << destShift;
+  switch (op) {
+    case bitblitOperation::OP_AND:
+      data = data | ~(srcMask << destShift);
+      input = input & data;
+      break;
+    case bitblitOperation::OP_MOV:
+      input = input & ~(srcMask << destShift);
+      input = input | data;
+      break;
+    case bitblitOperation::OP_NOT:
+      input = input & ~(srcMask << destShift);
+      input = input & ~data;
+      break;
+    case bitblitOperation::OP_OR:
+      input = input | data;
+      break;
+    case bitblitOperation::OP_XOR:
+      input = input ^ data;
+      break;
+  }
+  destBuf = input;
+}
+
+/**
  * @brief Bitblit routine for equal typed source and destination
  * source and destination are max 32 bit
  * @tparam bitsPerPixel bits per pixel
@@ -36,27 +77,44 @@ namespace libMcu::bitmap {
 template <std::size_t bitsPerPixel, typename destType, typename srcType>
 void bitblitInEqOu(std::span<destType> destBuf, std::size_t destPos, std::span<const srcType> srcBuf, std::size_t srcPos,
                    std::size_t count, bitblitOperation op) noexcept {
-  // setup phase:
-  destType srcMask, destMask;
   // generate constants
-  constexpr std::size_t bitsPerElement = libMcu::bitsInType<destType>();
+  constexpr std::size_t bitsPerElement{libMcu::bitsInType<destType>()};
+  constexpr srcType pixelMask{static_cast<srcType>(0xFFFFFFFF >> (32 - bitsPerPixel))};
   // generate bit positions
-  std::size_t destBitIndex = destPos * bitsPerPixel;
-  std::size_t srcBitIndex = srcPos * bitsPerPixel;
-  // generate pointers
-  // integer division has truncation which is an advantage
-  destType *destPtr = &destBuf[destBitIndex / bitsPerElement];
-  const srcType *srcPtr = &srcBuf[srcBitIndex / bitsPerElement];
-  // precompute runtime values
-  // prestep phase:
-  srcMask = static_cast<destType>(0xFFFFFFFF);  // we ignore 64 bit for now
-  // build source mask
-  srcMask = srcMask << (srcBitIndex % bitsPerElement);
-  destMask = static_cast<destType>(0xFFFFFFFF);  // we ignore 64 bit for now
+  std::size_t bitLength{count * bitsPerPixel};
+  std::size_t destBitStartIndex{destPos * bitsPerPixel};
+  std::size_t srcBitStartIndex{srcPos * bitsPerPixel};
+  std::size_t destBitEndIndex{destBitStartIndex + bitLength};
+  std::size_t srcBitEndIndex{srcBitStartIndex + bitLength};
+  // clamp bit index sizes
+  if (destBitEndIndex > (destBuf.size() * bitsPerElement))
+    destBitEndIndex = destBuf.size() * bitsPerElement;
+  if (srcBitEndIndex > (srcBuf.size() * bitsPerElement))
+    srcBitEndIndex = srcBuf.size() * bitsPerElement;
+  // we have clamped bit index sizes, update bitLength to reflect this
+  if ((destBitEndIndex - destBitStartIndex) < bitLength)
+    bitLength = destBitEndIndex - destBitStartIndex;
+  if ((srcBitEndIndex - srcBitStartIndex) < bitLength)
+    bitLength = srcBitEndIndex - srcBitStartIndex;
+  // generate indices
+  std::size_t destBitIndex = destBitStartIndex;
+  std::size_t srcBitIndex = srcBitStartIndex;
 
-  // pixel transfer loop phase:
-  // requires iteraction counter
-  // poststep phase:
+  // create a simple loop for a pixel wise copy
+  do {
+    std::size_t destPixelIndexMod = destBitIndex % bitsPerElement;
+    std::size_t srcPixelIndexMod = srcBitIndex % bitsPerElement;
+    srcType sourcePixel = srcBuf[srcBitIndex / bitsPerElement];
+    sourcePixel = (sourcePixel >> srcPixelIndexMod);
+
+    destType destPixel = destBuf[destBitIndex / bitsPerElement];
+    pixelOperation(destPixel, destPixelIndexMod, pixelMask, sourcePixel, op);
+    destBuf[destBitIndex / bitsPerElement] = destPixel;
+
+    destBitIndex = destBitIndex + bitsPerPixel;
+    srcBitIndex = srcBitIndex + bitsPerPixel;
+    bitLength = bitLength - bitsPerPixel;
+  } while (bitLength > 0);
 }
 
 template <std::size_t bitsPerPixel, typename destType, typename srcType>
