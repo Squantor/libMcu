@@ -11,6 +11,7 @@
 #define LIBMCU_LPC845M301BD48_LL_HPP
 
 #include "../libmcu/libmcu.hpp"
+#include "../libmcu/libmcu_functions_CM0.hpp"
 
 namespace libMcuHw {
 

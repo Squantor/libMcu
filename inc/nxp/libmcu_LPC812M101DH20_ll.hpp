@@ -9,6 +9,7 @@
 #define LIBMCU_LPC812M101DH20_LL_HPP
 
 #include "../libmcu/libmcu.hpp"
+#include "../libmcu/libmcu_functions_CM0.hpp"
 
 namespace libMcuHw {
 

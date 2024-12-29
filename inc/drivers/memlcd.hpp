@@ -47,7 +47,10 @@ struct memlcd {
   consteval std::uint32_t getYSize() {
     return config::maxY;
   }
-  constexpr void sendVcom() {
+  /**
+   * @brief toggle VCOM via SPI command
+   */
+  constexpr void toggleVcom() {
     vcom = vcom ? 0x0000 : cmdVcomHigh;
     std::array<std::uint16_t, 1> data = {vcom};
     spiHal.write(data, 16u, slaveSelect, true, true);

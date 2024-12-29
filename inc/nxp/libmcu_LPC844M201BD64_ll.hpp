@@ -9,6 +9,7 @@
 #define LPC844M201BD64_HPP
 
 #include "../libmcu/libmcu.hpp"
+#include "../libmcu/libmcu_functions_CM0.hpp"
 
 #ifdef __cplusplus
 extern "C" {

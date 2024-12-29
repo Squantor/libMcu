@@ -23,35 +23,77 @@ template <typename config, auto& driver>
 class displayMemlcd {
  public:
   displayMemlcd() {};
-  void init() {
+  constexpr void init() {
     setBuffer(0x0000);
     update();
   }
-  void fill(std::uint32_t pattern) {
+  /**
+   * @brief fill the framebuffer with a pattern
+   * @param pattern to fill the framebuffer with
+   */
+  constexpr void fill(std::uint32_t pattern) {
     setBuffer(pattern);
   }
-  void fill(std::uint32_t xStart, std::uint32_t yStart, std::uint32_t xEnd, std::uint32_t yEnd, std::uint32_t pattern) {}
-  void writeBlock(std::uint32_t xStart, std::uint32_t yStart, std::uint32_t xEnd, std::uint32_t yEnd,
-                  std::span<const std::uint8_t> data) {}
-  void setPixel(std::uint32_t x, std::uint32_t y, std::uint32_t color) {
+  /**
+   * @brief Set pixel at coordinate
+   * @param x x coordinate of the pixel to set
+   * @param y y coordinate of the pixel to get
+   * @param color pixel value to set
+   */
+  constexpr void setPixel(std::uint32_t x, std::uint32_t y, std::uint32_t color) {
     int index = x2index(x) + y2index(y);
     if (color == 0)
       frameBuffer[index] = frameBuffer[index] & ~(0x01 << (x & 0xF));
     else
       frameBuffer[index] = frameBuffer[index] | (0x01 << (x & 0xF));
   }
-  std::uint32_t getPixel(std::uint32_t x, std::uint32_t y, std::uint32_t& color) {
+  /**
+   * @brief Get pixel value at coordinate
+   * @param x x coordinate of the pixel to get
+   * @param y y coordinate of the pixel to get
+   * @return pixel value
+   */
+  constexpr std::uint32_t getPixel(std::uint32_t x, std::uint32_t y) {
     int index = x2index(x) + y2index(y);
     return frameBuffer[index] & (0x01 << (x & 0xF));
   }
-  std::uint32_t getXSize() {
-    return driver.getXsize();
+  /**
+   * @brief fill a block of the display with given color
+   * @param xStart X start position of the block
+   * @param yStart Y start position of the block
+   * @param xEnd X end position of the block
+   * @param yEnd Y end position of the block
+   * @param color color to fill the block with
+   */
+  constexpr void fill(std::uint32_t xStart, std::uint32_t yStart, std::uint32_t xEnd, std::uint32_t yEnd, std::uint32_t color) {
+    if (xEnd > getXSize())
+      xEnd = getXSize();
+    if (yEnd > getYSize())
+      yEnd = getYSize();
+    for (std::uint32_t y = yStart; y < yEnd; y++) {
+      for (std::uint32_t x = xStart; x < xEnd; x++) {
+        setPixel(x, y, color);
+      }
+    }
   }
-  std::uint32_t getYSize() {
-    return driver.getYsize();
+  /**
+   * @brief get X size of display
+   * @return X size
+   */
+  constexpr std::uint32_t getXSize() const {
+    return driver.getXSize();
   }
-
-  void update() {
+  /**
+   * @brief Get maximum Y size of display
+   * @return Y size
+   */
+  constexpr std::uint32_t getYSize() const {
+    return driver.getYSize();
+  }
+  /**
+   * @brief Copy over the framebuffer to the LCD
+   */
+  constexpr void update() {
     // TODO write only dirty lines to LCD
     driver.transferLines(frameBuffer);
   }
@@ -62,7 +104,7 @@ class displayMemlcd {
    * @param y y coordinate
    * @return index in the frame buffer while taking M0, M1, M2 bits and addressing word into account
    */
-  int y2index(uint16_t y) {
+  constexpr int y2index(uint16_t y) const {
     return y * ((config::maxX / 16) + 1);
   }
   /**
@@ -70,7 +112,7 @@ class displayMemlcd {
    * @param x x coordinate
    * @return index in the frame buffer while taking M0, M1, M2 bits and addressing word into account
    */
-  int x2index(uint16_t x) {
+  constexpr int x2index(uint16_t x) const {
     return (x / 16) + 1;
   }
   /**
@@ -78,7 +120,7 @@ class displayMemlcd {
    * This clears the framebuffer and sets up M0 bit and the line addresses at the beginning of each line
    * @param value bit pattern to write
    */
-  void setBuffer(uint16_t value) {
+  constexpr void setBuffer(uint16_t value) {
     frameBuffer.fill(value);
     for (uint16_t i = 0; i < config::maxY; i++) {
       // add M0, M1, M2 bits and line addres to beginning of each line entry

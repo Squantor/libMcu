@@ -325,7 +325,7 @@ struct syscon : libMcu::peripheralBase {
       } else
         setSysOscControl(libMcuHw::syscon::SYSOSCCTRL::NO_BYPASS | libMcuHw::syscon::SYSOSCCTRL::FREQ_1_20MHz);
       powerPeripherals(libMcuLL::syscon::powerOptions::SYSOSC);
-      libMcuLL::delay(3000);
+      libMcu::delay(3000);
       selectMainClock(mainClockSources::EXT);
     }
     // TODO: handle WDT clock source
