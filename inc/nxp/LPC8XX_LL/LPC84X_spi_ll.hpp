@@ -5,14 +5,15 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC84X series SPI  low level functions
+ * @file LPC84X_spi_ll.hpp
+ * @brief Contains LPC84X series SPI low level class
+ * @todo just a copy of LPC81X, rework needed!
  */
-#ifndef LPC84X_SPI_HPP
-#define LPC84X_SPI_HPP
-
-// TODO: Requires reachitecting!
+#ifndef LPC84X_SPI_LL_HPP
+#define LPC84X_SPI_LL_HPP
 
 namespace libMcuLL::spi {
+namespace hardware = libMcuHw::spi;
 
 /**
  * @brief SPI hardware chip enables
@@ -27,7 +28,6 @@ enum class spiChipEnables : std::uint32_t {
 
 /**
  * @brief XOR operator to use slave selects on std::uint32_t registers
- *
  * @param a register input
  * @param b slave select to xor
  * @return std::uint32_t register setting
@@ -38,7 +38,7 @@ inline std::uint32_t operator^(std::uint32_t a, spiChipEnables b) {
 
 /**
  * @brief
- *
+ * @todo rework needed, seems copy of LPC81X
  * @tparam base
  * @tparam chipEnables
  */

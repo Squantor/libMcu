@@ -216,20 +216,27 @@ namespace CAPTCLKSEL {
 constexpr inline std::uint32_t RESERVED_MASK{0x0000'0000u}; /**< register mask for allowed bits */
 }
 namespace ADCCLKSEL {
-constexpr inline std::uint32_t RESERVED_MASK{0x0000'0000u}; /**< register mask for allowed bits */
-}
+constexpr inline std::uint32_t RESERVED_MASK{0x0000'0003u}; /**< register mask for allowed bits */
+constexpr inline std::uint32_t FRO{0u << 0};                /**< ADC clock source is FRO */
+constexpr inline std::uint32_t SYSPLL{1u << 0};             /**< ADC clock source is system PLL */
+}  // namespace ADCCLKSEL
 namespace ADCCLKDIV {
-constexpr inline std::uint32_t RESERVED_MASK{0x0000'0000u}; /**< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x0000'00FFu}; /**< register mask for allowed bits */
 }
 namespace SCTCLKSEL {
 constexpr inline std::uint32_t RESERVED_MASK{0x0000'0000u}; /**< register mask for allowed bits */
-}
+constexpr inline std::uint32_t FRO{0u << 0};                /**< SCT clock source is FRO */
+constexpr inline std::uint32_t MAINCLK{1u << 0};            /**< SCT clock source is main clock */
+constexpr inline std::uint32_t SYSPLL{2u << 0};             /**< SCT clock source is system PLL */
+}  // namespace SCTCLKSEL
 namespace SCTCLKDIV {
-constexpr inline std::uint32_t RESERVED_MASK{0x0000'0000u}; /**< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x0000'00FFu}; /**< register mask for allowed bits */
 }
 namespace EXTCLKSEL {
-constexpr inline std::uint32_t RESERVED_MASK{0x0000'0000u}; /**< register mask for allowed bits */
-}
+constexpr inline std::uint32_t RESERVED_MASK{0x0000'0001u}; /**< register mask for allowed bits */
+constexpr inline std::uint32_t SYSOSC{0u << 0};             /**< external clock source is system oscillator */
+constexpr inline std::uint32_t CLK_IN{1u << 0};             /**< external clock source is CLK_IN */
+}  // namespace EXTCLKSEL
 namespace SYSAHBCLKCTRL0 {
 constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFF7u}; /**< register mask for allowed bits */
 constexpr inline std::uint32_t SYS{1u << 0};                /**< core clock enable, read only */
@@ -338,7 +345,7 @@ namespace CLKOUTSEL {
 constexpr inline std::uint32_t RESERVED_MASK{0x0000'0007u}; /**< register mask for allowed bits */
 constexpr inline std::uint32_t FRO{0u << 0};                /**< FRO */
 constexpr inline std::uint32_t MAIN{1u << 0};               /**< Main clock */
-constexpr inline std::uint32_t SYS_PLL{2u << 0};            /**< System PLL */
+constexpr inline std::uint32_t SYSPLL{2u << 0};             /**< System PLL */
 constexpr inline std::uint32_t EXTERNAL{3u << 0};           /**< External clock */
 constexpr inline std::uint32_t WATCHDOG{4u << 0};           /**< Watchdog oscillator */
 }  // namespace CLKOUTSEL

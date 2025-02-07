@@ -13,6 +13,10 @@
 
 namespace libMcuLL::i2c {
 namespace hardware = libMcuHw::i2c;
+/**
+ * @brief
+ * @tparam i2cAddress_
+ */
 template <libMcu::i2cBaseAddress i2cAddress_>
 struct i2c : libMcu::peripheralBase {
   /**
