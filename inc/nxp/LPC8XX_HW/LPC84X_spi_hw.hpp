@@ -164,6 +164,7 @@ namespace TXCTL {
 constexpr inline std::uint32_t RESERVED_MASK{0x0F710000u}; /*!< register mask for allowed bits */
 /**
  * @brief Formats data to TXCTL register field
+ * Feeding a value of 0 will select no hardware chipselect
  * @param chipselects active high bits for the chipselects
  * @return formatted data
  */

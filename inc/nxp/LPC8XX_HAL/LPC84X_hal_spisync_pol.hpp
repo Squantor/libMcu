@@ -17,6 +17,11 @@ namespace libMcuHal::spi {
 namespace hardware = libMcuHw::spi;
 namespace nvic = libMcuHw::nvic;
 
+/**
+ * @brief Polling SPI HAL class
+ * @todo write with a software slave select, preferably a gpio? Would require a gpio hal access parameter
+ * @tparam spiBaseAddress_ Base address of the spi peripheral structure
+ */
 template <libMcu::spiBaseAddress const& spiBaseAddress_>
 struct spiSyncPol {
   /**
@@ -50,13 +55,12 @@ struct spiSyncPol {
     spiPeripheral()->CFG = config;
     return peripheralFrequency / divider;
   }
-
-  constexpr void write(const std::span<const uint8_t> data, const std::uint32_t bitSize, spiSlaveSelects select,
-                       bool endOfTransfer = true, bool lsbFirst = false) {
+  constexpr void write(const std::span<const uint8_t> data, const std::uint32_t bitSize,
+                       spiSlaveSelects select = spiSlaveSelects::None, bool endOfTransfer = true, bool lsbFirst = false) {
     writeGeneric(data, bitSize, select, endOfTransfer, lsbFirst);
   }
-  constexpr void write(const std::span<const uint16_t> data, const std::uint32_t bitSize, spiSlaveSelects select,
-                       bool endOfTransfer = true, bool lsbFirst = false) {
+  constexpr void write(const std::span<const uint16_t> data, const std::uint32_t bitSize,
+                       spiSlaveSelects select = spiSlaveSelects::None, bool endOfTransfer = true, bool lsbFirst = false) {
     writeGeneric(data, bitSize, select, endOfTransfer, lsbFirst);
   }
 
