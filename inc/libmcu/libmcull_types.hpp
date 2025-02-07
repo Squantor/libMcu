@@ -52,21 +52,21 @@ struct adcBaseAddress : hwAddressBase {};    /*!< ADC */
 struct syscfgBaseAddress : hwAddressBase {}; /*!< SYSCFG */
 
 /* Peripheral address types used by NXP LPC microcontrollers */
-struct wwdtBaseAddress : hwAddressBase {};     /*!< NXP LPC Windowed watchdog */
-struct mrtBaseAddress : hwAddressBase {};      /*!< NXP LPC Multi rate timer*/
-struct wktBaseAddress : hwAddressBase {};      /*!< NXP LPC Wakeup timer */
-struct swmBaseAddress : hwAddressBase {};      /*!< NXP LPC Switch Matrix */
-struct pmuBaseAddress : hwAddressBase {};      /*!< NXP LPC Power management unit */
-struct acmpBaseAddress : hwAddressBase {};     /*!< NXP LPC Analog comparator */
-struct fmcBaseAddress : hwAddressBase {};      /*!< NXP LPC Flash controller */
-struct ioconBaseAddress : hwAddressBase {};    /*!< NXP LPC IO control */
-struct sysconBaseAddress : hwAddressBase {};   /*!< NXP LPC System control*/
-struct sctBaseAddress : hwAddressBase {};      /*!< NXP LPC state configurable timer */
-struct pinintBaseAddress : hwAddressBase {};   /*!< NXP LPC Pin interrupt */
-struct faimBaseAddress : hwAddressBase {};     /*!< NXP LPC fast memory initialization */
-struct inputMuxBaseAddress : hwAddressBase {}; /*!< NXP LPC input multiplexer  */
-struct ctimerBaseAddress : hwAddressBase {};   /*!< NXP LPC standard counter/timer */
-struct captBaseAddress : hwAddressBase {};     /*!< NXP LPC capacitive touch */
+struct wwdtBaseAddress : hwAddressBase {};   /*!< NXP LPC Windowed watchdog */
+struct mrtBaseAddress : hwAddressBase {};    /*!< NXP LPC Multi rate timer*/
+struct wktBaseAddress : hwAddressBase {};    /*!< NXP LPC Wakeup timer */
+struct swmBaseAddress : hwAddressBase {};    /*!< NXP LPC Switch Matrix */
+struct pmuBaseAddress : hwAddressBase {};    /*!< NXP LPC Power management unit */
+struct acmpBaseAddress : hwAddressBase {};   /*!< NXP LPC Analog comparator */
+struct fmcBaseAddress : hwAddressBase {};    /*!< NXP LPC Flash controller */
+struct ioconBaseAddress : hwAddressBase {};  /*!< NXP LPC IO control */
+struct sysconBaseAddress : hwAddressBase {}; /*!< NXP LPC System control*/
+struct sctBaseAddress : hwAddressBase {};    /*!< NXP LPC state configurable timer */
+struct pinintBaseAddress : hwAddressBase {}; /*!< NXP LPC Pin interrupt */
+struct faimBaseAddress : hwAddressBase {};   /*!< NXP LPC fast memory initialization */
+struct inmuxBaseAddress : hwAddressBase {};  /*!< NXP LPC input multiplexer  */
+struct ctimerBaseAddress : hwAddressBase {}; /*!< NXP LPC standard counter/timer */
+struct captBaseAddress : hwAddressBase {};   /*!< NXP LPC capacitive touch */
 
 /* Peripheral address types used by STM32 microcontrollers */
 struct stmBaseAddress : hwAddressBase {}; /*!< STM generic peripheral */
