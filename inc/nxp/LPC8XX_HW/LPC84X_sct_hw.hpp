@@ -251,8 +251,47 @@ namespace EV_STATE {
 constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 namespace EV_CTRL {
-constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x007FFFFFu}; /*!< register mask for allowed bits */
+/**
+ * @brief Format match register associated with this event
+ * @param prescale counter clock is SCT clock divided by prescale+1
+ * @return formatted data for EV_CTRL
+ */
+constexpr inline std::uint32_t MATCHSESEL(std::uint32_t match) {
+  return match << 0;
 }
+constexpr inline std::uint32_t HEVENT{1u << 4}; /*!< Select high counter */
+constexpr inline std::uint32_t OUTSEL{1u << 5}; /*!< Selects output from IOSEL */
+/**
+ * @brief Format input output selection field with index
+ * @param inputOutput input/output to associate with this event
+ * @return formatted data for EV_CTRL
+ */
+constexpr inline std::uint32_t IOSEL(std::uint32_t index) {
+  return index << 6;
+}
+constexpr inline std::uint32_t IOCOND_LOW{0u << 10};     /*!< Low level I/O condition for event */
+constexpr inline std::uint32_t IOCOND_RISE{1u << 10};    /*!< Rising edge I/O condition for event */
+constexpr inline std::uint32_t IOCOND_FALL{2u << 10};    /*!< Falling edge I/O condition for event */
+constexpr inline std::uint32_t IOCOND_HIGH{3u << 10};    /*!< High level I/O condition for event */
+constexpr inline std::uint32_t COMBMODE_OR{0u << 12};    /*!< Match or I/O condition occurs */
+constexpr inline std::uint32_t COMBMODE_MATCH{1u << 12}; /*!< Match only event */
+constexpr inline std::uint32_t COMBMODE_IO{2u << 12};    /*!< I/O only event */
+constexpr inline std::uint32_t COMBMODE_AND{3u << 12};   /*!< Match and I/O condition occurs */
+constexpr inline std::uint32_t STATELD{1u << 14};        /*!< Load state instead of add state */
+/**
+ * @brief Format state field with state number
+ * @param state state value to associate with this event
+ * @return formatted data for EV_CTRL
+ */
+constexpr inline std::uint32_t STATEV(std::uint32_t state) {
+  return state << 15;
+}
+constexpr inline std::uint32_t MATCHMEM{1u << 20};       /*!< Match is equal and above/equal below  */
+constexpr inline std::uint32_t DIRECTION_BIDI{0u << 21}; /*!< event triggers in both counting directions */
+constexpr inline std::uint32_t DIRECTION_UP{1u << 21};   /*!< event triggers in up counting */
+constexpr inline std::uint32_t DIRECTION_DOWN{2u << 21}; /*!< event triggers in down counting */
+}  // namespace EV_CTRL
 namespace OUT_SET {
 constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
