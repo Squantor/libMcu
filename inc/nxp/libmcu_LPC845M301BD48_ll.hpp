@@ -200,6 +200,7 @@ enum class dmaRequestSources : std::uint8_t {
 // #include "LPC8XX_LL/LPC84X_spi_ll.hpp"
 #include "LPC8XX_LL/LPC84X_sct_ll.hpp"
 #include "LPC8XX_LL/LPC84X_inmux_ll.hpp"
+#include "LPC8XX_LL/LPC84X_dma_ll.hpp"
 
 #include "LPC8XX_CLOCK/LPC84X_clock.hpp"
 
