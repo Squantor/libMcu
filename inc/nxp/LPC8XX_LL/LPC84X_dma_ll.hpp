@@ -16,17 +16,25 @@
 namespace libMcuLL::dma {
 namespace hardware = libMcuHw::dma;
 
+using dmaDescriptorTable = std::array<hardware::dma_desc, hardware::channelCount>;
+
 /**
  * @brief DMA low level interface class
  * @tparam dmaAddress_ address of the Input multiplexer peripheral
  */
 template <libMcu::dmaBaseAddress dmaAddress_>
 struct dma : libMcu::peripheralBase {
-  constexpr static void init() {
-    // load channel table
-    // enable dma controller?
+  constexpr void init() {
+    dmaPeripheral()->SRAMBASE = reinterpret_cast<std::uint32_t>(descriptorTable.data());
+    dmaPeripheral()->CTRL = hardware::CTRL::ENABLE;
   }
-
+  /**
+   * @brief get descriptor table from peripheral
+   * @return return pointer to descriptor table
+   */
+  constexpr dmaDescriptorTable &getDescriptorTable() {
+    return descriptorTable;
+  }
   /**
    * @brief get registers from peripheral
    * @return return pointer to peripheral registers
@@ -37,7 +45,7 @@ struct dma : libMcu::peripheralBase {
 
  private:
   static constexpr libMcu::hwAddressType dmaAddress = dmaAddress_; /*!< peripheral address */
-  alignas(256) std::array<hardware::dma_desc, hardware::channelCount> descriptorTable;
+  alignas(512) dmaDescriptorTable descriptorTable;
 };
 
 }  // namespace libMcuLL::dma
