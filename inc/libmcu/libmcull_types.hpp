@@ -18,13 +18,13 @@ namespace libMcu {
  * You will never copy/move a peripheral, they are "eternal" with respect to program lifetime
  *
  */
-struct peripheralBase {
-  peripheralBase() = default;
-  ~peripheralBase() = default;
-  peripheralBase(const peripheralBase&) = delete;
-  peripheralBase& operator=(const peripheralBase&) = delete;
-  peripheralBase(peripheralBase&&) = delete;
-  peripheralBase& operator=(peripheralBase&&) = delete;
+struct PeripheralBase {
+  PeripheralBase() = default;
+  ~PeripheralBase() = default;
+  PeripheralBase(const PeripheralBase&) = delete;
+  PeripheralBase& operator=(const PeripheralBase&) = delete;
+  PeripheralBase(PeripheralBase&&) = delete;
+  PeripheralBase& operator=(PeripheralBase&&) = delete;
 };
 
 using hwAddressBase = libMcu::constant<std::uint32_t>; /*!< base type definition of a memory address */

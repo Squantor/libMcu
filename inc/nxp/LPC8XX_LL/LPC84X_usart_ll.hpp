@@ -67,7 +67,7 @@ enum uartStatus : std::uint32_t {
  * @tparam transferType datatype to use for data transfers
  */
 template <libMcu::uartBaseAddress usartAddress_, typename transferType>
-struct usart : libMcu::peripheralBase {
+struct usart : libMcu::PeripheralBase {
   /**
    * @brief Setup USART to 8n1
    * @param baudRate Baud rate value

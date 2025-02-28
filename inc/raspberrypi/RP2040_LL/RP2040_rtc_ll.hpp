@@ -13,7 +13,7 @@
 namespace libMcuLL::rtc {
 namespace hardware = libMcuHw::rtc;
 template <libMcu::rtcBaseAddress const& rtcAddress_>
-struct rtc : libMcu::peripheralBase {
+struct rtc : libMcu::PeripheralBase {
   /**
    * @brief Base initialization function
    *

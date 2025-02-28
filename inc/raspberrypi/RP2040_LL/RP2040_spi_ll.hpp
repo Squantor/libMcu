@@ -38,7 +38,7 @@ enum class waveforms : std::uint32_t {
 };
 
 template <libMcu::spiBaseAddress const& spiAddress_>
-struct spi : libMcu::peripheralBase {
+struct spi : libMcu::PeripheralBase {
   /**
    * @brief Base initialization function
    */

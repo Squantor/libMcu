@@ -62,7 +62,7 @@ enum class i2cmodes : std::uint32_t {
 };
 
 template <libMcu::ioconBaseAddress ioconAddress_>
-struct iocon : libMcu::peripheralBase {
+struct iocon : libMcu::PeripheralBase {
   /**
    * @brief Setup normal IOCON pin
    *

@@ -13,7 +13,7 @@
 namespace libMcuLL::rosc {
 namespace hardware = libMcuHw::rosc;
 template <libMcu::roscBaseAddress const& roscAddress_>
-struct rosc : libMcu::peripheralBase {
+struct rosc : libMcu::PeripheralBase {
   /**
    * @brief Base initialization function
    *

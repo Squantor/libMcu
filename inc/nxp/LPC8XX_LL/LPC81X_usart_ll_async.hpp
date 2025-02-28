@@ -31,7 +31,7 @@ using namespace hw::usart;
  * @tparam transferType datatype to use for data transfers
  */
 template <libMcu::uartBaseAddress usartAddress_, typename transferType>
-struct usartAsync : libMcu::peripheralBase {
+struct usartAsync : libMcu::PeripheralBase {
   /**
    * @brief Construct a new usart Async object
    *

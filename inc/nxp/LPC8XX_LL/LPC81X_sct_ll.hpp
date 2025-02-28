@@ -103,7 +103,7 @@ enum class captureCondition : std::uint32_t {
 };
 
 template <libMcu::sctBaseAddress sctAddress_>
-struct sct : libMcu::peripheralBase {
+struct sct : libMcu::PeripheralBase {
   /**
    * @brief Setup SCT to unified 32 bit timer
    *

@@ -13,7 +13,7 @@
 namespace libMcuLL::swm {
 namespace hardware = libMcuHw::swm;
 template <libMcu::swmBaseAddress swmAddress_>
-struct swm : libMcu::peripheralBase {
+struct swm : libMcu::PeripheralBase {
   /**
    * @brief set pin to a function
    *

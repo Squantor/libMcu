@@ -12,7 +12,7 @@
 
 namespace libMcuLL::gpioQspi {
 template <libMcu::ioQspiBaseAddress const& gpioQspiAddress_>
-struct gpioQspi : libMcu::peripheralBase {
+struct gpioQspi : libMcu::PeripheralBase {
   /**
    * @brief Base initialization function
    *

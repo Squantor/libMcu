@@ -44,7 +44,7 @@ enum class sctInputSources : std::uint32_t {
  * @tparam inmuxAddress_ address of the Input multiplexer peripheral
  */
 template <libMcu::inmuxBaseAddress inmuxAddress_>
-struct inmux : libMcu::peripheralBase {
+struct inmux : libMcu::PeripheralBase {
   /**
    * @brief setup multiplexer input for SCT input
    * @param sctInput SCT input to configure

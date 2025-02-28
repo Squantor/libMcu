@@ -24,7 +24,7 @@ using namespace hw::spi;
  * @tparam transferType datatype to use for data transfers
  */
 template <libMcu::spiBaseAddress spiAddress_, typename chipEnables, typename transferType>
-struct spiSync : libMcu::peripheralBase {
+struct spiSync : libMcu::PeripheralBase {
   /**
    * @brief Initialise SPI peripheral as master device
    *

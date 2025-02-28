@@ -36,7 +36,7 @@ using namespace hw::spi;
  * @tparam transferType datatype to use for data transfers
  */
 template <libMcu::spiBaseAddress spiAddress_, typename chipEnables, typename transferType>
-struct spiAsync : libMcu::peripheralBase {
+struct spiAsync : libMcu::PeripheralBase {
   /**
    * @brief Construct a new spi Async object
    *

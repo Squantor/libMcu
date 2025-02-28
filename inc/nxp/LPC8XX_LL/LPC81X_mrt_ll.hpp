@@ -13,7 +13,7 @@
 namespace libMcuLL::sw::mrt {
 using namespace hw::mrt;
 template <libMcu::mrtBaseAddress mrtAddress_>
-struct mrt : libMcu::peripheralBase {
+struct mrt : libMcu::PeripheralBase {
   /**
    * @brief get registers from peripheral
    *

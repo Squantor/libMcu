@@ -201,7 +201,7 @@ enum class clockOutSources : std::uint32_t {
 };
 
 template <libMcu::sysconBaseAddress sysconAddress_>
-struct syscon : libMcu::peripheralBase {
+struct syscon : libMcu::PeripheralBase {
   /**
    * @brief Set the System PLL Control
    * @param msel Feedback divider ratio, 0 divides by 1, 31 divides by 32

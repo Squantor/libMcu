@@ -17,7 +17,7 @@ namespace hardware = libMcuHw::pwm;
  * @tparam pwmAddress_
  */
 template <libMcu::pwmBaseAddress const& pwmAddress_>
-struct pwm : libMcu::peripheralBase {
+struct pwm : libMcu::PeripheralBase {
   /**
    * @brief Base initialization function
    *

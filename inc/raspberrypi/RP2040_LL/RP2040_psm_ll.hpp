@@ -17,7 +17,7 @@ namespace hardware = libMcuHw::psm;
  * @tparam psmAddress_
  */
 template <libMcu::psmBaseAddress const& psmAddress_>
-struct psm : libMcu::peripheralBase {
+struct psm : libMcu::PeripheralBase {
   /**
    * @brief Base initialization function
    *

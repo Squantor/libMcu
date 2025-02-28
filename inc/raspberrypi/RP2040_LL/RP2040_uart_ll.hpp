@@ -14,7 +14,7 @@ namespace libMcuLL::uart {
 namespace hardware = libMcuHw::uart;
 using namespace libMcuHw::uart;
 template <libMcu::uartBaseAddress const& uartAddress_>
-struct uart : libMcu::peripheralBase {
+struct uart : libMcu::PeripheralBase {
   /**
    * @brief Base initialization function
    */

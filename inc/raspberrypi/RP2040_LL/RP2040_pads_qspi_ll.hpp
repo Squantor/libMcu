@@ -17,7 +17,7 @@ namespace hardware = libMcuHw::padsQspi;
  * @tparam padsQspiAddress_
  */
 template <libMcu::padsQspiBaseAddress const& padsQspiAddress_>
-struct padsQspi : libMcu::peripheralBase {
+struct padsQspi : libMcu::PeripheralBase {
   /**
    * @brief Base initialization function
    */

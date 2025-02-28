@@ -13,7 +13,7 @@
 namespace libMcuLL::sioGpio {
 namespace hardware = libMcuHw::sio;
 template <libMcu::sioBaseAddress const &sioAddress_>
-struct sioGpio : libMcu::peripheralBase {
+struct sioGpio : libMcu::PeripheralBase {
   /**
    * @brief Set gpio pin to output mode
    * @tparam PIN pin instance

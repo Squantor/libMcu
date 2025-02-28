@@ -16,7 +16,7 @@ namespace libMcuLL::gpio {
 namespace hardware = libMcuHw::gpio;
 
 template <libMcu::gpioBaseAddress const& gpioAddress_>
-struct gpio : libMcu::peripheralBase {
+struct gpio : libMcu::PeripheralBase {
   template <typename T>
   constexpr void setup(T& pin) {
     // setup peripheral mode

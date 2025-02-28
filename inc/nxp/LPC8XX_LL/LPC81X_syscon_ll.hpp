@@ -135,7 +135,7 @@ constexpr peripheralPowers operator|(const peripheralPowers a, const peripheralP
 }
 
 template <libMcu::sysconBaseAddress sysconAddress_>
-struct syscon : libMcu::peripheralBase {
+struct syscon : libMcu::PeripheralBase {
   /**
    * @brief reset a peripheral
    *

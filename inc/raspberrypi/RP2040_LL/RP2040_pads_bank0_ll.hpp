@@ -22,7 +22,7 @@ namespace hardware = libMcuHw::padsBank0;
  */
 template <libMcu::padsBank0BaseAddress const& padsBank0Address_>
 // TODO voltage select method
-struct padsBank0 : libMcu::peripheralBase {
+struct padsBank0 : libMcu::PeripheralBase {
   /**
    * @brief Setup pin pads
    * @tparam T pin trait template

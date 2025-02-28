@@ -12,7 +12,7 @@
 
 namespace libMcuLL::gpioBank0 {
 template <libMcu::ioBank0BaseAddress const& gpioBank0Address_>
-struct gpioBank0 : libMcu::peripheralBase {
+struct gpioBank0 : libMcu::PeripheralBase {
   /**
    * @brief Base initialization function
    *

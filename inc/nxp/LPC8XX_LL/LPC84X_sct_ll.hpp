@@ -115,7 +115,7 @@ enum class eventCountingDirections : std::uint32_t {
  * @tparam sctAddress_ address of the SCT peripheral
  */
 template <libMcu::sctBaseAddress sctAddress_>
-struct sct : libMcu::peripheralBase {
+struct sct : libMcu::PeripheralBase {
   constexpr static void init(counterMode mode, bool bidirectional = true, bool autolimit = true) {
     std::uint32_t configRegister = static_cast<std::uint32_t>(mode);
     std::uint32_t ctrlRegister = hardware::CTRL::HALT_L | hardware::CTRL::HALT_H;

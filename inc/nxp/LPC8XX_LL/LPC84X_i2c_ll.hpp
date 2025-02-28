@@ -18,7 +18,7 @@ namespace hardware = libMcuHw::i2c;
  * @tparam i2cAddress_
  */
 template <libMcu::i2cBaseAddress i2cAddress_>
-struct i2c : libMcu::peripheralBase {
+struct i2c : libMcu::PeripheralBase {
   /**
    * @brief Initialize I2C master
    * @todo need to take into account the sampling periods of SCL SDA

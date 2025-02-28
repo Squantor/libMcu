@@ -22,7 +22,7 @@ using namespace libMcuLL::hw::usart;
  * @tparam transferType datatype to use for data transfers
  */
 template <libMcu::uartBaseAddress usartAddress_, typename transferType>
-struct usartSync : libMcu::peripheralBase {
+struct usartSync : libMcu::PeripheralBase {
   /**
    * @brief Setup USART to 8n1
    *

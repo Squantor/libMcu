@@ -13,53 +13,55 @@
 #define LPC84X_DMA_HW_HPP
 
 namespace libMcuHw::dma {
-constexpr std::size_t channelCount = 25; /*!< DMA controller channel count */
-struct dma_desc {
-  volatile std::uint32_t RESERVED;     /*!< Reserved */
-  volatile std::uint32_t SRC_DATA_END; /*!< Source data end address */
-  volatile std::uint32_t DST_DATA_END; /*!< Destination data end address */
-  volatile dma_desc *NEXT_DESC;        /*!< Next descriptor address */
+
+constexpr std::size_t kChannelCount = 25; /*!< DMA controller channel count */
+/**
+ * @brief DMA descriptor structure
+ */
+struct DmaDescriptor {
+  volatile std::uint32_t reserved;                /*!< Reserved */
+  volatile std::uint32_t source_end_address;      /*!< Source data end address */
+  volatile std::uint32_t destination_end_address; /*!< Destination data end address */
+  volatile DmaDescriptor *next_descriptor;        /*!< Next descriptor address */
 };
 /**
  * @brief DMA register definitions
  */
 struct dma {
-  volatile std::uint32_t CTRL;              /*!< DMA control */
-  volatile const std::uint32_t INTSTAT;     /*!< Interrupt status */
-  volatile std::uint32_t SRAMBASE;          /*!< SRAM address of the channel configuration table */
-  std::uint8_t RESERVED_0[20];              /*!< Reserved */
-  struct {                                  /*  */
-    volatile std::uint32_t ENABLESET;       /*!< Channel Enable read and Set */
-    std::uint8_t RESERVED_0[4];             /*!< Reserved */
-    volatile const std::uint32_t ENABLECLR; /*!< Channel Enable Clear */
-    std::uint8_t RESERVED_1[4];             /*!< Reserved */
-    volatile std::uint32_t ACTIVE;          /*!< Channel Active status */
-    std::uint8_t RESERVED_2[4];             /*!< Reserved */
-    volatile std::uint32_t BUSY;            /*!< Channel Busy status */
-    std::uint8_t RESERVED_3[4];             /*!< Reserved */
-    volatile std::uint32_t ERRINT;          /*!< Error Interrupt status */
-    std::uint8_t RESERVED_4[4];             /*!< Reserved */
-    volatile std::uint32_t INTENSET;        /*!< Interrupt Enable read and Set */
-    std::uint8_t RESERVED_5[4];             /*!< Reserved */
-    volatile const std::uint32_t INTENCLR;  /*!< Interrupt Enable Clear */
-    std::uint8_t RESERVED_6[4];             /*!< Reserved */
-    volatile std::uint32_t INTA;            /*!< Interrupt A status */
-    std::uint8_t RESERVED_7[4];             /*!< Reserved */
-    volatile std::uint32_t INTB;            /*!< Interrupt B status */
-    std::uint8_t RESERVED_8[4];             /*!< Reserved */
-    volatile const std::uint32_t SETVALID;  /*!< Set ValidPending control bits */
-    std::uint8_t RESERVED_9[4];             /*!< Reserved */
-    volatile const std::uint32_t SETTRIG;   /*!< Set Trigger control bits */
-    std::uint8_t RESERVED_10[4];            /*!< Reserved */
-    volatile const std::uint32_t ABORT;     /*!< Channel Abort control */
-  } COMMON[1];                              /*!< Common for all DMA channels */
-  std::uint8_t RESERVED_1[900];             /*!< Reserved */
-  struct {                                  /*  */
-    volatile std::uint32_t CFG;             /*!< Configuration register for DMA channel */
-    volatile std::uint32_t CTLSTAT;         /*!< Control and status register for DMA channel */
-    volatile std::uint32_t XFERCFG;         /*!< Transfer configuration register for DMA channel */
-    std::uint8_t RESERVED_0[4];             /*!< Reserved */
-  } CHANNEL[25];                            /*!< Specific DMA channel  */
+  volatile std::uint32_t CTRL;            /*!< DMA control */
+  volatile const std::uint32_t INTSTAT;   /*!< Interrupt status */
+  volatile std::uint32_t SRAMBASE;        /*!< SRAM address of the channel configuration table */
+  std::uint8_t RESERVED_0[20];            /*!< Reserved */
+  volatile std::uint32_t ENABLESET;       /*!< Channel Enable read and Set */
+  std::uint8_t RESERVED_1[4];             /*!< Reserved */
+  volatile const std::uint32_t ENABLECLR; /*!< Channel Enable Clear */
+  std::uint8_t RESERVED_2[4];             /*!< Reserved */
+  volatile std::uint32_t ACTIVE;          /*!< Channel Active status */
+  std::uint8_t RESERVED_3[4];             /*!< Reserved */
+  volatile std::uint32_t BUSY;            /*!< Channel Busy status */
+  std::uint8_t RESERVED_4[4];             /*!< Reserved */
+  volatile std::uint32_t ERRINT;          /*!< Error Interrupt status */
+  std::uint8_t RESERVED_5[4];             /*!< Reserved */
+  volatile std::uint32_t INTENSET;        /*!< Interrupt Enable read and Set */
+  std::uint8_t RESERVED_6[4];             /*!< Reserved */
+  volatile const std::uint32_t INTENCLR;  /*!< Interrupt Enable Clear */
+  std::uint8_t RESERVED_7[4];             /*!< Reserved */
+  volatile std::uint32_t INTA;            /*!< Interrupt A status */
+  std::uint8_t RESERVED_8[4];             /*!< Reserved */
+  volatile std::uint32_t INTB;            /*!< Interrupt B status */
+  std::uint8_t RESERVED_9[4];             /*!< Reserved */
+  volatile const std::uint32_t SETVALID;  /*!< Set ValidPending control bits */
+  std::uint8_t RESERVED_10[4];            /*!< Reserved */
+  volatile const std::uint32_t SETTRIG;   /*!< Set Trigger control bits */
+  std::uint8_t RESERVED_11[4];            /*!< Reserved */
+  volatile const std::uint32_t ABORT;     /*!< Channel Abort control */
+  std::uint8_t RESERVED_12[900];          /*!< Reserved */
+  struct {                                /*  */
+    volatile std::uint32_t CFG;           /*!< Configuration register for DMA channel */
+    volatile std::uint32_t CTLSTAT;       /*!< Control and status register for DMA channel */
+    volatile std::uint32_t XFERCFG;       /*!< Transfer configuration register for DMA channel */
+    std::uint8_t RESERVED_0[4];           /*!< Reserved */
+  } CHANNEL[25];                          /*!< Specific DMA channel  */
 };
 namespace CTRL {
 constexpr inline std::uint32_t RESERVED_MASK{0x00000001u}; /*!< register mask for allowed bits */
@@ -217,9 +219,9 @@ namespace CFG {
 constexpr inline std::uint32_t RESERVED_MASK{0x0007CF73u}; /*!< register mask for allowed bits */
 constexpr inline std::uint32_t PERIPHREQEN{1u << 0};       /*!< Peripheral request enable */
 constexpr inline std::uint32_t HWTRIGEN{1u << 1};          /*!< Hardware trigger enable */
-constexpr inline std::uint32_t TRIGPOL{1u << 4};           /*!< Trigger Polarity */
-constexpr inline std::uint32_t TRIGTYPE{1u << 5};          /*!< Trigger Type */
-constexpr inline std::uint32_t TRIGBURST{1u << 6};         /*!< Trigger Burst */
+constexpr inline std::uint32_t TRIGPOL{1u << 4};           /*!< Trigger Polarity rising edge */
+constexpr inline std::uint32_t TRIGTYPE{1u << 5};          /*!< Trigger Type Level */
+constexpr inline std::uint32_t TRIGBURST{1u << 6};         /*!< Trigger Burst transfer enable */
 constexpr inline std::uint32_t BURSTSIZE_1{0u << 8};       /*!< Burst size 1 */
 constexpr inline std::uint32_t BURSTSIZE_2{1u << 8};       /*!< Burst size 2 */
 constexpr inline std::uint32_t BURSTSIZE_4{2u << 8};       /*!< Burst size 4 */
@@ -271,8 +273,8 @@ constexpr inline std::uint32_t DSTINC_4xWIDTH(3u << 12);   /*!< 2 source element
  * @param hwRegister XFERCFG register value
  * @return constexpr std::size_t amount of bytes transferred
  */
-constexpr inline std::size_t XFERCOUNT(std::uint32_t hwRegister) {
-  return static_cast<std::size_t>(hwRegister >> 16);
+constexpr inline std::uint32_t XFERCOUNT(std::size_t count) {
+  return static_cast<std::uint32_t>(count << 16);
 }
 }  // namespace XFERCFG
 }  // namespace libMcuHw::dma
