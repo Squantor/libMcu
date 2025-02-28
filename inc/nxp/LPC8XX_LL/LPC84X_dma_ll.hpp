@@ -149,7 +149,7 @@ struct Dma : libMcu::PeripheralBase {
    * @param destinationEnd destination end address
    * @param nextDescriptor pointer to next descriptor
    */
-  constexpr void configureChanDescr(Descriptors channel, void *sourceEnd, void *destinationEnd,
+  constexpr void ConfigureChanDescr(Descriptors channel, void *sourceEnd, void *destinationEnd,
                                     hardware::DmaDescriptor *nextDescriptor) {
     std::size_t index = static_cast<std::size_t>(channel);
     descriptors_[index].source_end_address = reinterpret_cast<std::uint32_t>(sourceEnd);
@@ -168,7 +168,7 @@ struct Dma : libMcu::PeripheralBase {
    * @param dest_burst_wrap destination burst wrapping enabled
    * @param prio channel priority
    */
-  constexpr void configureChannel(Descriptors channel, TriggerConfigs trigger_config, BurstSizes burst_size, bool src_burst_wrap,
+  constexpr void ConfigureChannel(Descriptors channel, TriggerConfigs trigger_config, BurstSizes burst_size, bool src_burst_wrap,
                                   bool dest_burst_wrap, ChannelPrios prio) {
     std::size_t index = static_cast<std::size_t>(channel);
     std::uint32_t cfg_register = static_cast<std::uint32_t>(trigger_config) | static_cast<std::uint32_t>(burst_size);
@@ -192,11 +192,13 @@ struct Dma : libMcu::PeripheralBase {
    * @param dst_inc destination increment
    * @param count amount of transfers to execute
    */
-  constexpr void configureTransfer(Descriptors channel, bool reload, bool clear_trig_exhaust, InterruptFlags int_flags,
+  constexpr void ConfigureTransfer(Descriptors channel, bool swtrig, bool reload, bool clear_trig_exhaust, InterruptFlags int_flags,
                                    TransferSizes bits, SrcIncrements src_inc, DstIncrements dst_inc, std::size_t count) {
     std::size_t index = static_cast<std::size_t>(channel);
     std::uint32_t xfercfg_register = hardware::XFERCFG::XFERCOUNT(count);
 
+    if (swtrig)
+      xfercfg_register |= hardware::XFERCFG::SWTRIG;
     if (reload)
       xfercfg_register |= hardware::XFERCFG::RELOAD_MASK;
     if (clear_trig_exhaust)
@@ -212,11 +214,41 @@ struct Dma : libMcu::PeripheralBase {
    * @brief Validate channel configuration
    * @param channel DMA channel to validate
    */
-  constexpr void validateChannel(Descriptors channel) {
-    std::size_t index = static_cast<std::size_t>(channel);
-    uint32_t set_valid_register = DmaPeripheral()->SETVALID;
-    set_valid_register |= hardware::SETVALID::SV_MASK(index);
-    DmaPeripheral()->SETVALID = set_valid_register;
+  constexpr void ValidateChannel(Descriptors channel) {
+    std::uint32_t channel_value = static_cast<std::uint32_t>(channel);
+    DmaPeripheral()->SETVALID = hardware::SETVALID::SV_MASK(channel_value);
+  }
+  /**
+   * @brief Set channel trigger
+   * @param channel DMA channel to trigger
+   */
+  constexpr void SetChannelTrigger(Descriptors channel) {
+    std::uint32_t channel_value = static_cast<std::uint32_t>(channel);
+    DmaPeripheral()->SETTRIG = hardware::SETTRIG::TRIG_MASK(channel_value);
+  }
+  /**
+   * @brief Enable channel
+   * @param channel DMA channel to enable
+   */
+  constexpr void EnableChannel(Descriptors channel) {
+    std::uint32_t channel_value = static_cast<std::uint32_t>(channel);
+    DmaPeripheral()->ENABLESET = hardware::ENABLESET::ENA(channel_value);
+  }
+  /**
+   * @brief Is the current channel active
+   * @param channel DMA channel to check
+   */
+  constexpr bool IsChannelActive(Descriptors channel) {
+    std::uint32_t channel_value = static_cast<std::uint32_t>(channel);
+    return (hardware::ACTIVE::ACT_MASK(channel_value) & DmaPeripheral()->ACTIVE) != 0;
+  }
+  /**
+   * @brief Is the current channel busy
+   * @param channel DMA channel to check
+   */
+  constexpr bool IsChannelBusy(Descriptors channel) {
+    std::uint32_t channel_value = static_cast<std::uint32_t>(channel);
+    return (hardware::BUSY::BSY_MASK(channel_value) & DmaPeripheral()->BUSY) != 0;
   }
   /**
    * @brief get descriptor table from peripheral
