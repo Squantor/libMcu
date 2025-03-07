@@ -24,6 +24,31 @@ struct DmaDescriptor {
   volatile std::uint32_t destination_end_address; /*!< Destination data end address */
   volatile DmaDescriptor *next_descriptor;        /*!< Next descriptor address */
 };
+constexpr inline std::uint32_t kUSART0_RX_DMA{0}; /*!< USART0 RX DMA request input to channel mapping */
+constexpr inline std::uint32_t kUSART0_TX_DMA{1}; /*!< USART0 TX DMA request input to channel mapping */
+constexpr inline std::uint32_t kUSART1_RX_DMA{2}; /*!< USART1 RX DMA request input to channel mapping */
+constexpr inline std::uint32_t kUSART1_TX_DMA{3}; /*!< USART1 TX DMA request input to channel mapping */
+constexpr inline std::uint32_t kUSART2_RX_DMA{4}; /*!< USART2 RX DMA request input to channel mapping */
+constexpr inline std::uint32_t kUSART2_TX_DMA{5}; /*!< USART2 TX DMA request input to channel mapping */
+constexpr inline std::uint32_t kUSART3_RX_DMA{6}; /*!< USART3 RX DMA request input to channel mapping */
+constexpr inline std::uint32_t kUSART3_TX_DMA{7}; /*!< USART3 TX DMA request input to channel mapping */
+constexpr inline std::uint32_t kUSART4_RX_DMA{8}; /*!< USART4 RX DMA request input to channel mapping */
+constexpr inline std::uint32_t kUSART4_TX_DMA{9}; /*!< USART4 TX DMA request input to channel mapping */
+constexpr inline std::uint32_t kSPI0_RX_DMA{10};  /*!< SPI0 RX DMA request input to channel mapping */
+constexpr inline std::uint32_t kSPI0_TX_DMA{11};  /*!< SPI0 TX DMA request input to channel mapping */
+constexpr inline std::uint32_t kSPI1_RX_DMA{12};  /*!< SPI1 RX DMA request input to channel mapping */
+constexpr inline std::uint32_t kSPI1_TX_DMA{13};  /*!< SPI1 TX DMA request input to channel mapping */
+constexpr inline std::uint32_t kI2C0_SLV_DMA{14}; /*!< I2C0 slave DMA request input to channel mapping */
+constexpr inline std::uint32_t kI2C0_MST_DMA{15}; /*!< I2C0 master DMA request input to channel mapping */
+constexpr inline std::uint32_t kI2C1_SLV_DMA{16}; /*!< I2C1 slave DMA request input to channel mapping */
+constexpr inline std::uint32_t kI2C1_MST_DMA{17}; /*!< I2C1 master DMA request input to channel mapping */
+constexpr inline std::uint32_t kI2C2_SLV_DMA{18}; /*!< I2C2 slave DMA request input to channel mapping */
+constexpr inline std::uint32_t kI2C2_MST_DMA{19}; /*!< I2C2 master DMA request input to channel mapping */
+constexpr inline std::uint32_t kI2C3_SLV_DMA{20}; /*!< I2C3 slave DMA request input to channel mapping */
+constexpr inline std::uint32_t kI2C3_MST_DMA{21}; /*!< I2C3 master DMA request input to channel mapping */
+constexpr inline std::uint32_t kDAC0_DMAREQ{22};  /*!< DAC0 DMA request input to channel mapping */
+constexpr inline std::uint32_t kDAC1_DMAREQ{23};  /*!< DAC1 DMA request input to channel mapping */
+constexpr inline std::uint32_t kCAPT_DMA{24};     /*!< Capture DMA request input to channel mapping */
 /**
  * @brief DMA register definitions
  */
@@ -250,31 +275,40 @@ constexpr inline std::uint32_t VALIDPENDING{1u << 0};      /*!< Valid pending */
 constexpr inline std::uint32_t TRIG{1u << 1};              /*!< Trigger set for this channel */
 }  // namespace CTLSTAT
 namespace XFERCFG {
-constexpr inline std::uint32_t RESERVED_MASK{0x03FFF33Fu}; /*!< register mask for allowed bits */
-constexpr inline std::uint32_t CFGVALID_MASK{1u << 0};     /*!< Configuration valid flag */
-constexpr inline std::uint32_t RELOAD_MASK{1u << 1};       /*!< Channel control reload flag */
-constexpr inline std::uint32_t SWTRIG{1u << 2};            /*!< Software trigger flag */
-constexpr inline std::uint32_t CLRTRIG{1u << 3};           /*!< Clear trigger flag */
-constexpr inline std::uint32_t SETINTA{1u << 4};           /*!< Set interrupt A flag */
-constexpr inline std::uint32_t SETINTB{1u << 5};           /*!< Set interrupt B flag */
-constexpr inline std::uint32_t WIDTH_8BIT{0u << 8};        /*!< Transfer width 8 bits */
-constexpr inline std::uint32_t WIDTH_16BIT{1u << 8};       /*!< Transfer width 16 bits */
-constexpr inline std::uint32_t WIDTH_32BIT{2u << 8};       /*!< Transfer width 32 bits */
-constexpr inline std::uint32_t SRCINC_NONE{0u << 12};      /*!< No Source increment */
-constexpr inline std::uint32_t SRCINC_1xWIDTH{1u << 12};   /*!< 1 source element increment */
-constexpr inline std::uint32_t SRCINC_2xWIDTH(2u << 12);   /*!< 2 source elements increment */
-constexpr inline std::uint32_t SRCINC_4xWIDTH(3u << 12);   /*!< 2 source elements increment */
-constexpr inline std::uint32_t DSTINC_NONE{0u << 14};      /*!< No Source increment */
-constexpr inline std::uint32_t DSTINC_1xWIDTH{1u << 14};   /*!< 1 source element increment */
-constexpr inline std::uint32_t DSTINC_2xWIDTH(2u << 14);   /*!< 2 source elements increment */
-constexpr inline std::uint32_t DSTINC_4xWIDTH(3u << 14);   /*!< 2 source elements increment */
+constexpr inline std::uint32_t RESERVED_MASK{0x03FFF33Fu};   /*!< register mask for allowed bits */
+constexpr inline std::uint32_t CFGVALID_MASK{1u << 0};       /*!< Configuration valid flag */
+constexpr inline std::uint32_t RELOAD_MASK{1u << 1};         /*!< Channel control reload flag */
+constexpr inline std::uint32_t SWTRIG{1u << 2};              /*!< Software trigger flag */
+constexpr inline std::uint32_t CLRTRIG{1u << 3};             /*!< Clear trigger flag */
+constexpr inline std::uint32_t SETINTA{1u << 4};             /*!< Set interrupt A flag */
+constexpr inline std::uint32_t SETINTB{1u << 5};             /*!< Set interrupt B flag */
+constexpr inline std::uint32_t WIDTH_8BIT{0u << 8};          /*!< Transfer width 8 bits */
+constexpr inline std::uint32_t WIDTH_16BIT{1u << 8};         /*!< Transfer width 16 bits */
+constexpr inline std::uint32_t WIDTH_32BIT{2u << 8};         /*!< Transfer width 32 bits */
+constexpr inline std::uint32_t SRCINC_NONE{0u << 12};        /*!< No Source increment */
+constexpr inline std::uint32_t SRCINC_1xWIDTH{1u << 12};     /*!< 1 source element increment */
+constexpr inline std::uint32_t SRCINC_2xWIDTH(2u << 12);     /*!< 2 source elements increment */
+constexpr inline std::uint32_t SRCINC_4xWIDTH(3u << 12);     /*!< 2 source elements increment */
+constexpr inline std::uint32_t DSTINC_NONE{0u << 14};        /*!< No Source increment */
+constexpr inline std::uint32_t DSTINC_1xWIDTH{1u << 14};     /*!< 1 source element increment */
+constexpr inline std::uint32_t DSTINC_2xWIDTH(2u << 14);     /*!< 2 source elements increment */
+constexpr inline std::uint32_t DSTINC_4xWIDTH(3u << 14);     /*!< 2 source elements increment */
+constexpr inline std::uint32_t kXFERCOUNT_MASK{0x3FF << 16}; /*!< XFER count mask */
 /**
- * @brief Extract XFERCOUNT from XFERCFG register
- * @param hwRegister XFERCFG register value
- * @return constexpr std::size_t amount of bytes transferred
+ * @brief Format Set abort operation bit for DMA channels
+ * @param count XFERCOUNT field value
+ * @return formatted data for XFERCOUNT
  */
 constexpr inline std::uint32_t XFERCOUNT(std::size_t count) {
   return static_cast<std::uint32_t>((count - 1) << 16);
+}
+/**
+ * @brief Get XFERCOUNT value from XFERCFG
+ * @param xfercfg XFERCFG register
+ * @return amount of elements transferred by the dma channel
+ */
+constexpr inline std::size_t GetXFERCOUNT(std::uint32_t xfercfg) {
+  return ((xfercfg & kXFERCOUNT_MASK) >> 16) + 1u;
 }
 }  // namespace XFERCFG
 }  // namespace libMcuHw::dma

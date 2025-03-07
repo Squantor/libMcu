@@ -157,6 +157,15 @@ struct usart : libMcu::PeripheralBase {
     return 0;
   }
   /**
+   * @brief Get the Transmitter Data register address
+   * This value is typically used for DMA transfer address configuration
+   * @return pointer to register address
+   */
+  constexpr static std::uint32_t getTxDatAddress() {
+    return reinterpret_cast<std::uint32_t>(&(usartPeripheral()->TXDAT));
+  }
+
+  /**
    * @brief get registers from peripheral
    * @return return pointer to usart registers
    */
