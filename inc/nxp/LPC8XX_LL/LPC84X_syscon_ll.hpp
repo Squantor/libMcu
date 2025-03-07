@@ -299,8 +299,8 @@ struct syscon : libMcu::PeripheralBase {
    */
   constexpr void resetPeripherals(std::uint32_t setting0, std::uint32_t setting1) {
     sysconPeripheral()->PRESETCTRL0 = sysconPeripheral()->PRESETCTRL0 & ~setting0;
-    sysconPeripheral()->PRESETCTRL0 = sysconPeripheral()->PRESETCTRL0 | setting0;
     sysconPeripheral()->PRESETCTRL1 = sysconPeripheral()->PRESETCTRL1 & ~setting1;
+    sysconPeripheral()->PRESETCTRL0 = sysconPeripheral()->PRESETCTRL0 | setting0;
     sysconPeripheral()->PRESETCTRL1 = sysconPeripheral()->PRESETCTRL1 | setting1;
   }
   /**
