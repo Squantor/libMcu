@@ -276,6 +276,7 @@ struct Dma : libMcu::PeripheralBase {
    * @param src_burst_wrap source burst wrapping enabled
    * @param dest_burst_wrap destination burst wrapping enabled
    * @param prio channel priority
+   * @bug The priority value is not written correctly to the register, MSB is missing, writing 7 results in 3
    */
   constexpr void ConfigureChannel(HardwareDescriptors hardware_channel, TriggerConfigs trigger_config, BurstSizes burst_size,
                                   bool src_burst_wrap, bool dest_burst_wrap, ChannelPrios prio) {
