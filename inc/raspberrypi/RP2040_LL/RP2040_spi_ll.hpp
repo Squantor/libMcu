@@ -16,25 +16,25 @@ namespace hardware = libMcuHw::spi;
  * @brief Frame formats available
  */
 enum class frameFormats : std::uint32_t {
-  MOTOROLA = hardware::SSPCR0::FRF_MOTOROLA, /**< Motorola frame format */
-  TI = hardware::SSPCR0::FRF_TI,             /**< Texas instruments frame format */
-  NATIONAL = hardware::SSPCR0::FRF_NATIONAL, /**< National microwire frame format */
+  MOTOROLA = hardware::SSPCR0::FRF_MOTOROLA, /*!< Motorola frame format */
+  TI = hardware::SSPCR0::FRF_TI,             /*!< Texas instruments frame format */
+  NATIONAL = hardware::SSPCR0::FRF_NATIONAL, /*!< National microwire frame format */
 };
 /**
  * @brief SPI hardware chip enables
  */
 enum class chipEnables : std::uint32_t {
-  SSEL_NONE = 0,    /**< No chip select */
-  SSEL = (1 << 16), /**< Hardware chip enable */
+  SSEL_NONE = 0,    /*!< No chip select */
+  SSEL = (1 << 16), /*!< Hardware chip enable */
 };
 /**
  * @brief possible SPI clocking/phasing/ordering
  */
 enum class waveforms : std::uint32_t {
-  CPHA0_CPOL0 = 0,                                             /**< CPHA is 0, CPOL is 0, MSB first */
-  CPHA1_CPOL0 = hardware::SSPCR0::SPH,                         /**< CPHA is 1, CPOL is 0, MSB first */
-  CPHA0_CPOL1 = hardware::SSPCR0::SPO,                         /**< CPHA is 0, CPOL is 1, MSB first */
-  CPHA1_CPOL1 = hardware::SSPCR0::SPH | hardware::SSPCR0::SPO, /**< CPHA is 1, CPOL is 1, MSB first */
+  CPHA0_CPOL0 = 0,                                             /*!< CPHA is 0, CPOL is 0, MSB first */
+  CPHA1_CPOL0 = hardware::SSPCR0::SPH,                         /*!< CPHA is 1, CPOL is 0, MSB first */
+  CPHA0_CPOL1 = hardware::SSPCR0::SPO,                         /*!< CPHA is 0, CPOL is 1, MSB first */
+  CPHA1_CPOL1 = hardware::SSPCR0::SPH | hardware::SSPCR0::SPO, /*!< CPHA is 1, CPOL is 1, MSB first */
 };
 
 template <libMcu::spiBaseAddress const& spiAddress_>
@@ -132,7 +132,7 @@ struct spi : libMcu::PeripheralBase {
   }
 
  private:
-  static constexpr libMcu::hwAddressType spiAddress{spiAddress_}; /**< peripheral address */
+  static constexpr libMcu::hwAddressType spiAddress{spiAddress_}; /*!< peripheral address */
 };
 }  // namespace libMcuLL::spi
 #endif

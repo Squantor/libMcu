@@ -25,7 +25,7 @@ struct crc : libMcu::PeripheralBase {
   }
 
  private:
-  static constexpr libMcu::hwAddressType crcAddress = crcAddress_; /**< peripheral address */
+  static constexpr libMcu::hwAddressType crcAddress = crcAddress_; /*!< peripheral address */
 };
 }  // namespace libMcuLL::sw::crc
 #endif

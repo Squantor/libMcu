@@ -24,7 +24,7 @@ struct mrt : libMcu::PeripheralBase {
   }
 
  private:
-  static constexpr libMcu::hwAddressType mrtAddress = mrtAddress_; /**< peripheral address */
+  static constexpr libMcu::hwAddressType mrtAddress = mrtAddress_; /*!< peripheral address */
 };
 }  // namespace libMcuLL::sw::mrt
 #endif

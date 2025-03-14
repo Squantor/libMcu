@@ -16,13 +16,13 @@ namespace libMcuLL::hw::wwdt {
  * @brief windowed watchdog register definitions
  */
 struct wwdt {
-  volatile std::uint32_t MOD;      /**< basic mode and status register */
-  volatile std::uint32_t TC;       /**< time-out value register */
-  volatile std::uint32_t FEED;     /**< Writing 0xAA followed by 0x55 reloads the Watchdog timer */
-  volatile const std::uint32_t TV; /**< current value of the Watchdog timer */
+  volatile std::uint32_t MOD;      /*!< basic mode and status register */
+  volatile std::uint32_t TC;       /*!< time-out value register */
+  volatile std::uint32_t FEED;     /*!< Writing 0xAA followed by 0x55 reloads the Watchdog timer */
+  volatile const std::uint32_t TV; /*!< current value of the Watchdog timer */
   volatile const std::uint32_t RESERVED0;
-  volatile std::uint32_t WARNINT; /**< contains the Watchdog warning interrupt value */
-  volatile std::uint32_t WINDOW;  /**< contains the Watchdog window value. */
+  volatile std::uint32_t WARNINT; /*!< contains the Watchdog warning interrupt value */
+  volatile std::uint32_t WINDOW;  /*!< contains the Watchdog window value. */
 };
 
 }  // namespace libMcuLL::hw::wwdt

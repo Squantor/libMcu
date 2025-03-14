@@ -29,7 +29,7 @@ struct adc : libMcu::PeripheralBase {
   }
 
  private:
-  static constexpr libMcu::hwAddressType adcAddress = adcAddress_; /**< peripheral address */
+  static constexpr libMcu::hwAddressType adcAddress = adcAddress_; /*!< peripheral address */
 };
 }  // namespace libMcuLL::adc
 #endif

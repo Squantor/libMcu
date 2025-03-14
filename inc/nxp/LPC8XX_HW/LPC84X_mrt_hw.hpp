@@ -17,14 +17,14 @@ namespace libMcuHw::mrt {
  */
 struct mrt {
   struct {                              /*  */
-    volatile std::uint32_t INTVAL;      /**< MRT Time interval value register */
-    volatile const std::uint32_t TIMER; /**< MRT Timer register */
-    volatile std::uint32_t CTRL;        /**< MRT Control register */
-    volatile std::uint32_t STAT;        /**< MRT Status register */
-  } CHANNEL[4];                         /**< MRT channel */
-  std::uint8_t RESERVED_0[180];         /**< Reserved */
-  volatile const std::uint32_t IDLE_CH; /**< Idle channel register */
-  volatile std::uint32_t IRQ_FLAG;      /**< Global interrupt flag register */
+    volatile std::uint32_t INTVAL;      /*!< MRT Time interval value register */
+    volatile const std::uint32_t TIMER; /*!< MRT Timer register */
+    volatile std::uint32_t CTRL;        /*!< MRT Control register */
+    volatile std::uint32_t STAT;        /*!< MRT Status register */
+  } CHANNEL[4];                         /*!< MRT channel */
+  std::uint8_t RESERVED_0[180];         /*!< Reserved */
+  volatile const std::uint32_t IDLE_CH; /*!< Idle channel register */
+  volatile std::uint32_t IRQ_FLAG;      /*!< Global interrupt flag register */
 };
 }  // namespace libMcuHw::mrt
 #endif

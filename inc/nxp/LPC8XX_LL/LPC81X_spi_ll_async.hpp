@@ -17,11 +17,11 @@ namespace detail {
 
 // TODO need to remove and make use of libmcu::return
 enum class asynchronousStates : std::uint8_t {
-  IDLE,           /**< Interface is idle, ready to be claimed */
-  CLAIMED,        /**< Interface is claimed, ready to transact */
-  TRANSACTING_RW, /**< Interface is busy with a read write transaction */
-  TRANSACTING_R,  /**< Interface is busy with a read write transaction */
-  TRANSACTING_W,  /**< Interface is busy with a read write transaction */
+  IDLE,           /*!< Interface is idle, ready to be claimed */
+  CLAIMED,        /*!< Interface is claimed, ready to transact */
+  TRANSACTING_RW, /*!< Interface is busy with a read write transaction */
+  TRANSACTING_R,  /*!< Interface is busy with a read write transaction */
+  TRANSACTING_W,  /*!< Interface is busy with a read write transaction */
 };
 
 }  // namespace detail
@@ -316,18 +316,18 @@ struct spiAsync : libMcu::PeripheralBase {
       return writeResult;
   }
 
-  detail::asynchronousStates transactionState;  /**< spi transaction state */
-  std::size_t transactionWriteIndex;            /**< transaction write buffer index */
-  std::size_t transactionReadIndex;             /**< transaction read buffer index */
-  std::span<transferType> transactionWriteData; /**< data to write */
-  std::span<transferType> transactionReadData;  /**< where to put read data in */
-  std::uint32_t transactionWriteBits;           /**< Bits remaining in current transaction */
-  std::uint32_t transactionReadBits;            /**< Bits remaining in current transaction */
-  chipEnables transactionDeviceEnable;          /**< Disable chip after transaction */
-  bool transactionDisableDevice;                /**< Do we disable chip select after transaction */
+  detail::asynchronousStates transactionState;  /*!< spi transaction state */
+  std::size_t transactionWriteIndex;            /*!< transaction write buffer index */
+  std::size_t transactionReadIndex;             /*!< transaction read buffer index */
+  std::span<transferType> transactionWriteData; /*!< data to write */
+  std::span<transferType> transactionReadData;  /*!< where to put read data in */
+  std::uint32_t transactionWriteBits;           /*!< Bits remaining in current transaction */
+  std::uint32_t transactionReadBits;            /*!< Bits remaining in current transaction */
+  chipEnables transactionDeviceEnable;          /*!< Disable chip after transaction */
+  bool transactionDisableDevice;                /*!< Do we disable chip select after transaction */
   static constexpr std::uint8_t elementBitCnt =
-    std::numeric_limits<transferType>::digits;                     /**< Amount of bits in datatransfer type */
-  static constexpr libMcu::hwAddressType spiAddress = spiAddress_; /**< peripheral address */
+    std::numeric_limits<transferType>::digits;                     /*!< Amount of bits in datatransfer type */
+  static constexpr libMcu::hwAddressType spiAddress = spiAddress_; /*!< peripheral address */
 };
 }  // namespace libMcuLL::sw::spi
 #endif

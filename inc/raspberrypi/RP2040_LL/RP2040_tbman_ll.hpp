@@ -27,7 +27,7 @@ struct tbman : libMcu::PeripheralBase {
   }
 
  private:
-  static constexpr libMcu::hwAddressType tbmanAddress{tbmanAddress_}; /**< peripheral address */
+  static constexpr libMcu::hwAddressType tbmanAddress{tbmanAddress_}; /*!< peripheral address */
 };
 }  // namespace libMcuLL::tbman
 #endif

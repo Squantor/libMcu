@@ -18,8 +18,8 @@ namespace libMcuLL::sw::sct {
 using namespace hw::sct;
 
 enum class countingMode : std::uint32_t {
-  UP,            /**< counter only counts up */
-  BIDIRECTIONAL, /**< bidirectional counting */
+  UP,            /*!< counter only counts up */
+  BIDIRECTIONAL, /*!< bidirectional counting */
 };
 
 /**
@@ -29,11 +29,11 @@ enum class countingMode : std::uint32_t {
  *
  */
 enum class matchNumber : std::uint32_t {
-  MATCH_0 = 0, /**< match 0 */
-  MATCH_1 = 1, /**< match 1 */
-  MATCH_2 = 2, /**< match 2 */
-  MATCH_3 = 3, /**< match 3 */
-  MATCH_4 = 4, /**< match 4 */
+  MATCH_0 = 0, /*!< match 0 */
+  MATCH_1 = 1, /*!< match 1 */
+  MATCH_2 = 2, /*!< match 2 */
+  MATCH_3 = 3, /*!< match 3 */
+  MATCH_4 = 4, /*!< match 4 */
 };
 
 /**
@@ -43,11 +43,11 @@ enum class matchNumber : std::uint32_t {
  *
  */
 enum class captureNumber : std::uint32_t {
-  CAPTURE_0 = 0, /**< match 0 */
-  CAPTURE_1 = 1, /**< match 1 */
-  CAPTURE_2 = 2, /**< match 2 */
-  CAPTURE_3 = 3, /**< match 3 */
-  CAPTURE_4 = 4, /**< match 4 */
+  CAPTURE_0 = 0, /*!< match 0 */
+  CAPTURE_1 = 1, /*!< match 1 */
+  CAPTURE_2 = 2, /*!< match 2 */
+  CAPTURE_3 = 3, /*!< match 3 */
+  CAPTURE_4 = 4, /*!< match 4 */
 };
 
 /**
@@ -57,12 +57,12 @@ enum class captureNumber : std::uint32_t {
  *
  */
 enum class eventNumber : std::uint32_t {
-  EVENT_0 = 0, /**< event 0 */
-  EVENT_1 = 1, /**< event 1 */
-  EVENT_2 = 2, /**< event 2 */
-  EVENT_3 = 3, /**< event 3 */
-  EVENT_4 = 4, /**< event 4 */
-  EVENT_5 = 5, /**< event 5 */
+  EVENT_0 = 0, /*!< event 0 */
+  EVENT_1 = 1, /*!< event 1 */
+  EVENT_2 = 2, /*!< event 2 */
+  EVENT_3 = 3, /*!< event 3 */
+  EVENT_4 = 4, /*!< event 4 */
+  EVENT_5 = 5, /*!< event 5 */
 };
 
 /**
@@ -72,10 +72,10 @@ enum class eventNumber : std::uint32_t {
  *
  */
 enum class outputNumber : std::uint32_t {
-  OUTPUT_0 = 0, /**< output 0 */
-  OUTPUT_1 = 1, /**< output 1 */
-  OUTPUT_2 = 2, /**< output 2 */
-  OUTPUT_3 = 3, /**< output 3 */
+  OUTPUT_0 = 0, /*!< output 0 */
+  OUTPUT_1 = 1, /*!< output 1 */
+  OUTPUT_2 = 2, /*!< output 2 */
+  OUTPUT_3 = 3, /*!< output 3 */
 };
 
 /**
@@ -85,10 +85,10 @@ enum class outputNumber : std::uint32_t {
  *
  */
 enum class inputNumber : std::uint32_t {
-  INPUT_0 = 0, /**< input 0 */
-  INPUT_1 = 1, /**< input 0 */
-  INPUT_2 = 2, /**< input 0 */
-  INPUT_3 = 3, /**< input 0 */
+  INPUT_0 = 0, /*!< input 0 */
+  INPUT_1 = 1, /*!< input 0 */
+  INPUT_2 = 2, /*!< input 0 */
+  INPUT_3 = 3, /*!< input 0 */
 };
 
 /**
@@ -96,10 +96,10 @@ enum class inputNumber : std::uint32_t {
  *
  */
 enum class captureCondition : std::uint32_t {
-  CAPTURE_LOW = EV_CTRL::IOCOND_LOW,   /**< Capture low levels */
-  CAPTURE_RISE = EV_CTRL::IOCOND_RISE, /**< Capture rising edges */
-  CAPTURE_FALL = EV_CTRL::IOCOND_FALL, /**< Capture falling edges */
-  CAPTURE_HIGH = EV_CTRL::IOCOND_HIGH, /**< Capture high levels */
+  CAPTURE_LOW = EV_CTRL::IOCOND_LOW,   /*!< Capture low levels */
+  CAPTURE_RISE = EV_CTRL::IOCOND_RISE, /*!< Capture rising edges */
+  CAPTURE_FALL = EV_CTRL::IOCOND_FALL, /*!< Capture falling edges */
+  CAPTURE_HIGH = EV_CTRL::IOCOND_HIGH, /*!< Capture high levels */
 };
 
 template <libMcu::sctBaseAddress sctAddress_>
@@ -251,7 +251,7 @@ struct sct : libMcu::PeripheralBase {
   }
 
  private:
-  static constexpr libMcu::hwAddressType sctAddress = sctAddress_; /**< peripheral address */
+  static constexpr libMcu::hwAddressType sctAddress = sctAddress_; /*!< peripheral address */
 };
 }  // namespace libMcuLL::sw::sct
 #endif

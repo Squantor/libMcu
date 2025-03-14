@@ -16,9 +16,9 @@ namespace libMcuHw::wkt {
  * @brief wakeup timer register definitions
  */
 struct wkt {
-  volatile std::uint32_t CTRL;  /**< Self wake-up timer control register */
-  std::uint8_t RESERVED_0[8];   /**< Reserved */
-  volatile std::uint32_t COUNT; /**< Counter register */
+  volatile std::uint32_t CTRL;  /*!< Self wake-up timer control register */
+  std::uint8_t RESERVED_0[8];   /*!< Reserved */
+  volatile std::uint32_t COUNT; /*!< Counter register */
 };
 }  // namespace libMcuHw::wkt
 #endif

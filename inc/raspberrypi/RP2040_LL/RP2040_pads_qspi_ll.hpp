@@ -31,7 +31,7 @@ struct padsQspi : libMcu::PeripheralBase {
   }
 
  private:
-  static constexpr libMcu::hwAddressType padsQspiAddress = padsQspiAddress_; /**< peripheral address */
+  static constexpr libMcu::hwAddressType padsQspiAddress = padsQspiAddress_; /*!< peripheral address */
 };
 }  // namespace libMcuLL::padsQspi
 #endif

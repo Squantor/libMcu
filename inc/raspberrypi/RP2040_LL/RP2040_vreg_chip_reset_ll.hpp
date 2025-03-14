@@ -27,7 +27,7 @@ struct vregChipReset : libMcu::PeripheralBase {
   }
 
  private:
-  static constexpr libMcu::hwAddressType vregChipResetAddress{vregChipResetAddress_}; /**< peripheral address */
+  static constexpr libMcu::hwAddressType vregChipResetAddress{vregChipResetAddress_}; /*!< peripheral address */
 };
 }  // namespace libMcuLL::vregChipReset
 #endif

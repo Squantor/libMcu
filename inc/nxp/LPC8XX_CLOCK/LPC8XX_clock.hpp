@@ -13,10 +13,10 @@
 
 namespace libMcuHw::clock {
 
-constexpr inline std::uint32_t systemPllMinVcoFreq{156'000'000}; /**< minimum PLL VCO frequency */
-constexpr inline std::uint32_t systemPllMaxVcoFreq{320'000'000}; /**< maximum PLL VCO frequency */
-constexpr inline std::uint32_t mainClockMaxFreq{100'000'000};    /**< main clock max frequency */
-constexpr inline std::uint32_t froDefaultClockFreq{12'000'000};  /**< IRC clock frequency */
+constexpr inline std::uint32_t systemPllMinVcoFreq{156'000'000}; /*!< minimum PLL VCO frequency */
+constexpr inline std::uint32_t systemPllMaxVcoFreq{320'000'000}; /*!< maximum PLL VCO frequency */
+constexpr inline std::uint32_t mainClockMaxFreq{100'000'000};    /*!< main clock max frequency */
+constexpr inline std::uint32_t froDefaultClockFreq{12'000'000};  /*!< IRC clock frequency */
 
 consteval std::uint32_t findSystemPllPsel(uint32_t outFreq) {
   if (outFreq > (systemPllMinVcoFreq >> 1U))

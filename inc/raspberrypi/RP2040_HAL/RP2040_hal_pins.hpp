@@ -13,24 +13,24 @@
 namespace libMcuHal {
 namespace pins {
 enum class driveModes : std::uint32_t {
-  DRIVE_2MA = libMcuHw::pads::GPIO::DRIVE_2MA,   /**< 2 milliampere drive strength */
-  DRIVE_4MA = libMcuHw::pads::GPIO::DRIVE_4MA,   /**< 4 milliampere drive strength */
-  DRIVE_8MA = libMcuHw::pads::GPIO::DRIVE_8MA,   /**< 8 milliampere drive strength */
-  DRIVE_12MA = libMcuHw::pads::GPIO::DRIVE_12MA, /**< 12 milliampere drive strength */
+  DRIVE_2MA = libMcuHw::pads::GPIO::DRIVE_2MA,   /*!< 2 milliampere drive strength */
+  DRIVE_4MA = libMcuHw::pads::GPIO::DRIVE_4MA,   /*!< 4 milliampere drive strength */
+  DRIVE_8MA = libMcuHw::pads::GPIO::DRIVE_8MA,   /*!< 8 milliampere drive strength */
+  DRIVE_12MA = libMcuHw::pads::GPIO::DRIVE_12MA, /*!< 12 milliampere drive strength */
 };
 
 enum class pullModes : std::uint32_t {
-  NONE = 0,                             /**< No pullup modes */
-  PULLUP = libMcuHw::pads::GPIO::PUE,   /**< Pullup */
-  PULLDOWN = libMcuHw::pads::GPIO::PDE, /**< Pulldown */
-  KEEPER = 0,                           /**< No bus keeper on RP2040 */
+  NONE = 0,                             /*!< No pullup modes */
+  PULLUP = libMcuHw::pads::GPIO::PUE,   /*!< Pullup */
+  PULLDOWN = libMcuHw::pads::GPIO::PDE, /*!< Pulldown */
+  KEEPER = 0,                           /*!< No bus keeper on RP2040 */
 };
 
 enum class speedModes : std::uint32_t {
-  SLEW_SLOW = 0,                               /**< Slow slew rate */
-  SLEW_MEDIUM = 0,                             /**< Medium slew rate */
-  SLEW_FAST = libMcuHw::pads::GPIO::SLEWFAST,  /**< fast slew rate */
-  SLEW_SUPER = libMcuHw::pads::GPIO::SLEWFAST, /**< super fast slew rate */
+  SLEW_SLOW = 0,                               /*!< Slow slew rate */
+  SLEW_MEDIUM = 0,                             /*!< Medium slew rate */
+  SLEW_FAST = libMcuHw::pads::GPIO::SLEWFAST,  /*!< fast slew rate */
+  SLEW_SUPER = libMcuHw::pads::GPIO::SLEWFAST, /*!< super fast slew rate */
 };
 
 template <libMcu::padsBank0BaseAddress const& padsBank0Address_, libMcu::ioBank0BaseAddress const& gpioBank0Address_>
@@ -141,8 +141,8 @@ struct pins {
     return reinterpret_cast<libMcuHw::padsBank0::padsBank0*>(padsBank0Address + libMcuHw::peripheralOffsetXor);
   }
 
-  static constexpr libMcu::hwAddressType padsBank0Address = padsBank0Address_; /**< pads bank 0 peripheral address */
-  static constexpr libMcu::hwAddressType ioBank0Address = gpioBank0Address_;   /**< gpio bank 0 peripheral address */
+  static constexpr libMcu::hwAddressType padsBank0Address = padsBank0Address_; /*!< pads bank 0 peripheral address */
+  static constexpr libMcu::hwAddressType ioBank0Address = gpioBank0Address_;   /*!< gpio bank 0 peripheral address */
 };
 }  // namespace pins
 }  // namespace libMcuHal

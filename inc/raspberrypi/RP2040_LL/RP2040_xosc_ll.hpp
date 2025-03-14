@@ -67,7 +67,7 @@ struct xosc : libMcu::PeripheralBase {
   }
 
  private:
-  static constexpr libMcu::hwAddressType xoscAddress = xoscAddress_; /**< peripheral address */
+  static constexpr libMcu::hwAddressType xoscAddress = xoscAddress_; /*!< peripheral address */
 };
 }  // namespace libMcuLL::xosc
 #endif

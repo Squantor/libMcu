@@ -159,8 +159,8 @@ struct uartSync {
     return reinterpret_cast<nvic::nvic*>(nvicBaseAddress);
   }
 
-  static constexpr libMcu::hwAddressType uartBaseAddress = uartBaseAddress_; /**< UART peripheral address */
-  static constexpr libMcu::hwAddressType nvicBaseAddress = nvicBaseAddress_; /**< NVIC peripheral address */
+  static constexpr libMcu::hwAddressType uartBaseAddress = uartBaseAddress_; /*!< UART peripheral address */
+  static constexpr libMcu::hwAddressType nvicBaseAddress = nvicBaseAddress_; /*!< NVIC peripheral address */
   libMcu::RingBuffer<transferType, bufSize> txBuffer;
   libMcu::RingBuffer<transferType, bufSize> rxBuffer;
 };

@@ -16,9 +16,9 @@ namespace libMcuLL::sw::usart {
 namespace detail {
 
 enum class synchonousStates : std::uint8_t {
-  IDLE,        /**< Interface is idle, ready to be claimed */
-  CLAIMED,     /**< Interface is claimed, ready to transact */
-  TRANSACTING, /**< Interface is busy with a transaction */
+  IDLE,        /*!< Interface is idle, ready to be claimed */
+  CLAIMED,     /*!< Interface is claimed, ready to transact */
+  TRANSACTING, /*!< Interface is busy with a transaction */
 };
 
 }  // namespace detail
@@ -191,13 +191,13 @@ struct usartAsync : libMcu::PeripheralBase {
   }
 
  private:
-  static constexpr libMcu::hwAddressType usartAddress = usartAddress_; /**< peripheral address */
-  detail::synchonousStates transactionWriteState;                      /**< usart write transaction state */
-  detail::synchonousStates transactionReadState;                       /**< usart read transaction state */
-  std::size_t transactionWriteIndex;                                   /**< transaction write buffer index */
-  std::size_t transactionReadIndex;                                    /**< transaction read buffer index */
-  std::span<transferType> transactionWriteData;                        /**< data to write */
-  std::span<transferType> transactionReadData;                         /**< where to put read data in */
+  static constexpr libMcu::hwAddressType usartAddress = usartAddress_; /*!< peripheral address */
+  detail::synchonousStates transactionWriteState;                      /*!< usart write transaction state */
+  detail::synchonousStates transactionReadState;                       /*!< usart read transaction state */
+  std::size_t transactionWriteIndex;                                   /*!< transaction write buffer index */
+  std::size_t transactionReadIndex;                                    /*!< transaction read buffer index */
+  std::span<transferType> transactionWriteData;                        /*!< data to write */
+  std::span<transferType> transactionReadData;                         /*!< where to put read data in */
 };
 }  // namespace libMcuLL::sw::usart
 #endif

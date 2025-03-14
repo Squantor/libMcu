@@ -39,7 +39,7 @@ struct constant {
  */
 struct pinBase {};
 
-using isrLambda = std::add_pointer<void()>::type; /**< Base type for an ISR lambda */
+using isrLambda = std::add_pointer<void()>::type; /*!< Base type for an ISR lambda */
 
 }  // namespace libMcu
 #endif

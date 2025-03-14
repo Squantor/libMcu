@@ -31,7 +31,7 @@ struct busctrl : libMcu::PeripheralBase {
   }
 
  private:
-  static constexpr libMcu::hwAddressType busctrlAddress = busctrlAddress_; /**< peripheral address */
+  static constexpr libMcu::hwAddressType busctrlAddress = busctrlAddress_; /*!< peripheral address */
 };
 }  // namespace libMcuLL::busctrl
 #endif

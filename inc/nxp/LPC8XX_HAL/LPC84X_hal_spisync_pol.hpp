@@ -120,7 +120,7 @@ struct spiSyncPol {
     return reinterpret_cast<hardware::spi*>(spiBaseAddress);
   }
 
-  static constexpr libMcu::hwAddressType spiBaseAddress = spiBaseAddress_; /**< SPI peripheral address */
+  static constexpr libMcu::hwAddressType spiBaseAddress = spiBaseAddress_; /*!< SPI peripheral address */
 };
 
 }  // namespace libMcuHal::spi

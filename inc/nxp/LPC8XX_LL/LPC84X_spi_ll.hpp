@@ -20,10 +20,10 @@ namespace hardware = libMcuHw::spi;
  *
  */
 enum class spiChipEnables : std::uint32_t {
-  SSEL0 = (1 << 16), /**< Hardware chip enable 0 */
-  SSEL1 = (1 << 17), /**< Hardware chip enable 1 */
-  SSEL2 = (1 << 18), /**< Hardware chip enable 2 */
-  SSEL3 = (1 << 19), /**< Hardware chip enable 3 */
+  SSEL0 = (1 << 16), /*!< Hardware chip enable 0 */
+  SSEL1 = (1 << 17), /*!< Hardware chip enable 1 */
+  SSEL2 = (1 << 18), /*!< Hardware chip enable 2 */
+  SSEL3 = (1 << 19), /*!< Hardware chip enable 3 */
 };
 
 /**
@@ -73,7 +73,7 @@ struct spi {
   std::uint32_t setBitRate(std::uint32_t bitRate) {
     // compute divider
     std::uint32_t divider = CLOCK_AHB / bitRate;
-    spiPeripheral()->DIV = divider - 1; /**< Divider value is -1 encoded as per datasheet */
+    spiPeripheral()->DIV = divider - 1; /*!< Divider value is -1 encoded as per datasheet */
     return CLOCK_AHB / divider;
   }
   /**

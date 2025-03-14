@@ -14,7 +14,7 @@ namespace libMcuLL::sw::wwdt {
 using namespace hw::wwdt;
 template <libMcu::wwdtBaseAddress wwdtAddress_>
 struct wwdt {
-  static constexpr libMcu::hwAddressType wwdtAddress = wwdtAddress_; /**< peripheral address */
+  static constexpr libMcu::hwAddressType wwdtAddress = wwdtAddress_; /*!< peripheral address */
   /**
    * @brief get registers from peripheral
    *

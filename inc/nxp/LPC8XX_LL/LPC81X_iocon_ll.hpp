@@ -18,10 +18,10 @@ using namespace libMcuLL::hw::iocon;
  *
  */
 enum class pullModes : std::uint32_t {
-  INACTIVE = PIO::INACTIVE, /**< No pullup/down */
-  PULLDOWN = PIO::PULLDOWN, /**< Pulldown enabled */
-  PULLUP = PIO::PULLUP,     /**< Pullup enabled */
-  REPEATER = PIO::REPEATER, /**< Repeater mode */
+  INACTIVE = PIO::INACTIVE, /*!< No pullup/down */
+  PULLDOWN = PIO::PULLDOWN, /*!< Pulldown enabled */
+  PULLUP = PIO::PULLUP,     /*!< Pullup enabled */
+  REPEATER = PIO::REPEATER, /*!< Repeater mode */
 };
 
 /**
@@ -29,10 +29,10 @@ enum class pullModes : std::uint32_t {
  *
  */
 enum class pinFiltering : std::uint32_t {
-  BYPASS = PIO::BYPASS,   /**< Bypassed input filter */
-  CYCLES1 = PIO::CYCLES1, /**< 1 clock cycle pulses are filtered */
-  CYCLES2 = PIO::CYCLES2, /**< 2 clock cycle pulses are filtered */
-  CYCLES3 = PIO::CYCLES3, /**< 3 clock cycle pulses are filtered */
+  BYPASS = PIO::BYPASS,   /*!< Bypassed input filter */
+  CYCLES1 = PIO::CYCLES1, /*!< 1 clock cycle pulses are filtered */
+  CYCLES2 = PIO::CYCLES2, /*!< 2 clock cycle pulses are filtered */
+  CYCLES3 = PIO::CYCLES3, /*!< 3 clock cycle pulses are filtered */
 };
 
 /**
@@ -42,13 +42,13 @@ enum class pinFiltering : std::uint32_t {
  *
  */
 enum class clockDivider : std::uint32_t {
-  IOCONCLKDIV0 = PIO::IOCONCLKDIV0, /**< use IOCONCLKDIV0 in SYSCON */
-  IOCONCLKDIV1 = PIO::IOCONCLKDIV1, /**< use IOCONCLKDIV1 in SYSCON */
-  IOCONCLKDIV2 = PIO::IOCONCLKDIV2, /**< use IOCONCLKDIV2 in SYSCON */
-  IOCONCLKDIV3 = PIO::IOCONCLKDIV3, /**< use IOCONCLKDIV3 in SYSCON */
-  IOCONCLKDIV4 = PIO::IOCONCLKDIV4, /**< use IOCONCLKDIV4 in SYSCON */
-  IOCONCLKDIV5 = PIO::IOCONCLKDIV5, /**< use IOCONCLKDIV5 in SYSCON */
-  IOCONCLKDIV6 = PIO::IOCONCLKDIV6, /**< use IOCONCLKDIV6 in SYSCON */
+  IOCONCLKDIV0 = PIO::IOCONCLKDIV0, /*!< use IOCONCLKDIV0 in SYSCON */
+  IOCONCLKDIV1 = PIO::IOCONCLKDIV1, /*!< use IOCONCLKDIV1 in SYSCON */
+  IOCONCLKDIV2 = PIO::IOCONCLKDIV2, /*!< use IOCONCLKDIV2 in SYSCON */
+  IOCONCLKDIV3 = PIO::IOCONCLKDIV3, /*!< use IOCONCLKDIV3 in SYSCON */
+  IOCONCLKDIV4 = PIO::IOCONCLKDIV4, /*!< use IOCONCLKDIV4 in SYSCON */
+  IOCONCLKDIV5 = PIO::IOCONCLKDIV5, /*!< use IOCONCLKDIV5 in SYSCON */
+  IOCONCLKDIV6 = PIO::IOCONCLKDIV6, /*!< use IOCONCLKDIV6 in SYSCON */
 };
 
 /**
@@ -56,9 +56,9 @@ enum class clockDivider : std::uint32_t {
  *
  */
 enum class i2cmodes : std::uint32_t {
-  I2C_STD = PIO::I2C_STD,   /**< standard/fast I2C mode */
-  IO_STD = PIO::IO_STD,     /**< standard I/O functionality */
-  I2C_FAST = PIO::I2C_FAST, /**< fast mode plus I2C */
+  I2C_STD = PIO::I2C_STD,   /*!< standard/fast I2C mode */
+  IO_STD = PIO::IO_STD,     /*!< standard I/O functionality */
+  I2C_FAST = PIO::I2C_FAST, /*!< fast mode plus I2C */
 };
 
 template <libMcu::ioconBaseAddress ioconAddress_>
@@ -154,7 +154,7 @@ struct iocon : libMcu::PeripheralBase {
   }
 
  private:
-  static constexpr libMcu::hwAddressType ioconAddress = ioconAddress_; /**< peripheral address */
+  static constexpr libMcu::hwAddressType ioconAddress = ioconAddress_; /*!< peripheral address */
 };
 }  // namespace libMcuLL::sw::iocon
 #endif

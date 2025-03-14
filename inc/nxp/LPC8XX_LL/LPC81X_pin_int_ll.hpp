@@ -24,7 +24,7 @@ struct pinint : libMcu::PeripheralBase {
   }
 
  private:
-  static constexpr libMcu::hwAddressType pinintAddress = pinintAddress_; /**< peripheral address */
+  static constexpr libMcu::hwAddressType pinintAddress = pinintAddress_; /*!< peripheral address */
 };
 }  // namespace libMcuLL::sw::pin_int
 #endif

@@ -33,7 +33,7 @@ struct ppb : libMcu::PeripheralBase {
   }
 
  private:
-  static constexpr libMcu::hwAddressType ppbAddress = ppbAddress_; /**< peripheral address */
+  static constexpr libMcu::hwAddressType ppbAddress = ppbAddress_; /*!< peripheral address */
 };
 }  // namespace libMcuLL::ppb
 #endif

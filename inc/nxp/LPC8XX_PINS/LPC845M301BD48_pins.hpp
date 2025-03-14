@@ -14,79 +14,79 @@ namespace libMcuHw {
 namespace hardware = libMcuHw::swm;
 
 enum pinTypeFlags : std::uint8_t {
-  NORMAL = 0u,           /**< Normal pin without any special handling */
-  IOCON_I2C = (1u << 0), /**< IOCON special handling for I2C */
+  NORMAL = 0u,           /*!< Normal pin without any special handling */
+  IOCON_I2C = (1u << 0), /*!< IOCON special handling for I2C */
 };
 /**
  * @brief Available pins on LPC845M301BD48
  */
 enum class IOpins : std::uint8_t {
-  PIN00, /**< Pin 0 */
-  PIN01, /**< Pin 1 */
-  PIN02, /**< Pin 2 */
-  PIN03, /**< Pin 3 */
-  PIN04, /**< Pin 4 */
-  PIN05, /**< Pin 5 */
-  PIN06, /**< Pin 6 */
-  PIN07, /**< Pin 7 */
-  PIN08, /**< Pin 8 */
-  PIN09, /**< Pin 9 */
-  PIN10, /**< Pin 10 */
-  PIN11, /**< Pin 11 */
-  PIN12, /**< Pin 12 */
-  PIN13, /**< Pin 13 */
-  PIN14, /**< Pin 14 */
-  PIN15, /**< Pin 15 */
-  PIN16, /**< Pin 16 */
-  PIN17, /**< Pin 17 */
-  PIN18, /**< Pin 18 */
-  PIN19, /**< Pin 19 */
-  PIN20, /**< Pin 20 */
-  PIN21, /**< Pin 21 */
-  PIN22, /**< Pin 22 */
-  PIN23, /**< Pin 23 */
-  PIN24, /**< Pin 24 */
-  PIN25, /**< Pin 25 */
-  PIN26, /**< Pin 26 */
-  PIN27, /**< Pin 27 */
-  PIN28, /**< Pin 28 */
-  PIN29, /**< Pin 29 */
-  PIN30, /**< Pin 30 */
-  PIN31, /**< Pin 31 */
+  PIN00, /*!< Pin 0 */
+  PIN01, /*!< Pin 1 */
+  PIN02, /*!< Pin 2 */
+  PIN03, /*!< Pin 3 */
+  PIN04, /*!< Pin 4 */
+  PIN05, /*!< Pin 5 */
+  PIN06, /*!< Pin 6 */
+  PIN07, /*!< Pin 7 */
+  PIN08, /*!< Pin 8 */
+  PIN09, /*!< Pin 9 */
+  PIN10, /*!< Pin 10 */
+  PIN11, /*!< Pin 11 */
+  PIN12, /*!< Pin 12 */
+  PIN13, /*!< Pin 13 */
+  PIN14, /*!< Pin 14 */
+  PIN15, /*!< Pin 15 */
+  PIN16, /*!< Pin 16 */
+  PIN17, /*!< Pin 17 */
+  PIN18, /*!< Pin 18 */
+  PIN19, /*!< Pin 19 */
+  PIN20, /*!< Pin 20 */
+  PIN21, /*!< Pin 21 */
+  PIN22, /*!< Pin 22 */
+  PIN23, /*!< Pin 23 */
+  PIN24, /*!< Pin 24 */
+  PIN25, /*!< Pin 25 */
+  PIN26, /*!< Pin 26 */
+  PIN27, /*!< Pin 27 */
+  PIN28, /*!< Pin 28 */
+  PIN29, /*!< Pin 29 */
+  PIN30, /*!< Pin 30 */
+  PIN31, /*!< Pin 31 */
 };
 /**
  * @brief Available ports on LPC845M301BD48
  */
 enum class IOports : std::uint8_t {
-  PORT0, /**< Port 0 */
-  PORT1, /**< Port 1 */
+  PORT0, /*!< Port 0 */
+  PORT1, /*!< Port 1 */
 };
 /**
  * @brief ADC inputs
  */
 enum class ADCpins : std::uint8_t {
-  PIN0,  /**< ADC input 0 */
-  PIN1,  /**< ADC input 1 */
-  PIN2,  /**< ADC input 2 */
-  PIN3,  /**< ADC input 3 */
-  PIN4,  /**< ADC input 4 */
-  PIN5,  /**< ADC input 5 */
-  PIN6,  /**< ADC input 6 */
-  PIN7,  /**< ADC input 7 */
-  PIN8,  /**< ADC input 8 */
-  PIN9,  /**< ADC input 9 */
-  PIN10, /**< ADC input 10 */
-  PIN11, /**< ADC input 10 */
+  PIN0,  /*!< ADC input 0 */
+  PIN1,  /*!< ADC input 1 */
+  PIN2,  /*!< ADC input 2 */
+  PIN3,  /*!< ADC input 3 */
+  PIN4,  /*!< ADC input 4 */
+  PIN5,  /*!< ADC input 5 */
+  PIN6,  /*!< ADC input 6 */
+  PIN7,  /*!< ADC input 7 */
+  PIN8,  /*!< ADC input 8 */
+  PIN9,  /*!< ADC input 9 */
+  PIN10, /*!< ADC input 10 */
+  PIN11, /*!< ADC input 10 */
 };
 /**
  * @brief Analog comparator inputs
  */
 enum class ACMPpins : std::uint8_t {
-  PIN1, /**< Analog comparator input 1 */
-  PIN2, /**< Analog comparator input 2 */
-  PIN3, /**< Analog comparator input 3 */
-  PIN4, /**< Analog comparator input 4 */
-  PIN5, /**< Analog comparator input 5 */
+  PIN1, /*!< Analog comparator input 1 */
+  PIN2, /*!< Analog comparator input 2 */
+  PIN3, /*!< Analog comparator input 3 */
+  PIN4, /*!< Analog comparator input 4 */
+  PIN5, /*!< Analog comparator input 5 */
 };
 /**
  * @brief base I/O pin template

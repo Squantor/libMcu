@@ -15,10 +15,10 @@ namespace libMcuHw::mtb {
  * @brief MTB register definitions
  */
 struct mtb {
-  volatile std::uint32_t POSITION;   /**< POSITION Register */
-  volatile std::uint32_t MASTER;     /**< MASTER Register */
-  volatile std::uint32_t FLOW;       /**< FLOW Register */
-  volatile const std::uint32_t BASE; /**< Indicates where the SRAM is located in the processor memory map */
+  volatile std::uint32_t POSITION;   /*!< POSITION Register */
+  volatile std::uint32_t MASTER;     /*!< MASTER Register */
+  volatile std::uint32_t FLOW;       /*!< FLOW Register */
+  volatile const std::uint32_t BASE; /*!< Indicates where the SRAM is located in the processor memory map */
 };
 }  // namespace libMcuHw::mtb
 #endif

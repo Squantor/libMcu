@@ -23,42 +23,42 @@ extern "C" {
 #define __Vendor_SysTickConfig 0
 
 /** Interrupt Number Definitions */
-#define NUMBER_OF_INT_VECTORS 48 /**< Number of interrupts in the Vector table */
+#define NUMBER_OF_INT_VECTORS 48 /*!< Number of interrupts in the Vector table */
 
 typedef enum {
-  Reset_IRQn = -15,          /**< Reset entry  */
-  NonMaskableInt_IRQn = -14, /**< Non Maskable Interrupt */
-  HardFault_IRQn = -13,      /**< Cortex-M0 SV Hard Fault Interrupt */
-  SVCall_IRQn = -5,          /**< Cortex-M0 SV Call Interrupt */
-  PendSV_IRQn = -2,          /**< Cortex-M0 Pend SV Interrupt */
-  SysTick_IRQn = -1,         /**< Cortex-M0 System Tick Interrupt */
-  SPI0_IRQn = 0,             /**< SPI0 interrupt */
-  SPI1_IRQn = 1,             /**< SPI1 interrupt */
-  UART0_IRQn = 3,            /**< USART0 interrupt */
-  UART1_IRQn = 4,            /**< USART1 interrupt */
-  I2C1_IRQn = 7,             /**< I2C1 interrupt */
-  I2C0_IRQn = 8,             /**< I2C0 interrupt */
-  SCT_IRQn = 9,              /**< State configurable timer interrupt */
-  MRT_IRQn = 10,             /**< Multi-rate timer interrupt */
-  CMP_IRQn = 11,             /**< Analog comparator interrupt or Capacitive Touch interrupt */
-  WDT_IRQn = 12,             /**< Windowed watchdog timer interrupt */
-  BOD_IRQn = 13,             /**< BOD interrupts */
-  FLASH_IRQn = 14,           /**< flash interrupt */
-  WKT_IRQn = 15,             /**< Self-wake-up timer interrupt */
-  ADC_SEQA_IRQn = 16,        /**< ADC0 sequence A completion. */
-  ADC_SEQB_IRQn = 17,        /**< ADC0 sequence B completion. */
-  ADC_THCMP_IRQn = 18,       /**< ADC0 threshold compare and error. */
-  ADC_OVR_IRQn = 19,         /**< ADC0 overrun */
-  DMA_IRQn = 20,             /**< DMA0 interrupt */
-  CTIMER0_IRQn = 23,         /**< Timer interrupt */
-  PIN_INT0_IRQn = 24,        /**< Pin interrupt 0 or pattern match engine slice 0 interrupt */
-  PIN_INT1_IRQn = 25,        /**< Pin interrupt 1 or pattern match engine slice 1 interrupt */
-  PIN_INT2_IRQn = 26,        /**< Pin interrupt 2 or pattern match engine slice 2 interrupt */
-  PIN_INT3_IRQn = 27,        /**< Pin interrupt 3 or pattern match engine slice 3 interrupt */
-  PIN_INT4_IRQn = 28,        /**< Pin interrupt 4 or pattern match engine slice 4 interrupt */
-  PIN_INT5_IRQn = 29,        /**< Pin interrupt 5 or pattern match engine slice 5 interrupt */
-  PIN_INT6_IRQn = 30,        /**< Pin interrupt 6 or pattern match engine slice 6 interrupt */
-  PIN_INT7_IRQn = 31         /**< Pin interrupt 7 or pattern match engine slice 7 interrupt */
+  Reset_IRQn = -15,          /*!< Reset entry  */
+  NonMaskableInt_IRQn = -14, /*!< Non Maskable Interrupt */
+  HardFault_IRQn = -13,      /*!< Cortex-M0 SV Hard Fault Interrupt */
+  SVCall_IRQn = -5,          /*!< Cortex-M0 SV Call Interrupt */
+  PendSV_IRQn = -2,          /*!< Cortex-M0 Pend SV Interrupt */
+  SysTick_IRQn = -1,         /*!< Cortex-M0 System Tick Interrupt */
+  SPI0_IRQn = 0,             /*!< SPI0 interrupt */
+  SPI1_IRQn = 1,             /*!< SPI1 interrupt */
+  UART0_IRQn = 3,            /*!< USART0 interrupt */
+  UART1_IRQn = 4,            /*!< USART1 interrupt */
+  I2C1_IRQn = 7,             /*!< I2C1 interrupt */
+  I2C0_IRQn = 8,             /*!< I2C0 interrupt */
+  SCT_IRQn = 9,              /*!< State configurable timer interrupt */
+  MRT_IRQn = 10,             /*!< Multi-rate timer interrupt */
+  CMP_IRQn = 11,             /*!< Analog comparator interrupt or Capacitive Touch interrupt */
+  WDT_IRQn = 12,             /*!< Windowed watchdog timer interrupt */
+  BOD_IRQn = 13,             /*!< BOD interrupts */
+  FLASH_IRQn = 14,           /*!< flash interrupt */
+  WKT_IRQn = 15,             /*!< Self-wake-up timer interrupt */
+  ADC_SEQA_IRQn = 16,        /*!< ADC0 sequence A completion. */
+  ADC_SEQB_IRQn = 17,        /*!< ADC0 sequence B completion. */
+  ADC_THCMP_IRQn = 18,       /*!< ADC0 threshold compare and error. */
+  ADC_OVR_IRQn = 19,         /*!< ADC0 overrun */
+  DMA_IRQn = 20,             /*!< DMA0 interrupt */
+  CTIMER0_IRQn = 23,         /*!< Timer interrupt */
+  PIN_INT0_IRQn = 24,        /*!< Pin interrupt 0 or pattern match engine slice 0 interrupt */
+  PIN_INT1_IRQn = 25,        /*!< Pin interrupt 1 or pattern match engine slice 1 interrupt */
+  PIN_INT2_IRQn = 26,        /*!< Pin interrupt 2 or pattern match engine slice 2 interrupt */
+  PIN_INT3_IRQn = 27,        /*!< Pin interrupt 3 or pattern match engine slice 3 interrupt */
+  PIN_INT4_IRQn = 28,        /*!< Pin interrupt 4 or pattern match engine slice 4 interrupt */
+  PIN_INT5_IRQn = 29,        /*!< Pin interrupt 5 or pattern match engine slice 5 interrupt */
+  PIN_INT6_IRQn = 30,        /*!< Pin interrupt 6 or pattern match engine slice 6 interrupt */
+  PIN_INT7_IRQn = 31         /*!< Pin interrupt 7 or pattern match engine slice 7 interrupt */
 } IRQn_Type;
 
 #include <CMSIS/core_cm0plus.h> /* Core Peripheral Access Layer */
@@ -142,19 +142,19 @@ typedef enum {
  * of the hardware request varies according  to the to SoC.
  */
 typedef enum dmaRequestSource {
-  kDmaRequestUSART0_RX_DMA = 0U, /**< USART0 RX DMA  */
-  kDmaRequestUSART0_TX_DMA = 1U, /**< USART0 TX DMA  */
-  kDmaRequestUSART1_RX_DMA = 2U, /**< USART1 RX DMA  */
-  kDmaRequestUSART1_TX_DMA = 3U, /**< USART1 TX DMA  */
-  kDmaRequestSPI0_RX_DMA = 10U,  /**< SPI0 RX DMA  */
-  kDmaRequestSPI0_TX_DMA = 11U,  /**< SPI0 TX DMA  */
-  kDmaRequestSPI1_RX_DMA = 12U,  /**< SPI1 RX DMA  */
-  kDmaRequestSPI1_TX_DMA = 13U,  /**< SPI1 TX DMA  */
-  kDmaRequestI2C0_SLV_DMA = 14U, /**< I2C0 SLAVE DMA  */
-  kDmaRequestI2C0_MST_DMA = 15U, /**< I2C0 MASTER DMA  */
-  kDmaRequestI2C1_SLV_DMA = 16U, /**< I2C1 SLAVE DMA  */
-  kDmaRequestI2C1_MST_DMA = 17U, /**< I2C1 MASTER DMA  */
-  kDmaRequestCAPT_DMA = 24U,     /**< CAPT DMA  */
+  kDmaRequestUSART0_RX_DMA = 0U, /*!< USART0 RX DMA  */
+  kDmaRequestUSART0_TX_DMA = 1U, /*!< USART0 TX DMA  */
+  kDmaRequestUSART1_RX_DMA = 2U, /*!< USART1 RX DMA  */
+  kDmaRequestUSART1_TX_DMA = 3U, /*!< USART1 TX DMA  */
+  kDmaRequestSPI0_RX_DMA = 10U,  /*!< SPI0 RX DMA  */
+  kDmaRequestSPI0_TX_DMA = 11U,  /*!< SPI0 TX DMA  */
+  kDmaRequestSPI1_RX_DMA = 12U,  /*!< SPI1 RX DMA  */
+  kDmaRequestSPI1_TX_DMA = 13U,  /*!< SPI1 TX DMA  */
+  kDmaRequestI2C0_SLV_DMA = 14U, /*!< I2C0 SLAVE DMA  */
+  kDmaRequestI2C0_MST_DMA = 15U, /*!< I2C0 MASTER DMA  */
+  kDmaRequestI2C1_SLV_DMA = 16U, /*!< I2C1 SLAVE DMA  */
+  kDmaRequestI2C1_MST_DMA = 17U, /*!< I2C1 MASTER DMA  */
+  kDmaRequestCAPT_DMA = 24U,     /*!< CAPT DMA  */
 } dmaRequestSource_t;
 
 /**
@@ -317,8 +317,8 @@ C definitions to C++. Step by step, C++ bits will go below
 */
 
 namespace peripherals {
-constexpr static inline uint32_t SPI0_cpp{0x4005'8000u}; /**< TODO, rename to their names when refactoring is done */
-constexpr static inline uint32_t SPI1_cpp{0x4005'C000u}; /**< TODO, rename to their names when refactoring is done */
+constexpr static inline uint32_t SPI0_cpp{0x4005'8000u}; /*!< TODO, rename to their names when refactoring is done */
+constexpr static inline uint32_t SPI1_cpp{0x4005'C000u}; /*!< TODO, rename to their names when refactoring is done */
 }  // namespace peripherals
 
 // includes that define the registers namespace go here.

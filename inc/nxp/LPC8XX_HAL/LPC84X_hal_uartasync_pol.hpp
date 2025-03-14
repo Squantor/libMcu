@@ -204,13 +204,13 @@ struct uartAsync {
     return reinterpret_cast<hardware::usart*>(uartBaseAddress);
   }
 
-  static constexpr libMcu::hwAddressBase uartBaseAddress = uartBaseAddress_; /**< uart peripheral address */
-  detail::synchonousStates transactionWriteState;                            /**< usart write transaction state */
-  detail::synchonousStates transactionReadState;                             /**< usart read transaction state */
-  std::size_t transactionWriteIndex;                                         /**< transaction write buffer index */
-  std::size_t transactionReadIndex;                                          /**< transaction read buffer index */
-  std::span<transferType> transactionWriteData;                              /**< data to write */
-  std::span<transferType> transactionReadData;                               /**< where to put read data in */
+  static constexpr libMcu::hwAddressBase uartBaseAddress = uartBaseAddress_; /*!< uart peripheral address */
+  detail::synchonousStates transactionWriteState;                            /*!< usart write transaction state */
+  detail::synchonousStates transactionReadState;                             /*!< usart read transaction state */
+  std::size_t transactionWriteIndex;                                         /*!< transaction write buffer index */
+  std::size_t transactionReadIndex;                                          /*!< transaction read buffer index */
+  std::span<transferType> transactionWriteData;                              /*!< data to write */
+  std::span<transferType> transactionReadData;                               /*!< where to put read data in */
 };
 }  // namespace libMcuHal::usart
 

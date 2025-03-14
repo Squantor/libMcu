@@ -218,7 +218,7 @@ struct gpio : libMcu::PeripheralBase {
   }
 
  private:
-  static constexpr libMcu::hwAddressType gpioAddress = gpioAddress_; /**< peripheral address */
+  static constexpr libMcu::hwAddressType gpioAddress = gpioAddress_; /*!< peripheral address */
 };
 }  // namespace libMcuLL::sw::gpio
 #endif

@@ -15,23 +15,23 @@ namespace libMcu {
  * @brief result class used in libMcu for various return values
  */
 enum class results : std::uint32_t {
-  NO_ERROR,        /**< No error */
-  ERROR,           /**< Error has occured */
-  STARTED,         /**< Operation started */
-  BUSY,            /**< Operation Busy */
-  DONE,            /**< Operation completed*/
-  IN_USE,          /**< Currently in use */
-  CLAIMED,         /**< Interface has been successfully claimed */
-  UNCLAIMED,       /**< Interface has been successfully unclaimed */
-  TIMEOUT,         /**< Operation timed out */
-  INVALID_ADDRESS, /**< Invalid address */
-  TRANSFER_ERROR,  /**< Error occured during data transfer*/
-  OVERRUN,         /**< buffer overrun */
-  FRAMING,         /**< Framing error*/
-  PARITY,          /**< Parity error */
-  BREAK,           /**< Break error */
-  FULL,            /**< Buffer is full */
-  EMPTY,           /**< Buffer is empty */
+  NO_ERROR,        /*!< No error */
+  ERROR,           /*!< Error has occured */
+  STARTED,         /*!< Operation started */
+  BUSY,            /*!< Operation Busy */
+  DONE,            /*!< Operation completed*/
+  IN_USE,          /*!< Currently in use */
+  CLAIMED,         /*!< Interface has been successfully claimed */
+  UNCLAIMED,       /*!< Interface has been successfully unclaimed */
+  TIMEOUT,         /*!< Operation timed out */
+  INVALID_ADDRESS, /*!< Invalid address */
+  TRANSFER_ERROR,  /*!< Error occured during data transfer*/
+  OVERRUN,         /*!< buffer overrun */
+  FRAMING,         /*!< Framing error*/
+  PARITY,          /*!< Parity error */
+  BREAK,           /*!< Break error */
+  FULL,            /*!< Buffer is full */
+  EMPTY,           /*!< Buffer is empty */
 };
 }  // namespace libMcu
 

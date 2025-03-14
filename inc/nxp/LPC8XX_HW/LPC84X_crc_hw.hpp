@@ -15,11 +15,11 @@ namespace libMcuHw::crc {
  * @brief CRC register definitions
  */
 struct crc {
-  volatile std::uint32_t MODE;        /**< CRC mode register */
-  volatile std::uint32_t SEED;        /**< CRC seed register */
+  volatile std::uint32_t MODE;        /*!< CRC mode register */
+  volatile std::uint32_t SEED;        /*!< CRC seed register */
   union {                             /* */
-    volatile const std::uint32_t SUM; /**< CRC checksum register */
-    volatile std::uint32_t WR_DATA;   /**< CRC data register */
+    volatile const std::uint32_t SUM; /*!< CRC checksum register */
+    volatile std::uint32_t WR_DATA;   /*!< CRC data register */
   };
 };
 }  // namespace libMcuHw::crc

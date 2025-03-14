@@ -15,10 +15,10 @@ namespace libMcuHw::usbCtrl {
  * @brief USB register definitions
  */
 struct usbCtrl {
-  volatile std::uint32_t DUMMY; /**< Fill in */
+  volatile std::uint32_t DUMMY; /*!< Fill in */
 };
 namespace DUMMY {
-constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /**< Mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /*!< Mask for allowed bits */
 }  // namespace DUMMY
 }  // namespace libMcuHw::usbCtrl
 #endif

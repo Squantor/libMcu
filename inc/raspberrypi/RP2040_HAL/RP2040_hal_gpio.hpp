@@ -13,10 +13,10 @@
 namespace libMcuHal::gpio {
 
 enum class pullModes : std::uint32_t {
-  NONE = 0,                             /**< No pullup modes */
-  PULLUP = libMcuHw::pads::GPIO::PUE,   /**< Pullup */
-  PULLDOWN = libMcuHw::pads::GPIO::PDE, /**< Pulldown */
-  KEEPER = 0,                           /**< No bus keeper on RP2040 */
+  NONE = 0,                             /*!< No pullup modes */
+  PULLUP = libMcuHw::pads::GPIO::PUE,   /*!< Pullup */
+  PULLDOWN = libMcuHw::pads::GPIO::PDE, /*!< Pulldown */
+  KEEPER = 0,                           /*!< No bus keeper on RP2040 */
 };
 
 template <libMcu::padsBank0BaseAddress const& padsBank0Address_, libMcu::ioBank0BaseAddress const& gpioBank0Address_,
@@ -224,8 +224,8 @@ struct gpio : libMcuHal::halGpioBase {
     return reinterpret_cast<libMcuHw::sio::sio*>(sioAddress + libMcuHw::peripheralOffsetXor);
   }
 
-  static constexpr libMcu::hwAddressType padsBank0Address = padsBank0Address_; /**< pads bank 0 peripheral address */
-  static constexpr libMcu::hwAddressType sioAddress = sioAddress_;             /**< SIO peripheral address*/
+  static constexpr libMcu::hwAddressType padsBank0Address = padsBank0Address_; /*!< pads bank 0 peripheral address */
+  static constexpr libMcu::hwAddressType sioAddress = sioAddress_;             /*!< SIO peripheral address*/
 };
 }  // namespace libMcuHal::gpio
 

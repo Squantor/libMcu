@@ -15,10 +15,10 @@ namespace libMcuHw::tbman {
  * @brief Testbench manager register definitions
  */
 struct tbman {
-  volatile std::uint32_t PLATFORM; /**< Fill in */
+  volatile std::uint32_t PLATFORM; /*!< Fill in */
 };
 namespace PLATFORM {
-constexpr inline std::uint32_t RESERVED_MASK{0x0000'0001u}; /**< Mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x0000'0001u}; /*!< Mask for allowed bits */
 }  // namespace PLATFORM
 }  // namespace libMcuHw::tbman
 #endif

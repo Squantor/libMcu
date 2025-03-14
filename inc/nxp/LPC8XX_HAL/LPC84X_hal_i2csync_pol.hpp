@@ -200,7 +200,7 @@ struct i2cSyncPol {
     return reinterpret_cast<hardware::i2c*>(i2cBaseAddress);
   }
 
-  static constexpr libMcu::hwAddressType i2cBaseAddress = i2cBaseAddress_; /**< I2C peripheral address */
+  static constexpr libMcu::hwAddressType i2cBaseAddress = i2cBaseAddress_; /*!< I2C peripheral address */
 };
 
 }  // namespace libMcuHal::i2c

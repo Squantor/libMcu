@@ -27,7 +27,7 @@ struct watchdog : libMcu::PeripheralBase {
   }
 
  private:
-  static constexpr libMcu::hwAddressType watchdogAddress{watchdogAddress_}; /**< peripheral address */
+  static constexpr libMcu::hwAddressType watchdogAddress{watchdogAddress_}; /*!< peripheral address */
 };
 }  // namespace libMcuLL::watchdog
 #endif

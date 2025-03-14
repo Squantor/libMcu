@@ -17,50 +17,50 @@ namespace hardware = hw::acmp;
  * @brief possible inputs for plus comparator input
  */
 enum class inputPositiveSettings : std::uint32_t {
-  LADDER = hardware::CTRL::COMP_VP_SEL_LAD,    /**< Positive input connected to voltage ladder */
-  IN1 = hardware::CTRL::COMP_VP_SEL_ACMP_I1,   /**< Positive input connected to IN1 */
-  IN2 = hardware::CTRL::COMP_VP_SEL_ACMP_I2,   /**< Positive input connected to IN2 */
-  REF = hardware::CTRL::COMP_VP_SEL_ACMP_VREF, /**< Positive input connected to reference */
+  LADDER = hardware::CTRL::COMP_VP_SEL_LAD,    /*!< Positive input connected to voltage ladder */
+  IN1 = hardware::CTRL::COMP_VP_SEL_ACMP_I1,   /*!< Positive input connected to IN1 */
+  IN2 = hardware::CTRL::COMP_VP_SEL_ACMP_I2,   /*!< Positive input connected to IN2 */
+  REF = hardware::CTRL::COMP_VP_SEL_ACMP_VREF, /*!< Positive input connected to reference */
 };
 /**
  * @brief possible inputs for min comparator input
  */
 enum class inputNegativeSettings : std::uint32_t {
-  LADDER = hardware::CTRL::COMP_VM_SEL_LAD,    /**< Negative input connected to voltage ladder */
-  IN1 = hardware::CTRL::COMP_VM_SEL_ACMP_I1,   /**< Negative input connected to IN1 */
-  IN2 = hardware::CTRL::COMP_VM_SEL_ACMP_I2,   /**< Negative input connected to IN2 */
-  REF = hardware::CTRL::COMP_VM_SEL_ACMP_VREF, /**< Negative input connected to reference */
+  LADDER = hardware::CTRL::COMP_VM_SEL_LAD,    /*!< Negative input connected to voltage ladder */
+  IN1 = hardware::CTRL::COMP_VM_SEL_ACMP_I1,   /*!< Negative input connected to IN1 */
+  IN2 = hardware::CTRL::COMP_VM_SEL_ACMP_I2,   /*!< Negative input connected to IN2 */
+  REF = hardware::CTRL::COMP_VM_SEL_ACMP_VREF, /*!< Negative input connected to reference */
 };
 /**
  * @brief possible options for comparator edge detector
  */
 enum class edgeDetectSettings : std::uint32_t {
-  FALLING = hardware::CTRL::EDGESEL_FALLING, /**< edge detector detects falling edges */
-  RISING = hardware::CTRL::EDGESEL_RISING,   /**< edge detector detects rising edges */
-  BOTH = hardware::CTRL::EDGESEL_BOTH,       /**< edge detector detects both edges */
+  FALLING = hardware::CTRL::EDGESEL_FALLING, /*!< edge detector detects falling edges */
+  RISING = hardware::CTRL::EDGESEL_RISING,   /*!< edge detector detects rising edges */
+  BOTH = hardware::CTRL::EDGESEL_BOTH,       /*!< edge detector detects both edges */
 };
 /**
  * @brief possible options for comparator output synchronization
  */
 enum class outputControlSettings : std::uint32_t {
-  DIRECT = hardware::CTRL::COMPSA_DIR,  /**< comparator output used directly */
-  SYNCED = hardware::CTRL::COMPSA_SYNC, /**< comparator output is synchronized to main clock */
+  DIRECT = hardware::CTRL::COMPSA_DIR,  /*!< comparator output used directly */
+  SYNCED = hardware::CTRL::COMPSA_SYNC, /*!< comparator output is synchronized to main clock */
 };
 /**
  * @brief possible options for comparator hysteresis
  */
 enum class hysteresisSettings : std::uint32_t {
-  NONE = hardware::CTRL::HYS_NONE,     /**< No hysteresis */
-  HYS_5MV = hardware::CTRL::HYS_5MV,   /**< 5mV hysteresis */
-  HYS_10MV = hardware::CTRL::HYS_10MV, /**< 10mV hysteresis */
-  HYS_20MV = hardware::CTRL::HYS_20MV, /**< 20mV hysteresis */
+  NONE = hardware::CTRL::HYS_NONE,     /*!< No hysteresis */
+  HYS_5MV = hardware::CTRL::HYS_5MV,   /*!< 5mV hysteresis */
+  HYS_10MV = hardware::CTRL::HYS_10MV, /*!< 10mV hysteresis */
+  HYS_20MV = hardware::CTRL::HYS_20MV, /*!< 20mV hysteresis */
 };
 /**
  * @brief possible options for voltage ladder reference
  */
 enum class ladderReferenceSetting : std::uint32_t {
-  VDD = hardware::LAD::LADREF_VDD,       /**< ladder reference is VDD pin */
-  VDDCMP = hardware::LAD::LADREF_VDDCMP, /**< ladder reference is VDDCMP pin */
+  VDD = hardware::LAD::LADREF_VDD,       /*!< ladder reference is VDD pin */
+  VDDCMP = hardware::LAD::LADREF_VDDCMP, /*!< ladder reference is VDDCMP pin */
 };
 /**
  * @brief
@@ -141,7 +141,7 @@ struct acmp : libMcu::PeripheralBase {
   }
 
  private:
-  static constexpr libMcu::hwAddressType acmpAddress{acmpAddress_}; /**< peripheral address */
+  static constexpr libMcu::hwAddressType acmpAddress{acmpAddress_}; /*!< peripheral address */
 };
 }  // namespace libMcuLL::sw::acmp
 #endif

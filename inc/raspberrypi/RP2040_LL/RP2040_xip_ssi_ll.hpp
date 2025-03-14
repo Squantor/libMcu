@@ -27,7 +27,7 @@ struct xipSsi : libMcu::PeripheralBase {
   }
 
  private:
-  static constexpr libMcu::hwAddressType xipSsiAddress{xipSsiAddress_}; /**< peripheral address */
+  static constexpr libMcu::hwAddressType xipSsiAddress{xipSsiAddress_}; /*!< peripheral address */
 };
 }  // namespace libMcuLL::xipSsi
 #endif

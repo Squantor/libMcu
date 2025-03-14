@@ -17,21 +17,21 @@ namespace libMcuHw {
 
 // MCU configuration options
 namespace core {
-constexpr inline std::uint32_t revision{0x0000}; /**< Revision number */
+constexpr inline std::uint32_t revision{0x0000}; /*!< Revision number */
 }  // namespace core
 namespace mpu {
-constexpr inline bool present{false}; /**< Presence of memory protection unit */
+constexpr inline bool present{false}; /*!< Presence of memory protection unit */
 }  // namespace mpu
 namespace vtor {
-constexpr inline bool present{false}; /**< presence of vector relocation */
+constexpr inline bool present{false}; /*!< presence of vector relocation */
 }  // namespace vtor
 namespace systick {
-constexpr inline std::uint32_t variant{0}; /**< Type of systick */
+constexpr inline std::uint32_t variant{0}; /*!< Type of systick */
 }  // namespace systick
 namespace nvic {
-constexpr inline std::uint32_t priorityMask{0x3}; /**< NVIC priority bit mask */
-constexpr inline std::uint32_t priorityBits{2};   /**< NVIC priority bit count */
-constexpr inline std::uint32_t vectorCount{48};   /**< amount of interrupt vectors */
+constexpr inline std::uint32_t priorityMask{0x3}; /*!< NVIC priority bit mask */
+constexpr inline std::uint32_t priorityBits{2};   /*!< NVIC priority bit count */
+constexpr inline std::uint32_t vectorCount{48};   /*!< amount of interrupt vectors */
 }  // namespace nvic
 
 enum class interrupts : std::int8_t {

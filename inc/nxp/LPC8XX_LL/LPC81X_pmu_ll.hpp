@@ -24,7 +24,7 @@ struct pmu {
   }
 
  private:
-  static constexpr libMcu::hwAddressType pmuAddress = pmuAddress_; /**< peripheral address */
+  static constexpr libMcu::hwAddressType pmuAddress = pmuAddress_; /*!< peripheral address */
 };
 }  // namespace libMcuLL::sw::pmu
 #endif

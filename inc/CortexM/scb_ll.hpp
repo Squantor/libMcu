@@ -86,7 +86,7 @@ struct scb {
     return reinterpret_cast<hardware::scb*>(scbAddress);
   }
 
-  static constexpr libMcu::hwAddressType scbAddress = scbAddress_; /**< scb peripheral address */
+  static constexpr libMcu::hwAddressType scbAddress = scbAddress_; /*!< scb peripheral address */
 };
 }  // namespace libMcuLL::scb
 #endif

@@ -17,19 +17,19 @@ using namespace hw::syscon;
  * @brief Peripheral reset options
  */
 enum class peripheralResets : std::uint32_t {
-  SPI0 = PRESETCTRL::SPI0_RST_N,       /**< SPI0 reset control */
-  SPI1 = PRESETCTRL::SPI1_RST_N,       /**< SPI1 reset control */
-  UARTFRG = PRESETCTRL::UARTFRG_RST_N, /**< UART fractional baud rate generator reset control */
-  UART0 = PRESETCTRL::UART0_RST_N,     /**< UART0 reset control */
-  UART1 = PRESETCTRL::UART1_RST_N,     /**< UART1 reset control */
-  UART2 = PRESETCTRL::UART2_RST_N,     /**< UART2 reset control */
-  I2C = PRESETCTRL::I2C_RST_N,         /**< I2C reset control */
-  MRT = PRESETCTRL::MRT_RST_N,         /**< MRT reset control */
-  SCT = PRESETCTRL::SCT_RST_N,         /**< SCT reset control */
-  WKT = PRESETCTRL::WKT_RST_N,         /**< WKT reset control */
-  GPIO = PRESETCTRL::GPIO_RST_N,       /**< GPIO reset control */
-  FLASH = PRESETCTRL::FLASH_RST_N,     /**< Flash reset control */
-  ACMP = PRESETCTRL::ACMP_RST_N,       /**< ACMP reset control */
+  SPI0 = PRESETCTRL::SPI0_RST_N,       /*!< SPI0 reset control */
+  SPI1 = PRESETCTRL::SPI1_RST_N,       /*!< SPI1 reset control */
+  UARTFRG = PRESETCTRL::UARTFRG_RST_N, /*!< UART fractional baud rate generator reset control */
+  UART0 = PRESETCTRL::UART0_RST_N,     /*!< UART0 reset control */
+  UART1 = PRESETCTRL::UART1_RST_N,     /*!< UART1 reset control */
+  UART2 = PRESETCTRL::UART2_RST_N,     /*!< UART2 reset control */
+  I2C = PRESETCTRL::I2C_RST_N,         /*!< I2C reset control */
+  MRT = PRESETCTRL::MRT_RST_N,         /*!< MRT reset control */
+  SCT = PRESETCTRL::SCT_RST_N,         /*!< SCT reset control */
+  WKT = PRESETCTRL::WKT_RST_N,         /*!< WKT reset control */
+  GPIO = PRESETCTRL::GPIO_RST_N,       /*!< GPIO reset control */
+  FLASH = PRESETCTRL::FLASH_RST_N,     /*!< Flash reset control */
+  ACMP = PRESETCTRL::ACMP_RST_N,       /*!< ACMP reset control */
 };
 
 /**
@@ -47,55 +47,55 @@ constexpr peripheralResets operator|(const peripheralResets a, const peripheralR
  * @brief PLL post divider options
  */
 enum class pllPostDivider : std::uint32_t {
-  DIV_2 = SYSPLLCTRL::PSEL_DIV2,   /**< PLL post division ration of 2 */
-  DIV_4 = SYSPLLCTRL::PSEL_DIV4,   /**< PLL post division ration of 4 */
-  DIV_8 = SYSPLLCTRL::PSEL_DIV8,   /**< PLL post division ration of 8 */
-  DIV_16 = SYSPLLCTRL::PSEL_DIV16, /**< PLL post division ration of 16 */
+  DIV_2 = SYSPLLCTRL::PSEL_DIV2,   /*!< PLL post division ration of 2 */
+  DIV_4 = SYSPLLCTRL::PSEL_DIV4,   /*!< PLL post division ration of 4 */
+  DIV_8 = SYSPLLCTRL::PSEL_DIV8,   /*!< PLL post division ration of 8 */
+  DIV_16 = SYSPLLCTRL::PSEL_DIV16, /*!< PLL post division ration of 16 */
 };
 
 /**
  * @brief PLL source options
  */
 enum class pllClockSources : std::uint32_t {
-  IRC = SYSPLLCLKSEL::SEL_IRC,       /**< IRC oscillator */
-  SYSOSC = SYSPLLCLKSEL::SEL_SYSOSC, /**< crystal oscillator */
-  CLKIN = SYSPLLCLKSEL::SEL_CLKIN,   /**< External clock input */
+  IRC = SYSPLLCLKSEL::SEL_IRC,       /*!< IRC oscillator */
+  SYSOSC = SYSPLLCLKSEL::SEL_SYSOSC, /*!< crystal oscillator */
+  CLKIN = SYSPLLCLKSEL::SEL_CLKIN,   /*!< External clock input */
 };
 
 /**
  * @brief main clock sources
  */
 enum class mainClockSources : std::uint32_t {
-  IRC = 0,     /**< IRC oscillator */
-  PLL_IN = 1,  /**< PLL input */
-  WDOSC = 2,   /**< Watchdog oscillator */
-  PLL_OUT = 3, /**< PLL output */
+  IRC = 0,     /*!< IRC oscillator */
+  PLL_IN = 1,  /*!< PLL input */
+  WDOSC = 2,   /*!< Watchdog oscillator */
+  PLL_OUT = 3, /*!< PLL output */
 };
 
 /**
  * @brief Peripheral clock enable options
  */
 enum class peripheralClocks : std::uint32_t {
-  SYS = (1 << 0),      /**< AHB bus, APB bridge and the processor core */
-  ROM = (1 << 1),      /**< ROM */
-  RAM = (1 << 2),      /**< RAM */
-  FLASHREG = (1 << 3), /**< Flash register interface */
-  FLASH = (1 << 4),    /**< Flash */
-  I2C = (1 << 5),      /**< I2C */
-  GPIO = (1 << 6),     /**< GPIO */
-  SWM = (1 << 7),      /**< Switch Matrix */
-  SCT = (1 << 8),      /**< State configurable timer */
-  WKT = (1 << 9),      /**< self wake-up timer */
-  MRT = (1 << 10),     /**< multi-rate timer */
-  SPI0 = (1 << 11),    /**< SPI0 */
-  SPI1 = (1 << 12),    /**< SPI1 */
-  CRC = (1 << 13),     /**< CRC */
-  UART0 = (1 << 14),   /**< UART0 */
-  UART1 = (1 << 15),   /**< UART1 */
-  UART2 = (1 << 16),   /**< UART2 */
-  WWDT = (1 << 17),    /**< WWDT */
-  IOCON = (1 << 18),   /**< IOCON */
-  ACMP = (1 << 19),    /**< analog comparator */
+  SYS = (1 << 0),      /*!< AHB bus, APB bridge and the processor core */
+  ROM = (1 << 1),      /*!< ROM */
+  RAM = (1 << 2),      /*!< RAM */
+  FLASHREG = (1 << 3), /*!< Flash register interface */
+  FLASH = (1 << 4),    /*!< Flash */
+  I2C = (1 << 5),      /*!< I2C */
+  GPIO = (1 << 6),     /*!< GPIO */
+  SWM = (1 << 7),      /*!< Switch Matrix */
+  SCT = (1 << 8),      /*!< State configurable timer */
+  WKT = (1 << 9),      /*!< self wake-up timer */
+  MRT = (1 << 10),     /*!< multi-rate timer */
+  SPI0 = (1 << 11),    /*!< SPI0 */
+  SPI1 = (1 << 12),    /*!< SPI1 */
+  CRC = (1 << 13),     /*!< CRC */
+  UART0 = (1 << 14),   /*!< UART0 */
+  UART1 = (1 << 15),   /*!< UART1 */
+  UART2 = (1 << 16),   /*!< UART2 */
+  WWDT = (1 << 17),    /*!< WWDT */
+  IOCON = (1 << 18),   /*!< IOCON */
+  ACMP = (1 << 19),    /*!< analog comparator */
 };
 
 /**
@@ -113,14 +113,14 @@ constexpr peripheralClocks operator|(const peripheralClocks a, const peripheralC
  * @brief Peripheral power down reset options
  */
 enum peripheralPowers : std::uint32_t {
-  IRCOUT = (1 << 0), /**< IRC oscillator output */
-  IRC = (1 << 1),    /**< IRC oscillator*/
-  FLASH = (1 << 2),  /**< Flash*/
-  BOD = (1 << 3),    /**< BOD*/
-  SYSOSC = (1 << 5), /**< Crystal oscillator*/
-  WDTOSC = (1 << 6), /**< Watchdog oscillator*/
-  SYSPLL = (1 << 7), /**< System PLL*/
-  ACMP = (1 << 15),  /**< Analog comparator*/
+  IRCOUT = (1 << 0), /*!< IRC oscillator output */
+  IRC = (1 << 1),    /*!< IRC oscillator*/
+  FLASH = (1 << 2),  /*!< Flash*/
+  BOD = (1 << 3),    /*!< BOD*/
+  SYSOSC = (1 << 5), /*!< Crystal oscillator*/
+  WDTOSC = (1 << 6), /*!< Watchdog oscillator*/
+  SYSPLL = (1 << 7), /*!< System PLL*/
+  ACMP = (1 << 15),  /*!< Analog comparator*/
 };
 
 /**
@@ -265,7 +265,7 @@ struct syscon : libMcu::PeripheralBase {
   }
 
  private:
-  constexpr static libMcu::hwAddressType sysconAddress = sysconAddress_; /**< peripheral address */
+  constexpr static libMcu::hwAddressType sysconAddress = sysconAddress_; /*!< peripheral address */
 };
 }  // namespace libMcuLL::sw::syscon
 #endif

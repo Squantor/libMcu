@@ -27,7 +27,7 @@ struct syscfg : libMcu::PeripheralBase {
   }
 
  private:
-  static constexpr libMcu::hwAddressType syscfgAddress{syscfgAddress_}; /**< peripheral address */
+  static constexpr libMcu::hwAddressType syscfgAddress{syscfgAddress_}; /*!< peripheral address */
 };
 }  // namespace libMcuLL::syscfg
 #endif

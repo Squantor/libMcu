@@ -45,7 +45,7 @@ The header ```mcu_ll.h``` and ```mcu_ll.hpp``` contain the selection logic for s
 
 // device specific defines/constexprs for things like pins/ports etcetera
 
-constexpr inline libMcuLL::peripheralBaseAddress peripheral0{0x4000'0000u};     /**< Peripheral base address */
+constexpr inline libMcuLL::peripheralBaseAddress peripheral0{0x4000'0000u};     /*!< Peripheral base address */
 
 #include "device_peripheral_regs.hpp" // peripheral register definitions
 

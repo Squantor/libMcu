@@ -29,7 +29,7 @@ struct Dma : libMcu::PeripheralBase {
   }
 
  private:
-  static constexpr libMcu::hwAddressType dmaAddress = dmaAddress_; /**< peripheral address */
+  static constexpr libMcu::hwAddressType dmaAddress = dmaAddress_; /*!< peripheral address */
 };
 }  // namespace libMcuLL::dma
 #endif

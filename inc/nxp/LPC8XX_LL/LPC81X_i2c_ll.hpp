@@ -98,7 +98,7 @@ struct i2c : libMcu::PeripheralBase {
   }
 
  private:
-  static constexpr libMcu::hwAddressType i2cAddress = i2cAddress_; /**< peripheral address */
+  static constexpr libMcu::hwAddressType i2cAddress = i2cAddress_; /*!< peripheral address */
 };
 }  // namespace libMcuLL::sw::i2c
 #endif

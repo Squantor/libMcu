@@ -80,7 +80,7 @@ struct swm : libMcu::PeripheralBase {
   }
 
  private:
-  static constexpr libMcu::hwAddressType swmAddress = swmAddress_; /**< peripheral address */
+  static constexpr libMcu::hwAddressType swmAddress = swmAddress_; /*!< peripheral address */
 };
 }  // namespace libMcuLL::swm
 #endif

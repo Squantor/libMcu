@@ -171,7 +171,7 @@ struct spiSync : libMcu::PeripheralBase {
   }
 
  private:
-  static constexpr libMcu::hwAddressType spiAddress = spiAddress_; /**< peripheral spiAddress */
+  static constexpr libMcu::hwAddressType spiAddress = spiAddress_; /*!< peripheral spiAddress */
 };
 }  // namespace libMcuLL::sw::spi
 #endif

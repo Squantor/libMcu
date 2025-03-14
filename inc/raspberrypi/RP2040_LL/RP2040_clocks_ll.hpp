@@ -17,10 +17,10 @@ namespace hardware = libMcuHw::clocks;
  * @brief available clock generators
  */
 enum class gpoutGenerators : std::uint32_t {
-  GPOUT0 = hardware::clockIndex::GPOUT0, /**< GPIO mux clock 0 */
-  GPOUT1 = hardware::clockIndex::GPOUT1, /**< GPIO mux clock 1 */
-  GPOUT2 = hardware::clockIndex::GPOUT2, /**< GPIO mux clock 2 */
-  GPOUT3 = hardware::clockIndex::GPOUT3, /**< GPIO mux clock 3 */
+  GPOUT0 = hardware::clockIndex::GPOUT0, /*!< GPIO mux clock 0 */
+  GPOUT1 = hardware::clockIndex::GPOUT1, /*!< GPIO mux clock 1 */
+  GPOUT2 = hardware::clockIndex::GPOUT2, /*!< GPIO mux clock 2 */
+  GPOUT3 = hardware::clockIndex::GPOUT3, /*!< GPIO mux clock 3 */
 };
 /**
  * @brief available clock sources for gpout clock generators
@@ -323,7 +323,7 @@ struct clocks : libMcu::PeripheralBase {
   }
 
  private:
-  static constexpr libMcu::hwAddressType clocksAddress = clocksAddress_; /**< peripheral address */
+  static constexpr libMcu::hwAddressType clocksAddress = clocksAddress_; /*!< peripheral address */
 };
 }  // namespace libMcuLL::clocks
 #endif

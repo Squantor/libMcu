@@ -13,8 +13,8 @@
 namespace libMcuLL::hw {
 
 enum pinTypeFlags : std::uint8_t {
-  NORMAL = 0u,           /**< Normal pin without any special handling */
-  IOCON_I2C = (1u << 0), /**< IOCON special handling for I2C */
+  NORMAL = 0u,           /*!< Normal pin without any special handling */
+  IOCON_I2C = (1u << 0), /*!< IOCON special handling for I2C */
 };
 
 /**
@@ -22,24 +22,24 @@ enum pinTypeFlags : std::uint8_t {
  *
  */
 enum class IOpins : std::uint8_t {
-  PIN00, /**< Pin 0 */
-  PIN01, /**< Pin 1 */
-  PIN02, /**< Pin 2 */
-  PIN03, /**< Pin 3 */
-  PIN04, /**< Pin 4 */
-  PIN05, /**< Pin 5 */
-  PIN06, /**< Pin 6 */
-  PIN07, /**< Pin 7 */
-  PIN08, /**< Pin 8 */
-  PIN09, /**< Pin 9 */
-  PIN10, /**< Pin 10 */
-  PIN11, /**< Pin 11 */
-  PIN12, /**< Pin 12 */
-  PIN13, /**< Pin 13 */
-  PIN14, /**< Pin 14 */
-  PIN15, /**< Pin 15 */
-  PIN16, /**< Pin 16 */
-  PIN17, /**< Pin 17 */
+  PIN00, /*!< Pin 0 */
+  PIN01, /*!< Pin 1 */
+  PIN02, /*!< Pin 2 */
+  PIN03, /*!< Pin 3 */
+  PIN04, /*!< Pin 4 */
+  PIN05, /*!< Pin 5 */
+  PIN06, /*!< Pin 6 */
+  PIN07, /*!< Pin 7 */
+  PIN08, /*!< Pin 8 */
+  PIN09, /*!< Pin 9 */
+  PIN10, /*!< Pin 10 */
+  PIN11, /*!< Pin 11 */
+  PIN12, /*!< Pin 12 */
+  PIN13, /*!< Pin 13 */
+  PIN14, /*!< Pin 14 */
+  PIN15, /*!< Pin 15 */
+  PIN16, /*!< Pin 16 */
+  PIN17, /*!< Pin 17 */
 };
 
 /**
@@ -47,7 +47,7 @@ enum class IOpins : std::uint8_t {
  *
  */
 enum class IOports : std::uint8_t {
-  PORT0, /**< Port 0 */
+  PORT0, /*!< Port 0 */
 };
 
 /**

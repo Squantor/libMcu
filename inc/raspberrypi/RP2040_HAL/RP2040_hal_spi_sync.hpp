@@ -53,7 +53,7 @@ struct spi {
     return reinterpret_cast<libMcuHw::gpioBank0::gpioBank0*>(spiBaseAddress + libMcuHw::peripheralOffsetXor);
   }
 
-  static constexpr libMcu::hwAddressType spiBaseAddress = spiBaseAddress_; /**< spi peripheral address */
+  static constexpr libMcu::hwAddressType spiBaseAddress = spiBaseAddress_; /*!< spi peripheral address */
 };
 }  // namespace libMcuHal::spi
 

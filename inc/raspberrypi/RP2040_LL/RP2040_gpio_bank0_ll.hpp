@@ -39,7 +39,7 @@ struct gpioBank0 : libMcu::PeripheralBase {
   }
 
  private:
-  static constexpr libMcu::hwAddressType ioBank0Address = gpioBank0Address_; /**< peripheral address */
+  static constexpr libMcu::hwAddressType ioBank0Address = gpioBank0Address_; /*!< peripheral address */
 };
 }  // namespace libMcuLL::gpioBank0
 #endif

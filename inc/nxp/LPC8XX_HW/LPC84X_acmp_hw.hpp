@@ -15,8 +15,8 @@ namespace libMcuHw::acmp {
  * @brief ACMP register definitions
  */
 struct acmp {
-  volatile std::uint32_t CTRL; /**< Comparator control register */
-  volatile std::uint32_t LAD;  /**< Voltage ladder register */
+  volatile std::uint32_t CTRL; /*!< Comparator control register */
+  volatile std::uint32_t LAD;  /*!< Voltage ladder register */
 };
 }  // namespace libMcuHw::acmp
 #endif

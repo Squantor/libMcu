@@ -29,7 +29,7 @@ struct rtc : libMcu::PeripheralBase {
   }
 
  private:
-  static constexpr libMcu::hwAddressType rtcAddress{rtcAddress_}; /**< peripheral address */
+  static constexpr libMcu::hwAddressType rtcAddress{rtcAddress_}; /*!< peripheral address */
 };
 }  // namespace libMcuLL::rtc
 #endif
