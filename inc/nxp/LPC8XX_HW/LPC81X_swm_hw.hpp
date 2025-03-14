@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC810 series SWM register interface
+ * @file LPC81X_swm_hw.hpp
+ * @brief LPC810 series SWM register interface an definitions
  */
 #ifndef LPC81X_SMW_REGS_HPP
 #define LPC81X_SWM_REGS_HPP

@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file types used by libMcu
+ * @file libmcu_types.hpp
+ * @brief LibMcu wide used types
  */
 #ifndef LIBMCU_TYPES_HPP
 #define LIBMCU_TYPES_HPP

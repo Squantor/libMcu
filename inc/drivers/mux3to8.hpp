@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file Driver for a 3 to 8 multiplexer, usable for 74138's 4051's and such
+ * @file mux3to8.hpp
+ * @brief 3 to 8 multiplexer driver, usable for 74138's 4051's and such
  */
 #ifndef MUX3TO8_HPP
 #define MUX3TO8_HPP

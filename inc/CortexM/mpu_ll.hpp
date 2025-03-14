@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file MPU low level control class
+ * @file mpu_hw.hpp
+ * @brief MPU register interface
  */
 #ifndef MPU_HW_HPP
 #define MPU_HW_HPP

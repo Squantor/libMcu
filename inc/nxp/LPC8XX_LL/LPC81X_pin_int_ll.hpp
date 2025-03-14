@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC810 series pin interrupt functions
+ * @file LPC81X_pin_int_ll.hpp
+ * @brief LPC810 series Pin interrupt interface class and definitions
  */
 #ifndef LPC81X_PIN_INT_HPP
 #define LPC81X_PIN_INT_HPP

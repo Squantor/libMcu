@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file Main entry point for a generic cortex M0 microcontroller definitions
+ * @file CortexM0.hpp
+ * @brief Main entry point for a generic cortex M0 microcontroller definitions
  */
 #ifndef CORTEXM0_HPP
 #define CORTEXM0_HPP

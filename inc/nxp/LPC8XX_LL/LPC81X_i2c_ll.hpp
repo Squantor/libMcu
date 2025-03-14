@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC810 series I2C functions
+ * @file LPC81X_i2c_ll.hpp
+ * @brief LPC810 series I2C interface class and definitions
  */
 #ifndef LPC81X_I2C_HPP
 #define LPC81X_I2C_HPP

@@ -6,7 +6,7 @@
  */
 /**
  * @file display_dir_SSD1306.hpp
- * @brief display middle ware for SSD1306, direct mode only
+ * @brief display middleware for SSD1306, direct mode only
  */
 #ifndef DISPLAY_DIR_SSD1306_HPP
 #define DISPLAY_DIR_SSD1306_HPP

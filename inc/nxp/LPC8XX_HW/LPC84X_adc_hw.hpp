@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC840 Analog to Digital converter register interface
+ * @file LPC84X_adc_hw.hpp
+ * @brief LPC840 series ADC register interface and definitions
  */
 #ifndef LPC84X_ADC_HW_HPP
 #define LPC84X_ADC_HW_HPP

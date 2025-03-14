@@ -6,7 +6,7 @@
  */
 /**
  * \file LPC84X_clock_hw.hpp
- * \brief TODO
+ * \brief LPC84X series common clock distribution register definitions and functions
  */
 #ifndef LPC84X_CLOCK_HW_HPP
 #define LPC84X_CLOCK_HW_HPP
@@ -72,8 +72,8 @@ struct mcuClockConfig {
    * @retval frequency in Hertz
    */
   static consteval std::uint32_t getMainFreq() {
-    static_assert(findClockFrequency(t_inputFreq, t_systemFreq) != 0, "Unable to find a clock configuration solution");
-    return findClockFrequency(t_inputFreq, t_systemFreq);
+    static_assert(FindClockFrequency(t_inputFreq, t_systemFreq) != 0, "Unable to find a clock configuration solution");
+    return FindClockFrequency(t_inputFreq, t_systemFreq);
   }
   /**
    * @brief Get frequency for the system clock net, this is also the CPU frequency

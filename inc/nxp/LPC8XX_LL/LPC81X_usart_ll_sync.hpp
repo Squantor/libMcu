@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC810 series USART functions
+ * @file LPC81X_usart_ll_sync.hpp
+ * @brief LPC810 series synchronous USART interface class and definitions
  */
 #ifndef LPC81X_USART_HPP
 #define LPC81X_USART_HPP

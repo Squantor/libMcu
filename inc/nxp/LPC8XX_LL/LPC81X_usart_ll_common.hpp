@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC810 series commong USART functions and definitions
+ * @file LPC81X_usart_ll_common.hpp
+ * @brief LPC810 series USART interface class and definitions
  */
 #ifndef LPC81X_USART_SW_COMMON_HPP
 #define LPC81X_USART_SW_COMMON_HPP

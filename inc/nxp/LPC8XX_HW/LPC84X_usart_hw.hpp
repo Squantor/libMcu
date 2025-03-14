@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC840 USART register interface
+ * @file LPC84X_usart_hw.hpp
+ * @brief LPC840 series USART register interface and definitions
  */
 #ifndef LPC84X_USART_HW_HPP
 #define LPC84X_USART_HW_HPP

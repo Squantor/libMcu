@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC840 Wake Up Timer register interface
+ * @file LPC84X_wkt_hw.hpp
+ * @brief LPC840 series Wake Up Timer register interface and definitions
  */
 #ifndef LPC84X_WKT_HW_HPP
 #define LPC84X_WKT_HW_HPP

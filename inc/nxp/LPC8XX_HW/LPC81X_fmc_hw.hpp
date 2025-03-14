@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC810 series Flash memory control register interface
+ * @file LPC81X_fmc_hw.hpp
+ * @brief LPC810 series Flash memory control register interface
  */
 #ifndef LPC81X_FMC_REGS_HPP
 #define LPC81X_FMC_REGS_HPP

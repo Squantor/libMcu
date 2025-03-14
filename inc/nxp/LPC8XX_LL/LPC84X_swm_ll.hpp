@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC840 series SWM low level functions
+ * @file LPC84X_swm_ll.hpp
+ * @brief LPC84X series SWM interface class and definitions
  */
 #ifndef LPC84X_SWM_LL_HPP
 #define LPC84X_SWM_LL_HPP

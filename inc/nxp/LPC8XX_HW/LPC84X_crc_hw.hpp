@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC840 CRC register interface
+ * @file LPC84X_crc_hw.hpp
+ * @brief LPC840 series CRC calculator register interface and definitions
  */
 #ifndef LPC84X_CRC_HW_HPP
 #define LPC84X_CRC_HW_HPP

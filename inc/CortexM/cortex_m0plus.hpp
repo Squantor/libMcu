@@ -5,7 +5,7 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file Cortex M0+ definitions and classes
+ * \file cortex_m0plus.hpp
  * \brief Main entry point for Cortex M0+ support
  */
 #ifndef CORTEX_M0PLUS_HPP

@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file Main entry point for a generic cortex M4 microcontroller definitions
+ * @file CortexM4.hpp
+ * @brief Main entry point for a generic cortex M4 microcontroller definitions
  */
 #ifndef CORTEXM4_HPP
 #define CORTEXM4_HPP

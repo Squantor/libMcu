@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC810 series system control functions
+ * @file LPC81X_syscon_ll.hpp
+ * @brief LPC810 series System control interface class and definitions
  */
 #ifndef LPC81X_SYSCON_HPP
 #define LPC81X_SYSCON_HPP

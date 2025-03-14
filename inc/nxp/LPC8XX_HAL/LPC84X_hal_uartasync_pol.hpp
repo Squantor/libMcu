@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC840 series polling asynchronous UART HAL
+ * @file LPC84X_hal_uartasync_pol.hpp
+ * @brief LPC840 series asynchronous polling UART HAL
  */
 #ifndef LPC84X_HAL_UARTASYNC_POL_HPP
 #define LPC84X_HAL_UARTASYNC_POL_HPP

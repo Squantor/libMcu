@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC810 series GPIO register interface
+ * @file LPC81X_gpio_hw.hpp
+ * @brief LPC810 series GPIO register interface
  */
 #ifndef LPC81X_GPIO_REGS_HPP
 #define LPC81X_GPIO_REGS_HPP

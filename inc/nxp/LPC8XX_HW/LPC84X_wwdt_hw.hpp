@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC840 windowed watchdog register interface
+ * @file LPC84X_wwdt_hw.hpp
+ * @brief LPC840 series windowed watchdog register interface and definitions
  */
 #ifndef LPC84X_WWDT_HW_HPP
 #define LPC84X_WWDT_HW_HPP

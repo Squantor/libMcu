@@ -6,7 +6,7 @@
  */
 /**
  * @file LPC84X_hal_i2csync_pol.hpp
- * \file LPC840 series synchronous polling I2C HAL
+ * @brief LPC840 series synchronous polling I2C HAL
  */
 #ifndef LPC84X_HAL_I2CSYNC_POL_HPP
 #define LPC84X_HAL_I2CSYNC_POL_HPP

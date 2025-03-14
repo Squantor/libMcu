@@ -6,7 +6,7 @@
  */
 /**
  * @file memlcd.hpp
- * @brief driver for the sharp memory LCD via SPI
+ * @brief driver class for the sharp memory LCD via SPI
  * @todo optimize lcd update by writing only dirty lines
  */
 #ifndef DRIVER_MEMLCD_HPP

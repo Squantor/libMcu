@@ -5,10 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- *\file readmodifywrite.hpp
- *
- * Contains read modify write routines
- *
+ * @file readmodifywrite.hpp
+ * @brief Read modify write routines
  */
 #ifndef READMODIFYWRITE_HPP
 #define READMODIFYWRITE_HPP
@@ -61,6 +59,6 @@ void readModifyWrite(destType &__restrict__ dest, const srcType &__restrict__ sr
       break;
   }
 }
-}  // namespace util
+}  // namespace libMcu::bitmap
 
 #endif

@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file scb functions
+ * @file scb_ll.hpp
+ * @brief SCB interface class and definitions
  */
 #ifndef SCB_LL_HPP
 #define SCB_LL_HPP

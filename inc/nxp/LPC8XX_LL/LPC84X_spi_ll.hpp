@@ -6,7 +6,7 @@
  */
 /**
  * @file LPC84X_spi_ll.hpp
- * @brief Contains LPC84X series SPI low level class
+ * @brief LPC84X series SPI interface class and definitions
  * @todo just a copy of LPC81X, rework needed!
  */
 #ifndef LPC84X_SPI_LL_HPP

@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC840 Digital to Analog register interface
+ * @file LPC84X_dac_hw.hpp
+ * @brief LPC840 series DAC register interface and definitions
  */
 #ifndef LPC84X_DAC_HW_HPP
 #define LPC84X_DAC_HW_HPP

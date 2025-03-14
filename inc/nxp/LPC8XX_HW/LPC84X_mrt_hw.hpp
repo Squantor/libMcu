@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC840 Multi Rate Timer register interface
+ * @file LPC84X_mrt_hw.hpp
+ * @brief LPC840 series Multi Rate Timer register interface and definitions
  */
 #ifndef LPC84X_MRT_HW_HPP
 #define LPC84X_MRT_HW_HPP

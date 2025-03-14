@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file types used by libMcuLL
+ * @file libmcull_types.hpp
+ * @brief LibMcuLL wide used types
  */
 #ifndef LIBMCULL_TYPES_HPP
 #define LIBMCULL_TYPES_HPP

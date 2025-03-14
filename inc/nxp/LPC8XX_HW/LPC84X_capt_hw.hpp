@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC840 Capacitive Touch register interface
+ * @file LPC84X_capt_hw.hpp
+ * @brief LPC840 series Capacitive Touch register interface and definitions
  */
 #ifndef LPC84X_CAPT_HW_HPP
 #define LPC84X_CAPT_HW_HPP

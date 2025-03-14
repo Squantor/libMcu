@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC840 Power Management Unit register interface
+ * @file LPC84X_pmu_hw.hpp
+ * @brief LPC840 series Power management unit register interface and definitions
  */
 #ifndef LPC84X_PMU_HW_HPP
 #define LPC84X_PMU_HW_HPP

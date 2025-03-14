@@ -5,10 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- *\file bitblit2dsmall.hpp
- *
- * 2d bitblit routine, small version
- *
+ * @file bitblit2dsmall.hpp
+ * @brief 2d bitblit operations, small version
  */
 #ifndef BITBLIT2DSMALL_HPP
 #define BITBLIT2DSMALL_HPP
@@ -121,6 +119,6 @@ void bitblit2dsmall(destType *__restrict__ dest, unsigned int destWidth, unsigne
   }
 }
 
-};  // namespace util
+};  // namespace libMcu::bitmap
 
 #endif

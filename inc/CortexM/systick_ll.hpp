@@ -7,6 +7,10 @@
 /**
  * \file systick functions
  */
+/**
+ * @file systick_ll.hpp
+ * @brief systick interface class and definitions
+ */
 #ifndef SYSTICK_LL_HPP
 #define SYSTICK_LL_HPP
 namespace libMcuLL::systick {

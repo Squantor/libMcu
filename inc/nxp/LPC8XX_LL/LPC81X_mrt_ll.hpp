@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC810 series Multi rate timer functions
+ * @file LPC81X_mrt_ll.hpp
+ * @brief LPC810 series Multi rate timer interface class and definitions
  */
 #ifndef LPC81X_MRT_HPP
 #define LPC81X_MRT_HPP

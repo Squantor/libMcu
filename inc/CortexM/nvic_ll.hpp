@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file nvic functions
+ * @file nvic_ll.hpp
+ * @brief NVIC interface class and definitions
  */
 #ifndef NVIC_LL_HPP
 #define NVIC_LL_HPP

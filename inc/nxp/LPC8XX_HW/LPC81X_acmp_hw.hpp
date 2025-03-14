@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC810 series analog comparator register interface
+ * @file LPC81X_acmp_hw.hpp
+ * @brief LPC810 series analog comparator register interface
  */
 #ifndef LPC81X_ACMP_REGS_HPP
 #define LPC81X_ACMP_REGS_HPP

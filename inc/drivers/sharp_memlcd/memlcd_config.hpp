@@ -6,7 +6,7 @@
  */
 /**
  * @file memlcd_config.hpp
- * @brief various memory LCD configurations
+ * @brief various Sharp memory LCD configurations
  */
 #ifndef MEMLCD_CONFIG_HPP
 #define MEMLCD_CONFIG_HPP

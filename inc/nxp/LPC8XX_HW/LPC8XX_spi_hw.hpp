@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC800 series SPI register interface
+ * @file LPC8XX_spi_hw.hpp
+ * @brief LPC800 series SPI register interface
  */
 #ifndef LPC8XX_SPI_REGS_HPP
 #define LPC8XX_SPI_REGS_HPP

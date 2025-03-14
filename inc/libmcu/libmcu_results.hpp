@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file result types used by libMcu
+ * @file libmcu_results.hpp
+ * @brief result types used by libMcu
  */
 #ifndef LIBMCU_RESULTS_HPP
 #define LIBMCU_RESULTS_HPP

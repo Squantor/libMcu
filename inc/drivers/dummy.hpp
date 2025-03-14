@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file Empty driver dummy file
+ * @file dummy.hpp
+ * @brief Dummy driver
  */
 #ifndef DRIVER_DUMMY_HPP
 #define DRIVER_DUMMY_HPP

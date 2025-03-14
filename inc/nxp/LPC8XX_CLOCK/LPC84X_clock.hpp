@@ -6,7 +6,7 @@
  */
 /**
  * \file LPC84X_clock.hpp
- * \brief TODO
+ * \brief LPC84X series clock distribution interface class
  */
 #ifndef LPC84X_CLOCK_HPP
 #define LPC84X_CLOCK_HPP

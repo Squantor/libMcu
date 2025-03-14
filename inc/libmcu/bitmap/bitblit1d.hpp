@@ -5,10 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- *\file bitblit1d.hpp
- *
- * 1d bit transfer routine
- *
+ * @file bitblit1d.hpp
+ * @brief 1d bitblit operation
  */
 #ifndef BITBLIT1D_HPP
 #define BITBLIT1D_HPP

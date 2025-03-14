@@ -7,6 +7,10 @@
 /**
  * \file LPC81X series common SPI definitions
  */
+/**
+ * @file LPC81X_spi_ll_common.hpp
+ * @brief LPC810 series common SPI interface class and definitions
+ */
 #ifndef LPC81X_SPI_SW_COMMON_HPP
 #define LPC81X_SPI_SW_COMMON_HPP
 

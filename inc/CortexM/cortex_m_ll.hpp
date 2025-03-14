@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file cortex m functions
+ * @file cortex_m_ll.hpp
+ * @brief Common Cortex M functions
  */
 #ifndef CORTEX_M_LL_HPP
 #define CORTEX_M_LL_HPP

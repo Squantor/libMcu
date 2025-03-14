@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC810 system control GPIO register interface
+ * @file LPC81X_syscon_hw.hpp
+ * @brief LPC810 series System control register interface and definitions
  */
 #ifndef LPC81X_SYSCON_REGS_HPP
 #define LPC81X_SYSCON_REGS_HPP

@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file nvic register interface
+ * @file nvic_hw.hpp
+ * @brief NVIC hardware register interface structure and definitions
  */
 #ifndef NVIC_HW_HPP
 #define NVIC_HW_HPP

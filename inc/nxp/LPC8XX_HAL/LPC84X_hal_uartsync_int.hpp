@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC840 series interrupt synchronous UART HAL
+ * @file LPC84X_hal_uartasync_int.hpp
+ * @brief LPC840 series interrupt synchronous UART HAL
  */
 #ifndef LPC84X_HAL_UARTSYNC_INT_HPP
 #define LPC84X_HAL_UARTSYNC_INT_HPP

@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC810 series GPIO functions
+ * @file LPC81X_gpio_ll.hpp
+ * @brief LPC810 series GPIO interface class and definitions
  */
 #ifndef LPC81X_GPIO_HPP
 #define LPC81X_GPIO_HPP

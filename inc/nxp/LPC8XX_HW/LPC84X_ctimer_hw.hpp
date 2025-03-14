@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC840 standard counter/timer register interface
+ * @file LPC84X_ctimer_hw.hpp
+ * @brief LPC840 series counter/timer register interface and definitions
  */
 #ifndef LPC84X_CTIMER_HW_HPP
 #define LPC84X_CTIMER_HW_HPP

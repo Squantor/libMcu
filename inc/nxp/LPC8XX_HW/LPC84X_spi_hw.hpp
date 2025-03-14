@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC840 Serial Peripheral register interface
+ * @file LPC84X_spi_hw.hpp
+ * @brief LPC840 series SPI register interface and definitions
  */
 #ifndef LPC84X_SPI_HW_HPP
 #define LPC84X_SPI_HW_HPP

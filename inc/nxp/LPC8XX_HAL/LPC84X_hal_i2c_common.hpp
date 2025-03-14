@@ -6,7 +6,7 @@
  */
 /**
  * @file LPC84X_hal_i2c_common.hpp
- * \file LPC840 series I2C HAL common definitions
+ * @brief LPC840 series I2C HAL common definitions
  */
 #ifndef LPC84X_HAL_I2C_COMMON_HPP
 #define LPC84X_HAL_I2C_COMMON_HPP

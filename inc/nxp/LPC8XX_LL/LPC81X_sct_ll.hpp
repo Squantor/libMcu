@@ -5,11 +5,9 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC810 series State configurable timer software interface
- *
- * TODO: This class has a mix of unified and split timer functionality, split into two different classes. Lets now focus on unified
- * only and clean up all unified/split logic. keep this a 32 bit unified timer class only
- *
+ * @file LPC81X_sct_sw.hpp
+ * @brief LPC810 series State configurable timer interface class and definitions
+ * @todo add unified/split timer support
  */
 #ifndef LPC81X_SCT_SW_HPP
 #define LPC81X_SCT_SW_HPP

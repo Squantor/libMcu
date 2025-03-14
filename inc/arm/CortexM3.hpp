@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file Main entry point for a generic cortex M3 microcontroller definitions
+ * @file CortexM3.hpp
+ * @brief Main entry point for a generic cortex M3 microcontroller definitions
  */
 #ifndef CORTEXM3_HPP
 #define CORTEXM3_HPP

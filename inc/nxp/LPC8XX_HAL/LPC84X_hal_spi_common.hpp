@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC840 series polling asynchronous UART HAL
+ * @file LPC84X_hal_spi_common.hpp
+ * @brief LPC840 series common SPI definitions
  */
 #ifndef LPC84X_HAL_SPI_COMMON_HPP
 #define LPC84X_HAL_SPI_COMMON_HPP

@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC810 series asynchronous SPI functions
+ * @file LPC81X_spi_ll_async.hpp
+ * @brief LPC810 series asynchronous SPI interface class and definitions
  */
 #ifndef LPC81X_SPI_LL_ASYNC_HPP
 #define LPC81X_SPI_LL_ASYNC_HPP

@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC810 series IOCON functions
+ * @file LPC81X_iocon_ll.hpp
+ * @brief LPC810 series IOCON interface class and definitions
  */
 #ifndef LPC81X_IOCON_HPP
 #define LPC81X_IOCON_HPP

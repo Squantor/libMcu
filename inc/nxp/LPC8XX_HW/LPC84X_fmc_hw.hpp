@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC840 Flash Memory Controller register interface
+ * @file LPC84X_fmc_hw.hpp
+ * @brief LPC840 series FMC register interface and definitions
  */
 #ifndef LPC84X_FMC_HW_HPP
 #define LPC84X_FMC_HW_HPP

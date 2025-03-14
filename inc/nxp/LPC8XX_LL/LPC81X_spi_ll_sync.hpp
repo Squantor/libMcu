@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC810 series synchronous SPI functions
+ * @file LPC81X_spi_ll_sync.hpp
+ * @brief LPC810 series synchronous SPI interface class and definitions
  */
 #ifndef LPC81X_SPI_LL_SYNC_HPP
 #define LPC81X_SPI_LL_SYNC_HPP

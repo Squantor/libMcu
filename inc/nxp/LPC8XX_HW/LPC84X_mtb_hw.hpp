@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC840 Multi Trace Buffer register interface
+ * @file LPC84X_mtb_hw.hpp
+ * @brief LPC840 series Multi Trace Buffer register interface and definitions
  */
 #ifndef LPC84X_MTB_HW_HPP
 #define LPC84X_MTB_HW_HPP

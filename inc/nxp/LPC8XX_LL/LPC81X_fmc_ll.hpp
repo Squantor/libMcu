@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC810 series Flash memory control functions
+ * @file LPC81X_fmc_ll.hpp
+ * @brief LPC810 series Flash memory control class and definitions
  */
 #ifndef LPC81X_FMC_HPP
 #define LPC81X_FMC_HPP

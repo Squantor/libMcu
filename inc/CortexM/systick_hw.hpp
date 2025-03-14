@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file systick register interface
+ * @file systick_hw.hpp
+ * @brief systick register interface and definitions
  */
 #ifndef SYSTICK_HW_HPP
 #define SYSTICK_HW_HPP

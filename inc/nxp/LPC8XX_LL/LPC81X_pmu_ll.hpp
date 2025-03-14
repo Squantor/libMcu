@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC810 series Power management unit functions
+ * @file LPC81X_pmu_ll.hpp
+ * @brief LPC810 series Power management unit interface class and definitions
  */
 #ifndef LPC81X_PMU_HPP
 #define LPC81X_PMU_HPP

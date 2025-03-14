@@ -6,7 +6,7 @@
  */
 /**
  * @file graphics_terminal.hpp
- * @brief Graphical terminal driver
+ * @brief Graphical terminal middleware
  */
 #ifndef GRAPHICS_TERMINAL_HPP
 #define GRAPHICS_TERMINAL_HPP

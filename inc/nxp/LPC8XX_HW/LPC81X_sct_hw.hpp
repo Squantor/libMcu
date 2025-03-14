@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC810 series State configurable timer register interface
+ * @file LPC81X_sct_hw.hpp
+ * @brief LPC810 series State configurable timer register interface and definitions
  */
 #ifndef LPC81X_SCT_HW_HPP
 #define LPC81X_SCT_HW_HPP

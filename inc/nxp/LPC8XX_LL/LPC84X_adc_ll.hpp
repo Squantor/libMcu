@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC84X series ADC low level functions
+ * @file LPC84X_adc_ll.hpp
+ * @brief LPC84X series ADC low level functions and definitions
  */
 #ifndef LPC84X_ADC_LL_HPP
 #define LPC84X_ADC_LL_HPP

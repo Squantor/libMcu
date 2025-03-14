@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC840 series system control low level functions
+ * @file LPC84X_syscon_ll.hpp
+ * @brief LPC84X series system control interface class and definitions
  */
 #ifndef LPC84X_SYSCON_LL_HPP
 #define LPC84X_SYSCON_LL_HPP
@@ -344,7 +345,7 @@ struct syscon : libMcu::PeripheralBase {
   template <const libMcuHw::clock::mcuClockConfig &config = libMcuHw::clock::defaultClocks>
   constexpr void configureMcuClocks() {
     // check if the wanted config is possible at all?
-    static_assert(libMcuHw::clock::findClockFrequency(config.getSourceFreq(), config.getSystemFreq()) != 0,
+    static_assert(libMcuHw::clock::FindClockFrequency(config.getSourceFreq(), config.getSystemFreq()) != 0,
                   "Unable to find a clock configuration solution");
     // setup clock source
     if constexpr (config.source == libMcuHw::clock::clockInputSources::FRO) {
@@ -376,8 +377,8 @@ struct syscon : libMcu::PeripheralBase {
         selectPllClock(libMcuLL::syscon::pllClockSources::EXT);
       }
       depowerPeripherals(libMcuLL::syscon::powerOptions::SYSPLL);
-      setSystemPllControl(libMcuHw::clock::findSystemPllMsel(config.getSourceFreq(), config.getMainFreq()),
-                          static_cast<libMcuLL::syscon::pllPostDivider>(libMcuHw::clock::findSystemPllPsel(config.getMainFreq())));
+      setSystemPllControl(libMcuHw::clock::FindSystemPllMsel(config.getSourceFreq(), config.getMainFreq()),
+                          static_cast<libMcuLL::syscon::pllPostDivider>(libMcuHw::clock::FindSystemPllPsel(config.getMainFreq())));
       powerPeripherals(libMcuLL::syscon::powerOptions::SYSPLL);
       while (getSystemPllStatus() == 0)
         ;

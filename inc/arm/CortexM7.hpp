@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file Main entry point for a generic cortex M7 microcontroller definitions
+ * @file CortexM7.hpp
+ * @brief Main entry point for a generic cortex M7 microcontroller definitions
  */
 #ifndef CORTEXM7_HPP
 #define CORTEXM7_HPP

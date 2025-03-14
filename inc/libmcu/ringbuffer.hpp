@@ -5,14 +5,13 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- *\file ringbuffer.hpp
- *
- * Implements a ringbuffer class
- * TODO: add doxygen documentation
- * TODO: retool to use std::optional for the pop functions
- * TODO: Add following functions, peekfront(), peekback(),
- * TODO: peekfront(size_t count), peekback(size count)
- * TODO: dropfront(size_t count), dropback(size_t count)
+ * \file ringbuffer.hpp
+ * \brief Implements a generic ringbuffer class
+ * \todo add doxygen documentation
+ * \todo retool to use std::optional for the pop functions
+ * \todo Add following functions, peekfront(), peekback(),
+ * \todo peekfront(size_t count), peekback(size count)
+ * \todo dropfront(size_t count), dropback(size_t count)
  */
 #ifndef RINGBUFFER_HPP
 #define RINGBUFFER_HPP
