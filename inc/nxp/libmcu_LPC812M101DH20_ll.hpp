@@ -4,7 +4,10 @@
  * Copyright (c) 2022 Bart Bilos
  * For conditions of distribution and use, see LICENSE file
  */
-/* Main entry point for the LPC812M101DH20 microcontroller definitions */
+/**
+ * @file libmcu_LPC812M101DH20_ll.hpp
+ * @brief include for the LPC812M101DH20 libmcu low level library
+ */
 #ifndef LIBMCU_LPC812M101DH20_LL_HPP
 #define LIBMCU_LPC812M101DH20_LL_HPP
 

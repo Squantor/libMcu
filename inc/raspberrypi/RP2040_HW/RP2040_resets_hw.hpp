@@ -7,6 +7,10 @@
 /**
  * \file RP2040 Resets register interface
  */
+/**
+ * @file RP2040_resets_hw.hpp
+ * @brief Register interface for the RP2040 resets
+ */
 #ifndef RP2040_RESETS_HW_HPP
 #define RP2040_RESETS_HW_HPP
 

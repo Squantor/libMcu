@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file RP2040 QSPI pads register interface
+ * @file RP2040_pads_qspi_hw.hpp
+ * @brief Register interface for the RP2040 QSPI pads
  */
 #ifndef RP2040_PADS_QSPI_HW_HPP
 #define RP2040_PADS_QSPI_HW_HPP

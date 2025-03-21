@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file RP2040 Timer register interface
+ * @file RP2040_timer_hw.hpp
+ * @brief Register interface for the RP2040 Timer
  */
 #ifndef RP2040_TIMER_HW_HPP
 #define RP2040_TIMER_HW_HPP

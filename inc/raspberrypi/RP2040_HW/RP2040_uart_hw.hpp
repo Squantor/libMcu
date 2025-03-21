@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file RP2040 UART register interface
+ * @file RP2040_uart_hw.hpp
+ * @brief Register interface for the RP2040 UART
  */
 #ifndef RP2040_UART_HW_HPP
 #define RP2040_UART_HW_HPP

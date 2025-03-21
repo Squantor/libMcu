@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file RP2040 PPB register interface
+ * @file RP2040_ppb_hw.hpp
+ * @brief Register interface for the RP2040 PPB
  */
 #ifndef RP2040_PPB_HW_HPP
 #define RP2040_PPB_HW_HPP

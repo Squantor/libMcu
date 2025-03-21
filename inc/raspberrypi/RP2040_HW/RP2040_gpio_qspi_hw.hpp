@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file RP2040 QSPI GPIO register interface
+ * @file RP2040_gpio_qspi_hw.hpp
+ * @brief Register interface for the RP2040 QSPI GPIO
  */
 #ifndef RP2040_GPIO_QSPI_HW_HPP
 #define RP2040_GPIO_QSPI_HW_HPP

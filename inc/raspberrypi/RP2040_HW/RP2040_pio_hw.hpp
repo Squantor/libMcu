@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file RP2040 PIO register interface
+ * @file RP2040_pio_hw.hpp
+ * @brief Register interface for the RP2040 PIO
  */
 #ifndef RP2040_PIO_HW_HPP
 #define RP2040_PIO_HW_HPP

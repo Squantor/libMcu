@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file RP2040 SPI register interface
+ * @file RP2040_spi_hw.hpp
+ * @brief Register interface for the RP2040 SPI
  */
 #ifndef RP2040_SPI_HW_HPP
 #define RP2040_SPI_HW_HPP

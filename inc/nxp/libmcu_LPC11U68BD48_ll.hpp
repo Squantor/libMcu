@@ -1,0 +1,38 @@
+/*
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2025 Bart Bilos
+ * For conditions of distribution and use, see LICENSE file
+ */
+/**
+ * @file libmcu_LPC11U68BD48_ll.hpp
+ * @brief include for the LPC11U68BD48 libmcu low level library
+ */
+#ifndef LIBMCU_LPC11U68BD48_LL_HPP
+#define LIBMCU_LPC11U68BD48_LL_HPP
+
+#include "../libmcu/libmcu.hpp"
+#include "../libmcu/libmcu_functions_CM0.hpp"
+
+namespace libMcuHw {
+// microcontroller core configuration options
+}
+
+#include <CortexM/cortex_m0plus.hpp>
+
+namespace libMcuHw {
+// Microcontroller memory addresses
+// base memories
+// peripherals bus1
+// peripherals bus2 etc
+}  // namespace libMcuHw
+
+// includes that define the registers namespace go here.
+
+// device peripheral specific headers go here
+// these need to go after registers namespace definitions as they are used here
+
+// includes that use the registers namespace go here, typically low level classes
+// need to go after registers namespaces and device specific headers
+
+#endif

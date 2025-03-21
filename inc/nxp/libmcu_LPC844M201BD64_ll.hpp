@@ -5,8 +5,12 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /* Main entry point for the LPC845M301BD48 microcontroller definitions */
-#ifndef LPC844M201BD64_HPP
-#define LPC844M201BD64_HPP
+/**
+ * @file libmcu_LPC844M201BD64_ll.hpp
+ * @brief include for the LPC844M201BD64 libmcu low level library
+ */
+#ifndef LIBMCU_LPC844M201BD64_LL_HPP
+#define LIBMCU_LPC844M201BD64_LL_HPP
 
 #include "../libmcu/libmcu.hpp"
 #include "../libmcu/libmcu_functions_CM0.hpp"

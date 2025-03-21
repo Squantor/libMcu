@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file RP2040 RTC register interface
+ * @file RP2040_rtc_hw.hpp
+ * @brief Register interface for the RP2040 RTC
  */
 #ifndef RP2040_RTC_HW_HPP
 #define RP2040_RTC_HW_HPP

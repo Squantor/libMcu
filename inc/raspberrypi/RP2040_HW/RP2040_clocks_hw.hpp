@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file RP2040 Clocks register interface
+ * @file RP2040_clocks_hw.hpp
+ * @brief Register interface for the RP2040 clocks
  */
 #ifndef RP2040_CLOCKS_HW_HPP
 #define RP2040_CLOCKS_HW_HPP

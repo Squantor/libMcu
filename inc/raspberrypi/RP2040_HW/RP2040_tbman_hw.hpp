@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file RP2040 Testbench manager register interface
+ * @file RP2040_tbman_hw.hpp
+ * @brief Register interface for the RP2040 Testbench manager
  */
 #ifndef RP2040_TBMAN_HW_HPP
 #define RP2040_TBMAN_HW_HPP

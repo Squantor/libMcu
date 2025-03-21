@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file RP2040 SPI HAL
+ * @file  RP2040_hal_spi.hpp
+ * @brief HAL library for synchronous RP2040 SPI
  */
 #ifndef RP2040_HAL_SPI
 #define RP2040_HAL_SPI

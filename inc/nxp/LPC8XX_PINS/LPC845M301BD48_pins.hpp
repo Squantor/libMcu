@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC845M301BD48 pin definitions
+ * @file LPC845M301BD48_pins.hpp
+ * @brief LPC845M301BD48 pin definitions
  */
 
 #ifndef LPC845M301BD48_PINS_HPP

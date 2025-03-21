@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file RP2040 USB register interface
+ * @file RP2040_usbctrl_regs_hw.hpp
+ * @brief Register interface for the RP2040 USB
  */
 #ifndef RP2040_USBCTRL_REGS_HW_HPP
 #define RP2040_USBCTRL_REGS_HW_HPP

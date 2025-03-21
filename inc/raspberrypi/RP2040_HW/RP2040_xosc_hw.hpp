@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file RP2040 XOSC register interface
+ * @file RP2040_xosc_hw.hpp
+ * @brief Register interface for the RP2040 XOSC
  */
 #ifndef RP2040_XOSC_HW_HPP
 #define RP2040_XOSC_HW_HPP

@@ -6,7 +6,7 @@
  */
 /**
  * @file libmcu_LPC845M301BD48_hal.hpp
- * @brief Main entry point for the LPC845M301BD48 libMcu HAL
+ * @brief include for the LPC845M301BD48 libmcu HAL library
  */
 #ifndef LIBMCU_LPC845M301BD48_HAL_HPP
 #define LIBMCU_LPC845M301BD48_HAL_HPP

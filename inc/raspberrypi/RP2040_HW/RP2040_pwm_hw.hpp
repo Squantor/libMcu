@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file RP2040 PWM register interface
+ * @file RP2040_pwm_hw.hpp
+ * @brief Register interface for the RP2040 PWM
  */
 #ifndef RP2040_PWM_HW_HPP
 #define RP2040_PWM_HW_HPP

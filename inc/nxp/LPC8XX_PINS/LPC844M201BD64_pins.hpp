@@ -1,11 +1,12 @@
 /*
  * SPDX-License-Identifier: MIT
  *
- * Copyright (c) 20234 Bart Bilos
+ * Copyright (c) 2024 Bart Bilos
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC844M201BD64 pin definitions
+ * @file LPC844M201BD64_pins.hpp
+ * @brief LPC844M201BD64 pin definitions
  */
 
 #ifndef LPC844M201BD64_PINS_HPP

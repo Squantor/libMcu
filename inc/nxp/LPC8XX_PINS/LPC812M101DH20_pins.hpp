@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file LPC812M101DH20 pin definitions
+ * @file LPC812M101DH20_pins.hpp
+ * @brief LPC812M101DH20 pin definitions
  */
 
 #ifndef LPC812M101DH20_PINS_HPP

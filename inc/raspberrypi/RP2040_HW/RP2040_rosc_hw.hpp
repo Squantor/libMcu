@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file RP2040 ROSC register interface
+ * @file RP2040_rosc_hw.hpp
+ * @brief Register interface for the RP2040 ROSC
  */
 #ifndef RP2040_ROSC_HW_HPP
 #define RP2040_ROSC_HW_HPP

@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file RP2040 pin HAL
+ * @file RP2040_hal_pins.hpp
+ * @brief HAL library for RP2040 pins
  */
 #ifndef RP2040_HAL_PINS
 #define RP2040_HAL_PINS

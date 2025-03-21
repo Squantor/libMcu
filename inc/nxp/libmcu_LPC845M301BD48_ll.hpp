@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file Main entry point for the LPC845M301BD48 microcontroller definitions
+ * @file libmcu_LPC845M301BD48_ll.hpp
+ * @brief include for the LPC845M301BD48 libmcu low level library
  */
 #ifndef LIBMCU_LPC845M301BD48_LL_HPP
 #define LIBMCU_LPC845M301BD48_LL_HPP

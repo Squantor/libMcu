@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file RP2040 Sysinfo register interface
+ * @file RP2040_sysinfo_hw.hpp
+ * @brief Register interface for the RP2040 SYSINFO
  */
 #ifndef RP2040_SYSINFO_HW_HPP
 #define RP2040_SYSINFO_HW_HPP

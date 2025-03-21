@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file RP2040 System config register interface
+ * @file RP2040_syscfg_hw.hpp
+ * @brief Register interface for the RP2040 System config
  */
 #ifndef RP2040_SYSCFG_HW_HPP
 #define RP2040_SYSCFG_HW_HPP

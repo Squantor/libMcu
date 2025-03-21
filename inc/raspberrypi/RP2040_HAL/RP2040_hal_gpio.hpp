@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file RP2040 gpio HAL
+ * @file RP2040_hal_gpio.hpp
+ * @brief HAL library for RP2040 GPIO
  */
 #ifndef RP2040_HAL_GPIO
 #define RP2040_HAL_GPIO

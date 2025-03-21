@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file RP2040 Execute In Place serial interface register interface
+ * @file RP2040_xip_ssi_hw.hpp
+ * @brief Register interface for the RP2040 Execute In Place serial interface
  */
 #ifndef RP2040_XIP_SSI_HW_HPP
 #define RP2040_XIP_SSI_HW_HPP

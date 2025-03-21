@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file RP2040 Voltage regulator and chip reset register interface
+ * @file RP2040_vreg_chip_reset_hw.hpp
+ * @brief Register interface for the RP2040 Voltage regulator and chip reset
  */
 #ifndef RP2040_VREG_CHIP_RESET_HW_HPP
 #define RP2040_VREG_CHIP_RESET_HW_HPP

@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file RP2040 USB dual port memory register interface
+ * @file RP2040_usbctrl_dpram_hw.hpp
+ * @brief Register interface for the RP2040 USB dual port memory
  */
 #ifndef RP2040_USBCTRL_DPRAM_HW_HPP
 #define RP2040_USBCTRL_DPRAM_HW_HPP
