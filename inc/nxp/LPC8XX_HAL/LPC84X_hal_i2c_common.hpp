@@ -11,7 +11,7 @@
 #ifndef LPC84X_HAL_I2C_COMMON_HPP
 #define LPC84X_HAL_I2C_COMMON_HPP
 
-namespace libMcuHal::i2c {
+namespace libmcuhal::i2c {
 namespace hardware = libMcuHw::i2c;
 }
 #endif

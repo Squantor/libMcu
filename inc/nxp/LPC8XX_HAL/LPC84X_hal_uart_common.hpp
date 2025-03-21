@@ -11,7 +11,7 @@
 #ifndef LPC84X_HAL_UART_COMMON_HPP
 #define LPC84X_HAL_UART_COMMON_HPP
 
-namespace libMcuHal::usart {
+namespace libmcuhal::usart {
 namespace hardware = libMcuHw::usart;
 
 /**
@@ -72,6 +72,6 @@ enum class synchonousStates : std::uint8_t {
 };
 }  // namespace detail
 
-}  // namespace libMcuHal::usart
+}  // namespace libmcuhal::usart
 
 #endif

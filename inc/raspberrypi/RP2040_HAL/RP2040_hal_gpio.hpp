@@ -11,7 +11,7 @@
 #ifndef RP2040_HAL_GPIO
 #define RP2040_HAL_GPIO
 
-namespace libMcuHal::gpio {
+namespace libmcuhal::gpio {
 
 enum class pullModes : std::uint32_t {
   NONE = 0,                             /*!< No pullup modes */
@@ -22,7 +22,7 @@ enum class pullModes : std::uint32_t {
 
 template <libMcu::padsBank0BaseAddress const& padsBank0Address_, libMcu::ioBank0BaseAddress const& gpioBank0Address_,
           libMcu::sioBaseAddress const& sioAddress_>
-struct gpio : libMcuHal::halGpioBase {
+struct gpio : libmcuhal::HalGpioBase {
   /**
    * @brief Initialize the gpio HAL
    */
@@ -228,6 +228,6 @@ struct gpio : libMcuHal::halGpioBase {
   static constexpr libMcu::hwAddressType padsBank0Address = padsBank0Address_; /*!< pads bank 0 peripheral address */
   static constexpr libMcu::hwAddressType sioAddress = sioAddress_;             /*!< SIO peripheral address*/
 };
-}  // namespace libMcuHal::gpio
+}  // namespace libmcuhal::gpio
 
 #endif

@@ -11,23 +11,25 @@
 #ifndef LIBMCUHAL_TYPES_HPP
 #define LIBMCUHAL_TYPES_HPP
 
-namespace libMcuHal {
+namespace libmcuhal {
 /**
  * @brief Hal base class that all Hal classes should inherit from
- *
  * You will never copy/move a hal object, they are "eternal" with respect to program lifetime
- *
  */
-struct halBase {
-  halBase() = default;
-  ~halBase() = default;
-  halBase(const halBase&) = delete;
-  halBase& operator=(const halBase&) = delete;
-  halBase(halBase&&) = delete;
-  halBase& operator=(halBase&&) = delete;
+struct HalBase {
+  HalBase() = default;
+  ~HalBase() = default;
+  HalBase(const HalBase&) = delete;
+  HalBase& operator=(const HalBase&) = delete;
+  HalBase(HalBase&&) = delete;
+  HalBase& operator=(HalBase&&) = delete;
 };
 /* Hal base classes */
-struct halGpioBase : halBase {};
-}  // namespace libMcuHal
+struct HalGpioBase : HalBase {};
+struct HalUartSync : HalBase {};
+struct HalSpiSync : HalBase {};
+struct HalI2cSync : HalBase {};
+
+}  // namespace libmcuhal
 
 #endif

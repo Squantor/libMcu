@@ -13,7 +13,7 @@
 
 #include "LPC84X_hal_uart_common.hpp"
 
-namespace libMcuHal::usart {
+namespace libmcuhal::usart {
 namespace hardware = libMcuHw::usart;
 namespace nvic = libMcuHw::nvic;
 
@@ -165,6 +165,6 @@ struct uartSync {
   libMcu::RingBuffer<transferType, bufSize> txBuffer;
   libMcu::RingBuffer<transferType, bufSize> rxBuffer;
 };
-}  // namespace libMcuHal::usart
+}  // namespace libmcuhal::usart
 
 #endif

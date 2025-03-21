@@ -13,7 +13,7 @@
 
 #include "LPC84X_hal_i2c_common.hpp"
 
-namespace libMcuHal::i2c {
+namespace libmcuhal::i2c {
 namespace hardware = libMcuHw::i2c;
 namespace nvic = libMcuHw::nvic;
 /**
@@ -203,5 +203,5 @@ struct i2cSyncPol {
   static constexpr libMcu::hwAddressType i2cBaseAddress = i2cBaseAddress_; /*!< I2C peripheral address */
 };
 
-}  // namespace libMcuHal::i2c
+}  // namespace libmcuhal::i2c
 #endif

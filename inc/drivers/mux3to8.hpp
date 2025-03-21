@@ -13,7 +13,7 @@
 
 namespace libMcuDriver::mux {
 
-using namespace libMcuHal;
+using namespace libmcuhal;
 /**
  * @brief 3to8 multiplexer driver
  *
@@ -69,7 +69,7 @@ struct mux3to8 {
 
   // add constraints here
   using halType = std::remove_reference<decltype(gpioHal)>::type;
-  static_assert(std::is_base_of<libMcuHal::halGpioBase, halType>::value, "gpioPeripheral is not derived from halGpioBase");
+  static_assert(std::is_base_of<libmcuhal::HalGpioBase, halType>::value, "gpioPeripheral is not derived from HalGpioBase");
   static_assert(std::is_base_of<libMcu::pinBase, notEnablePinType>::value, "notEnablePinType is not derived from pinBase");
   static_assert(std::is_base_of<libMcu::pinBase, a0PinType>::value, "a0PinType is not derived from pinBase");
   static_assert(std::is_base_of<libMcu::pinBase, a1PinType>::value, "a1PinType is not derived from pinBase");

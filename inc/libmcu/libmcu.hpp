@@ -20,9 +20,7 @@
 #include "libmcu_results.hpp"
 #include "libmcu_types.hpp"
 #include "libmcu_functions.hpp"
-#include "libmcull_types.hpp"
 #include "ringbuffer.hpp"
-#include "libmcuhal_types.hpp"
 #include "libmcu_algorithms.hpp"
 
 #endif

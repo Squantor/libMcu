@@ -11,7 +11,7 @@
 #ifndef LPC84X_HAL_SPI_COMMON_HPP
 #define LPC84X_HAL_SPI_COMMON_HPP
 
-namespace libMcuHal::spi {
+namespace libmcuhal::spi {
 namespace hardware = libMcuHw::spi;
 /**
  * @brief allowed SPI chip selects
@@ -24,5 +24,5 @@ enum class spiSlaveSelects : uint32_t {
   Select2 = 4, /*!< SPI slave select 2 */
   Select3 = 8  /*!< SPI slave select 3 */
 };
-}  // namespace libMcuHal::spi
+}  // namespace libmcuhal::spi
 #endif

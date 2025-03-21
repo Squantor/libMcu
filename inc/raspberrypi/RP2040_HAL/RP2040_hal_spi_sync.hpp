@@ -11,7 +11,7 @@
 #ifndef RP2040_HAL_SPI
 #define RP2040_HAL_SPI
 
-namespace libMcuHal::spi {
+namespace libmcuhal::spi {
 
 template <libMcu::spiBaseAddress const& spiBaseAddress_>
 struct spi {
@@ -56,6 +56,6 @@ struct spi {
 
   static constexpr libMcu::hwAddressType spiBaseAddress = spiBaseAddress_; /*!< spi peripheral address */
 };
-}  // namespace libMcuHal::spi
+}  // namespace libmcuhal::spi
 
 #endif

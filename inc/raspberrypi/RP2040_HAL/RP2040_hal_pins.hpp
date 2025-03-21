@@ -11,7 +11,7 @@
 #ifndef RP2040_HAL_PINS
 #define RP2040_HAL_PINS
 
-namespace libMcuHal {
+namespace libmcuhal {
 namespace pins {
 enum class driveModes : std::uint32_t {
   DRIVE_2MA = libMcuHw::pads::GPIO::DRIVE_2MA,   /*!< 2 milliampere drive strength */
@@ -146,6 +146,6 @@ struct pins {
   static constexpr libMcu::hwAddressType ioBank0Address = gpioBank0Address_;   /*!< gpio bank 0 peripheral address */
 };
 }  // namespace pins
-}  // namespace libMcuHal
+}  // namespace libmcuhal
 
 #endif

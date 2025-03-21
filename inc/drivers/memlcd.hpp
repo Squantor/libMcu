@@ -22,7 +22,7 @@ constexpr inline std::uint16_t cmdDataUpdate = 0x0001; /*!< command for updating
 constexpr inline std::uint16_t cmdVcomHigh = 0x0002;   /*!< command for setting VCOM high */
 constexpr inline std::uint16_t cmdAllClear = 0x0004;   /*!< command for clearing display */
 
-namespace spi = libMcuHal::spi;
+namespace spi = libmcuhal::spi;
 template <typename config, spi::spiSlaveSelects slaveSelect, auto &spiHal>
 struct memlcd {
   static_assert(config::maxX > 0, "display cant have zero X");

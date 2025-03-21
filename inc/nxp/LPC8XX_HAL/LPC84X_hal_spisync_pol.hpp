@@ -13,7 +13,7 @@
 
 #include "LPC84X_hal_spi_common.hpp"
 
-namespace libMcuHal::spi {
+namespace libmcuhal::spi {
 namespace hardware = libMcuHw::spi;
 namespace nvic = libMcuHw::nvic;
 
@@ -123,6 +123,6 @@ struct spiSyncPol {
   static constexpr libMcu::hwAddressType spiBaseAddress = spiBaseAddress_; /*!< SPI peripheral address */
 };
 
-}  // namespace libMcuHal::spi
+}  // namespace libmcuhal::spi
 
 #endif

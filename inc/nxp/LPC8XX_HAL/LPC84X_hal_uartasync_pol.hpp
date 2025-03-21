@@ -13,7 +13,7 @@
 
 #include "LPC84X_hal_uart_common.hpp"
 
-namespace libMcuHal::usart {
+namespace libmcuhal::usart {
 namespace hardware = libMcuHw::usart;
 
 template <libMcu::uartBaseAddress const& uartBaseAddress_, typename transferType>
@@ -213,6 +213,6 @@ struct uartAsync {
   std::span<transferType> transactionWriteData;                              /*!< data to write */
   std::span<transferType> transactionReadData;                               /*!< where to put read data in */
 };
-}  // namespace libMcuHal::usart
+}  // namespace libmcuhal::usart
 
 #endif
