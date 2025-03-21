@@ -11,9 +11,7 @@
 #ifndef LIBMCUHW_TYPES_HPP
 #define LIBMCUHW_TYPES_HPP
 
-namespace libmcuhw {}  // namespace libmcuhw
-
-//! @todo work in progress to change to namespace libmcuhw
+//! @todo work in progress to change to namespace libmcuhw below
 namespace libMcu {
 
 using hwAddressBase = libMcu::constant<std::uint32_t>; /*!< base type definition of a memory address */
@@ -88,5 +86,19 @@ struct sioBaseAddress : hwAddressBase {};
 struct ppbBaseAddress : hwAddressBase {};
 
 }  // namespace libMcu
+
+namespace libmcuhw {
+using HwAddressBase = libMcu::constant<std::uint32_t>; /*!< base type definition of a memory address */
+using HwAddressType = typename HwAddressBase::type;    /*!< type definition of a memory address */
+
+struct MemoryAddress : HwAddressBase {}; /*!< generic memory address */
+
+/* Peripheral address types used by all microcontrollers */
+struct I2cBaseAddress : HwAddressBase {};  /*!< I2C */
+struct SpiBaseAddress : HwAddressBase {};  /*!< SPI */
+struct UartBaseAddress : HwAddressBase {}; /*!< UART */
+struct GpioBaseAddress : HwAddressBase {}; /*!< GPIO */
+
+}  // namespace libmcuhw
 
 #endif

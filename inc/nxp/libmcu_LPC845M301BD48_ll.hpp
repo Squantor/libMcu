@@ -112,9 +112,10 @@ constexpr inline libMcu::spiBaseAddress spi0Address{0x4005'8000u};       /*!< SP
 constexpr inline libMcu::spiBaseAddress spi1Address{0x4005'C000u};       /*!< SPI 1 base address */
 constexpr inline libMcu::captBaseAddress capt0Address{0x4006'0000u};     /*!< Capacitive touch 0 base address */
 constexpr inline libMcu::uartBaseAddress usart0Address{0x4006'4000u};    /*!< USART 0 base address */
-constexpr inline libMcu::uartBaseAddress usart1Address{0x4006'8000u};    /*!< USART 1 base address */
-constexpr inline libMcu::uartBaseAddress usart2Address{0x4006'C000u};    /*!< USART 2 base address */
-constexpr inline libMcu::uartBaseAddress usart3Address{0x4007'0000u};    /*!< USART 3 base address */
+
+constexpr inline libMcu::uartBaseAddress usart1Address{0x4006'8000u}; /*!< USART 1 base address */
+constexpr inline libMcu::uartBaseAddress usart2Address{0x4006'C000u}; /*!< USART 2 base address */
+constexpr inline libMcu::uartBaseAddress usart3Address{0x4007'0000u}; /*!< USART 3 base address */
 /* AHB peripherals, see UM11029 2.2.1 */
 constexpr inline libMcu::crcBaseAddress crcAddress{0x5000'0000u};  /*!< CRC calculator base address */
 constexpr inline libMcu::sctBaseAddress sct0Address{0x5000'4000u}; /*!< State configurable timer 0 base address */
@@ -124,6 +125,10 @@ constexpr inline libMcu::mtbBaseAddress mtbAddress{0x5000'C000u};  /*!< MTB base
 constexpr inline libMcu::gpioBaseAddress gpioAddress{0xA000'0000u};     /*!< General Purpose I/O base address */
 constexpr inline libMcu::pinintBaseAddress pinintAddress{0xA000'4000u}; /*!< Pin interrupt base address */
 }  // namespace libMcuHw
+
+namespace libmcuhw {
+constexpr inline UartBaseAddress kUsart0Address{0x4006'4000u}; /*!< USART 0 base address */
+}  // namespace libmcuhw
 
 namespace libMcuHw::dma {
 /*!
@@ -204,6 +209,7 @@ enum class dmaRequestSources : std::uint8_t {
 #include "LPC8XX_LL/LPC84X_sct_ll.hpp"
 #include "LPC8XX_LL/LPC84X_inmux_ll.hpp"
 #include "LPC8XX_LL/LPC84X_dma_ll.hpp"
+#include "LPC8XX_LL/LPC84X_sync_usart_ll.hpp"
 
 #include "LPC8XX_CLOCK/LPC84X_clock.hpp"
 

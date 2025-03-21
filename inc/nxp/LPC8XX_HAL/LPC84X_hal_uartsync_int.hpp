@@ -19,11 +19,11 @@ namespace nvic = libMcuHw::nvic;
 
 template <libMcu::uartBaseAddress const& uartBaseAddress_, libMcu::nvicBaseAddress const& nvicBaseAddress_, typename transferType,
           std::size_t bufSize>
-struct uartSync {
+struct SyncUart {
   /**
    * @brief Construct a new asynchronous uart
    */
-  uartSync() {}
+  SyncUart() {}
   /**
    * @brief Initialize
    */
