@@ -11,8 +11,6 @@
 #ifndef LIBMCU_LPC1114BD48_303_LL_HPP
 #define LIBMCU_LPC1114BD48_303_LL_HPP
 
-#include "../libmcu/libmcu.hpp"
-#include "../libmcu/libmcuhw.hpp"
 #include "../libmcu/libmcull.hpp"
 #include "../libmcu/libmcu_functions_CM0.hpp"
 

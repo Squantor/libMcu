@@ -11,8 +11,6 @@
 #ifndef LIBMCU_TEMPLATE_LL_HPP
 #define LIBMCU_TEMPLATE_LL_HPP
 
-#include "../libmcu/libmcu.hpp"
-#include "../libmcu/libmcuhw.hpp"
 #include "../libmcu/libmcull.hpp"
 
 #endif
