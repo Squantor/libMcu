@@ -17,7 +17,7 @@ namespace libmcuhal::usartsync {
 namespace hardware = libMcuHw::usart;
 namespace lowlevel = libMcuLL::usart;
 
-template <libmcuhal::DerivedFromHalUartSync auto& ll_uart_sync>
+template <libmcull::DerivedFromLlUartSync auto& ll_uart_sync>
 struct uartSync : public libmcuhal::HalUartSync {
  private:
 };
