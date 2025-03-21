@@ -6,7 +6,7 @@
  */
 /**
  * @file libmcuhal_types.hpp
- * @brief types used by libMcuHal
+ * @brief Types used by libMcuHal
  */
 #ifndef LIBMCUHAL_TYPES_HPP
 #define LIBMCUHAL_TYPES_HPP

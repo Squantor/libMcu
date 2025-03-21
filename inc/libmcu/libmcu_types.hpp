@@ -11,14 +11,9 @@
 #ifndef LIBMCU_TYPES_HPP
 #define LIBMCU_TYPES_HPP
 
-/**
- * @brief LibMcu wide used types
- *
- */
 namespace libMcu {
 /**
  * @brief defines a constant for typesafety
- *
  * @tparam C_ type of constant
  */
 template <typename C_>
