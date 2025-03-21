@@ -12,6 +12,8 @@
 #define LIBMCU_LPC804M101HI33_LL_HPP
 
 #include "../libmcu/libmcu.hpp"
+#include "../libmcu/libmcuhw.hpp"
+#include "../libmcu/libmcull.hpp"
 #include "../libmcu/libmcu_functions_CM0.hpp"
 
 namespace libMcuHw {

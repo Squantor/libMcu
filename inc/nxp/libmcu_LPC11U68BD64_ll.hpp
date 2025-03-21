@@ -12,6 +12,8 @@
 #define LIBMCU_LPC11U68BD64_LL_HPP
 
 #include "../libmcu/libmcu.hpp"
+#include "../libmcu/libmcuhw.hpp"
+#include "../libmcu/libmcull.hpp"
 #include "../libmcu/libmcu_functions_CM0.hpp"
 
 namespace libMcuHw {
