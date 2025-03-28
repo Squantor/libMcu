@@ -11,7 +11,7 @@
 #ifndef LPC84X_I2C_HW_HPP
 #define LPC84X_I2C_HW_HPP
 
-namespace libMcuHw::i2c {
+namespace libmcuhw::i2c {
 /**
  * @brief I2C register definitions
  */
@@ -231,5 +231,5 @@ constexpr inline std::uint32_t MONRESTART{1u << 9}; /*!< Monitor Received Repeat
 constexpr inline std::uint32_t MONNACK{1u << 10};   /*!< Monitor Received NACK */
 
 }  // namespace MONRXDAT
-}  // namespace libMcuHw::i2c
+}  // namespace libmcuhw::i2c
 #endif

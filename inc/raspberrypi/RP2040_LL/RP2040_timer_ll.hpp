@@ -11,8 +11,8 @@
 #ifndef RP2040_TIMER_SW_HPP
 #define RP2040_TIMER_SW_HPP
 
-namespace libMcuLL::timer {
-namespace hardware = libMcuHw::timer;
+namespace libmcull::timer {
+namespace hardware = libmcuhw::timer;
 template <libmcu::timerBaseAddress const& timerAddress_>
 struct timer : libmcu::PeripheralBase {
   /**
@@ -30,5 +30,5 @@ struct timer : libmcu::PeripheralBase {
  private:
   static constexpr libmcu::hwAddressType timerAddress{timerAddress_}; /*!< peripheral address */
 };
-}  // namespace libMcuLL::timer
+}  // namespace libmcull::timer
 #endif

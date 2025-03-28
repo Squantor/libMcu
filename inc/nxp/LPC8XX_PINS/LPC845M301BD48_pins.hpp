@@ -11,8 +11,8 @@
 
 #ifndef LPC845M301BD48_PINS_HPP
 #define LPC845M301BD48_PINS_HPP
-namespace libMcuHw {
-namespace hardware = libMcuHw::swm;
+namespace libmcuhw {
+namespace hardware = libmcuhw::swm;
 
 enum pinTypeFlags : std::uint8_t {
   NORMAL = 0u,           /*!< Normal pin without any special handling */
@@ -647,5 +647,5 @@ template <>
 struct port<IOports::PORT1> {
   static constexpr std::uint8_t gpioPortIndex{1u};
 };
-}  // namespace libMcuHw
+}  // namespace libmcuhw
 #endif

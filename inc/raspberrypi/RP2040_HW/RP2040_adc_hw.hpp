@@ -14,7 +14,7 @@
 #ifndef RP2040_ADC_HW_HPP
 #define RP2040_ADC_HW_HPP
 
-namespace libMcuHw::adc {
+namespace libmcuhw::adc {
 /**
  * @brief ADC register definitions
  *
@@ -25,5 +25,5 @@ struct adc {
 namespace DUMMY {
 constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /*!< Mask for allowed bits */
 }  // namespace DUMMY
-}  // namespace libMcuHw::adc
+}  // namespace libmcuhw::adc
 #endif

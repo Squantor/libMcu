@@ -11,7 +11,7 @@
 #ifndef STM32F0_CLOCK_HW_HPP
 #define STM32F0_CLOCK_HW_HPP
 
-namespace libMcuHw::clock {
+namespace libmcuhw::clock {
 
 constexpr inline std::uint32_t hsiDefaultClockFreq{8'000'000}; /*!< HSI default clock frequency */
 
@@ -30,5 +30,5 @@ struct mcuClockConfig {};
 
 inline mcuClockConfig<clockInputSources::HSI, hsiDefaultClockFreq, hsiDefaultClockFreq> const defaultClocks;
 
-}  // namespace libMcuHw::clock
+}  // namespace libmcuhw::clock
 #endif

@@ -12,8 +12,8 @@
 #ifndef STM32F0_RCC_LL_HPP
 #define STM32F0_RCC_LL_HPP
 
-namespace libMcuLL::rcc {
-namespace hardware = libMcuHw::rcc;
+namespace libmcull::rcc {
+namespace hardware = libmcuhw::rcc;
 
 }
 

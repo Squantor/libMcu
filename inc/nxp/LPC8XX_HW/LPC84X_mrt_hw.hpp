@@ -11,7 +11,7 @@
 #ifndef LPC84X_MRT_HW_HPP
 #define LPC84X_MRT_HW_HPP
 
-namespace libMcuHw::mrt {
+namespace libmcuhw::mrt {
 
 /**
  * @brief multi rate timer register definitions
@@ -27,5 +27,5 @@ struct mrt {
   volatile const std::uint32_t IDLE_CH; /*!< Idle channel register */
   volatile std::uint32_t IRQ_FLAG;      /*!< Global interrupt flag register */
 };
-}  // namespace libMcuHw::mrt
+}  // namespace libmcuhw::mrt
 #endif

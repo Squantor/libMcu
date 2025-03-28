@@ -11,6 +11,6 @@
 #ifndef LPC84X_CLOCK_HPP
 #define LPC84X_CLOCK_HPP
 
-namespace libMcuHw::clock {}  // namespace libMcuHw::clock
+namespace libmcuhw::clock {}  // namespace libmcuhw::clock
 
 #endif

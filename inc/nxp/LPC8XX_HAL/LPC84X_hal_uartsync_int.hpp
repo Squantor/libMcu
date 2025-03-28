@@ -14,8 +14,8 @@
 #include "LPC84X_hal_uart_common.hpp"
 
 namespace libmcuhal::usart {
-namespace hardware = libMcuHw::usart;
-namespace nvic = libMcuHw::nvic;
+namespace hardware = libmcuhw::usart;
+namespace nvic = libmcuhw::nvic;
 
 template <libmcu::uartBaseAddress const& uartBaseAddress_, libmcu::nvicBaseAddress const& nvicBaseAddress_, typename transferType,
           std::size_t bufSize>

@@ -11,7 +11,7 @@
 #ifndef LPC81X_WWDT_REGS_HPP
 #define LPC81X_WWDT_REGS_HPP
 
-namespace libMcuLL::hw::wwdt {
+namespace libmcuhw::wwdt {
 
 /**
  * @brief windowed watchdog register definitions
@@ -26,5 +26,5 @@ struct wwdt {
   volatile std::uint32_t WINDOW;  /*!< contains the Watchdog window value. */
 };
 
-}  // namespace libMcuLL::hw::wwdt
+}  // namespace libmcuhw::wwdt
 #endif

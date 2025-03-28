@@ -11,8 +11,8 @@
 #ifndef LPC84X_SYSCON_LL_HPP
 #define LPC84X_SYSCON_LL_HPP
 
-namespace libMcuLL::syscon {
-namespace hardware = libMcuHw::syscon;
+namespace libmcull::syscon {
+namespace hardware = libmcuhw::syscon;
 
 /**
  * @brief Peripheral reset for first setting
@@ -342,25 +342,25 @@ struct syscon : libmcu::PeripheralBase {
    * @brief Configure microcontroller clocks with mcuConfiguration settings
    * @tparam &config current configuration settings
    */
-  template <const libMcuHw::clock::mcuClockConfig &config = libMcuHw::clock::defaultClocks>
+  template <const libmcuhw::clock::mcuClockConfig &config = libmcuhw::clock::defaultClocks>
   constexpr void configureMcuClocks() {
     // check if the wanted config is possible at all?
-    static_assert(libMcuHw::clock::FindClockFrequency(config.getSourceFreq(), config.getSystemFreq()) != 0,
+    static_assert(libmcuhw::clock::FindClockFrequency(config.getSourceFreq(), config.getSystemFreq()) != 0,
                   "Unable to find a clock configuration solution");
     // setup clock source
-    if constexpr (config.source == libMcuHw::clock::clockInputSources::FRO) {
+    if constexpr (config.source == libmcuhw::clock::clockInputSources::FRO) {
       // TODO support 24MHz FRO frequency
       // support romfunction FRO and get valid list of FRO frequency
-      if constexpr (config.getSourceFreq() == libMcuHw::clock::froDefaultClockFreq)
+      if constexpr (config.getSourceFreq() == libmcuhw::clock::froDefaultClockFreq)
         selectMainClock(mainClockSources::FRO);
       else
         static_assert(false, "Unsupported FRO frequency!");
-    } else if constexpr (config.source == libMcuHw::clock::clockInputSources::XTAL) {
+    } else if constexpr (config.source == libmcuhw::clock::clockInputSources::XTAL) {
       if constexpr (config.getSourceFreq() > 15'000'000) {
-        setSysOscControl(libMcuHw::syscon::SYSOSCCTRL::NO_BYPASS | libMcuHw::syscon::SYSOSCCTRL::FREQ_15_25MHz);
+        setSysOscControl(libmcuhw::syscon::SYSOSCCTRL::NO_BYPASS | libmcuhw::syscon::SYSOSCCTRL::FREQ_15_25MHz);
       } else
-        setSysOscControl(libMcuHw::syscon::SYSOSCCTRL::NO_BYPASS | libMcuHw::syscon::SYSOSCCTRL::FREQ_1_20MHz);
-      powerPeripherals(libMcuLL::syscon::powerOptions::SYSOSC);
+        setSysOscControl(libmcuhw::syscon::SYSOSCCTRL::NO_BYPASS | libmcuhw::syscon::SYSOSCCTRL::FREQ_1_20MHz);
+      powerPeripherals(libmcull::syscon::powerOptions::SYSOSC);
       libmcu::Delay(3000);
       selectMainClock(mainClockSources::EXT);
     }
@@ -371,38 +371,38 @@ struct syscon : libmcu::PeripheralBase {
     if constexpr (config.getMainFreq() == config.getSourceFreq()) {
       setMainClockDivider(config.getMainFreq() / config.getSystemFreq());
     } else {
-      if constexpr (config.source == libMcuHw::clock::clockInputSources::FRO) {
-        selectPllClock(libMcuLL::syscon::pllClockSources::FRO);
-      } else if constexpr (config.source == libMcuHw::clock::clockInputSources::XTAL) {
-        selectPllClock(libMcuLL::syscon::pllClockSources::EXT);
+      if constexpr (config.source == libmcuhw::clock::clockInputSources::FRO) {
+        selectPllClock(libmcull::syscon::pllClockSources::FRO);
+      } else if constexpr (config.source == libmcuhw::clock::clockInputSources::XTAL) {
+        selectPllClock(libmcull::syscon::pllClockSources::EXT);
       }
-      depowerPeripherals(libMcuLL::syscon::powerOptions::SYSPLL);
-      setSystemPllControl(libMcuHw::clock::FindSystemPllMsel(config.getSourceFreq(), config.getMainFreq()),
-                          static_cast<libMcuLL::syscon::pllPostDivider>(libMcuHw::clock::FindSystemPllPsel(config.getMainFreq())));
-      powerPeripherals(libMcuLL::syscon::powerOptions::SYSPLL);
+      depowerPeripherals(libmcull::syscon::powerOptions::SYSPLL);
+      setSystemPllControl(libmcuhw::clock::FindSystemPllMsel(config.getSourceFreq(), config.getMainFreq()),
+                          static_cast<libmcull::syscon::pllPostDivider>(libmcuhw::clock::FindSystemPllPsel(config.getMainFreq())));
+      powerPeripherals(libmcull::syscon::powerOptions::SYSPLL);
       while (getSystemPllStatus() == 0)
         ;
       setMainClockDivider(config.getMainFreq() / config.getSystemFreq());
-      selectMainPllClock(libMcuLL::syscon::mainClockPllSources::SYSPLL);
+      selectMainPllClock(libmcull::syscon::mainClockPllSources::SYSPLL);
     }
   }
   /**
    * @brief Configure peripheral clock with configuration settings
    * @tparam &config configuration for this peripheral
    */
-  template <const libMcuHw::clock::periClockConfig &config>
+  template <const libmcuhw::clock::periClockConfig &config>
   constexpr void configurePeripheralClock() {
-    if constexpr (config.peripheral == libMcuHw::clock::periSelect::UART0) {
-      if constexpr (config.source == libMcuHw::clock::periSource::FRO)
+    if constexpr (config.peripheral == libmcuhw::clock::periSelect::UART0) {
+      if constexpr (config.source == libmcuhw::clock::periSource::FRO)
         sysconPeripheral()->FCLKSEL[hardware::FCLKSEL::UART0] = hardware::FCLKSEL::FRO;
-      else if constexpr (config.source == libMcuHw::clock::periSource::MAIN)
+      else if constexpr (config.source == libmcuhw::clock::periSource::MAIN)
         sysconPeripheral()->FCLKSEL[hardware::FCLKSEL::UART0] = hardware::FCLKSEL::MAIN;
       else
         static_assert(false, "Unsupported clock source for UART0!");
-    } else if constexpr (config.peripheral == libMcuHw::clock::periSelect::UART1) {
-      if constexpr (config.source == libMcuHw::clock::periSource::FRO)
+    } else if constexpr (config.peripheral == libmcuhw::clock::periSelect::UART1) {
+      if constexpr (config.source == libmcuhw::clock::periSource::FRO)
         sysconPeripheral()->FCLKSEL[hardware::FCLKSEL::UART0] = hardware::FCLKSEL::FRO;
-      else if constexpr (config.source == libMcuHw::clock::periSource::MAIN)
+      else if constexpr (config.source == libmcuhw::clock::periSource::MAIN)
         sysconPeripheral()->FCLKSEL[hardware::FCLKSEL::UART0] = hardware::FCLKSEL::MAIN;
       else
         static_assert(false, "Unsupported clock source for UART1!");
@@ -434,5 +434,5 @@ struct syscon : libmcu::PeripheralBase {
  private:
   constexpr static libmcu::hwAddressType sysconAddress = sysconAddress_; /*!< peripheral address */
 };
-}  // namespace libMcuLL::syscon
+}  // namespace libmcull::syscon
 #endif

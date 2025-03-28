@@ -1,19 +1,24 @@
 # Include paths
 LibMcuLL uses multiple levels of includes to reduce the file clutter.
 
-* ```inc\ ``` include directory top level, ```mcu_ll.h``` and ```mcu_ll.hpp``` headers reside here
-  * ```CMSIS\ ``` ARM CMSIS provided files, these provide CortexM definitions
-  * ```generic\ ``` generic microcontroller definitions, these are controllers with only their on core peripherals and can be used as a basis for your own definitions
-  * ```libmcull\ ``` LibMcuLL specific headers for types and enums
+* ```inc\ ``` include directory top level
+  * ```CMSIS\ ``` ARM CMSIS provided files, these provide CortexM definitions. The plan is to get rid of these eventually as these are C includes
+  * ```libmcu\ ``` LibMcu specific headers for types, enums, constants, concepts and more. A subdirectory may be made for certain subfunctions that have a bunch of related headers.
   * ```nxp\ ``` NXP device headers, here the device specific headers reside
-    * ```LPC8XX\ ``` LPC800 series C style headers
-    * ```LPC8XX.hpp\ ``` LPC800 series peripheral C++ style headers
+    * ```LPC8XX_PINS\ ``` LPC800 series pin definitions headers
+    * ```LPC8XX_CLOCK\ ``` LPC800 series clocking definitions headers
+    * ```LPC8XX_HAL\ ``` LPC800 series Hardware Abstraction Layer headers
+    * ```LPC8XX_LL\ ``` LPC800 series Low Level classes headers
+    * ```LPC8XX_HW\ ``` LPC800 series Hardware definitions and register structure headers
 
 There are many more vendor header directories but they are not described here for brevity but do follow the general shape:
 
 * ```VENDOR\ ``` Vendor header file directory
-  * ```DEVICE_FAMILIY\ ``` Device family C style header directory
-  * ```DEVICE_FAMILTY.hpp\ ``` Device family C++ style header directory
+    * ```FAMILY_PINS\ ``` Device series pin definitions headers
+    * ```FAMILY_CLOCK\ ``` Device series clocking definitions headers
+    * ```FAMILY_HAL\ ``` Device series Hardware Abstraction Layer headers
+    * ```FAMILY_LL\ ``` Device series Low Level classes headers
+    * ```FAMILY_HW\ ``` Device series Hardware definitions and register structure headers
 
 ## including files
 We generally use ```#include "current_path/include.h"``` to minimise the compiler needing to search for our include.
@@ -24,7 +29,7 @@ For example, the LPC812 SPI register definitions has the name ```LPC81X_spi_hw.h
 
 For the includes that contain the peripheral control classes we suffix them with ```_sw```. Some peripherals have multiple API's for control with various methods. The spi peripheral is usually controlled in a synchronous (blocking), asynchronous (nonblocking), asynchronous interrupt or asynchronous DMA methods. Peripheral control functions with these API's are suffixed by the following pattern:
 
-* for synchronous API's the headers are suffixed by ```_sw__sync```
+* for synchronous API's the headers are suffixed by ```_sw_sync```
 * for asynchronous API's the headers are suffixed by ```_sw_async```
 * for asynchronous API's using interrupts are suffixed by ```_sw_interrupt```
 * for asynchronous API's using DMA are suffixed by ```_sw_dma```
@@ -45,7 +50,7 @@ The header ```mcu_ll.h``` and ```mcu_ll.hpp``` contain the selection logic for s
 
 // device specific defines/constexprs for things like pins/ports etcetera
 
-constexpr inline libMcuLL::peripheralBaseAddress peripheral0{0x4000'0000u};     /*!< Peripheral base address */
+constexpr inline libmcu::peripheralBaseAddress peripheral0{0x4000'0000u};     /*!< Peripheral base address */
 
 #include "device_peripheral_regs.hpp" // peripheral register definitions
 

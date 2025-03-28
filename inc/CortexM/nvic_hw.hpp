@@ -10,7 +10,7 @@
  */
 #ifndef NVIC_HW_HPP
 #define NVIC_HW_HPP
-namespace libMcuHw::nvic {
+namespace libmcuhw::nvic {
 struct nvic {
   volatile std::uint32_t ISER[1U]; /*!< interrupt set enable register */
   std::uint32_t RESERVED0[31U];
@@ -93,10 +93,10 @@ constexpr inline std::uint32_t RESERVED_MASK = 0xC0C0C0C0; /*!< register mask fo
  */
 constexpr inline std::uint32_t IPR(std::uint32_t registerValue, std::uint32_t interrupt, std::uint32_t priority) {
   std::uint32_t shiftValue = (interrupt & 0x3) * 8;
-  return (registerValue & ~(0xFF << shiftValue)) | (priority << (shiftValue + (8 - libMcuHw::nvic::priorityBits)));
+  return (registerValue & ~(0xFF << shiftValue)) | (priority << (shiftValue + (8 - libmcuhw::nvic::priorityBits)));
 }
 }  // namespace IP
 
-}  // namespace libMcuHw::nvic
+}  // namespace libmcuhw::nvic
 
 #endif

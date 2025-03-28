@@ -14,18 +14,18 @@
 #include "../libmcu/libmcull.hpp"
 #include "../libmcu/libmcu_functions_CM0.hpp"
 
-namespace libMcuHw {
+namespace libmcuhw {
 // microcontroller core configuration options
 }
 
 #include <CortexM/cortex_m0.hpp>
 
-namespace libMcuHw {
+namespace libmcuhw {
 // Microcontroller memory addresses
 // base memories
 // peripherals bus1
 // peripherals bus2 etc
-}  // namespace libMcuHw
+}  // namespace libmcuhw
 
 // includes that define the registers namespace go here.
 

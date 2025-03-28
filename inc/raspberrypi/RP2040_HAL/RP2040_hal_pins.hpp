@@ -14,24 +14,24 @@
 namespace libmcuhal {
 namespace pins {
 enum class driveModes : std::uint32_t {
-  DRIVE_2MA = libMcuHw::pads::GPIO::DRIVE_2MA,   /*!< 2 milliampere drive strength */
-  DRIVE_4MA = libMcuHw::pads::GPIO::DRIVE_4MA,   /*!< 4 milliampere drive strength */
-  DRIVE_8MA = libMcuHw::pads::GPIO::DRIVE_8MA,   /*!< 8 milliampere drive strength */
-  DRIVE_12MA = libMcuHw::pads::GPIO::DRIVE_12MA, /*!< 12 milliampere drive strength */
+  DRIVE_2MA = libmcuhw::pads::GPIO::DRIVE_2MA,   /*!< 2 milliampere drive strength */
+  DRIVE_4MA = libmcuhw::pads::GPIO::DRIVE_4MA,   /*!< 4 milliampere drive strength */
+  DRIVE_8MA = libmcuhw::pads::GPIO::DRIVE_8MA,   /*!< 8 milliampere drive strength */
+  DRIVE_12MA = libmcuhw::pads::GPIO::DRIVE_12MA, /*!< 12 milliampere drive strength */
 };
 
 enum class pullModes : std::uint32_t {
   NONE = 0,                             /*!< No pullup modes */
-  PULLUP = libMcuHw::pads::GPIO::PUE,   /*!< Pullup */
-  PULLDOWN = libMcuHw::pads::GPIO::PDE, /*!< Pulldown */
+  PULLUP = libmcuhw::pads::GPIO::PUE,   /*!< Pullup */
+  PULLDOWN = libmcuhw::pads::GPIO::PDE, /*!< Pulldown */
   KEEPER = 0,                           /*!< No bus keeper on RP2040 */
 };
 
 enum class speedModes : std::uint32_t {
   SLEW_SLOW = 0,                               /*!< Slow slew rate */
   SLEW_MEDIUM = 0,                             /*!< Medium slew rate */
-  SLEW_FAST = libMcuHw::pads::GPIO::SLEWFAST,  /*!< fast slew rate */
-  SLEW_SUPER = libMcuHw::pads::GPIO::SLEWFAST, /*!< super fast slew rate */
+  SLEW_FAST = libmcuhw::pads::GPIO::SLEWFAST,  /*!< fast slew rate */
+  SLEW_SUPER = libmcuhw::pads::GPIO::SLEWFAST, /*!< super fast slew rate */
 };
 
 template <libmcu::padsBank0BaseAddress const& padsBank0Address_, libmcu::ioBank0BaseAddress const& gpioBank0Address_>
@@ -53,16 +53,16 @@ struct pins {
    */
   template <typename T>
   void setup(T& pin, driveModes drive, pullModes pull, speedModes slew, bool schmittOn) {
-    if constexpr (pin.port == libMcuHw::IOports::PORT0) {
+    if constexpr (pin.port == libmcuhw::IOports::PORT0) {
       gpioBank0Peripheral()->GPIO[pin.pinIndex].CTRL =
-        libMcuHw::gpioBank0::CTRL::FUNCSEL(static_cast<std::uint32_t>(pin.functionSelect));
-      uint32_t setting = libMcuHw::pads::GPIO::IE | libMcuHw::pads::GPIO::DRIVE(static_cast<std::uint32_t>(drive)) |
+        libmcuhw::gpioBank0::CTRL::FUNCSEL(static_cast<std::uint32_t>(pin.functionSelect));
+      uint32_t setting = libmcuhw::pads::GPIO::IE | libmcuhw::pads::GPIO::DRIVE(static_cast<std::uint32_t>(drive)) |
                          static_cast<std::uint32_t>(pull) | static_cast<std::uint32_t>(slew);
       if (schmittOn)
-        setting = setting | libMcuHw::pads::GPIO::SCHMITT;
+        setting = setting | libmcuhw::pads::GPIO::SCHMITT;
       padsBank0Peripheral()->GPIO[pin.pinIndex] = setting;
     } else
-      static_assert(pin.port == libMcuHw::IOports::QSPI, "Does not support QSPI pins yet");
+      static_assert(pin.port == libmcuhw::IOports::QSPI, "Does not support QSPI pins yet");
   }
   /**
    * @brief resets pin to reset defaults
@@ -72,8 +72,8 @@ struct pins {
    */
   template <typename T>
   void reset(T& pin) {
-    gpioBank0Peripheral()->GPIO[pin.pinIndex].CTRL = libMcuHw::gpioBank0::CTRL::DEFAULT;
-    padsBank0Peripheral()->GPIO[pin.pinIndex] = libMcuHw::padsBank0::GPIO::DEFAULT;
+    gpioBank0Peripheral()->GPIO[pin.pinIndex].CTRL = libmcuhw::gpioBank0::CTRL::DEFAULT;
+    padsBank0Peripheral()->GPIO[pin.pinIndex] = libmcuhw::padsBank0::GPIO::DEFAULT;
   }
 
  private:
@@ -82,64 +82,64 @@ struct pins {
    *
    * @return return pointer to peripheral
    */
-  static libMcuHw::gpioBank0::gpioBank0* gpioBank0Peripheral() {
-    return reinterpret_cast<libMcuHw::gpioBank0::gpioBank0*>(ioBank0Address + libMcuHw::peripheralOffsetNormal);
+  static libmcuhw::gpioBank0::gpioBank0* gpioBank0Peripheral() {
+    return reinterpret_cast<libmcuhw::gpioBank0::gpioBank0*>(ioBank0Address + libmcuhw::peripheralOffsetNormal);
   }
   /**
    * @brief get registers from peripheral
    *
    * @return return pointer to peripheral
    */
-  static libMcuHw::gpioBank0::gpioBank0* gpioBank0PeripheralSet() {
-    return reinterpret_cast<libMcuHw::gpioBank0::gpioBank0*>(ioBank0Address + libMcuHw::peripheralOffsetSet);
+  static libmcuhw::gpioBank0::gpioBank0* gpioBank0PeripheralSet() {
+    return reinterpret_cast<libmcuhw::gpioBank0::gpioBank0*>(ioBank0Address + libmcuhw::peripheralOffsetSet);
   }
   /**
    * @brief get registers from peripheral
    *
    * @return return pointer to peripheral
    */
-  static libMcuHw::gpioBank0::gpioBank0* gpioBank0PeripheralClear() {
-    return reinterpret_cast<libMcuHw::gpioBank0::gpioBank0*>(ioBank0Address + libMcuHw::peripheralOffsetClear);
+  static libmcuhw::gpioBank0::gpioBank0* gpioBank0PeripheralClear() {
+    return reinterpret_cast<libmcuhw::gpioBank0::gpioBank0*>(ioBank0Address + libmcuhw::peripheralOffsetClear);
   }
   /**
    * @brief get registers from peripheral
    *
    * @return return pointer to peripheral
    */
-  static libMcuHw::gpioBank0::gpioBank0* gpioBank0PeripheralToggle() {
-    return reinterpret_cast<libMcuHw::gpioBank0::gpioBank0*>(ioBank0Address + libMcuHw::peripheralOffsetXor);
+  static libmcuhw::gpioBank0::gpioBank0* gpioBank0PeripheralToggle() {
+    return reinterpret_cast<libmcuhw::gpioBank0::gpioBank0*>(ioBank0Address + libmcuhw::peripheralOffsetXor);
   }
   /**
    * @brief get registers from peripheral
    *
    * @return return pointer to peripheral
    */
-  static libMcuHw::padsBank0::padsBank0* padsBank0Peripheral() {
-    return reinterpret_cast<libMcuHw::padsBank0::padsBank0*>(padsBank0Address + libMcuHw::peripheralOffsetNormal);
+  static libmcuhw::padsBank0::padsBank0* padsBank0Peripheral() {
+    return reinterpret_cast<libmcuhw::padsBank0::padsBank0*>(padsBank0Address + libmcuhw::peripheralOffsetNormal);
   }
   /**
    * @brief set registers from peripheral
    *
    * @return return pointer to peripheral
    */
-  static libMcuHw::padsBank0::padsBank0* padsBank0PeripheralSet() {
-    return reinterpret_cast<libMcuHw::padsBank0::padsBank0*>(padsBank0Address + libMcuHw::peripheralOffsetSet);
+  static libmcuhw::padsBank0::padsBank0* padsBank0PeripheralSet() {
+    return reinterpret_cast<libmcuhw::padsBank0::padsBank0*>(padsBank0Address + libmcuhw::peripheralOffsetSet);
   }
   /**
    * @brief clear registers from peripheral
    *
    * @return return pointer to peripheral
    */
-  static libMcuHw::padsBank0::padsBank0* padsBank0PeripheralClear() {
-    return reinterpret_cast<libMcuHw::padsBank0::padsBank0*>(padsBank0Address + libMcuHw::peripheralOffsetClear);
+  static libmcuhw::padsBank0::padsBank0* padsBank0PeripheralClear() {
+    return reinterpret_cast<libmcuhw::padsBank0::padsBank0*>(padsBank0Address + libmcuhw::peripheralOffsetClear);
   }
   /**
    * @brief toggle registers from peripheral
    *
    * @return return pointer to peripheral
    */
-  static libMcuHw::padsBank0::padsBank0* padsBank0PeripheralToggle() {
-    return reinterpret_cast<libMcuHw::padsBank0::padsBank0*>(padsBank0Address + libMcuHw::peripheralOffsetXor);
+  static libmcuhw::padsBank0::padsBank0* padsBank0PeripheralToggle() {
+    return reinterpret_cast<libmcuhw::padsBank0::padsBank0*>(padsBank0Address + libmcuhw::peripheralOffsetXor);
   }
 
   static constexpr libmcu::hwAddressType padsBank0Address = padsBank0Address_; /*!< pads bank 0 peripheral address */

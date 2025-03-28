@@ -13,7 +13,7 @@
 
 #include "LPC81X_usart_ll_common.hpp"
 
-namespace libMcuLL::sw::usart {
+namespace libmcull::sw::usart {
 namespace detail {
 
 enum class synchonousStates : std::uint8_t {
@@ -23,7 +23,7 @@ enum class synchonousStates : std::uint8_t {
 };
 
 }  // namespace detail
-using namespace hw::usart;
+using namespace libmcuhw::usart;
 
 /**
  * @brief Asynchronous USART peripheral instance
@@ -187,8 +187,8 @@ struct usartAsync : libmcu::PeripheralBase {
    *
    * @return return pointer to usart registers
    */
-  static hw::usart::usart *usartPeripheral() {
-    return reinterpret_cast<hw::usart::usart *>(usartAddress);
+  static libmcuhw::usart::usart *usartPeripheral() {
+    return reinterpret_cast<libmcuhw::usart::usart *>(usartAddress);
   }
 
  private:
@@ -200,5 +200,5 @@ struct usartAsync : libmcu::PeripheralBase {
   std::span<transferType> transactionWriteData;                        /*!< data to write */
   std::span<transferType> transactionReadData;                         /*!< where to put read data in */
 };
-}  // namespace libMcuLL::sw::usart
+}  // namespace libmcull::sw::usart
 #endif

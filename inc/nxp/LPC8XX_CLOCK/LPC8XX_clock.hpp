@@ -11,7 +11,7 @@
 #ifndef LPC8XX_CLOCK_HPP
 #define LPC8XX_CLOCK_HPP
 
-namespace libMcuHw::clock {
+namespace libmcuhw::clock {
 
 constexpr inline std::uint32_t systemPllMinVcoFreq{156'000'000}; /*!< minimum PLL VCO frequency */
 constexpr inline std::uint32_t systemPllMaxVcoFreq{320'000'000}; /*!< maximum PLL VCO frequency */
@@ -20,13 +20,13 @@ constexpr inline std::uint32_t froDefaultClockFreq{12'000'000};  /*!< IRC clock 
 
 consteval std::uint32_t FindSystemPllPsel(uint32_t outFreq) {
   if (outFreq > (systemPllMinVcoFreq >> 1U))
-    return libMcuHw::syscon::SYSPLLCTRL::PSEL_DIV2;
+    return libmcuhw::syscon::SYSPLLCTRL::PSEL_DIV2;
   else if (outFreq > (systemPllMinVcoFreq >> 2U))
-    return libMcuHw::syscon::SYSPLLCTRL::PSEL_DIV4;
+    return libmcuhw::syscon::SYSPLLCTRL::PSEL_DIV4;
   else if (outFreq > (systemPllMinVcoFreq >> 3U))
-    return libMcuHw::syscon::SYSPLLCTRL::PSEL_DIV8;
+    return libmcuhw::syscon::SYSPLLCTRL::PSEL_DIV8;
   else
-    return libMcuHw::syscon::SYSPLLCTRL::PSEL_DIV16;
+    return libmcuhw::syscon::SYSPLLCTRL::PSEL_DIV16;
 }
 
 consteval uint32_t FindSystemPllMsel(uint32_t inFreq, uint32_t outFreq) {
@@ -36,6 +36,6 @@ consteval uint32_t FindSystemPllMsel(uint32_t inFreq, uint32_t outFreq) {
 consteval uint32_t FindClockFrequency(uint32_t inFreq, uint32_t cpuFreq) {
   return libmcu::FindLcm(inFreq, cpuFreq, mainClockMaxFreq);
 }
-}  // namespace libMcuHw::clock
+}  // namespace libmcuhw::clock
 
 #endif

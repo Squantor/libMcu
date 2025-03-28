@@ -11,8 +11,8 @@
 #ifndef RP2040_PPB_SW_HPP
 #define RP2040_PPB_SW_HPP
 
-namespace libMcuLL::ppb {
-namespace hardware = libMcuHw::ppb;
+namespace libmcull::ppb {
+namespace hardware = libmcuhw::ppb;
 /**
  * @brief
  * @tparam ppbAddress_
@@ -36,5 +36,5 @@ struct ppb : libmcu::PeripheralBase {
  private:
   static constexpr libmcu::hwAddressType ppbAddress = ppbAddress_; /*!< peripheral address */
 };
-}  // namespace libMcuLL::ppb
+}  // namespace libmcull::ppb
 #endif

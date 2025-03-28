@@ -11,8 +11,8 @@
 #ifndef RP2040_XIP_SSI_SW_HPP
 #define RP2040_XIP_SSI_SW_HPP
 
-namespace libMcuLL::xipSsi {
-namespace hardware = libMcuHw::xipSsi;
+namespace libmcull::xipSsi {
+namespace hardware = libmcuhw::xipSsi;
 template <libmcu::xipSsiBaseAddress const& xipSsiAddress_>
 struct xipSsi : libmcu::PeripheralBase {
   /**
@@ -30,5 +30,5 @@ struct xipSsi : libmcu::PeripheralBase {
  private:
   static constexpr libmcu::hwAddressType xipSsiAddress{xipSsiAddress_}; /*!< peripheral address */
 };
-}  // namespace libMcuLL::xipSsi
+}  // namespace libmcull::xipSsi
 #endif

@@ -11,7 +11,7 @@
 #ifndef RP2040_I2C_HW_HPP
 #define RP2040_I2C_HW_HPP
 
-namespace libMcuHw::i2c {
+namespace libmcuhw::i2c {
 /**
  * @brief I2C register definitions
  */
@@ -264,5 +264,5 @@ constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /*!< Mask for allowe
 namespace IC_COMP_TYPE {
 constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /*!< Mask for allowed bits */
 }  // namespace IC_COMP_TYPE
-}  // namespace libMcuHw::i2c
+}  // namespace libmcuhw::i2c
 #endif

@@ -11,7 +11,7 @@
 #ifndef LPC84X_GPIO_HW_HPP
 #define LPC84X_GPIO_HW_HPP
 
-namespace libMcuHw::gpio {
+namespace libmcuhw::gpio {
 
 /**
  * @brief gpio register definitions
@@ -42,5 +42,5 @@ struct gpio {
   std::uint8_t RESERVED_10[120];    /*!< Reserved */
   volatile std::uint32_t DIRNOT[2]; /*!< Toggle pin direction bits for port */
 };
-}  // namespace libMcuHw::gpio
+}  // namespace libmcuhw::gpio
 #endif

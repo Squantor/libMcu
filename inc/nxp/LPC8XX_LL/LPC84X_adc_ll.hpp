@@ -11,8 +11,8 @@
 #ifndef LPC84X_ADC_LL_HPP
 #define LPC84X_ADC_LL_HPP
 
-namespace libMcuLL::adc {
-namespace hardware = libMcuHw::adc;
+namespace libmcull::adc {
+namespace hardware = libmcuhw::adc;
 template <libmcu::adcBaseAddress adcAddress_>
 struct adc : libmcu::PeripheralBase {
   /**
@@ -56,9 +56,9 @@ struct adc : libmcu::PeripheralBase {
    */
   template <auto &config>
   constexpr std::uint32_t getInputClockFreq() {
-    if constexpr (config.adcSource == libMcuHw::clock::periSource::SYS_PLL)
+    if constexpr (config.adcSource == libmcuhw::clock::periSource::SYS_PLL)
       return config.mainFreq;
-    else if constexpr (config.adcSource == libMcuHw::clock::periSource::FRO)
+    else if constexpr (config.adcSource == libmcuhw::clock::periSource::FRO)
       return config.froFreq;
     else
       static_assert(false, "Not available/implemented clock source!");
@@ -75,5 +75,5 @@ struct adc : libmcu::PeripheralBase {
   static constexpr libmcu::hwAddressType adcAddress = adcAddress_; /*!< peripheral address */
 };
 
-}  // namespace libMcuLL::adc
+}  // namespace libmcull::adc
 #endif

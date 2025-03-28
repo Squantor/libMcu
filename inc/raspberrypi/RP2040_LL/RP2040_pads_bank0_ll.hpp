@@ -13,9 +13,9 @@
 
 #include "RP2040_pads_ll.hpp"
 
-namespace libMcuLL::padsBank0 {
-using namespace libMcuLL::pads;
-namespace hardware = libMcuHw::padsBank0;
+namespace libmcull::padsBank0 {
+using namespace libmcull::pads;
+namespace hardware = libmcuhw::padsBank0;
 
 /**
  * @brief
@@ -54,12 +54,12 @@ struct padsBank0 : libmcu::PeripheralBase {
    *
    * @return return pointer to peripheral
    */
-  static libMcuHw::padsBank0::padsBank0* padsBank0Peripheral() {
-    return reinterpret_cast<libMcuHw::padsBank0::padsBank0*>(padsBank0Address);
+  static libmcuhw::padsBank0::padsBank0* padsBank0Peripheral() {
+    return reinterpret_cast<libmcuhw::padsBank0::padsBank0*>(padsBank0Address);
   }
 
  private:
   static constexpr libmcu::hwAddressType padsBank0Address = padsBank0Address_; /*!< peripheral address */
 };
-}  // namespace libMcuLL::padsBank0
+}  // namespace libmcull::padsBank0
 #endif

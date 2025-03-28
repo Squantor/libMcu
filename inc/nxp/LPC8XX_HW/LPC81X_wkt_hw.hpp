@@ -11,7 +11,7 @@
 #ifndef LPC81X_WKT_REGS_HPP
 #define LPC81X_WKT_REGS_HPP
 
-namespace libMcuLL::hw::wkt {
+namespace libmcuhw::wkt {
 
 /**
  * @brief wakeup timer register definitions
@@ -21,5 +21,5 @@ struct wkt {
   std::uint32_t Reserved[2];
   volatile std::uint32_t COUNT; /*!< Alarm/Wakeup Timer Counter register */
 };
-}  // namespace libMcuLL::hw::wkt
+}  // namespace libmcuhw::wkt
 #endif

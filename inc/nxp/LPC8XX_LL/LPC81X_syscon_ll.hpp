@@ -11,8 +11,8 @@
 #ifndef LPC81X_SYSCON_HPP
 #define LPC81X_SYSCON_HPP
 
-namespace libMcuLL::sw::syscon {
-using namespace hw::syscon;
+namespace libmcull::sw::syscon {
+using namespace libmcuhw::syscon;
 
 /**
  * @brief Peripheral reset options
@@ -261,12 +261,12 @@ struct syscon : libmcu::PeripheralBase {
    *
    * @return return pointer to syscon registers
    */
-  constexpr static hw::syscon::syscon *sysconPeripheral() {
-    return reinterpret_cast<hw::syscon::syscon *>(sysconAddress);
+  constexpr static libmcuhw::syscon::syscon *sysconPeripheral() {
+    return reinterpret_cast<libmcuhw::syscon::syscon *>(sysconAddress);
   }
 
  private:
   constexpr static libmcu::hwAddressType sysconAddress = sysconAddress_; /*!< peripheral address */
 };
-}  // namespace libMcuLL::sw::syscon
+}  // namespace libmcull::sw::syscon
 #endif

@@ -12,7 +12,7 @@
 #define LPC84X_HAL_SPI_COMMON_HPP
 
 namespace libmcuhal::spi {
-namespace hardware = libMcuHw::spi;
+namespace hardware = libmcuhw::spi;
 /**
  * @brief allowed SPI chip selects
  * We use a bit mask pattern as that matches the SPI peripheral

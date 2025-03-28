@@ -14,7 +14,7 @@
 #include "../libmcu/libmcull.hpp"
 #include "../libmcu/libmcu_functions_CM0.hpp"
 
-namespace libMcuHw {
+namespace libmcuhw {
 // MCU configuration options
 namespace core {
 constexpr inline std::uint32_t revision = 0x0001; /*!< Revision number */
@@ -45,7 +45,7 @@ enum class interrupts : int8_t {
   dummy1 = 1,   /*!< used only for the tests */
   dummy12 = 12, /*!< used only for the tests */
 };
-}  // namespace libMcuHw
+}  // namespace libmcuhw
 
 #include "../CortexM/cortex_m0plus.hpp"
 

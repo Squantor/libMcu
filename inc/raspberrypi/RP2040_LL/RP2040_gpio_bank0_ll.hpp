@@ -11,7 +11,7 @@
 #ifndef RP2040_GPIO_BANK0_SW_HPP
 #define RP2040_GPIO_BANK0_SW_HPP
 
-namespace libMcuLL::gpioBank0 {
+namespace libmcull::gpioBank0 {
 template <libmcu::ioBank0BaseAddress const& gpioBank0Address_>
 struct gpioBank0 : libmcu::PeripheralBase {
   /**
@@ -27,7 +27,7 @@ struct gpioBank0 : libmcu::PeripheralBase {
   template <typename PIN>
   constexpr void setup(PIN& pin) {
     gpioBank0Peripheral()->GPIO[pin.pinIndex].CTRL =
-      libMcuHw::gpioBank0::CTRL::FUNCSEL(static_cast<std::uint32_t>(pin.functionSelect));
+      libmcuhw::gpioBank0::CTRL::FUNCSEL(static_cast<std::uint32_t>(pin.functionSelect));
   }
   // TODO: Make setup method with overrides
   /**
@@ -35,12 +35,12 @@ struct gpioBank0 : libmcu::PeripheralBase {
    *
    * @return return pointer to peripheral
    */
-  static libMcuHw::gpioBank0::gpioBank0* gpioBank0Peripheral() {
-    return reinterpret_cast<libMcuHw::gpioBank0::gpioBank0*>(ioBank0Address);
+  static libmcuhw::gpioBank0::gpioBank0* gpioBank0Peripheral() {
+    return reinterpret_cast<libmcuhw::gpioBank0::gpioBank0*>(ioBank0Address);
   }
 
  private:
   static constexpr libmcu::hwAddressType ioBank0Address = gpioBank0Address_; /*!< peripheral address */
 };
-}  // namespace libMcuLL::gpioBank0
+}  // namespace libmcull::gpioBank0
 #endif

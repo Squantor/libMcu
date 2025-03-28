@@ -11,7 +11,7 @@
 #ifndef LPC81X_MRT_REGS_HPP
 #define LPC81X_MRT_REGS_HPP
 
-namespace libMcuLL::hw::mrt {
+namespace libmcuhw::mrt {
 
 /**
  * @brief
@@ -34,5 +34,5 @@ struct mrt {
   volatile std::uint32_t IRQ_FLAG;
 };
 
-}  // namespace libMcuLL::hw::mrt
+}  // namespace libmcuhw::mrt
 #endif

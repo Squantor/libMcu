@@ -11,7 +11,7 @@
 #ifndef RP2040_WATCHDOG_HW_HPP
 #define RP2040_WATCHDOG_HW_HPP
 
-namespace libMcuHw::watchdog {
+namespace libmcuhw::watchdog {
 /**
  * @brief Watchdog register definitions
  */
@@ -21,5 +21,5 @@ struct watchdog {
 namespace DUMMY {
 constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /*!< Mask for allowed bits */
 }  // namespace DUMMY
-}  // namespace libMcuHw::watchdog
+}  // namespace libmcuhw::watchdog
 #endif

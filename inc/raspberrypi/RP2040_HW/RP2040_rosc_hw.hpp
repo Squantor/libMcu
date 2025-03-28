@@ -11,7 +11,7 @@
 #ifndef RP2040_ROSC_HW_HPP
 #define RP2040_ROSC_HW_HPP
 
-namespace libMcuHw::rosc {
+namespace libmcuhw::rosc {
 /**
  * @brief ROSC register definitions
  */
@@ -153,5 +153,5 @@ namespace COUNT {
 constexpr inline std::uint32_t RESERVED_MASK{0x0000'0000u}; /*!< Mask for allowed bits */
 constexpr inline std::uint32_t COUNT_MASK{0xFFu << 0};      /*!< Down counter mask */
 }  // namespace COUNT
-}  // namespace libMcuHw::rosc
+}  // namespace libmcuhw::rosc
 #endif

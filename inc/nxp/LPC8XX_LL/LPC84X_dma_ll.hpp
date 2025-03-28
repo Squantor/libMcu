@@ -13,9 +13,9 @@
 
 #include <array>
 
-namespace libMcuLL::dma {
+namespace libmcull::dma {
 
-namespace hardware = libMcuHw::dma;
+namespace hardware = libmcuhw::dma;
 
 using DescriptorTable = std::array<hardware::DmaDescriptor, hardware::kChannelCount>;
 
@@ -449,6 +449,6 @@ struct Dma : libmcu::PeripheralBase {
   alignas(512) DescriptorTable descriptors_;
 };
 
-}  // namespace libMcuLL::dma
+}  // namespace libmcull::dma
 
 #endif

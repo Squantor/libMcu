@@ -11,8 +11,8 @@
 #ifndef LPC84X_SWM_LL_HPP
 #define LPC84X_SWM_LL_HPP
 
-namespace libMcuLL::swm {
-namespace hardware = libMcuHw::swm;
+namespace libmcull::swm {
+namespace hardware = libmcuhw::swm;
 template <libmcu::swmBaseAddress swmAddress_>
 struct swm : libmcu::PeripheralBase {
   /**
@@ -83,5 +83,5 @@ struct swm : libmcu::PeripheralBase {
  private:
   static constexpr libmcu::hwAddressType swmAddress = swmAddress_; /*!< peripheral address */
 };
-}  // namespace libMcuLL::swm
+}  // namespace libmcull::swm
 #endif

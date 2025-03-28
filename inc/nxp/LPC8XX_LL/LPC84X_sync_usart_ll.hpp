@@ -12,7 +12,7 @@
 #define LPC84X_SYNC_USART_LL_HPP
 
 namespace libmcull::usart {
-namespace hardware = ::libMcuHw::usart;
+namespace hardware = ::libmcuhw::usart;
 /**
  * @brief amount of bits to transmit
  */
@@ -77,7 +77,7 @@ struct SyncUart : libmcull::LlSyncUartBase {
    * @param stop_bits Amount of stop bits
    * @return actual baud rate
    */
-  template <const libMcuHw::clock::periClockConfig &clock_config>
+  template <const libmcuhw::clock::periClockConfig &clock_config>
   constexpr std::uint32_t Init(std::uint32_t baud_rate, UartParities parity = UartParities::kNone,
                                UartStops stop_bits = UartStops::kStop1, UartLengths length_bits = UartLengths::kSize8) {
     std::uint32_t frequency = GetInputClockFreq<clock_config>();
@@ -123,19 +123,19 @@ struct SyncUart : libmcull::LlSyncUartBase {
    * @tparam config clock configuration
    * @return current input clock frequency
    */
-  template <const libMcuHw::clock::periClockConfig &clock_config>
+  template <const libmcuhw::clock::periClockConfig &clock_config>
   constexpr std::uint32_t GetInputClockFreq() {
     // constexpr check if we configure the right peripheral
-    if constexpr ((usartAddress_ == libMcuHw::usart0Address) && (clock_config.peripheral == libMcuHw::clock::periSelect::UART0))
+    if constexpr ((usartAddress_ == libmcuhw::usart0Address) && (clock_config.peripheral == libmcuhw::clock::periSelect::UART0))
       return clock_config.getFrequency();
-    else if constexpr ((usartAddress_ == libMcuHw::usart1Address) &&
-                       (clock_config.peripheral == libMcuHw::clock::periSelect::UART1))
+    else if constexpr ((usartAddress_ == libmcuhw::usart1Address) &&
+                       (clock_config.peripheral == libmcuhw::clock::periSelect::UART1))
       return clock_config.getFrequency();
-    else if constexpr ((usartAddress_ == libMcuHw::usart2Address) &&
-                       (clock_config.peripheral == libMcuHw::clock::periSelect::UART2))
+    else if constexpr ((usartAddress_ == libmcuhw::usart2Address) &&
+                       (clock_config.peripheral == libmcuhw::clock::periSelect::UART2))
       return clock_config.getFrequency();
-    else if constexpr ((usartAddress_ == libMcuHw::usart3Address) &&
-                       (clock_config.peripheral == libMcuHw::clock::periSelect::UART3))
+    else if constexpr ((usartAddress_ == libmcuhw::usart3Address) &&
+                       (clock_config.peripheral == libmcuhw::clock::periSelect::UART3))
       return clock_config.getFrequency();
     else
       static_assert(false, "Clock config and peripherals unknown or not matching!");

@@ -11,8 +11,8 @@
 #ifndef RP2040_PLL_SW_HPP
 #define RP2040_PLL_SW_HPP
 
-namespace libMcuLL::pll {
-namespace hardware = libMcuHw::pll;
+namespace libmcull::pll {
+namespace hardware = libmcuhw::pll;
 /**
  * @brief
  * @tparam pllAddress_
@@ -48,26 +48,26 @@ struct pll : libmcu::PeripheralBase {
    * @return return pointer to peripheral
    */
   static hardware::pll* pllPeripheralSet() {
-    return reinterpret_cast<hardware::pll*>(pllAddress + libMcuHw::peripheralOffsetSet);
+    return reinterpret_cast<hardware::pll*>(pllAddress + libmcuhw::peripheralOffsetSet);
   }
   /**
    * @brief get registers from peripheral for atomic Clear access
    * @return return pointer to peripheral
    */
   static hardware::pll* pllPeripheralClear() {
-    return reinterpret_cast<hardware::pll*>(pllAddress + libMcuHw::peripheralOffsetClear);
+    return reinterpret_cast<hardware::pll*>(pllAddress + libmcuhw::peripheralOffsetClear);
   }
   /**
    * @brief get registers from peripheral for atomic XOR access
    * @return return pointer to peripheral
    */
   static hardware::pll* pllPeripheralXor() {
-    return reinterpret_cast<hardware::pll*>(pllAddress + libMcuHw::peripheralOffsetXor);
+    return reinterpret_cast<hardware::pll*>(pllAddress + libmcuhw::peripheralOffsetXor);
   }
 
  private:
   static constexpr libmcu::hwAddressType pllAddress = pllAddress_; /*!< peripheral address */
 };
-}  // namespace libMcuLL::pll
+}  // namespace libmcull::pll
 
 #endif

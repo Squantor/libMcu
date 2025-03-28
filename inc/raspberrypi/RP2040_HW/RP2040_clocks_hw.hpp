@@ -11,7 +11,7 @@
 #ifndef RP2040_CLOCKS_HW_HPP
 #define RP2040_CLOCKS_HW_HPP
 
-namespace libMcuHw::clocks {
+namespace libmcuhw::clocks {
 /**
  * @brief Clock indexes available of CLK
  *
@@ -231,5 +231,5 @@ constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /*!< Mask for allowe
 namespace INTS {
 constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /*!< Mask for allowed bits */
 }  // namespace INTS
-}  // namespace libMcuHw::clocks
+}  // namespace libmcuhw::clocks
 #endif

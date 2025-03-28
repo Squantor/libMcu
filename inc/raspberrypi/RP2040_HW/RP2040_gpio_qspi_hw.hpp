@@ -11,7 +11,7 @@
 #ifndef RP2040_GPIO_QSPI_HW_HPP
 #define RP2040_GPIO_QSPI_HW_HPP
 
-namespace libMcuHw::gpioQspi {
+namespace libmcuhw::gpioQspi {
 /**
  * @brief QSPI GPIO register definitions
  */
@@ -21,5 +21,5 @@ struct gpioQspi {
 namespace DUMMY {
 constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /*!< Mask for allowed bits */
 }  // namespace DUMMY
-}  // namespace libMcuHw::gpioQspi
+}  // namespace libmcuhw::gpioQspi
 #endif

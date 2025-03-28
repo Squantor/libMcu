@@ -11,7 +11,7 @@
 #ifndef LPC84X_WWDT_HW_HPP
 #define LPC84X_WWDT_HW_HPP
 
-namespace libMcuHw::wwdt {
+namespace libmcuhw::wwdt {
 
 /**
  * @brief wwdt register definitions
@@ -25,5 +25,5 @@ struct wwdt {
   volatile std::uint32_t WARNINT;  /*!< Watchdog Warning Interrupt compare value */
   volatile std::uint32_t WINDOW;   /*!< Watchdog Window compare valu */
 };
-}  // namespace libMcuHw::wwdt
+}  // namespace libmcuhw::wwdt
 #endif

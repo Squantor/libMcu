@@ -10,8 +10,8 @@
  */
 #ifndef STM32F031K6T_PINS_HPP
 #define STM32F031K6T_PINS_HPP
-namespace libMcuHw {
-namespace hardware = libMcuHw::gpio;
+namespace libmcuhw {
+namespace hardware = libmcuhw::gpio;
 
 /**
  * @brief pins available on the STM32F031K6T
@@ -110,14 +110,14 @@ enum class IOfuncts : std::uint8_t {
  * @brief Available pin function selects available
  */
 enum class IOfunctSelects : std::uint8_t {
-  AF0 = libMcuHw::gpio::AFR::AF0, /*!< Alternate function 0 */
-  AF1 = libMcuHw::gpio::AFR::AF1, /*!< Alternate function 1 */
-  AF2 = libMcuHw::gpio::AFR::AF2, /*!< Alternate function 2 */
-  AF3 = libMcuHw::gpio::AFR::AF3, /*!< Alternate function 3 */
-  AF4 = libMcuHw::gpio::AFR::AF4, /*!< Alternate function 4 */
-  AF5 = libMcuHw::gpio::AFR::AF5, /*!< Alternate function 5 */
-  AF6 = libMcuHw::gpio::AFR::AF6, /*!< Alternate function 6 */
-  AF7 = libMcuHw::gpio::AFR::AF7, /*!< Alternate function 7 */
+  AF0 = libmcuhw::gpio::AFR::AF0, /*!< Alternate function 0 */
+  AF1 = libmcuhw::gpio::AFR::AF1, /*!< Alternate function 1 */
+  AF2 = libmcuhw::gpio::AFR::AF2, /*!< Alternate function 2 */
+  AF3 = libmcuhw::gpio::AFR::AF3, /*!< Alternate function 3 */
+  AF4 = libmcuhw::gpio::AFR::AF4, /*!< Alternate function 4 */
+  AF5 = libmcuhw::gpio::AFR::AF5, /*!< Alternate function 5 */
+  AF6 = libmcuhw::gpio::AFR::AF6, /*!< Alternate function 6 */
+  AF7 = libmcuhw::gpio::AFR::AF7, /*!< Alternate function 7 */
   NONE = 0xff,                    /*!< No alternate function */
 };
 
@@ -148,6 +148,6 @@ struct pin<IOports::PORTA, IOpins::PA8, IOfuncts::MCO> : libmcu::PinBase {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::AF0;
 };
 
-}  // namespace libMcuHw
+}  // namespace libmcuhw
 
 #endif

@@ -11,7 +11,7 @@
 #ifndef LPC84X_ADC_HW_HPP
 #define LPC84X_ADC_HW_HPP
 
-namespace libMcuHw::adc {
+namespace libmcuhw::adc {
 /**
  * @brief
  */
@@ -150,5 +150,5 @@ constexpr inline std::uint32_t RESERVED_MASK{0xF3FF'FFFFu}; /*!< Register mask f
 namespace TRM {
 constexpr inline std::uint32_t RESERVED_MASK{0x0000'0020u}; /*!< Register mask for allowed bits */
 }
-}  // namespace libMcuHw::adc
+}  // namespace libmcuhw::adc
 #endif

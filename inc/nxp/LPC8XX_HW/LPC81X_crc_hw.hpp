@@ -11,7 +11,7 @@
 #ifndef LPC81X_CRC_REGS_HPP
 #define LPC81X_CRC_REGS_HPP
 
-namespace libMcuLL::hw::crc {
+namespace libmcuhw::crc {
 
 /**
  * @brief gpio register definitions
@@ -27,5 +27,5 @@ struct crc {
   };
 };
 
-}  // namespace libMcuLL::hw::crc
+}  // namespace libmcuhw::crc
 #endif

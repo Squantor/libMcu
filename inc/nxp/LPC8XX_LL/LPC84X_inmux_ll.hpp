@@ -11,8 +11,8 @@
 #ifndef LPC84X_INMUX_LL_HPP
 #define LPC84X_INMUX_LL_HPP
 
-namespace libMcuLL::inmux {
-namespace hardware = libMcuHw::inmux;
+namespace libmcull::inmux {
+namespace hardware = libmcuhw::inmux;
 
 /**
  * @brief SCT0 input index
@@ -93,5 +93,5 @@ struct InMux : libmcu::PeripheralBase {
  private:
   static constexpr libmcu::hwAddressType in_mux_address_ = in_mux_address; /*!< peripheral address */
 };
-}  // namespace libMcuLL::inmux
+}  // namespace libmcull::inmux
 #endif

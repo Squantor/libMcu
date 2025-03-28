@@ -11,7 +11,7 @@
 #ifndef LPC81X_SMW_REGS_HPP
 #define LPC81X_SWM_REGS_HPP
 
-namespace libMcuLL::hw::swm {
+namespace libmcuhw::swm {
 /**
  * @brief
  */
@@ -662,5 +662,5 @@ struct swm {
   volatile std::uint32_t RESERVED0[103]; /*!< reserved*/
   volatile std::uint32_t PINENABLE0;     /*!< Pin Enable register */
 };
-}  // namespace libMcuLL::hw::swm
+}  // namespace libmcuhw::swm
 #endif

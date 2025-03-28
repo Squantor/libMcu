@@ -11,7 +11,7 @@
 #ifndef RP2040_PADS_HW_HPP
 #define RP2040_PADS_HW_HPP
 
-namespace libMcuHw::pads {
+namespace libmcuhw::pads {
 
 namespace VOLTAGE_SELECT {
 constexpr inline std::uint32_t RESERVED_MASK{0x0000'0001u}; /*!< Mask for allowed bits */
@@ -40,5 +40,5 @@ constexpr inline std::uint32_t PDE{1u << 2};      /*!< Pulldown enable */
 constexpr inline std::uint32_t SCHMITT{1u << 1};  /*!< Schmitt trigger enable */
 constexpr inline std::uint32_t SLEWFAST{1u << 0}; /*!< Fast slew rate control */
 }  // namespace GPIO
-}  // namespace libMcuHw::pads
+}  // namespace libmcuhw::pads
 #endif

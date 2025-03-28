@@ -11,7 +11,7 @@
 #ifndef STM32F0_SYSCFG_HW_HPP
 #define STM32F0_SYSCFG_HW_HPP
 
-namespace libMcuHw::syscfg {
+namespace libmcuhw::syscfg {
 /**
  * @brief syscfg register definitions
  */
@@ -30,5 +30,5 @@ constexpr inline std::uint32_t RESERVED_MASK = 0xFFFFFFFFu; /*!< register mask f
 namespace CFGR2 {
 constexpr inline std::uint32_t RESERVED_MASK = 0xFFFFFFFFu; /*!< register mask for allowed bits */
 }
-}  // namespace libMcuHw::syscfg
+}  // namespace libmcuhw::syscfg
 #endif

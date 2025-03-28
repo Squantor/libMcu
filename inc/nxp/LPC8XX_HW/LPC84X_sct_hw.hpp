@@ -11,7 +11,7 @@
 #ifndef LPC84X_SCT_HW_HPP
 #define LPC84X_SCT_HW_HPP
 
-namespace libMcuHw::sct {
+namespace libmcuhw::sct {
 /**
  * @brief SCT register definitions
  */
@@ -298,5 +298,5 @@ constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask fo
 namespace OUT_CLR {
 constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
-}  // namespace libMcuHw::sct
+}  // namespace libmcuhw::sct
 #endif

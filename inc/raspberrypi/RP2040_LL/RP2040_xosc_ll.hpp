@@ -11,8 +11,8 @@
 #ifndef RP2040_XOSC_SW_HPP
 #define RP2040_XOSC_SW_HPP
 
-namespace libMcuLL::xosc {
-namespace hardware = libMcuHw::xosc;
+namespace libmcull::xosc {
+namespace hardware = libmcuhw::xosc;
 template <libmcu::xoscBaseAddress const& xoscAddress_>
 struct xosc : libmcu::PeripheralBase {
   /**
@@ -50,25 +50,25 @@ struct xosc : libmcu::PeripheralBase {
    * @return return pointer to peripheral
    */
   static hardware::xosc* xoscPeripheralSet() {
-    return reinterpret_cast<hardware::xosc*>(xoscAddress + libMcuHw::peripheralOffsetSet);
+    return reinterpret_cast<hardware::xosc*>(xoscAddress + libmcuhw::peripheralOffsetSet);
   }
   /**
    * @brief get registers from peripheral for atomic Clear access
    * @return return pointer to peripheral
    */
   static hardware::xosc* xoscPeripheralClear() {
-    return reinterpret_cast<hardware::xosc*>(xoscAddress + libMcuHw::peripheralOffsetClear);
+    return reinterpret_cast<hardware::xosc*>(xoscAddress + libmcuhw::peripheralOffsetClear);
   }
   /**
    * @brief get registers from peripheral for atomic XOR access
    * @return return pointer to peripheral
    */
   static hardware::xosc* xoscPeripheralXor() {
-    return reinterpret_cast<hardware::xosc*>(xoscAddress + libMcuHw::peripheralOffsetXor);
+    return reinterpret_cast<hardware::xosc*>(xoscAddress + libmcuhw::peripheralOffsetXor);
   }
 
  private:
   static constexpr libmcu::hwAddressType xoscAddress = xoscAddress_; /*!< peripheral address */
 };
-}  // namespace libMcuLL::xosc
+}  // namespace libmcull::xosc
 #endif

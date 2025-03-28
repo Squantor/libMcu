@@ -11,8 +11,8 @@
 #ifndef RP2040_PADS_QSPI_SW_HPP
 #define RP2040_PADS_QSPI_SW_HPP
 
-namespace libMcuLL::padsQspi {
-namespace hardware = libMcuHw::padsQspi;
+namespace libmcull::padsQspi {
+namespace hardware = libmcuhw::padsQspi;
 /**
  * @brief
  * @tparam padsQspiAddress_
@@ -34,5 +34,5 @@ struct padsQspi : libmcu::PeripheralBase {
  private:
   static constexpr libmcu::hwAddressType padsQspiAddress = padsQspiAddress_; /*!< peripheral address */
 };
-}  // namespace libMcuLL::padsQspi
+}  // namespace libmcull::padsQspi
 #endif

@@ -11,7 +11,7 @@
 #ifndef LPC84X_CAPT_HW_HPP
 #define LPC84X_CAPT_HW_HPP
 
-namespace libMcuHw::capt {
+namespace libmcuhw::capt {
 /**
  * @brief CAPT register definitions
  */
@@ -28,5 +28,5 @@ struct capt {
   std::uint8_t RESERVED_2[4056];        /*!< Reserved */
   volatile const std::uint32_t ID;      /*!< Block ID */
 };
-}  // namespace libMcuHw::capt
+}  // namespace libmcuhw::capt
 #endif

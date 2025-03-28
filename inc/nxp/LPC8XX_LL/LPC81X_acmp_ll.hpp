@@ -11,8 +11,8 @@
 #ifndef LPC81X_ACMP_HPP
 #define LPC81X_ACMP_HPP
 
-namespace libMcuLL::sw::acmp {
-namespace hardware = hw::acmp;
+namespace libmcull::sw::acmp {
+namespace hardware = libmcuhw::acmp;
 
 /**
  * @brief possible inputs for plus comparator input
@@ -137,12 +137,12 @@ struct acmp : libmcu::PeripheralBase {
    * @brief get registers from peripheral
    * @return return pointer to analog comparator registers
    */
-  static hw::acmp::acmp* acmpPeripheral() {
-    return reinterpret_cast<hw::acmp::acmp*>(acmpAddress);
+  static libmcuhw::acmp::acmp* acmpPeripheral() {
+    return reinterpret_cast<libmcuhw::acmp::acmp*>(acmpAddress);
   }
 
  private:
   static constexpr libmcu::hwAddressType acmpAddress{acmpAddress_}; /*!< peripheral address */
 };
-}  // namespace libMcuLL::sw::acmp
+}  // namespace libmcull::sw::acmp
 #endif

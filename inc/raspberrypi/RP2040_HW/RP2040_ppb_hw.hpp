@@ -11,7 +11,7 @@
 #ifndef RP2040_PPB_HW_HPP
 #define RP2040_PPB_HW_HPP
 
-namespace libMcuHw::ppb {
+namespace libmcuhw::ppb {
 /**
  * @brief PPB register definitions
  */
@@ -21,5 +21,5 @@ struct ppb {
 namespace DUMMY {
 constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /*!< Mask for allowed bits */
 }  // namespace DUMMY
-}  // namespace libMcuHw::ppb
+}  // namespace libmcuhw::ppb
 #endif

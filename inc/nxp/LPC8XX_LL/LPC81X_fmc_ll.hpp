@@ -11,8 +11,8 @@
 #ifndef LPC81X_FMC_HPP
 #define LPC81X_FMC_HPP
 
-namespace libMcuLL::sw::fmc {
-using namespace libMcuLL::hw::fmc;
+namespace libmcull::sw::fmc {
+using namespace libmcuhw::fmc;
 
 enum class waitstates : std::uint32_t {
   WAIT_1_CLOCK = FLASHCFG::FLASHTIM_1_CLOCK, /*!< 1 clock flash waitstate, use up to 20MHz clock */
@@ -36,12 +36,12 @@ struct fmc {
    *
    * @return return pointer to gpio registers
    */
-  constexpr static hw::fmc::fmc *fmcPeripheral() {
-    return reinterpret_cast<hw::fmc::fmc *>(fmcAddress);
+  constexpr static libmcuhw::fmc::fmc *fmcPeripheral() {
+    return reinterpret_cast<libmcuhw::fmc::fmc *>(fmcAddress);
   }
 
  private:
   static constexpr libmcu::hwAddressType fmcAddress = fmcAddress_; /*!< peripheral address */
 };
-}  // namespace libMcuLL::sw::fmc
+}  // namespace libmcull::sw::fmc
 #endif

@@ -14,8 +14,8 @@
 #include "LPC84X_hal_i2c_common.hpp"
 
 namespace libmcuhal::i2c {
-namespace hardware = libMcuHw::i2c;
-namespace nvic = libMcuHw::nvic;
+namespace hardware = libmcuhw::i2c;
+namespace nvic = libmcuhw::nvic;
 /**
  * @brief asynchronous I2C HAL polling implementation
  * @tparam i2cBaseAddress_ i2c peripheral base address
@@ -35,7 +35,7 @@ struct i2cSyncPol {
    * @param timeout clocks to timeout
    * @return actual bit rate
    */
-  template <const libMcuHw::clock::periClockConfig& t_clockConfig>
+  template <const libmcuhw::clock::periClockConfig& t_clockConfig>
   constexpr std::uint32_t init(std::uint32_t bitRate, std::uint32_t timeout) {
     /*
     we multiply by 20 as by default MSTTIME divides the timing by 2 and I2C peripheral needs 10 clocks for something.
@@ -189,7 +189,7 @@ struct i2cSyncPol {
    */
   template <auto& config>
   constexpr std::uint32_t getInputClockFreq() {
-    static_assert(config.peripheral == libMcuHw::clock::periSelect::I2C0);
+    static_assert(config.peripheral == libmcuhw::clock::periSelect::I2C0);
     return config.getFrequency();
   }
   /**

@@ -11,7 +11,7 @@
 #ifndef LPC84X_SYSCON_HW_HPP
 #define LPC84X_SYSCON_HW_HPP
 
-namespace libMcuHw::syscon {
+namespace libmcuhw::syscon {
 
 enum class clockSourceSelects : std::size_t {
   UART0 = 0u,
@@ -423,5 +423,5 @@ constexpr inline std::uint32_t ACMP{1 << 15};               /*!< ACMP power */
 namespace DEVICEID {
 constexpr inline std::uint32_t RESERVED_MASK{0x0000'0000u}; /*!< register mask for allowed bits */
 }  // namespace DEVICEID
-}  // namespace libMcuHw::syscon
+}  // namespace libmcuhw::syscon
 #endif

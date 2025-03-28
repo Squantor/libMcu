@@ -10,8 +10,8 @@
  */
 #ifndef SCB_LL_HPP
 #define SCB_LL_HPP
-namespace libMcuLL::scb {
-namespace hardware = libMcuHw::scb;
+namespace libmcull::scb {
+namespace hardware = libmcuhw::scb;
 template <libmcu::scbBaseAddress const& scbAddress_>
 struct scb {
   /**
@@ -45,7 +45,7 @@ struct scb {
    * @param vectorTable address to an array of uint32_t's that contains the interrupt vector table
    */
   constexpr void setVtor(std::uint32_t* vectorTable) {
-    static_assert(libMcuHw::vtor::present == true);
+    static_assert(libmcuhw::vtor::present == true);
     std::uint32_t vtorAddress = reinterpret_cast<std::uint32_t>(vectorTable);
     scbPeripheral()->VTOR = hardware::VTOR::TBLOFF(vtorAddress);
   }
@@ -71,11 +71,11 @@ struct scb {
    *
    */
   [[noreturn]] constexpr void reset() {
-    libMcuLL::dsb();
+    libmcull::dsb();
     scbPeripheral()->AIRCR = hardware::AIRCR::VECTKEY_KEY | hardware::AIRCR::SYSRESETREQ;
-    libMcuLL::dsb();
+    libmcull::dsb();
     while (1) {
-      libMcuLL::nop();
+      libmcull::nop();
     }
   }
   /**
@@ -89,5 +89,5 @@ struct scb {
 
   static constexpr libmcu::hwAddressType scbAddress = scbAddress_; /*!< scb peripheral address */
 };
-}  // namespace libMcuLL::scb
+}  // namespace libmcull::scb
 #endif

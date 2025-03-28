@@ -10,7 +10,7 @@
  */
 #ifndef LPC81X_GPIO_REGS_HPP
 #define LPC81X_GPIO_REGS_HPP
-namespace libMcuLL::hw::gpio {
+namespace libmcuhw::gpio {
 
 /**
  * @brief gpio register definitions
@@ -27,5 +27,5 @@ struct gpio {
   volatile std::uint32_t NOT[32];   /*!< Toggle port n */
 };
 
-}  // namespace libMcuLL::hw::gpio
+}  // namespace libmcuhw::gpio
 #endif

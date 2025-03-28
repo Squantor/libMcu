@@ -11,7 +11,7 @@
 #ifndef LPC81X_IOCON_REGS_HPP
 #define LPC81X_IOCON_REGS_HPP
 
-namespace libMcuLL::hw::iocon {
+namespace libmcuhw::iocon {
 
 /**
  * @brief IOCON register definitions
@@ -42,5 +42,5 @@ constexpr inline std::uint32_t I2C_STD{0u << 8};       /*!< standard/fast I2C mo
 constexpr inline std::uint32_t IO_STD{1u << 8};        /*!< standard I/O functionality */
 constexpr inline std::uint32_t I2C_FAST{2u << 8};      /*!< fast mode plus I2C */
 }  // namespace PIO
-}  // namespace libMcuLL::hw::iocon
+}  // namespace libmcuhw::iocon
 #endif

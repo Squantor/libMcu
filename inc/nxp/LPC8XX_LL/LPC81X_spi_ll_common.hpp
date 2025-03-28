@@ -14,7 +14,7 @@
 #ifndef LPC81X_SPI_SW_COMMON_HPP
 #define LPC81X_SPI_SW_COMMON_HPP
 
-namespace libMcuLL::sw::spi {
+namespace libmcull::sw::spi {
 using namespace libmcuhw::spi;
 /**
  * @brief SPI hardware chip enables
@@ -46,5 +46,5 @@ enum class slavePolaritySelects : std::uint32_t {
   SPOL_LOW = 0,          /*!< Active low slave select */
   SPOL_HIGH = CFG::SPOL, /*!< Active high slave select*/
 };
-}  // namespace libMcuLL::sw::spi
+}  // namespace libmcull::sw::spi
 #endif

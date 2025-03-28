@@ -11,7 +11,7 @@
 #ifndef LPC84X_SMW_HW_HPP
 #define LPC84X_SWM_HW_HPP
 
-namespace libMcuHw::swm {
+namespace libmcuhw::swm {
 /**
  * @brief
  */
@@ -1326,5 +1326,5 @@ struct swm {
   volatile std::uint32_t PINENABLE0; /*!< Pin enable register 0. Enables fixed-pin functions */
   volatile std::uint32_t PINENABLE1; /*!< Pin enable register 1. Enables fixed-pin functions */
 };
-}  // namespace libMcuHw::swm
+}  // namespace libmcuhw::swm
 #endif

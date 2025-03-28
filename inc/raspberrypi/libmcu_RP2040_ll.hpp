@@ -14,7 +14,7 @@
 #include "../libmcu/libmcull.hpp"
 #include "../libmcu/libmcu_functions_CM0.hpp"
 
-namespace libMcuHw {
+namespace libmcuhw {
 
 // MCU configuration options
 namespace core {
@@ -69,11 +69,11 @@ enum class interrupts : int8_t {
   i2c1 = 24,
   rtc = 26,
 };
-}  // namespace libMcuHw
+}  // namespace libmcuhw
 
 #include <CortexM/cortex_m0plus.hpp>
 
-namespace libMcuHw {
+namespace libmcuhw {
 
 constexpr inline std::uint32_t peripheralOffsetNormal{0x0000'0000u}; /*!< normal peripheral register access offset */
 constexpr inline std::uint32_t peripheralOffsetXor{0x0000'1000u};    /*!< XORed peripheral register access offset */
@@ -117,7 +117,7 @@ constexpr inline libmcu::pioBaseAddress pio1Address{0x5030'0000u};              
 constexpr inline libmcu::sioBaseAddress sioAddress{0xD000'0000u};                     /*!< SIO base address */
 constexpr inline libmcu::ppbBaseAddress ppbAddress{0xE000'0000u};                     /*!< PPB base address */
 
-}  // namespace libMcuHw
+}  // namespace libmcuhw
 
 // includes that define the registers namespace go here.
 #include "RP2040_HW/RP2040_adc_hw.hpp"

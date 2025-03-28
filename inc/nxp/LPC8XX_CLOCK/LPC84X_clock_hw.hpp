@@ -13,7 +13,7 @@
 
 #include "LPC8XX_clock.hpp"
 
-namespace libMcuHw::clock {
+namespace libmcuhw::clock {
 
 /**
  * @brief
@@ -124,6 +124,6 @@ struct periClockConfig {
 /*!< Default clock configuration for LPC840 series*/
 inline mcuClockConfig<clockInputSources::FRO, froDefaultClockFreq, froDefaultClockFreq> const defaultClocks;
 
-}  // namespace libMcuHw::clock
+}  // namespace libmcuhw::clock
 
 #endif

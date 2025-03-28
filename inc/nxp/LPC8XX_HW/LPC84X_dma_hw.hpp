@@ -12,7 +12,7 @@
 #ifndef LPC84X_DMA_HW_HPP
 #define LPC84X_DMA_HW_HPP
 
-namespace libMcuHw::dma {
+namespace libmcuhw::dma {
 
 constexpr std::size_t kChannelCount = 25; /*!< DMA controller channel count */
 /**
@@ -311,5 +311,5 @@ constexpr inline std::size_t GetXFERCOUNT(std::uint32_t xfercfg) {
   return ((xfercfg & kXFERCOUNT_MASK) >> 16) + 1u;
 }
 }  // namespace XFERCFG
-}  // namespace libMcuHw::dma
+}  // namespace libmcuhw::dma
 #endif

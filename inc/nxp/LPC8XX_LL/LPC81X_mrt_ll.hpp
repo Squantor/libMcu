@@ -11,8 +11,8 @@
 #ifndef LPC81X_MRT_HPP
 #define LPC81X_MRT_HPP
 
-namespace libMcuLL::sw::mrt {
-using namespace hw::mrt;
+namespace libmcull::sw::mrt {
+using namespace libmcuhw::mrt;
 template <libmcu::mrtBaseAddress mrtAddress_>
 struct mrt : libmcu::PeripheralBase {
   /**
@@ -20,12 +20,12 @@ struct mrt : libmcu::PeripheralBase {
    *
    * @return return pointer to mrt registers
    */
-  constexpr static hw::mrt::mrt *mrtPeripheral() {
-    return reinterpret_cast<hw::mrt::mrt *>(mrtAddress);
+  constexpr static libmcuhw::mrt::mrt *mrtPeripheral() {
+    return reinterpret_cast<libmcuhw::mrt::mrt *>(mrtAddress);
   }
 
  private:
   static constexpr libmcu::hwAddressType mrtAddress = mrtAddress_; /*!< peripheral address */
 };
-}  // namespace libMcuLL::sw::mrt
+}  // namespace libmcull::sw::mrt
 #endif

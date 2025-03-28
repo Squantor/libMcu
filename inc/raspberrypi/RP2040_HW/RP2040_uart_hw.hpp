@@ -11,7 +11,7 @@
 #ifndef RP2040_UART_HW_HPP
 #define RP2040_UART_HW_HPP
 
-namespace libMcuHw::uart {
+namespace libmcuhw::uart {
 /**
  * @brief UART register definitions
  *
@@ -137,5 +137,5 @@ constexpr inline std::uint32_t DMAONERR{1u << 2};           /*!< DMA on error */
 constexpr inline std::uint32_t TXDMAE{1u << 1};             /*!< Transmit DMA enable */
 constexpr inline std::uint32_t RXDMAE{1u << 0};             /*!< Receive DMA enable */
 }  // namespace UARTDMACR
-}  // namespace libMcuHw::uart
+}  // namespace libmcuhw::uart
 #endif

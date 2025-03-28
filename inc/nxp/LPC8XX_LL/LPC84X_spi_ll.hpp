@@ -12,8 +12,8 @@
 #ifndef LPC84X_SPI_LL_HPP
 #define LPC84X_SPI_LL_HPP
 
-namespace libMcuLL::spi {
-namespace hardware = libMcuHw::spi;
+namespace libmcull::spi {
+namespace hardware = libmcuhw::spi;
 
 /**
  * @brief SPI hardware chip enables
@@ -158,5 +158,5 @@ struct spi {
     receiveBuffer[index] = RXDAT::RXDAT(spiPeripheral()->RXDAT);
   }
 };
-}  // namespace libMcuLL::spi
+}  // namespace libmcull::spi
 #endif

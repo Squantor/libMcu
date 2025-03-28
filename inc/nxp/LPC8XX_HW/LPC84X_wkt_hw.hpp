@@ -11,7 +11,7 @@
 #ifndef LPC84X_WKT_HW_HPP
 #define LPC84X_WKT_HW_HPP
 
-namespace libMcuHw::wkt {
+namespace libmcuhw::wkt {
 
 /**
  * @brief wakeup timer register definitions
@@ -21,5 +21,5 @@ struct wkt {
   std::uint8_t RESERVED_0[8];   /*!< Reserved */
   volatile std::uint32_t COUNT; /*!< Counter register */
 };
-}  // namespace libMcuHw::wkt
+}  // namespace libmcuhw::wkt
 #endif

@@ -13,8 +13,8 @@
 
 #include "LPC81X_usart_ll_common.hpp"
 
-namespace libMcuLL::sw::usart {
-using namespace libMcuLL::hw::usart;
+namespace libmcull::sw::usart {
+using namespace libmcuhw::usart;
 
 /**
  * @brief synchronous USART peripheral instance
@@ -91,12 +91,12 @@ struct usartSync : libmcu::PeripheralBase {
    *
    * @return return pointer to usart registers
    */
-  constexpr static hw::usart::usart *usartPeripheral() {
-    return reinterpret_cast<hw::usart::usart *>(usartAddress);
+  constexpr static libmcuhw::usart::usart *usartPeripheral() {
+    return reinterpret_cast<libmcuhw::usart::usart *>(usartAddress);
   }
 
  private:
   static constexpr libmcu::hwAddressType usartAddress = usartAddress_; /*!< peripheral usartAddress */
 };
-}  // namespace libMcuLL::sw::usart
+}  // namespace libmcull::sw::usart
 #endif

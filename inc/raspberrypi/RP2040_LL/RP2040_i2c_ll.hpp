@@ -11,8 +11,8 @@
 #ifndef RP2040_I2C_SW_HPP
 #define RP2040_I2C_SW_HPP
 
-namespace libMcuLL::i2c {
-namespace hardware = libMcuHw::i2c;
+namespace libmcull::i2c {
+namespace hardware = libmcuhw::i2c;
 /**
  * @brief I2C speed modes
  */
@@ -185,25 +185,25 @@ struct i2c : libmcu::PeripheralBase {
    * @return return pointer to peripheral
    */
   static hardware::i2c* i2cPeripheralSet() {
-    return reinterpret_cast<hardware::i2c*>(i2cAddress + libMcuHw::peripheralOffsetSet);
+    return reinterpret_cast<hardware::i2c*>(i2cAddress + libmcuhw::peripheralOffsetSet);
   }
   /**
    * @brief get registers from peripheral for atomic Clear access
    * @return return pointer to peripheral
    */
   static hardware::i2c* i2cPeripheralClear() {
-    return reinterpret_cast<hardware::i2c*>(i2cAddress + libMcuHw::peripheralOffsetClear);
+    return reinterpret_cast<hardware::i2c*>(i2cAddress + libmcuhw::peripheralOffsetClear);
   }
   /**
    * @brief get registers from peripheral for atomic XOR access
    * @return return pointer to peripheral
    */
   static hardware::i2c* i2cPeripheralXor() {
-    return reinterpret_cast<hardware::i2c*>(i2cAddress + libMcuHw::peripheralOffsetXor);
+    return reinterpret_cast<hardware::i2c*>(i2cAddress + libmcuhw::peripheralOffsetXor);
   }
 
  private:
   static constexpr libmcu::hwAddressType i2cAddress = i2cAddress_; /*!< peripheral address */
 };
-}  // namespace libMcuLL::i2c
+}  // namespace libmcull::i2c
 #endif

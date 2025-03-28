@@ -14,7 +14,7 @@
 #include "../libmcu/libmcull.hpp"
 #include "../libmcu/libmcu_functions_CM0.hpp"
 
-namespace libMcuHw {
+namespace libmcuhw {
 
 // MCU configuration options
 namespace core {
@@ -75,11 +75,11 @@ enum class interrupts : std::int8_t {
   pinint6_uart3 = 30, /*!< Pin interrupt 6 or pattern match engine slice 6 interrupt or UART3 interrupt */
   pinint7_uart4 = 31  /*!< Pin interrupt 7 or pattern match engine slice 7 interrupt or UART4 interrupt */
 };
-}  // namespace libMcuHw
+}  // namespace libmcuhw
 
 #include <CortexM/cortex_m0plus.hpp>
 
-namespace libMcuHw {
+namespace libmcuhw {
 /* Base addresses */
 constexpr inline libmcu::memoryAddress flashBaseAddress{0x0000'0000u};
 constexpr inline libmcu::memoryAddress ramBaseAddress{0x1000'0000u};
@@ -122,13 +122,13 @@ constexpr inline libmcu::mtbBaseAddress mtbAddress{0x5000'C000u};  /*!< MTB base
 /* Direct connected peripherals */
 constexpr inline libmcu::gpioBaseAddress gpioAddress{0xA000'0000u};     /*!< General Purpose I/O base address */
 constexpr inline libmcu::pinintBaseAddress pinintAddress{0xA000'4000u}; /*!< Pin interrupt base address */
-}  // namespace libMcuHw
+}  // namespace libmcuhw
 
 namespace libmcuhw {
 constexpr inline UartBaseAddress kUsart0Address{0x4006'4000u}; /*!< USART 0 base address */
 }  // namespace libmcuhw
 
-namespace libMcuHw::dma {
+namespace libmcuhw::dma {
 /*!
  * @brief Enumeration for the DMA hardware request
  * Defines the structure for the DMA hardware request collections. The user can configure the
@@ -161,7 +161,7 @@ enum class dmaRequestSources : std::uint8_t {
   dac1 = 23u,       /*!< DAC1 DMA REQUEST  */
   capt = 24u,       /*!< CAPT DMA  */
 };
-}  // namespace libMcuHw::dma
+}  // namespace libmcuhw::dma
 
 // includes that define the registers namespace go here.
 #include "LPC8XX_HW/LPC84X_wwdt_hw.hpp"

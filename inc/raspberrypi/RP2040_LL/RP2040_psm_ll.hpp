@@ -11,8 +11,8 @@
 #ifndef RP2040_PSM_SW_HPP
 #define RP2040_PSM_SW_HPP
 
-namespace libMcuLL::psm {
-namespace hardware = libMcuHw::psm;
+namespace libmcull::psm {
+namespace hardware = libmcuhw::psm;
 /**
  * @brief
  * @tparam psmAddress_
@@ -36,5 +36,5 @@ struct psm : libmcu::PeripheralBase {
  private:
   static constexpr libmcu::hwAddressType psmAddress{psmAddress_}; /*!< peripheral address */
 };
-}  // namespace libMcuLL::psm
+}  // namespace libmcull::psm
 #endif

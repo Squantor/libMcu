@@ -11,7 +11,7 @@
 #ifndef RP2040_DMA_HW_HPP
 #define RP2040_DMA_HW_HPP
 
-namespace libMcuHw::dma {
+namespace libmcuhw::dma {
 /**
  * @brief DMA register definitions
  *
@@ -22,5 +22,5 @@ struct dma {
 namespace DUMMY {
 constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /*!< Mask for allowed bits */
 }  // namespace DUMMY
-}  // namespace libMcuHw::dma
+}  // namespace libmcuhw::dma
 #endif

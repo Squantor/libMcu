@@ -14,7 +14,7 @@
 #include "../libmcu/libmcull.hpp"
 #include "../libmcu/libmcu_functions_CM0.hpp"
 
-namespace libMcuHw {
+namespace libmcuhw {
 
 // MCU configuration options
 namespace core {
@@ -65,11 +65,11 @@ enum class interrupts : std::int8_t {
   spi1 = 25,                /*!< SPI1 global Interrupt */
   uart1 = 27                /*!< USART1 global Interrupt & EXTI Line25 Interrupt (USART1 wakeup) */
 };
-}  // namespace libMcuHw
+}  // namespace libmcuhw
 
 #include "../CortexM/cortex_m0.hpp"
 
-namespace libMcuHw {
+namespace libmcuhw {
 /* memory map */
 constexpr inline libmcu::memoryAddress ahb2BaseAddress{0x4800'0000u};
 constexpr inline libmcu::memoryAddress ahb1BaseAddress{0x4002'0000u};
@@ -128,7 +128,7 @@ constexpr inline libmcu::stmBaseAddress tim7Address{0x4000'1400u};      /*!< tim
 constexpr inline libmcu::stmBaseAddress tim6Address{0x4000'1000u};      /*!< timer 6 */
 constexpr inline libmcu::stmBaseAddress tim3Address{0x4000'0400u};      /*!< timer 3 */
 constexpr inline libmcu::stmBaseAddress tim2Address{0x4000'0000u};      /*!< Timer 2 */
-}  // namespace libMcuHw
+}  // namespace libmcuhw
 
 // includes that define the registers namespace go here.
 #include "STM32F0_HW/STM32F0_syscfg_hw.hpp"

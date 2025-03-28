@@ -11,7 +11,7 @@
 
 #ifndef LPC812M101DH20_PINS_HPP
 #define LPC812M101DH20_PINS_HPP
-namespace libMcuLL::hw {
+namespace libmcuhw {
 
 enum pinTypeFlags : std::uint8_t {
   NORMAL = 0u,           /*!< Normal pin without any special handling */
@@ -73,7 +73,7 @@ struct pin<IOports::PORT0, IOpins::PIN00> {
   static constexpr std::uint8_t gpioPinIndex{0u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
-  static constexpr hw::swm::pinAssign pio{hw::swm::pinAssign::PIO0_0};
+  static constexpr libmcuhw::swm::pinAssign pio{libmcuhw::swm::pinAssign::PIO0_0};
 };
 
 /**
@@ -87,7 +87,7 @@ struct pin<IOports::PORT0, IOpins::PIN01> {
   static constexpr std::uint8_t gpioPinIndex{1u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
-  static constexpr hw::swm::pinAssign pio{hw::swm::pinAssign::PIO0_1};
+  static constexpr libmcuhw::swm::pinAssign pio{libmcuhw::swm::pinAssign::PIO0_1};
 };
 
 /**
@@ -101,7 +101,7 @@ struct pin<IOports::PORT0, IOpins::PIN02> {
   static constexpr std::uint8_t gpioPinIndex{2u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
-  static constexpr hw::swm::pinAssign pio{hw::swm::pinAssign::PIO0_2};
+  static constexpr libmcuhw::swm::pinAssign pio{libmcuhw::swm::pinAssign::PIO0_2};
 };
 
 /**
@@ -115,7 +115,7 @@ struct pin<IOports::PORT0, IOpins::PIN03> {
   static constexpr std::uint8_t gpioPinIndex{3u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
-  static constexpr hw::swm::pinAssign pio{hw::swm::pinAssign::PIO0_3};
+  static constexpr libmcuhw::swm::pinAssign pio{libmcuhw::swm::pinAssign::PIO0_3};
 };
 
 /**
@@ -129,7 +129,7 @@ struct pin<IOports::PORT0, IOpins::PIN04> {
   static constexpr std::uint8_t gpioPinIndex{4u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
-  static constexpr hw::swm::pinAssign pio{hw::swm::pinAssign::PIO0_4};
+  static constexpr libmcuhw::swm::pinAssign pio{libmcuhw::swm::pinAssign::PIO0_4};
 };
 
 /**
@@ -143,7 +143,7 @@ struct pin<IOports::PORT0, IOpins::PIN05> {
   static constexpr std::uint8_t gpioPinIndex{5u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
-  static constexpr hw::swm::pinAssign pio{hw::swm::pinAssign::PIO0_5};
+  static constexpr libmcuhw::swm::pinAssign pio{libmcuhw::swm::pinAssign::PIO0_5};
 };
 
 /**
@@ -157,7 +157,7 @@ struct pin<IOports::PORT0, IOpins::PIN06> {
   static constexpr std::uint8_t gpioPinIndex{6u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
-  static constexpr hw::swm::pinAssign pio{hw::swm::pinAssign::PIO0_6};
+  static constexpr libmcuhw::swm::pinAssign pio{libmcuhw::swm::pinAssign::PIO0_6};
 };
 
 /**
@@ -171,7 +171,7 @@ struct pin<IOports::PORT0, IOpins::PIN07> {
   static constexpr std::uint8_t gpioPinIndex{7u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
-  static constexpr hw::swm::pinAssign pio{hw::swm::pinAssign::PIO0_7};
+  static constexpr libmcuhw::swm::pinAssign pio{libmcuhw::swm::pinAssign::PIO0_7};
 };
 
 /**
@@ -185,7 +185,7 @@ struct pin<IOports::PORT0, IOpins::PIN08> {
   static constexpr std::uint8_t gpioPinIndex{8u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
-  static constexpr hw::swm::pinAssign pio{hw::swm::pinAssign::PIO0_8};
+  static constexpr libmcuhw::swm::pinAssign pio{libmcuhw::swm::pinAssign::PIO0_8};
 };
 
 /**
@@ -199,7 +199,7 @@ struct pin<IOports::PORT0, IOpins::PIN09> {
   static constexpr std::uint8_t gpioPinIndex{9u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
-  static constexpr hw::swm::pinAssign pio{hw::swm::pinAssign::PIO0_9};
+  static constexpr libmcuhw::swm::pinAssign pio{libmcuhw::swm::pinAssign::PIO0_9};
 };
 
 /**
@@ -213,7 +213,7 @@ struct pin<IOports::PORT0, IOpins::PIN10> {
   static constexpr std::uint8_t gpioPinIndex{10u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
-  static constexpr hw::swm::pinAssign pio{hw::swm::pinAssign::PIO0_10};
+  static constexpr libmcuhw::swm::pinAssign pio{libmcuhw::swm::pinAssign::PIO0_10};
 };
 
 /**
@@ -227,7 +227,7 @@ struct pin<IOports::PORT0, IOpins::PIN11> {
   static constexpr std::uint8_t gpioPinIndex{11u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
-  static constexpr hw::swm::pinAssign pio{hw::swm::pinAssign::PIO0_11};
+  static constexpr libmcuhw::swm::pinAssign pio{libmcuhw::swm::pinAssign::PIO0_11};
 };
 
 /**
@@ -241,7 +241,7 @@ struct pin<IOports::PORT0, IOpins::PIN12> {
   static constexpr std::uint8_t gpioPinIndex{12u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
-  static constexpr hw::swm::pinAssign pio{hw::swm::pinAssign::PIO0_12};
+  static constexpr libmcuhw::swm::pinAssign pio{libmcuhw::swm::pinAssign::PIO0_12};
 };
 
 /**
@@ -255,7 +255,7 @@ struct pin<IOports::PORT0, IOpins::PIN13> {
   static constexpr std::uint8_t gpioPinIndex{13u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
-  static constexpr hw::swm::pinAssign pio{hw::swm::pinAssign::PIO0_13};
+  static constexpr libmcuhw::swm::pinAssign pio{libmcuhw::swm::pinAssign::PIO0_13};
 };
 
 /**
@@ -269,7 +269,7 @@ struct pin<IOports::PORT0, IOpins::PIN14> {
   static constexpr std::uint8_t gpioPinIndex{14u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
-  static constexpr hw::swm::pinAssign pio{hw::swm::pinAssign::PIO0_14};
+  static constexpr libmcuhw::swm::pinAssign pio{libmcuhw::swm::pinAssign::PIO0_14};
 };
 
 /**
@@ -283,7 +283,7 @@ struct pin<IOports::PORT0, IOpins::PIN15> {
   static constexpr std::uint8_t gpioPinIndex{15u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
-  static constexpr hw::swm::pinAssign pio{hw::swm::pinAssign::PIO0_15};
+  static constexpr libmcuhw::swm::pinAssign pio{libmcuhw::swm::pinAssign::PIO0_15};
 };
 
 /**
@@ -297,7 +297,7 @@ struct pin<IOports::PORT0, IOpins::PIN16> {
   static constexpr std::uint8_t gpioPinIndex{16u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
-  static constexpr hw::swm::pinAssign pio{hw::swm::pinAssign::PIO0_16};
+  static constexpr libmcuhw::swm::pinAssign pio{libmcuhw::swm::pinAssign::PIO0_16};
 };
 
 /**
@@ -311,7 +311,7 @@ struct pin<IOports::PORT0, IOpins::PIN17> {
   static constexpr std::uint8_t gpioPinIndex{17u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
-  static constexpr hw::swm::pinAssign pio{hw::swm::pinAssign::PIO0_17};
+  static constexpr libmcuhw::swm::pinAssign pio{libmcuhw::swm::pinAssign::PIO0_17};
 };
 
 /**
@@ -331,5 +331,5 @@ template <>
 struct port<IOports::PORT0> {
   static constexpr std::uint8_t gpioPortIndex{0u};
 };
-}  // namespace libMcuLL::hw
+}  // namespace libmcuhw
 #endif

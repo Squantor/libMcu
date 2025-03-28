@@ -11,8 +11,8 @@
 #ifndef RP2040_CLOCKS_SW_HPP
 #define RP2040_CLOCKS_SW_HPP
 
-namespace libMcuLL::clocks {
-namespace hardware = libMcuHw::clocks;
+namespace libmcull::clocks {
+namespace hardware = libmcuhw::clocks;
 
 /**
  * @brief available clock generators
@@ -271,7 +271,7 @@ struct clocks : libmcu::PeripheralBase {
   constexpr void switchSrc(std::uint32_t index, std::uint32_t source) {
     clocksPeripheral()->CLK[index].CTRL = (clocksPeripheral()->CLK[index].CTRL & ~hardware::CTRL::SRCSRC_MASK) | source;
     while (clocksPeripheral()->CLK[index].SELECTED == 0) {
-      libMcuLL::nop();
+      libmcull::nop();
     }
   }
   /**
@@ -299,32 +299,32 @@ struct clocks : libmcu::PeripheralBase {
    * @return return pointer to peripheral
    */
   static hardware::clocks* clocksPeripheral() {
-    return reinterpret_cast<hardware::clocks*>(clocksAddress + libMcuHw::peripheralOffsetNormal);
+    return reinterpret_cast<hardware::clocks*>(clocksAddress + libmcuhw::peripheralOffsetNormal);
   }
   /**
    * @brief get registers from peripheral for atomic set access
    * @return return pointer to peripheral
    */
   static hardware::clocks* clocksPeripheralSet() {
-    return reinterpret_cast<hardware::clocks*>(clocksAddress + libMcuHw::peripheralOffsetSet);
+    return reinterpret_cast<hardware::clocks*>(clocksAddress + libmcuhw::peripheralOffsetSet);
   }
   /**
    * @brief get registers from peripheral for atomic Clear access
    * @return return pointer to peripheral
    */
   static hardware::clocks* clocksPeripheralClear() {
-    return reinterpret_cast<hardware::clocks*>(clocksAddress + libMcuHw::peripheralOffsetClear);
+    return reinterpret_cast<hardware::clocks*>(clocksAddress + libmcuhw::peripheralOffsetClear);
   }
   /**
    * @brief get registers from peripheral for atomic XOR access
    * @return return pointer to peripheral
    */
   static hardware::clocks* clocksPeripheralXor() {
-    return reinterpret_cast<hardware::clocks*>(clocksAddress + libMcuHw::peripheralOffsetXor);
+    return reinterpret_cast<hardware::clocks*>(clocksAddress + libmcuhw::peripheralOffsetXor);
   }
 
  private:
   static constexpr libmcu::hwAddressType clocksAddress = clocksAddress_; /*!< peripheral address */
 };
-}  // namespace libMcuLL::clocks
+}  // namespace libmcull::clocks
 #endif

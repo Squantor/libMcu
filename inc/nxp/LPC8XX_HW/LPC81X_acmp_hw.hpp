@@ -10,7 +10,8 @@
  */
 #ifndef LPC81X_ACMP_REGS_HPP
 #define LPC81X_ACMP_REGS_HPP
-namespace libMcuLL::hw::acmp {
+
+namespace libmcuhw::acmp {
 
 /**
  * @brief analog comparator register definitions
@@ -59,5 +60,5 @@ constexpr inline std::uint32_t LADSEL_MASK{0x1Fu << 1}; /*!< register mask for l
 constexpr inline std::uint32_t LADREF_VDD{0u << 6};     /*!< reference voltage selects VDD pin */
 constexpr inline std::uint32_t LADREF_VDDCMP{1u << 6};  /*!< reference voltage selects VDDCMP pin */
 }  // namespace LAD
-}  // namespace libMcuLL::hw::acmp
+}  // namespace libmcuhw::acmp
 #endif

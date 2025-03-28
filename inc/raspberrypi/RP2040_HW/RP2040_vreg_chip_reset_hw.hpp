@@ -11,7 +11,7 @@
 #ifndef RP2040_VREG_CHIP_RESET_HW_HPP
 #define RP2040_VREG_CHIP_RESET_HW_HPP
 
-namespace libMcuHw::vregChipReset {
+namespace libmcuhw::vregChipReset {
 /**
  * @brief Voltage regulator and chip reset register definitions
  */
@@ -21,5 +21,5 @@ struct vregChipReset {
 namespace DUMMY {
 constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /*!< Mask for allowed bits */
 }  // namespace DUMMY
-}  // namespace libMcuHw::vregChipReset
+}  // namespace libmcuhw::vregChipReset
 #endif

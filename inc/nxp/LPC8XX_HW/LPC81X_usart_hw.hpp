@@ -11,7 +11,7 @@
 #ifndef LPC81X_USART_REGS_HPP
 #define LPC81X_USART_REGS_HPP
 
-namespace libMcuLL::hw::usart {
+namespace libmcuhw::usart {
 
 /**
  * @brief USART register definitions
@@ -92,5 +92,5 @@ namespace INTSTAT {
 // TODO register definitions
 constexpr inline std::uint32_t RESERVED_MASK{0x0000'0000u}; /*!< register mask for allowed bits */
 }  // namespace INTSTAT
-}  // namespace libMcuLL::hw::usart
+}  // namespace libmcuhw::usart
 #endif

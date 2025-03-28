@@ -14,8 +14,8 @@
 #include "LPC84X_hal_spi_common.hpp"
 
 namespace libmcuhal::spi {
-namespace hardware = libMcuHw::spi;
-namespace nvic = libMcuHw::nvic;
+namespace hardware = libmcuhw::spi;
+namespace nvic = libmcuhw::nvic;
 
 /**
  * @brief Polling SPI HAL class
@@ -29,7 +29,7 @@ struct spiSyncPol {
    */
   spiSyncPol() {}
 
-  template <const libMcuHw::clock::periClockConfig& t_clockConfig>
+  template <const libmcuhw::clock::periClockConfig& t_clockConfig>
   /**
    * @brief Initialize SPI peripheral
    * @param bitRate SPI bit rate
@@ -109,7 +109,7 @@ struct spiSyncPol {
    */
   template <auto& config>
   constexpr std::uint32_t getInputClockFreq() {
-    static_assert(config.peripheral == libMcuHw::clock::periSelect::SPI0);
+    static_assert(config.peripheral == libmcuhw::clock::periSelect::SPI0);
     return config.getFrequency();
   }
   /**

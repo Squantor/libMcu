@@ -11,7 +11,7 @@
 #ifndef STM32F0_RCC_HW_HPP
 #define STM32F0_RCC_HW_HPP
 
-namespace libMcuHw::rcc {
+namespace libmcuhw::rcc {
 /**
  * @brief rcc register definitions
  */
@@ -74,5 +74,5 @@ namespace CR2 {
 constexpr inline std::uint32_t RESERVED_MASK = 0xFFFFFFFFu; /*!< register mask for allowed bits */
 }
 
-}  // namespace libMcuHw::rcc
+}  // namespace libmcuhw::rcc
 #endif

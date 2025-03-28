@@ -11,8 +11,8 @@
 #ifndef LPC81X_USART_SW_COMMON_HPP
 #define LPC81X_USART_SW_COMMON_HPP
 
-namespace libMcuLL::sw::usart {
-using namespace hw::usart;
+namespace libmcull::sw::usart {
+using namespace libmcuhw::usart;
 /**
  * @brief amount of bits to transmit
  *
@@ -66,5 +66,5 @@ enum uartStatus : std::uint32_t {
   PARITYERRINT = STAT::PARITYERRINT, /*!< Parity error interrupt flag, write 1 clear */
   RXNOISEINT = STAT::RXNOISEINT,     /*!< Recieved noise interrupt flag, write 1 clear*/
 };
-}  // namespace libMcuLL::sw::usart
+}  // namespace libmcull::sw::usart
 #endif

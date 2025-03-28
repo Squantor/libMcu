@@ -14,7 +14,7 @@
 #include "LPC84X_hal_uart_common.hpp"
 
 namespace libmcuhal::usart {
-namespace hardware = libMcuHw::usart;
+namespace hardware = libmcuhw::usart;
 namespace lowlevel = libmcull::usart;
 
 /**
@@ -54,7 +54,7 @@ struct SyncUart : public libmcuhal::HalUartSync {
    * @param stopBits Amount of stop bits
    * @return actual baud rate
    */
-  template <const libMcuHw::clock::periClockConfig& clock_config>
+  template <const libmcuhw::clock::periClockConfig& clock_config>
   constexpr std::uint32_t Init(std::uint32_t baudRate, UartParities parity = UartParities::kNone,
                                UartStops stopBits = UartStops::kStop1, UartLengths lengthBits = UartLengths::kSize8) {
     return ll_uart_sync.template Init<clock_config>(baudRate, static_cast<lowlevel::UartParities>(parity),

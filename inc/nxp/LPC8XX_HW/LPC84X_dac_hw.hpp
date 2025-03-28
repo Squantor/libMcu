@@ -11,7 +11,7 @@
 #ifndef LPC84X_DAC_HW_HPP
 #define LPC84X_DAC_HW_HPP
 
-namespace libMcuHw::dac {
+namespace libmcuhw::dac {
 /**
  * @brief Digital to Analog register definitions
  */
@@ -20,5 +20,5 @@ struct dac {
   volatile std::uint32_t CTRL;   /*!< DAC Control register */
   volatile std::uint32_t CNTVAL; /*!< DAC Counter Value register */
 };
-}  // namespace libMcuHw::dac
+}  // namespace libmcuhw::dac
 #endif

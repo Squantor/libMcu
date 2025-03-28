@@ -11,7 +11,7 @@
 #ifndef LPC84X_USART_HW_HPP
 #define LPC84X_USART_HW_HPP
 
-namespace libMcuHw::usart {
+namespace libmcuhw::usart {
 /**
  * @brief USART register definitions
  */
@@ -137,5 +137,5 @@ constexpr inline std::uint32_t RESERVED_MASK{0x0000'0000u}; /*!< register mask f
 namespace ADDR {
 constexpr inline std::uint32_t RESERVED_MASK{0x0000'0000u}; /*!< register mask for allowed bits */
 }  // namespace ADDR
-}  // namespace libMcuHw::usart
+}  // namespace libmcuhw::usart
 #endif

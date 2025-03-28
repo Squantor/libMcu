@@ -11,8 +11,8 @@
 #ifndef RP2040_SPI_SW_HPP
 #define RP2040_SPI_SW_HPP
 
-namespace libMcuLL::spi {
-namespace hardware = libMcuHw::spi;
+namespace libmcull::spi {
+namespace hardware = libmcuhw::spi;
 /**
  * @brief Frame formats available
  */
@@ -115,25 +115,25 @@ struct spi : libmcu::PeripheralBase {
    * @return return pointer to peripheral
    */
   static hardware::spi* spiPeripheralSet() {
-    return reinterpret_cast<hardware::spi*>(spiAddress + libMcuHw::peripheralOffsetSet);
+    return reinterpret_cast<hardware::spi*>(spiAddress + libmcuhw::peripheralOffsetSet);
   }
   /**
    * @brief get registers from peripheral for atomic Clear access
    * @return return pointer to peripheral
    */
   static hardware::spi* spiPeripheralClear() {
-    return reinterpret_cast<hardware::spi*>(spiAddress + libMcuHw::peripheralOffsetClear);
+    return reinterpret_cast<hardware::spi*>(spiAddress + libmcuhw::peripheralOffsetClear);
   }
   /**
    * @brief get registers from peripheral for atomic XOR access
    * @return return pointer to peripheral
    */
   static hardware::spi* spiPeripheralXor() {
-    return reinterpret_cast<hardware::spi*>(spiAddress + libMcuHw::peripheralOffsetXor);
+    return reinterpret_cast<hardware::spi*>(spiAddress + libmcuhw::peripheralOffsetXor);
   }
 
  private:
   static constexpr libmcu::hwAddressType spiAddress{spiAddress_}; /*!< peripheral address */
 };
-}  // namespace libMcuLL::spi
+}  // namespace libmcull::spi
 #endif

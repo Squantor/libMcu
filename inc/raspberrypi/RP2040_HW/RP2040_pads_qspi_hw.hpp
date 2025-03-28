@@ -11,7 +11,7 @@
 #ifndef RP2040_PADS_QSPI_HW_HPP
 #define RP2040_PADS_QSPI_HW_HPP
 
-namespace libMcuHw::padsQspi {
+namespace libmcuhw::padsQspi {
 /**
  * @brief QSPI pads register definitions
  */
@@ -21,5 +21,5 @@ struct padsQspi {
 namespace DUMMY {
 constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /*!< Mask for allowed bits */
 }  // namespace DUMMY
-}  // namespace libMcuHw::padsQspi
+}  // namespace libmcuhw::padsQspi
 #endif

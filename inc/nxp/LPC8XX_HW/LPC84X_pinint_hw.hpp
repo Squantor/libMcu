@@ -11,7 +11,7 @@
 #ifndef LPC84X_PININT_HW_HPP
 #define LPC84X_PININT_HW_HPP
 
-namespace libMcuHw::pinint {
+namespace libmcuhw::pinint {
 /**
  * @brief PININT register definitions
  */
@@ -30,5 +30,5 @@ struct pinint {
   volatile std::uint32_t PMSRC;  /*!< Pattern match interrupt bit-slice source register */
   volatile std::uint32_t PMCFG;  /*!< Pattern match interrupt bit slice configuration register */
 };
-}  // namespace libMcuHw::pinint
+}  // namespace libmcuhw::pinint
 #endif

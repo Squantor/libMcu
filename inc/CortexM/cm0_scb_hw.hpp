@@ -10,7 +10,7 @@
  */
 #ifndef SCB_HW_HPP
 #define SCB_HW_HPP
-namespace libMcuHw::scb {
+namespace libmcuhw::scb {
 struct scb {
   const volatile std::uint32_t CPUID; /*!< CPUID Base Register */
   volatile std::uint32_t ICSR;        /*!< Interrupt Control and State Register */
@@ -63,5 +63,5 @@ constexpr inline std::uint32_t STKALIGN = (0x1) << 9;      /*!< align stack on e
 namespace SHP {
 constexpr inline std::uint32_t RESERVED_MASK = 0xFFFF0000; /*!< register mask for allowed bits */
 }
-}  // namespace libMcuHw::scb
+}  // namespace libmcuhw::scb
 #endif

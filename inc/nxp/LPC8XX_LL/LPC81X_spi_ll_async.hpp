@@ -13,7 +13,7 @@
 
 #include "LPC81X_spi_ll_common.hpp"
 
-namespace libMcuLL::sw::spi {
+namespace libmcull::sw::spi {
 namespace detail {
 
 // TODO need to remove and make use of libmcu::return
@@ -332,5 +332,5 @@ struct spiAsync : libmcu::PeripheralBase {
     std::numeric_limits<transferType>::digits;                     /*!< Amount of bits in datatransfer type */
   static constexpr libmcu::hwAddressType spiAddress = spiAddress_; /*!< peripheral address */
 };
-}  // namespace libMcuLL::sw::spi
+}  // namespace libmcull::sw::spi
 #endif

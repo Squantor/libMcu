@@ -13,8 +13,8 @@
  */
 #ifndef SYSTICK_LL_HPP
 #define SYSTICK_LL_HPP
-namespace libMcuLL::systick {
-namespace hardware = libMcuHw::systick;
+namespace libmcull::systick {
+namespace hardware = libmcuhw::systick;
 template <libmcu::systickBaseAddress const& systickAddress_>
 struct systick {
   /**
@@ -102,5 +102,5 @@ struct systick {
   static constexpr libmcu::hwAddressType systickAddress = systickAddress_; /*!< peripheral address */
   libmcu::IsrLambda callback;
 };
-}  // namespace libMcuLL::systick
+}  // namespace libmcull::systick
 #endif

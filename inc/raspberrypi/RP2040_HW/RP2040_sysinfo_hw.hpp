@@ -11,7 +11,7 @@
 #ifndef RP2040_SYSINFO_HW_HPP
 #define RP2040_SYSINFO_HW_HPP
 
-namespace libMcuHw::sysinfo {
+namespace libmcuhw::sysinfo {
 /**
  * @brief SYSINFO register definitions
  */
@@ -34,5 +34,5 @@ constexpr inline std::uint32_t FPGA_MASK{1u << 0};          /*!< Running on FPGA
 namespace GITREF_RP2040 {
 constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /*!< mask for allowed bits */
 }  // namespace GITREF_RP2040
-}  // namespace libMcuHw::sysinfo
+}  // namespace libmcuhw::sysinfo
 #endif

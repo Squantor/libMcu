@@ -11,7 +11,7 @@
 #ifndef LPC84X_INMUX_HW_HPP
 #define LPC84X_INMUX_HW_HPP
 
-namespace libMcuHw::inmux {
+namespace libmcuhw::inmux {
 /**
  * @brief INMUX register definitions
  */
@@ -57,5 +57,5 @@ constexpr inline std::uint32_t kT0_DMAREQ_M1{10u << 0};     /*!< Timer 0 DMA req
 constexpr inline std::uint32_t kDMA_INMUX_INMUX0{11u << 0}; /*!< DMA trigger mux 0 */
 constexpr inline std::uint32_t kDMA_INMUX_INMUX1{12u << 0}; /*!< DMA trigger mux 1 */
 }  // namespace DMA_ITRIG_INMUX
-}  // namespace libMcuHw::inmux
+}  // namespace libmcuhw::inmux
 #endif

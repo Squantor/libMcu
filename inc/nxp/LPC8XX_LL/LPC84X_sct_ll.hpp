@@ -11,8 +11,8 @@
 #ifndef LPC84X_SCT_LL_HPP
 #define LPC84X_SCT_LL_HPP
 
-namespace libMcuLL::sct {
-namespace hardware = libMcuHw::sct;
+namespace libmcull::sct {
+namespace hardware = libmcuhw::sct;
 
 /**
  * @brief SCT subcounter select
@@ -319,5 +319,5 @@ struct sct : libmcu::PeripheralBase {
  private:
   static constexpr libmcu::hwAddressType sctAddress = sctAddress_; /*!< peripheral address */
 };
-}  // namespace libMcuLL::sct
+}  // namespace libmcull::sct
 #endif

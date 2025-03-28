@@ -11,7 +11,7 @@
 #ifndef RP2040_XOSC_HW_HPP
 #define RP2040_XOSC_HW_HPP
 
-namespace libMcuHw::xosc {
+namespace libmcuhw::xosc {
 /**
  * @brief XOSC register definitions
  */
@@ -56,5 +56,5 @@ constexpr inline std::uint32_t DELAY(uint32_t delay) {
 namespace COUNT {
 constexpr inline std::uint32_t RESERVED_MASK{0x0000'00FF}; /*!< mask for allowed bits */
 }  // namespace COUNT
-}  // namespace libMcuHw::xosc
+}  // namespace libmcuhw::xosc
 #endif

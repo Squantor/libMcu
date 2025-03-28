@@ -11,8 +11,8 @@
 #ifndef LPC81X_PMU_HPP
 #define LPC81X_PMU_HPP
 
-namespace libMcuLL::sw::pmu {
-using namespace hw::pmu;
+namespace libmcull::sw::pmu {
+using namespace libmcuhw::pmu;
 template <libmcu::pmuBaseAddress pmuAddress_>
 struct pmu {
   /**
@@ -20,12 +20,12 @@ struct pmu {
    *
    * @return return pointer to power management unit registers
    */
-  constexpr static hw::pmu::pmu *pmuPeripheral() {
-    return reinterpret_cast<hw::pmu::pmu *>(pmuAddress);
+  constexpr static libmcuhw::pmu::pmu *pmuPeripheral() {
+    return reinterpret_cast<libmcuhw::pmu::pmu *>(pmuAddress);
   }
 
  private:
   static constexpr libmcu::hwAddressType pmuAddress = pmuAddress_; /*!< peripheral address */
 };
-}  // namespace libMcuLL::sw::pmu
+}  // namespace libmcull::sw::pmu
 #endif

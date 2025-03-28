@@ -11,7 +11,7 @@
 #ifndef RP2040_RTC_HW_HPP
 #define RP2040_RTC_HW_HPP
 
-namespace libMcuHw::rtc {
+namespace libmcuhw::rtc {
 /**
  * @brief RTC register definitions
  */
@@ -21,5 +21,5 @@ struct rtc {
 namespace DUMMY {
 constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /*!< Mask for allowed bits */
 }  // namespace DUMMY
-}  // namespace libMcuHw::rtc
+}  // namespace libmcuhw::rtc
 #endif

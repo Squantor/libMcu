@@ -12,8 +12,8 @@
 #ifndef LPC81X_SCT_SW_HPP
 #define LPC81X_SCT_SW_HPP
 
-namespace libMcuLL::sw::sct {
-using namespace hw::sct;
+namespace libmcull::sw::sct {
+using namespace libmcuhw::sct;
 
 enum class countingMode : std::uint32_t {
   UP,            /*!< counter only counts up */
@@ -244,12 +244,12 @@ struct sct : libmcu::PeripheralBase {
    *
    * @return return pointer to state configurable timer registers
    */
-  constexpr static hw::sct::sct *sctPeripheral() {
-    return reinterpret_cast<hw::sct::sct *>(sctAddress);
+  constexpr static libmcuhw::sct::sct *sctPeripheral() {
+    return reinterpret_cast<libmcuhw::sct::sct *>(sctAddress);
   }
 
  private:
   static constexpr libmcu::hwAddressType sctAddress = sctAddress_; /*!< peripheral address */
 };
-}  // namespace libMcuLL::sw::sct
+}  // namespace libmcull::sw::sct
 #endif

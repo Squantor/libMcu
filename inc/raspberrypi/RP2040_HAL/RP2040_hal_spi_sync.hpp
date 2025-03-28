@@ -26,32 +26,32 @@ struct spi {
    *
    * @return return pointer to peripheral
    */
-  static libMcuHw::gpioBank0::gpioBank0* gpioBank0Peripheral() {
-    return reinterpret_cast<libMcuHw::gpioBank0::gpioBank0*>(spiBaseAddress + libMcuHw::peripheralOffsetNormal);
+  static libmcuhw::gpioBank0::gpioBank0* gpioBank0Peripheral() {
+    return reinterpret_cast<libmcuhw::gpioBank0::gpioBank0*>(spiBaseAddress + libmcuhw::peripheralOffsetNormal);
   }
   /**
    * @brief get registers from peripheral
    *
    * @return return pointer to peripheral
    */
-  static libMcuHw::gpioBank0::gpioBank0* gpioBank0PeripheralSet() {
-    return reinterpret_cast<libMcuHw::gpioBank0::gpioBank0*>(spiBaseAddress + libMcuHw::peripheralOffsetSet);
+  static libmcuhw::gpioBank0::gpioBank0* gpioBank0PeripheralSet() {
+    return reinterpret_cast<libmcuhw::gpioBank0::gpioBank0*>(spiBaseAddress + libmcuhw::peripheralOffsetSet);
   }
   /**
    * @brief get registers from peripheral
    *
    * @return return pointer to peripheral
    */
-  static libMcuHw::gpioBank0::gpioBank0* gpioBank0PeripheralClear() {
-    return reinterpret_cast<libMcuHw::gpioBank0::gpioBank0*>(spiBaseAddress + libMcuHw::peripheralOffsetClear);
+  static libmcuhw::gpioBank0::gpioBank0* gpioBank0PeripheralClear() {
+    return reinterpret_cast<libmcuhw::gpioBank0::gpioBank0*>(spiBaseAddress + libmcuhw::peripheralOffsetClear);
   }
   /**
    * @brief get registers from peripheral
    *
    * @return return pointer to peripheral
    */
-  static libMcuHw::gpioBank0::gpioBank0* gpioBank0PeripheralToggle() {
-    return reinterpret_cast<libMcuHw::gpioBank0::gpioBank0*>(spiBaseAddress + libMcuHw::peripheralOffsetXor);
+  static libmcuhw::gpioBank0::gpioBank0* gpioBank0PeripheralToggle() {
+    return reinterpret_cast<libmcuhw::gpioBank0::gpioBank0*>(spiBaseAddress + libmcuhw::peripheralOffsetXor);
   }
 
   static constexpr libmcu::hwAddressType spiBaseAddress = spiBaseAddress_; /*!< spi peripheral address */

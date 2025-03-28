@@ -11,8 +11,8 @@
 #ifndef LPC84X_I2C_LL_HPP
 #define LPC84X_I2C_LL_HPP
 
-namespace libMcuLL::i2c {
-namespace hardware = libMcuHw::i2c;
+namespace libmcull::i2c {
+namespace hardware = libmcuhw::i2c;
 /**
  * @brief
  * @tparam i2cAddress_
@@ -27,7 +27,7 @@ struct i2c : libmcu::PeripheralBase {
    * @param timeout clocks to timeout
    * @return std::uint32_t actual bit rate
    */
-  template <const libMcuHw::clock::periClockConfig &t_clockConfig>
+  template <const libmcuhw::clock::periClockConfig &t_clockConfig>
   constexpr std::uint32_t initMaster(std::uint32_t bitRate, std::uint32_t timeout) {
     /*
     we multiply by 20 as by default MSTTIME divides the timing by 2 and I2C peripheral needs 10 clocks for something.
@@ -190,16 +190,16 @@ struct i2c : libmcu::PeripheralBase {
    * @tparam config clock configuration
    * @return current input clock frequency
    */
-  template <const libMcuHw::clock::periClockConfig &t_clockConfig>
+  template <const libmcuhw::clock::periClockConfig &t_clockConfig>
   constexpr std::uint32_t getInputClockFreq() {
     // constexpr check if we configure the right peripheral
-    if constexpr ((i2cAddress == libMcuHw::i2c0Address) && (t_clockConfig.peripheral == libMcuHw::clock::periSelect::I2C0))
+    if constexpr ((i2cAddress == libmcuhw::i2c0Address) && (t_clockConfig.peripheral == libmcuhw::clock::periSelect::I2C0))
       return t_clockConfig.getFrequency();
-    else if constexpr ((i2cAddress == libMcuHw::i2c1Address) && (t_clockConfig.peripheral == libMcuHw::clock::periSelect::I2C1))
+    else if constexpr ((i2cAddress == libmcuhw::i2c1Address) && (t_clockConfig.peripheral == libmcuhw::clock::periSelect::I2C1))
       return t_clockConfig.getFrequency();
-    else if constexpr ((i2cAddress == libMcuHw::i2c2Address) && (t_clockConfig.peripheral == libMcuHw::clock::periSelect::I2C2))
+    else if constexpr ((i2cAddress == libmcuhw::i2c2Address) && (t_clockConfig.peripheral == libmcuhw::clock::periSelect::I2C2))
       return t_clockConfig.getFrequency();
-    else if constexpr ((i2cAddress == libMcuHw::i2c3Address) && (t_clockConfig.peripheral == libMcuHw::clock::periSelect::I2C3))
+    else if constexpr ((i2cAddress == libmcuhw::i2c3Address) && (t_clockConfig.peripheral == libmcuhw::clock::periSelect::I2C3))
       return t_clockConfig.getFrequency();
     else
       static_assert(false, "Clock config and peripherals unknown or not matching!");
@@ -216,5 +216,5 @@ struct i2c : libmcu::PeripheralBase {
  private:
   static constexpr libmcu::hwAddressType i2cAddress = i2cAddress_; /*!< peripheral address */
 };
-}  // namespace libMcuLL::i2c
+}  // namespace libmcull::i2c
 #endif

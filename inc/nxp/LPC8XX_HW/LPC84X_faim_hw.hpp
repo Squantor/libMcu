@@ -11,10 +11,10 @@
 #ifndef LPC84X_FAIM_HW_HPP
 #define LPC84X_FAIM_HW_HPP
 
-namespace libMcuHw::faim {
+namespace libmcuhw::faim {
 /**
  * @brief fast init memory register definitions
  */
 struct faim {};
-}  // namespace libMcuHw::faim
+}  // namespace libmcuhw::faim
 #endif

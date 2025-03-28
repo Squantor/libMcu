@@ -11,7 +11,7 @@
 #ifndef LPC84X_CRC_HW_HPP
 #define LPC84X_CRC_HW_HPP
 
-namespace libMcuHw::crc {
+namespace libmcuhw::crc {
 /**
  * @brief CRC register definitions
  */
@@ -23,5 +23,5 @@ struct crc {
     volatile std::uint32_t WR_DATA;   /*!< CRC data register */
   };
 };
-}  // namespace libMcuHw::crc
+}  // namespace libmcuhw::crc
 #endif

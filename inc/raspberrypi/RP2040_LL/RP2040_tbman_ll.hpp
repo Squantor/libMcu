@@ -11,8 +11,8 @@
 #ifndef RP2040_TBMAN_SW_HPP
 #define RP2040_TBMAN_SW_HPP
 
-namespace libMcuLL::tbman {
-namespace hardware = libMcuHw::tbman;
+namespace libmcull::tbman {
+namespace hardware = libmcuhw::tbman;
 template <libmcu::tbmanBaseAddress const& tbmanAddress_>
 struct tbman : libmcu::PeripheralBase {
   /**
@@ -30,5 +30,5 @@ struct tbman : libmcu::PeripheralBase {
  private:
   static constexpr libmcu::hwAddressType tbmanAddress{tbmanAddress_}; /*!< peripheral address */
 };
-}  // namespace libMcuLL::tbman
+}  // namespace libmcull::tbman
 #endif

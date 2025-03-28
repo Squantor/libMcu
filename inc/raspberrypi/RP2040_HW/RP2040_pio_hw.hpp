@@ -11,7 +11,7 @@
 #ifndef RP2040_PIO_HW_HPP
 #define RP2040_PIO_HW_HPP
 
-namespace libMcuHw::pio {
+namespace libmcuhw::pio {
 /**
  * @brief PIO register definitions
  */
@@ -21,5 +21,5 @@ struct pio {
 namespace DUMMY {
 constexpr inline std::uint32_t RESERVED_MASK{0xFFFF'FFFFu}; /*!< Mask for allowed bits */
 }  // namespace DUMMY
-}  // namespace libMcuHw::pio
+}  // namespace libmcuhw::pio
 #endif

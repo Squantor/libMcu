@@ -11,7 +11,7 @@
 #ifndef LPC84X_FMC_HW_HPP
 #define LPC84X_FMC_HW_HPP
 
-namespace libMcuHw::fmc {
+namespace libmcuhw::fmc {
 /**
  * @brief FMC register definitions
  */
@@ -28,5 +28,5 @@ struct fmc {
   std::uint8_t RESERVED_4[4];             /*!< Reserved */
   volatile const std::uint32_t FMSTATCLR; /*!< Clear FLASH signature generation status bit */
 };
-}  // namespace libMcuHw::fmc
+}  // namespace libmcuhw::fmc
 #endif

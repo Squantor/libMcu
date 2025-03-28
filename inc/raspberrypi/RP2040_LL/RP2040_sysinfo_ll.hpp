@@ -11,8 +11,8 @@
 #ifndef RP2040_SYSINFO_SW_HPP
 #define RP2040_SYSINFO_SW_HPP
 
-namespace libMcuLL::sysinfo {
-namespace hardware = libMcuHw::sysinfo;
+namespace libmcull::sysinfo {
+namespace hardware = libmcuhw::sysinfo;
 template <libmcu::sysinfoBaseAddress const& sysinfoAddress_>
 struct sysinfo : libmcu::PeripheralBase {
   /**
@@ -30,5 +30,5 @@ struct sysinfo : libmcu::PeripheralBase {
  private:
   static constexpr libmcu::hwAddressType sysinfoAddress = sysinfoAddress_; /*!< peripheral address */
 };
-}  // namespace libMcuLL::sysinfo
+}  // namespace libmcull::sysinfo
 #endif

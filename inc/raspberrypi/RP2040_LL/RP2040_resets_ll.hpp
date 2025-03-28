@@ -11,8 +11,8 @@
 #ifndef RP2040_RESETS_SW_HPP
 #define RP2040_RESETS_SW_HPP
 
-namespace libMcuLL::resets {
-namespace hardware = libMcuHw::resets;
+namespace libmcull::resets {
+namespace hardware = libmcuhw::resets;
 /**
  * @brief
  */
@@ -69,32 +69,32 @@ struct resets : libmcu::PeripheralBase {
    * @return return pointer to peripheral
    */
   static hardware::resets* resetsPeripheral() {
-    return reinterpret_cast<hardware::resets*>(resetsAddress + libMcuHw::peripheralOffsetNormal);
+    return reinterpret_cast<hardware::resets*>(resetsAddress + libmcuhw::peripheralOffsetNormal);
   }
   /**
    * @brief get registers from peripheral for atomic set access
    * @return return pointer to peripheral
    */
   static hardware::resets* resetsPeripheralSet() {
-    return reinterpret_cast<hardware::resets*>(resetsAddress + libMcuHw::peripheralOffsetSet);
+    return reinterpret_cast<hardware::resets*>(resetsAddress + libmcuhw::peripheralOffsetSet);
   }
   /**
    * @brief get registers from peripheral for atomic Clear access
    * @return return pointer to peripheral
    */
   static hardware::resets* resetsPeripheralClear() {
-    return reinterpret_cast<hardware::resets*>(resetsAddress + libMcuHw::peripheralOffsetClear);
+    return reinterpret_cast<hardware::resets*>(resetsAddress + libmcuhw::peripheralOffsetClear);
   }
   /**
    * @brief get registers from peripheral for atomic XOR access
    * @return return pointer to peripheral
    */
   static hardware::resets* resetsPeripheralXor() {
-    return reinterpret_cast<hardware::resets*>(resetsAddress + libMcuHw::peripheralOffsetXor);
+    return reinterpret_cast<hardware::resets*>(resetsAddress + libmcuhw::peripheralOffsetXor);
   }
 
  private:
   static constexpr libmcu::hwAddressType resetsAddress{resetsAddress_}; /*!< peripheral address */
 };
-}  // namespace libMcuLL::resets
+}  // namespace libmcull::resets
 #endif

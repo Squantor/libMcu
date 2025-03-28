@@ -11,8 +11,8 @@
 #ifndef LPC81X_I2C_HPP
 #define LPC81X_I2C_HPP
 
-namespace libMcuLL::sw::i2c {
-using namespace hw::i2c;
+namespace libmcull::sw::i2c {
+using namespace libmcuhw::i2c;
 template <libmcu::i2cBaseAddress i2cAddress_>
 struct i2c : libmcu::PeripheralBase {
   /**
@@ -94,12 +94,12 @@ struct i2c : libmcu::PeripheralBase {
    *
    * @return return pointer to i2c registers
    */
-  constexpr static hw::i2c::i2c *i2cPeripheral() {
-    return reinterpret_cast<hw::i2c::i2c *>(i2cAddress);
+  constexpr static libmcuhw::i2c::i2c *i2cPeripheral() {
+    return reinterpret_cast<libmcuhw::i2c::i2c *>(i2cAddress);
   }
 
  private:
   static constexpr libmcu::hwAddressType i2cAddress = i2cAddress_; /*!< peripheral address */
 };
-}  // namespace libMcuLL::sw::i2c
+}  // namespace libmcull::sw::i2c
 #endif

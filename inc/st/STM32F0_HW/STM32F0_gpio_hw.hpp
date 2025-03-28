@@ -11,7 +11,7 @@
 #ifndef STM32F0_GPIO_HW_HPP
 #define STM32F0_GPIO_HW_HPP
 
-namespace libMcuHw::gpio {
+namespace libmcuhw::gpio {
 /**
  * @brief gpio register definitions
  */
@@ -87,5 +87,5 @@ namespace BRR {
 constexpr inline std::uint32_t RESERVED_MASK{0xFFFFFFFFu}; /*!< register mask for allowed bits */
 }
 
-}  // namespace libMcuHw::gpio
+}  // namespace libmcuhw::gpio
 #endif

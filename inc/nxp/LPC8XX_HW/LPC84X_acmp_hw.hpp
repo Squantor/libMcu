@@ -11,7 +11,7 @@
 #ifndef LPC84X_ACMP_HW_HPP
 #define LPC84X_ACMP_HW_HPP
 
-namespace libMcuHw::acmp {
+namespace libmcuhw::acmp {
 /**
  * @brief ACMP register definitions
  */
@@ -19,5 +19,5 @@ struct acmp {
   volatile std::uint32_t CTRL; /*!< Comparator control register */
   volatile std::uint32_t LAD;  /*!< Voltage ladder register */
 };
-}  // namespace libMcuHw::acmp
+}  // namespace libmcuhw::acmp
 #endif

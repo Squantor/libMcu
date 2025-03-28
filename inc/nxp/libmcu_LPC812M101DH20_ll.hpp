@@ -14,7 +14,7 @@
 #include "../libmcu/libmcull.hpp"
 #include "../libmcu/libmcu_functions_CM0.hpp"
 
-namespace libMcuHw {
+namespace libmcuhw {
 
 // MCU configuration options
 namespace core {
@@ -63,11 +63,11 @@ enum class interrupts : int8_t {
   PININT6 = 30,
   PININT7 = 31,
 };
-}  // namespace libMcuHw
+}  // namespace libmcuhw
 
 #include <CortexM/cortex_m0plus.hpp>
 
-namespace libMcuHw {
+namespace libmcuhw {
 // Define peripheral addresses on APB0 bus
 // rename these when full c++ functionality is finished, remove _cpp postfix
 constexpr inline libmcu::wwdtBaseAddress wwdtAddress{0x4000'0000u};     /*!< Windowed watchdog base address */
@@ -91,7 +91,7 @@ constexpr inline libmcu::sctBaseAddress sctAddress{0x5000'4000u}; /*!< State con
 /* Direct connected peripherals */
 constexpr inline libmcu::gpioBaseAddress gpioAddress{0xA000'0000u};     /*!< General Purpose I/O base address */
 constexpr inline libmcu::pinintBaseAddress pinintAddress{0xA000'4000u}; /*!< Pin interrupt base address */
-}  // namespace libMcuHw
+}  // namespace libmcuhw
 
 // includes that define the registers namespace go here.
 #include "LPC8XX_HW/LPC81X_iocon_hw.hpp"
