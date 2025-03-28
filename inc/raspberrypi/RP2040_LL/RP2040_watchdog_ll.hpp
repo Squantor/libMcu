@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file RP2040 Watchdog software interface
+ * @file RP2040_watchdog_ll.hpp
+ * @brief low level interface for the RP2040 Watchdog
  */
 #ifndef RP2040_WATCHDOG_SW_HPP
 #define RP2040_WATCHDOG_SW_HPP

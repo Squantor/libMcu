@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file RP2040 PWM software interface
+ * @file RP2040_pwm_ll.hpp
+ * @brief low level interface for the RP2040 PWM
  */
 #ifndef RP2040_PWM_SW_HPP
 #define RP2040_PWM_SW_HPP

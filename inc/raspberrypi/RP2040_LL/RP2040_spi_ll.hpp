@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file RP2040 SPI GPIO software interface
+ * @file RP2040_spi_ll.hpp
+ * @brief low level interface for the RP2040 SPI
  */
 #ifndef RP2040_SPI_SW_HPP
 #define RP2040_SPI_SW_HPP

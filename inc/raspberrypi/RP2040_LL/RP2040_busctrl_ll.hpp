@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file RP2040 Bus control software interface
+ * @file RP2040_busctrl_ll.hpp
+ * @brief low level interface for the RP2040 bus controller
  */
 #ifndef RP2040_BUSCTRL_SW_HPP
 #define RP2040_BUSCTRL_SW_HPP

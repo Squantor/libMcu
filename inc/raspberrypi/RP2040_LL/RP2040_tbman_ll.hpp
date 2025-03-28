@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file RP2040 Testbench Manager software interface
+ * @file RP2040_tbman_ll.hpp
+ * @brief low level interface for the RP2040 Testbench Manager
  */
 #ifndef RP2040_TBMAN_SW_HPP
 #define RP2040_TBMAN_SW_HPP

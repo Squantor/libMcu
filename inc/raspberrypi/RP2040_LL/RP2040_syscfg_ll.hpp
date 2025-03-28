@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file RP2040 System configuration software interface
+ * @file RP2040_syscfg_ll.hpp
+ * @brief low level interface for the RP2040 System configuration
  */
 #ifndef RP2040_SYSCFG_SW_HPP
 #define RP2040_SYSCFG_SW_HPP

@@ -5,8 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file STM32F0_syscfg_hw.hpp
- * \brief STM32F0 System configuration register interface
+ * @file STM32F0_syscfg_hw.hpp
+ * @brief STM32F0 System configuration register interface
  */
 #ifndef STM32F0_SYSCFG_HW_HPP
 #define STM32F0_SYSCFG_HW_HPP

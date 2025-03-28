@@ -5,8 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file STM32F0_rcc_hw.hpp
- * \brief STM32F0 Reset and clock control register interface
+ * @file STM32F0_rcc_hw.hpp
+ * @brief STM32F0 Reset and clock control register interface
  */
 #ifndef STM32F0_RCC_HW_HPP
 #define STM32F0_RCC_HW_HPP

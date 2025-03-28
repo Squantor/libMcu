@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file RP2040 PLL software interface
+ * @file RP2040_pll_ll.hpp
+ * @brief low level interface for the RP2040 PLL
  */
 #ifndef RP2040_PLL_SW_HPP
 #define RP2040_PLL_SW_HPP

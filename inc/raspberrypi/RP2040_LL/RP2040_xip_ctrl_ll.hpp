@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file RP2040 Execute In Place control software interface
+ * @file RP2040_xip_ctrl_ll.hpp
+ * @brief low level interface for the RP2040 Execute In Place
  */
 #ifndef RP2040_XIP_CTRL_SW_HPP
 #define RP2040_XIP_CTRL_SW_HPP

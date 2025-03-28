@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file RP2040 Sysinfo software interface
+ * @file RP2040_sysinfo_ll.hpp
+ * @brief low level interface for the RP2040 Sysinfo
  */
 #ifndef RP2040_SYSINFO_SW_HPP
 #define RP2040_SYSINFO_SW_HPP

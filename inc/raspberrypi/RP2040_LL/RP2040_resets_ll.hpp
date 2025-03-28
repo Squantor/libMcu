@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file RP2040 Resets software interface
+ * @file RP2040_resets_ll.hpp
+ * @brief low level interface for the RP2040 resets
  */
 #ifndef RP2040_RESETS_SW_HPP
 #define RP2040_RESETS_SW_HPP

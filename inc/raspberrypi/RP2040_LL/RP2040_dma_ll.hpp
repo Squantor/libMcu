@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file RP2040 DMA software interface
+ * @file RP2040_dma_ll.hpp
+ * @brief low level interface for the RP2040 DMA
  */
 #ifndef RP2040_DMA_SW_HPP
 #define RP2040_DMA_SW_HPP

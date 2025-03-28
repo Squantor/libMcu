@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file RP2040 pin definitions
+ * @file RP2040_pins.hpp
+ * @brief RP2040 pin definitions
  *
  * Inspired by: https://cppformortals.com/2020/03/06/traits-for-stm32-pin-functions/
  */

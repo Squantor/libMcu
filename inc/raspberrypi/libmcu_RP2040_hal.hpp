@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file Main entry point for RP2040 HAL include
+ * @file libmcu_RP2040_hal.hpp
+ * @brief include for the RP2040 libmcu HAL library
  */
 #ifndef LIBMCURP2040HAL_HPP
 #define LIBMCURP2040HAL_HPP

@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file Main entry point for RP2040 LL include
+ * @file libmcu_RP2040_ll.hpp
+ * @brief include for the RP2040 libmcu low level library
  */
 #ifndef LIBMCURP2040LL_HPP
 #define LIBMCURP2040LL_HPP

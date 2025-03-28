@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file RP2040 USB software interface
+ * @file RP2040_usbctrl_ll.hpp
+ * @brief low level interface for the RP2040 USB
  */
 #ifndef RP2040_USBCTRL_SW_HPP
 #define RP2040_USBCTRL_SW_HPP

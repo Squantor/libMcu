@@ -5,6 +5,6 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file libmcu_STM32F031K6T_ll.hpp
- * \brief LibMcu Low Low level library include for STM32F031K6T microcontroller
+ * \file STM32F0_clock.hpp
+ * \brief STM32F0 clock hardware definitions and functions
  */

@@ -5,7 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file RP2040 pads bank0 software interface
+ * @file RP2040_pads_bank0_ll.hpp
+ * @brief low level interface for the RP2040 pads bank 0
  */
 #ifndef RP2040_PADS_BANK0_SW_HPP
 #define RP2040_PADS_BANK0_SW_HPP

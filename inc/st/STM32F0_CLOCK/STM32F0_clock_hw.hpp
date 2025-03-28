@@ -5,11 +5,11 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file STM32F0_clock_hw.hpp
- * \brief STM32F0 clock hardware definitions and functions
+ * @file STM32F0_clock_hw.hpp
+ * @brief STM32F0 clock hardware definitions and functions
  */
-#ifndef LPC84X_CLOCK_HW_HPP
-#define LPC84X_CLOCK_HW_HPP
+#ifndef STM32F0_CLOCK_HW_HPP
+#define STM32F0_CLOCK_HW_HPP
 
 namespace libMcuHw::clock {
 
