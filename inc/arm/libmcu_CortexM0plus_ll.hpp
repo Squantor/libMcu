@@ -11,7 +11,8 @@
 #ifndef LIBMCU_CORTEXM0PLUS_LL_HPP
 #define LIBMCU_CORTEXM0PLUS_LL_HPP
 
-#include "../libmcu/libmcu.hpp"
+#include "../libmcu/libmcull.hpp"
+#include "../libmcu/libmcu_functions_CM0.hpp"
 
 namespace libMcuHw {
 // MCU configuration options
