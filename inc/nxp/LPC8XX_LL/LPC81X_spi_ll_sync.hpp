@@ -15,11 +15,12 @@
 
 namespace libMcuLL::sw::spi {
 
-using namespace hw::spi;
+using namespace libmcuhw::spi;
+
+namespace hardware = libmcuhw::spi;
 
 /**
  * @brief synchronous SPI peripheral instance
- *
  * @tparam spiAddress_ Peripheral base spiAddress
  * @tparam chipEnables enum of available chip enables
  * @tparam transferType datatype to use for data transfers
@@ -167,8 +168,8 @@ struct spiSync : libMcu::PeripheralBase {
    *
    * @return return pointer to spi registers
    */
-  constexpr hw::spi::spi *spiPeripheral() {
-    return reinterpret_cast<hw::spi::spi *>(spiAddress);
+  constexpr hardware::spi *spiPeripheral() {
+    return reinterpret_cast<hardware::spi *>(spiAddress);
   }
 
  private:

@@ -27,7 +27,9 @@ enum class asynchronousStates : std::uint8_t {
 
 }  // namespace detail
 
-using namespace hw::spi;
+using namespace ::libmcuhw::spi;
+
+namespace hardware = ::libmcuhw::spi;
 
 /**
  * @brief Asynchronous SPI peripheral instance
@@ -232,8 +234,8 @@ struct spiAsync : libMcu::PeripheralBase {
    *
    * @return return pointer to spi registers
    */
-  static hw::spi::spi *spiPeripheral() {
-    return reinterpret_cast<hw::spi::spi *>(spiAddress);
+  static hardware::spi *spiPeripheral() {
+    return reinterpret_cast<hardware::spi *>(spiAddress);
   }
 
  private:

@@ -15,7 +15,7 @@
 #define LPC81X_SPI_SW_COMMON_HPP
 
 namespace libMcuLL::sw::spi {
-using namespace hw::spi;
+using namespace libmcuhw::spi;
 /**
  * @brief SPI hardware chip enables
  *

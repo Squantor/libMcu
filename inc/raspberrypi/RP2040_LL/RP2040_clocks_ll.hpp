@@ -157,7 +157,7 @@ struct clocks : libMcu::PeripheralBase {
     switchSrc(index, hardware::CTRL::REF_SRC_ROSC);  // set clock source to safe default
     clocksPeripheral()->CLK[index].CTRL =
       (clocksPeripheral()->CLK[index].CTRL & ~hardware::CTRL::AUXSRC_MASK) | static_cast<std::uint32_t>(source);
-    libMcuLL::delay(delay);
+    libMcu::delay(delay);
     switchSrc(index, hardware::CTRL::REF_SRC_AUX);
     clocksPeripheral()->CLK[index].DIV = divisorRegister;
   }
@@ -191,7 +191,7 @@ struct clocks : libMcu::PeripheralBase {
     switchSrc(index, hardware::CTRL::SYS_SRC_CLK_REF);  // set clock source to safe default
     clocksPeripheral()->CLK[index].CTRL =
       (clocksPeripheral()->CLK[index].CTRL & ~hardware::CTRL::AUXSRC_MASK) | static_cast<std::uint32_t>(source);
-    libMcuLL::delay(delay);
+    libMcu::delay(delay);
     switchSrc(index, hardware::CTRL::SYS_SRC_AUX);
     clocksPeripheral()->CLK[index].DIV = divisorRegister;
   }
@@ -289,7 +289,7 @@ struct clocks : libMcu::PeripheralBase {
     if (divisorRegister > clocksPeripheral()->CLK[index].DIV)
       clocksPeripheral()->CLK[index].DIV = divisorRegister;
     clocksPeripheralClear()->CLK[index].CTRL = hardware::CTRL::ENABLE;
-    libMcuLL::delay(delay);
+    libMcu::delay(delay);
     clocksPeripheral()->CLK[index].CTRL = (clocksPeripheral()->CLK[index].CTRL & ~hardware::CTRL::AUXSRC_MASK) | source;
     clocksPeripheralSet()->CLK[index].CTRL = hardware::CTRL::ENABLE;
     clocksPeripheral()->CLK[index].DIV = divisorRegister;

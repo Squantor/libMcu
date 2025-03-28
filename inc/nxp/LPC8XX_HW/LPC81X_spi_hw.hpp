@@ -11,7 +11,7 @@
 #ifndef LPC81X_SPI_REGS_HPP
 #define LPC81X_SPI_REGS_HPP
 
-namespace libMcuHw::spi {
+namespace libmcuhw::spi {
 
 /**
  * @brief SPI register definitions
@@ -190,5 +190,5 @@ constexpr inline std::uint32_t TXUR{1u << 3};              /*!< Transmitter unde
 constexpr inline std::uint32_t SSA{1u << 4};               /*!< Slave Select Assert */
 constexpr inline std::uint32_t SSD{1u << 5};               /*!< Slave Select Deassert */
 }  // namespace INTSTAT
-}  // namespace libMcuHw::spi
+}  // namespace libmcuhw::spi
 #endif
