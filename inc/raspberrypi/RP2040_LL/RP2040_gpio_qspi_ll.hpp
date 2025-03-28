@@ -12,8 +12,8 @@
 #define RP2040_GPIO_QSPI_SW_HPP
 
 namespace libMcuLL::gpioQspi {
-template <libMcu::ioQspiBaseAddress const& gpioQspiAddress_>
-struct gpioQspi : libMcu::PeripheralBase {
+template <libmcu::ioQspiBaseAddress const& gpioQspiAddress_>
+struct gpioQspi : libmcu::PeripheralBase {
   /**
    * @brief Base initialization function
    *
@@ -29,7 +29,7 @@ struct gpioQspi : libMcu::PeripheralBase {
   }
 
  private:
-  static constexpr libMcu::hwAddressType gpioQspiAddress = gpioQspiAddress_; /*!< peripheral address */
+  static constexpr libmcu::hwAddressType gpioQspiAddress = gpioQspiAddress_; /*!< peripheral address */
 };
 }  // namespace libMcuLL::gpioQspi
 #endif

@@ -114,8 +114,8 @@ enum class eventCountingDirections : std::uint32_t {
  * @brief SCT low level interface class
  * @tparam sctAddress_ address of the SCT peripheral
  */
-template <libMcu::sctBaseAddress sctAddress_>
-struct sct : libMcu::PeripheralBase {
+template <libmcu::sctBaseAddress sctAddress_>
+struct sct : libmcu::PeripheralBase {
   constexpr static void init(counterMode mode, bool bidirectional = true, bool autolimit = true) {
     std::uint32_t configRegister = static_cast<std::uint32_t>(mode);
     std::uint32_t ctrlRegister = hardware::CTRL::HALT_L | hardware::CTRL::HALT_H;
@@ -317,7 +317,7 @@ struct sct : libMcu::PeripheralBase {
   }
 
  private:
-  static constexpr libMcu::hwAddressType sctAddress = sctAddress_; /*!< peripheral address */
+  static constexpr libmcu::hwAddressType sctAddress = sctAddress_; /*!< peripheral address */
 };
 }  // namespace libMcuLL::sct
 #endif

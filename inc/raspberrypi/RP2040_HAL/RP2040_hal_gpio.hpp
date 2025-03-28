@@ -20,8 +20,8 @@ enum class pullModes : std::uint32_t {
   KEEPER = 0,                           /*!< No bus keeper on RP2040 */
 };
 
-template <libMcu::padsBank0BaseAddress const& padsBank0Address_, libMcu::ioBank0BaseAddress const& gpioBank0Address_,
-          libMcu::sioBaseAddress const& sioAddress_>
+template <libmcu::padsBank0BaseAddress const& padsBank0Address_, libmcu::ioBank0BaseAddress const& gpioBank0Address_,
+          libmcu::sioBaseAddress const& sioAddress_>
 struct gpio : libmcuhal::HalGpioBase {
   /**
    * @brief Initialize the gpio HAL
@@ -225,8 +225,8 @@ struct gpio : libmcuhal::HalGpioBase {
     return reinterpret_cast<libMcuHw::sio::sio*>(sioAddress + libMcuHw::peripheralOffsetXor);
   }
 
-  static constexpr libMcu::hwAddressType padsBank0Address = padsBank0Address_; /*!< pads bank 0 peripheral address */
-  static constexpr libMcu::hwAddressType sioAddress = sioAddress_;             /*!< SIO peripheral address*/
+  static constexpr libmcu::hwAddressType padsBank0Address = padsBank0Address_; /*!< pads bank 0 peripheral address */
+  static constexpr libmcu::hwAddressType sioAddress = sioAddress_;             /*!< SIO peripheral address*/
 };
 }  // namespace libmcuhal::gpio
 

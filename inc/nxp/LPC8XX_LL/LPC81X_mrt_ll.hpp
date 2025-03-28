@@ -13,8 +13,8 @@
 
 namespace libMcuLL::sw::mrt {
 using namespace hw::mrt;
-template <libMcu::mrtBaseAddress mrtAddress_>
-struct mrt : libMcu::PeripheralBase {
+template <libmcu::mrtBaseAddress mrtAddress_>
+struct mrt : libmcu::PeripheralBase {
   /**
    * @brief get registers from peripheral
    *
@@ -25,7 +25,7 @@ struct mrt : libMcu::PeripheralBase {
   }
 
  private:
-  static constexpr libMcu::hwAddressType mrtAddress = mrtAddress_; /*!< peripheral address */
+  static constexpr libmcu::hwAddressType mrtAddress = mrtAddress_; /*!< peripheral address */
 };
 }  // namespace libMcuLL::sw::mrt
 #endif

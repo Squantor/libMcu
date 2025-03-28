@@ -17,7 +17,7 @@ namespace libmcuhal::usart {
 namespace hardware = libMcuHw::usart;
 namespace nvic = libMcuHw::nvic;
 
-template <libMcu::uartBaseAddress const& uartBaseAddress_, libMcu::nvicBaseAddress const& nvicBaseAddress_, typename transferType,
+template <libmcu::uartBaseAddress const& uartBaseAddress_, libmcu::nvicBaseAddress const& nvicBaseAddress_, typename transferType,
           std::size_t bufSize>
 struct SyncUart {
   /**
@@ -160,10 +160,10 @@ struct SyncUart {
     return reinterpret_cast<nvic::nvic*>(nvicBaseAddress);
   }
 
-  static constexpr libMcu::hwAddressType uartBaseAddress = uartBaseAddress_; /*!< UART peripheral address */
-  static constexpr libMcu::hwAddressType nvicBaseAddress = nvicBaseAddress_; /*!< NVIC peripheral address */
-  libMcu::RingBuffer<transferType, bufSize> txBuffer;
-  libMcu::RingBuffer<transferType, bufSize> rxBuffer;
+  static constexpr libmcu::hwAddressType uartBaseAddress = uartBaseAddress_; /*!< UART peripheral address */
+  static constexpr libmcu::hwAddressType nvicBaseAddress = nvicBaseAddress_; /*!< NVIC peripheral address */
+  libmcu::RingBuffer<transferType, bufSize> txBuffer;
+  libmcu::RingBuffer<transferType, bufSize> rxBuffer;
 };
 }  // namespace libmcuhal::usart
 

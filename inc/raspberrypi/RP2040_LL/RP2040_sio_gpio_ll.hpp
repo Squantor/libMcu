@@ -13,8 +13,8 @@
 
 namespace libMcuLL::sioGpio {
 namespace hardware = libMcuHw::sio;
-template <libMcu::sioBaseAddress const &sioAddress_>
-struct sioGpio : libMcu::PeripheralBase {
+template <libmcu::sioBaseAddress const &sioAddress_>
+struct sioGpio : libmcu::PeripheralBase {
   /**
    * @brief Set gpio pin to output mode
    * @tparam PIN pin instance
@@ -92,7 +92,7 @@ struct sioGpio : libMcu::PeripheralBase {
   }
 
  private:
-  static constexpr libMcu::hwAddressType sioAddress{sioAddress_}; /*!< peripheral address */
+  static constexpr libmcu::hwAddressType sioAddress{sioAddress_}; /*!< peripheral address */
 };
 }  // namespace libMcuLL::sioGpio
 #endif

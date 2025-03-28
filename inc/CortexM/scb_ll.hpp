@@ -12,7 +12,7 @@
 #define SCB_LL_HPP
 namespace libMcuLL::scb {
 namespace hardware = libMcuHw::scb;
-template <libMcu::scbBaseAddress const& scbAddress_>
+template <libmcu::scbBaseAddress const& scbAddress_>
 struct scb {
   /**
    * @brief Construct a new systick object
@@ -87,7 +87,7 @@ struct scb {
     return reinterpret_cast<hardware::scb*>(scbAddress);
   }
 
-  static constexpr libMcu::hwAddressType scbAddress = scbAddress_; /*!< scb peripheral address */
+  static constexpr libmcu::hwAddressType scbAddress = scbAddress_; /*!< scb peripheral address */
 };
 }  // namespace libMcuLL::scb
 #endif

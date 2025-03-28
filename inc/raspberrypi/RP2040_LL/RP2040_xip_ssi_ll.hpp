@@ -13,8 +13,8 @@
 
 namespace libMcuLL::xipSsi {
 namespace hardware = libMcuHw::xipSsi;
-template <libMcu::xipSsiBaseAddress const& xipSsiAddress_>
-struct xipSsi : libMcu::PeripheralBase {
+template <libmcu::xipSsiBaseAddress const& xipSsiAddress_>
+struct xipSsi : libmcu::PeripheralBase {
   /**
    * @brief Base initialization function
    */
@@ -28,7 +28,7 @@ struct xipSsi : libMcu::PeripheralBase {
   }
 
  private:
-  static constexpr libMcu::hwAddressType xipSsiAddress{xipSsiAddress_}; /*!< peripheral address */
+  static constexpr libmcu::hwAddressType xipSsiAddress{xipSsiAddress_}; /*!< peripheral address */
 };
 }  // namespace libMcuLL::xipSsi
 #endif

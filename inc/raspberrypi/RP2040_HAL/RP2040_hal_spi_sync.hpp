@@ -13,7 +13,7 @@
 
 namespace libmcuhal::spi {
 
-template <libMcu::spiBaseAddress const& spiBaseAddress_>
+template <libmcu::spiBaseAddress const& spiBaseAddress_>
 struct spi {
   /**
    * @brief Initialize the spi HAL
@@ -54,7 +54,7 @@ struct spi {
     return reinterpret_cast<libMcuHw::gpioBank0::gpioBank0*>(spiBaseAddress + libMcuHw::peripheralOffsetXor);
   }
 
-  static constexpr libMcu::hwAddressType spiBaseAddress = spiBaseAddress_; /*!< spi peripheral address */
+  static constexpr libmcu::hwAddressType spiBaseAddress = spiBaseAddress_; /*!< spi peripheral address */
 };
 }  // namespace libmcuhal::spi
 

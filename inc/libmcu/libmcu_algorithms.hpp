@@ -11,7 +11,7 @@
 #ifndef LIBMCU_ALGORITHMS_HPP
 #define LIBMCU_ALGORITHMS_HPP
 
-namespace libMcu {
+namespace libmcu {
 /**
  * @brief Finds Least common multiple of two values ranged by a maximum
  * @param a first value
@@ -19,7 +19,7 @@ namespace libMcu {
  * @param max maximum to search until
  * @return least common multiple, returns zero if no value found
  */
-consteval std::uint32_t findLcm(std::uint32_t a, std::uint32_t b, std::uint32_t max) {
+consteval std::uint32_t FindLcm(std::uint32_t a, std::uint32_t b, std::uint32_t max) {
   std::uint32_t aSum = a;  // running maximum for parameter a
   std::uint32_t bSum = b;  // running maximum for parameter b
   while (aSum != bSum) {
@@ -34,6 +34,6 @@ consteval std::uint32_t findLcm(std::uint32_t a, std::uint32_t b, std::uint32_t 
   }
   return aSum;
 }
-}  // namespace libMcu
+}  // namespace libmcu
 
 #endif

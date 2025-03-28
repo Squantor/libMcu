@@ -13,7 +13,7 @@
 namespace libMcuLL::nvic {
 namespace hardware = libMcuHw::nvic;
 namespace hardwareScb = libMcuHw::scb;
-template <libMcu::nvicBaseAddress const& nvicAddress_, libMcu::scbBaseAddress const& scbAddress_>
+template <libmcu::nvicBaseAddress const& nvicAddress_, libmcu::scbBaseAddress const& scbAddress_>
 struct nvic {
   /**
    * @brief Construct a new systick object
@@ -171,8 +171,8 @@ struct nvic {
     return static_cast<std::uint32_t>(interrupt) >> 2;
   }
 
-  static constexpr libMcu::hwAddressType nvicAddress = nvicAddress_; /*!< nvic peripheral address */
-  static constexpr libMcu::hwAddressType scbAddress = scbAddress_;   /*!< scb peripheral address */
+  static constexpr libmcu::hwAddressType nvicAddress = nvicAddress_; /*!< nvic peripheral address */
+  static constexpr libmcu::hwAddressType scbAddress = scbAddress_;   /*!< scb peripheral address */
 };
 }  // namespace libMcuLL::nvic
 #endif

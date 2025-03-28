@@ -13,8 +13,8 @@
 
 namespace libMcuLL::usbCtrl {
 namespace hardware = libMcuHw::usbCtrl;
-template <libMcu::usbCtrlRegsBaseAddress const& usbctrlAddress_>
-struct usbctrl : libMcu::PeripheralBase {
+template <libmcu::usbCtrlRegsBaseAddress const& usbctrlAddress_>
+struct usbctrl : libmcu::PeripheralBase {
   /**
    * @brief Base initialization function
    */
@@ -28,7 +28,7 @@ struct usbctrl : libMcu::PeripheralBase {
   }
 
  private:
-  static constexpr libMcu::hwAddressType usbctrlAddress{usbctrlAddress_}; /*!< peripheral address */
+  static constexpr libmcu::hwAddressType usbctrlAddress{usbctrlAddress_}; /*!< peripheral address */
 };
 }  // namespace libMcuLL::usbCtrl
 #endif

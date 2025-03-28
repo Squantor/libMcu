@@ -13,8 +13,8 @@
 
 namespace libMcuLL::adc {
 namespace hardware = libMcuHw::adc;
-template <libMcu::adcBaseAddress adcAddress_>
-struct adc : libMcu::PeripheralBase {
+template <libmcu::adcBaseAddress adcAddress_>
+struct adc : libmcu::PeripheralBase {
   /**
    * @brief
    * @tparam &config clock configuration
@@ -72,7 +72,7 @@ struct adc : libMcu::PeripheralBase {
   }
 
  private:
-  static constexpr libMcu::hwAddressType adcAddress = adcAddress_; /*!< peripheral address */
+  static constexpr libmcu::hwAddressType adcAddress = adcAddress_; /*!< peripheral address */
 };
 
 }  // namespace libMcuLL::adc

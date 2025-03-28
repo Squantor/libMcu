@@ -122,8 +122,8 @@ enum class rtcSources : std::uint32_t {
  * @brief
  * @tparam clocksAddress_
  */
-template <libMcu::clocksBaseAddress const& clocksAddress_>
-struct clocks : libMcu::PeripheralBase {
+template <libmcu::clocksBaseAddress const& clocksAddress_>
+struct clocks : libmcu::PeripheralBase {
   /**
    * @brief Base initialization function
    */
@@ -157,7 +157,7 @@ struct clocks : libMcu::PeripheralBase {
     switchSrc(index, hardware::CTRL::REF_SRC_ROSC);  // set clock source to safe default
     clocksPeripheral()->CLK[index].CTRL =
       (clocksPeripheral()->CLK[index].CTRL & ~hardware::CTRL::AUXSRC_MASK) | static_cast<std::uint32_t>(source);
-    libMcu::delay(delay);
+    libmcu::Delay(delay);
     switchSrc(index, hardware::CTRL::REF_SRC_AUX);
     clocksPeripheral()->CLK[index].DIV = divisorRegister;
   }
@@ -191,7 +191,7 @@ struct clocks : libMcu::PeripheralBase {
     switchSrc(index, hardware::CTRL::SYS_SRC_CLK_REF);  // set clock source to safe default
     clocksPeripheral()->CLK[index].CTRL =
       (clocksPeripheral()->CLK[index].CTRL & ~hardware::CTRL::AUXSRC_MASK) | static_cast<std::uint32_t>(source);
-    libMcu::delay(delay);
+    libmcu::Delay(delay);
     switchSrc(index, hardware::CTRL::SYS_SRC_AUX);
     clocksPeripheral()->CLK[index].DIV = divisorRegister;
   }
@@ -289,7 +289,7 @@ struct clocks : libMcu::PeripheralBase {
     if (divisorRegister > clocksPeripheral()->CLK[index].DIV)
       clocksPeripheral()->CLK[index].DIV = divisorRegister;
     clocksPeripheralClear()->CLK[index].CTRL = hardware::CTRL::ENABLE;
-    libMcu::delay(delay);
+    libmcu::Delay(delay);
     clocksPeripheral()->CLK[index].CTRL = (clocksPeripheral()->CLK[index].CTRL & ~hardware::CTRL::AUXSRC_MASK) | source;
     clocksPeripheralSet()->CLK[index].CTRL = hardware::CTRL::ENABLE;
     clocksPeripheral()->CLK[index].DIV = divisorRegister;
@@ -324,7 +324,7 @@ struct clocks : libMcu::PeripheralBase {
   }
 
  private:
-  static constexpr libMcu::hwAddressType clocksAddress = clocksAddress_; /*!< peripheral address */
+  static constexpr libmcu::hwAddressType clocksAddress = clocksAddress_; /*!< peripheral address */
 };
 }  // namespace libMcuLL::clocks
 #endif

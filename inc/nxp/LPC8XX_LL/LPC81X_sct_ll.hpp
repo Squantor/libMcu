@@ -100,8 +100,8 @@ enum class captureCondition : std::uint32_t {
   CAPTURE_HIGH = EV_CTRL::IOCOND_HIGH, /*!< Capture high levels */
 };
 
-template <libMcu::sctBaseAddress sctAddress_>
-struct sct : libMcu::PeripheralBase {
+template <libmcu::sctBaseAddress sctAddress_>
+struct sct : libmcu::PeripheralBase {
   /**
    * @brief Setup SCT to unified 32 bit timer
    *
@@ -249,7 +249,7 @@ struct sct : libMcu::PeripheralBase {
   }
 
  private:
-  static constexpr libMcu::hwAddressType sctAddress = sctAddress_; /*!< peripheral address */
+  static constexpr libmcu::hwAddressType sctAddress = sctAddress_; /*!< peripheral address */
 };
 }  // namespace libMcuLL::sw::sct
 #endif

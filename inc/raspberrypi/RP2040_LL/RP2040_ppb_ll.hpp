@@ -17,8 +17,8 @@ namespace hardware = libMcuHw::ppb;
  * @brief
  * @tparam ppbAddress_
  */
-template <libMcu::ppbBaseAddress const& ppbAddress_>
-struct ppb : libMcu::PeripheralBase {
+template <libmcu::ppbBaseAddress const& ppbAddress_>
+struct ppb : libmcu::PeripheralBase {
   /**
    * @brief Base initialization function
    *
@@ -34,7 +34,7 @@ struct ppb : libMcu::PeripheralBase {
   }
 
  private:
-  static constexpr libMcu::hwAddressType ppbAddress = ppbAddress_; /*!< peripheral address */
+  static constexpr libmcu::hwAddressType ppbAddress = ppbAddress_; /*!< peripheral address */
 };
 }  // namespace libMcuLL::ppb
 #endif

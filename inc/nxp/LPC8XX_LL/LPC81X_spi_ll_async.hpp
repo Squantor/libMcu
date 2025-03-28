@@ -38,8 +38,8 @@ namespace hardware = ::libmcuhw::spi;
  * @tparam chipEnables enum of available chip enables
  * @tparam transferType datatype to use for data transfers
  */
-template <libMcu::spiBaseAddress spiAddress_, typename chipEnables, typename transferType>
-struct spiAsync : libMcu::PeripheralBase {
+template <libmcu::spiBaseAddress spiAddress_, typename chipEnables, typename transferType>
+struct spiAsync : libmcu::PeripheralBase {
   /**
    * @brief Construct a new spi Async object
    *
@@ -97,12 +97,12 @@ struct spiAsync : libMcu::PeripheralBase {
    * @return IN_USE when already in use
    * @return CLAIMED when the claim has been successful
    */
-  constexpr libMcu::results claim(void) {
+  constexpr libmcu::Results claim(void) {
     if (transactionState != detail::asynchronousStates::IDLE) {
-      return libMcu::results::IN_USE;
+      return libmcu::Results::IN_USE;
     }
     transactionState = detail::asynchronousStates::CLAIMED;
-    return libMcu::results::CLAIMED;
+    return libmcu::Results::CLAIMED;
   }
   /**
    * @brief Unclaim the SPI interface
@@ -111,16 +111,16 @@ struct spiAsync : libMcu::PeripheralBase {
    * @return BUSY when still executing a transaction
    * @return UNCLAIMED when unclaim sucessful
    */
-  constexpr libMcu::results unclaim(void) {
+  constexpr libmcu::Results unclaim(void) {
     if (transactionState == detail::asynchronousStates::IDLE) {
-      return libMcu::results::ERROR;
+      return libmcu::Results::ERROR;
     } else if (transactionState == detail::asynchronousStates::TRANSACTING_RW) {
-      return libMcu::results::BUSY;
+      return libmcu::Results::BUSY;
     } else {
       transactionState = detail::asynchronousStates::IDLE;
-      return libMcu::results::UNCLAIMED;
+      return libmcu::Results::UNCLAIMED;
     }
-    return libMcu::results::ERROR;
+    return libmcu::Results::ERROR;
   }
   /**
    * @brief Start a read and write data transaction
@@ -133,10 +133,10 @@ struct spiAsync : libMcu::PeripheralBase {
    *
    * @retval STARTED transaction started
    */
-  constexpr libMcu::results startReadWrite(chipEnables device, const std::span<transferType> transmitBuffer,
+  constexpr libmcu::Results startReadWrite(chipEnables device, const std::span<transferType> transmitBuffer,
                                            std::span<transferType> receiveBuffer, std::uint32_t bitcount, bool lastAction) {
     if (transactionState != detail::asynchronousStates::CLAIMED) {
-      return libMcu::results::ERROR;
+      return libmcu::Results::ERROR;
     }
     // store transaction information
     transactionWriteIndex = 0u;
@@ -149,7 +149,7 @@ struct spiAsync : libMcu::PeripheralBase {
     transactionDisableDevice = lastAction;
     // TODO: Enable device
     transactionState = detail::asynchronousStates::TRANSACTING_RW;
-    return libMcu::results::STARTED;
+    return libmcu::Results::STARTED;
   }
   /**
    * @brief Start a read data transaction
@@ -161,10 +161,10 @@ struct spiAsync : libMcu::PeripheralBase {
    *
    * @retval STARTED transaction started
    */
-  constexpr libMcu::results startRead(chipEnables device, std::span<transferType> receiveBuffer, std::uint32_t bitcount,
+  constexpr libmcu::Results startRead(chipEnables device, std::span<transferType> receiveBuffer, std::uint32_t bitcount,
                                       bool lastAction) {
     if (transactionState != detail::asynchronousStates::CLAIMED) {
-      return libMcu::results::ERROR;
+      return libmcu::Results::ERROR;
     }
     // store transaction information
     transactionWriteIndex = 0u;
@@ -177,7 +177,7 @@ struct spiAsync : libMcu::PeripheralBase {
     transactionDisableDevice = lastAction;
     // TODO: Enable device
     transactionState = detail::asynchronousStates::TRANSACTING_R;
-    return libMcu::results::STARTED;
+    return libmcu::Results::STARTED;
   }
   /**
    * @brief Start a write data transaction
@@ -189,10 +189,10 @@ struct spiAsync : libMcu::PeripheralBase {
    *
    * @retval STARTED transaction started
    */
-  constexpr libMcu::results startWrite(chipEnables device, const std::span<transferType> transmitBuffer, std::uint32_t bitcount,
+  constexpr libmcu::Results startWrite(chipEnables device, const std::span<transferType> transmitBuffer, std::uint32_t bitcount,
                                        bool lastAction) {
     if (transactionState != detail::asynchronousStates::CLAIMED) {
-      return libMcu::results::ERROR;
+      return libmcu::Results::ERROR;
     }
     // store transaction information
     transactionWriteIndex = 0u;
@@ -205,7 +205,7 @@ struct spiAsync : libMcu::PeripheralBase {
     transactionDisableDevice = lastAction;
     // TODO: Enable device
     transactionState = detail::asynchronousStates::TRANSACTING_W;
-    return libMcu::results::STARTED;
+    return libmcu::Results::STARTED;
   }
   // TODO: StartWrite
   /**
@@ -214,7 +214,7 @@ struct spiAsync : libMcu::PeripheralBase {
    * @retval BUSY transaction still busy
    * @retval DONE transaction done, data available in buffers
    */
-  constexpr libMcu::results progress(void) {
+  constexpr libmcu::Results progress(void) {
     switch (transactionState) {
       case detail::asynchronousStates::TRANSACTING_RW:
         return progressReadWrite(transactionWriteData[transactionWriteIndex]);
@@ -226,7 +226,7 @@ struct spiAsync : libMcu::PeripheralBase {
         return progressWrite();
         break;
       default:
-        return libMcu::results::ERROR;
+        return libmcu::Results::ERROR;
     }
   }
   /**
@@ -248,7 +248,7 @@ struct spiAsync : libMcu::PeripheralBase {
    * @retval DONE when the last data is read
    * @retval BUSY when interface is busy or still some data to be read remains
    */
-  constexpr libMcu::results progressPartialRead(void) {
+  constexpr libmcu::Results progressPartialRead(void) {
     if ((spiPeripheral()->STAT & STAT::RXRDY) != 0u) {
       if (transactionReadBits > elementBitCnt) {
         transactionReadData[transactionReadIndex] = RXDAT::RXDAT(spiPeripheral()->RXDAT);
@@ -258,10 +258,10 @@ struct spiAsync : libMcu::PeripheralBase {
         transactionReadData[transactionReadIndex] = RXDAT::RXDAT(spiPeripheral()->RXDAT);
         transactionState = detail::asynchronousStates::CLAIMED;
         transactionReadBits = 0u;
-        return libMcu::results::DONE;
+        return libmcu::Results::DONE;
       }
     }
-    return libMcu::results::BUSY;
+    return libmcu::Results::BUSY;
   }
   /**
    * @brief Partially progress a SPI write
@@ -271,7 +271,7 @@ struct spiAsync : libMcu::PeripheralBase {
    * @retval DONE when the last data element is written
    * @retval BUSY when interface is busy or still some data remains
    */
-  constexpr libMcu::results progressPartialWrite(std::uint32_t transferCommand, transferType data) {
+  constexpr libmcu::Results progressPartialWrite(std::uint32_t transferCommand, transferType data) {
     if (((spiPeripheral()->STAT & STAT::TXRDY) != 0u)) {
       if (transactionWriteBits > elementBitCnt) {
         spiPeripheral()->TXDATCTL = transferCommand | TXDATCTL::TXDAT(static_cast<uint16_t>(data)) | TXDATCTL::LEN(elementBitCnt);
@@ -283,10 +283,10 @@ struct spiAsync : libMcu::PeripheralBase {
         spiPeripheral()->TXDATCTL =
           transferCommand | TXDATCTL::TXDAT(static_cast<uint16_t>(data)) | TXDATCTL::LEN(transactionWriteBits);
         transactionWriteBits = 0u;  // reset to zero so any further calls while TX is ready will cause no data written
-        return libMcu::results::DONE;
+        return libmcu::Results::DONE;
       }
     }
-    return libMcu::results::BUSY;
+    return libmcu::Results::BUSY;
   }
   /**
    * @brief progress with current read write transaction
@@ -295,12 +295,12 @@ struct spiAsync : libMcu::PeripheralBase {
    * @retval BUSY transaction still busy
    * @retval DONE transaction done, data available in buffers
    */
-  constexpr libMcu::results progressReadWrite(transferType data) {
-    libMcu::results readResult = progressPartialRead();
-    if (readResult == libMcu::results::DONE)
-      return libMcu::results::DONE;
+  constexpr libmcu::Results progressReadWrite(transferType data) {
+    libmcu::Results readResult = progressPartialRead();
+    if (readResult == libmcu::Results::DONE)
+      return libmcu::Results::DONE;
     progressPartialWrite(TXDATCTL::TXSSEL(static_cast<std::uint32_t>(transactionDeviceEnable)), data);
-    return libMcu::results::BUSY;
+    return libmcu::Results::BUSY;
   }
   /**
    * @brief progress with current write transaction
@@ -308,13 +308,13 @@ struct spiAsync : libMcu::PeripheralBase {
    * @retval BUSY transaction still busy
    * @retval DONE transaction done, data available in buffers
    */
-  constexpr libMcu::results progressWrite(void) {
-    libMcu::results writeResult =
+  constexpr libmcu::Results progressWrite(void) {
+    libmcu::Results writeResult =
       progressPartialWrite(TXDATCTL::TXSSEL(static_cast<std::uint32_t>(transactionDeviceEnable)) | TXDATCTL::RXIGNORE,
                            transactionWriteData[transactionWriteIndex]);
-    if (writeResult == libMcu::results::DONE) {
+    if (writeResult == libmcu::Results::DONE) {
       transactionState = detail::asynchronousStates::CLAIMED;
-      return libMcu::results::DONE;
+      return libmcu::Results::DONE;
     } else
       return writeResult;
   }
@@ -330,7 +330,7 @@ struct spiAsync : libMcu::PeripheralBase {
   bool transactionDisableDevice;                /*!< Do we disable chip select after transaction */
   static constexpr std::uint8_t elementBitCnt =
     std::numeric_limits<transferType>::digits;                     /*!< Amount of bits in datatransfer type */
-  static constexpr libMcu::hwAddressType spiAddress = spiAddress_; /*!< peripheral address */
+  static constexpr libmcu::hwAddressType spiAddress = spiAddress_; /*!< peripheral address */
 };
 }  // namespace libMcuLL::sw::spi
 #endif

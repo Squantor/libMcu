@@ -128,7 +128,7 @@ enum class IOfunctSelects : std::uint8_t {
  * @tparam T_FUNCT  IO function
  */
 template <IOports T_PORT, IOpins T_PIN, IOfuncts T_FUNCT, bool DUMMY = false>
-struct pin : libMcu::pinBase {
+struct pin : libmcu::PinBase {
   static_assert(DUMMY, "This I/O pin configuration is invalid!");
 };
 
@@ -136,7 +136,7 @@ struct pin : libMcu::pinBase {
  * @brief Specialization for Pin 8 on Port A with MCO function
  */
 template <>
-struct pin<IOports::PORTA, IOpins::PA8, IOfuncts::GPIO> : libMcu::pinBase {
+struct pin<IOports::PORTA, IOpins::PA8, IOfuncts::GPIO> : libmcu::PinBase {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::NONE;
 };
 
@@ -144,7 +144,7 @@ struct pin<IOports::PORTA, IOpins::PA8, IOfuncts::GPIO> : libMcu::pinBase {
  * @brief Specialization for Pin 8 on Port A with MCO function
  */
 template <>
-struct pin<IOports::PORTA, IOpins::PA8, IOfuncts::MCO> : libMcu::pinBase {
+struct pin<IOports::PORTA, IOpins::PA8, IOfuncts::MCO> : libmcu::PinBase {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::AF0;
 };
 

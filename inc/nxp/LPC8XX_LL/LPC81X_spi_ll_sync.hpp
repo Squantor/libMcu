@@ -25,8 +25,8 @@ namespace hardware = libmcuhw::spi;
  * @tparam chipEnables enum of available chip enables
  * @tparam transferType datatype to use for data transfers
  */
-template <libMcu::spiBaseAddress spiAddress_, typename chipEnables, typename transferType>
-struct spiSync : libMcu::PeripheralBase {
+template <libmcu::spiBaseAddress spiAddress_, typename chipEnables, typename transferType>
+struct spiSync : libmcu::PeripheralBase {
   /**
    * @brief Initialise SPI peripheral as master device
    *
@@ -173,7 +173,7 @@ struct spiSync : libMcu::PeripheralBase {
   }
 
  private:
-  static constexpr libMcu::hwAddressType spiAddress = spiAddress_; /*!< peripheral spiAddress */
+  static constexpr libmcu::hwAddressType spiAddress = spiAddress_; /*!< peripheral spiAddress */
 };
 }  // namespace libMcuLL::sw::spi
 #endif

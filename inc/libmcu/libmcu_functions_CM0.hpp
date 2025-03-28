@@ -13,8 +13,13 @@
 
 #include <climits>
 
-namespace libMcu {
-inline void delay(std::uint32_t cycles) {
+namespace libmcu {
+
+/**
+ * @brief Simple delay function
+ * @param cycles amount of cycles to delay
+ */
+inline void Delay(std::uint32_t cycles) {
   asm volatile(
     ".syntax unified \n\t"
     "1: \n\t"
@@ -23,6 +28,6 @@ inline void delay(std::uint32_t cycles) {
     : "+r"(cycles));
 }
 
-}  // namespace libMcu
+}  // namespace libmcu
 
 #endif

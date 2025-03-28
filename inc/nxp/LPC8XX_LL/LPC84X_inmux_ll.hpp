@@ -63,8 +63,8 @@ enum class dmaPeriInputTriggers : std::uint32_t {
  * @brief Input multiplexer low level interface class
  * @tparam inmuxAddress_ address of the Input multiplexer peripheral
  */
-template <libMcu::inmuxBaseAddress in_mux_address>
-struct InMux : libMcu::PeripheralBase {
+template <libmcu::inmuxBaseAddress in_mux_address>
+struct InMux : libmcu::PeripheralBase {
   /**
    * @brief setup multiplexer input for SCT input
    * @param sctInput SCT input to configure
@@ -91,7 +91,7 @@ struct InMux : libMcu::PeripheralBase {
   }
 
  private:
-  static constexpr libMcu::hwAddressType in_mux_address_ = in_mux_address; /*!< peripheral address */
+  static constexpr libmcu::hwAddressType in_mux_address_ = in_mux_address; /*!< peripheral address */
 };
 }  // namespace libMcuLL::inmux
 #endif

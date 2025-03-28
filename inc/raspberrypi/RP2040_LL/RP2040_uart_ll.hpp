@@ -14,8 +14,8 @@
 namespace libMcuLL::uart {
 namespace hardware = libMcuHw::uart;
 using namespace libMcuHw::uart;
-template <libMcu::uartBaseAddress const& uartAddress_>
-struct uart : libMcu::PeripheralBase {
+template <libmcu::uartBaseAddress const& uartAddress_>
+struct uart : libmcu::PeripheralBase {
   /**
    * @brief Base initialization function
    */
@@ -62,7 +62,7 @@ struct uart : libMcu::PeripheralBase {
     }
   }
   // read, data, timeout
-  constexpr libMcu::results read(std::span<std::uint8_t> receiveBuffer, std::uint32_t timeout) {
+  constexpr libmcu::Results read(std::span<std::uint8_t> receiveBuffer, std::uint32_t timeout) {
     std::uint32_t countdown;
     for (std::uint8_t& character : receiveBuffer) {
       countdown = timeout;
@@ -70,21 +70,21 @@ struct uart : libMcu::PeripheralBase {
         countdown = countdown - 1;
       }
       if (countdown == 0)
-        return libMcu::results::TIMEOUT;
+        return libmcu::Results::TIMEOUT;
       std::uint32_t receivedData = uartPeripheral()->UARTDR;
       if (receivedData & UARTDR::ERROR_MASK) {
         if (receivedData & UARTDR::OE_FLAG)
-          return libMcu::results::OVERRUN;
+          return libmcu::Results::OVERRUN;
         else if (receivedData & UARTDR::BE_FLAG)
-          return libMcu::results::BREAK;
+          return libmcu::Results::BREAK;
         else if (receivedData & UARTDR::PE_FLAG)
-          return libMcu::results::PARITY;
+          return libmcu::Results::PARITY;
         else if (receivedData & UARTDR::FE_FLAG)
-          return libMcu::results::FRAMING;
+          return libmcu::Results::FRAMING;
       }
       character = static_cast<std::uint8_t>(receivedData);
     }
-    return libMcu::results::NO_ERROR;
+    return libmcu::Results::NO_ERROR;
   }
 
   /**
@@ -117,7 +117,7 @@ struct uart : libMcu::PeripheralBase {
   }
 
  private:
-  static constexpr libMcu::hwAddressType uartAddress{uartAddress_}; /*!< peripheral address */
+  static constexpr libmcu::hwAddressType uartAddress{uartAddress_}; /*!< peripheral address */
 };
 }  // namespace libMcuLL::uart
 #endif

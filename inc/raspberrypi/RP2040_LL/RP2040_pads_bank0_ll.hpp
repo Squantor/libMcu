@@ -21,9 +21,9 @@ namespace hardware = libMcuHw::padsBank0;
  * @brief
  * @tparam padsBank0Address_
  */
-template <libMcu::padsBank0BaseAddress const& padsBank0Address_>
+template <libmcu::padsBank0BaseAddress const& padsBank0Address_>
 // TODO voltage select method
-struct padsBank0 : libMcu::PeripheralBase {
+struct padsBank0 : libmcu::PeripheralBase {
   /**
    * @brief Setup pin pads
    * @tparam T pin trait template
@@ -59,7 +59,7 @@ struct padsBank0 : libMcu::PeripheralBase {
   }
 
  private:
-  static constexpr libMcu::hwAddressType padsBank0Address = padsBank0Address_; /*!< peripheral address */
+  static constexpr libmcu::hwAddressType padsBank0Address = padsBank0Address_; /*!< peripheral address */
 };
 }  // namespace libMcuLL::padsBank0
 #endif

@@ -13,13 +13,13 @@
 
 #include <climits>
 
-namespace libMcu {
+namespace libmcu {
 
 template <typename T>
-constexpr size_t bitsInType() {
+constexpr size_t BitsInType() {
   return sizeof(T) * CHAR_BIT;
 }
 
-}  // namespace libMcu
+}  // namespace libmcu
 
 #endif

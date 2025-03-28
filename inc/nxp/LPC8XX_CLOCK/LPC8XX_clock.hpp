@@ -34,7 +34,7 @@ consteval uint32_t FindSystemPllMsel(uint32_t inFreq, uint32_t outFreq) {
 }
 
 consteval uint32_t FindClockFrequency(uint32_t inFreq, uint32_t cpuFreq) {
-  return libMcu::findLcm(inFreq, cpuFreq, mainClockMaxFreq);
+  return libmcu::FindLcm(inFreq, cpuFreq, mainClockMaxFreq);
 }
 }  // namespace libMcuHw::clock
 

@@ -13,8 +13,8 @@
 
 namespace libMcuLL::rosc {
 namespace hardware = libMcuHw::rosc;
-template <libMcu::roscBaseAddress const& roscAddress_>
-struct rosc : libMcu::PeripheralBase {
+template <libmcu::roscBaseAddress const& roscAddress_>
+struct rosc : libmcu::PeripheralBase {
   /**
    * @brief Base initialization function
    *
@@ -30,7 +30,7 @@ struct rosc : libMcu::PeripheralBase {
   }
 
  private:
-  static constexpr libMcu::hwAddressType roscAddress = roscAddress_; /*!< peripheral address */
+  static constexpr libmcu::hwAddressType roscAddress = roscAddress_; /*!< peripheral address */
 };
 }  // namespace libMcuLL::rosc
 #endif

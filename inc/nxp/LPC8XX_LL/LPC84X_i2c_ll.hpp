@@ -17,8 +17,8 @@ namespace hardware = libMcuHw::i2c;
  * @brief
  * @tparam i2cAddress_
  */
-template <libMcu::i2cBaseAddress i2cAddress_>
-struct i2c : libMcu::PeripheralBase {
+template <libmcu::i2cBaseAddress i2cAddress_>
+struct i2c : libmcu::PeripheralBase {
   /**
    * @brief Initialize I2C master
    * @todo need to take into account the sampling periods of SCL SDA
@@ -45,7 +45,7 @@ struct i2c : libMcu::PeripheralBase {
    * @param address I2C device to write to
    * @param transmitBuffer data to send
    */
-  constexpr void write(const libMcu::i2cDeviceAddress address, const std::span<const std::uint8_t> transmitBuffer) {
+  constexpr void write(const libmcu::i2cDeviceAddress address, const std::span<const std::uint8_t> transmitBuffer) {
     std::uint32_t i2cAddress = static_cast<std::uint32_t>(address.value) << 1;
     i2cPeripheral()->MSTDAT = i2cAddress;
     i2cPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTART;
@@ -71,7 +71,7 @@ struct i2c : libMcu::PeripheralBase {
    * @param address I2C device to read from
    * @param receiveBuffer place to put read data, needs to be at least size 1!
    */
-  constexpr void read(const libMcu::i2cDeviceAddress address, std::span<std::uint8_t> receiveBuffer) {
+  constexpr void read(const libmcu::i2cDeviceAddress address, std::span<std::uint8_t> receiveBuffer) {
     std::uint32_t i2cAddress = static_cast<std::uint32_t>(address.value) << 1;
     i2cPeripheral()->MSTDAT = i2cAddress | 0x01;  // set read bit in Address
     i2cPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTART;
@@ -98,84 +98,84 @@ struct i2c : libMcu::PeripheralBase {
    * Leaves the I2C bus open after the transmission
    * @param address I2C address
    * @param transmitBuffer Buffer of data to send
-   * @return constexpr libMcu::results
+   * @return constexpr libmcu::Results
    */
-  constexpr libMcu::results masterWriteStart(const libMcu::i2cDeviceAddress address,
+  constexpr libmcu::Results masterWriteStart(const libmcu::i2cDeviceAddress address,
                                              const std::span<const std::uint8_t> transmitBuffer) {
     std::uint32_t i2cAddress = static_cast<std::uint32_t>(address.value) << 1;
     i2cPeripheral()->MSTDAT = i2cAddress;
     i2cPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTART;
     masterWait();
     if ((i2cPeripheral()->STAT & hardware::STAT::MSTSTATE_MASK) != hardware::STAT::MSTSTATE_TXRDY)
-      return libMcu::results::ERROR;
+      return libmcu::Results::ERROR;
     for (const std::uint8_t &data : transmitBuffer) {
       i2cPeripheral()->MSTDAT = static_cast<std::uint32_t>(data);
       i2cPeripheral()->MSTCTL = hardware::MSTCTL::MSTCONTINUE;
       masterWait();
       if ((i2cPeripheral()->STAT & hardware::STAT::MSTSTATE_MASK) != hardware::STAT::MSTSTATE_TXRDY)
-        return libMcu::results::ERROR;
+        return libmcu::Results::ERROR;
     }
-    return libMcu::results::NO_ERROR;
+    return libmcu::Results::NO_ERROR;
   }
   /**
    * @brief Starts writing a master transaction and writes a single byte
    * Leaves the I2C bus open after the transmission
    * @param address I2C address
    * @param data Byte to send
-   * @return constexpr libMcu::results
+   * @return constexpr libmcu::Results
    */
-  constexpr libMcu::results masterWriteStart(const libMcu::i2cDeviceAddress address, const std::uint8_t data) {
+  constexpr libmcu::Results masterWriteStart(const libmcu::i2cDeviceAddress address, const std::uint8_t data) {
     std::uint32_t i2cAddress = static_cast<std::uint32_t>(address.value) << 1;
     i2cPeripheral()->MSTDAT = i2cAddress;
     i2cPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTART;
     masterWait();
     if ((i2cPeripheral()->STAT & hardware::STAT::MSTSTATE_MASK) != hardware::STAT::MSTSTATE_TXRDY)
-      return libMcu::results::ERROR;
+      return libmcu::Results::ERROR;
     i2cPeripheral()->MSTDAT = static_cast<std::uint32_t>(data);
     i2cPeripheral()->MSTCTL = hardware::MSTCTL::MSTCONTINUE;
     masterWait();
     if ((i2cPeripheral()->STAT & hardware::STAT::MSTSTATE_MASK) != hardware::STAT::MSTSTATE_TXRDY)
-      return libMcu::results::ERROR;
-    return libMcu::results::NO_ERROR;
+      return libmcu::Results::ERROR;
+    return libmcu::Results::NO_ERROR;
   }
   /**
    * @brief writes more I2C data to the I2C bus
    * Leaves the I2C bus open
    * @param transmitBuffer Data to send
-   * @return constexpr libMcu::results
+   * @return constexpr libmcu::Results
    */
-  constexpr libMcu::results masterWriteContinue(const std::span<const std::uint8_t> transmitBuffer) {
+  constexpr libmcu::Results masterWriteContinue(const std::span<const std::uint8_t> transmitBuffer) {
     for (const std::uint8_t &data : transmitBuffer) {
       i2cPeripheral()->MSTDAT = static_cast<std::uint32_t>(data);
       i2cPeripheral()->MSTCTL = hardware::MSTCTL::MSTCONTINUE;
       masterWait();
       if ((i2cPeripheral()->STAT & hardware::STAT::MSTSTATE_MASK) != hardware::STAT::MSTSTATE_TXRDY)
-        return libMcu::results::ERROR;
+        return libmcu::Results::ERROR;
     }
-    return libMcu::results::NO_ERROR;
+    return libmcu::Results::NO_ERROR;
   }
   /**
    * @brief Writes more I2C data to the I2C bus
    * Leaves the I2C bus open
    * @param data Data to send
-   * @return constexpr libMcu::results
+   * @return constexpr libmcu::Results
    */
-  constexpr libMcu::results masterWriteContinue(const std::uint8_t data) {
+  constexpr libmcu::Results masterWriteContinue(const std::uint8_t data) {
     i2cPeripheral()->MSTDAT = static_cast<std::uint32_t>(data);
     i2cPeripheral()->MSTCTL = hardware::MSTCTL::MSTCONTINUE;
     masterWait();
     if ((i2cPeripheral()->STAT & hardware::STAT::MSTSTATE_MASK) != hardware::STAT::MSTSTATE_TXRDY)
-      return libMcu::results::ERROR;
-    return libMcu::results::NO_ERROR;
+      return libmcu::Results::ERROR;
+    return libmcu::Results::NO_ERROR;
   }
   /**
    * @brief Stops I2C master transmission
-   * @return constexpr libMcu::results
+   * @return constexpr libmcu::Results
    */
-  constexpr libMcu::results masterStop() {
+  constexpr libmcu::Results masterStop() {
     i2cPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTOP;
     masterWait();
-    return libMcu::results::NO_ERROR;
+    return libmcu::Results::NO_ERROR;
   }
   /**
    * @brief Waits until the master action has completed
@@ -214,7 +214,7 @@ struct i2c : libMcu::PeripheralBase {
   }
 
  private:
-  static constexpr libMcu::hwAddressType i2cAddress = i2cAddress_; /*!< peripheral address */
+  static constexpr libmcu::hwAddressType i2cAddress = i2cAddress_; /*!< peripheral address */
 };
 }  // namespace libMcuLL::i2c
 #endif

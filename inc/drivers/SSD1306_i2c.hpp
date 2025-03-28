@@ -17,9 +17,9 @@
 namespace libMcuDriver::SSD1306 {
 namespace i2c = libMcuLL::i2c;
 
-template <auto &i2cHal, const libMcu::i2cDeviceAddress &i2cAddress, auto &config>
+template <auto &i2cHal, const libmcu::i2cDeviceAddress &i2cAddress, auto &config>
 struct SSD1306 {
-  constexpr libMcu::results init() {
+  constexpr libmcu::Results init() {
     return sendCommand(config.initCommands);
   }
   constexpr std::uint32_t getXsize() {
@@ -28,27 +28,27 @@ struct SSD1306 {
   constexpr std::uint32_t getYsize() {
     return config.ySize;
   }
-  constexpr libMcu::results sendCommand(const std::span<const std::uint8_t> commands) {
+  constexpr libmcu::Results sendCommand(const std::span<const std::uint8_t> commands) {
     return send(preambleCommand, commands);
   }
-  constexpr libMcu::results sendCommand(std::uint8_t command) {
+  constexpr libmcu::Results sendCommand(std::uint8_t command) {
     std::array<std::uint8_t, 1> commands{command};
     return sendCommand(commands);
   }
-  constexpr libMcu::results sendCommand(std::uint8_t command, std::uint8_t argument) {
+  constexpr libmcu::Results sendCommand(std::uint8_t command, std::uint8_t argument) {
     std::array<std::uint8_t, 2> commands{command, argument};
     return sendCommand(commands);
   }
-  constexpr libMcu::results sendData(const std::span<const std::uint8_t> data) {
+  constexpr libmcu::Results sendData(const std::span<const std::uint8_t> data) {
     return send(preambleData, data);
   }
-  constexpr libMcu::results send(std::uint8_t action, const std::span<const std::uint8_t> commands) {
-    libMcu::results result;
+  constexpr libmcu::Results send(std::uint8_t action, const std::span<const std::uint8_t> commands) {
+    libmcu::Results result;
     result = i2cHal.startMasterWrite(i2cAddress, action);
-    if (result != libMcu::results::NO_ERROR)
+    if (result != libmcu::Results::NO_ERROR)
       goto stopI2C;
     result = i2cHal.continueMasterWrite(commands);
-    if (result != libMcu::results::NO_ERROR)
+    if (result != libmcu::Results::NO_ERROR)
       goto stopI2C;
   stopI2C:
     i2cHal.stopMaster();
@@ -59,16 +59,16 @@ struct SSD1306 {
    * @param contrast contrast value from 1 to 255
    * @return status of I2C transaction
    */
-  constexpr libMcu::results contrast(std::uint8_t value) {
+  constexpr libmcu::Results contrast(std::uint8_t value) {
     return sendCommand(setContrast, ContrastLevel(value));
   }
-  constexpr libMcu::results setDisplayRam(bool state) {
+  constexpr libmcu::Results setDisplayRam(bool state) {
     if (state == true)
       return sendCommand(cmdDisplayRam);
     else
       return sendCommand(CmdDisplayOn);
   }
-  constexpr libMcu::results invertDisplay(bool state) {
+  constexpr libmcu::Results invertDisplay(bool state) {
     if (state == true)
       return sendCommand(cmdDisplayInvert);
     else
@@ -78,21 +78,21 @@ struct SSD1306 {
    * @brief Set the Address of the display pointer in page mode
    * @param column column address
    * @param page page address
-   * @return constexpr libMcu::results
+   * @return constexpr libmcu::Results
    */
-  constexpr libMcu::results setAddressInPageMode(uint8_t column, uint8_t page) {
+  constexpr libmcu::Results setAddressInPageMode(uint8_t column, uint8_t page) {
     std::array<std::uint8_t, 3> commands{cmdSetPageStart(page), cmdSetLowerColumnAddress(column),
                                          cmdSetHigherColumnAddress(column)};
     return sendCommand(commands);
   }
-  constexpr libMcu::results setDisplayStartLine(uint32_t line) {
+  constexpr libmcu::Results setDisplayStartLine(uint32_t line) {
     return sendCommand(cmdSetDisplayStartLine(line));
   }
-  constexpr libMcu::results setColumnAddress(uint32_t start, uint32_t end) {
+  constexpr libmcu::Results setColumnAddress(uint32_t start, uint32_t end) {
     std::array<std::uint8_t, 3> commands{cmdSetColumnAddress, static_cast<std::uint8_t>(start), static_cast<std::uint8_t>(end)};
     return sendCommand(commands);
   }
-  constexpr libMcu::results setPageAddress(uint32_t start, uint32_t end) {
+  constexpr libmcu::Results setPageAddress(uint32_t start, uint32_t end) {
     std::array<std::uint8_t, 3> commands{cmdSetPageAddress, static_cast<std::uint8_t>(start), static_cast<std::uint8_t>(end)};
     return sendCommand(commands);
   }

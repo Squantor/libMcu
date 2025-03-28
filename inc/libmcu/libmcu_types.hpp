@@ -11,13 +11,13 @@
 #ifndef LIBMCU_TYPES_HPP
 #define LIBMCU_TYPES_HPP
 
-namespace libMcu {
+namespace libmcu {
 /**
  * @brief defines a constant for typesafety
  * @tparam C_ type of constant
  */
 template <typename C_>
-struct constant {
+struct Constant {
   using type = C_;
 
   constexpr operator C_() const {
@@ -33,9 +33,9 @@ struct constant {
  * drivers/functions
  *
  */
-struct pinBase {};
+struct PinBase {};
 
-using isrLambda = std::add_pointer<void()>::type; /*!< Base type for an ISR lambda */
+using IsrLambda = std::add_pointer<void()>::type; /*!< Base type for an ISR lambda */
 
-}  // namespace libMcu
+}  // namespace libmcu
 #endif

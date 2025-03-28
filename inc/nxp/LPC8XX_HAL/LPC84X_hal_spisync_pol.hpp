@@ -22,7 +22,7 @@ namespace nvic = libMcuHw::nvic;
  * @todo write with a software slave select, preferably a gpio? Would require a gpio hal access parameter
  * @tparam spiBaseAddress_ Base address of the spi peripheral structure
  */
-template <libMcu::spiBaseAddress const& spiBaseAddress_>
+template <libmcu::spiBaseAddress const& spiBaseAddress_>
 struct spiSyncPol {
   /**
    * @brief Construct a new synchronous polling spi
@@ -120,7 +120,7 @@ struct spiSyncPol {
     return reinterpret_cast<hardware::spi*>(spiBaseAddress);
   }
 
-  static constexpr libMcu::hwAddressType spiBaseAddress = spiBaseAddress_; /*!< SPI peripheral address */
+  static constexpr libmcu::hwAddressType spiBaseAddress = spiBaseAddress_; /*!< SPI peripheral address */
 };
 
 }  // namespace libmcuhal::spi

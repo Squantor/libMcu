@@ -13,7 +13,7 @@
 
 namespace libMcuLL::sw::pmu {
 using namespace hw::pmu;
-template <libMcu::pmuBaseAddress pmuAddress_>
+template <libmcu::pmuBaseAddress pmuAddress_>
 struct pmu {
   /**
    * @brief get registers from peripheral
@@ -25,7 +25,7 @@ struct pmu {
   }
 
  private:
-  static constexpr libMcu::hwAddressType pmuAddress = pmuAddress_; /*!< peripheral address */
+  static constexpr libmcu::hwAddressType pmuAddress = pmuAddress_; /*!< peripheral address */
 };
 }  // namespace libMcuLL::sw::pmu
 #endif

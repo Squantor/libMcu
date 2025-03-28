@@ -13,7 +13,7 @@
 
 namespace libMcuLL::sw::wkt {
 using namespace libMcuLL::hw::wkt;
-template <libMcu::wktBaseAddress wktAddress_>
+template <libmcu::wktBaseAddress wktAddress_>
 struct wkt {
   /**
    * @brief get registers from peripheral
@@ -25,7 +25,7 @@ struct wkt {
   }
 
  private:
-  static constexpr libMcu::hwAddressType wktAddress = wktAddress_; /*!< peripheral address */
+  static constexpr libmcu::hwAddressType wktAddress = wktAddress_; /*!< peripheral address */
 };
 }  // namespace libMcuLL::sw::wkt
 #endif

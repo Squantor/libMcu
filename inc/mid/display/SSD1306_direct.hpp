@@ -70,7 +70,7 @@ class displayDirSSD1306 {
    * Uses the SSD1306 set start address, no copying of data done
    * @param xPos start address to scroll to, no checking done
    */
-  libMcu::results scroll(std::uint32_t xPos) {
+  libmcu::Results scroll(std::uint32_t xPos) {
     return (driver.setDisplayStartLine(xPos));
   }
   /**
@@ -78,7 +78,7 @@ class displayDirSSD1306 {
    * @param percentage from 0 to 100% mapped onto the value
    * @return result of i2c transaction
    */
-  libMcu::results brightness(std::uint32_t percentage) {
+  libmcu::Results brightness(std::uint32_t percentage) {
     // scale percentage to value
     std::uint32_t value = percentage * 255 / 100;
     if (value == 0)
@@ -90,7 +90,7 @@ class displayDirSSD1306 {
    * @param isInverted inversion state
    * @return Result of i2c transaction
    */
-  libMcu::results invert(bool isInverted) {
+  libmcu::Results invert(bool isInverted) {
     return driver.invertDisplay(isInverted);
   }
 

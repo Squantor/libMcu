@@ -13,8 +13,8 @@
 
 namespace libMcuLL::sw::pin_int {
 using namespace hw::gpio;
-template <libMcu::pinintBaseAddress pinintAddress_>
-struct pinint : libMcu::PeripheralBase {
+template <libmcu::pinintBaseAddress pinintAddress_>
+struct pinint : libmcu::PeripheralBase {
   /**
    * @brief get registers from peripheral
    *
@@ -25,7 +25,7 @@ struct pinint : libMcu::PeripheralBase {
   }
 
  private:
-  static constexpr libMcu::hwAddressType pinintAddress = pinintAddress_; /*!< peripheral address */
+  static constexpr libmcu::hwAddressType pinintAddress = pinintAddress_; /*!< peripheral address */
 };
 }  // namespace libMcuLL::sw::pin_int
 #endif

@@ -21,8 +21,8 @@ enum class i2cModes : std::uint32_t {
   FAST = hardware::IC_CON::SPEED_FAST,
   HIGH = hardware::IC_CON::SPEED_HIGH,
 };
-template <libMcu::i2cBaseAddress const& i2cAddress_>
-struct i2c : libMcu::PeripheralBase {
+template <libmcu::i2cBaseAddress const& i2cAddress_>
+struct i2c : libmcu::PeripheralBase {
   /**
    * @brief Base initialization function
    *
@@ -89,7 +89,7 @@ struct i2c : libMcu::PeripheralBase {
    * @param transmitBuffer data to send, should at least contain one byte!
    * @param maxTime maximum amount of iterations to wait between each I2C operation
    */
-  constexpr libMcu::results write(libMcu::i2cDeviceAddress address, std::span<const std::uint8_t> transmitBuffer,
+  constexpr libmcu::Results write(libmcu::i2cDeviceAddress address, std::span<const std::uint8_t> transmitBuffer,
                                   std::uint32_t maxTime) {
     std::uint32_t i2cAddress = static_cast<std::uint32_t>(address.value);
     i2cPeripheral()->IC_ENABLE = hardware::IC_ENABLE::ABORT;
@@ -114,18 +114,18 @@ struct i2c : libMcu::PeripheralBase {
           goto timeout;
       } while (!(i2cPeripheral()->IC_RAW_INTR_STAT & hardware::IC_RAW_INTR_STAT::TX_EMPTY));
     }
-    return libMcu::results::DONE;
+    return libmcu::Results::DONE;
   // error handling
   timeout:
     i2cPeripheral()->IC_ENABLE = hardware::IC_ENABLE::ABORT;
-    return libMcu::results::TIMEOUT;
+    return libmcu::Results::TIMEOUT;
   abort:
     // TODO change TX abort handling to be more like RX abort
-    libMcu::results result{libMcu::results::ERROR};
+    libmcu::Results result{libmcu::Results::ERROR};
     if (abortReason & hardware::IC_TX_ABRT_SOURCE::ABRT_7B_ADDR_NOACK)
-      result = libMcu::results::INVALID_ADDRESS;
+      result = libmcu::Results::INVALID_ADDRESS;
     else if (abortReason & hardware::IC_TX_ABRT_SOURCE::ABRT_TXDATA_NOACK)
-      result = libMcu::results::TRANSFER_ERROR;
+      result = libmcu::Results::TRANSFER_ERROR;
     return result;
   }
   /**
@@ -134,7 +134,7 @@ struct i2c : libMcu::PeripheralBase {
    * @param address I2C device to read from
    * @param receiveBuffer place to put read data, needs to be at least size 1!
    */
-  constexpr libMcu::results read(libMcu::i2cDeviceAddress address, std::span<std::uint8_t> receiveBuffer, std::uint32_t maxTime) {
+  constexpr libmcu::Results read(libmcu::i2cDeviceAddress address, std::span<std::uint8_t> receiveBuffer, std::uint32_t maxTime) {
     std::uint32_t i2cAddress = static_cast<std::uint32_t>(address.value);
     i2cPeripheral()->IC_ENABLE = hardware::IC_ENABLE::ABORT;
     i2cPeripheral()->IC_TAR = i2cAddress;
@@ -160,15 +160,15 @@ struct i2c : libMcu::PeripheralBase {
       } while (!i2cPeripheral()->IC_RXFLR);
       receiveBuffer[index] = i2cPeripheral()->IC_DATA_CMD;
     }
-    return libMcu::results::DONE;
+    return libmcu::Results::DONE;
   // error handling
   timeout:
     i2cPeripheral()->IC_ENABLE = hardware::IC_ENABLE::ABORT;
-    return libMcu::results::TIMEOUT;
+    return libmcu::Results::TIMEOUT;
   abort:
-    libMcu::results result{libMcu::results::ERROR};
+    libmcu::Results result{libmcu::Results::ERROR};
     if (abortReason & hardware::IC_TX_ABRT_SOURCE::ABRT_7B_ADDR_NOACK)
-      result = libMcu::results::INVALID_ADDRESS;
+      result = libmcu::Results::INVALID_ADDRESS;
     i2cPeripheral()->IC_CLR_TX_ABRT;
     return result;
   }
@@ -203,7 +203,7 @@ struct i2c : libMcu::PeripheralBase {
   }
 
  private:
-  static constexpr libMcu::hwAddressType i2cAddress = i2cAddress_; /*!< peripheral address */
+  static constexpr libmcu::hwAddressType i2cAddress = i2cAddress_; /*!< peripheral address */
 };
 }  // namespace libMcuLL::i2c
 #endif

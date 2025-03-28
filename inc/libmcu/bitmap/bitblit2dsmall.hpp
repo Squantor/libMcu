@@ -15,7 +15,7 @@
 #include <libmcu/bitmap/operations.hpp>
 #include <libmcu/bitmap/readmodifywrite.hpp>
 
-namespace libMcu::bitmap {
+namespace libmcu::bitmap {
 
 /**
  * @brief
@@ -119,6 +119,6 @@ void bitblit2dsmall(destType *__restrict__ dest, unsigned int destWidth, unsigne
   }
 }
 
-};  // namespace libMcu::bitmap
+};  // namespace libmcu::bitmap
 
 #endif

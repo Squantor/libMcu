@@ -175,8 +175,8 @@ enum class DstIncrements : std::uint32_t {
  * @brief DMA low level interface class
  * @tparam dmaAddress_ address of the Input multiplexer peripheral
  */
-template <libMcu::dmaBaseAddress dmaAddress>
-struct Dma : libMcu::PeripheralBase {
+template <libmcu::dmaBaseAddress dmaAddress>
+struct Dma : libmcu::PeripheralBase {
   constexpr void Init() {
     descriptors_.fill({0, 0, 0, nullptr});
     DmaPeripheral()->SRAMBASE = reinterpret_cast<std::uint32_t>(descriptors_.data());
@@ -445,7 +445,7 @@ struct Dma : libMcu::PeripheralBase {
     return reinterpret_cast<hardware::dma *>(dmaAddress_);
   }
 
-  static constexpr libMcu::hwAddressType dmaAddress_ = dmaAddress; /*!< peripheral address */
+  static constexpr libmcu::hwAddressType dmaAddress_ = dmaAddress; /*!< peripheral address */
   alignas(512) DescriptorTable descriptors_;
 };
 

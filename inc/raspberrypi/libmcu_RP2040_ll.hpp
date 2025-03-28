@@ -80,42 +80,42 @@ constexpr inline std::uint32_t peripheralOffsetXor{0x0000'1000u};    /*!< XORed 
 constexpr inline std::uint32_t peripheralOffsetSet{0x0000'2000u};    /*!< Set peripheral register access offset */
 constexpr inline std::uint32_t peripheralOffsetClear{0x0000'3000u};  /*!< Clear peripheral register access offset */
 
-constexpr inline libMcu::xipCtrlBaseAddress xipCtrlAddress{0x1400'0000u};             /*!< XIP control base address */
-constexpr inline libMcu::xipSsiBaseAddress xipSsiAddress{0x1800'0000u};               /*!< XIP SSI base address */
-constexpr inline libMcu::sysinfoBaseAddress sysinfoAddress{0x4000'0000u};             /*!< sysinfo base address */
-constexpr inline libMcu::syscfgBaseAddress syscfgAddress{0x4000'4000u};               /*!< syscfg base address */
-constexpr inline libMcu::clocksBaseAddress clocksAddress{0x4000'8000u};               /*!< clocks base address */
-constexpr inline libMcu::resetsBaseAddress resetsAddress{0x4000'C000u};               /*!< resets base address */
-constexpr inline libMcu::psmBaseAddress psmAddress{0x4001'0000u};                     /*!< psm base address */
-constexpr inline libMcu::ioBank0BaseAddress ioBank0Address{0x4001'4000u};             /*!< io bank0 base address */
-constexpr inline libMcu::ioQspiBaseAddress ioQspiAddress{0x4001'8000u};               /*!< io qspi base address */
-constexpr inline libMcu::padsBank0BaseAddress padsBank0Address{0x4001'C000u};         /*!< pads bank0 base address */
-constexpr inline libMcu::padsQspiBaseAddress padsQspiAddress{0x4002'0000u};           /*!< pads qspi base address */
-constexpr inline libMcu::xoscBaseAddress xoscAddress{0x4002'4000u};                   /*!< Crystal oscillator base address */
-constexpr inline libMcu::pllBaseAddress pllSysAddress{0x4002'8000u};                  /*!< system PLL base address */
-constexpr inline libMcu::pllBaseAddress pllUsbAddress{0x4002'C000u};                  /*!< USB PLL base address */
-constexpr inline libMcu::busCtrlBaseAddress busCtrlAddress{0x4003'0000u};             /*!< Bus control base address */
-constexpr inline libMcu::uartBaseAddress uart0Address{0x4003'4000u};                  /*!< UART0 base address */
-constexpr inline libMcu::uartBaseAddress uart1Address{0x4003'8000u};                  /*!< UART1 base address */
-constexpr inline libMcu::spiBaseAddress spi0Address{0x400'3C000u};                    /*!< SPI0 base address */
-constexpr inline libMcu::spiBaseAddress spi1Address{0x4004'0000u};                    /*!< SPI1 base address */
-constexpr inline libMcu::i2cBaseAddress i2c0Address{0x4004'4000u};                    /*!< I2C0 base address */
-constexpr inline libMcu::i2cBaseAddress i2c1Address{0x4004'8000u};                    /*!< I2C1 base address */
-constexpr inline libMcu::adcBaseAddress adcAddress{0x4004'C000u};                     /*!< ADC base address */
-constexpr inline libMcu::pwmBaseAddress pwmAddress{0x4005'0000u};                     /*!< PWM base address */
-constexpr inline libMcu::timerBaseAddress timerAddress{0x4005'4000u};                 /*!< timer base address */
-constexpr inline libMcu::watchdogBaseAddress watchdogAddress{0x4005'8000u};           /*!< watchdog base address */
-constexpr inline libMcu::rtcBaseAddress rtcAddress{0x4005'C000u};                     /*!< RTC base address */
-constexpr inline libMcu::roscBaseAddress roscAddress{0x4006'0000u};                   /*!< ROSC base address */
-constexpr inline libMcu::vregChipResetBaseAddress vregChipResetAddress{0x4006'4000u}; /*!< VREG and reset base address */
-constexpr inline libMcu::tbmanBaseAddress tbmanAddress{0x4006'C000u};                 /*!< tbman base address */
-constexpr inline libMcu::dmaBaseAddress dmaAddress{0x5000'0000u};                     /*!< DMA base address */
-constexpr inline libMcu::usbCtrlDPramBaseAddress usbCtrlDpRamAddress{0x5010'0000u};   /*!< USB Dual port RAM base address */
-constexpr inline libMcu::usbCtrlRegsBaseAddress usbCtrlRegsAddress{0x5011'0000u};     /*!< USB control registers base address */
-constexpr inline libMcu::pioBaseAddress pio0Address{0x5020'0000u};                    /*!< PIO0 base address */
-constexpr inline libMcu::pioBaseAddress pio1Address{0x5030'0000u};                    /*!< PIO1 base address */
-constexpr inline libMcu::sioBaseAddress sioAddress{0xD000'0000u};                     /*!< SIO base address */
-constexpr inline libMcu::ppbBaseAddress ppbAddress{0xE000'0000u};                     /*!< PPB base address */
+constexpr inline libmcu::xipCtrlBaseAddress xipCtrlAddress{0x1400'0000u};             /*!< XIP control base address */
+constexpr inline libmcu::xipSsiBaseAddress xipSsiAddress{0x1800'0000u};               /*!< XIP SSI base address */
+constexpr inline libmcu::sysinfoBaseAddress sysinfoAddress{0x4000'0000u};             /*!< sysinfo base address */
+constexpr inline libmcu::syscfgBaseAddress syscfgAddress{0x4000'4000u};               /*!< syscfg base address */
+constexpr inline libmcu::clocksBaseAddress clocksAddress{0x4000'8000u};               /*!< clocks base address */
+constexpr inline libmcu::resetsBaseAddress resetsAddress{0x4000'C000u};               /*!< resets base address */
+constexpr inline libmcu::psmBaseAddress psmAddress{0x4001'0000u};                     /*!< psm base address */
+constexpr inline libmcu::ioBank0BaseAddress ioBank0Address{0x4001'4000u};             /*!< io bank0 base address */
+constexpr inline libmcu::ioQspiBaseAddress ioQspiAddress{0x4001'8000u};               /*!< io qspi base address */
+constexpr inline libmcu::padsBank0BaseAddress padsBank0Address{0x4001'C000u};         /*!< pads bank0 base address */
+constexpr inline libmcu::padsQspiBaseAddress padsQspiAddress{0x4002'0000u};           /*!< pads qspi base address */
+constexpr inline libmcu::xoscBaseAddress xoscAddress{0x4002'4000u};                   /*!< Crystal oscillator base address */
+constexpr inline libmcu::pllBaseAddress pllSysAddress{0x4002'8000u};                  /*!< system PLL base address */
+constexpr inline libmcu::pllBaseAddress pllUsbAddress{0x4002'C000u};                  /*!< USB PLL base address */
+constexpr inline libmcu::busCtrlBaseAddress busCtrlAddress{0x4003'0000u};             /*!< Bus control base address */
+constexpr inline libmcu::uartBaseAddress uart0Address{0x4003'4000u};                  /*!< UART0 base address */
+constexpr inline libmcu::uartBaseAddress uart1Address{0x4003'8000u};                  /*!< UART1 base address */
+constexpr inline libmcu::spiBaseAddress spi0Address{0x400'3C000u};                    /*!< SPI0 base address */
+constexpr inline libmcu::spiBaseAddress spi1Address{0x4004'0000u};                    /*!< SPI1 base address */
+constexpr inline libmcu::i2cBaseAddress i2c0Address{0x4004'4000u};                    /*!< I2C0 base address */
+constexpr inline libmcu::i2cBaseAddress i2c1Address{0x4004'8000u};                    /*!< I2C1 base address */
+constexpr inline libmcu::adcBaseAddress adcAddress{0x4004'C000u};                     /*!< ADC base address */
+constexpr inline libmcu::pwmBaseAddress pwmAddress{0x4005'0000u};                     /*!< PWM base address */
+constexpr inline libmcu::timerBaseAddress timerAddress{0x4005'4000u};                 /*!< timer base address */
+constexpr inline libmcu::watchdogBaseAddress watchdogAddress{0x4005'8000u};           /*!< watchdog base address */
+constexpr inline libmcu::rtcBaseAddress rtcAddress{0x4005'C000u};                     /*!< RTC base address */
+constexpr inline libmcu::roscBaseAddress roscAddress{0x4006'0000u};                   /*!< ROSC base address */
+constexpr inline libmcu::vregChipResetBaseAddress vregChipResetAddress{0x4006'4000u}; /*!< VREG and reset base address */
+constexpr inline libmcu::tbmanBaseAddress tbmanAddress{0x4006'C000u};                 /*!< tbman base address */
+constexpr inline libmcu::dmaBaseAddress dmaAddress{0x5000'0000u};                     /*!< DMA base address */
+constexpr inline libmcu::usbCtrlDPramBaseAddress usbCtrlDpRamAddress{0x5010'0000u};   /*!< USB Dual port RAM base address */
+constexpr inline libmcu::usbCtrlRegsBaseAddress usbCtrlRegsAddress{0x5011'0000u};     /*!< USB control registers base address */
+constexpr inline libmcu::pioBaseAddress pio0Address{0x5020'0000u};                    /*!< PIO0 base address */
+constexpr inline libmcu::pioBaseAddress pio1Address{0x5030'0000u};                    /*!< PIO1 base address */
+constexpr inline libmcu::sioBaseAddress sioAddress{0xD000'0000u};                     /*!< SIO base address */
+constexpr inline libmcu::ppbBaseAddress ppbAddress{0xE000'0000u};                     /*!< PPB base address */
 
 }  // namespace libMcuHw
 

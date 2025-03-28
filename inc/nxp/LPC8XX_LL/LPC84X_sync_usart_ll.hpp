@@ -168,7 +168,7 @@ struct SyncUart : libmcull::LlSyncUartBase {
   }
 
  private:
-  static constexpr libMcu::hwAddressType usartAddress_ = usart_address; /*!< peripheral usartAddress */
+  static constexpr libmcu::hwAddressType usartAddress_ = usart_address; /*!< peripheral usartAddress */
 };
 }  // namespace libmcull::usart
 #endif

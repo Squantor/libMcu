@@ -34,7 +34,7 @@ enum class speedModes : std::uint32_t {
   SLEW_SUPER = libMcuHw::pads::GPIO::SLEWFAST, /*!< super fast slew rate */
 };
 
-template <libMcu::padsBank0BaseAddress const& padsBank0Address_, libMcu::ioBank0BaseAddress const& gpioBank0Address_>
+template <libmcu::padsBank0BaseAddress const& padsBank0Address_, libmcu::ioBank0BaseAddress const& gpioBank0Address_>
 struct pins {
   /**
    * @brief Initialize the pins HAL
@@ -142,8 +142,8 @@ struct pins {
     return reinterpret_cast<libMcuHw::padsBank0::padsBank0*>(padsBank0Address + libMcuHw::peripheralOffsetXor);
   }
 
-  static constexpr libMcu::hwAddressType padsBank0Address = padsBank0Address_; /*!< pads bank 0 peripheral address */
-  static constexpr libMcu::hwAddressType ioBank0Address = gpioBank0Address_;   /*!< gpio bank 0 peripheral address */
+  static constexpr libmcu::hwAddressType padsBank0Address = padsBank0Address_; /*!< pads bank 0 peripheral address */
+  static constexpr libmcu::hwAddressType ioBank0Address = gpioBank0Address_;   /*!< gpio bank 0 peripheral address */
 };
 }  // namespace pins
 }  // namespace libmcuhal

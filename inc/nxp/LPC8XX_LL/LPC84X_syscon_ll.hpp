@@ -201,8 +201,8 @@ enum class clockOutSources : std::uint32_t {
   WATCHDOG = hardware::CLKOUTSEL::WATCHDOG, /*!< Watchdog oscillator clock source */
 };
 
-template <libMcu::sysconBaseAddress sysconAddress_>
-struct syscon : libMcu::PeripheralBase {
+template <libmcu::sysconBaseAddress sysconAddress_>
+struct syscon : libmcu::PeripheralBase {
   /**
    * @brief Set the System PLL Control
    * @param msel Feedback divider ratio, 0 divides by 1, 31 divides by 32
@@ -361,7 +361,7 @@ struct syscon : libMcu::PeripheralBase {
       } else
         setSysOscControl(libMcuHw::syscon::SYSOSCCTRL::NO_BYPASS | libMcuHw::syscon::SYSOSCCTRL::FREQ_1_20MHz);
       powerPeripherals(libMcuLL::syscon::powerOptions::SYSOSC);
-      libMcu::delay(3000);
+      libmcu::Delay(3000);
       selectMainClock(mainClockSources::EXT);
     }
     // TODO: handle WDT clock source
@@ -432,7 +432,7 @@ struct syscon : libMcu::PeripheralBase {
   }
 
  private:
-  constexpr static libMcu::hwAddressType sysconAddress = sysconAddress_; /*!< peripheral address */
+  constexpr static libmcu::hwAddressType sysconAddress = sysconAddress_; /*!< peripheral address */
 };
 }  // namespace libMcuLL::syscon
 #endif

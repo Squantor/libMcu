@@ -12,7 +12,7 @@
 #define LIBMCULL_TYPES_HPP
 
 //! @todo Contents of this namespace need to be moved to libmcull that is below
-namespace libMcu {
+namespace libmcu {
 
 /**
  * @brief Peripheral base class that all peripherals should inherit from
@@ -28,12 +28,12 @@ struct PeripheralBase {
 };
 
 /* I2C general definitions */
-using i2cDeviceAddressBase = libMcu::constant<std::uint8_t>;
+using i2cDeviceAddressBase = libmcu::Constant<std::uint8_t>;
 using i2cDeviceAddressType = typename i2cDeviceAddressBase::type;
 
 struct i2cDeviceAddress : i2cDeviceAddressBase {}; /*!< General purpose I2C address type */
 
-}  // namespace libMcu
+}  // namespace libmcu
 
 namespace libmcull {
 /**
@@ -53,7 +53,7 @@ struct PeripheralBase {
 struct LlSyncUartBase : PeripheralBase {};
 
 /* I2C general definitions */
-using i2cDeviceAddressBase = libMcu::constant<std::uint8_t>;
+using i2cDeviceAddressBase = libmcu::Constant<std::uint8_t>;
 using i2cDeviceAddressType = typename i2cDeviceAddressBase::type;
 
 struct i2cDeviceAddress : i2cDeviceAddressBase {}; /*!< General purpose I2C address type */

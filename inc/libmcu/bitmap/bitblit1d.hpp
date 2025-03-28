@@ -16,7 +16,7 @@
 #include <libmcu/bitmap/operations.hpp>
 #include <libmcu/bitmap/readmodifywrite.hpp>
 
-namespace libMcu::bitmap {
+namespace libmcu::bitmap {
 
 /**
  * @brief writes a pixel to destination element
@@ -76,7 +76,7 @@ template <std::size_t bitsPerPixel, typename destType, typename srcType>
 void bitblitInEqOu(std::span<destType> destBuf, std::size_t destPos, std::span<const srcType> srcBuf, std::size_t srcPos,
                    std::size_t count, bitblitOperation op) noexcept {
   // generate constants
-  constexpr std::size_t bitsPerElement{libMcu::bitsInType<destType>()};
+  constexpr std::size_t bitsPerElement{libmcu::BitsInType<destType>()};
   constexpr srcType pixelMask{static_cast<srcType>(0xFFFFFFFF >> (32 - bitsPerPixel))};
   // generate bit positions
   std::size_t bitLength{count * bitsPerPixel};
@@ -154,8 +154,8 @@ template <typename destType, typename srcType>
 void bitblit1d(std::span<destType> destBuf, std::size_t destBitPos, std::span<const srcType> srcBuf, std::size_t srcBitWidth,
                bitblitOperation op) noexcept {
   // compute fixed constants
-  constexpr std::size_t destBitCnt = libMcu::bitsInType<destType>();
-  constexpr std::size_t srcBitCnt = libMcu::bitsInType<srcType>();
+  constexpr std::size_t destBitCnt = libmcu::bitsInType<destType>();
+  constexpr std::size_t srcBitCnt = libmcu::bitsInType<srcType>();
   // compute runtime constants
   destType mask;
   destType accumulator;
@@ -210,8 +210,8 @@ template <typename destType, typename srcType>
 void bitblit1d(std::span<destType> destBuf, std::size_t destBitWidth, std::size_t destBitPos, std::span<srcType> srcBuf,
                std::size_t srcBitWidth, bitblitOperation op) noexcept {
   // compute fixed constants
-  constexpr std::size_t destBitCnt = libMcu::bitsInType<destType>();
-  constexpr std::size_t srcBitCnt = libMcu::bitsInType<srcType>();
+  constexpr std::size_t destBitCnt = libmcu::bitsInType<destType>();
+  constexpr std::size_t srcBitCnt = libmcu::bitsInType<srcType>();
 
   // runtime code
   if (destBitPos >= destBitWidth)
@@ -280,6 +280,6 @@ void bitblit1d(std::span<destType> destBuf, std::size_t destBitWidth, std::size_
   }
 }
 */
-}  // namespace libMcu::bitmap
+}  // namespace libmcu::bitmap
 
 #endif

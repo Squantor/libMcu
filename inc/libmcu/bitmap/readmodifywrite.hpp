@@ -15,7 +15,7 @@
 #include <cstdint>
 #include <libmcu/bitmap/operations.hpp>
 
-namespace libMcu::bitmap {
+namespace libmcu::bitmap {
 /**
  * @brief Read, modifies and writes from source to destination with operation, the source is shifted and masked
  *
@@ -59,6 +59,6 @@ void readModifyWrite(destType &__restrict__ dest, const srcType &__restrict__ sr
       break;
   }
 }
-}  // namespace libMcu::bitmap
+}  // namespace libmcu::bitmap
 
 #endif

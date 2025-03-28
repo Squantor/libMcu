@@ -11,11 +11,11 @@
 #ifndef LIBMCU_RESULTS_HPP
 #define LIBMCU_RESULTS_HPP
 
-namespace libMcu {
+namespace libmcu {
 /**
  * @brief result class used in libMcu for various return values
  */
-enum class results : std::uint32_t {
+enum class Results : std::uint32_t {
   NO_ERROR,        /*!< No error */
   ERROR,           /*!< Error has occured */
   STARTED,         /*!< Operation started */
@@ -34,6 +34,6 @@ enum class results : std::uint32_t {
   FULL,            /*!< Buffer is full */
   EMPTY,           /*!< Buffer is empty */
 };
-}  // namespace libMcu
+}  // namespace libmcu
 
 #endif

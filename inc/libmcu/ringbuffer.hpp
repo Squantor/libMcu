@@ -5,13 +5,13 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file ringbuffer.hpp
- * \brief Implements a generic ringbuffer class
- * \todo add doxygen documentation
- * \todo retool to use std::optional for the pop functions
- * \todo Add following functions, peekfront(), peekback(),
- * \todo peekfront(size_t count), peekback(size count)
- * \todo dropfront(size_t count), dropback(size_t count)
+ * @file ringbuffer.hpp
+ * @brief Implements a generic ringbuffer class
+ * @todo add doxygen documentation
+ * @todo retool to use std::optional for the pop functions
+ * @todo Add following functions, peekfront(), peekback(),
+ * @todo peekfront(size_t count), peekback(size count)
+ * @todo dropfront(size_t count), dropback(size_t count)
  */
 #ifndef RINGBUFFER_HPP
 #define RINGBUFFER_HPP
@@ -19,7 +19,13 @@
 #include <array>
 #include <cstdint>
 
-namespace libMcu {
+namespace libmcu {
+
+/**
+ * @brief Generic ringbuffer
+ * @tparam T Type to be used in the ringbuffer
+ * @tparam N Amount of elements in the ringbuffer
+ */
 template <typename T, std::size_t N>
 class RingBuffer {
  public:
@@ -125,6 +131,6 @@ class RingBuffer {
   iterator back;             /*!< last element of the ringbuffer */
   std::array<T, N + 1> data; /*!< ringbuffer data, one element is added as we need always one element free */
 };
-}  // namespace libMcu
+}  // namespace libmcu
 
 #endif

@@ -11,7 +11,7 @@
 
 #ifndef LPC844M201BD64_PINS_HPP
 #define LPC844M201BD64_PINS_HPP
-namespace libMcu::hw {
+namespace libmcu::hw {
 
 enum pinTypeFlags : std::uint8_t {
   NORMAL = 0u,          /*!< Normal pin without any special handling */
@@ -605,5 +605,5 @@ template <>
 struct port<IOports::PORT1> {
   static constexpr std::uint8_t gpioPortIndex = 1u;
 };
-}  // namespace libMcu::hw
+}  // namespace libmcu::hw
 #endif

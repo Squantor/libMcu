@@ -11,7 +11,7 @@
 #ifndef OPERATIONS_HPP
 #define OPERATIONS_HPP
 
-namespace libMcu::bitmap {
+namespace libmcu::bitmap {
 /**
  * @brief operations possible when bits are involved
  */
@@ -22,6 +22,6 @@ enum class bitblitOperation {
   OP_OR,  /*!< OR bits with source bits */
   OP_XOR  /*!< XOR bits with source bits */
 };
-}  // namespace libMcu::bitmap
+}  // namespace libmcu::bitmap
 
 #endif

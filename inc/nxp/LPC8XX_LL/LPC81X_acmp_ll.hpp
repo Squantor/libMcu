@@ -67,8 +67,8 @@ enum class ladderReferenceSetting : std::uint32_t {
  * @brief
  * @tparam acmpAddress_
  */
-template <libMcu::acmpBaseAddress const& acmpAddress_>
-struct acmp : libMcu::PeripheralBase {
+template <libmcu::acmpBaseAddress const& acmpAddress_>
+struct acmp : libmcu::PeripheralBase {
   /**
    * @brief Setup analog comparator
    * @param inPlus positive input connection
@@ -142,7 +142,7 @@ struct acmp : libMcu::PeripheralBase {
   }
 
  private:
-  static constexpr libMcu::hwAddressType acmpAddress{acmpAddress_}; /*!< peripheral address */
+  static constexpr libmcu::hwAddressType acmpAddress{acmpAddress_}; /*!< peripheral address */
 };
 }  // namespace libMcuLL::sw::acmp
 #endif

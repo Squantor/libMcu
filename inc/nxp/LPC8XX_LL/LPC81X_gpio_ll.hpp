@@ -13,8 +13,8 @@
 
 namespace libMcuLL::sw::gpio {
 using namespace hw::gpio;
-template <libMcu::gpioBaseAddress const &gpioAddress_>
-struct gpio : libMcu::PeripheralBase {
+template <libmcu::gpioBaseAddress const &gpioAddress_>
+struct gpio : libmcu::PeripheralBase {
   /**
    * @brief Set gpio pin to output mode
    *
@@ -219,7 +219,7 @@ struct gpio : libMcu::PeripheralBase {
   }
 
  private:
-  static constexpr libMcu::hwAddressType gpioAddress = gpioAddress_; /*!< peripheral address */
+  static constexpr libmcu::hwAddressType gpioAddress = gpioAddress_; /*!< peripheral address */
 };
 }  // namespace libMcuLL::sw::gpio
 #endif
