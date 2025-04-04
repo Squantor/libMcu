@@ -6,7 +6,7 @@
  */
 /**
  * @file LPC84X_acmp_hw.hpp
- * @brief LPC840 series analog comparator register interface and definitions
+ * @brief Register structure and bit definitions for the LPC840 series analog comparator
  */
 #ifndef LPC84X_ACMP_HW_HPP
 #define LPC84X_ACMP_HW_HPP

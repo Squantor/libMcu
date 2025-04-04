@@ -6,7 +6,7 @@
  */
 /**
  * @file LPC81X_spi_hw.hpp
- * @brief LPC810 series SPI register interface and definitions
+ * @brief Register structure and bit definitions for the LPC810 series SPI
  */
 #ifndef LPC81X_SPI_REGS_HPP
 #define LPC81X_SPI_REGS_HPP

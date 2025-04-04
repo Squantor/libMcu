@@ -6,7 +6,7 @@
  */
 /**
  * @file LPC84X_capt_hw.hpp
- * @brief LPC840 series Capacitive Touch register interface and definitions
+ * @brief Register structure and bit definitions for the LPC840 series Capacitive Touch
  */
 #ifndef LPC84X_CAPT_HW_HPP
 #define LPC84X_CAPT_HW_HPP

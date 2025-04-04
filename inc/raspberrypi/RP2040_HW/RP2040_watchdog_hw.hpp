@@ -6,7 +6,7 @@
  */
 /**
  * @file RP2040_watchdog_hw.hpp
- * @brief Register interface for the RP2040 Watchdog
+ * @brief Register structure and bit definitions for the RP2040 Watchdog
  */
 #ifndef RP2040_WATCHDOG_HW_HPP
 #define RP2040_WATCHDOG_HW_HPP

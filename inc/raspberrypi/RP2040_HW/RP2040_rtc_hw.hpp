@@ -6,7 +6,7 @@
  */
 /**
  * @file RP2040_rtc_hw.hpp
- * @brief Register interface for the RP2040 RTC
+ * @brief Register structure and bit definitions for the RP2040 RTC
  */
 #ifndef RP2040_RTC_HW_HPP
 #define RP2040_RTC_HW_HPP

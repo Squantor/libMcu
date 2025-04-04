@@ -9,7 +9,7 @@
  */
 /**
  * @file RP2040_resets_hw.hpp
- * @brief Register interface for the RP2040 resets
+ * @brief Register structure and bit definitions for the RP2040 resets
  */
 #ifndef RP2040_RESETS_HW_HPP
 #define RP2040_RESETS_HW_HPP

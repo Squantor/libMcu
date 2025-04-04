@@ -6,7 +6,7 @@
  */
 /**
  * @file RP2040_xip_ssi_hw.hpp
- * @brief Register interface for the RP2040 Execute In Place serial interface
+ * @brief Register structure and bit definitions for the RP2040 Execute In Place serial interface
  */
 #ifndef RP2040_XIP_SSI_HW_HPP
 #define RP2040_XIP_SSI_HW_HPP

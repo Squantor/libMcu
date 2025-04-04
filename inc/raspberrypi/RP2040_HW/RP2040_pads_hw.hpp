@@ -6,7 +6,7 @@
  */
 /**
  * @file RP2040_pads_hw.hpp
- * @brief Register interface for the RP2040 pads
+ * @brief Register structure and bit definitions for the RP2040 pads
  */
 #ifndef RP2040_PADS_HW_HPP
 #define RP2040_PADS_HW_HPP

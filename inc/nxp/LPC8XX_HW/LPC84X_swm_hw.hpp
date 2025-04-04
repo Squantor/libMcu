@@ -6,7 +6,7 @@
  */
 /**
  * @file LPC84X_swm_hw.hpp
- * @brief LPC840 series SWM register interface and definitions
+ * @brief Register structure and bit definitions for the LPC840 series Switch Matrix
  */
 #ifndef LPC84X_SMW_HW_HPP
 #define LPC84X_SWM_HW_HPP

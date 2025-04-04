@@ -6,7 +6,7 @@
  */
 /**
  * @file LPC84X_mtb_hw.hpp
- * @brief LPC840 series Multi Trace Buffer register interface and definitions
+ * @brief Register structure and bit definitions for the LPC840 series Multi Trace Buffer
  */
 #ifndef LPC84X_MTB_HW_HPP
 #define LPC84X_MTB_HW_HPP

@@ -6,7 +6,7 @@
  */
 /**
  * @file LPC84X_i2c_hw.hpp
- * @brief LPC840 I2C register interface and definitions
+ * @brief Register structure and bit definitions for the LPC840 I2C
  */
 #ifndef LPC84X_I2C_HW_HPP
 #define LPC84X_I2C_HW_HPP

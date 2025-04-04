@@ -6,7 +6,7 @@
  */
 /**
  * @file RP2040_dma_hw.hpp
- * @brief Register interface for the RP2040 DMA
+ * @brief Register structure and bit definitions for the RP2040 DMA
  */
 #ifndef RP2040_DMA_HW_HPP
 #define RP2040_DMA_HW_HPP

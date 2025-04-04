@@ -6,7 +6,7 @@
  */
 /**
  * @file LPC81X_fmc_hw.hpp
- * @brief LPC810 series Flash memory control register interface
+ * @brief Register structure and bit definitions for the LPC810 series Flash memory controller
  */
 #ifndef LPC81X_FMC_REGS_HPP
 #define LPC81X_FMC_REGS_HPP

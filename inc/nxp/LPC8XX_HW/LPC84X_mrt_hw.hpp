@@ -6,7 +6,7 @@
  */
 /**
  * @file LPC84X_mrt_hw.hpp
- * @brief LPC840 series Multi Rate Timer register interface and definitions
+ * @brief Register structure and bit definitions for the LPC840 series Multi Rate Timer
  */
 #ifndef LPC84X_MRT_HW_HPP
 #define LPC84X_MRT_HW_HPP

@@ -6,7 +6,7 @@
  */
 /**
  * @file RP2040_pwm_hw.hpp
- * @brief Register interface for the RP2040 PWM
+ * @brief RRegister structure and bit definitions for the RP2040 PWM
  */
 #ifndef RP2040_PWM_HW_HPP
 #define RP2040_PWM_HW_HPP

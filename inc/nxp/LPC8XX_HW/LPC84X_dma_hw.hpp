@@ -6,7 +6,7 @@
  */
 /**
  * @file LPC84X_dma_hw.hpp
- * @brief LPC840 DMA register interface structure and definitions
+ * @brief Register structure and bit definitions for the LPC840 series DMA
  * @todo add struct for DMA descriptors
  */
 #ifndef LPC84X_DMA_HW_HPP

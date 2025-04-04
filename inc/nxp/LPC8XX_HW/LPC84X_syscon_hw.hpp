@@ -6,7 +6,7 @@
  */
 /**
  * @file LPC84X_syscon_hw.hpp
- * @brief LPC840 series System control register interface and definitions
+ * @brief Register structure and bit definitions for the LPC840 series System control
  */
 #ifndef LPC84X_SYSCON_HW_HPP
 #define LPC84X_SYSCON_HW_HPP

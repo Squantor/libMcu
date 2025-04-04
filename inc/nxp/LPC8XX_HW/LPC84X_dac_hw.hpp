@@ -6,7 +6,7 @@
  */
 /**
  * @file LPC84X_dac_hw.hpp
- * @brief LPC840 series DAC register interface and definitions
+ * @brief Register structure and bit definitions for the LPC840 series DAC
  */
 #ifndef LPC84X_DAC_HW_HPP
 #define LPC84X_DAC_HW_HPP

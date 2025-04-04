@@ -6,7 +6,7 @@
  */
 /**
  * @file LPC84X_gpio_hw.hpp
- * @brief LPC840 series GPIO register interface and definitions
+ * @brief Register structure and bit definitions for the LPC840 series GPIO
  */
 #ifndef LPC84X_GPIO_HW_HPP
 #define LPC84X_GPIO_HW_HPP

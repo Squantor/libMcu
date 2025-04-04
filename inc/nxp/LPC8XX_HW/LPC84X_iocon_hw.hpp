@@ -6,7 +6,7 @@
  */
 /**
  * @file LPC84X_iocon_hw.hpp
- * @brief LPC840 series IOCON register interface and definitions
+ * @brief Register structure and bit definitions for the LPC840 series IOCON
  */
 #ifndef LPC84X_IOCON_HW_HPP
 #define LPC84X_IOCON_HW_HPP

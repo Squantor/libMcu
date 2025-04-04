@@ -6,7 +6,7 @@
  */
 /**
  * @file LPC81X_pin_int_hw.hpp
- * @brief LPC810 series Pin interrupt register interface and definitions
+ * @brief Register structure and bit definitions for the LPC810 series Pin interrupt
  */
 #ifndef LPC81X_PIN_INT_REGS_HPP
 #define LPC81X_PIN_INT_REGS_HPP

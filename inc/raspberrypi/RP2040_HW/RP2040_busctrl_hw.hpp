@@ -6,7 +6,7 @@
  */
 /**
  * @file RP2040_busctrl_hw.hpp
- * @brief register interface for the RP2040 buscontrol
+ * @brief Register structure and bit definitions for the RP2040 bus controller
  */
 #ifndef RP2040_BUSCTRL_HW_HPP
 #define RP2040_BUSCTRL_HW_HPP

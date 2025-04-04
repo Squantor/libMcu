@@ -6,7 +6,7 @@
  */
 /**
  * @file LPC84X_inmux_hw.hpp
- * @brief LPC840 series Input multiplexer register interface and definitions
+ * @brief Register structure and bit definitions for the LPC840 series Input multiplexer
  */
 #ifndef LPC84X_INMUX_HW_HPP
 #define LPC84X_INMUX_HW_HPP

@@ -6,7 +6,7 @@
  */
 /**
  * @file RP2040_syscfg_hw.hpp
- * @brief Register interface for the RP2040 System config
+ * @brief Register structure and bit definitions for the RP2040 System config
  */
 #ifndef RP2040_SYSCFG_HW_HPP
 #define RP2040_SYSCFG_HW_HPP

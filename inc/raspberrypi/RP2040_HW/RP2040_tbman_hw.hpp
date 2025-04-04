@@ -6,7 +6,7 @@
  */
 /**
  * @file RP2040_tbman_hw.hpp
- * @brief Register interface for the RP2040 Testbench manager
+ * @brief Register structure and bit definitions for the RP2040 Testbench manager
  */
 #ifndef RP2040_TBMAN_HW_HPP
 #define RP2040_TBMAN_HW_HPP

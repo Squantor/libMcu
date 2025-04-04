@@ -6,7 +6,7 @@
  */
 /**
  * @file RP2040_vreg_chip_reset_hw.hpp
- * @brief Register interface for the RP2040 Voltage regulator and chip reset
+ * @brief Register structure and bit definitions for the RP2040 Voltage regulator and chip reset
  */
 #ifndef RP2040_VREG_CHIP_RESET_HW_HPP
 #define RP2040_VREG_CHIP_RESET_HW_HPP

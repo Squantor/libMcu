@@ -6,7 +6,7 @@
  */
 /**
  * @file LPC81X_mrt_hw.hpp
- * @brief LPC810 series Multi rate timer register interface and definitions
+ * @brief Register structure and bit definitions for the LPC810 series Multi rate timer
  */
 #ifndef LPC81X_MRT_REGS_HPP
 #define LPC81X_MRT_REGS_HPP

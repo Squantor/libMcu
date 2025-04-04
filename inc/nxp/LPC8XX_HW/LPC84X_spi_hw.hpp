@@ -6,7 +6,7 @@
  */
 /**
  * @file LPC84X_spi_hw.hpp
- * @brief LPC840 series SPI register interface and definitions
+ * @brief Register structure and bit definitions for the LPC840 series SPI
  */
 #ifndef LPC84X_SPI_HW_HPP
 #define LPC84X_SPI_HW_HPP

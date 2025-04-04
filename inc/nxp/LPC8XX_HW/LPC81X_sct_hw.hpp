@@ -6,7 +6,7 @@
  */
 /**
  * @file LPC81X_sct_hw.hpp
- * @brief LPC810 series State configurable timer register interface and definitions
+ * @brief Register structure and bit definitions for the LPC810 series State configurable timer
  */
 #ifndef LPC81X_SCT_HW_HPP
 #define LPC81X_SCT_HW_HPP

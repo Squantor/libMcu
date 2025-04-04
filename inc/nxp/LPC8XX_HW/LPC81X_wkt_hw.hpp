@@ -6,7 +6,7 @@
  */
 /**
  * @file LPC81X_wkt_hw.hpp
- * @brief LPC810 series wakeup timer register interface and definitions
+ * @brief Register structure and bit definitions for the LPC810 series wakeup timer
  */
 #ifndef LPC81X_WKT_REGS_HPP
 #define LPC81X_WKT_REGS_HPP

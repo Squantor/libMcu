@@ -6,7 +6,7 @@
  */
 /**
  * @file RP2040_pll_hw.hpp
- * @brief Register interface for the RP2040 PLL
+ * @brief Register structure and bit definitions for the RP2040 PLL
  */
 #ifndef RP2040_PLL_HW_HPP
 #define RP2040_PLL_HW_HPP

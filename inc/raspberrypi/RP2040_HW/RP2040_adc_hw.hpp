@@ -5,11 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file RP2040 ADC register interface
- */
-/**
  * @file RP2040_adc_hw.hpp
- * @brief hardware interface for the RP2040 ADC
+ * @brief Register structure and bit definitions for the RP2040 ADC
  */
 #ifndef RP2040_ADC_HW_HPP
 #define RP2040_ADC_HW_HPP

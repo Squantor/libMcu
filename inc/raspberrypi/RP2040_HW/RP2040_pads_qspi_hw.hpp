@@ -6,7 +6,7 @@
  */
 /**
  * @file RP2040_pads_qspi_hw.hpp
- * @brief Register interface for the RP2040 QSPI pads
+ * @brief Register structure and bit definitions for the RP2040 QSPI pads
  */
 #ifndef RP2040_PADS_QSPI_HW_HPP
 #define RP2040_PADS_QSPI_HW_HPP

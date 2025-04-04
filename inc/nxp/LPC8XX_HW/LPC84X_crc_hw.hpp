@@ -6,7 +6,7 @@
  */
 /**
  * @file LPC84X_crc_hw.hpp
- * @brief LPC840 series CRC calculator register interface and definitions
+ * @brief Register structure and bit definitions for the LPC840 series CRC calculator
  */
 #ifndef LPC84X_CRC_HW_HPP
 #define LPC84X_CRC_HW_HPP

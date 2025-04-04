@@ -6,7 +6,7 @@
  */
 /**
  * @file LPC84X_fmc_hw.hpp
- * @brief LPC840 series FMC register interface and definitions
+ * @brief Register structure and bit definitions for the LPC840 series Flash Memory Controller
  */
 #ifndef LPC84X_FMC_HW_HPP
 #define LPC84X_FMC_HW_HPP

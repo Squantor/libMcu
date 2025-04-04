@@ -6,7 +6,7 @@
  */
 /**
  * @file LPC84X_adc_hw.hpp
- * @brief LPC840 series ADC register interface and definitions
+ * @brief Register structure and bit definitions for the LPC840 series ADC
  */
 #ifndef LPC84X_ADC_HW_HPP
 #define LPC84X_ADC_HW_HPP

@@ -6,7 +6,7 @@
  */
 /**
  * @file LPC84X_faim_hw.hpp
- * @brief LPC840 series Fast Initialization Memory register interface and definitions
+ * @brief Register structure and bit definitions for the LPC840 series Fast Initialization Memory
  */
 #ifndef LPC84X_FAIM_HW_HPP
 #define LPC84X_FAIM_HW_HPP

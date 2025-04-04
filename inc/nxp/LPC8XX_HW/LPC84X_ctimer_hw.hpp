@@ -6,7 +6,7 @@
  */
 /**
  * @file LPC84X_ctimer_hw.hpp
- * @brief LPC840 series counter/timer register interface and definitions
+ * @brief Register structure and bit definitions for the LPC840 series counter/timer
  */
 #ifndef LPC84X_CTIMER_HW_HPP
 #define LPC84X_CTIMER_HW_HPP

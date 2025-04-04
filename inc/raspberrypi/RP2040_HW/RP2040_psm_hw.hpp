@@ -6,7 +6,7 @@
  */
 /**
  * @file RP2040_psm_hw.hpp
- * @brief Register interface for the RP2040 PSM
+ * @brief Register structure and bit definitions for the RP2040 PSM
  */
 #ifndef RP2040_PSM_HW_HPP
 #define RP2040_PSM_HW_HPP

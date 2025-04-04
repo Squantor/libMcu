@@ -6,7 +6,7 @@
  */
 /**
  * @file RP2040_rosc_hw.hpp
- * @brief Register interface for the RP2040 ROSC
+ * @brief Register structure and bit definitions for the RP2040 ROSC
  */
 #ifndef RP2040_ROSC_HW_HPP
 #define RP2040_ROSC_HW_HPP

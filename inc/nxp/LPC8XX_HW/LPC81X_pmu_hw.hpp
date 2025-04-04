@@ -6,7 +6,7 @@
  */
 /**
  * @file LPC81X_pmu_hw.hpp
- * @brief LPC810 series Power management unit register interface and definitions
+ * @brief Register structure and bit definitions for the LPC810 series Power management unit
  */
 #ifndef LPC81X_PMU_REGS_HPP
 #define LPC81X_PMU_REGS_HPP

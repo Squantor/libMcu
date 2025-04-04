@@ -6,7 +6,7 @@
  */
 /**
  * @file LPC84X_sct_hw.hpp
- * @brief LPC840 series State Configurable Timer register interface and definitions
+ * @brief Register structure and bit definitions for the LPC840 series State Configurable Timer
  */
 #ifndef LPC84X_SCT_HW_HPP
 #define LPC84X_SCT_HW_HPP

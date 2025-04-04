@@ -6,7 +6,7 @@
  */
 /**
  * @file LPC81X_wwdt_hw.hpp
- * @brief LPC810 series windowed watchdog register interface and definitions
+ * @brief Register structure and bit definitions for the LPC810 series windowed watchdog
  */
 #ifndef LPC81X_WWDT_REGS_HPP
 #define LPC81X_WWDT_REGS_HPP

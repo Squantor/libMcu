@@ -6,7 +6,7 @@
  */
 /**
  * @file RP2040_spi_hw.hpp
- * @brief Register interface for the RP2040 SPI
+ * @brief Register structure and bit definitions for the RP2040 SPI
  */
 #ifndef RP2040_SPI_HW_HPP
 #define RP2040_SPI_HW_HPP

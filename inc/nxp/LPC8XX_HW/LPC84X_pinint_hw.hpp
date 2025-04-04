@@ -6,7 +6,7 @@
  */
 /**
  * @file LPC84X_pinint_hw.hpp
- * @brief LPC840 series Pin Interrupt register interface and definitions
+ * @brief Register structure and bit definitions for the LPC840 series Pin Interrupt
  */
 #ifndef LPC84X_PININT_HW_HPP
 #define LPC84X_PININT_HW_HPP

@@ -6,7 +6,7 @@
  */
 /**
  * @file STM32F0_gpio_hw.hpp
- * @brief STM32F0 GPIO register interface
+ * @brief Register structure and bit definitions for the STM32F0 GPIO
  */
 #ifndef STM32F0_GPIO_HW_HPP
 #define STM32F0_GPIO_HW_HPP

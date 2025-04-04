@@ -6,7 +6,7 @@
  */
 /**
  * @file RP2040_usbctrl_dpram_hw.hpp
- * @brief Register interface for the RP2040 USB dual port memory
+ * @brief Register structure and bit definitions for the RP2040 USB dual port memory
  */
 #ifndef RP2040_USBCTRL_DPRAM_HW_HPP
 #define RP2040_USBCTRL_DPRAM_HW_HPP

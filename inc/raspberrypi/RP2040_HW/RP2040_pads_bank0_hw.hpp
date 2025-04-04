@@ -6,7 +6,7 @@
  */
 /**
  * @file RP2040_pads_bank0_hw.hpp
- * @brief Register interface for the RP2040 pads bank 0
+ * @brief Register structure and bit definitions for the RP2040 pads bank 0
  */
 #ifndef RP2040_PADS_BANK0_HW_HPP
 #define RP2040_PADS_BANK0_HW_HPP

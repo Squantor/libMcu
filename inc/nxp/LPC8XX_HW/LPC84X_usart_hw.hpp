@@ -6,7 +6,7 @@
  */
 /**
  * @file LPC84X_usart_hw.hpp
- * @brief LPC840 series USART register interface and definitions
+ * @brief Register structure and bit definitions for the LPC840 series USART
  */
 #ifndef LPC84X_USART_HW_HPP
 #define LPC84X_USART_HW_HPP

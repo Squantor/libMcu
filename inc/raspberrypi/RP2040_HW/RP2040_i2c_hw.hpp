@@ -6,7 +6,7 @@
  */
 /**
  * @file RP2040_i2c_hw.hpp
- * @brief Regsister interface for the RP2040 I2C
+ * @brief Register structure and bit definitions for the RP2040 I2C
  */
 #ifndef RP2040_I2C_HW_HPP
 #define RP2040_I2C_HW_HPP
