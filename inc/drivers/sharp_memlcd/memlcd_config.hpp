@@ -14,11 +14,17 @@
 #include <cstdint>
 
 namespace libMcuDrv::memlcd {
+/**
+ * @brief Sharp memory LCD configuration structure
+ * @tparam xSize Maximum X coordinate
+ * @tparam ySize  Maximum Y coordinate
+ * @tparam shift Shift position for the line address
+ */
 template <int xSize, int ySize, int shift>
 struct config {
-  static constexpr inline auto maxX = xSize;      /*!< X size of the LCD */
-  static constexpr inline auto maxY = ySize;      /*!< Y size of the LCD */
-  static constexpr inline auto addrShift = shift; /*!< amount of shift for putting address in right spot */
+  static constexpr inline auto maxX{xSize};      /*!< X size of the LCD */
+  static constexpr inline auto maxY{ySize};      /*!< Y size of the LCD */
+  static constexpr inline auto addrShift{shift}; /*!< amount of shift for putting address in right spot */
 };
 
 // few example LCD configurations

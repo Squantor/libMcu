@@ -45,7 +45,7 @@ struct scb {
    * @param vectorTable address to an array of uint32_t's that contains the interrupt vector table
    */
   constexpr void setVtor(std::uint32_t* vectorTable) {
-    static_assert(libmcuhw::vtor::present == true);
+    static_assert(libmcuhw::vtor::kPresent == true);
     std::uint32_t vtorAddress = reinterpret_cast<std::uint32_t>(vectorTable);
     scbPeripheral()->VTOR = hardware::VTOR::TBLOFF(vtorAddress);
   }
@@ -59,11 +59,11 @@ struct scb {
   constexpr void setSleepBehaviour(bool eventIsWakeup, bool sleepIsDeep, bool sleepOnIsrExit) {
     std::uint32_t newScr = 0UL;
     if (eventIsWakeup)
-      newScr |= hardware::SCR::SEVONPEND;
+      newScr |= hardware::SCR::kSEVONPEND;
     if (sleepIsDeep)
-      newScr |= hardware::SCR::SLEEPDEEP;
+      newScr |= hardware::SCR::kSLEEPDEEP;
     if (sleepOnIsrExit)
-      newScr |= hardware::SCR::SLEEPONEXIT;
+      newScr |= hardware::SCR::kSLEEPONEXIT;
     scbPeripheral()->SCR = newScr;
   }
   /**
@@ -72,7 +72,7 @@ struct scb {
    */
   [[noreturn]] constexpr void reset() {
     libmcull::dsb();
-    scbPeripheral()->AIRCR = hardware::AIRCR::VECTKEY_KEY | hardware::AIRCR::SYSRESETREQ;
+    scbPeripheral()->AIRCR = hardware::AIRCR::kVECTKEY_KEY | hardware::AIRCR::kSYSRESETREQ;
     libmcull::dsb();
     while (1) {
       libmcull::nop();
@@ -83,8 +83,8 @@ struct scb {
    *
    * @return return pointer to scb peripheral
    */
-  static hardware::scb* scbPeripheral() {
-    return reinterpret_cast<hardware::scb*>(scbAddress);
+  static hardware::Scb* scbPeripheral() {
+    return reinterpret_cast<hardware::Scb*>(scbAddress);
   }
 
   static constexpr libmcu::hwAddressType scbAddress = scbAddress_; /*!< scb peripheral address */

@@ -16,7 +16,7 @@ namespace libmcuhw::crc {
 /**
  * @brief gpio register definitions
  */
-struct crc {
+struct Crc {
   volatile std::uint32_t MODE; /*!< CRC Mode Register */
   volatile std::uint32_t SEED; /*!< CRC SEED Register */
   union {

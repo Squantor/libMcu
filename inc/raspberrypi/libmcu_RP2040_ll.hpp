@@ -18,28 +18,28 @@ namespace libmcuhw {
 
 // MCU configuration options
 namespace core {
-constexpr inline std::uint32_t revision = 0x0001; /*!< Revision number */
+constexpr inline std::uint32_t kRevision = 0x0001; /*!< Revision number */
 }  // namespace core
 namespace mpu {
-constexpr inline bool present = true; /*!< Presence of memory protection unit */
+constexpr inline bool kPresent = true; /*!< Presence of memory protection unit */
 }  // namespace mpu
 namespace vtor {
-constexpr inline bool present = true;                      /*!< presence of vector relocation */
-constexpr inline std::uint32_t addressMask = 0xFFFFFF00UL; /*!< VTOR bit count */
+constexpr inline bool kPresent = true;                      /*!< presence of vector relocation */
+constexpr inline std::uint32_t kAddressMask = 0xFFFFFF00UL; /*!< VTOR bit count */
 }  // namespace vtor
 namespace systick {
-constexpr inline std::uint32_t variant = 0; /*!< Type of systick */
+constexpr inline std::uint32_t kVariant = 0; /*!< Type of systick */
 }  // namespace systick
 namespace nvic {
-constexpr inline std::uint32_t priorityMask = 0x3; /*!< NVIC priority bit mask */
-constexpr inline std::uint32_t priorityBits = 2;   /*!< NVIC priority bit count */
+constexpr inline std::uint32_t kPriorityMask = 0x3; /*!< NVIC priority bit mask */
+constexpr inline std::uint32_t kPriorityBits = 2;   /*!< NVIC priority bit count */
 }  // namespace nvic
 
-enum class interrupts : int8_t {
-  reset = -15,
-  nonMaskable = -14,
-  hardFault = -13,
-  svCall = -5,
+enum class Interrupts : int8_t {
+  kReset = -15,
+  kNonMaskable = -14,
+  kHardFault = -13,
+  kSvCall = -5,
   pendSv = -2,
   systick = -1,
   timerIrq0 = 0,

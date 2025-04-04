@@ -21,8 +21,8 @@ struct crc : libmcu::PeripheralBase {
    *
    * @return return pointer to CRC registers
    */
-  constexpr static libmcuhw::crc::crc *crcPeripheral() {
-    return reinterpret_cast<libmcuhw::crc::crc *>(crcAddress_);
+  constexpr static libmcuhw::crc::Crc *crcPeripheral() {
+    return reinterpret_cast<libmcuhw::crc::Crc *>(crcAddress_);
   }
 
  private:

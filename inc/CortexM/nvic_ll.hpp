@@ -35,8 +35,8 @@ struct nvic {
    *
    * @return return pointer to scb peripheral
    */
-  static hardwareScb::scb* scbPeripheral() {
-    return reinterpret_cast<hardwareScb::scb*>(scbAddress);
+  static hardwareScb::Scb* scbPeripheral() {
+    return reinterpret_cast<hardwareScb::Scb*>(scbAddress);
   }
 
   /**
@@ -51,7 +51,7 @@ struct nvic {
    *
    * @param interrupt interrupt number
    */
-  constexpr void enable(libmcuhw::interrupts interrupt) {
+  constexpr void enable(libmcuhw::Interrupts interrupt) {
     std::int32_t number = static_cast<std::uint32_t>(interrupt);
     if (number >= 0) {
       std::uint32_t index = getInterruptIndex(interrupt);
@@ -65,7 +65,7 @@ struct nvic {
    *
    * @param interrupt interrupt number
    */
-  constexpr void disable(libmcuhw::interrupts interrupt) {
+  constexpr void disable(libmcuhw::Interrupts interrupt) {
     std::int32_t number = static_cast<std::uint32_t>(interrupt);
     if (number >= 0) {
       std::uint32_t index = getInterruptIndex(interrupt);
@@ -80,7 +80,7 @@ struct nvic {
    *
    * @param interrupt interrupt number
    */
-  constexpr void setPending(libmcuhw::interrupts interrupt) {
+  constexpr void setPending(libmcuhw::Interrupts interrupt) {
     std::int32_t number = static_cast<std::uint32_t>(interrupt);
     if (number >= 0) {
       std::uint32_t index = getInterruptIndex(interrupt);
@@ -94,7 +94,7 @@ struct nvic {
    *
    * @param interrupt interrupt number
    */
-  constexpr void clearPending(libmcuhw::interrupts interrupt) {
+  constexpr void clearPending(libmcuhw::Interrupts interrupt) {
     std::int32_t number = static_cast<std::uint32_t>(interrupt);
     if (number >= 0) {
       std::uint32_t index = getInterruptIndex(interrupt);
@@ -110,7 +110,7 @@ struct nvic {
    * @return true interrupt pending
    * @return false interrupt not pending
    */
-  constexpr bool getPending(libmcuhw::interrupts interrupt) {
+  constexpr bool getPending(libmcuhw::Interrupts interrupt) {
     std::int32_t number = static_cast<std::uint32_t>(interrupt);
     if (number >= 0) {
       std::uint32_t index = getInterruptIndex(interrupt);
@@ -123,7 +123,7 @@ struct nvic {
     return false;
   }
 
-  constexpr void setPriority(libmcuhw::interrupts interrupt, std::uint32_t priority) {
+  constexpr void setPriority(libmcuhw::Interrupts interrupt, std::uint32_t priority) {
     std::int32_t number = static_cast<std::int32_t>(interrupt);
     if (number >= 0) {
       std::uint32_t index = getInterruptPrioIndex(number);
@@ -143,7 +143,7 @@ struct nvic {
    * @param interrupt interrupt number, MUST BE POSITIVE
    * @return interrupt register index
    */
-  constexpr uint32_t getInterruptIndex(libmcuhw::interrupts interrupt) {
+  constexpr uint32_t getInterruptIndex(libmcuhw::Interrupts interrupt) {
     return static_cast<std::uint32_t>(interrupt) >> 5;
   }
 
@@ -155,7 +155,7 @@ struct nvic {
    * @param interrupt interrupt number, MUST BE POSITIVE
    * @return interrupt register bit
    */
-  constexpr uint32_t getInterruptBit(libmcuhw::interrupts interrupt) {
+  constexpr uint32_t getInterruptBit(libmcuhw::Interrupts interrupt) {
     return static_cast<std::uint32_t>(interrupt) & 0x1F;
   }
 

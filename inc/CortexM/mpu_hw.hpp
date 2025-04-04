@@ -6,7 +6,7 @@
  */
 /**
  * @file mpu_hw.hpp
- * @brief MPU register interface
+ * @brief Register structure and bit definitions for the Cortex M MPU
  */
 #ifndef MPU_HW_HPP
 #define MPU_HW_HPP

@@ -15,7 +15,7 @@ namespace libmcuhw::crc {
 /**
  * @brief CRC register definitions
  */
-struct crc {
+struct Crc {
   volatile std::uint32_t MODE;        /*!< CRC mode register */
   volatile std::uint32_t SEED;        /*!< CRC seed register */
   union {                             /* */

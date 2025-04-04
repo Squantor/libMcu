@@ -64,19 +64,19 @@ struct systick {
    * @return zero if not, non zero if so
    */
   constexpr std::uint32_t getZeroPass() {
-    return systickPeripheral()->CSR & hardware::CSR::COUNTFLAG_MASK;
+    return systickPeripheral()->CSR & hardware::CSR::kCOUNTFLAG_MASK;
   }
 
   /**
    * @brief start the systick peripheral without any interrupts
    */
   constexpr void start() {
-    systickPeripheral()->CSR = hardware::CSR::CLKSOURCE_PROC | hardware::CSR::ENABLE;
+    systickPeripheral()->CSR = hardware::CSR::kCLKSOURCE_PROC | hardware::CSR::kENABLE;
   }
 
   constexpr void start(libmcu::IsrLambda lambda) {
     callback = lambda;
-    systickPeripheral()->CSR = hardware::CSR::CLKSOURCE_PROC | hardware::CSR::ENABLE | hardware::CSR::TICKINT;
+    systickPeripheral()->CSR = hardware::CSR::kCLKSOURCE_PROC | hardware::CSR::kENABLE | hardware::CSR::kTICKINT;
   }
 
   // TODO start(lambda) for callbacks when interrupts, depends on NVIC
@@ -86,7 +86,7 @@ struct systick {
    *
    */
   constexpr void stop() {
-    systickPeripheral()->CSR = hardware::CSR::CLKSOURCE_PROC;
+    systickPeripheral()->CSR = hardware::CSR::kCLKSOURCE_PROC;
   }
 
   /**
