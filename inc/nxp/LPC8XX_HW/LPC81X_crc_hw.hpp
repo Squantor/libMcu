@@ -8,8 +8,8 @@
  * @file LPC81X_crc_hw.hpp
  * @brief Register structure and bit definitions for the LPC810 series CRC peripheral
  */
-#ifndef LPC81X_CRC_REGS_HPP
-#define LPC81X_CRC_REGS_HPP
+#ifndef LPC81X_CRC_HW_HPP
+#define LPC81X_CRC_HW_HPP
 
 namespace libmcuhw::crc {
 

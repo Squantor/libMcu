@@ -8,8 +8,8 @@
  * @file LPC81X_usart_hw.hpp
  * @brief Register structure and bit definitions for the LPC810 series USART
  */
-#ifndef LPC81X_USART_REGS_HPP
-#define LPC81X_USART_REGS_HPP
+#ifndef LPC81X_USART_HW_HPP
+#define LPC81X_USART_HW_HPP
 
 namespace libmcuhw::usart {
 

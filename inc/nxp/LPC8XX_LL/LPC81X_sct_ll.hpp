@@ -94,10 +94,10 @@ enum class inputNumber : std::uint32_t {
  *
  */
 enum class captureCondition : std::uint32_t {
-  CAPTURE_LOW = EV_CTRL::IOCOND_LOW,   /*!< Capture low levels */
-  CAPTURE_RISE = EV_CTRL::IOCOND_RISE, /*!< Capture rising edges */
-  CAPTURE_FALL = EV_CTRL::IOCOND_FALL, /*!< Capture falling edges */
-  CAPTURE_HIGH = EV_CTRL::IOCOND_HIGH, /*!< Capture high levels */
+  CAPTURE_LOW = EV_CTRL::kIOCOND_LOW,   /*!< Capture low levels */
+  CAPTURE_RISE = EV_CTRL::kIOCOND_RISE, /*!< Capture rising edges */
+  CAPTURE_FALL = EV_CTRL::kIOCOND_FALL, /*!< Capture falling edges */
+  CAPTURE_HIGH = EV_CTRL::kIOCOND_HIGH, /*!< Capture high levels */
 };
 
 template <libmcu::sctBaseAddress sctAddress_>
@@ -112,13 +112,13 @@ struct sct : libmcu::PeripheralBase {
    * @param prescale prescale for unified timer
    */
   constexpr void init(std::uint32_t prescale, countingMode countMode) {
-    sctPeripheral()->CONFIG = CONFIG::UNIFY_ON | CONFIG::AUTOLIMIT_L;
+    sctPeripheral()->CONFIG = CONFIG::kUNIFY_ON | CONFIG::kAUTOLIMIT_L;
     // TODO configure match 0 register as match register as we autolimit on match 0
     sctPeripheral()->COUNT = 0x00000000u;
     if (countMode == countingMode::BIDIRECTIONAL)
-      sctPeripheral()->CTRL = CTRL::HALT_L | CTRL::CLRCTR_L | CTRL::PRE_L(prescale) | CTRL::BIDIR_L;
+      sctPeripheral()->CTRL = CTRL::kHALT_L | CTRL::kCLRCTR_L | CTRL::PRE_L(prescale) | CTRL::kBIDIR_L;
     else
-      sctPeripheral()->CTRL = CTRL::HALT_L | CTRL::CLRCTR_L | CTRL::PRE_L(prescale);
+      sctPeripheral()->CTRL = CTRL::kHALT_L | CTRL::kCLRCTR_L | CTRL::PRE_L(prescale);
   }
   // TODO: init(mode, prescale, inputpin)
   // TODO: init(mode, prescaleL, prescale H, inputpint)
@@ -127,14 +127,14 @@ struct sct : libmcu::PeripheralBase {
    *
    */
   constexpr void start() {
-    sctPeripheral()->CTRL = sctPeripheral()->CTRL & ~(CTRL::HALT_L);
+    sctPeripheral()->CTRL = sctPeripheral()->CTRL & ~(CTRL::kHALT_L);
   }
   /**
    * @brief Halts the 32bit SCT
    *
    */
   constexpr void halt() {
-    sctPeripheral()->CTRL = sctPeripheral()->CTRL | (CTRL::HALT_L);
+    sctPeripheral()->CTRL = sctPeripheral()->CTRL | (CTRL::kHALT_L);
   }
   /**
    * @brief returns SCT count value
@@ -211,12 +211,12 @@ struct sct : libmcu::PeripheralBase {
     sctPeripheral()->MATCH[matchIndex].U = value;
     sctPeripheral()->MATCHREL[matchIndex].U = value;
     sctPeripheral()->EV[eventIndex].CTRL =
-      EV_CTRL::MATCHSEL(matchIndex) | EV_CTRL::OUTSEL | EV_CTRL::IOSEL(outputIndex) | EV_CTRL::COMBMODE_MATCH;
-    sctPeripheral()->EV[eventIndex].STATE = EV_STATE::STATEMASK0 | EV_STATE::STATEMASK1;
+      EV_CTRL::MATCHSEL(matchIndex) | EV_CTRL::kOUTSEL | EV_CTRL::IOSEL(outputIndex) | EV_CTRL::kCOMBMODE_MATCH;
+    sctPeripheral()->EV[eventIndex].STATE = EV_STATE::kSTATEMASK0 | EV_STATE::kSTATEMASK1;
     sctPeripheral()->OUTPUT = OUTPUT::OUT(sctPeripheral()->OUTPUT, outputIndex, outputHigh);
     sctPeripheral()->OUT[outputIndex].CLR = OUT_CLR::CLR(eventIndex);
     sctPeripheral()->OUT[outputIndex].SET = OUT_SET::SET(eventIndex);
-    sctPeripheral()->RES = RES::RES(sctPeripheral()->RES, outputIndex, RES::TOGGLE);
+    sctPeripheral()->RES = RES::RES(sctPeripheral()->RES, outputIndex, RES::kTOGGLE);
   }
   /**
    * @brief Setup a SCT capture channel
@@ -235,17 +235,17 @@ struct sct : libmcu::PeripheralBase {
       sctPeripheral()->CONFIG | CONFIG::INSYNC_INPUT(inputIndex);  // needs to be done for edge capture condition
     sctPeripheral()->REGMODE = REGMODE::REGMOD_CAP(sctPeripheral()->REGMODE, captureIndex);
     sctPeripheral()->CAPCTRL[captureIndex].U = CAPCTRL::CAPCON_L_SET(sctPeripheral()->CAPCTRL[captureIndex].U, eventIndex);
-    sctPeripheral()->EV[eventIndex].CTRL = EV_CTRL::MATCHSEL(captureIndex) | EV_CTRL::INSEL | EV_CTRL::IOSEL(inputIndex) |
-                                           static_cast<std::uint32_t>(condition) | EV_CTRL::COMBMODE_IO;
-    sctPeripheral()->EV[eventIndex].STATE = EV_STATE::STATEMASK0 | EV_STATE::STATEMASK1;
+    sctPeripheral()->EV[eventIndex].CTRL = EV_CTRL::MATCHSEL(captureIndex) | EV_CTRL::kINSEL | EV_CTRL::IOSEL(inputIndex) |
+                                           static_cast<std::uint32_t>(condition) | EV_CTRL::kCOMBMODE_IO;
+    sctPeripheral()->EV[eventIndex].STATE = EV_STATE::kSTATEMASK0 | EV_STATE::kSTATEMASK1;
   }
   /**
    * @brief get registers from peripheral
    *
    * @return return pointer to state configurable timer registers
    */
-  constexpr static libmcuhw::sct::sct *sctPeripheral() {
-    return reinterpret_cast<libmcuhw::sct::sct *>(sctAddress);
+  constexpr static libmcuhw::sct::Sct *sctPeripheral() {
+    return reinterpret_cast<libmcuhw::sct::Sct *>(sctAddress);
   }
 
  private:

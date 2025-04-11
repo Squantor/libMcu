@@ -8,8 +8,8 @@
  * @file LPC81X_wkt_hw.hpp
  * @brief Register structure and bit definitions for the LPC810 series wakeup timer
  */
-#ifndef LPC81X_WKT_REGS_HPP
-#define LPC81X_WKT_REGS_HPP
+#ifndef LPC81X_WKT_HW_HPP
+#define LPC81X_WKT_HW_HPP
 
 namespace libmcuhw::wkt {
 

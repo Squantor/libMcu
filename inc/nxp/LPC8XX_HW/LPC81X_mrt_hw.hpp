@@ -8,27 +8,26 @@
  * @file LPC81X_mrt_hw.hpp
  * @brief Register structure and bit definitions for the LPC810 series Multi rate timer
  */
-#ifndef LPC81X_MRT_REGS_HPP
-#define LPC81X_MRT_REGS_HPP
+#ifndef LPC81X_MRT_HW_HPP
+#define LPC81X_MRT_HW_HPP
 
 namespace libmcuhw::mrt {
 
 /**
- * @brief
+ * @brief Multi rate timer channel definition
  * @todo try and fold this in mrt peripheral?
  */
-struct mrtChannel {
+struct MrtChannel {
   volatile std::uint32_t INTVAL; /* Timer interval register */
   volatile std::uint32_t TIMER;  /* Timer register */
   volatile std::uint32_t CTRL;   /* Timer control register */
   volatile std::uint32_t STAT;   /* Timer status register */
 };
-
 /**
- * @brief
+ * @brief Multi rate timer register definitions
  */
-struct mrt {
-  mrtChannel CHANNEL[4];
+struct Mrt {
+  MrtChannel CHANNEL[4];
   volatile std::uint32_t RESERVED1[45];
   volatile std::uint32_t IDLE_CH;
   volatile std::uint32_t IRQ_FLAG;

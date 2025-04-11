@@ -8,8 +8,8 @@
  * @file LPC81X_acmp_hw.hpp
  * @brief Register structure and bit definitions for the LPC810 series analog comparator
  */
-#ifndef LPC81X_ACMP_REGS_HPP
-#define LPC81X_ACMP_REGS_HPP
+#ifndef LPC81X_ACMP_HW_HPP
+#define LPC81X_ACMP_HW_HPP
 
 namespace libmcuhw::acmp {
 /**

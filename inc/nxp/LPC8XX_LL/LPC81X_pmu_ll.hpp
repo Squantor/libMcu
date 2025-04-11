@@ -20,8 +20,8 @@ struct pmu {
    *
    * @return return pointer to power management unit registers
    */
-  constexpr static libmcuhw::pmu::pmu *pmuPeripheral() {
-    return reinterpret_cast<libmcuhw::pmu::pmu *>(pmuAddress);
+  constexpr static libmcuhw::pmu::Pmu *pmuPeripheral() {
+    return reinterpret_cast<libmcuhw::pmu::Pmu *>(pmuAddress);
   }
 
  private:

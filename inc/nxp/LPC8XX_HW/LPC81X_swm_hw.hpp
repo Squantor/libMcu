@@ -8,39 +8,39 @@
  * @file LPC81X_swm_hw.hpp
  * @brief Register structure and bit definitions for the LPC810 series Switch Matrix
  */
-#ifndef LPC81X_SMW_REGS_HPP
-#define LPC81X_SWM_REGS_HPP
+#ifndef LPC81X_SMW_HW_HPP
+#define LPC81X_SWM_HW_HPP
 
 namespace libmcuhw::swm {
 /**
- * @brief
+ * @brief Pin assignment enumeration
  */
-enum pinAssign : std::uint8_t {
-  PIO0_0 = 0u,     /*!< assign to pin P0_0. */
-  PIO0_1 = 1u,     /*!< assign to pin P0_1. */
-  PIO0_2 = 2u,     /*!< assign to pin P0_2. */
-  PIO0_3 = 3u,     /*!< assign to pin P0_3. */
-  PIO0_4 = 4u,     /*!< assign to pin P0_4. */
-  PIO0_5 = 5u,     /*!< assign to pin P0_5. */
-  PIO0_6 = 6u,     /*!< assign to pin P0_6. */
-  PIO0_7 = 7u,     /*!< assign to pin P0_7. */
-  PIO0_8 = 8u,     /*!< assign to pin P0_8. */
-  PIO0_9 = 9u,     /*!< assign to pin P0_9. */
-  PIO0_10 = 10u,   /*!< assign to pin P0_10. */
-  PIO0_11 = 11u,   /*!< assign to pin P0_11. */
-  PIO0_12 = 12u,   /*!< assign to pin P0_12. */
-  PIO0_13 = 13u,   /*!< assign to pin P0_13. */
-  PIO0_14 = 14u,   /*!< assign to pin P0_14. */
-  PIO0_15 = 15u,   /*!< assign to pin P0_15. */
-  PIO0_16 = 16u,   /*!< assign to pin P0_16. */
-  PIO0_17 = 17u,   /*!< assign to pin P0_17. */
-  PIO_NONE = 0xFFu /*!< assign to nothing */
+enum PinAssignments : std::uint8_t {
+  k0_0 = 0u,    /*!< assign to pin P0_0. */
+  k0_1 = 1u,    /*!< assign to pin P0_1. */
+  k0_2 = 2u,    /*!< assign to pin P0_2. */
+  k0_3 = 3u,    /*!< assign to pin P0_3. */
+  k0_4 = 4u,    /*!< assign to pin P0_4. */
+  k0_5 = 5u,    /*!< assign to pin P0_5. */
+  k0_6 = 6u,    /*!< assign to pin P0_6. */
+  k0_7 = 7u,    /*!< assign to pin P0_7. */
+  k0_8 = 8u,    /*!< assign to pin P0_8. */
+  k0_9 = 9u,    /*!< assign to pin P0_9. */
+  k0_10 = 10u,  /*!< assign to pin P0_10. */
+  k0_11 = 11u,  /*!< assign to pin P0_11. */
+  k0_12 = 12u,  /*!< assign to pin P0_12. */
+  k0_13 = 13u,  /*!< assign to pin P0_13. */
+  k0_14 = 14u,  /*!< assign to pin P0_14. */
+  k0_15 = 15u,  /*!< assign to pin P0_15. */
+  k0_16 = 16u,  /*!< assign to pin P0_16. */
+  k0_17 = 17u,  /*!< assign to pin P0_17. */
+  kNone = 0xFFu /*!< assign to nothing */
 };
 /**
- * @brief
+ * @brief Movable pin functions
  */
-enum functionMovable : std::uint8_t {
-  USART0_TXD_O = 0u,     /*!< UART0 TXD Output */
+enum MovableFunctions : std::uint8_t {
+  kUsart0TxdOut = 0u,    /*!< UART0 TXD Output */
   USART0_RXD_I = 1u,     /*!< UART0 RXD Input */
   USART0_RTS_O = 2u,     /*!< UART0 RTS Output */
   USART0_CTS_I = 3u,     /*!< UART0 CTS Input */
@@ -562,7 +562,7 @@ struct pinFunction<pinFunctions::GPIO_INT_BMAT_O> {
 template <>
 struct pinFunction<pinFunctions::ACMP_I1> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::FIXED};
-  static constexpr pinAssign pio{pinAssign::PIO0_0};
+  static constexpr PinAssignments pio{PinAssignments::k0_0};
   static constexpr functionFixed mask{functionFixed::ACMP_I1};
 };
 /**
@@ -573,7 +573,7 @@ struct pinFunction<pinFunctions::ACMP_I1> {
 template <>
 struct pinFunction<pinFunctions::ACMP_I2> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::FIXED};
-  static constexpr pinAssign pio{pinAssign::PIO0_1};
+  static constexpr PinAssignments pio{PinAssignments::k0_1};
   static constexpr functionFixed mask{functionFixed::ACMP_I2};
 };
 /**
@@ -584,7 +584,7 @@ struct pinFunction<pinFunctions::ACMP_I2> {
 template <>
 struct pinFunction<pinFunctions::SWCLK> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::FIXED};
-  static constexpr pinAssign pio{pinAssign::PIO0_3};
+  static constexpr PinAssignments pio{PinAssignments::k0_3};
   static constexpr functionFixed mask{functionFixed::SWCLK};
 };
 /**
@@ -595,7 +595,7 @@ struct pinFunction<pinFunctions::SWCLK> {
 template <>
 struct pinFunction<pinFunctions::SWDIO> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::FIXED};
-  static constexpr pinAssign pio{pinAssign::PIO0_2};
+  static constexpr PinAssignments pio{PinAssignments::k0_2};
   static constexpr functionFixed mask{functionFixed::SWDIO};
 };
 /**
@@ -606,7 +606,7 @@ struct pinFunction<pinFunctions::SWDIO> {
 template <>
 struct pinFunction<pinFunctions::XTALIN> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::FIXED};
-  static constexpr pinAssign pio{pinAssign::PIO0_8};
+  static constexpr PinAssignments pio{PinAssignments::k0_8};
   static constexpr functionFixed mask{functionFixed::XTALIN};
 };
 /**
@@ -617,7 +617,7 @@ struct pinFunction<pinFunctions::XTALIN> {
 template <>
 struct pinFunction<pinFunctions::XTALOUT> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::FIXED};
-  static constexpr pinAssign pio{pinAssign::PIO0_9};
+  static constexpr PinAssignments pio{PinAssignments::k0_9};
   static constexpr functionFixed mask{functionFixed::XTALOUT};
 };
 /**
@@ -628,7 +628,7 @@ struct pinFunction<pinFunctions::XTALOUT> {
 template <>
 struct pinFunction<pinFunctions::RESET> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::FIXED};
-  static constexpr pinAssign pio{pinAssign::PIO0_5};
+  static constexpr PinAssignments pio{PinAssignments::k0_5};
   static constexpr functionFixed mask{functionFixed::RESET};
 };
 /**
@@ -639,7 +639,7 @@ struct pinFunction<pinFunctions::RESET> {
 template <>
 struct pinFunction<pinFunctions::CLKIN> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::FIXED};
-  static constexpr pinAssign pio{pinAssign::PIO0_1};
+  static constexpr PinAssignments pio{PinAssignments::k0_1};
   static constexpr functionFixed mask{functionFixed::CLKIN};
 };
 /**
@@ -650,7 +650,7 @@ struct pinFunction<pinFunctions::CLKIN> {
 template <>
 struct pinFunction<pinFunctions::VDDCMP> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::FIXED};
-  static constexpr pinAssign pio{pinAssign::PIO0_6};
+  static constexpr PinAssignments pio{PinAssignments::k0_6};
   static constexpr functionFixed mask{functionFixed::VDDCMP};
 };
 /**

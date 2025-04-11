@@ -75,7 +75,7 @@ enum pinAssign : std::uint8_t {
 /**
  * @brief
  */
-enum functionMovable : std::uint8_t {
+enum MovableFunctions : std::uint8_t {
   U0_TXD_O,        /*!< UART0 TXD Output */
   U0_RXD_I,        /*!< UART0 RXD Input */
   U0_RTS_O,        /*!< UART0 RTS Output */

@@ -8,15 +8,15 @@
  * @file LPC81X_iocon_hw.hpp
  * @brief Register structure and bit definitions for the LPC810 series IOCON
  */
-#ifndef LPC81X_IOCON_REGS_HPP
-#define LPC81X_IOCON_REGS_HPP
+#ifndef LPC81X_IOCON_HW_HPP
+#define LPC81X_IOCON_HW_HPP
 
 namespace libmcuhw::iocon {
 
 /**
  * @brief IOCON register definitions
  */
-struct iocon {
+struct Iocon {
   volatile std::uint32_t PIO[56]; /*!< Pin control registers */
 };
 namespace PIO {

@@ -20,8 +20,8 @@ struct mrt : libmcu::PeripheralBase {
    *
    * @return return pointer to mrt registers
    */
-  constexpr static libmcuhw::mrt::mrt *mrtPeripheral() {
-    return reinterpret_cast<libmcuhw::mrt::mrt *>(mrtAddress);
+  constexpr static libmcuhw::mrt::Mrt *mrtPeripheral() {
+    return reinterpret_cast<libmcuhw::mrt::Mrt *>(mrtAddress);
   }
 
  private:

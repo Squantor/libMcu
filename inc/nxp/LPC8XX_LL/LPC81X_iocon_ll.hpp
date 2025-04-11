@@ -16,7 +16,6 @@ using namespace libmcuhw::iocon;
 
 /**
  * @brief Pin pull modes
- *
  */
 enum class pullModes : std::uint32_t {
   INACTIVE = PIO::INACTIVE, /*!< No pullup/down */
@@ -24,10 +23,8 @@ enum class pullModes : std::uint32_t {
   PULLUP = PIO::PULLUP,     /*!< Pullup enabled */
   REPEATER = PIO::REPEATER, /*!< Repeater mode */
 };
-
 /**
  * @brief pin filtering modes
- *
  */
 enum class pinFiltering : std::uint32_t {
   BYPASS = PIO::BYPASS,   /*!< Bypassed input filter */
@@ -35,12 +32,9 @@ enum class pinFiltering : std::uint32_t {
   CYCLES2 = PIO::CYCLES2, /*!< 2 clock cycle pulses are filtered */
   CYCLES3 = PIO::CYCLES3, /*!< 3 clock cycle pulses are filtered */
 };
-
 /**
  * @brief Clock divider to use for filtering
- *
- * TODO, change this to a consteval function
- *
+ * @todo, change this to a consteval function
  */
 enum class clockDivider : std::uint32_t {
   IOCONCLKDIV0 = PIO::IOCONCLKDIV0, /*!< use IOCONCLKDIV0 in SYSCON */
@@ -51,7 +45,6 @@ enum class clockDivider : std::uint32_t {
   IOCONCLKDIV5 = PIO::IOCONCLKDIV5, /*!< use IOCONCLKDIV5 in SYSCON */
   IOCONCLKDIV6 = PIO::IOCONCLKDIV6, /*!< use IOCONCLKDIV6 in SYSCON */
 };
-
 /**
  * @brief I2C pin modes
  *
@@ -61,12 +54,10 @@ enum class i2cmodes : std::uint32_t {
   IO_STD = PIO::IO_STD,     /*!< standard I/O functionality */
   I2C_FAST = PIO::I2C_FAST, /*!< fast mode plus I2C */
 };
-
 template <libmcu::ioconBaseAddress ioconAddress_>
 struct iocon : libmcu::PeripheralBase {
   /**
    * @brief Setup normal IOCON pin
-   *
    * @tparam T      normal iocon pin type
    * @param pin     instance of pin type to setup
    * @param mode    pullup mode
@@ -82,7 +73,6 @@ struct iocon : libmcu::PeripheralBase {
   }
   /**
    * @brief Setup normal IOCON pin
-   *
    * @tparam T      normal iocon pin type
    * @param pin     instance of pin type to setup
    * @param mode    pullup mode
@@ -95,7 +85,6 @@ struct iocon : libmcu::PeripheralBase {
   }
   /**
    * @brief Setup normal IOCON pin
-   *
    * @tparam T      normal iocon pin type
    * @param pin     instance of pin type to setup
    */
@@ -106,7 +95,6 @@ struct iocon : libmcu::PeripheralBase {
   }
   /**
    * @brief Setup I2C IOCON pin
-   *
    * @tparam T      i2c iocon pin type
    * @param pin     instance of pin type to setup
    * @param mode    I2C mode
@@ -122,7 +110,6 @@ struct iocon : libmcu::PeripheralBase {
   }
   /**
    * @brief Setup I2C IOCON pin
-   *
    * @tparam T      i2c iocon pin type
    * @param pin     instance of pin type to setup
    * @param mode    I2C mode
@@ -135,7 +122,6 @@ struct iocon : libmcu::PeripheralBase {
   }
   /**
    * @brief Setup I2C IOCON pin
-   *
    * @tparam T      i2c iocon pin type
    * @param pin     instance of pin type to setup
    * @param mode    I2C mode
@@ -147,11 +133,10 @@ struct iocon : libmcu::PeripheralBase {
   }
   /**
    * @brief get registers from peripheral
-   *
    * @return return pointer to iocon registers
    */
-  static constexpr libmcuhw::iocon::iocon *ioconPeripheral() {
-    return reinterpret_cast<libmcuhw::iocon::iocon *>(ioconAddress);
+  static constexpr libmcuhw::iocon::Iocon *ioconPeripheral() {
+    return reinterpret_cast<libmcuhw::iocon::Iocon *>(ioconAddress);
   }
 
  private:

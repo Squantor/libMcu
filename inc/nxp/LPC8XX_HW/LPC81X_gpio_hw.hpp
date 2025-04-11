@@ -8,14 +8,15 @@
  * @file LPC81X_gpio_hw.hpp
  * @brief Register structure and bit definitions for the LPC810 series GPIO
  */
-#ifndef LPC81X_GPIO_REGS_HPP
-#define LPC81X_GPIO_REGS_HPP
+#ifndef LPC81X_GPIO_HW_HPP
+#define LPC81X_GPIO_HW_HPP
+
 namespace libmcuhw::gpio {
 
 /**
  * @brief gpio register definitions
  */
-struct gpio {
+struct Gpio {
   volatile std::uint8_t B[128][32]; /*!< Byte pin registers ports 0 to n; pins PIOn_0 to PIOn_31 */
   volatile std::uint32_t W[32][32]; /*!< Word pin registers port 0 to n */
   volatile std::uint32_t DIR[32];   /*!< Direction registers port n */

@@ -30,7 +30,7 @@ struct i2c : libmcu::PeripheralBase {
     std::uint32_t divider = CLOCK_AHB / (bitRate * 20);
     i2cPeripheral()->TIMEOUT = TIMEOUT::TO(timeout);
     i2cPeripheral()->CLKDIV = divider + 1;
-    i2cPeripheral()->CFG = CFG::MSTEN;
+    i2cPeripheral()->CFG = CFG::kMSTEN;
     return CLOCK_AHB / divider / 20;
   }
   /**
@@ -42,22 +42,22 @@ struct i2c : libmcu::PeripheralBase {
   constexpr void write(libmcu::i2cDeviceAddress address, const std::span<std::uint8_t> transmitBuffer) {
     std::uint32_t i2cAddress = static_cast<std::uint32_t>(address.value) << 1;
     i2cPeripheral()->MSTDAT = i2cAddress;
-    i2cPeripheral()->MSTCTL = MSTCTL::MSTSTART;
-    while (!(i2cPeripheral()->STAT & (STAT::MSTPENDING | STAT::EVENTTIMEOUT | STAT::SCLTIMEOUT)))
+    i2cPeripheral()->MSTCTL = MSTCTL::kMSTSTART;
+    while (!(i2cPeripheral()->STAT & (STAT::kMSTPENDING | STAT::kEVENTTIMEOUT | STAT::kSCLTIMEOUT)))
       ;
-    if ((i2cPeripheral()->STAT & STAT::MSTSTATE_MASK) != STAT::MSTSTATE_TXRDY)
+    if ((i2cPeripheral()->STAT & STAT::kMSTSTATE_MASK) != STAT::kMSTSTATE_TXRDY)
       goto stop;
     for (const std::uint8_t &data : transmitBuffer) {
       i2cPeripheral()->MSTDAT = static_cast<std::uint32_t>(data);
-      i2cPeripheral()->MSTCTL = MSTCTL::MSTCONTINUE;
-      while (!(i2cPeripheral()->STAT & (STAT::MSTPENDING | STAT::EVENTTIMEOUT | STAT::SCLTIMEOUT)))
+      i2cPeripheral()->MSTCTL = MSTCTL::kMSTCONTINUE;
+      while (!(i2cPeripheral()->STAT & (STAT::kMSTPENDING | STAT::kEVENTTIMEOUT | STAT::kSCLTIMEOUT)))
         ;
-      if ((i2cPeripheral()->STAT & STAT::MSTSTATE_MASK) != STAT::MSTSTATE_TXRDY)
+      if ((i2cPeripheral()->STAT & STAT::kMSTSTATE_MASK) != STAT::kMSTSTATE_TXRDY)
         break;
     }
   stop:
-    i2cPeripheral()->MSTCTL = MSTCTL::MSTSTOP;
-    while (!(i2cPeripheral()->STAT & (STAT::MSTPENDING | STAT::EVENTTIMEOUT | STAT::SCLTIMEOUT)))
+    i2cPeripheral()->MSTCTL = MSTCTL::kMSTSTOP;
+    while (!(i2cPeripheral()->STAT & (STAT::kMSTPENDING | STAT::kEVENTTIMEOUT | STAT::kSCLTIMEOUT)))
       ;
   }
 
@@ -70,23 +70,23 @@ struct i2c : libmcu::PeripheralBase {
   constexpr void read(libmcu::i2cDeviceAddress address, std::span<std::uint8_t> receiveBuffer) {
     std::uint32_t i2cAddress = static_cast<std::uint32_t>(address.value) << 1;
     i2cPeripheral()->MSTDAT = i2cAddress | 0x01;  // set read bit in Address
-    i2cPeripheral()->MSTCTL = MSTCTL::MSTSTART;
-    while (!(i2cPeripheral()->STAT & (STAT::MSTPENDING | STAT::EVENTTIMEOUT | STAT::SCLTIMEOUT)))
+    i2cPeripheral()->MSTCTL = MSTCTL::kMSTSTART;
+    while (!(i2cPeripheral()->STAT & (STAT::kMSTPENDING | STAT::kEVENTTIMEOUT | STAT::kSCLTIMEOUT)))
       ;
-    if ((i2cPeripheral()->STAT & STAT::MSTSTATE_MASK) != STAT::MSTSTATE_RXRDY)
+    if ((i2cPeripheral()->STAT & STAT::kMSTSTATE_MASK) != STAT::kMSTSTATE_RXRDY)
       goto stop;
     receiveBuffer[0] = static_cast<std::uint8_t>(i2cPeripheral()->MSTDAT);
     for (std::uint8_t &data : receiveBuffer.subspan(1)) {
-      i2cPeripheral()->MSTCTL = MSTCTL::MSTCONTINUE;
-      while (!(i2cPeripheral()->STAT & (STAT::MSTPENDING | STAT::EVENTTIMEOUT | STAT::SCLTIMEOUT)))
+      i2cPeripheral()->MSTCTL = MSTCTL::kMSTCONTINUE;
+      while (!(i2cPeripheral()->STAT & (STAT::kMSTPENDING | STAT::kEVENTTIMEOUT | STAT::kSCLTIMEOUT)))
         ;
-      if ((i2cPeripheral()->STAT & STAT::MSTSTATE_MASK) != STAT::MSTSTATE_RXRDY)
+      if ((i2cPeripheral()->STAT & STAT::kMSTSTATE_MASK) != STAT::kMSTSTATE_RXRDY)
         break;
       data = static_cast<std::uint8_t>(i2cPeripheral()->MSTDAT);
     }
   stop:
-    i2cPeripheral()->MSTCTL = MSTCTL::MSTSTOP;
-    while (!(i2cPeripheral()->STAT & (STAT::MSTPENDING | STAT::EVENTTIMEOUT | STAT::SCLTIMEOUT)))
+    i2cPeripheral()->MSTCTL = MSTCTL::kMSTSTOP;
+    while (!(i2cPeripheral()->STAT & (STAT::kMSTPENDING | STAT::kEVENTTIMEOUT | STAT::kSCLTIMEOUT)))
       ;
   }
   /**
@@ -94,8 +94,8 @@ struct i2c : libmcu::PeripheralBase {
    *
    * @return return pointer to i2c registers
    */
-  constexpr static libmcuhw::i2c::i2c *i2cPeripheral() {
-    return reinterpret_cast<libmcuhw::i2c::i2c *>(i2cAddress);
+  constexpr static libmcuhw::i2c::I2c *i2cPeripheral() {
+    return reinterpret_cast<libmcuhw::i2c::I2c *>(i2cAddress);
   }
 
  private:

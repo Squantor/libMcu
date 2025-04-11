@@ -38,7 +38,7 @@ struct spiSync : libmcu::PeripheralBase {
    */
   constexpr std::uint32_t initMaster(std::uint32_t bitRate) {
     std::uint32_t actualBitRate = setBitRate(bitRate);
-    spiPeripheral()->CFG = CFG::ENABLE | CFG::MASTER;
+    spiPeripheral()->CFG = CFG::kENABLE | CFG::kMASTER;
     return actualBitRate;
   }
   /**
@@ -52,9 +52,10 @@ struct spiSync : libmcu::PeripheralBase {
    * @param polarity SPI slave select polarity
    * @return actual bit rate
    */
-  constexpr std::uint32_t initMaster(std::uint32_t bitRate, waveforms waveform, slavePolaritySelects polarity) {
+  constexpr std::uint32_t initMaster(std::uint32_t bitRate, Waveforms waveform, SlavePolaritySelects polarity) {
     std::uint32_t actualBitRate = setBitRate(bitRate);
-    spiPeripheral()->CFG = CFG::ENABLE | CFG::MASTER | static_cast<std::uint32_t>(waveform) | static_cast<std::uint32_t>(polarity);
+    spiPeripheral()->CFG =
+      CFG::kENABLE | CFG::kMASTER | static_cast<std::uint32_t>(waveform) | static_cast<std::uint32_t>(polarity);
     return actualBitRate;
   }
   // TODO: SPI slave initialisation method with standard waveform
@@ -70,19 +71,19 @@ struct spiSync : libmcu::PeripheralBase {
   constexpr void write(chipEnables device, const std::span<std::uint16_t> transmitBuffer, std::uint32_t bitcount, bool lastAction) {
     size_t index = 0u;
     std::uint32_t address_TransferCommand =
-      TXDATCTL::TXSSEL(device) | TXDATCTL::RXIGNORE;  // spiAddress_ transfer command with presets
+      TXDATCTL::TXSSEL(device) | TXDATCTL::kRXIGNORE;  // spiAddress_ transfer command with presets
     while (bitcount > 16u) {
       spiPeripheral()->TXDATCTL = address_TransferCommand | TXDATCTL::TXDAT(transmitBuffer[index]) | TXDATCTL::LEN(16);
-      while ((spiPeripheral()->STAT & STAT::TXRDY) == 0u)
+      while ((spiPeripheral()->STAT & STAT::kTXRDY) == 0u)
         ;
       bitcount -= 16u;
       index++;
     }
     // process remainder
     if (lastAction)
-      address_TransferCommand |= TXDATCTL::EOT;
+      address_TransferCommand |= TXDATCTL::kEOT;
     spiPeripheral()->TXDATCTL = address_TransferCommand | TXDATCTL::TXDAT(transmitBuffer[index]) | TXDATCTL::LEN(bitcount);
-    while ((spiPeripheral()->STAT & STAT::TXRDY) == 0u)
+    while ((spiPeripheral()->STAT & STAT::kTXRDY) == 0u)
       ;
   }
   // TODO: transmit with gpio chip select
@@ -101,7 +102,7 @@ struct spiSync : libmcu::PeripheralBase {
       TXDATCTL::TXSSEL(static_cast<std::uint32_t>(device));  // spiAddress_ transfer command with presets
     while (bitcount > 16u) {
       spiPeripheral()->TXDATCTL = address_TransferCommand | TXDATCTL::LEN(16);
-      while ((spiPeripheral()->STAT & STAT::RXRDY) == 0u)
+      while ((spiPeripheral()->STAT & STAT::kRXRDY) == 0u)
         ;
       receiveBuffer[index] = RXDAT::RXDAT(spiPeripheral()->RXDAT);
       bitcount -= 16u;
@@ -109,9 +110,9 @@ struct spiSync : libmcu::PeripheralBase {
     }
     // process remainder
     if (lastAction)
-      address_TransferCommand |= TXDATCTL::EOT;
+      address_TransferCommand |= TXDATCTL::kEOT;
     spiPeripheral()->TXDATCTL = address_TransferCommand | TXDATCTL::LEN(bitcount);
-    while ((spiPeripheral()->STAT & STAT::RXRDY) == 0u)
+    while ((spiPeripheral()->STAT & STAT::kRXRDY) == 0u)
       ;
     receiveBuffer[index] = RXDAT::RXDAT(spiPeripheral()->RXDAT);
   }
@@ -146,7 +147,7 @@ struct spiSync : libmcu::PeripheralBase {
     std::uint32_t address_TransferCommand = TXDATCTL::TXSSEL(static_cast<std::uint32_t>(device));
     while (bitcount > 16u) {
       spiPeripheral()->TXDATCTL = address_TransferCommand | TXDATCTL::TXDAT(transmitBuffer[index]) | TXDATCTL::LEN(16);
-      while ((spiPeripheral()->STAT & STAT::RXRDY) == 0u)
+      while ((spiPeripheral()->STAT & STAT::kRXRDY) == 0u)
         ;
       receiveBuffer[index] = RXDAT::RXDAT(spiPeripheral()->RXDAT);
       bitcount -= 16u;
@@ -154,9 +155,9 @@ struct spiSync : libmcu::PeripheralBase {
     }
     // process remainder
     if (lastAction)
-      address_TransferCommand |= TXDATCTL::EOT;
+      address_TransferCommand |= TXDATCTL::kEOT;
     spiPeripheral()->TXDATCTL = address_TransferCommand | TXDATCTL::TXDAT(transmitBuffer[index]) | TXDATCTL::LEN(bitcount);
-    while ((spiPeripheral()->STAT & STAT::RXRDY) == 0u)
+    while ((spiPeripheral()->STAT & STAT::kRXRDY) == 0u)
       ;
     receiveBuffer[index] = RXDAT::RXDAT(spiPeripheral()->RXDAT);
   }
@@ -168,8 +169,8 @@ struct spiSync : libmcu::PeripheralBase {
    *
    * @return return pointer to spi registers
    */
-  constexpr hardware::spi *spiPeripheral() {
-    return reinterpret_cast<hardware::spi *>(spiAddress);
+  constexpr hardware::Spi *spiPeripheral() {
+    return reinterpret_cast<hardware::Spi *>(spiAddress);
   }
 
  private:

@@ -8,15 +8,15 @@
  * @file LPC81X_pin_int_hw.hpp
  * @brief Register structure and bit definitions for the LPC810 series Pin interrupt
  */
-#ifndef LPC81X_PIN_INT_REGS_HPP
-#define LPC81X_PIN_INT_REGS_HPP
+#ifndef LPC81X_PIN_INT_HW_HPP
+#define LPC81X_PIN_INT_HW_HPP
 
 namespace libmcuhw::pinint {
 
 /**
  * @brief pin interrupt register definitions
  */
-struct pinint {
+struct Pinint {
   volatile std::uint32_t ISEL;   /*!< Pin Interrupt Mode register */
   volatile std::uint32_t IENR;   /*!< Pin interrupt level or rising edge enable register */
   volatile std::uint32_t SIENR;  /*!< Pin interrupt level or rising edge set register */
