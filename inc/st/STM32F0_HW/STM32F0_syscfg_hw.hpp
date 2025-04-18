@@ -22,13 +22,13 @@ struct syscfg {
   volatile std::uint32_t CFGR2;     /*!< SYSCFG configuration register 2 */
 };
 namespace CFGR1 {
-constexpr inline std::uint32_t RESERVED_MASK = 0xFFFFFFFFu; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK = 0xFFFFFFFFu; /*!< register mask for allowed bits */
 }
 namespace EXTICR {
-constexpr inline std::uint32_t RESERVED_MASK = 0xFFFFFFFFu; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK = 0xFFFFFFFFu; /*!< register mask for allowed bits */
 }
 namespace CFGR2 {
-constexpr inline std::uint32_t RESERVED_MASK = 0xFFFFFFFFu; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK = 0xFFFFFFFFu; /*!< register mask for allowed bits */
 }
 }  // namespace libmcuhw::syscfg
 #endif

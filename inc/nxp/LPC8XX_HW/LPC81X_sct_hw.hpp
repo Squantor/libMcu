@@ -136,22 +136,22 @@ struct Sct {
 };
 
 namespace CONFIG {
-constexpr inline std::uint32_t kRESERVED_MASK{0x0007FFFFu}; /*!< register mask for allowed bits */
-constexpr inline std::uint32_t kUNIFY_OFF{0u << 0};         /*!< SCT as two 16 bit timers  */
-constexpr inline std::uint32_t kUNIFY_ON{1u << 0};          /*!< SCT as single 32 bit timer */
-constexpr inline std::uint32_t kCLKMODE_BUS{0u << 1};       /*!< SCT clock is bus clock */
-constexpr inline std::uint32_t kCLKMODE_BUS_PRE{1u << 1};   /*!< SCT clock is a SCT input synced to prescaled bus clock*/
-constexpr inline std::uint32_t kCLKMODE_INPUT{2u << 1};     /*!< SCT clock is a SCT input */
-constexpr inline std::uint32_t kCKSEL_0_RISING{0u << 3};    /*!< SCT clock input 0 rising edges */
-constexpr inline std::uint32_t kCKSEL_0_FALLING{1u << 3};   /*!< SCT clock input 0 falling edges */
-constexpr inline std::uint32_t kCKSEL_1_RISING{2u << 3};    /*!< SCT clock input 1 rising edges */
-constexpr inline std::uint32_t kCKSEL_1_FALLING{3u << 3};   /*!< SCT clock input 1 falling edges */
-constexpr inline std::uint32_t kCKSEL_2_RISING{4u << 3};    /*!< SCT clock input 2 rising edges */
-constexpr inline std::uint32_t kCKSEL_2_FALLING{5u << 3};   /*!< SCT clock input 2 falling edges */
-constexpr inline std::uint32_t kCKSEL_3_RISING{6u << 3};    /*!< SCT clock input 3 rising edges */
-constexpr inline std::uint32_t kCKSEL_3_FALLING{7u << 3};   /*!< SCT clock input 3 falling edges */
-constexpr inline std::uint32_t kNORELOAD_L{1u << 7};        /*!< prevents reload of lower match registers */
-constexpr inline std::uint32_t kNORELOAD_H{1u << 8};        /*!< prevents reload of higher match registers */
+constexpr inline std::uint32_t kkRESERVED_MASK{0x0007FFFFu}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kUNIFY_OFF{0u << 0};          /*!< SCT as two 16 bit timers  */
+constexpr inline std::uint32_t kUNIFY_ON{1u << 0};           /*!< SCT as single 32 bit timer */
+constexpr inline std::uint32_t kCLKMODE_BUS{0u << 1};        /*!< SCT clock is bus clock */
+constexpr inline std::uint32_t kCLKMODE_BUS_PRE{1u << 1};    /*!< SCT clock is a SCT input synced to prescaled bus clock*/
+constexpr inline std::uint32_t kCLKMODE_INPUT{2u << 1};      /*!< SCT clock is a SCT input */
+constexpr inline std::uint32_t kCKSEL_0_RISING{0u << 3};     /*!< SCT clock input 0 rising edges */
+constexpr inline std::uint32_t kCKSEL_0_FALLING{1u << 3};    /*!< SCT clock input 0 falling edges */
+constexpr inline std::uint32_t kCKSEL_1_RISING{2u << 3};     /*!< SCT clock input 1 rising edges */
+constexpr inline std::uint32_t kCKSEL_1_FALLING{3u << 3};    /*!< SCT clock input 1 falling edges */
+constexpr inline std::uint32_t kCKSEL_2_RISING{4u << 3};     /*!< SCT clock input 2 rising edges */
+constexpr inline std::uint32_t kCKSEL_2_FALLING{5u << 3};    /*!< SCT clock input 2 falling edges */
+constexpr inline std::uint32_t kCKSEL_3_RISING{6u << 3};     /*!< SCT clock input 3 rising edges */
+constexpr inline std::uint32_t kCKSEL_3_FALLING{7u << 3};    /*!< SCT clock input 3 falling edges */
+constexpr inline std::uint32_t kNORELOAD_L{1u << 7};         /*!< prevents reload of lower match registers */
+constexpr inline std::uint32_t kNORELOAD_H{1u << 8};         /*!< prevents reload of higher match registers */
 /**
  * @brief Format synchronization for input N
  * @param inputBits bit 0 is input 0, bit 1 is input 1, bit 7 is input 7
@@ -172,12 +172,12 @@ constexpr inline std::uint32_t kAUTOLIMIT_L{1u << 17}; /*!< treats match 0 low r
 constexpr inline std::uint32_t kAUTOLIMIT_H{1u << 18}; /*!< treats match 0 high register as the LIMIT condition */
 }  // namespace CONFIG
 namespace CTRL {
-constexpr inline std::uint32_t kRESERVED_MASK{0x1FFF1FFFu}; /*!< register mask for allowed bits */
-constexpr inline std::uint32_t kDOWN_L{1u << 0};            /*!< low counter is counting down */
-constexpr inline std::uint32_t kSTOP_L{1u << 1};            /*!< low counter is stopped */
-constexpr inline std::uint32_t kHALT_L{1u << 2};            /*!< low counter is halted */
-constexpr inline std::uint32_t kCLRCTR_L{1u << 3};          /*!< clear counter low */
-constexpr inline std::uint32_t kBIDIR_L{1u << 4};           /*!< low counter is bidirectional */
+constexpr inline std::uint32_t kkRESERVED_MASK{0x1FFF1FFFu}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kDOWN_L{1u << 0};             /*!< low counter is counting down */
+constexpr inline std::uint32_t kSTOP_L{1u << 1};             /*!< low counter is stopped */
+constexpr inline std::uint32_t kHALT_L{1u << 2};             /*!< low counter is halted */
+constexpr inline std::uint32_t kCLRCTR_L{1u << 3};           /*!< clear counter low */
+constexpr inline std::uint32_t kBIDIR_L{1u << 4};            /*!< low counter is bidirectional */
 /**
  * @brief Format low counter prescaler
  * @param prescale counter clock is SCT clock divided by prescale+1
@@ -201,90 +201,90 @@ constexpr inline std::uint32_t PRE_H(std::uint32_t prescale) {
 }
 }  // namespace CTRL
 namespace CTRL_L {
-constexpr inline std::uint16_t kRESERVED_MASK{0x0000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint16_t kkRESERVED_MASK{0x0000u}; /*!< register mask for allowed bits */
 }  // namespace CTRL_L
 namespace CTRL_H {
-constexpr inline std::uint16_t kRESERVED_MASK{0x0000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint16_t kkRESERVED_MASK{0x0000u}; /*!< register mask for allowed bits */
 }  // namespace CTRL_H
 namespace LIMIT {
-constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kkRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }  // namespace LIMIT
 namespace LIMIT_L {
-constexpr inline std::uint16_t kRESERVED_MASK{0x0000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint16_t kkRESERVED_MASK{0x0000u}; /*!< register mask for allowed bits */
 }  // namespace LIMIT_L
 namespace LIMIT_H {
-constexpr inline std::uint16_t kRESERVED_MASK{0x0000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint16_t kkRESERVED_MASK{0x0000u}; /*!< register mask for allowed bits */
 }  // namespace LIMIT_H
 namespace HALT {
-constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kkRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }  // namespace HALT
 namespace HALT_L {
-constexpr inline std::uint16_t kRESERVED_MASK{0x0000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint16_t kkRESERVED_MASK{0x0000u}; /*!< register mask for allowed bits */
 }  // namespace HALT_L
 namespace HALT_H {
-constexpr inline std::uint16_t kRESERVED_MASK{0x0000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint16_t kkRESERVED_MASK{0x0000u}; /*!< register mask for allowed bits */
 }  // namespace HALT_H
 namespace STOP {
-constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kkRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }  // namespace STOP
 namespace STOP_L {
-constexpr inline std::uint16_t kRESERVED_MASK{0x0000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint16_t kkRESERVED_MASK{0x0000u}; /*!< register mask for allowed bits */
 }  // namespace STOP_L
 namespace STOP_H {
-constexpr inline std::uint16_t kRESERVED_MASK{0x0000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint16_t kkRESERVED_MASK{0x0000u}; /*!< register mask for allowed bits */
 }  // namespace STOP_H
 namespace START {
-constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kkRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }  // namespace START
 namespace START_L {
-constexpr inline std::uint16_t kRESERVED_MASK{0x0000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint16_t kkRESERVED_MASK{0x0000u}; /*!< register mask for allowed bits */
 }  // namespace START_L
 namespace START_H {
-constexpr inline std::uint16_t kRESERVED_MASK{0x0000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint16_t kkRESERVED_MASK{0x0000u}; /*!< register mask for allowed bits */
 }  // namespace START_H
 namespace COUNT {
-constexpr inline std::uint32_t kRESERVED_MASK{0xFFFFFFFFu}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kkRESERVED_MASK{0xFFFFFFFFu}; /*!< register mask for allowed bits */
 }  // namespace COUNT
 namespace COUNT_L {
-constexpr inline std::uint16_t kRESERVED_MASK{0xFFFFu}; /*!< register mask for allowed bits */
+constexpr inline std::uint16_t kkRESERVED_MASK{0xFFFFu}; /*!< register mask for allowed bits */
 }  // namespace COUNT_L
 namespace COUNT_H {
-constexpr inline std::uint16_t kRESERVED_MASK{0xFFFFu}; /*!< register mask for allowed bits */
+constexpr inline std::uint16_t kkRESERVED_MASK{0xFFFFu}; /*!< register mask for allowed bits */
 }  // namespace COUNT_H
 namespace STATE {
-constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kkRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }  // namespace STATE
 namespace STATE_L {
-constexpr inline std::uint16_t kRESERVED_MASK{0x0000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint16_t kkRESERVED_MASK{0x0000u}; /*!< register mask for allowed bits */
 }  // namespace STATE_L
 namespace STATE_H {
-constexpr inline std::uint16_t kRESERVED_MASK{0x0000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint16_t kkRESERVED_MASK{0x0000u}; /*!< register mask for allowed bits */
 }  // namespace STATE_H
 namespace INPUT {
-constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kkRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }  // namespace INPUT
 namespace REGMODE {
-constexpr inline std::uint32_t kRESERVED_MASK{0x001F001Fu}; /*!< register mask for allowed bits */
-constexpr inline std::uint32_t kREGMOD_L_0_MAT{0u << 0};    /*!< register 0 low as match register */
-constexpr inline std::uint32_t kREGMOD_L_0_CAP{1u << 0};    /*!< register 0 low as capture register */
-constexpr inline std::uint32_t kREGMOD_L_1_MAT{0u << 1};    /*!< register 1 low as match register */
-constexpr inline std::uint32_t kREGMOD_L_1_CAP{1u << 1};    /*!< register 1 low as capture register */
-constexpr inline std::uint32_t kREGMOD_L_2_MAT{0u << 2};    /*!< register 2 low as match register */
-constexpr inline std::uint32_t kREGMOD_L_2_CAP{1u << 2};    /*!< register 2 low as capture register */
-constexpr inline std::uint32_t kREGMOD_L_3_MAT{0u << 3};    /*!< register 3 low as match register */
-constexpr inline std::uint32_t kREGMOD_L_3_CAP{1u << 3};    /*!< register 3 low as capture register */
-constexpr inline std::uint32_t kREGMOD_L_4_MAT{0u << 4};    /*!< register 4 low as match register */
-constexpr inline std::uint32_t kREGMOD_L_4_CAP{1u << 4};    /*!< register 4 low as capture register */
-constexpr inline std::uint32_t kREGMOD_H_0_MAT{0u << 16};   /*!< register 0 high as match register */
-constexpr inline std::uint32_t kREGMOD_H_0_CAP{1u << 16};   /*!< register 0 high as capture register */
-constexpr inline std::uint32_t kREGMOD_H_1_MAT{0u << 17};   /*!< register 1 high as match register */
-constexpr inline std::uint32_t kREGMOD_H_1_CAP{1u << 17};   /*!< register 1 high as capture register */
-constexpr inline std::uint32_t kREGMOD_H_2_MAT{0u << 18};   /*!< register 2 high as match register */
-constexpr inline std::uint32_t kREGMOD_H_2_CAP{1u << 18};   /*!< register 2 high as capture register */
-constexpr inline std::uint32_t kREGMOD_H_3_MAT{0u << 19};   /*!< register 3 high as match register */
-constexpr inline std::uint32_t kREGMOD_H_3_CAP{1u << 19};   /*!< register 3 high as capture register */
-constexpr inline std::uint32_t kREGMOD_H_4_MAT{0u << 20};   /*!< register 4 high as match register */
-constexpr inline std::uint32_t kREGMOD_H_4_CAP{1u << 20};   /*!< register 4 high as capture register */
+constexpr inline std::uint32_t kkRESERVED_MASK{0x001F001Fu}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kREGMOD_L_0_MAT{0u << 0};     /*!< register 0 low as match register */
+constexpr inline std::uint32_t kREGMOD_L_0_CAP{1u << 0};     /*!< register 0 low as capture register */
+constexpr inline std::uint32_t kREGMOD_L_1_MAT{0u << 1};     /*!< register 1 low as match register */
+constexpr inline std::uint32_t kREGMOD_L_1_CAP{1u << 1};     /*!< register 1 low as capture register */
+constexpr inline std::uint32_t kREGMOD_L_2_MAT{0u << 2};     /*!< register 2 low as match register */
+constexpr inline std::uint32_t kREGMOD_L_2_CAP{1u << 2};     /*!< register 2 low as capture register */
+constexpr inline std::uint32_t kREGMOD_L_3_MAT{0u << 3};     /*!< register 3 low as match register */
+constexpr inline std::uint32_t kREGMOD_L_3_CAP{1u << 3};     /*!< register 3 low as capture register */
+constexpr inline std::uint32_t kREGMOD_L_4_MAT{0u << 4};     /*!< register 4 low as match register */
+constexpr inline std::uint32_t kREGMOD_L_4_CAP{1u << 4};     /*!< register 4 low as capture register */
+constexpr inline std::uint32_t kREGMOD_H_0_MAT{0u << 16};    /*!< register 0 high as match register */
+constexpr inline std::uint32_t kREGMOD_H_0_CAP{1u << 16};    /*!< register 0 high as capture register */
+constexpr inline std::uint32_t kREGMOD_H_1_MAT{0u << 17};    /*!< register 1 high as match register */
+constexpr inline std::uint32_t kREGMOD_H_1_CAP{1u << 17};    /*!< register 1 high as capture register */
+constexpr inline std::uint32_t kREGMOD_H_2_MAT{0u << 18};    /*!< register 2 high as match register */
+constexpr inline std::uint32_t kREGMOD_H_2_CAP{1u << 18};    /*!< register 2 high as capture register */
+constexpr inline std::uint32_t kREGMOD_H_3_MAT{0u << 19};    /*!< register 3 high as match register */
+constexpr inline std::uint32_t kREGMOD_H_3_CAP{1u << 19};    /*!< register 3 high as capture register */
+constexpr inline std::uint32_t kREGMOD_H_4_MAT{0u << 20};    /*!< register 4 high as match register */
+constexpr inline std::uint32_t kREGMOD_H_4_CAP{1u << 20};    /*!< register 4 high as capture register */
 /**
  * @brief setup match/capture register to match mode
  * @param oldReg old REGMODE register to modify
@@ -305,34 +305,34 @@ constexpr inline std::uint32_t REGMOD_CAP(std::uint32_t oldReg, std::uint32_t ma
 }
 }  // namespace REGMODE
 namespace REGMODE_L {
-constexpr inline std::uint16_t kRESERVED_MASK{0x001Fu}; /*!< register mask for allowed bits */
-constexpr inline std::uint16_t kREGMOD_0_MAT{0u << 0};  /*!< register 0 low as match register */
-constexpr inline std::uint16_t kREGMOD_0_CAP{1u << 0};  /*!< register 0 low as capture register */
-constexpr inline std::uint16_t kREGMOD_1_MAT{0u << 1};  /*!< register 1 low as match register */
-constexpr inline std::uint16_t kREGMOD_1_CAP{1u << 1};  /*!< register 1 low as capture register */
-constexpr inline std::uint16_t kREGMOD_2_MAT{0u << 2};  /*!< register 2 low as match register */
-constexpr inline std::uint16_t kREGMOD_2_CAP{1u << 2};  /*!< register 2 low as capture register */
-constexpr inline std::uint16_t kREGMOD_3_MAT{0u << 3};  /*!< register 3 low as match register */
-constexpr inline std::uint16_t kREGMOD_3_CAP{1u << 3};  /*!< register 3 low as capture register */
-constexpr inline std::uint16_t kREGMOD_4_MAT{0u << 4};  /*!< register 4 low as match register */
-constexpr inline std::uint16_t kREGMOD_4_CAP{1u << 4};  /*!< register 4 low as capture register */
+constexpr inline std::uint16_t kkRESERVED_MASK{0x001Fu}; /*!< register mask for allowed bits */
+constexpr inline std::uint16_t kREGMOD_0_MAT{0u << 0};   /*!< register 0 low as match register */
+constexpr inline std::uint16_t kREGMOD_0_CAP{1u << 0};   /*!< register 0 low as capture register */
+constexpr inline std::uint16_t kREGMOD_1_MAT{0u << 1};   /*!< register 1 low as match register */
+constexpr inline std::uint16_t kREGMOD_1_CAP{1u << 1};   /*!< register 1 low as capture register */
+constexpr inline std::uint16_t kREGMOD_2_MAT{0u << 2};   /*!< register 2 low as match register */
+constexpr inline std::uint16_t kREGMOD_2_CAP{1u << 2};   /*!< register 2 low as capture register */
+constexpr inline std::uint16_t kREGMOD_3_MAT{0u << 3};   /*!< register 3 low as match register */
+constexpr inline std::uint16_t kREGMOD_3_CAP{1u << 3};   /*!< register 3 low as capture register */
+constexpr inline std::uint16_t kREGMOD_4_MAT{0u << 4};   /*!< register 4 low as match register */
+constexpr inline std::uint16_t kREGMOD_4_CAP{1u << 4};   /*!< register 4 low as capture register */
 }  // namespace REGMODE_L
 namespace REGMODE_H {
-constexpr inline std::uint16_t kRESERVED_MASK{0x001Fu}; /*!< register mask for allowed bits */
-constexpr inline std::uint32_t kREGMOD_0_MAT{0u << 0};  /*!< register 0 high as match register */
-constexpr inline std::uint32_t kREGMOD_0_CAP{1u << 0};  /*!< register 0 high as capture register */
-constexpr inline std::uint32_t kREGMOD_1_MAT{0u << 1};  /*!< register 1 high as match register */
-constexpr inline std::uint32_t kREGMOD_1_CAP{1u << 1};  /*!< register 1 high as capture register */
-constexpr inline std::uint32_t kREGMOD_2_MAT{0u << 2};  /*!< register 2 high as match register */
-constexpr inline std::uint32_t kREGMOD_2_CAP{1u << 2};  /*!< register 2 high as capture register */
-constexpr inline std::uint32_t kREGMOD_3_MAT{0u << 3};  /*!< register 3 high as match register */
-constexpr inline std::uint32_t kREGMOD_3_CAP{1u << 3};  /*!< register 3 high as capture register */
-constexpr inline std::uint32_t kREGMOD_4_MAT{0u << 4};  /*!< register 4 high as match register */
-constexpr inline std::uint32_t kREGMOD_4_CAP{1u << 4};  /*!< register 4 high as capture register */
+constexpr inline std::uint16_t kkRESERVED_MASK{0x001Fu}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kREGMOD_0_MAT{0u << 0};   /*!< register 0 high as match register */
+constexpr inline std::uint32_t kREGMOD_0_CAP{1u << 0};   /*!< register 0 high as capture register */
+constexpr inline std::uint32_t kREGMOD_1_MAT{0u << 1};   /*!< register 1 high as match register */
+constexpr inline std::uint32_t kREGMOD_1_CAP{1u << 1};   /*!< register 1 high as capture register */
+constexpr inline std::uint32_t kREGMOD_2_MAT{0u << 2};   /*!< register 2 high as match register */
+constexpr inline std::uint32_t kREGMOD_2_CAP{1u << 2};   /*!< register 2 high as capture register */
+constexpr inline std::uint32_t kREGMOD_3_MAT{0u << 3};   /*!< register 3 high as match register */
+constexpr inline std::uint32_t kREGMOD_3_CAP{1u << 3};   /*!< register 3 high as capture register */
+constexpr inline std::uint32_t kREGMOD_4_MAT{0u << 4};   /*!< register 4 high as match register */
+constexpr inline std::uint32_t kREGMOD_4_CAP{1u << 4};   /*!< register 4 high as capture register */
 // TODO indexed function?
 }  // namespace REGMODE_H
 namespace OUTPUT {
-constexpr inline std::uint32_t kRESERVED_MASK = 0x0000000Fu; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kkRESERVED_MASK = 0x0000000Fu; /*!< register mask for allowed bits */
 /**
  * @brief Set output initial state
  * @param oldReg original output register
@@ -348,15 +348,15 @@ constexpr inline std::uint32_t OUT(uint32_t oldReg, std::uint32_t output, bool i
 }
 }  // namespace OUTPUT
 namespace OUTPUTDIRCTRL {
-constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kkRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }  // namespace OUTPUTDIRCTRL
 namespace RES {
-constexpr inline std::uint32_t kRESERVED_MASK{0x000000FFu}; /*!< register mask for allowed bits */
-constexpr inline std::uint32_t kRES_MASK{0x00000003u};      /*!< register field mask */
-constexpr inline std::uint32_t kNONE{0u << 0};              /*!< no conflict resolution */
-constexpr inline std::uint32_t kSET{1u << 0};               /*!< set the output on conflict */
-constexpr inline std::uint32_t kCLEAR{2u << 0};             /*!< clear the output on conflict */
-constexpr inline std::uint32_t kTOGGLE{3u << 0};            /*!< toggle the output on conflict*/
+constexpr inline std::uint32_t kkRESERVED_MASK{0x000000FFu}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRES_MASK{0x00000003u};       /*!< register field mask */
+constexpr inline std::uint32_t kNONE{0u << 0};               /*!< no conflict resolution */
+constexpr inline std::uint32_t kSET{1u << 0};                /*!< set the output on conflict */
+constexpr inline std::uint32_t kCLEAR{2u << 0};              /*!< clear the output on conflict */
+constexpr inline std::uint32_t kTOGGLE{3u << 0};             /*!< toggle the output on conflict*/
 /**
  * @brief Formats, indexes and updates the confict resolution field of an output
  * @param oldReg original conflict resolution register
@@ -370,52 +370,52 @@ constexpr inline std::uint32_t RES(std::uint32_t oldReg, std::uint32_t output, s
 }
 }  // namespace RES
 namespace EVEN {
-constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kkRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }  // namespace EVEN
 namespace EVFLAG {
-constexpr inline std::uint32_t kRESERVED_MASK{0x0000003Fu}; /*!< register mask for allowed bits */
-constexpr inline std::uint32_t kFLAG0_MASK{1u << 0};        /*!< event 0 triggered */
-constexpr inline std::uint32_t kFLAG1_MASK{1u << 1};        /*!< event 1 triggered */
-constexpr inline std::uint32_t kFLAG2_MASK{1u << 2};        /*!< event 2 triggered */
-constexpr inline std::uint32_t kFLAG3_MASK{1u << 3};        /*!< event 3 triggered */
-constexpr inline std::uint32_t kFLAG4_MASK{1u << 4};        /*!< event 4 triggered */
-constexpr inline std::uint32_t kFLAG5_MASK{1u << 5};        /*!< event 5 triggered */
+constexpr inline std::uint32_t kkRESERVED_MASK{0x0000003Fu}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kFLAG0_MASK{1u << 0};         /*!< event 0 triggered */
+constexpr inline std::uint32_t kFLAG1_MASK{1u << 1};         /*!< event 1 triggered */
+constexpr inline std::uint32_t kFLAG2_MASK{1u << 2};         /*!< event 2 triggered */
+constexpr inline std::uint32_t kFLAG3_MASK{1u << 3};         /*!< event 3 triggered */
+constexpr inline std::uint32_t kFLAG4_MASK{1u << 4};         /*!< event 4 triggered */
+constexpr inline std::uint32_t kFLAG5_MASK{1u << 5};         /*!< event 5 triggered */
 }  // namespace EVFLAG
 namespace CONEN {
-constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kkRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }  // namespace CONEN
 namespace CONFLAG {
-constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kkRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }  // namespace CONFLAG
 namespace MATCH {
-constexpr inline std::uint32_t kRESERVED_MASK{0xFFFFFFFFu}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kkRESERVED_MASK{0xFFFFFFFFu}; /*!< register mask for allowed bits */
 }  // namespace MATCH
 namespace MATCH_L {
-constexpr inline std::uint16_t kRESERVED_MASK{0xFFFFu}; /*!< register mask for allowed bits */
+constexpr inline std::uint16_t kkRESERVED_MASK{0xFFFFu}; /*!< register mask for allowed bits */
 }  // namespace MATCH_L
 namespace MATCH_H {
-constexpr inline std::uint16_t kRESERVED_MASK{0xFFFFu}; /*!< register mask for allowed bits */
+constexpr inline std::uint16_t kkRESERVED_MASK{0xFFFFu}; /*!< register mask for allowed bits */
 }  // namespace MATCH_H
 namespace CAP {
-constexpr inline std::uint32_t kRESERVED_MASK{0xFFFFFFFFu}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kkRESERVED_MASK{0xFFFFFFFFu}; /*!< register mask for allowed bits */
 }  // namespace CAP
 namespace CAP_L {
-constexpr inline std::uint16_t kRESERVED_MASK{0xFFFFu}; /*!< register mask for allowed bits */
+constexpr inline std::uint16_t kkRESERVED_MASK{0xFFFFu}; /*!< register mask for allowed bits */
 }  // namespace CAP_L
 namespace CAP_H {
-constexpr inline std::uint16_t kRESERVED_MASK{0xFFFFu}; /*!< register mask for allowed bits */
+constexpr inline std::uint16_t kkRESERVED_MASK{0xFFFFu}; /*!< register mask for allowed bits */
 }  // namespace CAP_H
 namespace MATCHREL {
-constexpr inline std::uint32_t kRESERVED_MASK{0xFFFFFFFFu}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kkRESERVED_MASK{0xFFFFFFFFu}; /*!< register mask for allowed bits */
 }  // namespace MATCHREL
 namespace MATCHREL_L {
-constexpr inline std::uint16_t kRESERVED_MASK{0xFFFFu}; /*!< register mask for allowed bits */
+constexpr inline std::uint16_t kkRESERVED_MASK{0xFFFFu}; /*!< register mask for allowed bits */
 }  // namespace MATCHREL_L
 namespace MATCHREL_H {
-constexpr inline std::uint16_t kRESERVED_MASK{0xFFFFu}; /*!< register mask for allowed bits */
+constexpr inline std::uint16_t kkRESERVED_MASK{0xFFFFu}; /*!< register mask for allowed bits */
 }  // namespace MATCHREL_H
 namespace CAPCTRL {
-constexpr inline std::uint32_t kRESERVED_MASK{0x003F003Fu}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kkRESERVED_MASK{0x003F003Fu}; /*!< register mask for allowed bits */
 /**
  * @brief sets CAPCON field
  * @param oldReg old CAPCTRL register value
@@ -436,18 +436,18 @@ constexpr inline std::uint32_t CAPCON_L_CLR(std::uint32_t oldReg, std::uint32_t 
 }
 }  // namespace CAPCTRL
 namespace CAPCTRL_L {
-constexpr inline std::uint16_t kRESERVED_MASK{0x0000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint16_t kkRESERVED_MASK{0x0000u}; /*!< register mask for allowed bits */
 }  // namespace CAPCTRL_L
 namespace CAPCTRL_H {
-constexpr inline std::uint16_t kRESERVED_MASK{0x0000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint16_t kkRESERVED_MASK{0x0000u}; /*!< register mask for allowed bits */
 }  // namespace CAPCTRL_H
 namespace EV_STATE {
-constexpr inline std::uint32_t kRESERVED_MASK{0x00000003u}; /*!< register mask for allowed bits */
-constexpr inline std::uint32_t kSTATEMASK0{1u << 0};        /*!< Event occurs in state 0 */
-constexpr inline std::uint32_t kSTATEMASK1{1u << 1};        /*!< Event occurs in state 1 */
+constexpr inline std::uint32_t kkRESERVED_MASK{0x00000003u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kSTATEMASK0{1u << 0};         /*!< Event occurs in state 0 */
+constexpr inline std::uint32_t kSTATEMASK1{1u << 1};         /*!< Event occurs in state 1 */
 }  // namespace EV_STATE
 namespace EV_CTRL {
-constexpr inline std::uint32_t kRESERVED_MASK{0x007FFFFFu}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kkRESERVED_MASK{0x007FFFFFu}; /*!< register mask for allowed bits */
 /**
  * @brief Format match selection field
  * @param matchRegister match register to associate with event
@@ -490,7 +490,7 @@ constexpr inline std::uint32_t kDIRECTION_UP{1u << 21};   /*!< event occurs when
 constexpr inline std::uint32_t kDIRECTION_DOWN{2u << 21}; /*!< event occurs when counting down */
 }  // namespace EV_CTRL
 namespace OUT_SET {
-constexpr inline std::uint32_t kRESERVED_MASK{0x0000003Fu}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kkRESERVED_MASK{0x0000003Fu}; /*!< register mask for allowed bits */
 /**
  * @brief Format set output on event field
  * @param event event number to set the output on
@@ -501,7 +501,7 @@ constexpr inline std::uint32_t SET(std::uint32_t event) {
 }
 }  // namespace OUT_SET
 namespace OUT_CLR {
-constexpr inline std::uint32_t kRESERVED_MASK{0x0000003Fu}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kkRESERVED_MASK{0x0000003Fu}; /*!< register mask for allowed bits */
 /**
  * @brief Format clear output on event field
  * @param event event number to clear the output on

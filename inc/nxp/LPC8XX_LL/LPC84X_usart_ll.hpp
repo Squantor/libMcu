@@ -108,14 +108,14 @@ struct usart : libmcu::PeripheralBase {
    * @return std::uint32_t one to one copy of the status register, see bit masks for options
    */
   constexpr std::uint32_t status() {
-    return usartPeripheral()->STAT & hardware::STAT::RESERVED_MASK;
+    return usartPeripheral()->STAT & hardware::STAT::kRESERVED_MASK;
   }
   /**
    * @brief Send data out of the UART
    * @param data data to send, amount is sent according to configuration
    */
   constexpr void write(transferType data) {
-    usartPeripheral()->TXDAT = static_cast<transferType>(data & hardware::TXDAT::RESERVED_MASK);
+    usartPeripheral()->TXDAT = static_cast<transferType>(data & hardware::TXDAT::kRESERVED_MASK);
   }
   /**
    * @brief Read data from UART

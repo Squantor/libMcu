@@ -20,7 +20,7 @@ struct Acmp {
   volatile std::uint32_t LAD;  /*!<  Voltage ladder register */
 };
 namespace CTRL {
-constexpr inline std::uint32_t kRESERVED_MASK{0x06B0'3F58u};     /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kkRESERVED_MASK{0x06B0'3F58u};    /*!< register mask for allowed bits */
 constexpr inline std::uint32_t kEDGESEL_FALLING{0u << 3};        /*!< falling edges trigger COMPEDGE */
 constexpr inline std::uint32_t kEDGESEL_RISING{1u << 3};         /*!< rising edges trigger COMPEDGE */
 constexpr inline std::uint32_t kEDGESEL_BOTH{2u << 3};           /*!< both edges trigger COMPEDGE */
@@ -43,8 +43,8 @@ constexpr inline std::uint32_t kHYS_10MV{2u << 25};              /*!< 10mV compa
 constexpr inline std::uint32_t kHYS_20MV{3u << 25};              /*!< 20mV comparator hysteresis */
 }  // namespace CTRL
 namespace LAD {
-constexpr inline std::uint32_t kRESERVED_MASK{0x0000003Fu}; /*!< register mask for allowed bits */
-constexpr inline std::uint32_t kLADEN{1u << 0};             /*!< Voltage ladder enable */
+constexpr inline std::uint32_t kkRESERVED_MASK{0x0000003Fu}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kLADEN{1u << 0};              /*!< Voltage ladder enable */
 /**
  * @brief Format Voltage ladder value register
  * @param value tap select of ladder, 0 is VSS and 31 is Vref

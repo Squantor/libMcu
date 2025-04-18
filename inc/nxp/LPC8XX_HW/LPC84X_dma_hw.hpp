@@ -89,16 +89,16 @@ struct dma {
   } CHANNEL[25];                        /*!< Specific DMA channel  */
 };
 namespace CTRL {
-constexpr inline std::uint32_t RESERVED_MASK{0x00000001u}; /*!< register mask for allowed bits */
-constexpr inline std::uint32_t ENABLE{1u << 0};            /*!< DMA channel controller is enabled */
+constexpr inline std::uint32_t kRESERVED_MASK{0x00000001u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t ENABLE{1u << 0};             /*!< DMA channel controller is enabled */
 }  // namespace CTRL
 namespace INTSTAT {
-constexpr inline std::uint32_t RESERVED_MASK{0x00000006u}; /*!< register mask for allowed bits */
-constexpr inline std::uint32_t ACTIVEINT_MASK{1u << 1};    /*!< At least one interrupt is pending */
-constexpr inline std::uint32_t ACTIVEERRINT_MASK{1u << 2}; /*!< At least one error interrupt is pending */
+constexpr inline std::uint32_t kRESERVED_MASK{0x00000006u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t ACTIVEINT_MASK{1u << 1};     /*!< At least one interrupt is pending */
+constexpr inline std::uint32_t ACTIVEERRINT_MASK{1u << 2};  /*!< At least one error interrupt is pending */
 }  // namespace INTSTAT
 namespace SRAMBASE {
-constexpr inline std::uint32_t RESERVED_MASK{0xFFFE000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK{0xFFFE000u}; /*!< register mask for allowed bits */
 /**
  * @brief Format address descriptor table offset
  * @param offset address bits 31:9 of the beginning of the DMA descriptor table
@@ -109,7 +109,7 @@ constexpr inline std::uint32_t OFFSET(std::uint32_t offset) {
 }
 }  // namespace SRAMBASE
 namespace ENABLESET {
-constexpr inline std::uint32_t RESERVED_MASK{0x01FFFFFFu}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK{0x01FFFFFFu}; /*!< register mask for allowed bits */
 /**
  * @brief Format enable flags
  * @param channel DMA channel to enable
@@ -120,7 +120,7 @@ constexpr inline std::uint32_t ENA(std::uint32_t channel) {
 }
 }  // namespace ENABLESET
 namespace ENABLECLR {
-constexpr inline std::uint32_t RESERVED_MASK{0x01FFFFFFu}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK{0x01FFFFFFu}; /*!< register mask for allowed bits */
 /**
  * @brief Format disable flags
  * @param channel DMA channel to disable
@@ -131,7 +131,7 @@ constexpr inline std::uint32_t CLR(std::uint32_t channel) {
 }
 }  // namespace ENABLECLR
 namespace ACTIVE {
-constexpr inline std::uint32_t RESERVED_MASK{0x01FFFFFFu}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK{0x01FFFFFFu}; /*!< register mask for allowed bits */
 /**
  * @brief Format active flags for DMA channels
  * @param channel DMA channel to check
@@ -142,7 +142,7 @@ constexpr inline std::uint32_t ACT_MASK(std::uint32_t channel) {
 }
 }  // namespace ACTIVE
 namespace BUSY {
-constexpr inline std::uint32_t RESERVED_MASK{0x01FFFFFFu}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK{0x01FFFFFFu}; /*!< register mask for allowed bits */
 /**
  * @brief Format busy flags for DMA channels
  * @param channel DMA channel to check
@@ -153,7 +153,7 @@ constexpr inline std::uint32_t BSY_MASK(std::uint32_t channel) {
 }
 }  // namespace BUSY
 namespace ERRINT {
-constexpr inline std::uint32_t RESERVED_MASK{0x01FFFFFFu}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK{0x01FFFFFFu}; /*!< register mask for allowed bits */
 /**
  * @brief Format interrupt error flags for DMA channels
  * @param channel DMA channel to check if an error interrupt occured
@@ -164,7 +164,7 @@ constexpr inline std::uint32_t ERR_MASK(std::uint32_t channel) {
 }
 }  // namespace ERRINT
 namespace INTENSET {
-constexpr inline std::uint32_t RESERVED_MASK{0x01FFFFFFu}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK{0x01FFFFFFu}; /*!< register mask for allowed bits */
 /**
  * @brief Format interrupt enable flags for DMA channels
  * @param channel DMA channel to enable interrupt
@@ -175,7 +175,7 @@ constexpr inline std::uint32_t INTEN_MASK(std::uint32_t channel) {
 }
 }  // namespace INTENSET
 namespace INTENCLR {
-constexpr inline std::uint32_t RESERVED_MASK{0x01FFFFFFu}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK{0x01FFFFFFu}; /*!< register mask for allowed bits */
 /**
  * @brief Format interrupt clear flags for DMA channels
  * @param channel DMA channel to disable interrupt
@@ -186,7 +186,7 @@ constexpr inline std::uint32_t CLR_MASK(std::uint32_t channel) {
 }
 }  // namespace INTENCLR
 namespace INTA {
-constexpr inline std::uint32_t RESERVED_MASK{0x01FFFFFFu}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK{0x01FFFFFFu}; /*!< register mask for allowed bits */
 /**
  * @brief Format interrupt A status flags for DMA channels
  * @param channel DMA channel to check for interrupt A status
@@ -197,7 +197,7 @@ constexpr inline std::uint32_t IA_MASK(std::uint32_t channel) {
 }
 }  // namespace INTA
 namespace INTB {
-constexpr inline std::uint32_t RESERVED_MASK{0x01FFFFFFu}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK{0x01FFFFFFu}; /*!< register mask for allowed bits */
 /**
  * @brief Format interrupt B status flags for DMA channels
  * @param channel DMA channel to check for interrupt B status
@@ -208,7 +208,7 @@ constexpr inline std::uint32_t IB_MASK(std::uint32_t channel) {
 }
 }  // namespace INTB
 namespace SETVALID {
-constexpr inline std::uint32_t RESERVED_MASK{0x01FFFFFFu}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK{0x01FFFFFFu}; /*!< register mask for allowed bits */
 /**
  * @brief Format Config valid setting flags for DMA channels
  * @param channel DMA channel to set the config valid for
@@ -219,7 +219,7 @@ constexpr inline std::uint32_t SV_MASK(std::uint32_t channel) {
 }
 }  // namespace SETVALID
 namespace SETTRIG {
-constexpr inline std::uint32_t RESERVED_MASK{0x01FFFFFFu}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK{0x01FFFFFFu}; /*!< register mask for allowed bits */
 /**
  * @brief Format Set Trigger bit for DMA channels
  * @param channel DMA channel to set the trigger bit for
@@ -230,7 +230,7 @@ constexpr inline std::uint32_t TRIG_MASK(std::uint32_t channel) {
 }
 }  // namespace SETTRIG
 namespace ABORT {
-constexpr inline std::uint32_t RESERVED_MASK{0x01FFFFFFu}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK{0x01FFFFFFu}; /*!< register mask for allowed bits */
 /**
  * @brief Format Set abort operation bit for DMA channels
  * @param channel DMA channel to abort
@@ -241,41 +241,41 @@ constexpr inline std::uint32_t ABORTCTRL_MASK(std::uint32_t channel) {
 }
 }  // namespace ABORT
 namespace CFG {
-constexpr inline std::uint32_t RESERVED_MASK{0x0007CF73u}; /*!< register mask for allowed bits */
-constexpr inline std::uint32_t PERIPHREQEN{1u << 0};       /*!< Peripheral request enable */
-constexpr inline std::uint32_t HWTRIGEN{1u << 1};          /*!< Hardware trigger enable */
-constexpr inline std::uint32_t TRIGPOL{1u << 4};           /*!< Trigger Polarity rising edge */
-constexpr inline std::uint32_t TRIGTYPE{1u << 5};          /*!< Trigger Type Level */
-constexpr inline std::uint32_t TRIGBURST{1u << 6};         /*!< Trigger Burst transfer enable */
-constexpr inline std::uint32_t BURSTSIZE_1{0u << 8};       /*!< Burst size 1 */
-constexpr inline std::uint32_t BURSTSIZE_2{1u << 8};       /*!< Burst size 2 */
-constexpr inline std::uint32_t BURSTSIZE_4{2u << 8};       /*!< Burst size 4 */
-constexpr inline std::uint32_t BURSTSIZE_8{3u << 8};       /*!< Burst size 8 */
-constexpr inline std::uint32_t BURSTSIZE_16{4u << 8};      /*!< Burst size 16 */
-constexpr inline std::uint32_t BURSTSIZE_32{5u << 8};      /*!< Burst size 32 */
-constexpr inline std::uint32_t BURSTSIZE_64{6u << 8};      /*!< Burst size 64 */
-constexpr inline std::uint32_t BURSTSIZE_128{7u << 8};     /*!< Burst size 128 */
-constexpr inline std::uint32_t BURSTSIZE_256{8u << 8};     /*!< Burst size 256 */
-constexpr inline std::uint32_t BURSTSIZE_512{9u << 8};     /*!< Burst size 512 */
-constexpr inline std::uint32_t BURSTSIZE_1024{10u << 8};   /*!< Burst size 1024 */
-constexpr inline std::uint32_t SRCBURSTWRAP{1u << 14};     /*!< Source burst wrap */
-constexpr inline std::uint32_t DSTBURSTWRAP{1u << 15};     /*!< Destination burst wrap */
-constexpr inline std::uint32_t CHPRIO_0{0u << 16};         /*!< channel priority 0 (highest) */
-constexpr inline std::uint32_t CHPRIO_1{1u << 16};         /*!< channel priority 1 */
-constexpr inline std::uint32_t CHPRIO_2{2u << 16};         /*!< channel priority 2 */
-constexpr inline std::uint32_t CHPRIO_3{3u << 16};         /*!< channel priority 3 */
-constexpr inline std::uint32_t CHPRIO_4{4u << 16};         /*!< channel priority 4 */
-constexpr inline std::uint32_t CHPRIO_5{5u << 16};         /*!< channel priority 5 */
-constexpr inline std::uint32_t CHPRIO_6{6u << 16};         /*!< channel priority 6 */
-constexpr inline std::uint32_t CHPRIO_7{7u << 16};         /*!< channel priority 7 (lowest) */
+constexpr inline std::uint32_t kRESERVED_MASK{0x0007CF73u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t PERIPHREQEN{1u << 0};        /*!< Peripheral request enable */
+constexpr inline std::uint32_t HWTRIGEN{1u << 1};           /*!< Hardware trigger enable */
+constexpr inline std::uint32_t TRIGPOL{1u << 4};            /*!< Trigger Polarity rising edge */
+constexpr inline std::uint32_t TRIGTYPE{1u << 5};           /*!< Trigger Type Level */
+constexpr inline std::uint32_t TRIGBURST{1u << 6};          /*!< Trigger Burst transfer enable */
+constexpr inline std::uint32_t BURSTSIZE_1{0u << 8};        /*!< Burst size 1 */
+constexpr inline std::uint32_t BURSTSIZE_2{1u << 8};        /*!< Burst size 2 */
+constexpr inline std::uint32_t BURSTSIZE_4{2u << 8};        /*!< Burst size 4 */
+constexpr inline std::uint32_t BURSTSIZE_8{3u << 8};        /*!< Burst size 8 */
+constexpr inline std::uint32_t BURSTSIZE_16{4u << 8};       /*!< Burst size 16 */
+constexpr inline std::uint32_t BURSTSIZE_32{5u << 8};       /*!< Burst size 32 */
+constexpr inline std::uint32_t BURSTSIZE_64{6u << 8};       /*!< Burst size 64 */
+constexpr inline std::uint32_t BURSTSIZE_128{7u << 8};      /*!< Burst size 128 */
+constexpr inline std::uint32_t BURSTSIZE_256{8u << 8};      /*!< Burst size 256 */
+constexpr inline std::uint32_t BURSTSIZE_512{9u << 8};      /*!< Burst size 512 */
+constexpr inline std::uint32_t BURSTSIZE_1024{10u << 8};    /*!< Burst size 1024 */
+constexpr inline std::uint32_t SRCBURSTWRAP{1u << 14};      /*!< Source burst wrap */
+constexpr inline std::uint32_t DSTBURSTWRAP{1u << 15};      /*!< Destination burst wrap */
+constexpr inline std::uint32_t CHPRIO_0{0u << 16};          /*!< channel priority 0 (highest) */
+constexpr inline std::uint32_t CHPRIO_1{1u << 16};          /*!< channel priority 1 */
+constexpr inline std::uint32_t CHPRIO_2{2u << 16};          /*!< channel priority 2 */
+constexpr inline std::uint32_t CHPRIO_3{3u << 16};          /*!< channel priority 3 */
+constexpr inline std::uint32_t CHPRIO_4{4u << 16};          /*!< channel priority 4 */
+constexpr inline std::uint32_t CHPRIO_5{5u << 16};          /*!< channel priority 5 */
+constexpr inline std::uint32_t CHPRIO_6{6u << 16};          /*!< channel priority 6 */
+constexpr inline std::uint32_t CHPRIO_7{7u << 16};          /*!< channel priority 7 (lowest) */
 }  // namespace CFG
 namespace CTLSTAT {
-constexpr inline std::uint32_t RESERVED_MASK{0x00000005u}; /*!< register mask for allowed bits */
-constexpr inline std::uint32_t VALIDPENDING{1u << 0};      /*!< Valid pending */
-constexpr inline std::uint32_t TRIG{1u << 1};              /*!< Trigger set for this channel */
+constexpr inline std::uint32_t kRESERVED_MASK{0x00000005u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t VALIDPENDING{1u << 0};       /*!< Valid pending */
+constexpr inline std::uint32_t TRIG{1u << 1};               /*!< Trigger set for this channel */
 }  // namespace CTLSTAT
 namespace XFERCFG {
-constexpr inline std::uint32_t RESERVED_MASK{0x03FFF33Fu};   /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK{0x03FFF33Fu};  /*!< register mask for allowed bits */
 constexpr inline std::uint32_t CFGVALID_MASK{1u << 0};       /*!< Configuration valid flag */
 constexpr inline std::uint32_t RELOAD_MASK{1u << 1};         /*!< Channel control reload flag */
 constexpr inline std::uint32_t SWTRIG{1u << 2};              /*!< Software trigger flag */

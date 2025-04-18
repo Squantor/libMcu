@@ -18,19 +18,19 @@ using namespace libmcuhw::syscon;
  * @brief Peripheral reset options
  */
 enum class peripheralResets : std::uint32_t {
-  SPI0 = PRESETCTRL::SPI0_RST_N,       /*!< SPI0 reset control */
-  SPI1 = PRESETCTRL::SPI1_RST_N,       /*!< SPI1 reset control */
-  UARTFRG = PRESETCTRL::UARTFRG_RST_N, /*!< UART fractional baud rate generator reset control */
-  UART0 = PRESETCTRL::UART0_RST_N,     /*!< UART0 reset control */
-  UART1 = PRESETCTRL::UART1_RST_N,     /*!< UART1 reset control */
-  UART2 = PRESETCTRL::UART2_RST_N,     /*!< UART2 reset control */
-  I2C = PRESETCTRL::I2C_RST_N,         /*!< I2C reset control */
-  MRT = PRESETCTRL::MRT_RST_N,         /*!< MRT reset control */
-  SCT = PRESETCTRL::SCT_RST_N,         /*!< SCT reset control */
-  WKT = PRESETCTRL::WKT_RST_N,         /*!< WKT reset control */
-  GPIO = PRESETCTRL::GPIO_RST_N,       /*!< GPIO reset control */
-  FLASH = PRESETCTRL::FLASH_RST_N,     /*!< Flash reset control */
-  ACMP = PRESETCTRL::ACMP_RST_N,       /*!< ACMP reset control */
+  SPI0 = PRESETCTRL::kSPI0_RST_N,       /*!< SPI0 reset control */
+  SPI1 = PRESETCTRL::kSPI1_RST_N,       /*!< SPI1 reset control */
+  UARTFRG = PRESETCTRL::kUARTFRG_RST_N, /*!< UART fractional baud rate generator reset control */
+  UART0 = PRESETCTRL::kUART0_RST_N,     /*!< UART0 reset control */
+  UART1 = PRESETCTRL::kUART1_RST_N,     /*!< UART1 reset control */
+  UART2 = PRESETCTRL::kUART2_RST_N,     /*!< UART2 reset control */
+  I2C = PRESETCTRL::kI2C_RST_N,         /*!< I2C reset control */
+  MRT = PRESETCTRL::kMRT_RST_N,         /*!< MRT reset control */
+  SCT = PRESETCTRL::kSCT_RST_N,         /*!< SCT reset control */
+  WKT = PRESETCTRL::kWKT_RST_N,         /*!< WKT reset control */
+  GPIO = PRESETCTRL::kGPIO_RST_N,       /*!< GPIO reset control */
+  FLASH = PRESETCTRL::kFLASH_RST_N,     /*!< Flash reset control */
+  ACMP = PRESETCTRL::kACMP_RST_N,       /*!< ACMP reset control */
 };
 
 /**
@@ -48,19 +48,19 @@ constexpr peripheralResets operator|(const peripheralResets a, const peripheralR
  * @brief PLL post divider options
  */
 enum class pllPostDivider : std::uint32_t {
-  DIV_2 = SYSPLLCTRL::PSEL_DIV2,   /*!< PLL post division ration of 2 */
-  DIV_4 = SYSPLLCTRL::PSEL_DIV4,   /*!< PLL post division ration of 4 */
-  DIV_8 = SYSPLLCTRL::PSEL_DIV8,   /*!< PLL post division ration of 8 */
-  DIV_16 = SYSPLLCTRL::PSEL_DIV16, /*!< PLL post division ration of 16 */
+  DIV_2 = SYSPLLCTRL::kPSEL_DIV2,   /*!< PLL post division ration of 2 */
+  DIV_4 = SYSPLLCTRL::kPSEL_DIV4,   /*!< PLL post division ration of 4 */
+  DIV_8 = SYSPLLCTRL::kPSEL_DIV8,   /*!< PLL post division ration of 8 */
+  DIV_16 = SYSPLLCTRL::kPSEL_DIV16, /*!< PLL post division ration of 16 */
 };
 
 /**
  * @brief PLL source options
  */
 enum class pllClockSources : std::uint32_t {
-  IRC = SYSPLLCLKSEL::SEL_IRC,       /*!< IRC oscillator */
-  SYSOSC = SYSPLLCLKSEL::SEL_SYSOSC, /*!< crystal oscillator */
-  CLKIN = SYSPLLCLKSEL::SEL_CLKIN,   /*!< External clock input */
+  IRC = SYSPLLCLKSEL::kSEL_IRC,       /*!< IRC oscillator */
+  SYSOSC = SYSPLLCLKSEL::kSEL_SYSOSC, /*!< crystal oscillator */
+  CLKIN = SYSPLLCLKSEL::kSEL_CLKIN,   /*!< External clock input */
 };
 
 /**
@@ -179,8 +179,8 @@ struct syscon : libmcu::PeripheralBase {
    */
   constexpr void selectPllClock(pllClockSources setting) {
     sysconPeripheral()->SYSPLLCLKSEL = static_cast<std::uint32_t>(setting);
-    sysconPeripheral()->SYSPLLCLKUEN = SYSPLLCLKUEN::NO_CHANGE;
-    sysconPeripheral()->SYSPLLCLKUEN = SYSPLLCLKUEN::UPDATE;
+    sysconPeripheral()->SYSPLLCLKUEN = SYSPLLCLKUEN::kNO_CHANGE;
+    sysconPeripheral()->SYSPLLCLKUEN = SYSPLLCLKUEN::kUPDATE;
   }
   /**
    * @brief Select main clock source
@@ -189,8 +189,8 @@ struct syscon : libmcu::PeripheralBase {
    */
   constexpr void selectMainClock(mainClockSources setting) {
     sysconPeripheral()->MAINCLKSEL = static_cast<std::uint32_t>(setting);
-    sysconPeripheral()->MAINCLKUEN = MAINCLKUEN::NO_CHANGE;
-    sysconPeripheral()->MAINCLKUEN = MAINCLKUEN::UPDATE;
+    sysconPeripheral()->MAINCLKUEN = MAINCLKUEN::kNO_CHANGE;
+    sysconPeripheral()->MAINCLKUEN = MAINCLKUEN::kUPDATE;
   }
   /**
    * @brief Set the System Clock Divider
@@ -207,7 +207,7 @@ struct syscon : libmcu::PeripheralBase {
    */
   constexpr void enablePeripheralClocks(peripheralClocks setting) {
     sysconPeripheral()->SYSAHBCLKCTRL =
-      sysconPeripheral()->SYSAHBCLKCTRL | (SYSAHBCLKCTRL::RESERVED_MASK & static_cast<std::uint32_t>(setting));
+      sysconPeripheral()->SYSAHBCLKCTRL | (SYSAHBCLKCTRL::kRESERVED_MASK & static_cast<std::uint32_t>(setting));
   }
   /**
    * @brief disable peripheral clocks
@@ -216,7 +216,7 @@ struct syscon : libmcu::PeripheralBase {
    */
   constexpr void disablePeripheralClocks(peripheralClocks setting) {
     sysconPeripheral()->SYSAHBCLKCTRL =
-      sysconPeripheral()->SYSAHBCLKCTRL & ~(SYSAHBCLKCTRL::RESERVED_MASK & static_cast<std::uint32_t>(setting));
+      sysconPeripheral()->SYSAHBCLKCTRL & ~(SYSAHBCLKCTRL::kRESERVED_MASK & static_cast<std::uint32_t>(setting));
   }
   /**
    * @brief Set the Usart Clock Divider
@@ -232,7 +232,7 @@ struct syscon : libmcu::PeripheralBase {
    * @param setting bit setting from peripheralPowers enum
    */
   constexpr void powerPeripherals(peripheralPowers setting) {
-    sysconPeripheral()->PDRUNCFG = sysconPeripheral()->PDRUNCFG & ~(PDRUNCFG::RESERVED_MASK & static_cast<std::uint32_t>(setting));
+    sysconPeripheral()->PDRUNCFG = sysconPeripheral()->PDRUNCFG & ~(PDRUNCFG::kRESERVED_MASK & static_cast<std::uint32_t>(setting));
   }
   /**
    * @brief Power down a peripheral
@@ -240,7 +240,7 @@ struct syscon : libmcu::PeripheralBase {
    * @param setting bit setting from peripheralPowers enum
    */
   constexpr void depowerPeripherals(peripheralPowers setting) {
-    sysconPeripheral()->PDRUNCFG = sysconPeripheral()->PDRUNCFG | (PDRUNCFG::RESERVED_MASK & static_cast<std::uint32_t>(setting));
+    sysconPeripheral()->PDRUNCFG = sysconPeripheral()->PDRUNCFG | (PDRUNCFG::kRESERVED_MASK & static_cast<std::uint32_t>(setting));
   }
   /**
    * @brief Get the DEVICE ID

@@ -28,7 +28,7 @@ struct fmc {
    */
   constexpr void setFlashWaitState(waitstates setting) {
     // reserved bits need to be EXACTLY written back according to datasheet
-    fmcPeripheral()->FLASHCFG = (fmcPeripheral()->FLASHCFG & ~FLASHCFG::kRESERVED_MASK) | static_cast<std::uint32_t>(setting);
+    fmcPeripheral()->FLASHCFG = (fmcPeripheral()->FLASHCFG & ~FLASHCFG::kkRESERVED_MASK) | static_cast<std::uint32_t>(setting);
   }
   // TODO flash signiature generator method
   /**

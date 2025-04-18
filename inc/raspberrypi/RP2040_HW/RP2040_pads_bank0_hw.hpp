@@ -26,9 +26,9 @@ struct padsBank0 {
   volatile std::uint32_t SWD;            /*!< Pad control register */
 };
 namespace SWCLK {
-constexpr inline std::uint32_t RESERVED_MASK{0x0000'00FFu}; /*!< Mask for allowed bits */
-constexpr inline std::uint32_t OD{1u << 7};                 /*!< Output disable, overrides peripheral */
-constexpr inline std::uint32_t IE{1u << 6};                 /*!< Input enable */
+constexpr inline std::uint32_t kRESERVED_MASK{0x0000'00FFu}; /*!< Mask for allowed bits */
+constexpr inline std::uint32_t OD{1u << 7};                  /*!< Output disable, overrides peripheral */
+constexpr inline std::uint32_t IE{1u << 6};                  /*!< Input enable */
 /**
  * @brief Format DRIVE field to GPIO register
  * @param level drive level, see DRIVE_ definitions
@@ -47,9 +47,9 @@ constexpr inline std::uint32_t SCHMITT{1u << 1};  /*!< Schmitt trigger enable */
 constexpr inline std::uint32_t SLEWFAST{1u << 0}; /*!< Fast slew rate control */
 }  // namespace SWCLK
 namespace SWD {
-constexpr inline std::uint32_t RESERVED_MASK{0x0000'00FFu}; /*!< Mask for allowed bits */
-constexpr inline std::uint32_t OD{1u << 7};                 /*!< Output disable, overrides peripheral */
-constexpr inline std::uint32_t IE{1u << 6};                 /*!< Input enable */
+constexpr inline std::uint32_t kRESERVED_MASK{0x0000'00FFu}; /*!< Mask for allowed bits */
+constexpr inline std::uint32_t OD{1u << 7};                  /*!< Output disable, overrides peripheral */
+constexpr inline std::uint32_t IE{1u << 6};                  /*!< Input enable */
 /**
  * @brief Format DRIVE field to GPIO register
  * @param level drive level, see DRIVE_ definitions

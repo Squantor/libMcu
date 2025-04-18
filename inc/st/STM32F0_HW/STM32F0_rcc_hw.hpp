@@ -32,46 +32,46 @@ struct rcc {
   volatile std::uint32_t CR2;      /*!< clock control register 2 */
 };
 namespace CR {
-constexpr inline std::uint32_t RESERVED_MASK = 0xFFFFFFFFu; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK = 0xFFFFFFFFu; /*!< register mask for allowed bits */
 }
 namespace CFGR {
-constexpr inline std::uint32_t RESERVED_MASK = 0xFFFFFFFFu; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK = 0xFFFFFFFFu; /*!< register mask for allowed bits */
 }
 namespace CIR {
-constexpr inline std::uint32_t RESERVED_MASK = 0xFFFFFFFFu; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK = 0xFFFFFFFFu; /*!< register mask for allowed bits */
 }
 namespace APB2RSTR {
-constexpr inline std::uint32_t RESERVED_MASK = 0xFFFFFFFFu; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK = 0xFFFFFFFFu; /*!< register mask for allowed bits */
 }
 namespace APB1RSTR {
-constexpr inline std::uint32_t RESERVED_MASK = 0xFFFFFFFFu; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK = 0xFFFFFFFFu; /*!< register mask for allowed bits */
 }
 namespace AHBENR {
-constexpr inline std::uint32_t RESERVED_MASK = 0xFFFFFFFFu; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK = 0xFFFFFFFFu; /*!< register mask for allowed bits */
 }
 namespace APB2ENR {
-constexpr inline std::uint32_t RESERVED_MASK = 0xFFFFFFFFu; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK = 0xFFFFFFFFu; /*!< register mask for allowed bits */
 }
 namespace APB1ENR {
-constexpr inline std::uint32_t RESERVED_MASK = 0xFFFFFFFFu; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK = 0xFFFFFFFFu; /*!< register mask for allowed bits */
 }
 namespace BDCR {
-constexpr inline std::uint32_t RESERVED_MASK = 0xFFFFFFFFu; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK = 0xFFFFFFFFu; /*!< register mask for allowed bits */
 }
 namespace CSR {
-constexpr inline std::uint32_t RESERVED_MASK = 0xFFFFFFFFu; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK = 0xFFFFFFFFu; /*!< register mask for allowed bits */
 }
 namespace AHBRSTR {
-constexpr inline std::uint32_t RESERVED_MASK = 0xFFFFFFFFu; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK = 0xFFFFFFFFu; /*!< register mask for allowed bits */
 }
 namespace CFGR2 {
-constexpr inline std::uint32_t RESERVED_MASK = 0xFFFFFFFFu; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK = 0xFFFFFFFFu; /*!< register mask for allowed bits */
 }
 namespace CFGR3 {
-constexpr inline std::uint32_t RESERVED_MASK = 0xFFFFFFFFu; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK = 0xFFFFFFFFu; /*!< register mask for allowed bits */
 }
 namespace CR2 {
-constexpr inline std::uint32_t RESERVED_MASK = 0xFFFFFFFFu; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK = 0xFFFFFFFFu; /*!< register mask for allowed bits */
 }
 
 }  // namespace libmcuhw::rcc

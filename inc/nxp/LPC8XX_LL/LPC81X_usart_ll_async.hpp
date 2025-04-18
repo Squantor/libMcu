@@ -49,7 +49,7 @@ struct usartAsync : libmcu::PeripheralBase {
   constexpr std::uint32_t init(std::uint32_t baudRate) {
     std::uint32_t baudDivider = CLOCK_MAIN / (baudRate * 16);
     usartPeripheral()->BRG = baudDivider;
-    usartPeripheral()->CFG = CFG::ENABLE | uartLength::SIZE_8 | uartParity::NONE | uartStop::STOP_1;
+    usartPeripheral()->CFG = CFG::kENABLE | uartLength::SIZE_8 | uartParity::NONE | uartStop::STOP_1;
     return CLOCK_MAIN / 16 / baudDivider;
   }
   /**
@@ -64,7 +64,7 @@ struct usartAsync : libmcu::PeripheralBase {
   constexpr std::uint32_t init(std::uint32_t baudRate, uartLength lengthBits, uartParity parity, uartStop stopBits) {
     std::uint32_t baudDivider = CLOCK_MAIN / (baudRate * 16);
     usartPeripheral()->BRG = baudDivider;
-    usartPeripheral()->CFG = CFG::ENABLE | lengthBits | parity | stopBits;
+    usartPeripheral()->CFG = CFG::kENABLE | lengthBits | parity | stopBits;
     return CLOCK_MAIN / 16 / baudDivider;
   }
   /**
@@ -147,7 +147,7 @@ struct usartAsync : libmcu::PeripheralBase {
     if (transactionReadState != detail::synchonousStates::TRANSACTING) {
       return libmcu::Results::ERROR;
     }
-    if (usartPeripheral()->STAT & STAT::RXRDY) {
+    if (usartPeripheral()->STAT & STAT::kRXRDY) {
       transactionReadData[transactionReadIndex] = static_cast<transferType>(usartPeripheral()->RXDAT);
       transactionReadIndex++;
       if (transactionReadData.size() == transactionReadIndex) {
@@ -169,12 +169,12 @@ struct usartAsync : libmcu::PeripheralBase {
       return libmcu::Results::ERROR;
     }
     std::uint32_t status = usartPeripheral()->STAT;
-    if (status & STAT::TXRDY) {
+    if (status & STAT::kTXRDY) {
       if (transactionWriteData.size() > transactionWriteIndex) {
         usartPeripheral()->TXDAT = static_cast<std::uint32_t>(transactionWriteData[transactionWriteIndex]);
         transactionWriteIndex++;
       } else {
-        if (status & STAT::TXIDLE) {
+        if (status & STAT::kTXIDLE) {
           transactionWriteState = detail::synchonousStates::CLAIMED;
           return libmcu::Results::DONE;
         }

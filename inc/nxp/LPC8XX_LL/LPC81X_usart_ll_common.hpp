@@ -51,20 +51,20 @@ enum uartStop : std::uint32_t {
  * These bit patterns match the USART STAT register settings
  */
 enum uartStatus : std::uint32_t {
-  RXRDY = STAT::RXRDY,               /*!< Receiver ready flag, Read only */
-  RXIDLE = STAT::RXIDLE,             /*!< Receiver idle, Read only */
-  TXRDY = STAT::TXRDY,               /*!< Transmitter ready, Read only  */
-  TXIDLE = STAT::TXIDLE,             /*!< Transmitter idle, Read only */
-  CTS = STAT::CTS,                   /*!< CTS signal state, Read only */
-  DELTACTS = STAT::DELTACTS,         /*!< Change detected in CTS signal, write 1 clear */
-  TXDISINT = STAT::TXDISINT,         /*!< Transmitter disabled confirmation, read only  */
-  OVERRUNINT = STAT::OVERRUNINT,     /*!< Overrun error interrupt flag, write 1 clear */
-  RXBRK = STAT::RXBRK,               /*!< Received break, read only */
-  DELTARXBRK = STAT::DELTARXBRK,     /*!< Change detected in receiver break, write 1 clear */
-  START = STAT::START,               /*!< Start condition detected, write 1 clear */
-  FRAMERRINT = STAT::FRAMERRINT,     /*!< Frame error interrupt flag, write 1 clear */
-  PARITYERRINT = STAT::PARITYERRINT, /*!< Parity error interrupt flag, write 1 clear */
-  RXNOISEINT = STAT::RXNOISEINT,     /*!< Recieved noise interrupt flag, write 1 clear*/
+  RXRDY = STAT::kRXRDY,               /*!< Receiver ready flag, Read only */
+  RXIDLE = STAT::kRXIDLE,             /*!< Receiver idle, Read only */
+  TXRDY = STAT::kCTS,                 /*!< Transmitter ready, Read only  */
+  TXIDLE = STAT::kTXIDLE,             /*!< Transmitter idle, Read only */
+  CTS = STAT::kCTS,                   /*!< CTS signal state, Read only */
+  DELTACTS = STAT::kDELTACTS,         /*!< Change detected in CTS signal, write 1 clear */
+  TXDISINT = STAT::kTXDISINT,         /*!< Transmitter disabled confirmation, read only  */
+  OVERRUNINT = STAT::kOVERRUNINT,     /*!< Overrun error interrupt flag, write 1 clear */
+  RXBRK = STAT::kRXBRK,               /*!< Received break, read only */
+  DELTARXBRK = STAT::kDELTARXBRK,     /*!< Change detected in receiver break, write 1 clear */
+  START = STAT::kSTART,               /*!< Start condition detected, write 1 clear */
+  FRAMERRINT = STAT::kFRAMERRINT,     /*!< Frame error interrupt flag, write 1 clear */
+  PARITYERRINT = STAT::kPARITYERRINT, /*!< Parity error interrupt flag, write 1 clear */
+  RXNOISEINT = STAT::kRXNOISEINT,     /*!< Recieved noise interrupt flag, write 1 clear*/
 };
 }  // namespace libmcull::sw::usart
 #endif

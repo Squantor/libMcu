@@ -33,7 +33,7 @@ struct usartSync : libmcu::PeripheralBase {
   constexpr std::uint32_t init(std::uint32_t baudRate) {
     std::uint32_t baudDivider = CLOCK_MAIN / (baudRate * 16);
     usartPeripheral()->BRG = baudDivider;
-    usartPeripheral()->CFG = CFG::ENABLE | uartLength::SIZE_8 | uartParity::NONE | uartStop::STOP_1;
+    usartPeripheral()->CFG = CFG::kENABLE | uartLength::SIZE_8 | uartParity::NONE | uartStop::STOP_1;
     return CLOCK_MAIN / 16 / baudDivider;
   }
   /**
@@ -48,7 +48,7 @@ struct usartSync : libmcu::PeripheralBase {
   constexpr std::uint32_t init(std::uint32_t baudRate, uartLength lengthBits, uartParity parity, uartStop stopBits) {
     std::uint32_t baudDivider = CLOCK_MAIN / (baudRate * 16);
     usartPeripheral()->BRG = baudDivider;
-    usartPeripheral()->CFG = CFG::ENABLE | lengthBits | parity | stopBits;
+    usartPeripheral()->CFG = CFG::kENABLE | lengthBits | parity | stopBits;
     return CLOCK_MAIN / 16 / baudDivider;
   }
   /**
@@ -57,7 +57,7 @@ struct usartSync : libmcu::PeripheralBase {
    * @return std::uint32_t one to one copy of the status register, see bit masks for options
    */
   constexpr std::uint32_t status() {
-    return usartPeripheral()->STAT & STAT::RESERVED_MASK;
+    return usartPeripheral()->STAT & STAT::kRESERVED_MASK;
   }
   /**
    * @brief Send data out of the UART
@@ -65,7 +65,7 @@ struct usartSync : libmcu::PeripheralBase {
    * @param data data to send, amount is sent according to configuration
    */
   constexpr void write(transferType data) {
-    usartPeripheral()->TXDAT = static_cast<transferType>(data & TXDAT::RESERVED_MASK);
+    usartPeripheral()->TXDAT = static_cast<transferType>(data & TXDAT::kRESERVED_MASK);
   }
   /**
    * @brief Read data from UART
@@ -83,8 +83,8 @@ struct usartSync : libmcu::PeripheralBase {
    */
   constexpr void read(transferType &data, std::uint32_t &status) {
     std::uint32_t regData = usartPeripheral()->RXDATSTAT;
-    data = static_cast<transferType>(regData & RXDATSTAT::DATA_MASK);
-    status = regData & RXDATSTAT::STAT_MASK;
+    data = static_cast<transferType>(regData & RXDATSTAT::kDATA_MASK);
+    status = regData & RXDATSTAT::kSTAT_MASK;
   }
   /**
    * @brief get registers from peripheral

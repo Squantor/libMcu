@@ -92,14 +92,14 @@ struct SyncUart : libmcull::LlSyncUartBase {
    * @return std::uint32_t one to one copy of the status register, see bit masks for options
    */
   constexpr std::uint32_t Status() {
-    return UsartPeripheral()->STAT & hardware::STAT::RESERVED_MASK;
+    return UsartPeripheral()->STAT & hardware::STAT::kRESERVED_MASK;
   }
   /**
    * @brief Send data out of the UART
    * @param data data to send, amount is sent according to configuration
    */
   constexpr void Write(TransferType data) {
-    UsartPeripheral()->TXDAT = static_cast<TransferType>(data & hardware::TXDAT::RESERVED_MASK);
+    UsartPeripheral()->TXDAT = static_cast<TransferType>(data & hardware::TXDAT::kRESERVED_MASK);
   }
   /**
    * @brief Read data from UART

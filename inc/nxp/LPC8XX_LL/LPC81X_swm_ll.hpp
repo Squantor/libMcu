@@ -25,13 +25,13 @@ struct swm : libmcu::PeripheralBase {
    */
   template <typename PIN, typename FUNC>
   constexpr void setup(PIN &pin, FUNC &function) {
-    if constexpr (FUNC::type == libmcuhw::swm::pinFunctionTypes::MOVABLE) {
+    if constexpr (FUNC::type == libmcuhw::swm::pinFunctionTypes::kMovable) {
       // create a mask for resetting the pin setting
       constexpr std::uint32_t mask = ~(0xFFu << function.shift);
       swmPeripheral()->PINASSIGN[function.index] =
         (swmPeripheral()->PINASSIGN[function.index] & mask) | (pin.pio << function.shift);
     }
-    if constexpr (FUNC::type == libmcuhw::swm::pinFunctionTypes::FIXED) {
+    if constexpr (FUNC::type == libmcuhw::swm::pinFunctionTypes::kFixed) {
       static_assert(PIN::pio == FUNC::pio, "this function is not available on this pin!");
       swmPeripheral()->PINENABLE0 = swmPeripheral()->PINENABLE0 & ~function.mask;
     }
@@ -39,12 +39,12 @@ struct swm : libmcu::PeripheralBase {
 
   template <typename PIN, typename FUNC>
   constexpr void clear([[maybe_unused]] PIN &pin, FUNC &function) {
-    if constexpr (FUNC::type == libmcuhw::swm::pinFunctionTypes::MOVABLE) {
+    if constexpr (FUNC::type == libmcuhw::swm::pinFunctionTypes::kMovable) {
       // create a mask for unassigning pin setting
       constexpr std::uint32_t mask = (0xFFu << function.shift);
       swmPeripheral()->PINASSIGN[function.index] = (swmPeripheral()->PINASSIGN[function.index] | mask);
     }
-    if constexpr (FUNC::type == libmcuhw::swm::pinFunctionTypes::FIXED) {
+    if constexpr (FUNC::type == libmcuhw::swm::pinFunctionTypes::kFixed) {
       static_assert(PIN::pio == FUNC::pio, "this function is not available on this pin!");
       swmPeripheral()->PINENABLE0 = swmPeripheral()->PINENABLE0 | function.mask;
     }

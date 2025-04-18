@@ -130,38 +130,38 @@ struct sct {
   } OUT[7];                     /*!< Output register  */
 };
 namespace CONFIG {
-constexpr inline std::uint32_t RESERVED_MASK{0x00061FFFu}; /*!< register mask for allowed bits */
-constexpr inline std::uint32_t UNIFY{1u << 0};             /*!< SCT operates as unified 32 bit counter */
-constexpr inline std::uint32_t SYSCLKMODE{0u << 1};        /*!< System clock mode */
-constexpr inline std::uint32_t SAMPLEDSYSCLKMODE{1u << 1}; /*!< Sampled SCT input clocking mode */
-constexpr inline std::uint32_t SCTINPUTCLKMODE{2u << 1};   /*!< SCT input clock mode */
-constexpr inline std::uint32_t ASYNCMODE{3u << 1};         /*!< SCT input asynchronous clock mode */
-constexpr inline std::uint32_t CLKSEL_RISE_IN0{0u << 3};   /*!< clock is rising edges on input 0 */
-constexpr inline std::uint32_t CLKSEL_FALL_IN0{1u << 3};   /*!< clock is falling edges on input 0 */
-constexpr inline std::uint32_t CLKSEL_RISE_IN1{2u << 3};   /*!< clock is rising edges on input 1 */
-constexpr inline std::uint32_t CLKSEL_FALL_IN1{3u << 3};   /*!< clock is falling edges on input 1 */
-constexpr inline std::uint32_t CLKSEL_RISE_IN2{4u << 3};   /*!< clock is rising edges on input 2 */
-constexpr inline std::uint32_t CLKSEL_FALL_IN2{5u << 3};   /*!< clock is falling edges on input 2 */
-constexpr inline std::uint32_t CLKSEL_RISE_IN3{6u << 3};   /*!< clock is rising edges on input 3 */
-constexpr inline std::uint32_t CLKSEL_FALL_IN3{7u << 3};   /*!< clock is falling edges on input 3 */
-constexpr inline std::uint32_t CLKSEL_RISE_IN4{8u << 3};   /*!< clock is rising edges on input 4, syscon selected */
-constexpr inline std::uint32_t CLKSEL_FALL_IN4{9u << 3};   /*!< clock is falling edges on input 4, syscon selected */
-constexpr inline std::uint32_t NORELOAD_L{1u << 7};        /*!< prevent reload of lower/unified match registers */
-constexpr inline std::uint32_t NORELOAD_H{1u << 8};        /*!< prevent reload of higher match registers */
-constexpr inline std::uint32_t INSYNC_INPUT0{1u << 9};     /*!< input 0 is synchronized */
-constexpr inline std::uint32_t INSYNC_INPUT1{1u << 10};    /*!< input 1 is synchronized */
-constexpr inline std::uint32_t INSYNC_INPUT2{1u << 11};    /*!< input 2 is synchronized */
-constexpr inline std::uint32_t INSYNC_INPUT3{1u << 12};    /*!< input 3 is synchronized */
-constexpr inline std::uint32_t AUTOLIMIT_L{1u << 17};      /*!< low/united match 0 is limit for counter */
-constexpr inline std::uint32_t AUTOLIMIT_H{1u << 18};      /*!< upper match 0 is limit for counter */
+constexpr inline std::uint32_t kRESERVED_MASK{0x00061FFFu}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t UNIFY{1u << 0};              /*!< SCT operates as unified 32 bit counter */
+constexpr inline std::uint32_t SYSCLKMODE{0u << 1};         /*!< System clock mode */
+constexpr inline std::uint32_t SAMPLEDSYSCLKMODE{1u << 1};  /*!< Sampled SCT input clocking mode */
+constexpr inline std::uint32_t SCTINPUTCLKMODE{2u << 1};    /*!< SCT input clock mode */
+constexpr inline std::uint32_t ASYNCMODE{3u << 1};          /*!< SCT input asynchronous clock mode */
+constexpr inline std::uint32_t CLKSEL_RISE_IN0{0u << 3};    /*!< clock is rising edges on input 0 */
+constexpr inline std::uint32_t CLKSEL_FALL_IN0{1u << 3};    /*!< clock is falling edges on input 0 */
+constexpr inline std::uint32_t CLKSEL_RISE_IN1{2u << 3};    /*!< clock is rising edges on input 1 */
+constexpr inline std::uint32_t CLKSEL_FALL_IN1{3u << 3};    /*!< clock is falling edges on input 1 */
+constexpr inline std::uint32_t CLKSEL_RISE_IN2{4u << 3};    /*!< clock is rising edges on input 2 */
+constexpr inline std::uint32_t CLKSEL_FALL_IN2{5u << 3};    /*!< clock is falling edges on input 2 */
+constexpr inline std::uint32_t CLKSEL_RISE_IN3{6u << 3};    /*!< clock is rising edges on input 3 */
+constexpr inline std::uint32_t CLKSEL_FALL_IN3{7u << 3};    /*!< clock is falling edges on input 3 */
+constexpr inline std::uint32_t CLKSEL_RISE_IN4{8u << 3};    /*!< clock is rising edges on input 4, syscon selected */
+constexpr inline std::uint32_t CLKSEL_FALL_IN4{9u << 3};    /*!< clock is falling edges on input 4, syscon selected */
+constexpr inline std::uint32_t NORELOAD_L{1u << 7};         /*!< prevent reload of lower/unified match registers */
+constexpr inline std::uint32_t NORELOAD_H{1u << 8};         /*!< prevent reload of higher match registers */
+constexpr inline std::uint32_t INSYNC_INPUT0{1u << 9};      /*!< input 0 is synchronized */
+constexpr inline std::uint32_t INSYNC_INPUT1{1u << 10};     /*!< input 1 is synchronized */
+constexpr inline std::uint32_t INSYNC_INPUT2{1u << 11};     /*!< input 2 is synchronized */
+constexpr inline std::uint32_t INSYNC_INPUT3{1u << 12};     /*!< input 3 is synchronized */
+constexpr inline std::uint32_t AUTOLIMIT_L{1u << 17};       /*!< low/united match 0 is limit for counter */
+constexpr inline std::uint32_t AUTOLIMIT_H{1u << 18};       /*!< upper match 0 is limit for counter */
 }  // namespace CONFIG
 namespace CTRL {
-constexpr inline std::uint32_t RESERVED_MASK{0x1FFF1FFFu}; /*!< register mask for allowed bits */
-constexpr inline std::uint32_t DOWN_L{1u << 0};            /*!< low/united counter is counting down */
-constexpr inline std::uint32_t STOP_L{1u << 1};            /*!< low/united counter is stopped */
-constexpr inline std::uint32_t HALT_L{1u << 2};            /*!< low/united counter is halted */
-constexpr inline std::uint32_t CLRCTR_L{1u << 3};          /*!< clear counter low/united */
-constexpr inline std::uint32_t BIDIR_L{1u << 4};           /*!< low/united counter is bidirectional */
+constexpr inline std::uint32_t kRESERVED_MASK{0x1FFF1FFFu}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t DOWN_L{1u << 0};             /*!< low/united counter is counting down */
+constexpr inline std::uint32_t STOP_L{1u << 1};             /*!< low/united counter is stopped */
+constexpr inline std::uint32_t HALT_L{1u << 2};             /*!< low/united counter is halted */
+constexpr inline std::uint32_t CLRCTR_L{1u << 3};           /*!< clear counter low/united */
+constexpr inline std::uint32_t BIDIR_L{1u << 4};            /*!< low/united counter is bidirectional */
 /**
  * @brief Format low/united counter prescaler
  * @param prescale counter clock is SCT clock divided by prescale+1
@@ -185,73 +185,73 @@ constexpr inline std::uint32_t PRE_H(std::uint32_t prescale) {
 }
 }  // namespace CTRL
 namespace LIMIT {
-constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 namespace HALT {
-constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 namespace STOP {
-constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 namespace START {
-constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 namespace COUNT {
-constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 namespace STATE {
-constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 namespace INPUT {
-constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 namespace REGMODE {
-constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 namespace OUTPUT {
-constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 namespace OUTPUTDIRCTRL {
-constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 namespace RES {
-constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 namespace DMAREQ0 {
-constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 namespace DMAREQ1 {
-constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 namespace EVEN {
-constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 namespace EVFLAG {
-constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 namespace CONEN {
-constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 namespace CONFLAG {
-constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 namespace MATCH {
-constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 namespace CAP {
-constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 namespace MATCHREL {
-constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 namespace CAPCTRL {
-constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 namespace EV_STATE {
-constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 namespace EV_CTRL {
-constexpr inline std::uint32_t RESERVED_MASK{0x007FFFFFu}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK{0x007FFFFFu}; /*!< register mask for allowed bits */
 /**
  * @brief Format match register associated with this event
  * @param prescale counter clock is SCT clock divided by prescale+1
@@ -293,10 +293,10 @@ constexpr inline std::uint32_t DIRECTION_UP{1u << 21};   /*!< event triggers in 
 constexpr inline std::uint32_t DIRECTION_DOWN{2u << 21}; /*!< event triggers in down counting */
 }  // namespace EV_CTRL
 namespace OUT_SET {
-constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 namespace OUT_CLR {
-constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 }  // namespace libmcuhw::sct
 #endif
