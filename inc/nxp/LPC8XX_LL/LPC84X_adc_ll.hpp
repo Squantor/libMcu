@@ -24,8 +24,8 @@ struct adc : libmcu::PeripheralBase {
   constexpr void init(uint32_t rate) {
     uint32_t maxRate{getInputClockFreq<config>() / 25};
     // initiate hardware selfcal
-    adcPeripheral()->CTRL = hardware::CTRL::CALMODE | hardware::CTRL::CLKDIV(maxRate / 500000);
-    while (adcPeripheral()->CTRL & hardware::CTRL::CALMODE)
+    adcPeripheral()->CTRL = hardware::CTRL::kCALMODE | hardware::CTRL::CLKDIV(maxRate / 500000);
+    while (adcPeripheral()->CTRL & hardware::CTRL::kCALMODE)
       ;
     // configure ADC sample rate
     adcPeripheral()->CTRL = hardware::CTRL::CLKDIV(maxRate / rate);
@@ -39,14 +39,15 @@ struct adc : libmcu::PeripheralBase {
   template <typename PIN>
   constexpr std::uint32_t sample(PIN &pin) {
     std::uint32_t channelIndex = static_cast<std::uint32_t>(pin.adcPinIndex);
-    adcPeripheral()->SEQ_CTRL[hardware::SEQA] = hardware::SEQ_CTRL::CHANNELS(channelIndex) | hardware::SEQ_CTRL::TRIG_NONE |
-                                                hardware::SEQ_CTRL::TRIGPOL_POS | hardware::SEQ_CTRL::LOWPRIO |
-                                                hardware::SEQ_CTRL::SEQ_ENA;
-    adcPeripheral()->SEQ_CTRL[hardware::SEQA] = adcPeripheral()->SEQ_CTRL[hardware::SEQA] | hardware::SEQ_CTRL::START;
+    adcPeripheral()->SEQ_CTRL[hardware::kSequencerA] = hardware::SEQ_CTRL::CHANNELS(channelIndex) | hardware::SEQ_CTRL::kTRIG_NONE |
+                                                       hardware::SEQ_CTRL::kTRIGPOL_POS | hardware::SEQ_CTRL::kLOWPRIO |
+                                                       hardware::SEQ_CTRL::kSEQ_ENA;
+    adcPeripheral()->SEQ_CTRL[hardware::kSequencerA] =
+      adcPeripheral()->SEQ_CTRL[hardware::kSequencerA] | hardware::SEQ_CTRL::kSTART;
     std::uint32_t adcSample;
     do {
       adcSample = adcPeripheral()->DAT[channelIndex];
-    } while (!(adcSample & hardware::DAT::DATAVALID_FLAG));
+    } while (!(adcSample & hardware::DAT::kDATAVALID_FLAG));
     return hardware::DAT::RESULT(adcSample);
   }
   /**
@@ -67,8 +68,8 @@ struct adc : libmcu::PeripheralBase {
    * @brief get registers from peripheral
    * @return return pointer to ADC registers
    */
-  constexpr static hardware::adc *adcPeripheral() {
-    return reinterpret_cast<hardware::adc *>(adcAddress);
+  constexpr static hardware::Adc *adcPeripheral() {
+    return reinterpret_cast<hardware::Adc *>(adcAddress);
   }
 
  private:

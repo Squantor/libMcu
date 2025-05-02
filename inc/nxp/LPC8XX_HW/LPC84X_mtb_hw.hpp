@@ -15,7 +15,7 @@ namespace libmcuhw::mtb {
 /**
  * @brief MTB register definitions
  */
-struct mtb {
+struct Mtb {
   volatile std::uint32_t POSITION;   /*!< POSITION Register */
   volatile std::uint32_t MASTER;     /*!< MASTER Register */
   volatile std::uint32_t FLOW;       /*!< FLOW Register */

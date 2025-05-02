@@ -12,12 +12,10 @@
 #define LPC84X_GPIO_HW_HPP
 
 namespace libmcuhw::gpio {
-
 /**
  * @brief gpio register definitions
- *
  */
-struct gpio {
+struct Gpio {
   volatile std::uint8_t B[2][32];   /*!< Byte pin registers for all port 0 and 1 GPIO pins */
   std::uint8_t RESERVED_0[4032];    /*!< Reserved */
   volatile std::uint32_t W[2][32];  /*!< Word pin registers for all port 0 and 1 GPIO pins */

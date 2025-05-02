@@ -16,7 +16,7 @@ namespace libmcuhw::syscon {
 /**
  * @brief sysctl register definitions
  */
-struct syscon {
+struct Syscon {
   volatile std::uint32_t SYSMEMREMAP;    /*!<  System memory remap (R/W) */
   volatile std::uint32_t PRESETCTRL;     /*!<  Peripheral reset control (R/W) */
   volatile std::uint32_t SYSPLLCTRL;     /*!<  System PLL control (R/W) */

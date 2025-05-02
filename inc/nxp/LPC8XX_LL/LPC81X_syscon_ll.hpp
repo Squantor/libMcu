@@ -258,11 +258,11 @@ struct syscon : libmcu::PeripheralBase {
   }
   /**
    * @brief get registers from peripheral
-   *
+   *kSequencerA
    * @return return pointer to syscon registers
    */
-  constexpr static libmcuhw::syscon::syscon *sysconPeripheral() {
-    return reinterpret_cast<libmcuhw::syscon::syscon *>(sysconAddress);
+  constexpr static libmcuhw::syscon::Syscon *sysconPeripheral() {
+    return reinterpret_cast<libmcuhw::syscon::Syscon *>(sysconAddress);
   }
 
  private:

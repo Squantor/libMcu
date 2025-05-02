@@ -13,60 +13,49 @@
 
 namespace libmcull::iocon {
 namespace hardware = libmcuhw::iocon;
-
 /**
  * @brief Pin pull modes
- *
  */
 enum class pullModes : std::uint32_t {
-  INACTIVE = hardware::PIO::INACTIVE, /*!< No pullup/down */
-  PULLDOWN = hardware::PIO::PULLDOWN, /*!< Pulldown enabled */
-  PULLUP = hardware::PIO::PULLUP,     /*!< Pullup enabled */
-  REPEATER = hardware::PIO::REPEATER, /*!< Repeater mode */
+  INACTIVE = hardware::PIO::kINACTIVE, /*!< No pullup/down */
+  PULLDOWN = hardware::PIO::kPULLDOWN, /*!< Pulldown enabled */
+  PULLUP = hardware::PIO::kPULLUP,     /*!< Pullup enabled */
+  REPEATER = hardware::PIO::kREPEATER, /*!< Repeater mode */
 };
-
 /**
  * @brief pin filtering modes
- *
  */
 enum class pinFiltering : std::uint32_t {
-  BYPASS = hardware::PIO::BYPASS,   /*!< Bypassed input filter */
-  CYCLES1 = hardware::PIO::CYCLES1, /*!< 1 clock cycle pulses are filtered */
-  CYCLES2 = hardware::PIO::CYCLES2, /*!< 2 clock cycle pulses are filtered */
-  CYCLES3 = hardware::PIO::CYCLES3, /*!< 3 clock cycle pulses are filtered */
+  BYPASS = hardware::PIO::kBYPASS,   /*!< Bypassed input filter */
+  CYCLES1 = hardware::PIO::kCYCLES1, /*!< 1 clock cycle pulses are filtered */
+  CYCLES2 = hardware::PIO::kCYCLES2, /*!< 2 clock cycle pulses are filtered */
+  CYCLES3 = hardware::PIO::kCYCLES3, /*!< 3 clock cycle pulses are filtered */
 };
-
 /**
  * @brief Clock divider to use for filtering
- *
- * TODO, change this to a consteval function
- *
+ * @todo change this to a consteval function
  */
 enum class clockDivider : std::uint32_t {
-  IOCONCLKDIV0 = hardware::PIO::IOCONCLKDIV0, /*!< use IOCONCLKDIV0 in SYSCON */
-  IOCONCLKDIV1 = hardware::PIO::IOCONCLKDIV1, /*!< use IOCONCLKDIV1 in SYSCON */
-  IOCONCLKDIV2 = hardware::PIO::IOCONCLKDIV2, /*!< use IOCONCLKDIV2 in SYSCON */
-  IOCONCLKDIV3 = hardware::PIO::IOCONCLKDIV3, /*!< use IOCONCLKDIV3 in SYSCON */
-  IOCONCLKDIV4 = hardware::PIO::IOCONCLKDIV4, /*!< use IOCONCLKDIV4 in SYSCON */
-  IOCONCLKDIV5 = hardware::PIO::IOCONCLKDIV5, /*!< use IOCONCLKDIV5 in SYSCON */
-  IOCONCLKDIV6 = hardware::PIO::IOCONCLKDIV6, /*!< use IOCONCLKDIV6 in SYSCON */
+  IOCONCLKDIV0 = hardware::PIO::kIOCONCLKDIV0, /*!< use IOCONCLKDIV0 in SYSCON */
+  IOCONCLKDIV1 = hardware::PIO::kIOCONCLKDIV1, /*!< use IOCONCLKDIV1 in SYSCON */
+  IOCONCLKDIV2 = hardware::PIO::kIOCONCLKDIV2, /*!< use IOCONCLKDIV2 in SYSCON */
+  IOCONCLKDIV3 = hardware::PIO::kIOCONCLKDIV3, /*!< use IOCONCLKDIV3 in SYSCON */
+  IOCONCLKDIV4 = hardware::PIO::kIOCONCLKDIV4, /*!< use IOCONCLKDIV4 in SYSCON */
+  IOCONCLKDIV5 = hardware::PIO::kIOCONCLKDIV5, /*!< use IOCONCLKDIV5 in SYSCON */
+  IOCONCLKDIV6 = hardware::PIO::kIOCONCLKDIV6, /*!< use IOCONCLKDIV6 in SYSCON */
 };
-
 /**
  * @brief I2C pin modes
- *
  */
 enum class i2cmodes : std::uint32_t {
-  I2C_STD = hardware::PIO::I2C_STD,   /*!< standard/fast I2C mode */
-  IO_STD = hardware::PIO::IO_STD,     /*!< standard I/O functionality */
-  I2C_FAST = hardware::PIO::I2C_FAST, /*!< fast mode plus I2C */
+  I2C_STD = hardware::PIO::kI2C_STD,   /*!< standard/fast I2C mode */
+  IO_STD = hardware::PIO::kIO_STD,     /*!< standard I/O functionality */
+  I2C_FAST = hardware::PIO::kI2C_FAST, /*!< fast mode plus I2C */
 };
-
 template <libmcu::ioconBaseAddress ioconAddress_>
-struct iocon : libmcu::PeripheralBase {
+struct Iocon : libmcu::PeripheralBase {
   /**
    * @brief Setup normal IOCON pin
-   *
    * @tparam T      normal iocon pin type
    * @param pin     instance of pin type to setup
    * @param mode    pullup mode
@@ -82,7 +71,6 @@ struct iocon : libmcu::PeripheralBase {
   }
   /**
    * @brief Setup normal IOCON pin
-   *
    * @tparam T      normal iocon pin type
    * @param pin     instance of pin type to setup
    * @param mode    pullup mode
@@ -147,11 +135,10 @@ struct iocon : libmcu::PeripheralBase {
   }
   /**
    * @brief get registers from peripheral
-   *
    * @return return pointer to iocon registers
    */
-  static constexpr hardware::iocon *ioconPeripheral() {
-    return reinterpret_cast<hardware::iocon *>(ioconAddress);
+  static constexpr hardware::Iocon *ioconPeripheral() {
+    return reinterpret_cast<hardware::Iocon *>(ioconAddress);
   }
 
  private:

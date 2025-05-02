@@ -52,7 +52,7 @@ constexpr inline std::uint32_t kCAPT_DMA{24};     /*!< Capture DMA request input
 /**
  * @brief DMA register definitions
  */
-struct dma {
+struct Dma {
   volatile std::uint32_t CTRL;          /*!< DMA control */
   volatile const std::uint32_t INTSTAT; /*!< Interrupt status */
   volatile std::uint32_t SRAMBASE;      /*!< SRAM address of the channel configuration table */
@@ -90,12 +90,12 @@ struct dma {
 };
 namespace CTRL {
 constexpr inline std::uint32_t kRESERVED_MASK{0x00000001u}; /*!< register mask for allowed bits */
-constexpr inline std::uint32_t ENABLE{1u << 0};             /*!< DMA channel controller is enabled */
+constexpr inline std::uint32_t kENABLE{1u << 0};            /*!< DMA channel controller is enabled */
 }  // namespace CTRL
 namespace INTSTAT {
 constexpr inline std::uint32_t kRESERVED_MASK{0x00000006u}; /*!< register mask for allowed bits */
-constexpr inline std::uint32_t ACTIVEINT_MASK{1u << 1};     /*!< At least one interrupt is pending */
-constexpr inline std::uint32_t ACTIVEERRINT_MASK{1u << 2};  /*!< At least one error interrupt is pending */
+constexpr inline std::uint32_t kACTIVEINT_MASK{1u << 1};    /*!< At least one interrupt is pending */
+constexpr inline std::uint32_t kACTIVEERRINT_MASK{1u << 2}; /*!< At least one error interrupt is pending */
 }  // namespace INTSTAT
 namespace SRAMBASE {
 constexpr inline std::uint32_t kRESERVED_MASK{0xFFFE000u}; /*!< register mask for allowed bits */
@@ -242,57 +242,57 @@ constexpr inline std::uint32_t ABORTCTRL_MASK(std::uint32_t channel) {
 }  // namespace ABORT
 namespace CFG {
 constexpr inline std::uint32_t kRESERVED_MASK{0x0007CF73u}; /*!< register mask for allowed bits */
-constexpr inline std::uint32_t PERIPHREQEN{1u << 0};        /*!< Peripheral request enable */
-constexpr inline std::uint32_t HWTRIGEN{1u << 1};           /*!< Hardware trigger enable */
-constexpr inline std::uint32_t TRIGPOL{1u << 4};            /*!< Trigger Polarity rising edge */
-constexpr inline std::uint32_t TRIGTYPE{1u << 5};           /*!< Trigger Type Level */
-constexpr inline std::uint32_t TRIGBURST{1u << 6};          /*!< Trigger Burst transfer enable */
-constexpr inline std::uint32_t BURSTSIZE_1{0u << 8};        /*!< Burst size 1 */
-constexpr inline std::uint32_t BURSTSIZE_2{1u << 8};        /*!< Burst size 2 */
-constexpr inline std::uint32_t BURSTSIZE_4{2u << 8};        /*!< Burst size 4 */
-constexpr inline std::uint32_t BURSTSIZE_8{3u << 8};        /*!< Burst size 8 */
-constexpr inline std::uint32_t BURSTSIZE_16{4u << 8};       /*!< Burst size 16 */
-constexpr inline std::uint32_t BURSTSIZE_32{5u << 8};       /*!< Burst size 32 */
-constexpr inline std::uint32_t BURSTSIZE_64{6u << 8};       /*!< Burst size 64 */
-constexpr inline std::uint32_t BURSTSIZE_128{7u << 8};      /*!< Burst size 128 */
-constexpr inline std::uint32_t BURSTSIZE_256{8u << 8};      /*!< Burst size 256 */
-constexpr inline std::uint32_t BURSTSIZE_512{9u << 8};      /*!< Burst size 512 */
-constexpr inline std::uint32_t BURSTSIZE_1024{10u << 8};    /*!< Burst size 1024 */
-constexpr inline std::uint32_t SRCBURSTWRAP{1u << 14};      /*!< Source burst wrap */
-constexpr inline std::uint32_t DSTBURSTWRAP{1u << 15};      /*!< Destination burst wrap */
-constexpr inline std::uint32_t CHPRIO_0{0u << 16};          /*!< channel priority 0 (highest) */
-constexpr inline std::uint32_t CHPRIO_1{1u << 16};          /*!< channel priority 1 */
-constexpr inline std::uint32_t CHPRIO_2{2u << 16};          /*!< channel priority 2 */
-constexpr inline std::uint32_t CHPRIO_3{3u << 16};          /*!< channel priority 3 */
-constexpr inline std::uint32_t CHPRIO_4{4u << 16};          /*!< channel priority 4 */
-constexpr inline std::uint32_t CHPRIO_5{5u << 16};          /*!< channel priority 5 */
-constexpr inline std::uint32_t CHPRIO_6{6u << 16};          /*!< channel priority 6 */
-constexpr inline std::uint32_t CHPRIO_7{7u << 16};          /*!< channel priority 7 (lowest) */
+constexpr inline std::uint32_t kPERIPHREQEN{1u << 0};       /*!< Peripheral request enable */
+constexpr inline std::uint32_t kHWTRIGEN{1u << 1};          /*!< Hardware trigger enable */
+constexpr inline std::uint32_t kTRIGPOL{1u << 4};           /*!< Trigger Polarity rising edge */
+constexpr inline std::uint32_t kTRIGTYPE{1u << 5};          /*!< Trigger Type Level */
+constexpr inline std::uint32_t kTRIGBURST{1u << 6};         /*!< Trigger Burst transfer enable */
+constexpr inline std::uint32_t kBURSTSIZE_1{0u << 8};       /*!< Burst size 1 */
+constexpr inline std::uint32_t kBURSTSIZE_2{1u << 8};       /*!< Burst size 2 */
+constexpr inline std::uint32_t kBURSTSIZE_4{2u << 8};       /*!< Burst size 4 */
+constexpr inline std::uint32_t kBURSTSIZE_8{3u << 8};       /*!< Burst size 8 */
+constexpr inline std::uint32_t kBURSTSIZE_16{4u << 8};      /*!< Burst size 16 */
+constexpr inline std::uint32_t kBURSTSIZE_32{5u << 8};      /*!< Burst size 32 */
+constexpr inline std::uint32_t kBURSTSIZE_64{6u << 8};      /*!< Burst size 64 */
+constexpr inline std::uint32_t kBURSTSIZE_128{7u << 8};     /*!< Burst size 128 */
+constexpr inline std::uint32_t kBURSTSIZE_256{8u << 8};     /*!< Burst size 256 */
+constexpr inline std::uint32_t kBURSTSIZE_512{9u << 8};     /*!< Burst size 512 */
+constexpr inline std::uint32_t kBURSTSIZE_1024{10u << 8};   /*!< Burst size 1024 */
+constexpr inline std::uint32_t kSRCBURSTWRAP{1u << 14};     /*!< Source burst wrap */
+constexpr inline std::uint32_t kDSTBURSTWRAP{1u << 15};     /*!< Destination burst wrap */
+constexpr inline std::uint32_t kCHPRIO_0{0u << 16};         /*!< channel priority 0 (highest) */
+constexpr inline std::uint32_t kCHPRIO_1{1u << 16};         /*!< channel priority 1 */
+constexpr inline std::uint32_t kCHPRIO_2{2u << 16};         /*!< channel priority 2 */
+constexpr inline std::uint32_t kCHPRIO_3{3u << 16};         /*!< channel priority 3 */
+constexpr inline std::uint32_t kCHPRIO_4{4u << 16};         /*!< channel priority 4 */
+constexpr inline std::uint32_t kCHPRIO_5{5u << 16};         /*!< channel priority 5 */
+constexpr inline std::uint32_t kCHPRIO_6{6u << 16};         /*!< channel priority 6 */
+constexpr inline std::uint32_t kCHPRIO_7{7u << 16};         /*!< channel priority 7 (lowest) */
 }  // namespace CFG
 namespace CTLSTAT {
 constexpr inline std::uint32_t kRESERVED_MASK{0x00000005u}; /*!< register mask for allowed bits */
-constexpr inline std::uint32_t VALIDPENDING{1u << 0};       /*!< Valid pending */
-constexpr inline std::uint32_t TRIG{1u << 1};               /*!< Trigger set for this channel */
+constexpr inline std::uint32_t kVALIDPENDING{1u << 0};      /*!< Valid pending */
+constexpr inline std::uint32_t kTRIG{1u << 1};              /*!< Trigger set for this channel */
 }  // namespace CTLSTAT
 namespace XFERCFG {
 constexpr inline std::uint32_t kRESERVED_MASK{0x03FFF33Fu};  /*!< register mask for allowed bits */
-constexpr inline std::uint32_t CFGVALID_MASK{1u << 0};       /*!< Configuration valid flag */
-constexpr inline std::uint32_t RELOAD_MASK{1u << 1};         /*!< Channel control reload flag */
-constexpr inline std::uint32_t SWTRIG{1u << 2};              /*!< Software trigger flag */
-constexpr inline std::uint32_t CLRTRIG{1u << 3};             /*!< Clear trigger flag */
-constexpr inline std::uint32_t SETINTA{1u << 4};             /*!< Set interrupt A flag */
-constexpr inline std::uint32_t SETINTB{1u << 5};             /*!< Set interrupt B flag */
-constexpr inline std::uint32_t WIDTH_8BIT{0u << 8};          /*!< Transfer width 8 bits */
-constexpr inline std::uint32_t WIDTH_16BIT{1u << 8};         /*!< Transfer width 16 bits */
-constexpr inline std::uint32_t WIDTH_32BIT{2u << 8};         /*!< Transfer width 32 bits */
-constexpr inline std::uint32_t SRCINC_NONE{0u << 12};        /*!< No Source increment */
-constexpr inline std::uint32_t SRCINC_1xWIDTH{1u << 12};     /*!< 1 source element increment */
-constexpr inline std::uint32_t SRCINC_2xWIDTH(2u << 12);     /*!< 2 source elements increment */
-constexpr inline std::uint32_t SRCINC_4xWIDTH(3u << 12);     /*!< 2 source elements increment */
-constexpr inline std::uint32_t DSTINC_NONE{0u << 14};        /*!< No Source increment */
-constexpr inline std::uint32_t DSTINC_1xWIDTH{1u << 14};     /*!< 1 source element increment */
-constexpr inline std::uint32_t DSTINC_2xWIDTH(2u << 14);     /*!< 2 source elements increment */
-constexpr inline std::uint32_t DSTINC_4xWIDTH(3u << 14);     /*!< 2 source elements increment */
+constexpr inline std::uint32_t kCFGVALID_MASK{1u << 0};      /*!< Configuration valid flag */
+constexpr inline std::uint32_t kRELOAD_MASK{1u << 1};        /*!< Channel control reload flag */
+constexpr inline std::uint32_t kSWTRIG{1u << 2};             /*!< Software trigger flag */
+constexpr inline std::uint32_t kCLRTRIG{1u << 3};            /*!< Clear trigger flag */
+constexpr inline std::uint32_t kSETINTA{1u << 4};            /*!< Set interrupt A flag */
+constexpr inline std::uint32_t kSETINTB{1u << 5};            /*!< Set interrupt B flag */
+constexpr inline std::uint32_t kWIDTH_8BIT{0u << 8};         /*!< Transfer width 8 bits */
+constexpr inline std::uint32_t kWIDTH_16BIT{1u << 8};        /*!< Transfer width 16 bits */
+constexpr inline std::uint32_t kWIDTH_32BIT{2u << 8};        /*!< Transfer width 32 bits */
+constexpr inline std::uint32_t kSRCINC_NONE{0u << 12};       /*!< No Source increment */
+constexpr inline std::uint32_t kSRCINC_1xWIDTH{1u << 12};    /*!< 1 source element increment */
+constexpr inline std::uint32_t kSRCINC_2xWIDTH(2u << 12);    /*!< 2 source elements increment */
+constexpr inline std::uint32_t kSRCINC_4xWIDTH(3u << 12);    /*!< 2 source elements increment */
+constexpr inline std::uint32_t kDSTINC_NONE{0u << 14};       /*!< No Source increment */
+constexpr inline std::uint32_t kDSTINC_1xWIDTH{1u << 14};    /*!< 1 source element increment */
+constexpr inline std::uint32_t kDSTINC_2xWIDTH(2u << 14);    /*!< 2 source elements increment */
+constexpr inline std::uint32_t kDSTINC_4xWIDTH(3u << 14);    /*!< 2 source elements increment */
 constexpr inline std::uint32_t kXFERCOUNT_MASK{0x3FF << 16}; /*!< XFER count mask */
 /**
  * @brief Format Set abort operation bit for DMA channels

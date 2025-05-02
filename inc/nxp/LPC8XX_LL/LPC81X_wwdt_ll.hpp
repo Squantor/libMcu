@@ -14,15 +14,15 @@
 namespace libmcull::sw::wwdt {
 using namespace libmcuhw::wwdt;
 template <libmcu::wwdtBaseAddress wwdtAddress_>
-struct wwdt {
+struct Wwdt {
   static constexpr libmcu::hwAddressType wwdtAddress = wwdtAddress_; /*!< peripheral address */
   /**
    * @brief get registers from peripheral
    *
    * @return return pointer to windowed watchdog registers
    */
-  static libmcuhw::wwdt::wwdt *wwdtPeripheral() {
-    return reinterpret_cast<libmcuhw::wwdt::wwdt *>(wwdtAddress);
+  static libmcuhw::wwdt::Wwdt *wwdtPeripheral() {
+    return reinterpret_cast<libmcuhw::wwdt::Wwdt *>(wwdtAddress);
   }
 };
 }  // namespace libmcull::sw::wwdt

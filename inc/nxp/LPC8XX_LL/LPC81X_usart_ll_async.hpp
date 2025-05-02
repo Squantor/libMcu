@@ -187,8 +187,8 @@ struct usartAsync : libmcu::PeripheralBase {
    *
    * @return return pointer to usart registers
    */
-  static libmcuhw::usart::usart *usartPeripheral() {
-    return reinterpret_cast<libmcuhw::usart::usart *>(usartAddress);
+  static libmcuhw::usart::Usart *usartPeripheral() {
+    return reinterpret_cast<libmcuhw::usart::Usart *>(usartAddress);
   }
 
  private:

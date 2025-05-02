@@ -15,7 +15,7 @@ namespace libmcuhw::capt {
 /**
  * @brief CAPT register definitions
  */
-struct capt {
+struct Capt {
   volatile std::uint32_t CTRL;          /*!< Configuration and control */
   volatile std::uint32_t STATUS;        /*!< Status from triggers and time-outs */
   volatile std::uint32_t POLL_TCNT;     /*!< Polling counter and measurement counter rules */

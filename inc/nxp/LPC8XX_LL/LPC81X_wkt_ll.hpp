@@ -20,8 +20,8 @@ struct wkt {
    *
    * @return return pointer to wkt registers
    */
-  static libmcuhw::wkt::wkt *wktPeripheral() {
-    return reinterpret_cast<libmcuhw::wkt::wkt *>(wktAddress);
+  static libmcuhw::wkt::Wkt *wktPeripheral() {
+    return reinterpret_cast<libmcuhw::wkt::Wkt *>(wktAddress);
   }
 
  private:

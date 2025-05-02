@@ -15,6 +15,6 @@ namespace libmcuhw::faim {
 /**
  * @brief fast init memory register definitions
  */
-struct faim {};
+struct Faim {};
 }  // namespace libmcuhw::faim
 #endif

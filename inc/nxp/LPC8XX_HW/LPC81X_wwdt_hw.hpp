@@ -16,7 +16,7 @@ namespace libmcuhw::wwdt {
 /**
  * @brief windowed watchdog register definitions
  */
-struct wwdt {
+struct Wwdt {
   volatile std::uint32_t MOD;      /*!< basic mode and status register */
   volatile std::uint32_t TC;       /*!< time-out value register */
   volatile std::uint32_t FEED;     /*!< Writing 0xAA followed by 0x55 reloads the Watchdog timer */

@@ -84,17 +84,17 @@ enum class HardwareDescriptors : std::uint32_t {
  * @brief DMA burst sizes
  */
 enum class BurstSizes : std::uint32_t {
-  k1 = hardware::CFG::BURSTSIZE_1,      /*!< Burst size of 1 */
-  k2 = hardware::CFG::BURSTSIZE_2,      /*!< Burst size of 2 */
-  k4 = hardware::CFG::BURSTSIZE_4,      /*!< Burst size of 4 */
-  k8 = hardware::CFG::BURSTSIZE_8,      /*!< Burst size of 8 */
-  k16 = hardware::CFG::BURSTSIZE_16,    /*!< Burst size of 16 */
-  k32 = hardware::CFG::BURSTSIZE_32,    /*!< Burst size of 32 */
-  k64 = hardware::CFG::BURSTSIZE_64,    /*!< Burst size of 64 */
-  k128 = hardware::CFG::BURSTSIZE_128,  /*!< Burst size of 128 */
-  k256 = hardware::CFG::BURSTSIZE_256,  /*!< Burst size of 256 */
-  k512 = hardware::CFG::BURSTSIZE_512,  /*!< Burst size of 512 */
-  k1024 = hardware::CFG::BURSTSIZE_1024 /*!< Burst size of 1024 */
+  k1 = hardware::CFG::kBURSTSIZE_1,      /*!< Burst size of 1 */
+  k2 = hardware::CFG::kBURSTSIZE_2,      /*!< Burst size of 2 */
+  k4 = hardware::CFG::kBURSTSIZE_4,      /*!< Burst size of 4 */
+  k8 = hardware::CFG::kBURSTSIZE_8,      /*!< Burst size of 8 */
+  k16 = hardware::CFG::kBURSTSIZE_16,    /*!< Burst size of 16 */
+  k32 = hardware::CFG::kBURSTSIZE_32,    /*!< Burst size of 32 */
+  k64 = hardware::CFG::kBURSTSIZE_64,    /*!< Burst size of 64 */
+  k128 = hardware::CFG::kBURSTSIZE_128,  /*!< Burst size of 128 */
+  k256 = hardware::CFG::kBURSTSIZE_256,  /*!< Burst size of 256 */
+  k512 = hardware::CFG::kBURSTSIZE_512,  /*!< Burst size of 512 */
+  k1024 = hardware::CFG::kBURSTSIZE_1024 /*!< Burst size of 1024 */
 };
 
 /**
@@ -104,83 +104,83 @@ enum class TriggerConfigs : std::uint32_t {
   /*!< No trigger configuration */
   kNone = 0u,
   /*!< Falling edge trigger */
-  kFallingEdge = hardware::CFG::HWTRIGEN,
+  kFallingEdge = hardware::CFG::kHWTRIGEN,
   /*!< Rising edge trigger */
-  kRisingEdge = hardware::CFG::HWTRIGEN | hardware::CFG::TRIGPOL,
+  kRisingEdge = hardware::CFG::kHWTRIGEN | hardware::CFG::kTRIGPOL,
   /*!< Low level trigger */
-  kLowLevel = hardware::CFG::HWTRIGEN | hardware::CFG::TRIGTYPE,
+  kLowLevel = hardware::CFG::kHWTRIGEN | hardware::CFG::kTRIGTYPE,
   /*!< High level trigger */
-  kHighLevel = hardware::CFG::HWTRIGEN | hardware::CFG::TRIGTYPE | hardware::CFG::TRIGPOL,
+  kHighLevel = hardware::CFG::kHWTRIGEN | hardware::CFG::kTRIGTYPE | hardware::CFG::kTRIGPOL,
   /*!< Falling edge trigger with burst transfer enabled */
-  kFallingEdgeBurst = hardware::CFG::HWTRIGEN | hardware::CFG::TRIGBURST,
+  kFallingEdgeBurst = hardware::CFG::kHWTRIGEN | hardware::CFG::kTRIGBURST,
   /*!< Rising edge trigger with burst transfer enabled */
-  kRisingEdgeBurst = hardware::CFG::HWTRIGEN | hardware::CFG::TRIGBURST | hardware::CFG::TRIGPOL,
+  kRisingEdgeBurst = hardware::CFG::kHWTRIGEN | hardware::CFG::kTRIGBURST | hardware::CFG::kTRIGPOL,
   /*!< Low level trigger with burst transfer enabled */
-  kLowLevelBurst = hardware::CFG::HWTRIGEN | hardware::CFG::TRIGBURST | hardware::CFG::TRIGTYPE,
+  kLowLevelBurst = hardware::CFG::kHWTRIGEN | hardware::CFG::kTRIGBURST | hardware::CFG::kTRIGTYPE,
   /*!< High level trigger with burst transfer enabled */
-  kHighLevelBurst = hardware::CFG::HWTRIGEN | hardware::CFG::TRIGBURST | hardware::CFG::TRIGTYPE | hardware::CFG::TRIGPOL
+  kHighLevelBurst = hardware::CFG::kHWTRIGEN | hardware::CFG::kTRIGBURST | hardware::CFG::kTRIGTYPE | hardware::CFG::kTRIGPOL
 };
 /**
  * @brief DMA channel priorities
  */
 enum class ChannelPrios : std::uint32_t {
-  kHighest = hardware::CFG::CHPRIO_0,
-  k0 = hardware::CFG::CHPRIO_0,
-  k1 = hardware::CFG::CHPRIO_1,
-  k2 = hardware::CFG::CHPRIO_2,
-  k3 = hardware::CFG::CHPRIO_3,
-  k4 = hardware::CFG::CHPRIO_4,
-  k5 = hardware::CFG::CHPRIO_5,
-  k6 = hardware::CFG::CHPRIO_6,
-  k7 = hardware::CFG::CHPRIO_7,
-  kLowest = hardware::CFG::CHPRIO_7,
+  kHighest = hardware::CFG::kCHPRIO_0,
+  k0 = hardware::CFG::kCHPRIO_0,
+  k1 = hardware::CFG::kCHPRIO_1,
+  k2 = hardware::CFG::kCHPRIO_2,
+  k3 = hardware::CFG::kCHPRIO_3,
+  k4 = hardware::CFG::kCHPRIO_4,
+  k5 = hardware::CFG::kCHPRIO_5,
+  k6 = hardware::CFG::kCHPRIO_6,
+  k7 = hardware::CFG::kCHPRIO_7,
+  kLowest = hardware::CFG::kCHPRIO_7,
 };
 /**
  * @brief interrupt flag set options
  */
 enum class InterruptFlags : std::uint32_t {
   kNone = 0u,
-  kSetA = hardware::XFERCFG::SETINTA,
-  kSetB = hardware::XFERCFG::SETINTB,
-  kSetAB = hardware::XFERCFG::SETINTA | hardware::XFERCFG::SETINTB,
+  kSetA = hardware::XFERCFG::kSETINTA,
+  kSetB = hardware::XFERCFG::kSETINTB,
+  kSetAB = hardware::XFERCFG::kSETINTA | hardware::XFERCFG::kSETINTB,
 };
 /**
  * @brief Transfer bit widths
  */
 enum class TransferSizes : std::uint32_t {
-  k8Bit = hardware::XFERCFG::WIDTH_8BIT,
-  k16Bit = hardware::XFERCFG::WIDTH_16BIT,
-  k32Bit = hardware::XFERCFG::WIDTH_32BIT,
+  k8Bit = hardware::XFERCFG::kWIDTH_8BIT,
+  k16Bit = hardware::XFERCFG::kWIDTH_16BIT,
+  k32Bit = hardware::XFERCFG::kWIDTH_32BIT,
 };
 /**
  * @brief Source increments
  */
 enum class SrcIncrements : std::uint32_t {
-  k0 = hardware::XFERCFG::SRCINC_NONE,
-  k1 = hardware::XFERCFG::SRCINC_1xWIDTH,
-  k2 = hardware::XFERCFG::SRCINC_2xWIDTH,
-  k4 = hardware::XFERCFG::SRCINC_4xWIDTH
+  k0 = hardware::XFERCFG::kSRCINC_NONE,
+  k1 = hardware::XFERCFG::kSRCINC_1xWIDTH,
+  k2 = hardware::XFERCFG::kSRCINC_2xWIDTH,
+  k4 = hardware::XFERCFG::kSRCINC_4xWIDTH
 };
 /**
  * @brief Destination increments
  */
 enum class DstIncrements : std::uint32_t {
-  k0 = hardware::XFERCFG::DSTINC_NONE,
-  k1 = hardware::XFERCFG::DSTINC_1xWIDTH,
-  k2 = hardware::XFERCFG::DSTINC_2xWIDTH,
-  k4 = hardware::XFERCFG::DSTINC_4xWIDTH
+  k0 = hardware::XFERCFG::kDSTINC_NONE,
+  k1 = hardware::XFERCFG::kDSTINC_1xWIDTH,
+  k2 = hardware::XFERCFG::kDSTINC_2xWIDTH,
+  k4 = hardware::XFERCFG::kDSTINC_4xWIDTH
 };
 
 /**
  * @brief DMA low level interface class
  * @tparam dmaAddress_ address of the Input multiplexer peripheral
  */
-template <libmcu::dmaBaseAddress dmaAddress>
+template <libmcu::dmaBaseAddress dma_address>
 struct Dma : libmcu::PeripheralBase {
   constexpr void Init() {
     descriptors_.fill({0, 0, 0, nullptr});
     DmaPeripheral()->SRAMBASE = reinterpret_cast<std::uint32_t>(descriptors_.data());
-    DmaPeripheral()->CTRL = hardware::CTRL::ENABLE;
+    DmaPeripheral()->CTRL = hardware::CTRL::kENABLE;
   }
   /**
    * @brief Configures a DMA channel descriptor
@@ -261,9 +261,9 @@ struct Dma : libmcu::PeripheralBase {
     std::uint32_t cfg_register = static_cast<std::uint32_t>(trigger_config) | static_cast<std::uint32_t>(burst_size);
 
     if (src_burst_wrap)
-      cfg_register |= hardware::CFG::SRCBURSTWRAP;
+      cfg_register |= hardware::CFG::kSRCBURSTWRAP;
     if (dest_burst_wrap)
-      cfg_register |= hardware::CFG::DSTBURSTWRAP;
+      cfg_register |= hardware::CFG::kDSTBURSTWRAP;
     cfg_register |= static_cast<std::uint32_t>(prio);
 
     DmaPeripheral()->CHANNEL[index].CFG = cfg_register;
@@ -282,12 +282,12 @@ struct Dma : libmcu::PeripheralBase {
                                   bool src_burst_wrap, bool dest_burst_wrap, ChannelPrios prio) {
     std::size_t index = static_cast<std::size_t>(hardware_channel);
     std::uint32_t cfg_register =
-      static_cast<std::uint32_t>(trigger_config) | static_cast<std::uint32_t>(burst_size) | hardware::CFG::PERIPHREQEN;
+      static_cast<std::uint32_t>(trigger_config) | static_cast<std::uint32_t>(burst_size) | hardware::CFG::kPERIPHREQEN;
 
     if (src_burst_wrap)
-      cfg_register |= hardware::CFG::SRCBURSTWRAP;
+      cfg_register |= hardware::CFG::kSRCBURSTWRAP;
     if (dest_burst_wrap)
-      cfg_register |= hardware::CFG::DSTBURSTWRAP;
+      cfg_register |= hardware::CFG::kDSTBURSTWRAP;
     cfg_register |= static_cast<std::uint32_t>(prio);
 
     DmaPeripheral()->CHANNEL[index].CFG = cfg_register;
@@ -307,12 +307,12 @@ struct Dma : libmcu::PeripheralBase {
                                    InterruptFlags int_flags, TransferSizes bits, SrcIncrements src_inc, DstIncrements dst_inc,
                                    std::size_t count) {
     std::size_t index = static_cast<std::size_t>(software_channel);
-    std::uint32_t xfercfg_register = hardware::XFERCFG::XFERCOUNT(count) | hardware::XFERCFG::SWTRIG;
+    std::uint32_t xfercfg_register = hardware::XFERCFG::XFERCOUNT(count) | hardware::XFERCFG::kSWTRIG;
 
     if (reload)
-      xfercfg_register |= hardware::XFERCFG::RELOAD_MASK;
+      xfercfg_register |= hardware::XFERCFG::kRELOAD_MASK;
     if (clear_trig_exhaust)
-      xfercfg_register |= hardware::XFERCFG::CLRTRIG;
+      xfercfg_register |= hardware::XFERCFG::kCLRTRIG;
     xfercfg_register |= static_cast<std::uint32_t>(int_flags);
     xfercfg_register |= static_cast<std::uint32_t>(bits);
     xfercfg_register |= static_cast<std::uint32_t>(src_inc);
@@ -338,9 +338,9 @@ struct Dma : libmcu::PeripheralBase {
     std::uint32_t xfercfg_register = hardware::XFERCFG::XFERCOUNT(count);
 
     if (reload)
-      xfercfg_register |= hardware::XFERCFG::RELOAD_MASK;
+      xfercfg_register |= hardware::XFERCFG::kRELOAD_MASK;
     if (clear_trig_exhaust)
-      xfercfg_register |= hardware::XFERCFG::CLRTRIG;
+      xfercfg_register |= hardware::XFERCFG::kCLRTRIG;
     xfercfg_register |= static_cast<std::uint32_t>(int_flags);
     xfercfg_register |= static_cast<std::uint32_t>(bits);
     xfercfg_register |= static_cast<std::uint32_t>(src_inc);
@@ -441,11 +441,11 @@ struct Dma : libmcu::PeripheralBase {
    * @brief get registers from peripheral
    * @return return pointer to peripheral registers
    */
-  constexpr static hardware::dma *DmaPeripheral() {
-    return reinterpret_cast<hardware::dma *>(dmaAddress_);
+  constexpr static hardware::Dma *DmaPeripheral() {
+    return reinterpret_cast<hardware::Dma *>(dmaAddress_);
   }
 
-  static constexpr libmcu::hwAddressType dmaAddress_ = dmaAddress; /*!< peripheral address */
+  static constexpr libmcu::hwAddressType dmaAddress_ = dma_address; /*!< peripheral address */
   alignas(512) DescriptorTable descriptors_;
 };
 

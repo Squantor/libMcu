@@ -16,7 +16,7 @@ namespace libmcuhw::usart {
 /**
  * @brief USART register definitions
  */
-struct usart {
+struct Usart {
   volatile std::uint32_t CFG;             /*!< USART Configuration register. */
   volatile std::uint32_t CTL;             /*!< USART Control register. */
   volatile std::uint32_t STAT;            /*!< USART Status register. */

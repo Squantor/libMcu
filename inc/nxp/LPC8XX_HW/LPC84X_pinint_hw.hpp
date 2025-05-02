@@ -15,7 +15,7 @@ namespace libmcuhw::pinint {
 /**
  * @brief PININT register definitions
  */
-struct pinint {
+struct Pinint {
   volatile std::uint32_t ISEL;   /*!< Pin Interrupt Mode register */
   volatile std::uint32_t IENR;   /*!< Pin interrupt level or rising edge interrupt enable register */
   volatile std::uint32_t SIENR;  /*!< Pin interrupt level or rising edge interrupt set register */

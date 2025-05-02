@@ -23,8 +23,8 @@ enum class subCounter : std::uint32_t {
   LOWER,  /*!< Lower counter */
 };
 enum class counterMode : std::uint32_t {
-  UNIFIED = hardware::CONFIG::UNIFY, /*!< 32 bit combined counter*/
-  SPLIT = 0,                         /*!< split into two 16 bit counter */
+  UNIFIED = hardware::CONFIG::kUNIFY, /*!< 32 bit combined counter*/
+  SPLIT = 0,                          /*!< split into two 16 bit counter */
 };
 /**
  * @brief Match indices
@@ -88,43 +88,43 @@ constexpr inline std::uint32_t STATE7{1u << 7}; /*!< Mask for state 7 */
  * @brief I/O conditions for I/O events
  */
 enum class ioEventConditions : std::size_t {
-  LOW = hardware::EV_CTRL::IOCOND_LOW,   /*!< Low level I/O condition */
-  RISE = hardware::EV_CTRL::IOCOND_RISE, /*!< Rising edge I/O condition */
-  FALL = hardware::EV_CTRL::IOCOND_FALL, /*!< Falling edge I/O condition */
-  HIGH = hardware::EV_CTRL::IOCOND_HIGH, /*!< High level I/O condition */
+  LOW = hardware::EV_CTRL::kIOCOND_LOW,   /*!< Low level I/O condition */
+  RISE = hardware::EV_CTRL::kIOCOND_RISE, /*!< Rising edge I/O condition */
+  FALL = hardware::EV_CTRL::kIOCOND_FALL, /*!< Falling edge I/O condition */
+  HIGH = hardware::EV_CTRL::kIOCOND_HIGH, /*!< High level I/O condition */
 };
 /**
  * @brief I/O and match event combinations
  */
 enum class eventCombineModes : std::size_t {
-  OR = hardware::EV_CTRL::COMBMODE_OR,       /*!< Match or I/O condition */
-  MATCH = hardware::EV_CTRL::COMBMODE_MATCH, /*!< Match only condition */
-  IO = hardware::EV_CTRL::COMBMODE_IO,       /*!< I/O only condition */
-  AND = hardware::EV_CTRL::COMBMODE_AND,     /*!< Match and I/O condition */
+  OR = hardware::EV_CTRL::kCOMBMODE_OR,       /*!< Match or I/O condition */
+  MATCH = hardware::EV_CTRL::kCOMBMODE_MATCH, /*!< Match only condition */
+  IO = hardware::EV_CTRL::kCOMBMODE_IO,       /*!< I/O only condition */
+  AND = hardware::EV_CTRL::kCOMBMODE_AND,     /*!< Match and I/O condition */
 };
 /**
  * @brief Counting directions
  */
 enum class eventCountingDirections : std::uint32_t {
-  BIDI = hardware::EV_CTRL::DIRECTION_BIDI, /*!< event triggers in both counting directions */
-  UP = hardware::EV_CTRL::DIRECTION_UP,     /*!< event triggers in up counting */
-  DOWN = hardware::EV_CTRL::DIRECTION_DOWN, /*!< event triggers in down counting */
+  BIDI = hardware::EV_CTRL::kDIRECTION_BIDI, /*!< event triggers in both counting directions */
+  UP = hardware::EV_CTRL::kDIRECTION_UP,     /*!< event triggers in up counting */
+  DOWN = hardware::EV_CTRL::kDIRECTION_DOWN, /*!< event triggers in down counting */
 };
 /**
  * @brief SCT low level interface class
  * @tparam sctAddress_ address of the SCT peripheral
  */
 template <libmcu::sctBaseAddress sctAddress_>
-struct sct : libmcu::PeripheralBase {
+struct Sct : libmcu::PeripheralBase {
   constexpr static void init(counterMode mode, bool bidirectional = true, bool autolimit = true) {
     std::uint32_t configRegister = static_cast<std::uint32_t>(mode);
-    std::uint32_t ctrlRegister = hardware::CTRL::HALT_L | hardware::CTRL::HALT_H;
+    std::uint32_t ctrlRegister = hardware::CTRL::kHALT_L | hardware::CTRL::kHALT_H;
     sctPeripheral()->CTRL = ctrlRegister;
     sctPeripheral()->COUNT = 0;
     if (autolimit)
-      configRegister |= hardware::CONFIG::AUTOLIMIT_L | hardware::CONFIG::AUTOLIMIT_H;
+      configRegister |= hardware::CONFIG::kAUTOLIMIT_L | hardware::CONFIG::kAUTOLIMIT_H;
     if (bidirectional)
-      ctrlRegister |= hardware::CTRL::BIDIR_L | hardware::CTRL::BIDIR_H;
+      ctrlRegister |= hardware::CTRL::kBIDIR_L | hardware::CTRL::kBIDIR_H;
     sctPeripheral()->CONFIG = configRegister;
     sctPeripheral()->CTRL = ctrlRegister;
   }
@@ -200,10 +200,10 @@ struct sct : libmcu::PeripheralBase {
     switch (counter) {
       case subCounter::UNITED:
       case subCounter::LOWER:
-        sctPeripheral()->CTRL = sctPeripheral()->CTRL & ~hardware::CTRL::HALT_L;
+        sctPeripheral()->CTRL = sctPeripheral()->CTRL & ~hardware::CTRL::kHALT_L;
         break;
       case subCounter::UPPER:
-        sctPeripheral()->CTRL = sctPeripheral()->CTRL & ~hardware::CTRL::HALT_H;
+        sctPeripheral()->CTRL = sctPeripheral()->CTRL & ~hardware::CTRL::kHALT_H;
         break;
     }
   }
@@ -215,10 +215,10 @@ struct sct : libmcu::PeripheralBase {
     switch (counter) {
       case subCounter::UNITED:
       case subCounter::LOWER:
-        sctPeripheral()->CTRL = sctPeripheral()->CTRL | hardware::CTRL::HALT_L;
+        sctPeripheral()->CTRL = sctPeripheral()->CTRL | hardware::CTRL::kHALT_L;
         break;
       case subCounter::UPPER:
-        sctPeripheral()->CTRL = sctPeripheral()->CTRL | hardware::CTRL::HALT_H;
+        sctPeripheral()->CTRL = sctPeripheral()->CTRL | hardware::CTRL::kHALT_H;
         break;
     }
   }
@@ -295,15 +295,15 @@ struct sct : libmcu::PeripheralBase {
       case subCounter::UNITED:
         break;
       case subCounter::UPPER:
-        eventRegister = eventRegister | hardware::EV_CTRL::HEVENT;
+        eventRegister = eventRegister | hardware::EV_CTRL::kHEVENT;
         break;
     }
     if (output)
-      eventRegister = eventRegister | hardware::EV_CTRL::OUTSEL;
+      eventRegister = eventRegister | hardware::EV_CTRL::kOUTSEL;
     if (stateLoad)
-      eventRegister = eventRegister | hardware::EV_CTRL::STATELD;
+      eventRegister = eventRegister | hardware::EV_CTRL::kSTATELD;
     if (matchGreater)
-      eventRegister = eventRegister | hardware::EV_CTRL::MATCHMEM;
+      eventRegister = eventRegister | hardware::EV_CTRL::kMATCHMEM;
     sctPeripheral()->EV[index].CTRL = eventRegister;
     sctPeripheral()->EV[index].STATE = stateMask;
   }
@@ -312,8 +312,8 @@ struct sct : libmcu::PeripheralBase {
    * @brief get registers from peripheral
    * @return return pointer to state configurable timer registers
    */
-  constexpr static hardware::sct *sctPeripheral() {
-    return reinterpret_cast<hardware::sct *>(sctAddress);
+  constexpr static hardware::Sct *sctPeripheral() {
+    return reinterpret_cast<hardware::Sct *>(sctAddress);
   }
 
  private:

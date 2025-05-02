@@ -15,7 +15,7 @@ namespace libmcuhw::fmc {
 /**
  * @brief FMC register definitions
  */
-struct fmc {
+struct Fmc {
   std::uint8_t RESERVED_0[16];            /*!< Reserved */
   volatile std::uint32_t FLASHCFG;        /*!< Flash configuration register */
   std::uint8_t RESERVED_1[12];            /*!< Reserved */

@@ -15,7 +15,7 @@ namespace libmcuhw::ctimer {
 /**
  * @brief Ctimer register definitions
  */
-struct ctimer {
+struct Ctimer {
   volatile std::uint32_t IR;          /*!< Interrupt Register */
   volatile std::uint32_t TCR;         /*!< Timer Control Register */
   volatile std::uint32_t TC;          /*!< Timer Counter */

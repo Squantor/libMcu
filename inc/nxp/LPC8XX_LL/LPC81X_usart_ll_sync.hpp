@@ -91,8 +91,8 @@ struct usartSync : libmcu::PeripheralBase {
    *
    * @return return pointer to usart registers
    */
-  constexpr static libmcuhw::usart::usart *usartPeripheral() {
-    return reinterpret_cast<libmcuhw::usart::usart *>(usartAddress);
+  constexpr static libmcuhw::usart::Usart *usartPeripheral() {
+    return reinterpret_cast<libmcuhw::usart::Usart *>(usartAddress);
   }
 
  private:

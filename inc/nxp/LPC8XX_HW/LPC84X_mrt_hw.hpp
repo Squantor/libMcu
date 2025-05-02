@@ -16,7 +16,7 @@ namespace libmcuhw::mrt {
 /**
  * @brief multi rate timer register definitions
  */
-struct mrt {
+struct Mrt {
   struct {                              /*  */
     volatile std::uint32_t INTVAL;      /*!< MRT Time interval value register */
     volatile const std::uint32_t TIMER; /*!< MRT Timer register */

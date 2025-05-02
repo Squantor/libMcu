@@ -15,7 +15,7 @@ namespace libmcuhw::pmu {
 /**
  * @brief PMU register definitions
  */
-struct pmu {
+struct Pmu {
   volatile std::uint32_t PCON;     /*!< Power control register */
   volatile std::uint32_t GPREG[4]; /*!< General purpose register N */
   volatile std::uint32_t DPDCTRL;  /*!< Deep power-down control register */

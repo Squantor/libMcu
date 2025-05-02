@@ -612,7 +612,7 @@ struct pinFunction<pinFunctions::kVddCmp> {
  * @brief SWM register definitions
  *
  */
-struct swm {
+struct Swm {
   volatile std::uint32_t PINASSIGN[9];   /*!< Pin Assign register array */
   volatile std::uint32_t RESERVED0[103]; /*!< reserved*/
   volatile std::uint32_t PINENABLE0;     /*!< Pin Enable register */
