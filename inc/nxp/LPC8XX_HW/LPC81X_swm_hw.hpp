@@ -94,7 +94,7 @@ enum functionFixed : std::uint16_t {
 /**
  * @brief
  */
-enum class pinFunctions : std::uint8_t {
+enum class PinFunctions : std::uint8_t {
   kUart0TxOut,     /*!< UART0 TXD Output */
   kUart0RxIn,      /*!< UART0 RXD Input */
   kUart0RtsOut,    /*!< UART0 RTS Output */
@@ -154,8 +154,8 @@ enum class pinFunctionTypes : std::uint8_t {
  * @tparam T_FUNC pin function
  * @tparam DUMMY  needed for the static_assert
  */
-template <pinFunctions T_FUNC, bool DUMMY = false>
-struct pinFunction {
+template <PinFunctions T_FUNC, bool DUMMY = false>
+struct PinFunction {
   static_assert(DUMMY, "This configuration is invalid!");
 };
 /**
@@ -163,7 +163,7 @@ struct pinFunction {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::kUart0TxOut> {
+struct PinFunction<PinFunctions::kUart0TxOut> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::kMovable};
   static constexpr std::uint8_t index{0u};
   static constexpr std::uint8_t shift{0u};
@@ -173,7 +173,7 @@ struct pinFunction<pinFunctions::kUart0TxOut> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::kUart0RxIn> {
+struct PinFunction<PinFunctions::kUart0RxIn> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::kMovable};
   static constexpr std::uint8_t index{0u};
   static constexpr std::uint8_t shift{8u};
@@ -183,7 +183,7 @@ struct pinFunction<pinFunctions::kUart0RxIn> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::kUart0RtsOut> {
+struct PinFunction<PinFunctions::kUart0RtsOut> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::kMovable};
   static constexpr std::uint8_t index{0u};
   static constexpr std::uint8_t shift{16u};
@@ -193,7 +193,7 @@ struct pinFunction<pinFunctions::kUart0RtsOut> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::kUart0CtsIn> {
+struct PinFunction<PinFunctions::kUart0CtsIn> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::kMovable};
   static constexpr std::uint8_t index{0u};
   static constexpr std::uint8_t shift{24u};
@@ -203,7 +203,7 @@ struct pinFunction<pinFunctions::kUart0CtsIn> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::kUart0SclkInOut> {
+struct PinFunction<PinFunctions::kUart0SclkInOut> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::kMovable};
   static constexpr std::uint8_t index{1u};
   static constexpr std::uint8_t shift{0u};
@@ -213,7 +213,7 @@ struct pinFunction<pinFunctions::kUart0SclkInOut> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::kUart1TxOut> {
+struct PinFunction<PinFunctions::kUart1TxOut> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::kMovable};
   static constexpr std::uint8_t index{1u};
   static constexpr std::uint8_t shift{8u};
@@ -223,7 +223,7 @@ struct pinFunction<pinFunctions::kUart1TxOut> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::kUart1RxIn> {
+struct PinFunction<PinFunctions::kUart1RxIn> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::kMovable};
   static constexpr std::uint8_t index{1u};
   static constexpr std::uint8_t shift{16u};
@@ -233,7 +233,7 @@ struct pinFunction<pinFunctions::kUart1RxIn> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::kUart1RtsOut> {
+struct PinFunction<PinFunctions::kUart1RtsOut> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::kMovable};
   static constexpr std::uint8_t index{1u};
   static constexpr std::uint8_t shift{24u};
@@ -243,7 +243,7 @@ struct pinFunction<pinFunctions::kUart1RtsOut> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::kUart1CtsIn> {
+struct PinFunction<PinFunctions::kUart1CtsIn> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::kMovable};
   static constexpr std::uint8_t index{2u};
   static constexpr std::uint8_t shift{0u};
@@ -253,7 +253,7 @@ struct pinFunction<pinFunctions::kUart1CtsIn> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::kUart1SclkInOut> {
+struct PinFunction<PinFunctions::kUart1SclkInOut> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::kMovable};
   static constexpr std::uint8_t index{2u};
   static constexpr std::uint8_t shift{8u};
@@ -263,7 +263,7 @@ struct pinFunction<pinFunctions::kUart1SclkInOut> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::kUart2TxOut> {
+struct PinFunction<PinFunctions::kUart2TxOut> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::kMovable};
   static constexpr std::uint8_t index{2u};
   static constexpr std::uint8_t shift{16u};
@@ -273,7 +273,7 @@ struct pinFunction<pinFunctions::kUart2TxOut> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::kUart2RxIn> {
+struct PinFunction<PinFunctions::kUart2RxIn> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::kMovable};
   static constexpr std::uint8_t index{2u};
   static constexpr std::uint8_t shift{24u};
@@ -283,7 +283,7 @@ struct pinFunction<pinFunctions::kUart2RxIn> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::kUart2RtsOut> {
+struct PinFunction<PinFunctions::kUart2RtsOut> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::kMovable};
   static constexpr std::uint8_t index{3u};
   static constexpr std::uint8_t shift{0u};
@@ -293,7 +293,7 @@ struct pinFunction<pinFunctions::kUart2RtsOut> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::kUart2CtsIn> {
+struct PinFunction<PinFunctions::kUart2CtsIn> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::kMovable};
   static constexpr std::uint8_t index{3u};
   static constexpr std::uint8_t shift{8u};
@@ -303,7 +303,7 @@ struct pinFunction<pinFunctions::kUart2CtsIn> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::kUart2SclkInOut> {
+struct PinFunction<PinFunctions::kUart2SclkInOut> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::kMovable};
   static constexpr std::uint8_t index{3u};
   static constexpr std::uint8_t shift{16u};
@@ -313,7 +313,7 @@ struct pinFunction<pinFunctions::kUart2SclkInOut> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::kSpi0SckInOut> {
+struct PinFunction<PinFunctions::kSpi0SckInOut> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::kMovable};
   static constexpr std::uint8_t index{3u};
   static constexpr std::uint8_t shift{24u};
@@ -323,7 +323,7 @@ struct pinFunction<pinFunctions::kSpi0SckInOut> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::kSpi0MosiInOut> {
+struct PinFunction<PinFunctions::kSpi0MosiInOut> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::kMovable};
   static constexpr std::uint8_t index{4u};
   static constexpr std::uint8_t shift{0u};
@@ -333,7 +333,7 @@ struct pinFunction<pinFunctions::kSpi0MosiInOut> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::kSpi0MisoInOut> {
+struct PinFunction<PinFunctions::kSpi0MisoInOut> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::kMovable};
   static constexpr std::uint8_t index{4u};
   static constexpr std::uint8_t shift{8u};
@@ -343,7 +343,7 @@ struct pinFunction<pinFunctions::kSpi0MisoInOut> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::kSpi0SselInOut> {
+struct PinFunction<PinFunctions::kSpi0SselInOut> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::kMovable};
   static constexpr std::uint8_t index{4u};
   static constexpr std::uint8_t shift{16u};
@@ -353,7 +353,7 @@ struct pinFunction<pinFunctions::kSpi0SselInOut> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::kSpi1SckInOut> {
+struct PinFunction<PinFunctions::kSpi1SckInOut> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::kMovable};
   static constexpr std::uint8_t index{4u};
   static constexpr std::uint8_t shift{24u};
@@ -363,7 +363,7 @@ struct pinFunction<pinFunctions::kSpi1SckInOut> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::kSpi1MosiInOut> {
+struct PinFunction<PinFunctions::kSpi1MosiInOut> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::kMovable};
   static constexpr std::uint8_t index{5u};
   static constexpr std::uint8_t shift{0u};
@@ -373,7 +373,7 @@ struct pinFunction<pinFunctions::kSpi1MosiInOut> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::kSpi1MisoInOut> {
+struct PinFunction<PinFunctions::kSpi1MisoInOut> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::kMovable};
   static constexpr std::uint8_t index{5u};
   static constexpr std::uint8_t shift{8u};
@@ -383,7 +383,7 @@ struct pinFunction<pinFunctions::kSpi1MisoInOut> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::kSpi1SselInOut> {
+struct PinFunction<PinFunctions::kSpi1SselInOut> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::kMovable};
   static constexpr std::uint8_t index{5u};
   static constexpr std::uint8_t shift{16u};
@@ -393,7 +393,7 @@ struct pinFunction<pinFunctions::kSpi1SselInOut> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::kSct0In0In> {
+struct PinFunction<PinFunctions::kSct0In0In> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::kMovable};
   static constexpr std::uint8_t index{5u};
   static constexpr std::uint8_t shift{24u};
@@ -403,7 +403,7 @@ struct pinFunction<pinFunctions::kSct0In0In> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::kSct0In1In> {
+struct PinFunction<PinFunctions::kSct0In1In> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::kMovable};
   static constexpr std::uint8_t index{6u};
   static constexpr std::uint8_t shift{0u};
@@ -413,7 +413,7 @@ struct pinFunction<pinFunctions::kSct0In1In> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::kSct0In2In> {
+struct PinFunction<PinFunctions::kSct0In2In> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::kMovable};
   static constexpr std::uint8_t index{6u};
   static constexpr std::uint8_t shift{8u};
@@ -423,7 +423,7 @@ struct pinFunction<pinFunctions::kSct0In2In> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::kSct0In3In> {
+struct PinFunction<PinFunctions::kSct0In3In> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::kMovable};
   static constexpr std::uint8_t index{6u};
   static constexpr std::uint8_t shift{16u};
@@ -433,7 +433,7 @@ struct pinFunction<pinFunctions::kSct0In3In> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::kSct0Out0Out> {
+struct PinFunction<PinFunctions::kSct0Out0Out> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::kMovable};
   static constexpr std::uint8_t index{6u};
   static constexpr std::uint8_t shift{24u};
@@ -443,7 +443,7 @@ struct pinFunction<pinFunctions::kSct0Out0Out> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::kSct0Out1Out> {
+struct PinFunction<PinFunctions::kSct0Out1Out> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::kMovable};
   static constexpr std::uint8_t index{7u};
   static constexpr std::uint8_t shift{0u};
@@ -453,7 +453,7 @@ struct pinFunction<pinFunctions::kSct0Out1Out> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::kSct0Out2Out> {
+struct PinFunction<PinFunctions::kSct0Out2Out> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::kMovable};
   static constexpr std::uint8_t index{7u};
   static constexpr std::uint8_t shift{8u};
@@ -463,7 +463,7 @@ struct pinFunction<pinFunctions::kSct0Out2Out> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::kSct0Out3Out> {
+struct PinFunction<PinFunctions::kSct0Out3Out> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::kMovable};
   static constexpr std::uint8_t index{7u};
   static constexpr std::uint8_t shift{16u};
@@ -473,7 +473,7 @@ struct pinFunction<pinFunctions::kSct0Out3Out> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::kI2cSdaInOut> {
+struct PinFunction<PinFunctions::kI2cSdaInOut> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::kMovable};
   static constexpr std::uint8_t index{7u};
   static constexpr std::uint8_t shift{24u};
@@ -483,7 +483,7 @@ struct pinFunction<pinFunctions::kI2cSdaInOut> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::kI2cSclInOut> {
+struct PinFunction<PinFunctions::kI2cSclInOut> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::kMovable};
   static constexpr std::uint8_t index{8u};
   static constexpr std::uint8_t shift{0u};
@@ -493,7 +493,7 @@ struct pinFunction<pinFunctions::kI2cSclInOut> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::kAcmpOut> {
+struct PinFunction<PinFunctions::kAcmpOut> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::kMovable};
   static constexpr std::uint8_t index{8u};
   static constexpr std::uint8_t shift{8u};
@@ -503,7 +503,7 @@ struct pinFunction<pinFunctions::kAcmpOut> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::kClkOut> {
+struct PinFunction<PinFunctions::kClkOut> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::kMovable};
   static constexpr std::uint8_t index{8u};
   static constexpr std::uint8_t shift{16u};
@@ -513,7 +513,7 @@ struct pinFunction<pinFunctions::kClkOut> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::kGpioIntBmatOut> {
+struct PinFunction<PinFunctions::kGpioIntBmatOut> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::kMovable};
   static constexpr std::uint8_t index{8u};
   static constexpr std::uint8_t shift{24u};
@@ -523,7 +523,7 @@ struct pinFunction<pinFunctions::kGpioIntBmatOut> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::kAcmpIn1> {
+struct PinFunction<PinFunctions::kAcmpIn1> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::kFixed};
   static constexpr PinAssignments pio{PinAssignments::k0_0};
   static constexpr functionFixed mask{functionFixed::kAcmpIn1};
@@ -533,7 +533,7 @@ struct pinFunction<pinFunctions::kAcmpIn1> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::kAcmpIn2> {
+struct PinFunction<PinFunctions::kAcmpIn2> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::kFixed};
   static constexpr PinAssignments pio{PinAssignments::k0_1};
   static constexpr functionFixed mask{functionFixed::kAcmpIn2};
@@ -543,7 +543,7 @@ struct pinFunction<pinFunctions::kAcmpIn2> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::kSwClk> {
+struct PinFunction<PinFunctions::kSwClk> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::kFixed};
   static constexpr PinAssignments pio{PinAssignments::k0_3};
   static constexpr functionFixed mask{functionFixed::kSwclk};
@@ -553,7 +553,7 @@ struct pinFunction<pinFunctions::kSwClk> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::kSwDio> {
+struct PinFunction<PinFunctions::kSwDio> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::kFixed};
   static constexpr PinAssignments pio{PinAssignments::k0_2};
   static constexpr functionFixed mask{functionFixed::kSwdio};
@@ -563,7 +563,7 @@ struct pinFunction<pinFunctions::kSwDio> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::kXtalIn> {
+struct PinFunction<PinFunctions::kXtalIn> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::kFixed};
   static constexpr PinAssignments pio{PinAssignments::k0_8};
   static constexpr functionFixed mask{functionFixed::kXtalIn};
@@ -573,7 +573,7 @@ struct pinFunction<pinFunctions::kXtalIn> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::kXtalOut> {
+struct PinFunction<PinFunctions::kXtalOut> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::kFixed};
   static constexpr PinAssignments pio{PinAssignments::k0_9};
   static constexpr functionFixed mask{functionFixed::kXtalOut};
@@ -583,7 +583,7 @@ struct pinFunction<pinFunctions::kXtalOut> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::kReset> {
+struct PinFunction<PinFunctions::kReset> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::kFixed};
   static constexpr PinAssignments pio{PinAssignments::k0_5};
   static constexpr functionFixed mask{functionFixed::kReset};
@@ -593,7 +593,7 @@ struct pinFunction<pinFunctions::kReset> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::kClkIn> {
+struct PinFunction<PinFunctions::kClkIn> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::kFixed};
   static constexpr PinAssignments pio{PinAssignments::k0_1};
   static constexpr functionFixed mask{functionFixed::kClkin};
@@ -603,7 +603,7 @@ struct pinFunction<pinFunctions::kClkIn> {
  * @tparam pinfunction specialization
  */
 template <>
-struct pinFunction<pinFunctions::kVddCmp> {
+struct PinFunction<PinFunctions::kVddCmp> {
   static constexpr pinFunctionTypes type{pinFunctionTypes::kFixed};
   static constexpr PinAssignments pio{PinAssignments::k0_6};
   static constexpr functionFixed mask{functionFixed::kVddCmp};

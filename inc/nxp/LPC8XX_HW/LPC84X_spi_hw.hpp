@@ -30,17 +30,17 @@ struct spi {
 };
 namespace CFG {
 constexpr inline std::uint32_t kRESERVED_MASK{0xFBDu}; /*!< register mask for allowed bits */
-constexpr inline std::uint32_t ENABLE{1u << 0};        /*!< SPI enable */
-constexpr inline std::uint32_t MASTER{1u << 2};        /*!< master mode */
-constexpr inline std::uint32_t SLAVE{0u << 2};         /*!< slave mode */
-constexpr inline std::uint32_t LSBF{1u << 3};          /*!< LSB First mode enable */
-constexpr inline std::uint32_t CPHA{1u << 4};          /*!< Clock phase select */
-constexpr inline std::uint32_t CPOL{1u << 5};          /*!< Clock polarity select */
-constexpr inline std::uint32_t LOOP{1u << 7};          /*!< Loopback mode enable */
-constexpr inline std::uint32_t SPOL0{1u << 8};         /*!< SSEL0 Polarity select */
-constexpr inline std::uint32_t SPOL1{1u << 9};         /*!< SSEL1 Polarity select */
-constexpr inline std::uint32_t SPOL2{1u << 10};        /*!< SSEL2 Polarity select */
-constexpr inline std::uint32_t SPOL3{1u << 11};        /*!< SSEL3 Polarity select */
+constexpr inline std::uint32_t kENABLE{1u << 0};       /*!< SPI enable */
+constexpr inline std::uint32_t kMASTER{1u << 2};       /*!< master mode */
+constexpr inline std::uint32_t kSLAVE{0u << 2};        /*!< slave mode */
+constexpr inline std::uint32_t kLSBF{1u << 3};         /*!< LSB First mode enable */
+constexpr inline std::uint32_t kCPHA{1u << 4};         /*!< Clock phase select */
+constexpr inline std::uint32_t kCPOL{1u << 5};         /*!< Clock polarity select */
+constexpr inline std::uint32_t kLOOP{1u << 7};         /*!< Loopback mode enable */
+constexpr inline std::uint32_t kSPOL0{1u << 8};        /*!< SSEL0 Polarity select */
+constexpr inline std::uint32_t kSPOL1{1u << 9};        /*!< SSEL1 Polarity select */
+constexpr inline std::uint32_t kSPOL2{1u << 10};       /*!< SSEL2 Polarity select */
+constexpr inline std::uint32_t kSPOL3{1u << 11};       /*!< SSEL3 Polarity select */
 /**
  * @brief Selects polarity for SSEL0, SSEL1, SSEL2, SSEL3
  * @param selects bit pattern of selects
@@ -87,24 +87,24 @@ constexpr inline std::uint32_t TRANSFER_DELAY(std::uint32_t data) {
 }  // namespace DLY
 namespace STAT {
 constexpr inline std::uint32_t kRESERVED_MASK{0x000001FFu}; /*!< register mask for allowed bits */
-constexpr inline std::uint32_t RXRDY{1 << 0};               /*!< Receiver Ready flag. When 1 data available  */
-constexpr inline std::uint32_t TXRDY{1 << 1};               /*!< Transmitter Ready flag. When 1 data can be written */
-constexpr inline std::uint32_t RXOV{1 << 2};                /*!< Receiver Overrun interrupt flag. Slave mode only */
-constexpr inline std::uint32_t TXUR{1 << 3};                /*!< Transmitter Underrun interrupt flag. Slave mode only */
-constexpr inline std::uint32_t SSA{1 << 4};                 /*!< Slave Select Assert. Set when selected. */
-constexpr inline std::uint32_t SSD{1 << 5};                 /*!< Slave Select Deassert. Set when deselected. */
-constexpr inline std::uint32_t STALLED{1 << 6};             /*!< Stalled status flag. */
-constexpr inline std::uint32_t ENDTRANSFER{1 << 7};         /*!< End Transfer control bit. Force end of current transaction */
-constexpr inline std::uint32_t MSTIDLE{1 << 8};             /*!< Master idle status flag. Master is fully idle */
+constexpr inline std::uint32_t kRXRDY{1 << 0};              /*!< Receiver Ready flag. When 1 data available  */
+constexpr inline std::uint32_t kTXRDY{1 << 1};              /*!< Transmitter Ready flag. When 1 data can be written */
+constexpr inline std::uint32_t kRXOV{1 << 2};               /*!< Receiver Overrun interrupt flag. Slave mode only */
+constexpr inline std::uint32_t kTXUR{1 << 3};               /*!< Transmitter Underrun interrupt flag. Slave mode only */
+constexpr inline std::uint32_t kSSA{1 << 4};                /*!< Slave Select Assert. Set when selected. */
+constexpr inline std::uint32_t kSSD{1 << 5};                /*!< Slave Select Deassert. Set when deselected. */
+constexpr inline std::uint32_t kSTALLED{1 << 6};            /*!< Stalled status flag. */
+constexpr inline std::uint32_t kENDTRANSFER{1 << 7};        /*!< End Transfer control bit. Force end of current transaction */
+constexpr inline std::uint32_t kMSTIDLE{1 << 8};            /*!< Master idle status flag. Master is fully idle */
 }  // namespace STAT
 namespace INTENSET {
 constexpr inline std::uint32_t kRESERVED_MASK{0x0000003Fu}; /*!< register mask for allowed bits */
-constexpr inline std::uint32_t RXRDYEN{1 << 0};             /*!< enable received data available interrupt */
-constexpr inline std::uint32_t TXRDYEN{1 << 1};             /*!< enable write to transmit register interrupt */
-constexpr inline std::uint32_t RXOVEN{1 << 2};              /*!< enable receiver overrun interrupt */
-constexpr inline std::uint32_t TXUREN{1 << 3};              /*!< enable transmitter underrun interrupt */
-constexpr inline std::uint32_t SSAEN{1 << 4};               /*!< enable slave selected interrupt */
-constexpr inline std::uint32_t SSDEN{1 << 5};               /*!< enable slave deselected interrupt */
+constexpr inline std::uint32_t kRXRDYEN{1 << 0};            /*!< enable received data available interrupt */
+constexpr inline std::uint32_t kTXRDYEN{1 << 1};            /*!< enable write to transmit register interrupt */
+constexpr inline std::uint32_t kRXOVEN{1 << 2};             /*!< enable receiver overrun interrupt */
+constexpr inline std::uint32_t kTXUREN{1 << 3};             /*!< enable transmitter underrun interrupt */
+constexpr inline std::uint32_t kSSAEN{1 << 4};              /*!< enable slave selected interrupt */
+constexpr inline std::uint32_t kSSDEN{1 << 5};              /*!< enable slave deselected interrupt */
 }  // namespace INTENSET
 namespace INTENCLR {
 constexpr inline std::uint32_t kRESERVED_MASK = 0x0000003Fu; /*!< register mask for allowed bits */
@@ -120,8 +120,8 @@ constexpr inline std::uint32_t kRESERVED_MASK = 0x001FFFFFu; /*!< register mask 
 constexpr inline std::uint16_t RXDAT(std::uint32_t registerData) {
   return static_cast<std::uint16_t>(registerData & 0xFFFFu);
 }
-constexpr inline std::uint32_t RXSSEL_N{1 << 16}; /*!< Slave 0 selected for receive transaction, zero is active */
-constexpr inline std::uint32_t SOT{1 << 20};      /*!< Start of transfer flag. 1 when SSEL is asserted the first time */
+constexpr inline std::uint32_t kRXSSEL_N{1 << 16}; /*!< Slave 0 selected for receive transaction, zero is active */
+constexpr inline std::uint32_t kSOT{1 << 20};      /*!< Start of transfer flag. 1 when SSEL is asserted the first time */
 }  // namespace RXDAT
 namespace TXDATCTL {
 constexpr inline std::uint32_t kRESERVED_MASK = 0x0F7FFFFFu; /*!< register mask for allowed bits */
@@ -133,13 +133,13 @@ constexpr inline std::uint32_t kRESERVED_MASK = 0x0F7FFFFFu; /*!< register mask 
 constexpr inline std::uint32_t TXDAT(std::uint16_t data) {
   return static_cast<std::uint32_t>(data);
 }
-constexpr inline std::uint32_t TXSSEL0_N{1u << 16}; /*!< This field asserts SSEL0 in master mode.*/
-constexpr inline std::uint32_t TXSSEL1_N{1u << 17}; /*!< This field asserts SSEL1 in master mode.*/
-constexpr inline std::uint32_t TXSSEL2_N{1u << 18}; /*!< This field asserts SSEL2 in master mode.*/
-constexpr inline std::uint32_t TXSSEL3_N{1u << 19}; /*!< This field asserts SSEL3 in master mode.*/
-constexpr inline std::uint32_t EOT{1u << 20};       /*!< End of Transfer. Deassert SSEL */
-constexpr inline std::uint32_t EOF{1u << 21};       /*!< End of Frame. Insert delay between frames */
-constexpr inline std::uint32_t RXIGNORE{1u << 22};  /*!< Receive ignore */
+constexpr inline std::uint32_t kTXSSEL0_N{1u << 16}; /*!< This field asserts SSEL0 in master mode.*/
+constexpr inline std::uint32_t kTXSSEL1_N{1u << 17}; /*!< This field asserts SSEL1 in master mode.*/
+constexpr inline std::uint32_t kTXSSEL2_N{1u << 18}; /*!< This field asserts SSEL2 in master mode.*/
+constexpr inline std::uint32_t kTXSSEL3_N{1u << 19}; /*!< This field asserts SSEL3 in master mode.*/
+constexpr inline std::uint32_t kEOT{1u << 20};       /*!< End of Transfer. Deassert SSEL */
+constexpr inline std::uint32_t kEOF{1u << 21};       /*!< End of Frame. Insert delay between frames */
+constexpr inline std::uint32_t kRXIGNORE{1u << 22};  /*!< Receive ignore */
 /**
  * @brief Format data transmit length to TXDATCTL register field
  *
@@ -172,9 +172,9 @@ constexpr inline std::uint32_t kRESERVED_MASK{0x0F710000u}; /*!< register mask f
 constexpr inline std::uint32_t TXSSEL(std::uint32_t chipselects) {
   return (~chipselects & 0x0F) << 16;
 }
-constexpr inline std::uint32_t EOT{1u << 20};      /*!< End of Transfer. Deassert SSEL */
-constexpr inline std::uint32_t EOF{1u << 21};      /*!< End of Frame. Insert delay between frames */
-constexpr inline std::uint32_t RXIGNORE{1u << 22}; /*!< Receive ignore */
+constexpr inline std::uint32_t kEOT{1u << 20};      /*!< End of Transfer. Deassert SSEL */
+constexpr inline std::uint32_t kEOF{1u << 21};      /*!< End of Frame. Insert delay between frames */
+constexpr inline std::uint32_t kRXIGNORE{1u << 22}; /*!< Receive ignore */
 /**
  * @brief Format data transmit length to TXDATCTL register field
  * @param length amount of data to transmit
@@ -197,12 +197,12 @@ constexpr inline std::uint32_t DIVVAL(std::uint32_t divider) {
 }  // namespace DIV
 namespace INTSTAT {
 constexpr inline std::uint32_t kRESERVED_MASK{0x0000003Fu}; /*!< register mask for allowed bits */
-constexpr inline std::uint32_t RXRDY{1u << 0};              /*!< Receiver ready interrupt flag */
-constexpr inline std::uint32_t TXRDY{1u << 1};              /*!< Transmitter ready interrupt flag */
-constexpr inline std::uint32_t RXOV{1u << 2};               /*!< Receiver overrun interrupt flag*/
-constexpr inline std::uint32_t TXUR{1u << 3};               /*!< Transmitter underrun interrupt flag */
-constexpr inline std::uint32_t SSA{1u << 4};                /*!< Slave Select Assert */
-constexpr inline std::uint32_t SSD{1u << 5};                /*!< Slave Select Deassert */
+constexpr inline std::uint32_t kRXRDY{1u << 0};             /*!< Receiver ready interrupt flag */
+constexpr inline std::uint32_t kTXRDY{1u << 1};             /*!< Transmitter ready interrupt flag */
+constexpr inline std::uint32_t kRXOV{1u << 2};              /*!< Receiver overrun interrupt flag*/
+constexpr inline std::uint32_t kTXUR{1u << 3};              /*!< Transmitter underrun interrupt flag */
+constexpr inline std::uint32_t kSSA{1u << 4};               /*!< Slave Select Assert */
+constexpr inline std::uint32_t kSSD{1u << 5};               /*!< Slave Select Deassert */
 }  // namespace INTSTAT
 }  // namespace libmcuhw::spi
 #endif
