@@ -324,7 +324,7 @@ struct clocks : libmcu::PeripheralBase {
   }
 
  private:
-  static constexpr libmcu::hwAddressType clocksAddress = clocksAddress_; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType clocksAddress = clocksAddress_; /*!< peripheral address */
 };
 }  // namespace libmcull::clocks
 #endif

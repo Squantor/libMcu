@@ -96,7 +96,7 @@ struct usartSync : libmcu::PeripheralBase {
   }
 
  private:
-  static constexpr libmcu::hwAddressType usartAddress = usartAddress_; /*!< peripheral usartAddress */
+  static constexpr libmcu::HwAddressType usartAddress = usartAddress_; /*!< peripheral usartAddress */
 };
 }  // namespace libmcull::sw::usart
 #endif

@@ -160,8 +160,8 @@ struct SyncUart {
     return reinterpret_cast<nvic::nvic*>(nvicBaseAddress);
   }
 
-  static constexpr libmcu::hwAddressType uartBaseAddress = uartBaseAddress_; /*!< UART peripheral address */
-  static constexpr libmcu::hwAddressType nvicBaseAddress = nvicBaseAddress_; /*!< NVIC peripheral address */
+  static constexpr libmcu::HwAddressType uartBaseAddress = uartBaseAddress_; /*!< UART peripheral address */
+  static constexpr libmcu::HwAddressType nvicBaseAddress = nvicBaseAddress_; /*!< NVIC peripheral address */
   libmcu::RingBuffer<transferType, bufSize> txBuffer;
   libmcu::RingBuffer<transferType, bufSize> rxBuffer;
 };

@@ -30,7 +30,7 @@ struct gpio : libmcu::PeripheralBase {
   }
 
  private:
-  static constexpr libmcu::hwAddressType gpioAddress = gpioAddress_; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType gpioAddress = gpioAddress_; /*!< peripheral address */
 };
 
 }  // namespace libmcull::gpio

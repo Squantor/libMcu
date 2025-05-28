@@ -107,33 +107,33 @@ struct spi : libmcu::PeripheralBase {
    * @brief get registers from peripheral
    * @return return pointer to peripheral
    */
-  static hardware::spi* spiPeripheral() {
-    return reinterpret_cast<hardware::spi*>(spiAddress);
+  static hardware::Spi* spiPeripheral() {
+    return reinterpret_cast<hardware::Spi*>(spiAddress);
   }
   /**
    * @brief get registers from peripheral for atomic set access
    * @return return pointer to peripheral
    */
-  static hardware::spi* spiPeripheralSet() {
-    return reinterpret_cast<hardware::spi*>(spiAddress + libmcuhw::peripheralOffsetSet);
+  static hardware::Spi* spiPeripheralSet() {
+    return reinterpret_cast<hardware::Spi*>(spiAddress + libmcuhw::peripheralOffsetSet);
   }
   /**
    * @brief get registers from peripheral for atomic Clear access
    * @return return pointer to peripheral
    */
-  static hardware::spi* spiPeripheralClear() {
-    return reinterpret_cast<hardware::spi*>(spiAddress + libmcuhw::peripheralOffsetClear);
+  static hardware::Spi* spiPeripheralClear() {
+    return reinterpret_cast<hardware::Spi*>(spiAddress + libmcuhw::peripheralOffsetClear);
   }
   /**
    * @brief get registers from peripheral for atomic XOR access
    * @return return pointer to peripheral
    */
-  static hardware::spi* spiPeripheralXor() {
-    return reinterpret_cast<hardware::spi*>(spiAddress + libmcuhw::peripheralOffsetXor);
+  static hardware::Spi* spiPeripheralXor() {
+    return reinterpret_cast<hardware::Spi*>(spiAddress + libmcuhw::peripheralOffsetXor);
   }
 
  private:
-  static constexpr libmcu::hwAddressType spiAddress{spiAddress_}; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType spiAddress{spiAddress_}; /*!< peripheral address */
 };
 }  // namespace libmcull::spi
 #endif

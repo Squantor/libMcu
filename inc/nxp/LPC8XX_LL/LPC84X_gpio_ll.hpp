@@ -156,7 +156,7 @@ struct gpio : libmcu::PeripheralBase {
    * @param setting gpio pins to set low, a 1 bit will set the corresponding gpio pin to low
    */
   template <typename PORT>
-  constexpr void portLow(PORT &port, std::uint32_t setting) {
+  constexpr void SetPortLow(PORT &port, std::uint32_t setting) {
     gpioPeripheral()->CLR[port.gpioPortIndex] = setting;
   }
 
@@ -168,7 +168,7 @@ struct gpio : libmcu::PeripheralBase {
    * @param setting gpio pins to set high, a 1 bit will set the corresponding gpio pin to high
    */
   template <typename PORT>
-  constexpr void portHigh(PORT &port, std::uint32_t setting) {
+  constexpr void SetPortHigh(PORT &port, std::uint32_t setting) {
     gpioPeripheral()->SET[port.gpioPortIndex] = setting;
   }
 
@@ -180,7 +180,7 @@ struct gpio : libmcu::PeripheralBase {
    * @param setting gpio pins to toggle, a 1 bit will toggle the corresponding pio pin
    */
   template <typename PORT>
-  constexpr void portToggle(PORT &port, std::uint32_t setting) {
+  constexpr void TogglePort(PORT &port, std::uint32_t setting) {
     gpioPeripheral()->NOT[port.gpioPortIndex] = setting;
   }
 
@@ -192,7 +192,7 @@ struct gpio : libmcu::PeripheralBase {
    * @return std::uint32_t gpio pin state
    */
   template <typename PORT>
-  constexpr std::uint32_t portGet(PORT &port) {
+  constexpr std::uint32_t GetPort(PORT &port) {
     return static_cast<std::uint32_t>(gpioPeripheral()->PIN[port.gpioPortIndex]);
   }
 
@@ -205,7 +205,7 @@ struct gpio : libmcu::PeripheralBase {
    * @return std::uint32_t gpio pin state masked by mask
    */
   template <typename PORT>
-  constexpr std::uint32_t portGet(PORT &port, std::uint32_t mask) {
+  constexpr std::uint32_t GetPort(PORT &port, std::uint32_t mask) {
     return static_cast<std::uint32_t>(gpioPeripheral()->PIN[port.gpioPortIndex]) & mask;
   }
   /**
@@ -219,7 +219,7 @@ struct gpio : libmcu::PeripheralBase {
   }
 
  private:
-  static constexpr libmcu::hwAddressType gpioAddress = gpioAddress_; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType gpioAddress = gpioAddress_; /*!< peripheral address */
 };
 }  // namespace libmcull::gpio
 #endif

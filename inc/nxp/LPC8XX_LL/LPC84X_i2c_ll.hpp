@@ -15,9 +15,9 @@ namespace libmcull::i2c {
 namespace hardware = libmcuhw::i2c;
 /**
  * @brief
- * @tparam i2cAddress_
+ * @tparam i2c_address
  */
-template <libmcu::i2cBaseAddress i2cAddress_>
+template <libmcu::I2cBaseAddress i2c_address>
 struct i2c : libmcu::PeripheralBase {
   /**
    * @brief Initialize I2C master
@@ -46,8 +46,8 @@ struct i2c : libmcu::PeripheralBase {
    * @param transmitBuffer data to send
    */
   constexpr void write(const libmcu::i2cDeviceAddress address, const std::span<const std::uint8_t> transmitBuffer) {
-    std::uint32_t i2cAddress = static_cast<std::uint32_t>(address.value) << 1;
-    i2cPeripheral()->MSTDAT = i2cAddress;
+    std::uint32_t slave_address = static_cast<std::uint32_t>(address.value) << 1;
+    i2cPeripheral()->MSTDAT = slave_address;
     i2cPeripheral()->MSTCTL = hardware::MSTCTL::kMSTSTART;
     while (!(i2cPeripheral()->STAT & (hardware::STAT::kMSTPENDING | hardware::STAT::kEVENTTIMEOUT | hardware::STAT::kSCLTIMEOUT)))
       ;
@@ -72,8 +72,8 @@ struct i2c : libmcu::PeripheralBase {
    * @param receiveBuffer place to put read data, needs to be at least size 1!
    */
   constexpr void read(const libmcu::i2cDeviceAddress address, std::span<std::uint8_t> receiveBuffer) {
-    std::uint32_t i2cAddress = static_cast<std::uint32_t>(address.value) << 1;
-    i2cPeripheral()->MSTDAT = i2cAddress | 0x01;  // set read bit in Address
+    std::uint32_t slave_address = static_cast<std::uint32_t>(address.value) << 1;
+    i2cPeripheral()->MSTDAT = slave_address | 0x01;  // set read bit in Address
     i2cPeripheral()->MSTCTL = hardware::MSTCTL::kMSTSTART;
     while (!(i2cPeripheral()->STAT & (hardware::STAT::kMSTPENDING | hardware::STAT::kEVENTTIMEOUT | hardware::STAT::kSCLTIMEOUT)))
       ;
@@ -102,8 +102,8 @@ struct i2c : libmcu::PeripheralBase {
    */
   constexpr libmcu::Results masterWriteStart(const libmcu::i2cDeviceAddress address,
                                              const std::span<const std::uint8_t> transmitBuffer) {
-    std::uint32_t i2cAddress = static_cast<std::uint32_t>(address.value) << 1;
-    i2cPeripheral()->MSTDAT = i2cAddress;
+    std::uint32_t slave_address = static_cast<std::uint32_t>(address.value) << 1;
+    i2cPeripheral()->MSTDAT = slave_address;
     i2cPeripheral()->MSTCTL = hardware::MSTCTL::kMSTSTART;
     masterWait();
     if ((i2cPeripheral()->STAT & hardware::STAT::kMSTSTATE_MASK) != hardware::STAT::kMSTSTATE_TXRDY)
@@ -125,8 +125,8 @@ struct i2c : libmcu::PeripheralBase {
    * @return constexpr libmcu::Results
    */
   constexpr libmcu::Results masterWriteStart(const libmcu::i2cDeviceAddress address, const std::uint8_t data) {
-    std::uint32_t i2cAddress = static_cast<std::uint32_t>(address.value) << 1;
-    i2cPeripheral()->MSTDAT = i2cAddress;
+    std::uint32_t slave_address = static_cast<std::uint32_t>(address.value) << 1;
+    i2cPeripheral()->MSTDAT = slave_address;
     i2cPeripheral()->MSTCTL = hardware::MSTCTL::kMSTSTART;
     masterWait();
     if ((i2cPeripheral()->STAT & hardware::STAT::kMSTSTATE_MASK) != hardware::STAT::kMSTSTATE_TXRDY)
@@ -193,13 +193,13 @@ struct i2c : libmcu::PeripheralBase {
   template <const libmcuhw::clock::periClockConfig &t_clockConfig>
   constexpr std::uint32_t getInputClockFreq() {
     // constexpr check if we configure the right peripheral
-    if constexpr ((i2cAddress == libmcuhw::i2c0Address) && (t_clockConfig.peripheral == libmcuhw::clock::periSelect::I2C0))
+    if constexpr ((i2c_address_ == libmcuhw::i2c0Address) && (t_clockConfig.peripheral == libmcuhw::clock::periSelect::I2C0))
       return t_clockConfig.getFrequency();
-    else if constexpr ((i2cAddress == libmcuhw::i2c1Address) && (t_clockConfig.peripheral == libmcuhw::clock::periSelect::I2C1))
+    else if constexpr ((i2c_address_ == libmcuhw::i2c1Address) && (t_clockConfig.peripheral == libmcuhw::clock::periSelect::I2C1))
       return t_clockConfig.getFrequency();
-    else if constexpr ((i2cAddress == libmcuhw::i2c2Address) && (t_clockConfig.peripheral == libmcuhw::clock::periSelect::I2C2))
+    else if constexpr ((i2c_address_ == libmcuhw::i2c2Address) && (t_clockConfig.peripheral == libmcuhw::clock::periSelect::I2C2))
       return t_clockConfig.getFrequency();
-    else if constexpr ((i2cAddress == libmcuhw::i2c3Address) && (t_clockConfig.peripheral == libmcuhw::clock::periSelect::I2C3))
+    else if constexpr ((i2c_address_ == libmcuhw::i2c3Address) && (t_clockConfig.peripheral == libmcuhw::clock::periSelect::I2C3))
       return t_clockConfig.getFrequency();
     else
       static_assert(false, "Clock config and peripherals unknown or not matching!");
@@ -210,11 +210,11 @@ struct i2c : libmcu::PeripheralBase {
    * @return return pointer to i2c registers
    */
   constexpr static hardware::I2c *i2cPeripheral() {
-    return reinterpret_cast<hardware::I2c *>(i2cAddress);
+    return reinterpret_cast<hardware::I2c *>(i2c_address_);
   }
 
  private:
-  static constexpr libmcu::hwAddressType i2cAddress = i2cAddress_; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType i2c_address_ = i2c_address; /*!< peripheral address */
 };
 }  // namespace libmcull::i2c
 #endif

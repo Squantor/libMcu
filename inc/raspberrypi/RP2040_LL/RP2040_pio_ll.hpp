@@ -32,7 +32,7 @@ struct pio : libmcu::PeripheralBase {
   }
 
  private:
-  static constexpr libmcu::hwAddressType pioAddress = pioAddress_; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType pioAddress = pioAddress_; /*!< peripheral address */
 };
 }  // namespace libmcull::pio
 #endif

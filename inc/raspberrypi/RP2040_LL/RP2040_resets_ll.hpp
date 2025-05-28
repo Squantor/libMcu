@@ -94,7 +94,7 @@ struct resets : libmcu::PeripheralBase {
   }
 
  private:
-  static constexpr libmcu::hwAddressType resetsAddress{resetsAddress_}; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType resetsAddress{resetsAddress_}; /*!< peripheral address */
 };
 }  // namespace libmcull::resets
 #endif

@@ -225,8 +225,8 @@ struct gpio : libmcuhal::HalGpioBase {
     return reinterpret_cast<libmcuhw::sio::sio*>(sioAddress + libmcuhw::peripheralOffsetXor);
   }
 
-  static constexpr libmcu::hwAddressType padsBank0Address = padsBank0Address_; /*!< pads bank 0 peripheral address */
-  static constexpr libmcu::hwAddressType sioAddress = sioAddress_;             /*!< SIO peripheral address*/
+  static constexpr libmcu::HwAddressType padsBank0Address = padsBank0Address_; /*!< pads bank 0 peripheral address */
+  static constexpr libmcu::HwAddressType sioAddress = sioAddress_;             /*!< SIO peripheral address*/
 };
 }  // namespace libmcuhal::gpio
 

@@ -91,7 +91,7 @@ struct InMux : libmcu::PeripheralBase {
   }
 
  private:
-  static constexpr libmcu::hwAddressType in_mux_address_ = in_mux_address; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType in_mux_address_ = in_mux_address; /*!< peripheral address */
 };
 }  // namespace libmcull::inmux
 #endif

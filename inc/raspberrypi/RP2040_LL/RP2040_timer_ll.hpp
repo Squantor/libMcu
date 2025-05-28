@@ -28,7 +28,7 @@ struct timer : libmcu::PeripheralBase {
   }
 
  private:
-  static constexpr libmcu::hwAddressType timerAddress{timerAddress_}; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType timerAddress{timerAddress_}; /*!< peripheral address */
 };
 }  // namespace libmcull::timer
 #endif

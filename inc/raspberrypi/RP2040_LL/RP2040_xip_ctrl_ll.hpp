@@ -28,7 +28,7 @@ struct xipCtrl : libmcu::PeripheralBase {
   }
 
  private:
-  static constexpr libmcu::hwAddressType xipCtrlAddress{xipCtrlAddress_}; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType xipCtrlAddress{xipCtrlAddress_}; /*!< peripheral address */
 };
 }  // namespace libmcull::xip
 #endif

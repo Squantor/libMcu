@@ -142,8 +142,8 @@ struct pins {
     return reinterpret_cast<libmcuhw::padsBank0::padsBank0*>(padsBank0Address + libmcuhw::peripheralOffsetXor);
   }
 
-  static constexpr libmcu::hwAddressType padsBank0Address = padsBank0Address_; /*!< pads bank 0 peripheral address */
-  static constexpr libmcu::hwAddressType ioBank0Address = gpioBank0Address_;   /*!< gpio bank 0 peripheral address */
+  static constexpr libmcu::HwAddressType padsBank0Address = padsBank0Address_; /*!< pads bank 0 peripheral address */
+  static constexpr libmcu::HwAddressType ioBank0Address = gpioBank0Address_;   /*!< gpio bank 0 peripheral address */
 };
 }  // namespace pins
 }  // namespace libmcuhal

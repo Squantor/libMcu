@@ -99,8 +99,8 @@ constexpr inline libmcu::uartBaseAddress uart0Address{0x4003'4000u};            
 constexpr inline libmcu::uartBaseAddress uart1Address{0x4003'8000u};                  /*!< UART1 base address */
 constexpr inline libmcu::spiBaseAddress spi0Address{0x400'3C000u};                    /*!< SPI0 base address */
 constexpr inline libmcu::spiBaseAddress spi1Address{0x4004'0000u};                    /*!< SPI1 base address */
-constexpr inline libmcu::i2cBaseAddress i2c0Address{0x4004'4000u};                    /*!< I2C0 base address */
-constexpr inline libmcu::i2cBaseAddress i2c1Address{0x4004'8000u};                    /*!< I2C1 base address */
+constexpr inline libmcu::I2cBaseAddress i2c0Address{0x4004'4000u};                    /*!< I2C0 base address */
+constexpr inline libmcu::I2cBaseAddress i2c1Address{0x4004'8000u};                    /*!< I2C1 base address */
 constexpr inline libmcu::adcBaseAddress adcAddress{0x4004'C000u};                     /*!< ADC base address */
 constexpr inline libmcu::pwmBaseAddress pwmAddress{0x4005'0000u};                     /*!< PWM base address */
 constexpr inline libmcu::timerBaseAddress timerAddress{0x4005'4000u};                 /*!< timer base address */

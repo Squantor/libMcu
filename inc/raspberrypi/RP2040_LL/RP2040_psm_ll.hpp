@@ -34,7 +34,7 @@ struct psm : libmcu::PeripheralBase {
   }
 
  private:
-  static constexpr libmcu::hwAddressType psmAddress{psmAddress_}; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType psmAddress{psmAddress_}; /*!< peripheral address */
 };
 }  // namespace libmcull::psm
 #endif

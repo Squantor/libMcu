@@ -205,7 +205,7 @@ struct uartAsync {
     return reinterpret_cast<hardware::usart*>(uartBaseAddress);
   }
 
-  static constexpr libmcu::hwAddressBase uartBaseAddress = uartBaseAddress_; /*!< uart peripheral address */
+  static constexpr libmcu::HwAddressBase uartBaseAddress = uartBaseAddress_; /*!< uart peripheral address */
   detail::synchonousStates transactionWriteState;                            /*!< usart write transaction state */
   detail::synchonousStates transactionReadState;                             /*!< usart read transaction state */
   std::size_t transactionWriteIndex;                                         /*!< transaction write buffer index */

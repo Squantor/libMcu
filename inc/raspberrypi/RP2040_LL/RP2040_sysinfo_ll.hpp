@@ -28,7 +28,7 @@ struct sysinfo : libmcu::PeripheralBase {
   }
 
  private:
-  static constexpr libmcu::hwAddressType sysinfoAddress = sysinfoAddress_; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType sysinfoAddress = sysinfoAddress_; /*!< peripheral address */
 };
 }  // namespace libmcull::sysinfo
 #endif

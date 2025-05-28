@@ -266,7 +266,7 @@ struct syscon : libmcu::PeripheralBase {
   }
 
  private:
-  constexpr static libmcu::hwAddressType sysconAddress = sysconAddress_; /*!< peripheral address */
+  constexpr static libmcu::HwAddressType sysconAddress = sysconAddress_; /*!< peripheral address */
 };
 }  // namespace libmcull::sw::syscon
 #endif

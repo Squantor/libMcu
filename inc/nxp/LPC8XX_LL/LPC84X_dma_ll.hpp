@@ -445,7 +445,7 @@ struct Dma : libmcu::PeripheralBase {
     return reinterpret_cast<hardware::Dma *>(dmaAddress_);
   }
 
-  static constexpr libmcu::hwAddressType dmaAddress_ = dma_address; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType dmaAddress_ = dma_address; /*!< peripheral address */
   alignas(512) DescriptorTable descriptors_;
 };
 

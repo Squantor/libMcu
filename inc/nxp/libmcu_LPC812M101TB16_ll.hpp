@@ -71,11 +71,11 @@ namespace libmcuhw {
 // Define peripheral addresses on APB0 bus
 // rename these when full c++ functionality is finished, remove _cpp postfix
 constexpr inline libmcu::wwdtBaseAddress wwdtAddress{0x4000'0000u};     /*!< Windowed watchdog base address */
-constexpr inline libmcu::mrtBaseAddress mrtAddress{0x4000'4000u};       /*!< multi rate timer base address */
+constexpr inline libmcu::MrtBaseAddress mrtAddress{0x4000'4000u};       /*!< multi rate timer base address */
 constexpr inline libmcu::wktBaseAddress wktAddress{0x4000'8000u};       /*!< wakeup timer base address */
 constexpr inline libmcu::swmBaseAddress swmAddress{0x4000'C000u};       /*!< Switch matrix base address */
 constexpr inline libmcu::pmuBaseAddress pmuAddress{0x4002'0000u};       /*!< Power management unit base address */
-constexpr inline libmcu::acmpBaseAddress acmpAddress{0x4002'4000u};     /*!< Analog comparator base address */
+constexpr inline libmcu::AcmpBaseAddress acmpAddress{0x4002'4000u};     /*!< Analog comparator base address */
 constexpr inline libmcu::fmcBaseAddress fmcAddress{0x4004'0000u};       /*!< Flash memory controller base address */
 constexpr inline libmcu::ioconBaseAddress ioconAddress{0x4004'4000u};   /*!< I/O control base address */
 constexpr inline libmcu::sysconBaseAddress sysconAddress{0x4004'8000u}; /*!< System control base address */

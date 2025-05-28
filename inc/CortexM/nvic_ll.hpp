@@ -171,8 +171,8 @@ struct nvic {
     return static_cast<std::uint32_t>(interrupt) >> 2;
   }
 
-  static constexpr libmcu::hwAddressType nvicAddress = nvicAddress_; /*!< nvic peripheral address */
-  static constexpr libmcu::hwAddressType scbAddress = scbAddress_;   /*!< scb peripheral address */
+  static constexpr libmcu::HwAddressType nvicAddress = nvicAddress_; /*!< nvic peripheral address */
+  static constexpr libmcu::HwAddressType scbAddress = scbAddress_;   /*!< scb peripheral address */
 };
 }  // namespace libmcull::nvic
 #endif

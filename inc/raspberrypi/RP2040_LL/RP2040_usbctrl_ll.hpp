@@ -28,7 +28,7 @@ struct usbctrl : libmcu::PeripheralBase {
   }
 
  private:
-  static constexpr libmcu::hwAddressType usbctrlAddress{usbctrlAddress_}; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType usbctrlAddress{usbctrlAddress_}; /*!< peripheral address */
 };
 }  // namespace libmcull::usbCtrl
 #endif

@@ -112,9 +112,9 @@ enum class eventCountingDirections : std::uint32_t {
 };
 /**
  * @brief SCT low level interface class
- * @tparam sctAddress_ address of the SCT peripheral
+ * @tparam sct_address address of the SCT peripheral
  */
-template <libmcu::sctBaseAddress sctAddress_>
+template <libmcu::SctBaseAddress sct_address>
 struct Sct : libmcu::PeripheralBase {
   constexpr static void init(counterMode mode, bool bidirectional = true, bool autolimit = true) {
     std::uint32_t configRegister = static_cast<std::uint32_t>(mode);
@@ -313,11 +313,11 @@ struct Sct : libmcu::PeripheralBase {
    * @return return pointer to state configurable timer registers
    */
   constexpr static hardware::Sct *sctPeripheral() {
-    return reinterpret_cast<hardware::Sct *>(sctAddress);
+    return reinterpret_cast<hardware::Sct *>(sct_address_);
   }
 
  private:
-  static constexpr libmcu::hwAddressType sctAddress = sctAddress_; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType sct_address_ = sct_address; /*!< peripheral address */
 };
 }  // namespace libmcull::sct
 #endif

@@ -16,7 +16,7 @@ namespace libmcuhw::wwdt {
 /**
  * @brief wwdt register definitions
  */
-struct wwdt {
+struct Wwdt {
   volatile std::uint32_t MOD;      /*!< Watchdog mode register */
   volatile std::uint32_t TC;       /*!< Watchdog timer constant register */
   volatile std::uint32_t FEED;     /*!< Watchdog feed sequence register. Writing 0xAA then 0x55 feeds the watchdog  */

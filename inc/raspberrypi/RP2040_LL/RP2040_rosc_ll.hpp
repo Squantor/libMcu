@@ -30,7 +30,7 @@ struct rosc : libmcu::PeripheralBase {
   }
 
  private:
-  static constexpr libmcu::hwAddressType roscAddress = roscAddress_; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType roscAddress = roscAddress_; /*!< peripheral address */
 };
 }  // namespace libmcull::rosc
 #endif

@@ -117,7 +117,7 @@ struct uart : libmcu::PeripheralBase {
   }
 
  private:
-  static constexpr libmcu::hwAddressType uartAddress{uartAddress_}; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType uartAddress{uartAddress_}; /*!< peripheral address */
 };
 }  // namespace libmcull::uart
 #endif

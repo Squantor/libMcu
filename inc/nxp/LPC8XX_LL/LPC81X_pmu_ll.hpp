@@ -12,20 +12,23 @@
 #define LPC81X_PMU_HPP
 
 namespace libmcull::sw::pmu {
-using namespace libmcuhw::pmu;
-template <libmcu::pmuBaseAddress pmuAddress_>
-struct pmu {
+namespace hardware = libmcuhw::pmu;
+/**
+ * @brief pmu peripheral low level interface
+ * @tparam pmu_address peripheral address
+ */
+template <libmcu::pmuBaseAddress pmu_address>
+struct Pmu {
   /**
    * @brief get registers from peripheral
-   *
    * @return return pointer to power management unit registers
    */
-  constexpr static libmcuhw::pmu::Pmu *pmuPeripheral() {
-    return reinterpret_cast<libmcuhw::pmu::Pmu *>(pmuAddress);
+  constexpr static libmcuhw::pmu::Pmu *GetPeripheral() {
+    return reinterpret_cast<libmcuhw::pmu::Pmu *>(pmu_address_);
   }
 
  private:
-  static constexpr libmcu::hwAddressType pmuAddress = pmuAddress_; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType pmu_address_ = pmu_address; /*!< peripheral address */
 };
 }  // namespace libmcull::sw::pmu
 #endif

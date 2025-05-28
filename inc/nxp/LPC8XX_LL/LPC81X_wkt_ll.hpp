@@ -25,7 +25,7 @@ struct wkt {
   }
 
  private:
-  static constexpr libmcu::hwAddressType wktAddress = wktAddress_; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType wktAddress = wktAddress_; /*!< peripheral address */
 };
 }  // namespace libmcull::sw::wkt
 #endif

@@ -66,7 +66,7 @@ struct pll : libmcu::PeripheralBase {
   }
 
  private:
-  static constexpr libmcu::hwAddressType pllAddress = pllAddress_; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType pllAddress = pllAddress_; /*!< peripheral address */
 };
 }  // namespace libmcull::pll
 

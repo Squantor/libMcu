@@ -99,7 +99,7 @@ struct systick {
     callback();
   }
 
-  static constexpr libmcu::hwAddressType systickAddress = systickAddress_; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType systickAddress = systickAddress_; /*!< peripheral address */
   libmcu::IsrLambda callback;
 };
 }  // namespace libmcull::systick

@@ -29,7 +29,7 @@ struct gpioQspi : libmcu::PeripheralBase {
   }
 
  private:
-  static constexpr libmcu::hwAddressType gpioQspiAddress = gpioQspiAddress_; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType gpioQspiAddress = gpioQspiAddress_; /*!< peripheral address */
 };
 }  // namespace libmcull::gpioQspi
 #endif

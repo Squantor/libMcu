@@ -20,13 +20,13 @@ constexpr inline std::uint32_t froDefaultClockFreq{12'000'000};  /*!< IRC clock 
 
 consteval std::uint32_t FindSystemPllPsel(uint32_t outFreq) {
   if (outFreq > (systemPllMinVcoFreq >> 1U))
-    return libmcuhw::syscon::SYSPLLCTRL::PSEL_DIV2;
+    return libmcuhw::syscon::SYSPLLCTRL::kPSEL_DIV2;
   else if (outFreq > (systemPllMinVcoFreq >> 2U))
-    return libmcuhw::syscon::SYSPLLCTRL::PSEL_DIV4;
+    return libmcuhw::syscon::SYSPLLCTRL::kPSEL_DIV4;
   else if (outFreq > (systemPllMinVcoFreq >> 3U))
-    return libmcuhw::syscon::SYSPLLCTRL::PSEL_DIV8;
+    return libmcuhw::syscon::SYSPLLCTRL::kPSEL_DIV8;
   else
-    return libmcuhw::syscon::SYSPLLCTRL::PSEL_DIV16;
+    return libmcuhw::syscon::SYSPLLCTRL::kPSEL_DIV16;
 }
 
 consteval uint32_t FindSystemPllMsel(uint32_t inFreq, uint32_t outFreq) {

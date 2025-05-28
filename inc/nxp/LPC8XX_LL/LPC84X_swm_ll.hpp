@@ -76,12 +76,12 @@ struct swm : libmcu::PeripheralBase {
    *
    * @return return pointer to registers
    */
-  constexpr hardware::swm *swmPeripheral() {
-    return reinterpret_cast<hardware::swm *>(swmAddress);
+  constexpr hardware::Swm *swmPeripheral() {
+    return reinterpret_cast<hardware::Swm *>(swmAddress);
   }
 
  private:
-  static constexpr libmcu::hwAddressType swmAddress = swmAddress_; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType swmAddress = swmAddress_; /*!< peripheral address */
 };
 }  // namespace libmcull::swm
 #endif

@@ -1301,7 +1301,7 @@ struct PinFunction<PinFunctions::kCapTouchYHIn> {
 /**
  * @brief SWM register definitions
  */
-struct swm {
+struct Swm {
   union {                                  /* offset: 0x0 */
     struct {                               /* offset: 0x0 */
       volatile std::uint32_t PINASSIGN0;   /*!< Pin assign register for kUart0Tx, kUart0Rx, kUart0Rts, kUart0Cts */

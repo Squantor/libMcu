@@ -192,7 +192,7 @@ struct usartAsync : libmcu::PeripheralBase {
   }
 
  private:
-  static constexpr libmcu::hwAddressType usartAddress = usartAddress_; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType usartAddress = usartAddress_; /*!< peripheral address */
   detail::synchonousStates transactionWriteState;                      /*!< usart write transaction state */
   detail::synchonousStates transactionReadState;                       /*!< usart read transaction state */
   std::size_t transactionWriteIndex;                                   /*!< transaction write buffer index */

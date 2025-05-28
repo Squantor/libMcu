@@ -15,7 +15,7 @@ namespace libmcuhw::spi {
 /**
  * @brief SPI register definitions
  */
-struct spi {
+struct Spi {
   volatile std::uint32_t SSPCR0;   /*!< Control register 0 */
   volatile std::uint32_t SSPCR1;   /*!< Control register 1 */
   volatile std::uint32_t SSPDR;    /*!< Data register */

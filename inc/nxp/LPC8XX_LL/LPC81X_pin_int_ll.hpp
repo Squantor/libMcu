@@ -12,20 +12,23 @@
 #define LPC81X_PIN_INT_HPP
 
 namespace libmcull::sw::pin_int {
-using namespace libmcuhw::gpio;
-template <libmcu::pinintBaseAddress pinintAddress_>
-struct pinint : libmcu::PeripheralBase {
+namespace hardware = libmcuhw::pinint;
+/**
+ * @brief Pin interrupt peripheral low level interface
+ * @tparam pinint_address
+ */
+template <libmcu::pinintBaseAddress pinint_address>
+struct Pinint : libmcu::PeripheralBase {
   /**
    * @brief get registers from peripheral
-   *
-   * @return return pointer to pin interrupt registers
+   * @return pointer to pin interrupt registers
    */
-  constexpr static libmcuhw::pinint::Pinint *pinintPeripheral() {
-    return reinterpret_cast<libmcuhw::pinint::Pinint *>(pinintAddress);
+  constexpr static libmcuhw::pinint::Pinint *GetPeripheral() {
+    return reinterpret_cast<libmcuhw::pinint::Pinint *>(pinint_address_);
   }
 
  private:
-  static constexpr libmcu::hwAddressType pinintAddress = pinintAddress_; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType pinint_address_ = pinint_address; /*!< peripheral address */
 };
 }  // namespace libmcull::sw::pin_int
 #endif

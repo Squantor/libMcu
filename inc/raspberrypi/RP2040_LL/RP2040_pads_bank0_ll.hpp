@@ -59,7 +59,7 @@ struct padsBank0 : libmcu::PeripheralBase {
   }
 
  private:
-  static constexpr libmcu::hwAddressType padsBank0Address = padsBank0Address_; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType padsBank0Address = padsBank0Address_; /*!< peripheral address */
 };
 }  // namespace libmcull::padsBank0
 #endif

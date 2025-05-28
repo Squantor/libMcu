@@ -34,7 +34,7 @@ struct pwm : libmcu::PeripheralBase {
   }
 
  private:
-  static constexpr libmcu::hwAddressType pwmAddress{pwmAddress_}; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType pwmAddress{pwmAddress_}; /*!< peripheral address */
 };
 }  // namespace libmcull::pwm
 #endif

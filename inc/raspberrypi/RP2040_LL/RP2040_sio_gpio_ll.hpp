@@ -92,7 +92,7 @@ struct sioGpio : libmcu::PeripheralBase {
   }
 
  private:
-  static constexpr libmcu::hwAddressType sioAddress{sioAddress_}; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType sioAddress{sioAddress_}; /*!< peripheral address */
 };
 }  // namespace libmcull::sioGpio
 #endif

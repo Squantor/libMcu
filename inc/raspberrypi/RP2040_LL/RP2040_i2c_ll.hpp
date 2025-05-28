@@ -21,7 +21,7 @@ enum class i2cModes : std::uint32_t {
   FAST = hardware::IC_CON::SPEED_FAST,
   HIGH = hardware::IC_CON::SPEED_HIGH,
 };
-template <libmcu::i2cBaseAddress const& i2cAddress_>
+template <libmcu::I2cBaseAddress const& i2c_address>
 struct i2c : libmcu::PeripheralBase {
   /**
    * @brief Base initialization function
@@ -203,7 +203,7 @@ struct i2c : libmcu::PeripheralBase {
   }
 
  private:
-  static constexpr libmcu::hwAddressType i2cAddress = i2cAddress_; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType i2cAddress = i2c_address; /*!< peripheral address */
 };
 }  // namespace libmcull::i2c
 #endif

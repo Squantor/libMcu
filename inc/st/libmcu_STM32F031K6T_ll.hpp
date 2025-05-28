@@ -87,7 +87,7 @@ constexpr inline libmcu::gpioBaseAddress gpiobAddress{0x4800'0400u}; /*!< GPIO p
 constexpr inline libmcu::gpioBaseAddress gpioaAddress{0x4800'0000u}; /*!< GPIO port A */
 /* AHB1 peripheral addresses */
 constexpr inline libmcu::stmBaseAddress tscAddress{0x4002'4000u};   /*!< TSC */
-constexpr inline libmcu::crcBaseAddress crcAddress{0x4002'3000u};   /*!< CRC */
+constexpr inline libmcu::CrcBaseAddress crcAddress{0x4002'3000u};   /*!< CRC */
 constexpr inline libmcu::stmBaseAddress flashAddress{0x4002'2000u}; /*!< Flash interface */
 constexpr inline libmcu::stmBaseAddress rccAddress{0x4002'1000u};   /*!< RCC */
 constexpr inline libmcu::dmaBaseAddress dma2Address{0x4002'0400u};  /*!< DMA2 */
@@ -113,8 +113,8 @@ constexpr inline libmcu::stmBaseAddress crsAddress{0x4000'6C00u};       /*!< CRS
 constexpr inline libmcu::stmBaseAddress canAddress{0x4000'6400u};       /*!< CAN */
 constexpr inline libmcu::stmBaseAddress ramUsbCanAddress{0x4000'6000u}; /*!< USB/CAN RAM */
 constexpr inline libmcu::stmBaseAddress usbAddress{0x4000'5C00u};       /*!< USB */
-constexpr inline libmcu::i2cBaseAddress i2c2Address{0x4000'5800u};      /*!< I2C2 */
-constexpr inline libmcu::i2cBaseAddress i2c1Address{0x4000'5400u};      /*!< I2C1 */
+constexpr inline libmcu::I2cBaseAddress i2c2Address{0x4000'5800u};      /*!< I2C2 */
+constexpr inline libmcu::I2cBaseAddress i2c1Address{0x4000'5400u};      /*!< I2C1 */
 constexpr inline libmcu::uartBaseAddress usart5Address{0x4000'5000u};   /*!< USART5 */
 constexpr inline libmcu::uartBaseAddress usart4Address{0x4000'4C00u};   /*!< USART4 */
 constexpr inline libmcu::uartBaseAddress usart3Address{0x4000'4800u};   /*!< USART3 */

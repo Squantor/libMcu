@@ -17,26 +17,26 @@ namespace hardware = ::libmcuhw::usart;
  * @brief amount of bits to transmit
  */
 enum class UartLengths : std::uint32_t {
-  kSize7 = hardware::CFG::DATALEN7BIT, /*!< USART transmit length of 7 bits */
-  kSize8 = hardware::CFG::DATALEN8BIT, /*!< USART transmit length of 8 bits */
-  kSize9 = hardware::CFG::DATALEN9BIT, /*!< USART transmit length of 9 bits */
+  kSize7 = hardware::CFG::kDATALEN7BIT, /*!< USART transmit length of 7 bits */
+  kSize8 = hardware::CFG::kDATALEN8BIT, /*!< USART transmit length of 8 bits */
+  kSize9 = hardware::CFG::kDATALEN9BIT, /*!< USART transmit length of 9 bits */
 };
 
 /**
  * @brief Parity bit options
  */
 enum class UartParities : std::uint32_t {
-  kNone = hardware::CFG::PARITY_NONE, /*!< No parity */
-  kEven = hardware::CFG::PARITY_EVEN, /*!< Even parity */
-  kOdd = hardware::CFG::PARITY_ODD,   /*!< Odd parity */
+  kNone = hardware::CFG::kPARITY_NONE, /*!< No parity */
+  kEven = hardware::CFG::kPARITY_EVEN, /*!< Even parity */
+  kOdd = hardware::CFG::kPARITY_ODD,   /*!< Odd parity */
 };
 
 /**
  * @brief stop bit options
  */
 enum class UartStops : std::uint32_t {
-  kStop1 = hardware::CFG::STOPBIT1, /*!< 1 stop bit */
-  kStop2 = hardware::CFG::STOPBIT2, /*!< 2 stop bits */
+  kStop1 = hardware::CFG::kSTOPBIT1, /*!< 1 stop bit */
+  kStop2 = hardware::CFG::kSTOPBIT2, /*!< 2 stop bits */
 };
 
 /**
@@ -44,21 +44,21 @@ enum class UartStops : std::uint32_t {
  * These bit patterns match the USART STAT register settings
  */
 enum UartStatuses : std::uint32_t {
-  kRxReady = hardware::STAT::RXRDY,            /*!< Receiver ready flag*/
-  kRxIdle = hardware::STAT::RXIDLE,            /*!< Receiver idle flag */
-  kTxReady = hardware::STAT::TXRDY,            /*!< Transmitter ready flag  */
-  kTxIdle = hardware::STAT::TXIDLE,            /*!< Transmitter idle flag */
-  kCts = hardware::STAT::CTS,                  /*!< CTS signal state flag */
-  kCtsChange = hardware::STAT::DELTACTS,       /*!< Change detected in CTS signal flag */
-  kTxDisable = hardware::STAT::TXDISINT,       /*!< Transmitter disabled confirmation flag */
-  kOverrun = hardware::STAT::OVERRUNINT,       /*!< Overrun error flag */
-  kRxBreak = hardware::STAT::RXBRK,            /*!< Received break flag */
-  kRxBreakChange = hardware::STAT::DELTARXBRK, /*!< Change detected in receiver break flag */
-  kStart = hardware::STAT::START,              /*!< Start condition detected flag */
-  kFrameError = hardware::STAT::FRAMERRINT,    /*!< Frame error flag */
-  kParityError = hardware::STAT::PARITYERRINT, /*!< Parity error flag */
-  kRxNoise = hardware::STAT::RXNOISEINT,       /*!< Recieved noise flag */
-  kAutobaudError = hardware::STAT::ABERR,      /*!< Autobaud error flags */
+  kRxReady = hardware::STAT::kRXRDY,            /*!< Receiver ready flag*/
+  kRxIdle = hardware::STAT::kRXIDLE,            /*!< Receiver idle flag */
+  kTxReady = hardware::STAT::kTXRDY,            /*!< Transmitter ready flag  */
+  kTxIdle = hardware::STAT::kTXIDLE,            /*!< Transmitter idle flag */
+  kCts = hardware::STAT::kCTS,                  /*!< CTS signal state flag */
+  kCtsChange = hardware::STAT::kDELTACTS,       /*!< Change detected in CTS signal flag */
+  kTxDisable = hardware::STAT::kTXDISINT,       /*!< Transmitter disabled confirmation flag */
+  kOverrun = hardware::STAT::kOVERRUNINT,       /*!< Overrun error flag */
+  kRxBreak = hardware::STAT::kRXBRK,            /*!< Received break flag */
+  kRxBreakChange = hardware::STAT::kDELTARXBRK, /*!< Change detected in receiver break flag */
+  kStart = hardware::STAT::kSTART,              /*!< Start condition detected flag */
+  kFrameError = hardware::STAT::kFRAMERRINT,    /*!< Frame error flag */
+  kParityError = hardware::STAT::kPARITYERRINT, /*!< Parity error flag */
+  kRxNoise = hardware::STAT::kRXNOISEINT,       /*!< Recieved noise flag */
+  kAutobaudError = hardware::STAT::kABERR,      /*!< Autobaud error flags */
 };
 
 /**
@@ -83,7 +83,7 @@ struct SyncUart : libmcull::LlSyncUartBase {
     std::uint32_t frequency = GetInputClockFreq<clock_config>();
     std::uint32_t divider = frequency / (baud_rate * 16);
     UsartPeripheral()->BRG = divider;
-    UsartPeripheral()->CFG = hardware::CFG::ENABLE | static_cast<std::uint32_t>(length_bits) | static_cast<std::uint32_t>(parity) |
+    UsartPeripheral()->CFG = hardware::CFG::kENABLE | static_cast<std::uint32_t>(length_bits) | static_cast<std::uint32_t>(parity) |
                              static_cast<std::uint32_t>(stop_bits);
     return frequency / 16 / divider;
   }
@@ -115,8 +115,8 @@ struct SyncUart : libmcull::LlSyncUartBase {
    */
   constexpr void Read(TransferType &data, std::uint32_t &status) {
     std::uint32_t rx_status = UsartPeripheral()->RXDATSTAT;
-    data = static_cast<TransferType>(rx_status & hardware::RXDATSTAT::DATA_MASK);
-    status = rx_status & hardware::RXDATSTAT::STAT_MASK;
+    data = static_cast<TransferType>(rx_status & hardware::RXDATSTAT::kDATA_MASK);
+    status = rx_status & hardware::RXDATSTAT::kSTAT_MASK;
   }
   /**
    * @brief get the input clock of this UART peripheral
@@ -163,12 +163,12 @@ struct SyncUart : libmcull::LlSyncUartBase {
    * @brief get registers from peripheral
    * @return return pointer to usart registers
    */
-  constexpr static hardware::usart *UsartPeripheral() {
-    return reinterpret_cast<hardware::usart *>(usartAddress_);
+  constexpr static hardware::Usart *UsartPeripheral() {
+    return reinterpret_cast<hardware::Usart *>(usartAddress_);
   }
 
  private:
-  static constexpr libmcu::hwAddressType usartAddress_ = usart_address; /*!< peripheral usartAddress */
+  static constexpr libmcu::HwAddressType usartAddress_ = usart_address; /*!< peripheral usartAddress */
 };
 }  // namespace libmcull::usart
 #endif
