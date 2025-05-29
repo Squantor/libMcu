@@ -17,7 +17,7 @@ namespace libmcuhal::usart {
 namespace hardware = libmcuhw::usart;
 namespace nvic = libmcuhw::nvic;
 
-template <libmcu::uartBaseAddress const& uartBaseAddress_, libmcu::NvicBaseAddress const& nvicBaseAddress_, typename TransferType,
+template <libmcu::UartBaseAddress const& uartBaseAddress_, libmcu::NvicBaseAddress const& nvicBaseAddress_, typename TransferType,
           std::size_t bufSize>
 struct SyncUart {
   /**
@@ -44,9 +44,9 @@ struct SyncUart {
       baudDivider = (baudDivider >> 4) + 1;
 
     usartPeripheral()->BRG = baudDivider - 1;
-    usartPeripheral()->CFG = hardware::CFG::ENABLE | static_cast<std::uint32_t>(uartLength::SIZE_8) |
+    usartPeripheral()->CFG = hardware::CFG::kENABLE | static_cast<std::uint32_t>(uartLength::SIZE_8) |
                              static_cast<std::uint32_t>(uartParity::NONE) | static_cast<std::uint32_t>(uartStop::STOP_1);
-    usartPeripheral()->INTENSET = hardware::INTENSET::RXRDYEN;
+    usartPeripheral()->INTENSET = hardware::INTENSET::kRXRDYEN;
     return getInputClockFreq<config>() / 16 / baudDivider;
   }
   /**
@@ -61,9 +61,9 @@ struct SyncUart {
   constexpr std::uint32_t init(std::uint32_t baudRate, uartLength lengthBits, uartParity parity, uartStop stopBits) {
     std::uint32_t baudDivider = getInputClockFreq<config>() / (baudRate * 16);
     usartPeripheral()->BRG = baudDivider;
-    usartPeripheral()->CFG = hardware::CFG::ENABLE | static_cast<std::uint32_t>(lengthBits) | static_cast<std::uint32_t>(parity) |
+    usartPeripheral()->CFG = hardware::CFG::kENABLE | static_cast<std::uint32_t>(lengthBits) | static_cast<std::uint32_t>(parity) |
                              static_cast<std::uint32_t>(stopBits);
-    usartPeripheral()->INTENSET = hardware::INTENSET::RXRDYEN;
+    usartPeripheral()->INTENSET = hardware::INTENSET::kRXRDYEN;
     return getInputClockFreq<config>() / 16 / baudDivider;
   }
   /**
@@ -78,7 +78,7 @@ struct SyncUart {
    * @brief blocking USART transmit
    * @param buffer data to transmit via USART
    */
-  constexpr void write(std::span<const transferType> buffer) {
+  constexpr void write(std::span<const TransferType> buffer) {
     std::size_t bufferIndex = 0;
     while (bufferIndex != buffer.size()) {
       if (!txBuffer.full()) {
@@ -86,12 +86,12 @@ struct SyncUart {
         bufferIndex++;
       }
       // are we currently transmitting?
-      if (!(usartPeripheral()->INTENSET & hardware::INTENSET::TXRDYEN)) {
+      if (!(usartPeripheral()->INTENSET & hardware::INTENSET::kTXRDYEN)) {
         // no, lets start the whole transmit chain
         TransferType data = 0;
         if (txBuffer.popBack(data)) {
           usartPeripheral()->TXDAT = data;
-          usartPeripheral()->INTENSET = hardware::INTENSET::TXRDYEN;
+          usartPeripheral()->INTENSET = hardware::INTENSET::kTXRDYEN;
         }
       }
     }
@@ -100,7 +100,7 @@ struct SyncUart {
    * @brief blocking USART receive
    * @param buffer data to receive from USART
    */
-  constexpr void read(std::span<transferType> buffer) {
+  constexpr void read(std::span<TransferType> buffer) {
     std::size_t bufferIndex = 0;
     while (bufferIndex != buffer.size()) {
       if (!rxBuffer.empty()) {
@@ -120,16 +120,16 @@ struct SyncUart {
    * @brief UART interrupt service routine
    */
   constexpr void isr() {
-    if (usartPeripheral()->INTSTAT & hardware::INTSTAT::TXRDY) {
+    if (usartPeripheral()->INTSTAT & hardware::INTSTAT::kTXRDY) {
       if (txBuffer.empty()) {
-        usartPeripheral()->INTENCLR = hardware::INTENCLR::TXRDYCLR;
+        usartPeripheral()->INTENCLR = hardware::INTENCLR::kTXRDYCLR;
       } else {
         TransferType data;
         txBuffer.popBack(data);
         usartPeripheral()->TXDAT = data;
       }
     }
-    if (usartPeripheral()->INTSTAT & hardware::INTSTAT::RXRDY) {
+    if (usartPeripheral()->INTSTAT & hardware::INTSTAT::kRXRDY) {
       // TODO, what do we do if rx buffer is full?
       rxBuffer.pushFront(usartPeripheral()->RXDAT);
     }
@@ -149,8 +149,8 @@ struct SyncUart {
    * @brief access uart registers
    * @return return pointer to peripheral
    */
-  static hardware::usart* usartPeripheral() {
-    return reinterpret_cast<hardware::usart*>(uartBaseAddress);
+  static hardware::Usart* usartPeripheral() {
+    return reinterpret_cast<hardware::Usart*>(uartBaseAddress);
   }
   /**
    * @brief access nvic registers
@@ -162,8 +162,8 @@ struct SyncUart {
 
   static constexpr libmcu::HwAddressType uartBaseAddress = uartBaseAddress_; /*!< UART peripheral address */
   static constexpr libmcu::HwAddressType NvicBaseAddress = nvicBaseAddress_; /*!< NVIC peripheral address */
-  libmcu::RingBuffer<transferType, bufSize> txBuffer;
-  libmcu::RingBuffer<transferType, bufSize> rxBuffer;
+  libmcu::RingBuffer<TransferType, bufSize> txBuffer;
+  libmcu::RingBuffer<TransferType, bufSize> rxBuffer;
 };
 }  // namespace libmcuhal::usart
 

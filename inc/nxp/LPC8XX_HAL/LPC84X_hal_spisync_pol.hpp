@@ -22,12 +22,12 @@ namespace nvic = libmcuhw::nvic;
  * @todo write with a software slave select, preferably a gpio? Would require a gpio hal access parameter
  * @tparam spiBaseAddress_ Base address of the spi peripheral structure
  */
-template <libmcu::spiBaseAddress const& spiBaseAddress_>
-struct spiSyncPol {
+template <libmcu::SpiBaseAddress const& spiBaseAddress_>
+struct SpiSyncPol {
   /**
    * @brief Construct a new synchronous polling spi
    */
-  spiSyncPol() {}
+  SpiSyncPol() {}
 
   template <const libmcuhw::clock::periClockConfig& t_clockConfig>
   /**
@@ -42,7 +42,7 @@ struct spiSyncPol {
    */
   constexpr std::uint32_t init(std::uint32_t bitRate, std::uint32_t selectPolarity = 0, std::uint32_t preDelay = 0,
                                std::uint32_t postDelay = 0, std::uint32_t frameDelay = 0, std::uint32_t transferDelay = 0) {
-    while (!(spiPeripheral()->STAT & hardware::STAT::MSTIDLE))
+    while (!(spiPeripheral()->STAT & hardware::STAT::kMSTIDLE))
       ;
     spiPeripheral()->CFG = 0;  // disable
     std::uint32_t peripheralFrequency = getInputClockFreq<t_clockConfig>();
@@ -50,7 +50,7 @@ struct spiSyncPol {
     spiPeripheral()->DIV = hardware::DIV::DIVVAL(divider);
     spiPeripheral()->DLY = hardware::DLY::PRE_DELAY(preDelay) | hardware::DLY::POST_DELAY(postDelay) |
                            hardware::DLY::FRAME_DELAY(frameDelay) | hardware::DLY::TRANSFER_DELAY(transferDelay);
-    std::uint32_t config = hardware::CFG::ENABLE | hardware::CFG::MASTER;
+    std::uint32_t config = hardware::CFG::kENABLE | hardware::CFG::kMASTER;
     config |= hardware::CFG::SPOL(selectPolarity);
     spiPeripheral()->CFG = config;
     return peripheralFrequency / divider;
@@ -68,32 +68,32 @@ struct spiSyncPol {
   constexpr void writeGeneric(const std::span<const bufferType> data, const std::uint32_t bitSize, spiSlaveSelects select,
                               bool endOfTransfer, bool lsbFirst) {
     // check if busy
-    while (!(spiPeripheral()->STAT & hardware::STAT::MSTIDLE))
+    while (!(spiPeripheral()->STAT & hardware::STAT::kMSTIDLE))
       ;
     // configure new settings
     std::uint32_t config = spiPeripheral()->CFG;
     if (lsbFirst)
-      config |= hardware::CFG::LSBF;
+      config |= hardware::CFG::kLSBF;
     else
-      config &= ~hardware::CFG::LSBF;
+      config &= ~hardware::CFG::kLSBF;
     spiPeripheral()->CFG = config;
     // setup transfer
     uint32_t txctl =
-      hardware::TXCTL::LEN(bitSize) | hardware::TXCTL::TXSSEL(static_cast<std::uint32_t>(select)) | hardware::TXCTL::RXIGNORE;
+      hardware::TXCTL::LEN(bitSize) | hardware::TXCTL::TXSSEL(static_cast<std::uint32_t>(select)) | hardware::TXCTL::kRXIGNORE;
     spiPeripheral()->TXCTL = txctl;
     std::size_t index = 0;
     // write data minus one element
     while (index < data.size() - 1) {
-      while (!(spiPeripheral()->STAT & hardware::STAT::TXRDY))
+      while (!(spiPeripheral()->STAT & hardware::STAT::kTXRDY))
         ;
       spiPeripheral()->TXDAT = data[index];
       index++;
     }
     // write last data and terminate transfer if needed
-    while (!(spiPeripheral()->STAT & hardware::STAT::TXRDY))
+    while (!(spiPeripheral()->STAT & hardware::STAT::kTXRDY))
       ;
     if (endOfTransfer)
-      txctl |= hardware::TXCTL::EOT;
+      txctl |= hardware::TXCTL::kEOT;
     spiPeripheral()->TXCTL = txctl;
     spiPeripheral()->TXDAT = data[index];
   }
@@ -116,8 +116,8 @@ struct spiSyncPol {
    * @brief access spi registers
    * @return return pointer to peripheral
    */
-  static hardware::spi* spiPeripheral() {
-    return reinterpret_cast<hardware::spi*>(spiBaseAddress);
+  static hardware::Spi* spiPeripheral() {
+    return reinterpret_cast<hardware::Spi*>(spiBaseAddress);
   }
 
   static constexpr libmcu::HwAddressType spiBaseAddress = spiBaseAddress_; /*!< SPI peripheral address */

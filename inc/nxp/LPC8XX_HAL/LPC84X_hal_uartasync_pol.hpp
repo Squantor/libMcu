@@ -16,7 +16,7 @@
 namespace libmcuhal::usart {
 namespace hardware = libmcuhw::usart;
 
-template <libmcu::uartBaseAddress const& uartBaseAddress_, typename TransferType>
+template <libmcu::UartBaseAddress const& uartBaseAddress_, typename TransferType>
 struct uartAsync {
   /**
    * @brief Construct a new asynchronous uart
