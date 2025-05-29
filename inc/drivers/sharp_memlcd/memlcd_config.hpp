@@ -29,6 +29,7 @@ struct config {
 
 // few example LCD configurations
 using LS010B7DH04 = config<128, 128, 8>;
+using LS010B7DH01 = config<128, 128, 8>;
 using LS011B7DH03 = config<160, 68, 8>;
 using LS013B4DN04 = config<96, 96, 8>;
 using LS013B7DH03 = config<128, 128, 8>;
