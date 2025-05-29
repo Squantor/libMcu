@@ -17,7 +17,7 @@ namespace libmcuhal::usart {
 namespace hardware = libmcuhw::usart;
 namespace nvic = libmcuhw::nvic;
 
-template <libmcu::uartBaseAddress const& uartBaseAddress_, libmcu::nvicBaseAddress const& nvicBaseAddress_, typename transferType,
+template <libmcu::uartBaseAddress const& uartBaseAddress_, libmcu::NvicBaseAddress const& nvicBaseAddress_, typename TransferType,
           std::size_t bufSize>
 struct SyncUart {
   /**
@@ -70,8 +70,8 @@ struct SyncUart {
    * @brief blocking USART transmit
    * @param input data to transmit via USART
    */
-  constexpr void write(const transferType& input) {
-    std::array<transferType, 1> inputBuffer{input};
+  constexpr void write(const TransferType& input) {
+    std::array<TransferType, 1> inputBuffer{input};
     write(inputBuffer);
   }
   /**
@@ -88,7 +88,7 @@ struct SyncUart {
       // are we currently transmitting?
       if (!(usartPeripheral()->INTENSET & hardware::INTENSET::TXRDYEN)) {
         // no, lets start the whole transmit chain
-        transferType data = 0;
+        TransferType data = 0;
         if (txBuffer.popBack(data)) {
           usartPeripheral()->TXDAT = data;
           usartPeripheral()->INTENSET = hardware::INTENSET::TXRDYEN;
@@ -124,7 +124,7 @@ struct SyncUart {
       if (txBuffer.empty()) {
         usartPeripheral()->INTENCLR = hardware::INTENCLR::TXRDYCLR;
       } else {
-        transferType data;
+        TransferType data;
         txBuffer.popBack(data);
         usartPeripheral()->TXDAT = data;
       }
@@ -157,11 +157,11 @@ struct SyncUart {
    * @return return pointer to peripheral
    */
   static nvic::nvic* nvicPeripheral() {
-    return reinterpret_cast<nvic::nvic*>(nvicBaseAddress);
+    return reinterpret_cast<nvic::nvic*>(NvicBaseAddress);
   }
 
   static constexpr libmcu::HwAddressType uartBaseAddress = uartBaseAddress_; /*!< UART peripheral address */
-  static constexpr libmcu::HwAddressType nvicBaseAddress = nvicBaseAddress_; /*!< NVIC peripheral address */
+  static constexpr libmcu::HwAddressType NvicBaseAddress = nvicBaseAddress_; /*!< NVIC peripheral address */
   libmcu::RingBuffer<transferType, bufSize> txBuffer;
   libmcu::RingBuffer<transferType, bufSize> rxBuffer;
 };

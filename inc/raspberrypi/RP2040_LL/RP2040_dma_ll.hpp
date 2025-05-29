@@ -13,7 +13,7 @@
 
 namespace libmcull::dma {
 namespace hardware = libmcuhw::dma;
-template <libmcu::dmaBaseAddress const& dmaAddress_>
+template <libmcu::DmaBaseAddress const& dmaAddress_>
 struct Dma : libmcu::PeripheralBase {
   /**
    * @brief Base initialization function

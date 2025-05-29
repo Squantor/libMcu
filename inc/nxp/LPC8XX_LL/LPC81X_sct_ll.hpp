@@ -12,77 +12,77 @@
 #ifndef LPC81X_SCT_SW_HPP
 #define LPC81X_SCT_SW_HPP
 
-namespace libmcull::sw::sct {
+namespace libmcull::sct {
 namespace hardware = libmcuhw::sct;
 /**
  * @brief Counting modes
  */
 enum class CountingModes : std::uint32_t {
-  UP,            /*!< counter only counts up */
-  BIDIRECTIONAL, /*!< bidirectional counting */
+  kUp,            /*!< counter only counts up */
+  kBidirectional, /*!< bidirectional counting */
 };
 /**
  * @brief match register to use
  * Used as an index for match registers
  */
 enum class Matches : std::uint32_t {
-  MATCH_0 = 0, /*!< match 0 */
-  MATCH_1 = 1, /*!< match 1 */
-  MATCH_2 = 2, /*!< match 2 */
-  MATCH_3 = 3, /*!< match 3 */
-  MATCH_4 = 4, /*!< match 4 */
+  k0 = 0, /*!< match 0 */
+  k1 = 1, /*!< match 1 */
+  k2 = 2, /*!< match 2 */
+  k3 = 3, /*!< match 3 */
+  k4 = 4, /*!< match 4 */
 };
 /**
  * @brief capture register to use
  * Used as an index for capture registers
  */
 enum class Captures : std::uint32_t {
-  CAPTURE_0 = 0, /*!< match 0 */
-  CAPTURE_1 = 1, /*!< match 1 */
-  CAPTURE_2 = 2, /*!< match 2 */
-  CAPTURE_3 = 3, /*!< match 3 */
-  CAPTURE_4 = 4, /*!< match 4 */
+  k0 = 0, /*!< match 0 */
+  k1 = 1, /*!< match 1 */
+  k2 = 2, /*!< match 2 */
+  k3 = 3, /*!< match 3 */
+  k4 = 4, /*!< match 4 */
 };
 /**
  * @brief Event register to use
  * Used as an index for event registers
  */
 enum class Events : std::uint32_t {
-  EVENT_0 = 0, /*!< event 0 */
-  EVENT_1 = 1, /*!< event 1 */
-  EVENT_2 = 2, /*!< event 2 */
-  EVENT_3 = 3, /*!< event 3 */
-  EVENT_4 = 4, /*!< event 4 */
-  EVENT_5 = 5, /*!< event 5 */
+  k0 = 0, /*!< event 0 */
+  k1 = 1, /*!< event 1 */
+  k2 = 2, /*!< event 2 */
+  k3 = 3, /*!< event 3 */
+  k4 = 4, /*!< event 4 */
+  k5 = 5, /*!< event 5 */
 };
 /**
  * @brief Output register to use
  * Used as an index for output registers
  */
 enum class Outputs : std::uint32_t {
-  OUTPUT_0 = 0, /*!< output 0 */
-  OUTPUT_1 = 1, /*!< output 1 */
-  OUTPUT_2 = 2, /*!< output 2 */
-  OUTPUT_3 = 3, /*!< output 3 */
+  k0 = 0, /*!< output 0 */
+  k1 = 1, /*!< output 1 */
+  k2 = 2, /*!< output 2 */
+  k3 = 3, /*!< output 3 */
 };
 /**
  * @brief Input register to use
  * Used as an index for input registers
  */
 enum class Inputs : std::uint32_t {
-  INPUT_0 = 0, /*!< input 0 */
-  INPUT_1 = 1, /*!< input 0 */
-  INPUT_2 = 2, /*!< input 0 */
-  INPUT_3 = 3, /*!< input 0 */
+  k0 = 0, /*!< input 0 */
+  k1 = 1, /*!< input 0 */
+  k2 = 2, /*!< input 0 */
+  k3 = 3, /*!< input 0 */
 };
 /**
  * @brief conditions that can be captured
  */
 enum class CaptureConditions : std::uint32_t {
-  CAPTURE_LOW = hardware::EV_CTRL::kIOCOND_LOW,   /*!< Capture low levels */
-  CAPTURE_RISE = hardware::EV_CTRL::kIOCOND_RISE, /*!< Capture rising edges */
-  CAPTURE_FALL = hardware::EV_CTRL::kIOCOND_FALL, /*!< Capture falling edges */
-  CAPTURE_HIGH = hardware::EV_CTRL::kIOCOND_HIGH, /*!< Capture high levels */
+  kLow = hardware::EV_CTRL::kIOCOND_LOW,      /*!< Capture low levels */
+  kRising = hardware::EV_CTRL::kIOCOND_RISE,  /*!< Capture rising edges */
+  kFalling = hardware::EV_CTRL::kIOCOND_FALL, /*!< Capture falling edges */
+  kHigh = hardware::EV_CTRL::kIOCOND_HIGH,    /*!< Capture high levels */
 };
 /**
  * @brief State configurable timer low level interface
@@ -101,7 +101,7 @@ struct Sct : libmcu::PeripheralBase {
     sctPeripheral()->CONFIG = hardware::CONFIG::kUNIFY_ON | hardware::CONFIG::kAUTOLIMIT_L;
     // TODO configure match 0 register as match register as we autolimit on match 0
     sctPeripheral()->COUNT = 0x00000000u;
-    if (counting_mode == CountingModes::BIDIRECTIONAL)
+    if (counting_mode == CountingModes::kBidirectional)
       sctPeripheral()->CTRL =
         hardware::CTRL::kHALT_L | hardware::CTRL::kCLRCTR_L | hardware::CTRL::PRE_L(prescale) | hardware::CTRL::kBIDIR_L;
     else
@@ -229,5 +229,5 @@ struct Sct : libmcu::PeripheralBase {
  private:
   static constexpr libmcu::HwAddressType sctAddress = sct_address; /*!< peripheral address */
 };
-}  // namespace libmcull::sw::sct
+}  // namespace libmcull::sct
 #endif

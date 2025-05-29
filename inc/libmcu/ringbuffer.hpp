@@ -26,27 +26,27 @@ namespace libmcu {
  * @tparam T Type to be used in the ringbuffer
  * @tparam N Amount of elements in the ringbuffer
  */
-template <typename T, std::size_t N>
+template <typename T, std::size_t size>
 class RingBuffer {
  public:
-  using iterator = typename std::array<T, N>::iterator;
+  using iterator = typename std::array<T, size>::iterator;
 
   RingBuffer() {
-    static_assert(N > 0, "ringbuffer size of zero is not allowed!");
+    static_assert(size > 0, "ringbuffer size of zero is not allowed!");
     reset();
   }
 
   void reset() {
-    front = data.begin();
-    back = data.begin();
+    front_ = data_.begin();
+    back_ = data_.begin();
   }
 
   bool full() {
-    return increment(front) == back;
+    return increment(front_) == back_;
   }
 
   bool empty() const {
-    return front == back;
+    return front_ == back_;
   }
 
   /**
@@ -54,10 +54,10 @@ class RingBuffer {
    * @return amount of elements in ringbuffer
    */
   std::size_t level() {
-    if (front > back)
-      return front - back;
-    if (back > front)
-      return N - (back - front);
+    if (front_ > back_)
+      return front_ - back_;
+    if (back_ > front_)
+      return size - (back_ - front_);
     else
       return 0;
   }
@@ -65,71 +65,71 @@ class RingBuffer {
   bool pushBack(const T& p) {
     if (full())
       return false;
-    auto temp = decrement(back);
-    back = temp;
-    *back = p;
+    auto temp = decrement(back_);
+    back_ = temp;
+    *back_ = p;
     return true;
   }
 
   bool pushFront(const T& p) {
     if (full())
       return false;
-    auto temp = increment(front);
-    *front = p;
-    front = temp;
+    auto temp = increment(front_);
+    *front_ = p;
+    front_ = temp;
     return true;
   }
 
   bool popBack(T& p) {
     if (empty())
       return false;
-    auto temp = increment(back);
-    p = *back;
-    back = temp;
+    auto temp = increment(back_);
+    p = *back_;
+    back_ = temp;
     return true;
   }
 
   bool popBack() {
     if (empty())
       return false;
-    back = increment(back);
+    back_ = increment(back_);
     return true;
   }
 
   bool popFront(T& p) {
     if (empty())
       return false;
-    auto temp = decrement(front);
+    auto temp = decrement(front_);
     p = *temp;
-    front = temp;
+    front_ = temp;
     return true;
   }
 
   bool popFront(void) {
     if (empty())
       return false;
-    front = decrement(front);
+    front_ = decrement(front_);
     return true;
   }
 
  private:
   iterator decrement(const iterator p) {
-    if (p == data.begin())
-      return data.end() - 1;
+    if (p == data_.begin())
+      return data_.end() - 1;
     else
       return p - 1;
   }
 
   iterator increment(const iterator p) {
-    if (p + 1 == data.end())
-      return data.begin();
+    if (p + 1 == data_.end())
+      return data_.begin();
     else
       return p + 1;
   }
 
-  iterator front;            /*!< first element of the ringbuffer */
-  iterator back;             /*!< last element of the ringbuffer */
-  std::array<T, N + 1> data; /*!< ringbuffer data, one element is added as we need always one element free */
+  iterator front_;               /*!< first element of the ringbuffer */
+  iterator back_;                /*!< last element of the ringbuffer */
+  std::array<T, size + 1> data_; /*!< ringbuffer data, one element is added as we need always one element free */
 };
 }  // namespace libmcu
 

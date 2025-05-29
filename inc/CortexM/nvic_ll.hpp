@@ -13,7 +13,7 @@
 namespace libmcull::nvic {
 namespace hardware = libmcuhw::nvic;
 namespace hardwareScb = libmcuhw::scb;
-template <libmcu::nvicBaseAddress const& nvicAddress_, libmcu::scbBaseAddress const& scbAddress_>
+template <libmcu::NvicBaseAddress const& nvicAddress_, libmcu::ScbBaseAddress const& scbAddress_>
 struct nvic {
   /**
    * @brief Construct a new systick object

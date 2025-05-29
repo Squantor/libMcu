@@ -11,7 +11,7 @@
 #ifndef LPC81X_I2C_HPP
 #define LPC81X_I2C_HPP
 
-namespace libmcull::sw::i2c {
+namespace libmcull::i2c {
 namespace hardware = libmcuhw::i2c;
 /**
  * @brief I2C Low level interface
@@ -100,5 +100,5 @@ struct I2c : libmcu::PeripheralBase {
  private:
   static constexpr libmcu::HwAddressType i2c_address_ = i2c_address; /*!< peripheral address */
 };
-}  // namespace libmcull::sw::i2c
+}  // namespace libmcull::i2c
 #endif

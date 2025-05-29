@@ -70,27 +70,27 @@ enum class Interrupts : int8_t {
 namespace libmcuhw {
 // Define peripheral addresses on APB0 bus
 // rename these when full c++ functionality is finished, remove _cpp postfix
-constexpr inline libmcu::wwdtBaseAddress wwdtAddress{0x4000'0000u};     /*!< Windowed watchdog base address */
+constexpr inline libmcu::WwdtBaseAddress wwdtAddress{0x4000'0000u};     /*!< Windowed watchdog base address */
 constexpr inline libmcu::MrtBaseAddress mrtAddress{0x4000'4000u};       /*!< multi rate timer base address */
-constexpr inline libmcu::wktBaseAddress wktAddress{0x4000'8000u};       /*!< wakeup timer base address */
-constexpr inline libmcu::swmBaseAddress swmAddress{0x4000'C000u};       /*!< Switch matrix base address */
-constexpr inline libmcu::pmuBaseAddress pmuAddress{0x4002'0000u};       /*!< Power management unit base address */
+constexpr inline libmcu::WktBaseAddress wktAddress{0x4000'8000u};       /*!< wakeup timer base address */
+constexpr inline libmcu::SwmBaseAddress swmAddress{0x4000'C000u};       /*!< Switch matrix base address */
+constexpr inline libmcu::PmuBaseAddress pmuAddress{0x4002'0000u};       /*!< Power management unit base address */
 constexpr inline libmcu::AcmpBaseAddress acmpAddress{0x4002'4000u};     /*!< Analog comparator base address */
 constexpr inline libmcu::FmcBaseAddress fmcAddress{0x4004'0000u};       /*!< Flash memory controller base address */
-constexpr inline libmcu::ioconBaseAddress ioconAddress{0x4004'4000u};   /*!< I/O control base address */
-constexpr inline libmcu::sysconBaseAddress sysconAddress{0x4004'8000u}; /*!< System control base address */
+constexpr inline libmcu::IoconBaseAddress ioconAddress{0x4004'4000u};   /*!< I/O control base address */
+constexpr inline libmcu::SysconBaseAddress sysconAddress{0x4004'8000u}; /*!< System control base address */
 constexpr inline libmcu::I2cBaseAddress i2c0Address{0x4005'0000u};      /*!< I2C 0 base address */
-constexpr inline libmcu::spiBaseAddress spi0Address{0x4005'8000u};      /*!< SPI 0 base address */
-constexpr inline libmcu::spiBaseAddress spi1Address{0x4005'C000u};      /*!< SPI 1 base address */
-constexpr inline libmcu::uartBaseAddress usart0Address{0x4006'4000u};   /*!< USART 0 base address */
-constexpr inline libmcu::uartBaseAddress usart1Address{0x4006'8000u};   /*!< USART 1 base address */
-constexpr inline libmcu::uartBaseAddress usart2Address{0x4006'C000u};   /*!< USART 2 base address */
+constexpr inline libmcu::SpiBaseAddress kSpi0Address{0x4005'8000u};     /*!< SPI 0 base address */
+constexpr inline libmcu::SpiBaseAddress kSpi1Address{0x4005'C000u};     /*!< SPI 1 base address */
+constexpr inline libmcu::UartBaseAddress usart0Address{0x4006'4000u};   /*!< USART 0 base address */
+constexpr inline libmcu::UartBaseAddress usart1Address{0x4006'8000u};   /*!< USART 1 base address */
+constexpr inline libmcu::UartBaseAddress usart2Address{0x4006'C000u};   /*!< USART 2 base address */
 /* AHB peripherals */
 constexpr inline libmcu::CrcBaseAddress crcAddress{0x5000'0000u}; /*!< CRC calculator base address */
 constexpr inline libmcu::SctBaseAddress sctAddress{0x5000'4000u}; /*!< State configurable timer 0 base address */
 /* Direct connected peripherals */
-constexpr inline libmcu::gpioBaseAddress gpioAddress{0xA000'0000u};     /*!< General Purpose I/O base address */
-constexpr inline libmcu::pinintBaseAddress pinintAddress{0xA000'4000u}; /*!< Pin interrupt base address */
+constexpr inline libmcu::GpioBaseAddress gpioAddress{0xA000'0000u};     /*!< General Purpose I/O base address */
+constexpr inline libmcu::PinintBaseAddress pinintAddress{0xA000'4000u}; /*!< Pin interrupt base address */
 }  // namespace libmcuhw
 
 // includes that define the registers namespace go here.
@@ -120,7 +120,7 @@ constexpr inline libmcu::pinintBaseAddress pinintAddress{0xA000'4000u}; /*!< Pin
 #include "LPC8XX_LL/LPC81X_iocon_ll.hpp"
 #include "LPC8XX_LL/LPC81X_swm_ll.hpp"
 #include "LPC8XX_LL/LPC81X_gpio_ll.hpp"
-#include "LPC8XX_LL/LPC81X_spi_ll_sync.hpp"
+#include "LPC8XX_LL/LPC81X_spi_ll_polled.hpp"
 #include "LPC8XX_LL/LPC81X_spi_ll_async.hpp"
 #include "LPC8XX_LL/LPC81X_acmp_ll.hpp"
 #include "LPC8XX_LL/LPC81X_crc_ll.hpp"

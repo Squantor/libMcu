@@ -13,7 +13,7 @@
 
 namespace libmcull::xip {
 namespace hardware = libmcuhw::xip;
-template <libmcu::xipCtrlBaseAddress const& xipCtrlAddress_>
+template <libmcu::XipCtrlBaseAddress const& xipCtrlAddress_>
 struct xipCtrl : libmcu::PeripheralBase {
   /**
    * @brief Base initialization function

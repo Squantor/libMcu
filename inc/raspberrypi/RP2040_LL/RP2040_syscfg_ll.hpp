@@ -13,7 +13,7 @@
 
 namespace libmcull::syscfg {
 namespace hardware = libmcuhw::syscfg;
-template <libmcu::syscfgBaseAddress const& syscfgAddress_>
+template <libmcu::SyscfgBaseAddress const& syscfgAddress_>
 struct syscfg : libmcu::PeripheralBase {
   /**
    * @brief Base initialization function

@@ -11,240 +11,189 @@
 #ifndef LPC81X_SYSCON_HPP
 #define LPC81X_SYSCON_HPP
 
-namespace libmcull::sw::syscon {
-using namespace libmcuhw::syscon;
-
+namespace libmcull::syscon {
+namespace hardware = libmcuhw::syscon;
 /**
  * @brief Peripheral reset options
  */
-enum class peripheralResets : std::uint32_t {
-  SPI0 = PRESETCTRL::kSPI0_RST_N,       /*!< SPI0 reset control */
-  SPI1 = PRESETCTRL::kSPI1_RST_N,       /*!< SPI1 reset control */
-  UARTFRG = PRESETCTRL::kUARTFRG_RST_N, /*!< UART fractional baud rate generator reset control */
-  UART0 = PRESETCTRL::kUART0_RST_N,     /*!< UART0 reset control */
-  UART1 = PRESETCTRL::kUART1_RST_N,     /*!< UART1 reset control */
-  UART2 = PRESETCTRL::kUART2_RST_N,     /*!< UART2 reset control */
-  I2C = PRESETCTRL::kI2C_RST_N,         /*!< I2C reset control */
-  MRT = PRESETCTRL::kMRT_RST_N,         /*!< MRT reset control */
-  SCT = PRESETCTRL::kSCT_RST_N,         /*!< SCT reset control */
-  WKT = PRESETCTRL::kWKT_RST_N,         /*!< WKT reset control */
-  GPIO = PRESETCTRL::kGPIO_RST_N,       /*!< GPIO reset control */
-  FLASH = PRESETCTRL::kFLASH_RST_N,     /*!< Flash reset control */
-  ACMP = PRESETCTRL::kACMP_RST_N,       /*!< ACMP reset control */
+enum PeripheralResets : std::uint32_t {
+  kResetSpi0 = hardware::PRESETCTRL::kSPI0_RST_N,       /*!< SPI0 reset control */
+  kResetSpi1 = hardware::PRESETCTRL::kSPI1_RST_N,       /*!< SPI1 reset control */
+  kResetUartFrg = hardware::PRESETCTRL::kUARTFRG_RST_N, /*!< UART fractional baud rate generator reset control */
+  kResetUart0 = hardware::PRESETCTRL::kUART0_RST_N,     /*!< UART0 reset control */
+  kResetUart1 = hardware::PRESETCTRL::kUART1_RST_N,     /*!< UART1 reset control */
+  kResetUart2 = hardware::PRESETCTRL::kUART2_RST_N,     /*!< UART2 reset control */
+  kResetI2c = hardware::PRESETCTRL::kI2C_RST_N,         /*!< I2C reset control */
+  kResetMrt = hardware::PRESETCTRL::kMRT_RST_N,         /*!< MRT reset control */
+  kResetSct = hardware::PRESETCTRL::kSCT_RST_N,         /*!< SCT reset control */
+  kResetWkt = hardware::PRESETCTRL::kWKT_RST_N,         /*!< WKT reset control */
+  kResetGpio = hardware::PRESETCTRL::kGPIO_RST_N,       /*!< GPIO reset control */
+  kResetFlash = hardware::PRESETCTRL::kFLASH_RST_N,     /*!< Flash reset control */
+  kResetAcmp = hardware::PRESETCTRL::kACMP_RST_N,       /*!< ACMP reset control */
 };
-
-/**
- * @brief operator | for peripheralResets
- *
- * @param a peripheral reset
- * @param b peripheral reset
- * @return Ored valued of a and b
- */
-constexpr peripheralResets operator|(const peripheralResets a, const peripheralResets b) {
-  return static_cast<peripheralResets>(static_cast<uint32_t>(a) | static_cast<uint32_t>(b));
-}
-
 /**
  * @brief PLL post divider options
  */
-enum class pllPostDivider : std::uint32_t {
-  DIV_2 = SYSPLLCTRL::kPSEL_DIV2,   /*!< PLL post division ration of 2 */
-  DIV_4 = SYSPLLCTRL::kPSEL_DIV4,   /*!< PLL post division ration of 4 */
-  DIV_8 = SYSPLLCTRL::kPSEL_DIV8,   /*!< PLL post division ration of 8 */
-  DIV_16 = SYSPLLCTRL::kPSEL_DIV16, /*!< PLL post division ration of 16 */
+enum class PllPostDividers : std::uint32_t {
+  kDiv2 = hardware::SYSPLLCTRL::kPSEL_DIV2,   /*!< PLL post division ration of 2 */
+  kDiv4 = hardware::SYSPLLCTRL::kPSEL_DIV4,   /*!< PLL post division ration of 4 */
+  kDiv8 = hardware::SYSPLLCTRL::kPSEL_DIV8,   /*!< PLL post division ration of 8 */
+  kDiv16 = hardware::SYSPLLCTRL::kPSEL_DIV16, /*!< PLL post division ration of 16 */
 };
-
 /**
  * @brief PLL source options
  */
-enum class pllClockSources : std::uint32_t {
-  IRC = SYSPLLCLKSEL::kSEL_IRC,       /*!< IRC oscillator */
-  SYSOSC = SYSPLLCLKSEL::kSEL_SYSOSC, /*!< crystal oscillator */
-  CLKIN = SYSPLLCLKSEL::kSEL_CLKIN,   /*!< External clock input */
+enum class PllClockSources : std::uint32_t {
+  kIrc = hardware::SYSPLLCLKSEL::kSEL_IRC,       /*!< IRC oscillator */
+  kSysOsc = hardware::SYSPLLCLKSEL::kSEL_SYSOSC, /*!< crystal oscillator */
+  kClkIn = hardware::SYSPLLCLKSEL::kSEL_CLKIN,   /*!< External clock input */
 };
-
 /**
  * @brief main clock sources
+ * @todo refer to bit definitions
  */
-enum class mainClockSources : std::uint32_t {
-  IRC = 0,     /*!< IRC oscillator */
-  PLL_IN = 1,  /*!< PLL input */
-  WDOSC = 2,   /*!< Watchdog oscillator */
-  PLL_OUT = 3, /*!< PLL output */
+enum class MainClockSources : std::uint32_t {
+  kIrc = 0,    /*!< IRC oscillator */
+  kPllIn = 1,  /*!< PLL input */
+  kWdOsc = 2,  /*!< Watchdog oscillator */
+  kPllOut = 3, /*!< PLL output */
 };
 
 /**
  * @brief Peripheral clock enable options
  */
-enum class peripheralClocks : std::uint32_t {
-  SYS = (1 << 0),      /*!< AHB bus, APB bridge and the processor core */
-  ROM = (1 << 1),      /*!< ROM */
-  RAM = (1 << 2),      /*!< RAM */
-  FLASHREG = (1 << 3), /*!< Flash register interface */
-  FLASH = (1 << 4),    /*!< Flash */
-  I2C = (1 << 5),      /*!< I2C */
-  GPIO = (1 << 6),     /*!< GPIO */
-  SWM = (1 << 7),      /*!< Switch Matrix */
-  SCT = (1 << 8),      /*!< State configurable timer */
-  WKT = (1 << 9),      /*!< self wake-up timer */
-  MRT = (1 << 10),     /*!< multi-rate timer */
-  SPI0 = (1 << 11),    /*!< SPI0 */
-  SPI1 = (1 << 12),    /*!< SPI1 */
-  CRC = (1 << 13),     /*!< CRC */
-  UART0 = (1 << 14),   /*!< UART0 */
-  UART1 = (1 << 15),   /*!< UART1 */
-  UART2 = (1 << 16),   /*!< UART2 */
-  WWDT = (1 << 17),    /*!< WWDT */
-  IOCON = (1 << 18),   /*!< IOCON */
-  ACMP = (1 << 19),    /*!< analog comparator */
+enum PeripheralClocks : std::uint32_t {
+  kClockSys = hardware::SYSAHBCLKCTRL::kSYS,           /*!< AHB bus, APB bridge and the processor core */
+  kClockRom = hardware::SYSAHBCLKCTRL::kROM,           /*!< ROM */
+  kClockRam = hardware::SYSAHBCLKCTRL::kRAM,           /*!< RAM */
+  kClockFlashReg = hardware::SYSAHBCLKCTRL::kFLASHREG, /*!< Flash register interface */
+  kClockFlash = hardware::SYSAHBCLKCTRL::kFLASH,       /*!< Flash */
+  kClockI2c = hardware::SYSAHBCLKCTRL::kI2C,           /*!< I2C */
+  kClockGpio = hardware::SYSAHBCLKCTRL::kGPIO,         /*!< GPIO */
+  kClockSwm = hardware::SYSAHBCLKCTRL::kSWM,           /*!< Switch Matrix */
+  kClockSct = hardware::SYSAHBCLKCTRL::kSCT,           /*!< State configurable timer */
+  kClockWkt = hardware::SYSAHBCLKCTRL::kWKT,           /*!< self wake-up timer */
+  kClockMrt = hardware::SYSAHBCLKCTRL::kMRT,           /*!< multi-rate timer */
+  kClockSpi0 = hardware::SYSAHBCLKCTRL::kSPI0,         /*!< SPI0 */
+  kClockSpi1 = hardware::SYSAHBCLKCTRL::kSPI1,         /*!< SPI1 */
+  kClockCrc = hardware::SYSAHBCLKCTRL::kCRC,           /*!< CRC */
+  kClockUart0 = hardware::SYSAHBCLKCTRL::kUART0,       /*!< UART0 */
+  kClockUart1 = hardware::SYSAHBCLKCTRL::kUART1,       /*!< UART1 */
+  kClockUart2 = hardware::SYSAHBCLKCTRL::kUART2,       /*!< UART2 */
+  kClockWwdt = hardware::SYSAHBCLKCTRL::kWWDT,         /*!< WWDT */
+  kClockIocon = hardware::SYSAHBCLKCTRL::kIOCON,       /*!< IOCON */
+  kClockAcmp = hardware::SYSAHBCLKCTRL::kACMP,         /*!< analog comparator */
 };
-
-/**
- * @brief operator | for peripheralClocks
- *
- * @param a peripheral clock
- * @param b peripheral clock
- * @return ored value of peripheral clock
- */
-constexpr peripheralClocks operator|(const peripheralClocks a, const peripheralClocks b) {
-  return static_cast<peripheralClocks>(static_cast<uint32_t>(a) | static_cast<uint32_t>(b));
-}
 
 /**
  * @brief Peripheral power down reset options
+ * @todo refer to bit definitions
  */
-enum peripheralPowers : std::uint32_t {
-  IRCOUT = (1 << 0), /*!< IRC oscillator output */
-  IRC = (1 << 1),    /*!< IRC oscillator*/
-  FLASH = (1 << 2),  /*!< Flash*/
-  BOD = (1 << 3),    /*!< BOD*/
-  SYSOSC = (1 << 5), /*!< Crystal oscillator*/
-  WDTOSC = (1 << 6), /*!< Watchdog oscillator*/
-  SYSPLL = (1 << 7), /*!< System PLL*/
-  ACMP = (1 << 15),  /*!< Analog comparator*/
+enum PeripheralPowers : std::uint32_t {
+  kPowerIrcOutput = (1 << 0), /*!< IRC oscillator output */
+  kPowerIrc = (1 << 1),       /*!< IRC oscillator*/
+  kPowerFlash = (1 << 2),     /*!< Flash*/
+  kPowerBod = (1 << 3),       /*!< BOD*/
+  kPowerSysOsc = (1 << 5),    /*!< Crystal oscillator*/
+  kPowerWdOsc = (1 << 6),     /*!< Watchdog oscillator*/
+  kPowerSysPll = (1 << 7),    /*!< System PLL*/
+  kPowerAcmp = (1 << 15),     /*!< Analog comparator*/
 };
 
-/**
- * @brief operator | for peripheralPowers
- *
- * @param a peripheral power setting
- * @param b peripheral power setting
- * @return ored value of peripheral power
- */
-constexpr peripheralPowers operator|(const peripheralPowers a, const peripheralPowers b) {
-  return static_cast<peripheralPowers>(static_cast<uint32_t>(a) | static_cast<uint32_t>(b));
-}
-
-template <libmcu::sysconBaseAddress sysconAddress_>
-struct syscon : libmcu::PeripheralBase {
+template <libmcu::SysconBaseAddress syscon_address>
+struct Syscon : libmcu::PeripheralBase {
   /**
    * @brief reset a peripheral
-   *
    * @param setting bit setting from peripheralResets enum
    */
-  constexpr void resetPeripherals(peripheralResets setting) {
-    std::uint32_t resets = static_cast<std::uint32_t>(setting);
-    sysconPeripheral()->PRESETCTRL = sysconPeripheral()->PRESETCTRL & ~resets;
-    sysconPeripheral()->PRESETCTRL = sysconPeripheral()->PRESETCTRL | resets;
+  constexpr void ResetPeripherals(std::uint32_t setting) {
+    GetPeripheral()->PRESETCTRL = GetPeripheral()->PRESETCTRL & ~setting;
+    GetPeripheral()->PRESETCTRL = GetPeripheral()->PRESETCTRL | setting;
   }
   /**
    * @brief Set the System PLL Control
-   *
    * @param msel Feedback divider ratio, 0 divides by 1, 31 divides by 32
    * @param psel Post divider ratio, acceptable values in pllPostDivider enum
    */
-  constexpr void setSystemPllControl(std::uint32_t msel, pllPostDivider psel) {
-    sysconPeripheral()->SYSPLLCTRL = SYSPLLCTRL::MSEL(msel) | static_cast<std::uint32_t>(psel);
+  constexpr void SetSystemPllControl(std::uint32_t msel, PllPostDividers psel) {
+    GetPeripheral()->SYSPLLCTRL = hardware::SYSPLLCTRL::MSEL(msel) | static_cast<std::uint32_t>(psel);
   }
   /**
    * @brief Get the System Pll Status
-   *
    * @return 0 PLL not locked, 1 PLL locked
    */
-  constexpr std::uint32_t getSystemPllStatus(void) {
-    return sysconPeripheral()->SYSPLLSTAT;
+  constexpr std::uint32_t GetSystemPllStatus(void) {
+    return GetPeripheral()->SYSPLLSTAT;
   }
   /**
    * @brief set system oscillator control
-   *
    * @param setting set register see registers::syscon::SYSOSCCTRL
    */
-  constexpr void setSysOscControl(std::uint32_t setting) {
-    sysconPeripheral()->SYSOSCCTRL = setting;
+  constexpr void SetSysOscControl(std::uint32_t setting) {
+    GetPeripheral()->SYSOSCCTRL = setting;
   }
   /**
    * @brief   Select PLL clock source
-   *
    * @param   source      Clock source of the PLL
    */
-  constexpr void selectPllClock(pllClockSources setting) {
-    sysconPeripheral()->SYSPLLCLKSEL = static_cast<std::uint32_t>(setting);
-    sysconPeripheral()->SYSPLLCLKUEN = SYSPLLCLKUEN::kNO_CHANGE;
-    sysconPeripheral()->SYSPLLCLKUEN = SYSPLLCLKUEN::kUPDATE;
+  constexpr void SelectPllClockSource(PllClockSources setting) {
+    GetPeripheral()->SYSPLLCLKSEL = static_cast<std::uint32_t>(setting);
+    GetPeripheral()->SYSPLLCLKUEN = hardware::SYSPLLCLKUEN::kNO_CHANGE;
+    GetPeripheral()->SYSPLLCLKUEN = hardware::SYSPLLCLKUEN::kUPDATE;
   }
   /**
    * @brief Select main clock source
-   *
-   * @param setting clock source from mainClockSources enum
+   * @param setting clock source from MainClockSources enum
    */
-  constexpr void selectMainClock(mainClockSources setting) {
-    sysconPeripheral()->MAINCLKSEL = static_cast<std::uint32_t>(setting);
-    sysconPeripheral()->MAINCLKUEN = MAINCLKUEN::kNO_CHANGE;
-    sysconPeripheral()->MAINCLKUEN = MAINCLKUEN::kUPDATE;
+  constexpr void SelectMainClockSource(MainClockSources setting) {
+    GetPeripheral()->MAINCLKSEL = static_cast<std::uint32_t>(setting);
+    GetPeripheral()->MAINCLKUEN = hardware::MAINCLKUEN::kNO_CHANGE;
+    GetPeripheral()->MAINCLKUEN = hardware::MAINCLKUEN::kUPDATE;
   }
   /**
    * @brief Set the System Clock Divider
-   *
    * @param setting divison factor, 0 is disable, 1 is 1, the maximum is 255
    */
-  constexpr void setSystemClockDivider(std::uint32_t setting) {
-    sysconPeripheral()->SYSAHBCLKDIV = SYSAHBCLKDIV::DIV(setting);
+  constexpr void SetSystemClockDivider(std::uint32_t setting) {
+    GetPeripheral()->SYSAHBCLKDIV = hardware::SYSAHBCLKDIV::DIV(setting);
   }
   /**
    * @brief enable peripheral clocks
-   *
    * @param setting bit setting from peripheralClocks
    */
-  constexpr void enablePeripheralClocks(peripheralClocks setting) {
-    sysconPeripheral()->SYSAHBCLKCTRL =
-      sysconPeripheral()->SYSAHBCLKCTRL | (SYSAHBCLKCTRL::kRESERVED_MASK & static_cast<std::uint32_t>(setting));
+  constexpr void EnablePeripheralClocks(std::uint32_t setting) {
+    GetPeripheral()->SYSAHBCLKCTRL = GetPeripheral()->SYSAHBCLKCTRL | (hardware::SYSAHBCLKCTRL::kRESERVED_MASK & setting);
   }
   /**
    * @brief disable peripheral clocks
-   *
    * @param setting bit setting from peripheralClocks
    */
-  constexpr void disablePeripheralClocks(peripheralClocks setting) {
-    sysconPeripheral()->SYSAHBCLKCTRL =
-      sysconPeripheral()->SYSAHBCLKCTRL & ~(SYSAHBCLKCTRL::kRESERVED_MASK & static_cast<std::uint32_t>(setting));
+  constexpr void DisablePeripheralClocks(std::uint32_t setting) {
+    GetPeripheral()->SYSAHBCLKCTRL = GetPeripheral()->SYSAHBCLKCTRL & ~(hardware::SYSAHBCLKCTRL::kRESERVED_MASK & setting);
   }
   /**
    * @brief Set the Usart Clock Divider
-   *
    * @param setting clock divisor
    */
-  constexpr void setUsartClockDivider(std::uint32_t setting) {
-    sysconPeripheral()->UARTCLKDIV = setting;
+  constexpr void SetUsartClockDivider(std::uint32_t setting) {
+    GetPeripheral()->UARTCLKDIV = setting;
   }
   /**
-   * @brief Power up a peripheral
-   *
-   * @param setting bit setting from peripheralPowers enum
+   * @brief Power up peripherals
+   * @param setting bit setting from PeripheralPowers enum
    */
-  constexpr void powerPeripherals(peripheralPowers setting) {
-    sysconPeripheral()->PDRUNCFG = sysconPeripheral()->PDRUNCFG & ~(PDRUNCFG::kRESERVED_MASK & static_cast<std::uint32_t>(setting));
+  constexpr void PowerPeripherals(std::uint32_t setting) {
+    GetPeripheral()->PDRUNCFG = GetPeripheral()->PDRUNCFG & ~(hardware::PDRUNCFG::kRESERVED_MASK & setting);
   }
   /**
-   * @brief Power down a peripheral
-   *
-   * @param setting bit setting from peripheralPowers enum
+   * @brief Power down peripherals
+   * @param setting bit setting from PeripheralPowers enum
    */
-  constexpr void depowerPeripherals(peripheralPowers setting) {
-    sysconPeripheral()->PDRUNCFG = sysconPeripheral()->PDRUNCFG | (PDRUNCFG::kRESERVED_MASK & static_cast<std::uint32_t>(setting));
+  constexpr void DepowerPeripherals(std::uint32_t setting) {
+    GetPeripheral()->PDRUNCFG = GetPeripheral()->PDRUNCFG | (hardware::PDRUNCFG::kRESERVED_MASK & setting);
   }
   /**
    * @brief Get the DEVICE ID
-   *
    * @return chip id value
    * @return 0x00008100 is returned for LPC810M021FN8
    * @return 0x00008110 is returned for LPC811M001JDH16
@@ -253,20 +202,19 @@ struct syscon : libmcu::PeripheralBase {
    * @return 0x00008122 is returned for LPC812M101JDH20
    * @return 0x00008122 is returned for LPC812M101JTB16
    */
-  constexpr std::uint32_t getChipId(void) {
-    return sysconPeripheral()->DEVICEID;
+  constexpr std::uint32_t GetChipId(void) {
+    return GetPeripheral()->DEVICEID;
   }
   /**
    * @brief get registers from peripheral
-   *kSequencerA
    * @return return pointer to syscon registers
    */
-  constexpr static libmcuhw::syscon::Syscon *sysconPeripheral() {
-    return reinterpret_cast<libmcuhw::syscon::Syscon *>(sysconAddress);
+  constexpr static libmcuhw::syscon::Syscon *GetPeripheral() {
+    return reinterpret_cast<libmcuhw::syscon::Syscon *>(syscon_address_);
   }
 
  private:
-  constexpr static libmcu::HwAddressType sysconAddress = sysconAddress_; /*!< peripheral address */
+  constexpr static libmcu::HwAddressType syscon_address_ = syscon_address; /*!< peripheral address */
 };
-}  // namespace libmcull::sw::syscon
+}  // namespace libmcull::syscon
 #endif

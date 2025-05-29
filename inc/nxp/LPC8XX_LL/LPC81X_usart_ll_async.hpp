@@ -13,7 +13,7 @@
 
 #include "LPC81X_usart_ll_common.hpp"
 
-namespace libmcull::sw::usart {
+namespace libmcull::usart {
 namespace detail {
 
 enum class synchonousStates : std::uint8_t {
@@ -29,9 +29,9 @@ using namespace libmcuhw::usart;
  * @brief Asynchronous USART peripheral instance
  *
  * @tparam usartAddress_ Peripheral base address
- * @tparam transferType datatype to use for data transfers
+ * @tparam TransferType datatype to use for data transfers
  */
-template <libmcu::uartBaseAddress usartAddress_, typename transferType>
+template <libmcu::UartBaseAddress usartAddress_, typename TransferType>
 struct usartAsync : libmcu::PeripheralBase {
   /**
    * @brief Construct a new usart Async object
@@ -108,7 +108,7 @@ struct usartAsync : libmcu::PeripheralBase {
    * @return ERROR if not claimed interface or busy
    * @return STARTED when transaction started
    */
-  constexpr libmcu::Results startRead(std::span<transferType> buffer) {
+  constexpr libmcu::Results startRead(std::span<TransferType> buffer) {
     if (transactionReadState != detail::synchonousStates::CLAIMED) {
       return libmcu::Results::ERROR;
     }
@@ -125,7 +125,7 @@ struct usartAsync : libmcu::PeripheralBase {
    * @return ERROR if not claimed interface or busy
    * @return STARTED when transaction started
    */
-  constexpr libmcu::Results startWrite(std::span<transferType> buffer) {
+  constexpr libmcu::Results startWrite(std::span<TransferType> buffer) {
     if (transactionWriteState != detail::synchonousStates::CLAIMED) {
       return libmcu::Results::ERROR;
     }
@@ -148,7 +148,7 @@ struct usartAsync : libmcu::PeripheralBase {
       return libmcu::Results::ERROR;
     }
     if (usartPeripheral()->STAT & STAT::kRXRDY) {
-      transactionReadData[transactionReadIndex] = static_cast<transferType>(usartPeripheral()->RXDAT);
+      transactionReadData[transactionReadIndex] = static_cast<TransferType>(usartPeripheral()->RXDAT);
       transactionReadIndex++;
       if (transactionReadData.size() == transactionReadIndex) {
         transactionReadState = detail::synchonousStates::CLAIMED;
@@ -197,8 +197,8 @@ struct usartAsync : libmcu::PeripheralBase {
   detail::synchonousStates transactionReadState;                       /*!< usart read transaction state */
   std::size_t transactionWriteIndex;                                   /*!< transaction write buffer index */
   std::size_t transactionReadIndex;                                    /*!< transaction read buffer index */
-  std::span<transferType> transactionWriteData;                        /*!< data to write */
-  std::span<transferType> transactionReadData;                         /*!< where to put read data in */
+  std::span<TransferType> transactionWriteData;                        /*!< data to write */
+  std::span<TransferType> transactionReadData;                         /*!< where to put read data in */
 };
-}  // namespace libmcull::sw::usart
+}  // namespace libmcull::usart
 #endif

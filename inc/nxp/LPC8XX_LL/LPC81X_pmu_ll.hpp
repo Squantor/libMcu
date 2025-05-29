@@ -11,13 +11,13 @@
 #ifndef LPC81X_PMU_HPP
 #define LPC81X_PMU_HPP
 
-namespace libmcull::sw::pmu {
+namespace libmcull::pmu {
 namespace hardware = libmcuhw::pmu;
 /**
  * @brief pmu peripheral low level interface
  * @tparam pmu_address peripheral address
  */
-template <libmcu::pmuBaseAddress pmu_address>
+template <libmcu::PmuBaseAddress pmu_address>
 struct Pmu {
   /**
    * @brief get registers from peripheral
@@ -30,5 +30,5 @@ struct Pmu {
  private:
   static constexpr libmcu::HwAddressType pmu_address_ = pmu_address; /*!< peripheral address */
 };
-}  // namespace libmcull::sw::pmu
+}  // namespace libmcull::pmu
 #endif

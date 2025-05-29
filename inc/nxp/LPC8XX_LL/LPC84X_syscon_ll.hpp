@@ -57,16 +57,16 @@ constexpr inline std::uint32_t FRG1 = hardware::PRESETCTRL1::kFRG1; /*!< FRG1 pe
 /**
  * @brief PLL post divider options
  */
-enum class pllPostDivider : std::uint32_t {
-  DIV_2 = hardware::SYSPLLCTRL::kPSEL_DIV2,   /*!< PLL post division ration of 2 */
-  DIV_4 = hardware::SYSPLLCTRL::kPSEL_DIV4,   /*!< PLL post division ration of 4 */
-  DIV_8 = hardware::SYSPLLCTRL::kPSEL_DIV8,   /*!< PLL post division ration of 8 */
-  DIV_16 = hardware::SYSPLLCTRL::kPSEL_DIV16, /*!< PLL post division ration of 16 */
+enum class PllPostDividers : std::uint32_t {
+  kDiv2 = hardware::SYSPLLCTRL::kPSEL_DIV2,   /*!< PLL post division ration of 2 */
+  kDiv4 = hardware::SYSPLLCTRL::kPSEL_DIV4,   /*!< PLL post division ration of 4 */
+  kDiv8 = hardware::SYSPLLCTRL::kPSEL_DIV8,   /*!< PLL post division ration of 8 */
+  kDiv16 = hardware::SYSPLLCTRL::kPSEL_DIV16, /*!< PLL post division ration of 16 */
 };  // namespace pllPostDivider
 /**
  * @brief PLL source options
  */
-enum class pllClockSources : std::uint32_t {
+enum class PllClockSources : std::uint32_t {
   FRO = hardware::SYSPLLCLKSEL::kFRO,        /*!< FRO clock source */
   EXT = hardware::SYSPLLCLKSEL::kEXT,        /*!< External clock */
   WDO = hardware::SYSPLLCLKSEL::kWDO,        /*!< Watchdog oscillator*/
@@ -201,63 +201,63 @@ enum class clockOutSources : std::uint32_t {
   WATCHDOG = hardware::CLKOUTSEL::kWATCHDOG, /*!< Watchdog oscillator clock source */
 };
 
-template <libmcu::sysconBaseAddress sysconAddress_>
-struct syscon : libmcu::PeripheralBase {
+template <libmcu::SysconBaseAddress syscon_address>
+struct Syscon : libmcu::PeripheralBase {
   /**
    * @brief Set the System PLL Control
    * @param msel Feedback divider ratio, 0 divides by 1, 31 divides by 32
    * @param psel Post divider ratio, acceptable values in pllPostDivider enum
    */
-  constexpr void setSystemPllControl(std::uint32_t msel, pllPostDivider psel) {
-    sysconPeripheral()->SYSPLLCTRL = hardware::SYSPLLCTRL::MSEL(msel) | static_cast<std::uint32_t>(psel);
+  constexpr void SetSystemPllControl(std::uint32_t msel, PllPostDividers psel) {
+    GetPeripheral()->SYSPLLCTRL = hardware::SYSPLLCTRL::MSEL(msel) | static_cast<std::uint32_t>(psel);
   }
   /**
    * @brief Get the System Pll Status
    * @return 0 PLL not locked, 1 PLL locked
    */
-  constexpr std::uint32_t getSystemPllStatus(void) {
-    return sysconPeripheral()->SYSPLLSTAT;
+  constexpr std::uint32_t GetSystemPllStatus(void) {
+    return GetPeripheral()->SYSPLLSTAT;
   }
   /**
    * @brief set system oscillator control
    * @param setting set register see registers::syscon::SYSOSCCTRL
    */
-  constexpr void setSysOscControl(std::uint32_t setting) {
-    sysconPeripheral()->SYSOSCCTRL = setting;
+  constexpr void SetSysOscControl(std::uint32_t setting) {
+    GetPeripheral()->SYSOSCCTRL = setting;
   }
   /**
    * @brief   Select PLL clock source
    * @param   source      Clock source of the PLL
    */
-  constexpr void selectPllClock(pllClockSources setting) {
-    sysconPeripheral()->SYSPLLCLKSEL = static_cast<std::uint32_t>(setting);
-    sysconPeripheral()->SYSPLLCLKUEN = hardware::SYSPLLCLKUEN::kNO_CHANGE;
-    sysconPeripheral()->SYSPLLCLKUEN = hardware::SYSPLLCLKUEN::kUPDATE;
+  constexpr void selectPllClock(PllClockSources setting) {
+    GetPeripheral()->SYSPLLCLKSEL = static_cast<std::uint32_t>(setting);
+    GetPeripheral()->SYSPLLCLKUEN = hardware::SYSPLLCLKUEN::kNO_CHANGE;
+    GetPeripheral()->SYSPLLCLKUEN = hardware::SYSPLLCLKUEN::kUPDATE;
   }
   /**
    * @brief Select main clock PLL source
    * @param setting clock source from mainClockSources enum
    */
   constexpr void selectMainPllClock(mainClockPllSources setting) {
-    sysconPeripheral()->MAINCLKPLLSEL = static_cast<std::uint32_t>(setting);
-    sysconPeripheral()->MAINCLKPLLUEN = hardware::MAINCLKPLLUEN::kNO_CHANGE;
-    sysconPeripheral()->MAINCLKPLLUEN = hardware::MAINCLKPLLUEN::kUPDATE;
+    GetPeripheral()->MAINCLKPLLSEL = static_cast<std::uint32_t>(setting);
+    GetPeripheral()->MAINCLKPLLUEN = hardware::MAINCLKPLLUEN::kNO_CHANGE;
+    GetPeripheral()->MAINCLKPLLUEN = hardware::MAINCLKPLLUEN::kUPDATE;
   }
   /**
    * @brief Select main clock source
    * @param setting clock source from mainClockSources enum
    */
   constexpr void selectMainClock(mainClockSources setting) {
-    sysconPeripheral()->MAINCLKSEL = static_cast<std::uint32_t>(setting);
-    sysconPeripheral()->MAINCLKUEN = hardware::MAINCLKUEN::kNO_CHANGE;
-    sysconPeripheral()->MAINCLKUEN = hardware::MAINCLKUEN::kUPDATE;
+    GetPeripheral()->MAINCLKSEL = static_cast<std::uint32_t>(setting);
+    GetPeripheral()->MAINCLKUEN = hardware::MAINCLKUEN::kNO_CHANGE;
+    GetPeripheral()->MAINCLKUEN = hardware::MAINCLKUEN::kUPDATE;
   }
   /**
    * @brief Set the AHB system clock Divider
    * @param setting divison factor, 0 is disable, 1 is 1, the maximum is 255
    */
   constexpr void setMainClockDivider(std::uint32_t setting) {
-    sysconPeripheral()->SYSAHBCLKDIV = hardware::SYSAHBCLKDIV::DIV(setting);
+    GetPeripheral()->SYSAHBCLKDIV = hardware::SYSAHBCLKDIV::DIV(setting);
   }
   /**
    * @brief Setup ADC clock
@@ -265,8 +265,8 @@ struct syscon : libmcu::PeripheralBase {
    * @param divisor clock pre divider for the ADC, zero disables the clock
    */
   constexpr void setupAdcClock(adcClockSources source, std::uint32_t divisor) {
-    sysconPeripheral()->ADCCLKDIV = divisor;
-    sysconPeripheral()->ADCCLKSEL = static_cast<std::uint32_t>(source);
+    GetPeripheral()->ADCCLKDIV = divisor;
+    GetPeripheral()->ADCCLKSEL = static_cast<std::uint32_t>(source);
   }
   /**
    * @brief Setup SCT clock
@@ -274,24 +274,24 @@ struct syscon : libmcu::PeripheralBase {
    * @param divisor clock pre divider for the SCT, zero disables the clock
    */
   constexpr void setupSctClock(sctClockSources source, std::uint32_t divisor) {
-    sysconPeripheral()->SCTCLKDIV = divisor;
-    sysconPeripheral()->SCTCLKSEL = static_cast<std::uint32_t>(source);
+    GetPeripheral()->SCTCLKDIV = divisor;
+    GetPeripheral()->SCTCLKSEL = static_cast<std::uint32_t>(source);
   }
   /**
    * @brief enable peripheral clocks
    * @param setting bit setting from peripheralClocks
    */
   constexpr void enablePeripheralClocks(std::uint32_t setting0, std::uint32_t setting1) {
-    sysconPeripheral()->SYSAHBCLKCTRL0 = sysconPeripheral()->SYSAHBCLKCTRL0 | setting0;
-    sysconPeripheral()->SYSAHBCLKCTRL1 = sysconPeripheral()->SYSAHBCLKCTRL1 | setting1;
+    GetPeripheral()->SYSAHBCLKCTRL0 = GetPeripheral()->SYSAHBCLKCTRL0 | setting0;
+    GetPeripheral()->SYSAHBCLKCTRL1 = GetPeripheral()->SYSAHBCLKCTRL1 | setting1;
   }
   /**
    * @brief disable peripheral clocks
    * @param setting bit setting from peripheralClocks
    */
   constexpr void disablePeripheralClocks(std::uint32_t setting0, std::uint32_t setting1) {
-    sysconPeripheral()->SYSAHBCLKCTRL0 = sysconPeripheral()->SYSAHBCLKCTRL0 & ~setting0;
-    sysconPeripheral()->SYSAHBCLKCTRL1 = sysconPeripheral()->SYSAHBCLKCTRL1 & ~setting1;
+    GetPeripheral()->SYSAHBCLKCTRL0 = GetPeripheral()->SYSAHBCLKCTRL0 & ~setting0;
+    GetPeripheral()->SYSAHBCLKCTRL1 = GetPeripheral()->SYSAHBCLKCTRL1 & ~setting1;
   }
   /**
    * @brief reset a peripheral
@@ -299,10 +299,10 @@ struct syscon : libmcu::PeripheralBase {
    * @param setting1 bit setting from peripheralResets enum
    */
   constexpr void resetPeripherals(std::uint32_t setting0, std::uint32_t setting1) {
-    sysconPeripheral()->PRESETCTRL0 = sysconPeripheral()->PRESETCTRL0 & ~setting0;
-    sysconPeripheral()->PRESETCTRL1 = sysconPeripheral()->PRESETCTRL1 & ~setting1;
-    sysconPeripheral()->PRESETCTRL0 = sysconPeripheral()->PRESETCTRL0 | setting0;
-    sysconPeripheral()->PRESETCTRL1 = sysconPeripheral()->PRESETCTRL1 | setting1;
+    GetPeripheral()->PRESETCTRL0 = GetPeripheral()->PRESETCTRL0 & ~setting0;
+    GetPeripheral()->PRESETCTRL1 = GetPeripheral()->PRESETCTRL1 & ~setting1;
+    GetPeripheral()->PRESETCTRL0 = GetPeripheral()->PRESETCTRL0 | setting0;
+    GetPeripheral()->PRESETCTRL1 = GetPeripheral()->PRESETCTRL1 | setting1;
   }
   /**
    * @brief Set the peripheral clock to a specific clock
@@ -311,7 +311,7 @@ struct syscon : libmcu::PeripheralBase {
    */
   constexpr void peripheralClockSource(ClockSourceSelects peripheral, clockSources clock) {
     size_t index = static_cast<size_t>(peripheral);
-    sysconPeripheral()->FCLKSEL[index] = static_cast<std::uint32_t>(clock);
+    GetPeripheral()->FCLKSEL[index] = static_cast<std::uint32_t>(clock);
   }
   /**
    * @brief configure the clock output
@@ -320,23 +320,23 @@ struct syscon : libmcu::PeripheralBase {
    */
   constexpr void setClockOutput(clockOutSources source, std::uint32_t divisor) {
     // disable clock to prevent overspeed
-    sysconPeripheral()->CLKOUTDIV = hardware::CLKOUTDIV::DIV(0);
-    sysconPeripheral()->CLKOUTSEL = static_cast<std::uint32_t>(source);
-    sysconPeripheral()->CLKOUTDIV = hardware::CLKOUTDIV::DIV(divisor);
+    GetPeripheral()->CLKOUTDIV = hardware::CLKOUTDIV::DIV(0);
+    GetPeripheral()->CLKOUTSEL = static_cast<std::uint32_t>(source);
+    GetPeripheral()->CLKOUTDIV = hardware::CLKOUTDIV::DIV(divisor);
   }
   /**
    * @brief Power up a peripheral
    * @param setting bit setting from powerEnables enum
    */
   constexpr void powerPeripherals(std::uint32_t setting) {
-    sysconPeripheral()->PDRUNCFG = (sysconPeripheral()->PDRUNCFG & ~setting) | hardware::PDRUNCFG::kRESERVED_BITS;
+    GetPeripheral()->PDRUNCFG = (GetPeripheral()->PDRUNCFG & ~setting) | hardware::PDRUNCFG::kRESERVED_BITS;
   }
   /**
    * @brief Power down a peripheral
    * @param setting bit setting from powerEnables enum
    */
   constexpr void depowerPeripherals(std::uint32_t setting) {
-    sysconPeripheral()->PDRUNCFG = sysconPeripheral()->PDRUNCFG | setting;
+    GetPeripheral()->PDRUNCFG = GetPeripheral()->PDRUNCFG | setting;
   }
   /**
    * @brief Configure microcontroller clocks with mcuConfiguration settings
@@ -357,9 +357,9 @@ struct syscon : libmcu::PeripheralBase {
         static_assert(false, "Unsupported FRO frequency!");
     } else if constexpr (config.source == libmcuhw::clock::clockInputSources::XTAL) {
       if constexpr (config.getSourceFreq() > 15'000'000) {
-        setSysOscControl(libmcuhw::syscon::SYSOSCCTRL::kNO_BYPASS | libmcuhw::syscon::SYSOSCCTRL::kFREQ_15_25MHz);
+        SetSysOscControl(libmcuhw::syscon::SYSOSCCTRL::kNO_BYPASS | libmcuhw::syscon::SYSOSCCTRL::kFREQ_15_25MHz);
       } else
-        setSysOscControl(libmcuhw::syscon::SYSOSCCTRL::kNO_BYPASS | libmcuhw::syscon::SYSOSCCTRL::kFREQ_1_20MHz);
+        SetSysOscControl(libmcuhw::syscon::SYSOSCCTRL::kNO_BYPASS | libmcuhw::syscon::SYSOSCCTRL::kFREQ_1_20MHz);
       powerPeripherals(libmcull::syscon::powerOptions::SYSOSC);
       libmcu::Delay(3000);
       selectMainClock(mainClockSources::EXT);
@@ -372,15 +372,15 @@ struct syscon : libmcu::PeripheralBase {
       setMainClockDivider(config.getMainFreq() / config.getSystemFreq());
     } else {
       if constexpr (config.source == libmcuhw::clock::clockInputSources::FRO) {
-        selectPllClock(libmcull::syscon::pllClockSources::FRO);
+        selectPllClock(libmcull::syscon::PllClockSources::FRO);
       } else if constexpr (config.source == libmcuhw::clock::clockInputSources::XTAL) {
-        selectPllClock(libmcull::syscon::pllClockSources::EXT);
+        selectPllClock(libmcull::syscon::PllClockSources::EXT);
       }
       depowerPeripherals(libmcull::syscon::powerOptions::SYSPLL);
-      setSystemPllControl(libmcuhw::clock::FindSystemPllMsel(config.getSourceFreq(), config.getMainFreq()),
-                          static_cast<libmcull::syscon::pllPostDivider>(libmcuhw::clock::FindSystemPllPsel(config.getMainFreq())));
+      SetSystemPllControl(libmcuhw::clock::FindSystemPllMsel(config.getSourceFreq(), config.getMainFreq()),
+                          static_cast<libmcull::syscon::PllPostDividers>(libmcuhw::clock::FindSystemPllPsel(config.getMainFreq())));
       powerPeripherals(libmcull::syscon::powerOptions::SYSPLL);
-      while (getSystemPllStatus() == 0)
+      while (GetSystemPllStatus() == 0)
         ;
       setMainClockDivider(config.getMainFreq() / config.getSystemFreq());
       selectMainPllClock(libmcull::syscon::mainClockPllSources::SYSPLL);
@@ -394,16 +394,16 @@ struct syscon : libmcu::PeripheralBase {
   constexpr void configurePeripheralClock() {
     if constexpr (config.peripheral == libmcuhw::clock::periSelect::UART0) {
       if constexpr (config.source == libmcuhw::clock::periSource::FRO)
-        sysconPeripheral()->FCLKSEL[hardware::FCLKSEL::kUART0] = hardware::FCLKSEL::kFRO;
+        GetPeripheral()->FCLKSEL[hardware::FCLKSEL::kUART0] = hardware::FCLKSEL::kFRO;
       else if constexpr (config.source == libmcuhw::clock::periSource::MAIN)
-        sysconPeripheral()->FCLKSEL[hardware::FCLKSEL::kUART0] = hardware::FCLKSEL::kMAIN;
+        GetPeripheral()->FCLKSEL[hardware::FCLKSEL::kUART0] = hardware::FCLKSEL::kMAIN;
       else
         static_assert(false, "Unsupported clock source for UART0!");
     } else if constexpr (config.peripheral == libmcuhw::clock::periSelect::UART1) {
       if constexpr (config.source == libmcuhw::clock::periSource::FRO)
-        sysconPeripheral()->FCLKSEL[hardware::FCLKSEL::kUART0] = hardware::FCLKSEL::kFRO;
+        GetPeripheral()->FCLKSEL[hardware::FCLKSEL::kUART0] = hardware::FCLKSEL::kFRO;
       else if constexpr (config.source == libmcuhw::clock::periSource::MAIN)
-        sysconPeripheral()->FCLKSEL[hardware::FCLKSEL::kUART0] = hardware::FCLKSEL::kMAIN;
+        GetPeripheral()->FCLKSEL[hardware::FCLKSEL::kUART0] = hardware::FCLKSEL::kMAIN;
       else
         static_assert(false, "Unsupported clock source for UART1!");
     } else
@@ -421,18 +421,18 @@ struct syscon : libmcu::PeripheralBase {
    * @return 0x00008122 is returned for LPC842M101JTB16
    */
   constexpr std::uint32_t getChipId(void) {
-    return sysconPeripheral()->DEVICE_ID;
+    return GetPeripheral()->DEVICE_ID;
   }
   /**
    * @brief get registers from peripheral
    * @return return pointer to syscon registers
    */
-  constexpr static hardware::Syscon *sysconPeripheral() {
-    return reinterpret_cast<hardware::Syscon *>(sysconAddress);
+  constexpr static hardware::Syscon *GetPeripheral() {
+    return reinterpret_cast<hardware::Syscon *>(syscon_address_);
   }
 
  private:
-  constexpr static libmcu::HwAddressType sysconAddress = sysconAddress_; /*!< peripheral address */
+  constexpr static libmcu::HwAddressType syscon_address_ = syscon_address; /*!< peripheral address */
 };
 }  // namespace libmcull::syscon
 #endif

@@ -13,7 +13,7 @@
 
 namespace libmcull::timer {
 namespace hardware = libmcuhw::timer;
-template <libmcu::timerBaseAddress const& timerAddress_>
+template <libmcu::TimerBaseAddress const& timerAddress_>
 struct timer : libmcu::PeripheralBase {
   /**
    * @brief Base initialization function

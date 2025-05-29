@@ -187,6 +187,26 @@ constexpr inline std::uint32_t DIV(std::uint32_t divider) {
 }  // namespace SYSAHBCLKDIV
 namespace SYSAHBCLKCTRL {
 constexpr inline std::uint32_t kRESERVED_MASK{0x000FFFFFu}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kSYS{1u << 0};               /*!< clock enable for AHB, APB bridge, SYSCON and core */
+constexpr inline std::uint32_t kROM{1u << 1};               /*!< clock enable for ROM */
+constexpr inline std::uint32_t kRAM{1u << 2};               /*!< clock enable for RAM */
+constexpr inline std::uint32_t kFLASHREG{1u << 3};          /*!< clock enable for FLASHREG */
+constexpr inline std::uint32_t kFLASH{1u << 4};             /*!< clock enable for FLASH */
+constexpr inline std::uint32_t kI2C{1u << 5};               /*!< clock enable for I2C */
+constexpr inline std::uint32_t kGPIO{1u << 6};              /*!< clock enable for GPIO */
+constexpr inline std::uint32_t kSWM{1u << 7};               /*!< clock enable for SWM */
+constexpr inline std::uint32_t kSCT{1u << 8};               /*!< clock enable for SCT */
+constexpr inline std::uint32_t kWKT{1u << 9};               /*!< clock enable for WKT */
+constexpr inline std::uint32_t kMRT{1u << 10};              /*!< clock enable for BLA */
+constexpr inline std::uint32_t kSPI0{1u << 11};             /*!< clock enable for SPI0 */
+constexpr inline std::uint32_t kSPI1{1u << 12};             /*!< clock enable for SPI1 */
+constexpr inline std::uint32_t kCRC{1u << 13};              /*!< clock enable for CRC */
+constexpr inline std::uint32_t kUART0{1u << 14};            /*!< clock enable for UART0 */
+constexpr inline std::uint32_t kUART1{1u << 15};            /*!< clock enable for UART1 */
+constexpr inline std::uint32_t kUART2{1u << 16};            /*!< clock enable for UART2 */
+constexpr inline std::uint32_t kWWDT{1u << 17};             /*!< clock enable for WWDT */
+constexpr inline std::uint32_t kIOCON{1u << 18};            /*!< clock enable for IOCON */
+constexpr inline std::uint32_t kACMP{1u << 19};             /*!< clock enable for BLA */
 }  // namespace SYSAHBCLKCTRL
 namespace UARTCLKDIV {
 constexpr inline std::uint32_t kRESERVED_MASK{0x000000FFu}; /*!< register mask for allowed bits */

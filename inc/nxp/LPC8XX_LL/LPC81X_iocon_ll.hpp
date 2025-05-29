@@ -11,7 +11,7 @@
 #ifndef LPC81X_IOCON_HPP
 #define LPC81X_IOCON_HPP
 
-namespace libmcull::sw::iocon {
+namespace libmcull::iocon {
 namespace hardware = libmcuhw::iocon;
 
 /**
@@ -57,7 +57,7 @@ enum class I2cModes : std::uint32_t {
  * @brief Iocon peripheral Low level interface
  * @tparam iocon_address peripheral address
  */
-template <libmcu::ioconBaseAddress iocon_address>
+template <libmcu::IoconBaseAddress iocon_address>
 struct Iocon : libmcu::PeripheralBase {
   /**
    * @brief Setup normal IOCON pin
@@ -145,5 +145,5 @@ struct Iocon : libmcu::PeripheralBase {
  private:
   static constexpr libmcu::HwAddressType iocon_address_ = iocon_address; /*!< peripheral address */
 };
-}  // namespace libmcull::sw::iocon
+}  // namespace libmcull::iocon
 #endif

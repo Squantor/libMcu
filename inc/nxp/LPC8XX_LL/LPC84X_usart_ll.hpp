@@ -65,9 +65,9 @@ enum uartStatus : std::uint32_t {
 /**
  * @brief synchronous USART peripheral instance
  * @tparam usartAddress_ Peripheral base usartAddress
- * @tparam transferType datatype to use for data transfers
+ * @tparam TransferType datatype to use for data transfers
  */
-template <libmcu::uartBaseAddress usartAddress_, typename transferType>
+template <libmcu::UartBaseAddress usartAddress_, typename TransferType>
 struct usart : libmcu::PeripheralBase {
   /**
    * @brief Setup USART to 8n1
@@ -114,24 +114,24 @@ struct usart : libmcu::PeripheralBase {
    * @brief Send data out of the UART
    * @param data data to send, amount is sent according to configuration
    */
-  constexpr void write(transferType data) {
-    usartPeripheral()->TXDAT = static_cast<transferType>(data & hardware::TXDAT::kRESERVED_MASK);
+  constexpr void write(TransferType data) {
+    usartPeripheral()->TXDAT = static_cast<TransferType>(data & hardware::TXDAT::kRESERVED_MASK);
   }
   /**
    * @brief Read data from UART
    * @param data reference to put received data in
    */
-  constexpr void read(transferType &data) {
-    data = static_cast<transferType>(usartPeripheral()->RXDAT);
+  constexpr void read(TransferType &data) {
+    data = static_cast<TransferType>(usartPeripheral()->RXDAT);
   }
   /**
    * @brief Read data and status from UART
    * @param data reference to put received data in
    * @param status reference to put received status in
    */
-  constexpr void read(transferType &data, std::uint32_t &status) {
+  constexpr void read(TransferType &data, std::uint32_t &status) {
     std::uint32_t regData = usartPeripheral()->RXDATSTAT;
-    data = static_cast<transferType>(regData & hardware::RXDATSTAT::kDATA_MASK);
+    data = static_cast<TransferType>(regData & hardware::RXDATSTAT::kDATA_MASK);
     status = regData & hardware::RXDATSTAT::kSTAT_MASK;
   }
   /**

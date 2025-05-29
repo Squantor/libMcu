@@ -11,7 +11,7 @@
 #ifndef LPC81X_CRC_HPP
 #define LPC81X_CRC_HPP
 
-namespace libmcull::sw::crc {
+namespace libmcull::crc {
 namespace hardware = libmcuhw::crc;
 /**
  * @brief
@@ -30,5 +30,5 @@ struct Crc : libmcu::PeripheralBase {
  private:
   static constexpr libmcu::HwAddressType crcAddress = crcAddress_; /*!< peripheral address */
 };
-}  // namespace libmcull::sw::crc
+}  // namespace libmcull::crc
 #endif

@@ -20,8 +20,8 @@ enum class pullModes : std::uint32_t {
   KEEPER = 0,                           /*!< No bus keeper on RP2040 */
 };
 
-template <libmcu::padsBank0BaseAddress const& padsBank0Address_, libmcu::ioBank0BaseAddress const& gpioBank0Address_,
-          libmcu::sioBaseAddress const& sioAddress_>
+template <libmcu::PadsBank0BaseAddress const& padsBank0Address_, libmcu::IoBank0BaseAddress const& gpioBank0Address_,
+          libmcu::SioBaseAddress const& sioAddress_>
 struct gpio : libmcuhal::HalGpioBase {
   /**
    * @brief Initialize the gpio HAL

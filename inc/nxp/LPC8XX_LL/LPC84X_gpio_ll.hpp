@@ -13,7 +13,7 @@
 
 namespace libmcull::gpio {
 namespace hardware = libmcuhw::gpio;
-template <libmcu::gpioBaseAddress const &gpioAddress_>
+template <libmcu::GpioBaseAddress const &gpioAddress_>
 struct gpio : libmcu::PeripheralBase {
   /**
    * @brief Set gpio pin to output mode

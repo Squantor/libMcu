@@ -13,7 +13,7 @@
 
 namespace libmcuhal::spi {
 
-template <libmcu::spiBaseAddress const& spiBaseAddress_>
+template <libmcu::SpiBaseAddress const& spiBaseAddress_>
 struct spi {
   /**
    * @brief Initialize the spi HAL

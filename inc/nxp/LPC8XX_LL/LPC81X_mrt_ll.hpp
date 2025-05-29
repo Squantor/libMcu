@@ -11,7 +11,7 @@
 #ifndef LPC81X_MRT_HPP
 #define LPC81X_MRT_HPP
 
-namespace libmcull::sw::mrt {
+namespace libmcull::mrt {
 namespace hardware = libmcuhw::mrt;
 /**
  * @brief Mrt peripheral low level interface
@@ -30,5 +30,5 @@ struct Mrt : libmcu::PeripheralBase {
  private:
   static constexpr libmcu::HwAddressType mrt_address_ = mrt_address; /*!< peripheral address */
 };
-}  // namespace libmcull::sw::mrt
+}  // namespace libmcull::mrt
 #endif

@@ -11,9 +11,9 @@
 #ifndef LPC81X_WWDT_HPP
 #define LPC81X_WWDT_HPP
 
-namespace libmcull::sw::wwdt {
+namespace libmcull::wwdt {
 using namespace libmcuhw::wwdt;
-template <libmcu::wwdtBaseAddress wwdtAddress_>
+template <libmcu::WwdtBaseAddress wwdtAddress_>
 struct Wwdt {
   static constexpr libmcu::HwAddressType wwdtAddress = wwdtAddress_; /*!< peripheral address */
   /**
@@ -25,5 +25,5 @@ struct Wwdt {
     return reinterpret_cast<libmcuhw::wwdt::Wwdt *>(wwdtAddress);
   }
 };
-}  // namespace libmcull::sw::wwdt
+}  // namespace libmcull::wwdt
 #endif

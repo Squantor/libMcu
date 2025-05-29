@@ -57,5 +57,19 @@ using i2cDeviceAddressBase = libmcu::Constant<std::uint8_t>;
 using i2cDeviceAddressType = typename i2cDeviceAddressBase::type;
 
 struct i2cDeviceAddress : i2cDeviceAddressBase {}; /*!< General purpose I2C address type */
+
+/**
+ * @brief States of the asynchronous interfaces
+ * @todo Maybe change this into results enum as there are a lot of matching cases
+ */
+enum class AysnchronousStates : std::uint8_t {
+  kIdle,         /*!< Interface is idle, ready to be claimed */
+  kClaimed,      /*!< Interface is claimed, ready to transact */
+  kBusy,         /*!< Interface is busy */
+  kBusyReceive,  /*!< Interface is busy with a Reception operation */
+  kBusyTransmit, /*!< Interface is busy with a Transmit operation */
+  kError,        /*!< Interface is in an error state */
+};
+
 }  // namespace libmcull
 #endif

@@ -11,7 +11,7 @@
 #ifndef LPC81X_ACMP_HPP
 #define LPC81X_ACMP_HPP
 
-namespace libmcull::sw::acmp {
+namespace libmcull::acmp {
 namespace hardware = libmcuhw::acmp;
 
 /**
@@ -144,5 +144,5 @@ struct Acmp : libmcu::PeripheralBase {
  private:
   static constexpr libmcu::HwAddressType acmpAddress{acmpAddress_}; /*!< peripheral address */
 };
-}  // namespace libmcull::sw::acmp
+}  // namespace libmcull::acmp
 #endif

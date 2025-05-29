@@ -17,76 +17,77 @@ namespace libmcu {
 using HwAddressBase = libmcu::Constant<std::uint32_t>; /*!< base type definition of a memory address */
 using HwAddressType = typename HwAddressBase::type;    /*!< type definition of a memory address */
 
-struct memoryAddress : HwAddressBase {}; /*!< generic memory address */
+struct MemoryAddress : HwAddressBase {}; /*!< generic memory address */
 
 /* Peripheral address types used by CortexM microcontrollers */
-struct scsBaseAddress : HwAddressBase {};     /*!< SCS */
-struct systickBaseAddress : HwAddressBase {}; /*!< SYSTICK */
-struct nvicBaseAddress : HwAddressBase {};    /*!< NVIC */
-struct scbBaseAddress : HwAddressBase {};     /*!< SCB */
-struct mpuBaseAddress : HwAddressBase {};     /*!< MPU */
-struct mtbBaseAddress : HwAddressBase {};     /*!< MTB */
+struct ScsBaseAddress : HwAddressBase {};     /*!< SCS */
+struct SystickBaseAddress : HwAddressBase {}; /*!< SYSTICK */
+struct NvicBaseAddress : HwAddressBase {};    /*!< NVIC */
+struct ScbBaseAddress : HwAddressBase {};     /*!< SCB */
+struct MpuBaseAddress : HwAddressBase {};     /*!< MPU */
+struct MtbBaseAddress : HwAddressBase {};     /*!< MTB */
 
 /* Peripheral address types used by all microcontrollers */
 struct I2cBaseAddress : HwAddressBase {};    /*!< I2C */
-struct spiBaseAddress : HwAddressBase {};    /*!< SPI */
-struct uartBaseAddress : HwAddressBase {};   /*!< UART */
+struct SpiBaseAddress : HwAddressBase {};    /*!< SPI */
+struct UartBaseAddress : HwAddressBase {};   /*!< UART */
 struct CrcBaseAddress : HwAddressBase {};    /*!< CRC engine */
-struct gpioBaseAddress : HwAddressBase {};   /*!< GPIO */
-struct dmaBaseAddress : HwAddressBase {};    /*!< DMA */
-struct dacBaseAddress : HwAddressBase {};    /*!< DAC */
-struct adcBaseAddress : HwAddressBase {};    /*!< ADC */
-struct syscfgBaseAddress : HwAddressBase {}; /*!< SYSCFG */
+struct GpioBaseAddress : HwAddressBase {};   /*!< GPIO */
+struct DmaBaseAddress : HwAddressBase {};    /*!< DMA */
+struct DacBaseAddress : HwAddressBase {};    /*!< DAC */
+struct AdcBaseAddress : HwAddressBase {};    /*!< ADC */
+struct SyscfgBaseAddress : HwAddressBase {}; /*!< SYSCFG */
 
 /* Peripheral address types used by NXP LPC microcontrollers */
-struct wwdtBaseAddress : HwAddressBase {};   /*!< NXP LPC Windowed watchdog */
+struct WwdtBaseAddress : HwAddressBase {};   /*!< NXP LPC Windowed watchdog */
 struct MrtBaseAddress : HwAddressBase {};    /*!< NXP LPC Multi rate timer*/
-struct wktBaseAddress : HwAddressBase {};    /*!< NXP LPC Wakeup timer */
-struct swmBaseAddress : HwAddressBase {};    /*!< NXP LPC Switch Matrix */
-struct pmuBaseAddress : HwAddressBase {};    /*!< NXP LPC Power management unit */
+struct WktBaseAddress : HwAddressBase {};    /*!< NXP LPC Wakeup timer */
+struct SwmBaseAddress : HwAddressBase {};    /*!< NXP LPC Switch Matrix */
+struct PmuBaseAddress : HwAddressBase {};    /*!< NXP LPC Power management unit */
 struct AcmpBaseAddress : HwAddressBase {};   /*!< NXP LPC Analog comparator */
 struct FmcBaseAddress : HwAddressBase {};    /*!< NXP LPC Flash controller */
-struct ioconBaseAddress : HwAddressBase {};  /*!< NXP LPC IO control */
-struct sysconBaseAddress : HwAddressBase {}; /*!< NXP LPC System control*/
+struct IoconBaseAddress : HwAddressBase {};  /*!< NXP LPC IO control */
+struct SysconBaseAddress : HwAddressBase {}; /*!< NXP LPC System control*/
 struct SctBaseAddress : HwAddressBase {};    /*!< NXP LPC state configurable timer */
-struct pinintBaseAddress : HwAddressBase {}; /*!< NXP LPC Pin interrupt */
-struct faimBaseAddress : HwAddressBase {};   /*!< NXP LPC fast memory initialization */
-struct inmuxBaseAddress : HwAddressBase {};  /*!< NXP LPC input multiplexer  */
-struct ctimerBaseAddress : HwAddressBase {}; /*!< NXP LPC standard counter/timer */
-struct captBaseAddress : HwAddressBase {};   /*!< NXP LPC capacitive touch */
+struct PinintBaseAddress : HwAddressBase {}; /*!< NXP LPC Pin interrupt */
+struct FaimBaseAddress : HwAddressBase {};   /*!< NXP LPC fast memory initialization */
+struct InmuxBaseAddress : HwAddressBase {};  /*!< NXP LPC input multiplexer  */
+struct CtimerBaseAddress : HwAddressBase {}; /*!< NXP LPC standard counter/timer */
+struct CaptBaseAddress : HwAddressBase {};   /*!< NXP LPC capacitive touch */
 
 /* Peripheral address types used by STM32 microcontrollers */
 struct stmBaseAddress : HwAddressBase {}; /*!< STM generic peripheral */
 
 /* Peripheral address types used by Raspberry Pi microcontrollers */
-struct xipCtrlBaseAddress : HwAddressBase {};
-struct xipSsiBaseAddress : HwAddressBase {};
-struct sysinfoBaseAddress : HwAddressBase {};
-struct clocksBaseAddress : HwAddressBase {};
-struct resetsBaseAddress : HwAddressBase {};
-struct psmBaseAddress : HwAddressBase {};
-struct ioBank0BaseAddress : HwAddressBase {};
-struct ioQspiBaseAddress : HwAddressBase {};
-struct padsBank0BaseAddress : HwAddressBase {};
-struct padsQspiBaseAddress : HwAddressBase {};
-struct xoscBaseAddress : HwAddressBase {};
-struct pllBaseAddress : HwAddressBase {};
-struct busCtrlBaseAddress : HwAddressBase {};
-struct pwmBaseAddress : HwAddressBase {};
-struct timerBaseAddress : HwAddressBase {};
-struct watchdogBaseAddress : HwAddressBase {};
-struct rtcBaseAddress : HwAddressBase {};
-struct roscBaseAddress : HwAddressBase {};
-struct vregChipResetBaseAddress : HwAddressBase {};
-struct tbmanBaseAddress : HwAddressBase {};
-struct usbCtrlDPramBaseAddress : HwAddressBase {};
-struct usbCtrlRegsBaseAddress : HwAddressBase {};
-struct pioBaseAddress : HwAddressBase {};
-struct sioBaseAddress : HwAddressBase {};
-struct ppbBaseAddress : HwAddressBase {};
+struct XipCtrlBaseAddress : HwAddressBase {};
+struct XipSsiBaseAddress : HwAddressBase {};
+struct SysinfoBaseAddress : HwAddressBase {};
+struct ClocksBaseAddress : HwAddressBase {};
+struct ResetsBaseAddress : HwAddressBase {};
+struct PsmBaseAddress : HwAddressBase {};
+struct IoBank0BaseAddress : HwAddressBase {};
+struct IoQspiBaseAddress : HwAddressBase {};
+struct PadsBank0BaseAddress : HwAddressBase {};
+struct PadsQspiBaseAddress : HwAddressBase {};
+struct XoscBaseAddress : HwAddressBase {};
+struct PllBaseAddress : HwAddressBase {};
+struct BusCtrlBaseAddress : HwAddressBase {};
+struct PwmBaseAddress : HwAddressBase {};
+struct TimerBaseAddress : HwAddressBase {};
+struct WatchdogBaseAddress : HwAddressBase {};
+struct RtcBaseAddress : HwAddressBase {};
+struct RoscBaseAddress : HwAddressBase {};
+struct VregChipResetBaseAddress : HwAddressBase {};
+struct TbmanBaseAddress : HwAddressBase {};
+struct UsbCtrlDPramBaseAddress : HwAddressBase {};
+struct UsbCtrlRegsBaseAddress : HwAddressBase {};
+struct PioBaseAddress : HwAddressBase {};
+struct SioBaseAddress : HwAddressBase {};
+struct PpbBaseAddress : HwAddressBase {};
 
 }  // namespace libmcu
 
+//! types used by libmcu hardware layer
 namespace libmcuhw {
 using HwAddressBase = libmcu::Constant<std::uint32_t>; /*!< base type definition of a memory address */
 using HwAddressType = typename HwAddressBase::type;    /*!< type definition of a memory address */

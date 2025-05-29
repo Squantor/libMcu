@@ -42,7 +42,7 @@ inline std::uint32_t operator^(std::uint32_t a, spiChipEnables b) {
  * @tparam base
  * @tparam chipEnables
  */
-template <std::uint32_t spiAddress, typename chipEnables>
+template <std::uint32_t spiAddress, typename ChipEnable>
 struct spi {
   static auto spiPeripheral() {
     return reinterpret_cast<registers::spi::registers*>(spiAddress);
@@ -84,7 +84,7 @@ struct spi {
    * @param bitcount amount of bits to transmit
    * @param lastAction is this the last action? This will disable the chip select
    */
-  void transmit(chipEnables device, const std::span<std::uint16_t> transmitBuffer, std::uint32_t bitcount, bool lastAction) {
+  void transmit(ChipEnable device, const std::span<std::uint16_t> transmitBuffer, std::uint32_t bitcount, bool lastAction) {
     size_t index = 0;
     std::uint32_t baseTransferCommand = (0x000F0000u ^ device) | TXDATCTL::RXIGNORE;  // base transfer command with presets
     while (bitcount > 16) {
@@ -109,7 +109,7 @@ struct spi {
    * @param bitcount amount of bits to receive
    * @param lastAction is this the last action? This will disable the chip select
    */
-  void receive(chipEnables device, std::span<std::uint16_t> receiveBuffer, std::uint32_t bitcount, bool lastAction) {
+  void receive(ChipEnable device, std::span<std::uint16_t> receiveBuffer, std::uint32_t bitcount, bool lastAction) {
     size_t index = 0;
     std::uint32_t baseTransferCommand = 0x000F0000u ^ device;  // base transfer command with presets
     while (bitcount > 16) {
@@ -137,7 +137,7 @@ struct spi {
    * @param bitcount amount of bits
    * @param lastAction is this the last action? This will disable the chip select
    */
-  void transceive(chipEnables device, const std::span<std::uint16_t> transmitBuffer, std::span<std::uint16_t> receiveBuffer,
+  void transceive(ChipEnable device, const std::span<std::uint16_t> transmitBuffer, std::span<std::uint16_t> receiveBuffer,
                   std::uint32_t bitcount, bool lastAction) {
     size_t index = 0;
     std::uint32_t baseTransferCommand = 0x000F0000u ^ device;  // base transfer command with presets

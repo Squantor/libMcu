@@ -122,7 +122,7 @@ enum class rtcSources : std::uint32_t {
  * @brief
  * @tparam clocksAddress_
  */
-template <libmcu::clocksBaseAddress const& clocksAddress_>
+template <libmcu::ClocksBaseAddress const& clocksAddress_>
 struct clocks : libmcu::PeripheralBase {
   /**
    * @brief Base initialization function

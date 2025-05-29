@@ -15,7 +15,7 @@
 #define SYSTICK_LL_HPP
 namespace libmcull::systick {
 namespace hardware = libmcuhw::systick;
-template <libmcu::systickBaseAddress const& systickAddress_>
+template <libmcu::SystickBaseAddress const& systickAddress_>
 struct systick {
   /**
    * @brief Construct a new systick object

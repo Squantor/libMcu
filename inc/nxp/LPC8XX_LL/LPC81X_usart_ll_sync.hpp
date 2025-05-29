@@ -13,7 +13,7 @@
 
 #include "LPC81X_usart_ll_common.hpp"
 
-namespace libmcull::sw::usart {
+namespace libmcull::usart {
 using namespace libmcuhw::usart;
 
 /**
@@ -22,7 +22,7 @@ using namespace libmcuhw::usart;
  * @tparam usartAddress_ Peripheral base usartAddress
  * @tparam transferType datatype to use for data transfers
  */
-template <libmcu::uartBaseAddress usartAddress_, typename transferType>
+template <libmcu::UartBaseAddress usartAddress_, typename TransferType>
 struct usartSync : libmcu::PeripheralBase {
   /**
    * @brief Setup USART to 8n1
@@ -64,16 +64,16 @@ struct usartSync : libmcu::PeripheralBase {
    *
    * @param data data to send, amount is sent according to configuration
    */
-  constexpr void write(transferType data) {
-    usartPeripheral()->TXDAT = static_cast<transferType>(data & TXDAT::kRESERVED_MASK);
+  constexpr void write(TransferType data) {
+    usartPeripheral()->TXDAT = static_cast<TransferType>(data & TXDAT::kRESERVED_MASK);
   }
   /**
    * @brief Read data from UART
    *
    * @param data reference to put received data in
    */
-  constexpr void read(transferType &data) {
-    data = static_cast<transferType>(usartPeripheral()->RXDAT);
+  constexpr void read(TransferType &data) {
+    data = static_cast<TransferType>(usartPeripheral()->RXDAT);
   }
   /**
    * @brief Read data and status from UART
@@ -81,9 +81,9 @@ struct usartSync : libmcu::PeripheralBase {
    * @param data reference to put received data in
    * @param status reference to put received status in
    */
-  constexpr void read(transferType &data, std::uint32_t &status) {
+  constexpr void read(TransferType &data, std::uint32_t &status) {
     std::uint32_t regData = usartPeripheral()->RXDATSTAT;
-    data = static_cast<transferType>(regData & RXDATSTAT::kDATA_MASK);
+    data = static_cast<TransferType>(regData & RXDATSTAT::kDATA_MASK);
     status = regData & RXDATSTAT::kSTAT_MASK;
   }
   /**
@@ -98,5 +98,5 @@ struct usartSync : libmcu::PeripheralBase {
  private:
   static constexpr libmcu::HwAddressType usartAddress = usartAddress_; /*!< peripheral usartAddress */
 };
-}  // namespace libmcull::sw::usart
+}  // namespace libmcull::usart
 #endif

@@ -17,7 +17,7 @@ namespace hardware = libmcuhw::pll;
  * @brief
  * @tparam pllAddress_
  */
-template <libmcu::pllBaseAddress const& pllAddress_>
+template <libmcu::PllBaseAddress const& pllAddress_>
 struct pll : libmcu::PeripheralBase {
   /**
    * @brief Base initialization function

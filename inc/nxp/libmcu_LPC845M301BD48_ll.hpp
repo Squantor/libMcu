@@ -81,47 +81,47 @@ enum class Interrupts : std::int8_t {
 
 namespace libmcuhw {
 /* Base addresses */
-constexpr inline libmcu::memoryAddress flashBaseAddress{0x0000'0000u};
-constexpr inline libmcu::memoryAddress ramBaseAddress{0x1000'0000u};
-constexpr inline libmcu::memoryAddress romBaseAddress{0xF001'FF10u};
-constexpr inline libmcu::memoryAddress apb0BaseAddress{0x4000'0000u};
-constexpr inline libmcu::memoryAddress ahbBaseAddress{0x5000'0000u};
+constexpr inline libmcu::MemoryAddress flashBaseAddress{0x0000'0000u};
+constexpr inline libmcu::MemoryAddress ramBaseAddress{0x1000'0000u};
+constexpr inline libmcu::MemoryAddress romBaseAddress{0xF001'FF10u};
+constexpr inline libmcu::MemoryAddress apb0BaseAddress{0x4000'0000u};
+constexpr inline libmcu::MemoryAddress ahbBaseAddress{0x5000'0000u};
 /* APB peripherals, see UM11029 2.2.1 */
-constexpr inline libmcu::wwdtBaseAddress wwdtAddress{0x4000'0000u};      /*!< Windowed watchdog base address */
+constexpr inline libmcu::WwdtBaseAddress wwdtAddress{0x4000'0000u};      /*!< Windowed watchdog base address */
 constexpr inline libmcu::MrtBaseAddress mrt0Address{0x4000'4000u};       /*!< Multi rate timer base address */
-constexpr inline libmcu::wktBaseAddress wktAddress{0x4000'8000u};        /*!< Wakeup timer base address */
-constexpr inline libmcu::swmBaseAddress swmAddress{0x4000'C000u};        /*!< Switch matrix base address */
-constexpr inline libmcu::faimBaseAddress faimAddress{0x4001'0000u};      /*!< Fast memory init base address */
-constexpr inline libmcu::dacBaseAddress dac0Address{0x4001'4000u};       /*!< DAC 0 base address */
-constexpr inline libmcu::dacBaseAddress dac1Address{0x4001'8000u};       /*!< DAC 1 base address */
-constexpr inline libmcu::adcBaseAddress adc0Address{0x4001'C000u};       /*!< ADC 0 matrix base address */
-constexpr inline libmcu::pmuBaseAddress pmuAddress{0x4002'0000u};        /*!< Power management unit base address */
+constexpr inline libmcu::WktBaseAddress wktAddress{0x4000'8000u};        /*!< Wakeup timer base address */
+constexpr inline libmcu::SwmBaseAddress swmAddress{0x4000'C000u};        /*!< Switch matrix base address */
+constexpr inline libmcu::FaimBaseAddress faimAddress{0x4001'0000u};      /*!< Fast memory init base address */
+constexpr inline libmcu::DacBaseAddress dac0Address{0x4001'4000u};       /*!< DAC 0 base address */
+constexpr inline libmcu::DacBaseAddress dac1Address{0x4001'8000u};       /*!< DAC 1 base address */
+constexpr inline libmcu::AdcBaseAddress adc0Address{0x4001'C000u};       /*!< ADC 0 matrix base address */
+constexpr inline libmcu::PmuBaseAddress pmuAddress{0x4002'0000u};        /*!< Power management unit base address */
 constexpr inline libmcu::AcmpBaseAddress acmpAddress{0x4002'4000u};      /*!< Analog comparator base address */
-constexpr inline libmcu::inmuxBaseAddress inmuxAddress{0x4002'C000u};    /*!< Input multiplexer base address */
+constexpr inline libmcu::InmuxBaseAddress inmuxAddress{0x4002'C000u};    /*!< Input multiplexer base address */
 constexpr inline libmcu::I2cBaseAddress i2c2Address{0x4003'0000u};       /*!< I2C 2 base address */
 constexpr inline libmcu::I2cBaseAddress i2c3Address{0x4003'4000u};       /*!< I2C 3 base address */
-constexpr inline libmcu::ctimerBaseAddress ctimer0Address{0x4003'8000u}; /*!< Standard counter/timer 0 base address */
+constexpr inline libmcu::CtimerBaseAddress ctimer0Address{0x4003'8000u}; /*!< Standard counter/timer 0 base address */
 constexpr inline libmcu::FmcBaseAddress fmcAddress{0x4004'0000u};        /*!< Flash memory controller base address */
-constexpr inline libmcu::ioconBaseAddress ioconAddress{0x4004'4000u};    /*!< I/O control base address */
-constexpr inline libmcu::sysconBaseAddress sysconAddress{0x4004'8000u};  /*!< System control base address */
+constexpr inline libmcu::IoconBaseAddress ioconAddress{0x4004'4000u};    /*!< I/O control base address */
+constexpr inline libmcu::SysconBaseAddress sysconAddress{0x4004'8000u};  /*!< System control base address */
 constexpr inline libmcu::I2cBaseAddress i2c0Address{0x4005'0000u};       /*!< I2C 0 base address */
 constexpr inline libmcu::I2cBaseAddress i2c1Address{0x4005'4000u};       /*!< I2C 1 base address */
-constexpr inline libmcu::spiBaseAddress spi0Address{0x4005'8000u};       /*!< SPI 0 base address */
-constexpr inline libmcu::spiBaseAddress spi1Address{0x4005'C000u};       /*!< SPI 1 base address */
-constexpr inline libmcu::captBaseAddress capt0Address{0x4006'0000u};     /*!< Capacitive touch 0 base address */
-constexpr inline libmcu::uartBaseAddress usart0Address{0x4006'4000u};    /*!< USART 0 base address */
+constexpr inline libmcu::SpiBaseAddress spi0Address{0x4005'8000u};       /*!< SPI 0 base address */
+constexpr inline libmcu::SpiBaseAddress spi1Address{0x4005'C000u};       /*!< SPI 1 base address */
+constexpr inline libmcu::CaptBaseAddress capt0Address{0x4006'0000u};     /*!< Capacitive touch 0 base address */
+constexpr inline libmcu::UartBaseAddress usart0Address{0x4006'4000u};    /*!< USART 0 base address */
 
-constexpr inline libmcu::uartBaseAddress usart1Address{0x4006'8000u}; /*!< USART 1 base address */
-constexpr inline libmcu::uartBaseAddress usart2Address{0x4006'C000u}; /*!< USART 2 base address */
-constexpr inline libmcu::uartBaseAddress usart3Address{0x4007'0000u}; /*!< USART 3 base address */
+constexpr inline libmcu::UartBaseAddress usart1Address{0x4006'8000u}; /*!< USART 1 base address */
+constexpr inline libmcu::UartBaseAddress usart2Address{0x4006'C000u}; /*!< USART 2 base address */
+constexpr inline libmcu::UartBaseAddress usart3Address{0x4007'0000u}; /*!< USART 3 base address */
 /* AHB peripherals, see UM11029 2.2.1 */
 constexpr inline libmcu::CrcBaseAddress crcAddress{0x5000'0000u};  /*!< CRC calculator base address */
 constexpr inline libmcu::SctBaseAddress sct0Address{0x5000'4000u}; /*!< State configurable timer 0 base address */
-constexpr inline libmcu::dmaBaseAddress dmaAddress{0x5000'8000u};  /*!< DMA 0 base address */
-constexpr inline libmcu::mtbBaseAddress mtbAddress{0x5000'C000u};  /*!< MTB base address */
+constexpr inline libmcu::DmaBaseAddress dmaAddress{0x5000'8000u};  /*!< DMA 0 base address */
+constexpr inline libmcu::MtbBaseAddress mtbAddress{0x5000'C000u};  /*!< MTB base address */
 /* Direct connected peripherals */
-constexpr inline libmcu::gpioBaseAddress gpioAddress{0xA000'0000u};     /*!< General Purpose I/O base address */
-constexpr inline libmcu::pinintBaseAddress pinintAddress{0xA000'4000u}; /*!< Pin interrupt base address */
+constexpr inline libmcu::GpioBaseAddress gpioAddress{0xA000'0000u};     /*!< General Purpose I/O base address */
+constexpr inline libmcu::PinintBaseAddress pinintAddress{0xA000'4000u}; /*!< Pin interrupt base address */
 }  // namespace libmcuhw
 
 namespace libmcuhw {

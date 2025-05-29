@@ -11,13 +11,13 @@
 #ifndef LPC81X_GPIO_HPP
 #define LPC81X_GPIO_HPP
 
-namespace libmcull::sw::gpio {
+namespace libmcull::gpio {
 namespace hardware = libmcuhw::gpio;
 /**
  * @brief LPC81X GPIO interface
  * @tparam &gpioAddress_
  */
-template <libmcu::gpioBaseAddress gpio_address>
+template <libmcu::GpioBaseAddress gpio_address>
 struct Gpio : libmcu::PeripheralBase {
   /**
    * @brief Set gpio pin to output mode
@@ -190,5 +190,5 @@ struct Gpio : libmcu::PeripheralBase {
  private:
   static constexpr libmcu::HwAddressType gpio_address_ = gpio_address; /*!< peripheral address */
 };
-}  // namespace libmcull::sw::gpio
+}  // namespace libmcull::gpio
 #endif

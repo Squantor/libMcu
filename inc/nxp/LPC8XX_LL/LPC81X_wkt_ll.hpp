@@ -11,9 +11,9 @@
 #ifndef LPC81X_WKT_HPP
 #define LPC81X_WKT_HPP
 
-namespace libmcull::sw::wkt {
+namespace libmcull::wkt {
 using namespace libmcuhw::wkt;
-template <libmcu::wktBaseAddress wktAddress_>
+template <libmcu::WktBaseAddress wktAddress_>
 struct wkt {
   /**
    * @brief get registers from peripheral
@@ -27,5 +27,5 @@ struct wkt {
  private:
   static constexpr libmcu::HwAddressType wktAddress = wktAddress_; /*!< peripheral address */
 };
-}  // namespace libmcull::sw::wkt
+}  // namespace libmcull::wkt
 #endif

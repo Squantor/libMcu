@@ -21,7 +21,7 @@ namespace hardware = libmcuhw::padsBank0;
  * @brief
  * @tparam padsBank0Address_
  */
-template <libmcu::padsBank0BaseAddress const& padsBank0Address_>
+template <libmcu::PadsBank0BaseAddress const& padsBank0Address_>
 // TODO voltage select method
 struct padsBank0 : libmcu::PeripheralBase {
   /**

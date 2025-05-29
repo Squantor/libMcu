@@ -11,7 +11,7 @@
 #ifndef LPC81X_FMC_HPP
 #define LPC81X_FMC_HPP
 
-namespace libmcull::sw::fmc {
+namespace libmcull::fmc {
 namespace hardware = libmcuhw::fmc;
 
 enum class WaitStates : std::uint32_t {
@@ -44,5 +44,5 @@ struct Fmc {
  private:
   static constexpr libmcu::HwAddressType fmc_address_ = fmc_address; /*!< peripheral address */
 };
-}  // namespace libmcull::sw::fmc
+}  // namespace libmcull::fmc
 #endif

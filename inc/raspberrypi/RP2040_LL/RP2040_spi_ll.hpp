@@ -38,7 +38,7 @@ enum class waveforms : std::uint32_t {
   CPHA1_CPOL1 = hardware::SSPCR0::SPH | hardware::SSPCR0::SPO, /*!< CPHA is 1, CPOL is 1, MSB first */
 };
 
-template <libmcu::spiBaseAddress const& spiAddress_>
+template <libmcu::SpiBaseAddress const& spiAddress_>
 struct spi : libmcu::PeripheralBase {
   /**
    * @brief Base initialization function
