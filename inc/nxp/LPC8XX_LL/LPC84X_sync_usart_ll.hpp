@@ -66,8 +66,8 @@ enum UartStatuses : std::uint32_t {
  * @tparam usart_address Peripheral base usartAddress
  * @tparam TransferType datatype to use for data transfers
  */
-template <libmcuhw::UartBaseAddress usart_address, typename TransferType>
-struct SyncUart : libmcull::LlSyncUartBase {
+template <const libmcu::UartBaseAddress usart_address, typename TransferType>
+struct SyncUart : libmcull::SyncUartBase {
   /**
    * @brief Setup USART
    * @tparam &clock_config clock configuration to use
@@ -126,7 +126,7 @@ struct SyncUart : libmcull::LlSyncUartBase {
   template <const libmcuhw::clock::periClockConfig &clock_config>
   constexpr std::uint32_t GetInputClockFreq() {
     // constexpr check if we configure the right peripheral
-    if constexpr ((usartAddress_ == libmcuhw::usart0Address) && (clock_config.peripheral == libmcuhw::clock::periSelect::UART0))
+    if constexpr ((usartAddress_ == libmcuhw::kUsart0Address) && (clock_config.peripheral == libmcuhw::clock::periSelect::UART0))
       return clock_config.getFrequency();
     else if constexpr ((usartAddress_ == libmcuhw::usart1Address) &&
                        (clock_config.peripheral == libmcuhw::clock::periSelect::UART1))

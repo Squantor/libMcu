@@ -37,5 +37,18 @@ struct PinBase {};
 
 using IsrLambda = std::add_pointer<void()>::type; /*!< Base type for an ISR lambda */
 
+/**
+ * @brief States of the asynchronous interfaces
+ * @todo Maybe change this into results enum as there are a lot of matching cases
+ */
+enum class AsynchronousStates : std::uint8_t {
+  kIdle,         /*!< Interface is idle, ready to be claimed */
+  kClaimed,      /*!< Interface is claimed, ready to transact */
+  kBusy,         /*!< Interface is busy */
+  kBusyReceive,  /*!< Interface is busy with a Reception operation */
+  kBusyTransmit, /*!< Interface is busy with a Transmit operation */
+  kError,        /*!< Interface is in an error state */
+};
+
 }  // namespace libmcu
 #endif

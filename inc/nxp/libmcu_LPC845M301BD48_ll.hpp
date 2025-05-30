@@ -109,11 +109,10 @@ constexpr inline libmcu::I2cBaseAddress i2c1Address{0x4005'4000u};       /*!< I2
 constexpr inline libmcu::SpiBaseAddress spi0Address{0x4005'8000u};       /*!< SPI 0 base address */
 constexpr inline libmcu::SpiBaseAddress spi1Address{0x4005'C000u};       /*!< SPI 1 base address */
 constexpr inline libmcu::CaptBaseAddress capt0Address{0x4006'0000u};     /*!< Capacitive touch 0 base address */
-constexpr inline libmcu::UartBaseAddress usart0Address{0x4006'4000u};    /*!< USART 0 base address */
-
-constexpr inline libmcu::UartBaseAddress usart1Address{0x4006'8000u}; /*!< USART 1 base address */
-constexpr inline libmcu::UartBaseAddress usart2Address{0x4006'C000u}; /*!< USART 2 base address */
-constexpr inline libmcu::UartBaseAddress usart3Address{0x4007'0000u}; /*!< USART 3 base address */
+constexpr inline libmcu::UartBaseAddress kUsart0Address{0x4006'4000u};   /*!< USART 0 base address */
+constexpr inline libmcu::UartBaseAddress usart1Address{0x4006'8000u};    /*!< USART 1 base address */
+constexpr inline libmcu::UartBaseAddress usart2Address{0x4006'C000u};    /*!< USART 2 base address */
+constexpr inline libmcu::UartBaseAddress usart3Address{0x4007'0000u};    /*!< USART 3 base address */
 /* AHB peripherals, see UM11029 2.2.1 */
 constexpr inline libmcu::CrcBaseAddress crcAddress{0x5000'0000u};  /*!< CRC calculator base address */
 constexpr inline libmcu::SctBaseAddress sct0Address{0x5000'4000u}; /*!< State configurable timer 0 base address */
@@ -122,10 +121,6 @@ constexpr inline libmcu::MtbBaseAddress mtbAddress{0x5000'C000u};  /*!< MTB base
 /* Direct connected peripherals */
 constexpr inline libmcu::GpioBaseAddress gpioAddress{0xA000'0000u};     /*!< General Purpose I/O base address */
 constexpr inline libmcu::PinintBaseAddress pinintAddress{0xA000'4000u}; /*!< Pin interrupt base address */
-}  // namespace libmcuhw
-
-namespace libmcuhw {
-constexpr inline UartBaseAddress kUsart0Address{0x4006'4000u}; /*!< USART 0 base address */
 }  // namespace libmcuhw
 
 namespace libmcuhw::dma {
@@ -199,7 +194,6 @@ enum class dmaRequestSources : std::uint8_t {
 #include "LPC8XX_LL/LPC84X_swm_ll.hpp"
 #include "LPC8XX_LL/LPC84X_iocon_ll.hpp"
 #include "LPC8XX_LL/LPC84X_syscon_ll.hpp"
-#include "LPC8XX_LL/LPC84X_usart_ll.hpp"
 #include "LPC8XX_LL/LPC84X_gpio_ll.hpp"
 #include "LPC8XX_LL/LPC84X_adc_ll.hpp"
 #include "LPC8XX_LL/LPC84X_i2c_ll.hpp"

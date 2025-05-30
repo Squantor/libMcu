@@ -28,7 +28,7 @@ struct SpiAsync : libmcu::PeripheralBase {
    * @brief Construct a new spi Async object
    * Initializes the internal state to defaults
    */
-  SpiAsync() : transaction_state_{AysnchronousStates::kIdle} {}
+  SpiAsync() : transaction_state_{libmcu::AsynchronousStates::kIdle} {}
   /**
    * @brief Initialise SPI peripheral as master device, LSB first mode, CPHA is 0, CPOL is 0,
    * @param bit_rate requested bit rate
@@ -65,15 +65,15 @@ struct SpiAsync : libmcu::PeripheralBase {
   }
   /**
    * @brief Claim the SPI interface
-   * @return IN_USE when already in use
+   * @return kInUse when already in use
    * @return CLAIMED when the claim has been successful
    */
   constexpr libmcu::Results Claim(void) {
-    if (transaction_state_ != AysnchronousStates::kIdle) {
-      return libmcu::Results::IN_USE;
+    if (transaction_state_ != libmcu::AsynchronousStates::kIdle) {
+      return libmcu::Results::kInUse;
     }
-    transaction_state_ = AysnchronousStates::kClaimed;
-    return libmcu::Results::CLAIMED;
+    transaction_state_ = libmcu::AsynchronousStates::kClaimed;
+    return libmcu::Results::kClaimed;
   }
   /**
    * @brief Unclaim the SPI interface
@@ -82,13 +82,13 @@ struct SpiAsync : libmcu::PeripheralBase {
    * @return UNCLAIMED when unclaim sucessful
    */
   constexpr libmcu::Results Unclaim(void) {
-    if (transaction_state_ == AysnchronousStates::kIdle) {
+    if (transaction_state_ == libmcu::AsynchronousStates::kIdle) {
       return libmcu::Results::ERROR;
-    } else if (transaction_state_ == AysnchronousStates::kBusy) {
+    } else if (transaction_state_ == libmcu::AsynchronousStates::kBusy) {
       return libmcu::Results::BUSY;
     } else {
-      transaction_state_ = AysnchronousStates::kIdle;
-      return libmcu::Results::UNCLAIMED;
+      transaction_state_ = libmcu::AsynchronousStates::kIdle;
+      return libmcu::Results::kUnclaimed;
     }
     return libmcu::Results::ERROR;
   }
@@ -103,7 +103,7 @@ struct SpiAsync : libmcu::PeripheralBase {
    */
   constexpr libmcu::Results Transceive(ChipEnable device, const std::span<TransferType> transmit_buffer,
                                        std::span<TransferType> receive_buffer, std::uint32_t bit_count, bool last_action) {
-    if (transaction_state_ != AysnchronousStates::kClaimed) {
+    if (transaction_state_ != libmcu::AsynchronousStates::kClaimed) {
       return libmcu::Results::ERROR;
     }
     // store transaction information
@@ -116,7 +116,7 @@ struct SpiAsync : libmcu::PeripheralBase {
     transaction_device_enable_ = device;
     transaction_disable_device_ = last_action;
     // TODO: Enable device
-    transaction_state_ = AysnchronousStates::kBusy;
+    transaction_state_ = libmcu::AsynchronousStates::kBusy;
     return libmcu::Results::STARTED;
   }
   /**
@@ -129,7 +129,7 @@ struct SpiAsync : libmcu::PeripheralBase {
    */
   constexpr libmcu::Results Receive(ChipEnable device, std::span<TransferType> receive_buffer, std::uint32_t bit_count,
                                     bool last_action) {
-    if (transaction_state_ != AysnchronousStates::kClaimed) {
+    if (transaction_state_ != libmcu::AsynchronousStates::kClaimed) {
       return libmcu::Results::ERROR;
     }
     // store transaction information
@@ -142,7 +142,7 @@ struct SpiAsync : libmcu::PeripheralBase {
     transaction_device_enable_ = device;
     transaction_disable_device_ = last_action;
     // TODO: Enable device
-    transaction_state_ = AysnchronousStates::kBusyReceive;
+    transaction_state_ = libmcu::AsynchronousStates::kBusyReceive;
     return libmcu::Results::STARTED;
   }
   /**
@@ -155,7 +155,7 @@ struct SpiAsync : libmcu::PeripheralBase {
    */
   constexpr libmcu::Results Transmit(ChipEnable device, const std::span<TransferType> transmit_buffer, std::uint32_t bit_count,
                                      bool last_action) {
-    if (transaction_state_ != AysnchronousStates::kClaimed) {
+    if (transaction_state_ != libmcu::AsynchronousStates::kClaimed) {
       return libmcu::Results::ERROR;
     }
     // store transaction information
@@ -168,7 +168,7 @@ struct SpiAsync : libmcu::PeripheralBase {
     transaction_device_enable_ = device;
     transaction_disable_device_ = last_action;
     // TODO: Enable device
-    transaction_state_ = AysnchronousStates::kBusyTransmit;
+    transaction_state_ = libmcu::AsynchronousStates::kBusyTransmit;
     return libmcu::Results::STARTED;
   }
   /**
@@ -178,13 +178,13 @@ struct SpiAsync : libmcu::PeripheralBase {
    */
   constexpr libmcu::Results Progress(void) {
     switch (transaction_state_) {
-      case AysnchronousStates::kBusy:
+      case libmcu::AsynchronousStates::kBusy:
         return ProgressTransceive(transaction_write_data_[transaction_write_index_]);
         break;
-      case AysnchronousStates::kBusyReceive:
+      case libmcu::AsynchronousStates::kBusyReceive:
         return ProgressTransceive(0u);  // we send along zero as dummy data
         break;
-      case AysnchronousStates::kBusyTransmit:
+      case libmcu::AsynchronousStates::kBusyTransmit:
         return ProgressWrite();
         break;
       default:
@@ -208,7 +208,7 @@ struct SpiAsync : libmcu::PeripheralBase {
         transaction_read_index_++;
       } else if (transaction_read_bits_ > 0u) {
         transaction_read_data_[transaction_read_index_] = hardware::RXDAT::RXDAT(GetPeripheral()->RXDAT);
-        transaction_state_ = AysnchronousStates::kClaimed;
+        transaction_state_ = libmcu::AsynchronousStates::kClaimed;
         transaction_read_bits_ = 0u;
         return libmcu::Results::DONE;
       }
@@ -263,7 +263,7 @@ struct SpiAsync : libmcu::PeripheralBase {
       hardware::TXDATCTL::TXSSEL(static_cast<std::uint32_t>(transaction_device_enable_)) | hardware::TXDATCTL::kRXIGNORE,
       transaction_write_data_[transaction_write_index_]);
     if (writeResult == libmcu::Results::DONE) {
-      transaction_state_ = AysnchronousStates::kClaimed;
+      transaction_state_ = libmcu::AsynchronousStates::kClaimed;
       return libmcu::Results::DONE;
     } else
       return writeResult;
@@ -277,7 +277,7 @@ struct SpiAsync : libmcu::PeripheralBase {
     return reinterpret_cast<hardware::Spi *>(spi_address_);
   }
 
-  AysnchronousStates transaction_state_;           /*!< spi transaction state */
+  libmcu::AsynchronousStates transaction_state_;   /*!< spi transaction state */
   std::size_t transaction_write_index_;            /*!< transaction write buffer index */
   std::size_t transaction_read_index_;             /*!< transaction read buffer index */
   std::span<TransferType> transaction_write_data_; /*!< data to write */

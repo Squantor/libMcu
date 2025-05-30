@@ -12,8 +12,25 @@
 #define LIBMCUHAL_CONCEPTS_HPP
 
 namespace libmcuhal {
+/**
+ * @brief Concept for types that inherit from libMcuHal::HalUartBase
+ * @tparam T
+ */
 template <typename T>
-concept DerivedFromHalUartSync = std::is_base_of_v<libmcuhal::HalUartSync, T>;
-}
+concept DerivedFromHalUart = std::is_base_of_v<libmcuhal::HalUartBase, T>;
+/**
+ * @brief Concept for types that inherit from libMcuHal::HalSpiBase
+ * @tparam T
+ */
+template <typename T>
+concept DerivedFromHalSpi = std::is_base_of_v<libmcuhal::HalSpiBase, T>;
+/**
+ * @brief Concept for types that inherit from libMcuHal::HalI2cBase
+ * @tparam T
+ */
+template <typename T>
+concept DerivedFromHalI2c = std::is_base_of_v<libmcuhal::HalI2cBase, T>;
+
+}  // namespace libmcuhal
 
 #endif

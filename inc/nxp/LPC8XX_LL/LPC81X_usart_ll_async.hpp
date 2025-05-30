@@ -70,16 +70,16 @@ struct usartAsync : libmcu::PeripheralBase {
   /**
    * @brief Claim the Usart interface
    *
-   * @return IN_USE when already in use
+   * @return kInUse when already in use
    * @return CLAIMED when the claim has been successful
    */
   constexpr libmcu::Results claim(void) {
     if ((transactionWriteState != detail::synchonousStates::IDLE) && (transactionReadState != detail::synchonousStates::IDLE)) {
-      return libmcu::Results::IN_USE;
+      return libmcu::Results::kInUse;
     }
     transactionWriteState = detail::synchonousStates::CLAIMED;
     transactionReadState = detail::synchonousStates::CLAIMED;
-    return libmcu::Results::CLAIMED;
+    return libmcu::Results::kClaimed;
   }
   /**
    * @brief Unclaim the Usart interface
@@ -96,7 +96,7 @@ struct usartAsync : libmcu::PeripheralBase {
                (transactionReadState == detail::synchonousStates::CLAIMED)) {
       transactionWriteState = detail::synchonousStates::IDLE;
       transactionReadState = detail::synchonousStates::IDLE;
-      return libmcu::Results::UNCLAIMED;
+      return libmcu::Results::kUnclaimed;
     } else {
       return libmcu::Results::ERROR;
     }

@@ -14,6 +14,7 @@
 namespace libmcu {
 /**
  * @brief result class used in libMcu for various return values
+ * @todo rename enumeration elements to adhere to google standard
  */
 enum class Results : std::uint32_t {
   NO_ERROR,        /*!< No error */
@@ -21,9 +22,11 @@ enum class Results : std::uint32_t {
   STARTED,         /*!< Operation started */
   BUSY,            /*!< Operation Busy */
   DONE,            /*!< Operation completed*/
-  IN_USE,          /*!< Currently in use */
-  CLAIMED,         /*!< Interface has been successfully claimed */
-  UNCLAIMED,       /*!< Interface has been successfully unclaimed */
+  kInUse,          /*!< Currently in use */
+  kClaimed,        /*!< Interface has been successfully claimed */
+  kUnclaimed,      /*!< Interface has been successfully unclaimed */
+  kNotClaimed,     /*!< Interface has not been claimed */
+  kInvalidHandle,  /*!< Invalid handle */
   TIMEOUT,         /*!< Operation timed out */
   INVALID_ADDRESS, /*!< Invalid address */
   TRANSFER_ERROR,  /*!< Error occured during data transfer*/
