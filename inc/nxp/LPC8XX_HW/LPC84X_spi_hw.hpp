@@ -163,18 +163,13 @@ constexpr inline std::uint32_t TXDAT(std::uint16_t data) {
 }  // namespace TXDAT
 namespace TXCTL {
 constexpr inline std::uint32_t kRESERVED_MASK{0x0F710000u}; /*!< register mask for allowed bits */
-/**
- * @brief Formats data to TXCTL register field
- * Feeding a value of 0 will select no hardware chipselect
- * @param chipselects active high bits for the chipselects
- * @return formatted data
- */
-constexpr inline std::uint32_t TXSSEL(std::uint32_t chipselects) {
-  return (~chipselects & 0x0F) << 16;
-}
-constexpr inline std::uint32_t kEOT{1u << 20};      /*!< End of Transfer. Deassert SSEL */
-constexpr inline std::uint32_t kEOF{1u << 21};      /*!< End of Frame. Insert delay between frames */
-constexpr inline std::uint32_t kRXIGNORE{1u << 22}; /*!< Receive ignore */
+constexpr inline std::uint32_t kTXSSEL0_N{1u << 16};        /*!< This field asserts SSEL0 in master mode.*/
+constexpr inline std::uint32_t kTXSSEL1_N{1u << 17};        /*!< This field asserts SSEL1 in master mode.*/
+constexpr inline std::uint32_t kTXSSEL2_N{1u << 18};        /*!< This field asserts SSEL2 in master mode.*/
+constexpr inline std::uint32_t kTXSSEL3_N{1u << 19};        /*!< This field asserts SSEL3 in master mode.*/
+constexpr inline std::uint32_t kEOT{1u << 20};              /*!< End of Transfer. Deassert SSEL */
+constexpr inline std::uint32_t kEOF{1u << 21};              /*!< End of Frame. Insert delay between frames */
+constexpr inline std::uint32_t kRXIGNORE{1u << 22};         /*!< Receive ignore */
 /**
  * @brief Format data transmit length to TXDATCTL register field
  * @param length amount of data to transmit

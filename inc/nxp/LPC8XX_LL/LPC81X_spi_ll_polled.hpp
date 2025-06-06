@@ -17,7 +17,7 @@ namespace libmcull::spi {
 namespace hardware = libmcuhw::spi;
 /**
  * @brief synchronous SPI peripheral instance
- * @tparam spi_address__ Peripheral base spi_address_
+ * @tparam spi_address Peripheral base spi_address_
  * @tparam chipEnables enum of available chip enables
  * @tparam transferType datatype to use for data transfers
  * @todo Slave initializations
