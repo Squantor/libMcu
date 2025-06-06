@@ -17,25 +17,25 @@ namespace libmcu {
  * @todo rename enumeration elements to adhere to google standard
  */
 enum class Results : std::uint32_t {
-  NO_ERROR,        /*!< No error */
-  ERROR,           /*!< Error has occured */
-  STARTED,         /*!< Operation started */
-  BUSY,            /*!< Operation Busy */
-  DONE,            /*!< Operation completed*/
+  kNoError,        /*!< No error */
+  kError,          /*!< Error has occured */
+  kStarted,        /*!< Operation started */
+  kBusy,           /*!< Operation Busy */
+  kDone,           /*!< Operation completed*/
   kInUse,          /*!< Currently in use */
   kClaimed,        /*!< Interface has been successfully claimed */
   kUnclaimed,      /*!< Interface has been successfully unclaimed */
   kNotClaimed,     /*!< Interface has not been claimed */
   kInvalidHandle,  /*!< Invalid handle */
-  TIMEOUT,         /*!< Operation timed out */
-  INVALID_ADDRESS, /*!< Invalid address */
-  TRANSFER_ERROR,  /*!< Error occured during data transfer*/
-  OVERRUN,         /*!< buffer overrun */
-  FRAMING,         /*!< Framing error*/
-  PARITY,          /*!< Parity error */
-  BREAK,           /*!< Break error */
-  FULL,            /*!< Buffer is full */
-  EMPTY,           /*!< Buffer is empty */
+  kTimeout,        /*!< Operation timed out */
+  kInvalidAddress, /*!< Invalid address */
+  kTransferError,  /*!< Error occured during data transfer*/
+  kOverrun,        /*!< buffer overrun */
+  kFramingError,   /*!< Framing error*/
+  kParityError,    /*!< Parity error */
+  kBreakError,     /*!< Break error */
+  kFull,           /*!< Buffer is full */
+  kEmpty,          /*!< Buffer is empty */
 };
 }  // namespace libmcu
 

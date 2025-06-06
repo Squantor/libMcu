@@ -70,21 +70,21 @@ struct uart : libmcu::PeripheralBase {
         countdown = countdown - 1;
       }
       if (countdown == 0)
-        return libmcu::Results::TIMEOUT;
+        return libmcu::Results::kTimeout;
       std::uint32_t receivedData = uartPeripheral()->UARTDR;
-      if (receivedData & UARTDR::ERROR_MASK) {
+      if (receivedData & UARTDR::kError_MASK) {
         if (receivedData & UARTDR::OE_FLAG)
-          return libmcu::Results::OVERRUN;
+          return libmcu::Results::kOverrun;
         else if (receivedData & UARTDR::BE_FLAG)
-          return libmcu::Results::BREAK;
+          return libmcu::Results::kBreakError;
         else if (receivedData & UARTDR::PE_FLAG)
-          return libmcu::Results::PARITY;
+          return libmcu::Results::kParityError;
         else if (receivedData & UARTDR::FE_FLAG)
-          return libmcu::Results::FRAMING;
+          return libmcu::Results::kFramingError;
       }
       character = static_cast<std::uint8_t>(receivedData);
     }
-    return libmcu::Results::NO_ERROR;
+    return libmcu::Results::kNoError;
   }
 
   /**

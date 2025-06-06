@@ -31,6 +31,14 @@ struct Usart {
 namespace CFG {
 constexpr inline std::uint32_t kRESERVED_MASK{0x0000'DA7Du}; /*!< register mask for allowed bits */
 constexpr inline std::uint32_t kENABLE{1u << 0};             /*!< Enable USART */
+constexpr inline std::uint32_t kDATALEN7BIT{0u << 2};        /*!< 7 data bits */
+constexpr inline std::uint32_t kDATALEN8BIT{1u << 2};        /*!< 8 data bits */
+constexpr inline std::uint32_t kDATALEN9BIT{2u << 2};        /*!< 9 data bits */
+constexpr inline std::uint32_t kPARITY_NONE{0u << 4};        /*!< No parity */
+constexpr inline std::uint32_t kPARITY_EVEN{2u << 4};        /*!< Even parity */
+constexpr inline std::uint32_t kPARITY_ODD{3u << 4};         /*!< Odd parity */
+constexpr inline std::uint32_t kSTOPBIT1{0u << 6};           /*!< 1 stop bits */
+constexpr inline std::uint32_t kSTOPBIT2{1u << 6};           /*<< 2 stop bits */
 constexpr inline std::uint32_t kCTSEN{1u << 9};              /*!< CTS enable */
 constexpr inline std::uint32_t kSYNCEN{1u << 11};            /*!< Synchronous enable */
 constexpr inline std::uint32_t kCLKPOL{1u << 12};            /*!< Rising edge sampling */

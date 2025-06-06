@@ -37,7 +37,7 @@ struct i2c {
   volatile std::uint32_t IC_CLR_TX_OVER;        /*!< Clear TX_OVER Interrupt Register */
   volatile std::uint32_t IC_CLR_RD_REQ;         /*!< Clear RD_REQ Interrupt Register */
   volatile std::uint32_t IC_CLR_TX_ABRT;        /*!< Clear TX_ABRT Interrupt Register */
-  volatile std::uint32_t IC_CLR_RX_DONE;        /*!< Clear RX_DONE Interrupt Register */
+  volatile std::uint32_t IC_CLR_RX_kDone;       /*!< Clear RX_kDone Interrupt Register */
   volatile std::uint32_t IC_CLR_ACTIVITY;       /*!< Clear ACTIVITY Interrupt Register */
   volatile std::uint32_t IC_CLR_STOP_DET;       /*!< Clear STOP_DET Interrupt Register */
   volatile std::uint32_t IC_CLR_START_DET;      /*!< Clear START_DET Interrupt Register */
@@ -118,7 +118,7 @@ constexpr inline std::uint32_t GEN_CALL(1u << 11);           /*!< */
 constexpr inline std::uint32_t START_DET(1u << 10);          /*!< */
 constexpr inline std::uint32_t STOP_DET(1u << 9);            /*!< */
 constexpr inline std::uint32_t ACTIVITY(1u << 8);            /*!< */
-constexpr inline std::uint32_t RX_DONE(1u << 7);             /*!< */
+constexpr inline std::uint32_t RX_kDone(1u << 7);            /*!< */
 constexpr inline std::uint32_t TX_ABRT(1u << 6);             /*!< */
 constexpr inline std::uint32_t RD_REQ(1u << 5);              /*!< */
 constexpr inline std::uint32_t TX_EMPTY(1u << 4);            /*!< Depends on mode, TX fifo is empty  */
@@ -151,9 +151,9 @@ constexpr inline std::uint32_t kRESERVED_MASK{0xFFFF'FFFFu}; /*!< Mask for allow
 namespace IC_CLR_TX_ABRT {
 constexpr inline std::uint32_t kRESERVED_MASK{0xFFFF'FFFFu}; /*!< Mask for allowed bits */
 }  // namespace IC_CLR_TX_ABRT
-namespace IC_CLR_RX_DONE {
+namespace IC_CLR_RX_kDone {
 constexpr inline std::uint32_t kRESERVED_MASK{0xFFFF'FFFFu}; /*!< Mask for allowed bits */
-}  // namespace IC_CLR_RX_DONE
+}  // namespace IC_CLR_RX_kDone
 namespace IC_CLR_ACTIVITY {
 constexpr inline std::uint32_t kRESERVED_MASK{0xFFFF'FFFFu}; /*!< Mask for allowed bits */
 }  // namespace IC_CLR_ACTIVITY

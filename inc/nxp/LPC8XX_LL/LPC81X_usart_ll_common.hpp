@@ -12,59 +12,51 @@
 #define LPC81X_USART_SW_COMMON_HPP
 
 namespace libmcull::usart {
-using namespace libmcuhw::usart;
+namespace hardware = libmcuhw::usart;
 /**
  * @brief amount of bits to transmit
- *
- * These bit patterns match the USART CFG register settings
  */
-enum uartLength : std::uint32_t {
-  SIZE_7 = (0 << 2), /*!< USART transmit length of 7 bits */
-  SIZE_8 = (1 << 2), /*!< USART transmit length of 8 bits */
-  SIZE_9 = (2 << 2), /*!< USART transmit length of 9 bits */
+enum UartLengths : std::uint32_t {
+  kSize7 = hardware::CFG::kDATALEN7BIT, /*!< USART transmit length of 7 bits */
+  kSize8 = hardware::CFG::kDATALEN8BIT, /*!< USART transmit length of 8 bits */
+  kSize9 = hardware::CFG::kDATALEN9BIT, /*!< USART transmit length of 9 bits */
 };
 
 /**
  * @brief Parity bit options
- *
- * These bit patterns match the USART CFG register settings
  */
-enum uartParity : std::uint32_t {
-  NONE = (0 << 4), /*!< No parity */
-  EVEN = (2 << 4), /*!< Even parity */
-  ODD = (3 << 4),  /*!< Odd parity */
+enum UartParities : std::uint32_t {
+  kParityNone = hardware::CFG::kPARITY_NONE, /*!< No parity */
+  kParityEven = hardware::CFG::kPARITY_EVEN, /*!< Even parity */
+  kParityOdd = hardware::CFG::kPARITY_ODD,   /*!< Odd parity */
 };
 
 /**
  * @brief stop bit options
- *
- * These bit patterns match the USART CFG register settings
  */
-enum uartStop : std::uint32_t {
-  STOP_1 = (0 << 6), /*!< 1 stop bit */
-  STOP_2 = (1 << 6), /*!< 2 stop bits */
+enum UartStops : std::uint32_t {
+  kStop1 = hardware::CFG::kSTOPBIT1, /*!< 1 stop bit */
+  kStop2 = hardware::CFG::kSTOPBIT2, /*!< 2 stop bits */
 };
 
 /**
- * @brief Uart status bits
- *
- * These bit patterns match the USART STAT register settings
+ * @brief Uart status bit masks
  */
-enum uartStatus : std::uint32_t {
-  RXRDY = STAT::kRXRDY,               /*!< Receiver ready flag, Read only */
-  RXIDLE = STAT::kRXIDLE,             /*!< Receiver idle, Read only */
-  TXRDY = STAT::kCTS,                 /*!< Transmitter ready, Read only  */
-  TXIDLE = STAT::kTXIDLE,             /*!< Transmitter idle, Read only */
-  CTS = STAT::kCTS,                   /*!< CTS signal state, Read only */
-  DELTACTS = STAT::kDELTACTS,         /*!< Change detected in CTS signal, write 1 clear */
-  TXDISINT = STAT::kTXDISINT,         /*!< Transmitter disabled confirmation, read only  */
-  OVERRUNINT = STAT::kOVERRUNINT,     /*!< Overrun error interrupt flag, write 1 clear */
-  RXBRK = STAT::kRXBRK,               /*!< Received break, read only */
-  DELTARXBRK = STAT::kDELTARXBRK,     /*!< Change detected in receiver break, write 1 clear */
-  START = STAT::kSTART,               /*!< Start condition detected, write 1 clear */
-  FRAMERRINT = STAT::kFRAMERRINT,     /*!< Frame error interrupt flag, write 1 clear */
-  PARITYERRINT = STAT::kPARITYERRINT, /*!< Parity error interrupt flag, write 1 clear */
-  RXNOISEINT = STAT::kRXNOISEINT,     /*!< Recieved noise interrupt flag, write 1 clear*/
+enum UartStatusMasks : std::uint32_t {
+  kRxReady = hardware::STAT::kRXRDY,            /*!< Receiver ready flag, Read only */
+  kRxIdle = hardware::STAT::kRXIDLE,            /*!< Receiver idle, Read only */
+  kTxReady = hardware::STAT::kCTS,              /*!< Transmitter ready, Read only  */
+  kTxIdle = hardware::STAT::kTXIDLE,            /*!< Transmitter idle, Read only */
+  kCts = hardware::STAT::kCTS,                  /*!< CTS signal state, Read only */
+  kDeltaCts = hardware::STAT::kDELTACTS,        /*!< Change detected in CTS signal, write 1 clear */
+  kTxdDisabled = hardware::STAT::kTXDISINT,     /*!< Transmitter disabled confirmation, read only  */
+  kOverrun = hardware::STAT::kOVERRUNINT,       /*!< Overrun error interrupt flag, write 1 clear */
+  kRxBreak = hardware::STAT::kRXBRK,            /*!< Received break, read only */
+  kRxBreakChange = hardware::STAT::kDELTARXBRK, /*!< Change detected in receiver break, write 1 clear */
+  kStart = hardware::STAT::kSTART,              /*!< Start condition detected, write 1 clear */
+  kFrameError = hardware::STAT::kFRAMERRINT,    /*!< Frame error interrupt flag, write 1 clear */
+  kParityError = hardware::STAT::kPARITYERRINT, /*!< Parity error interrupt flag, write 1 clear */
+  kRxNoise = hardware::STAT::kRXNOISEINT,       /*!< Recieved noise interrupt flag, write 1 clear*/
 };
 }  // namespace libmcull::usart
 #endif

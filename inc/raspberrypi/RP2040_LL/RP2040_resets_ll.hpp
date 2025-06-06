@@ -59,7 +59,7 @@ struct resets : libmcu::PeripheralBase {
     resetsPeripheralSet()->RESET = peripheralBits;
     resetsPeripheralClear()->RESET = peripheralBits;
     // wait until resets have arrived
-    while ((~resetsPeripheral()->RESET_DONE & peripheralBits) && (timeout > 0)) {
+    while ((~resetsPeripheral()->RESET_kDone & peripheralBits) && (timeout > 0)) {
       timeout--;
     }
     return timeout;

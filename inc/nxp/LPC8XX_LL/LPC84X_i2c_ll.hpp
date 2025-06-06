@@ -107,15 +107,15 @@ struct i2c : libmcu::PeripheralBase {
     i2cPeripheral()->MSTCTL = hardware::MSTCTL::kMSTSTART;
     masterWait();
     if ((i2cPeripheral()->STAT & hardware::STAT::kMSTSTATE_MASK) != hardware::STAT::kMSTSTATE_TXRDY)
-      return libmcu::Results::ERROR;
+      return libmcu::Results::kError;
     for (const std::uint8_t &data : transmitBuffer) {
       i2cPeripheral()->MSTDAT = static_cast<std::uint32_t>(data);
       i2cPeripheral()->MSTCTL = hardware::MSTCTL::kMSTCONTINUE;
       masterWait();
       if ((i2cPeripheral()->STAT & hardware::STAT::kMSTSTATE_MASK) != hardware::STAT::kMSTSTATE_TXRDY)
-        return libmcu::Results::ERROR;
+        return libmcu::Results::kError;
     }
-    return libmcu::Results::NO_ERROR;
+    return libmcu::Results::kNoError;
   }
   /**
    * @brief Starts writing a master transaction and writes a single byte
@@ -130,13 +130,13 @@ struct i2c : libmcu::PeripheralBase {
     i2cPeripheral()->MSTCTL = hardware::MSTCTL::kMSTSTART;
     masterWait();
     if ((i2cPeripheral()->STAT & hardware::STAT::kMSTSTATE_MASK) != hardware::STAT::kMSTSTATE_TXRDY)
-      return libmcu::Results::ERROR;
+      return libmcu::Results::kError;
     i2cPeripheral()->MSTDAT = static_cast<std::uint32_t>(data);
     i2cPeripheral()->MSTCTL = hardware::MSTCTL::kMSTCONTINUE;
     masterWait();
     if ((i2cPeripheral()->STAT & hardware::STAT::kMSTSTATE_MASK) != hardware::STAT::kMSTSTATE_TXRDY)
-      return libmcu::Results::ERROR;
-    return libmcu::Results::NO_ERROR;
+      return libmcu::Results::kError;
+    return libmcu::Results::kNoError;
   }
   /**
    * @brief writes more I2C data to the I2C bus
@@ -150,9 +150,9 @@ struct i2c : libmcu::PeripheralBase {
       i2cPeripheral()->MSTCTL = hardware::MSTCTL::kMSTCONTINUE;
       masterWait();
       if ((i2cPeripheral()->STAT & hardware::STAT::kMSTSTATE_MASK) != hardware::STAT::kMSTSTATE_TXRDY)
-        return libmcu::Results::ERROR;
+        return libmcu::Results::kError;
     }
-    return libmcu::Results::NO_ERROR;
+    return libmcu::Results::kNoError;
   }
   /**
    * @brief Writes more I2C data to the I2C bus
@@ -165,8 +165,8 @@ struct i2c : libmcu::PeripheralBase {
     i2cPeripheral()->MSTCTL = hardware::MSTCTL::kMSTCONTINUE;
     masterWait();
     if ((i2cPeripheral()->STAT & hardware::STAT::kMSTSTATE_MASK) != hardware::STAT::kMSTSTATE_TXRDY)
-      return libmcu::Results::ERROR;
-    return libmcu::Results::NO_ERROR;
+      return libmcu::Results::kError;
+    return libmcu::Results::kNoError;
   }
   /**
    * @brief Stops I2C master transmission
@@ -175,7 +175,7 @@ struct i2c : libmcu::PeripheralBase {
   constexpr libmcu::Results masterStop() {
     i2cPeripheral()->MSTCTL = hardware::MSTCTL::kMSTSTOP;
     masterWait();
-    return libmcu::Results::NO_ERROR;
+    return libmcu::Results::kNoError;
   }
   /**
    * @brief Waits until the master action has completed

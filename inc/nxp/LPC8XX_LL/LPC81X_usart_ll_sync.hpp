@@ -33,7 +33,7 @@ struct usartSync : libmcu::PeripheralBase {
   constexpr std::uint32_t init(std::uint32_t baudRate) {
     std::uint32_t baudDivider = CLOCK_MAIN / (baudRate * 16);
     usartPeripheral()->BRG = baudDivider;
-    usartPeripheral()->CFG = CFG::kENABLE | uartLength::SIZE_8 | uartParity::NONE | uartStop::STOP_1;
+    usartPeripheral()->CFG = CFG::kENABLE | UartLengths::kSize8 | UartParities::kParityNone | UartStops::kStop1;
     return CLOCK_MAIN / 16 / baudDivider;
   }
   /**
@@ -45,7 +45,7 @@ struct usartSync : libmcu::PeripheralBase {
    * @param stopBits Amount of stop bits, see uartStop enum for options
    * @return std::uint32_t actual baud rate
    */
-  constexpr std::uint32_t init(std::uint32_t baudRate, uartLength lengthBits, uartParity parity, uartStop stopBits) {
+  constexpr std::uint32_t init(std::uint32_t baudRate, UartLengths lengthBits, UartParities parity, UartStops stopBits) {
     std::uint32_t baudDivider = CLOCK_MAIN / (baudRate * 16);
     usartPeripheral()->BRG = baudDivider;
     usartPeripheral()->CFG = CFG::kENABLE | lengthBits | parity | stopBits;

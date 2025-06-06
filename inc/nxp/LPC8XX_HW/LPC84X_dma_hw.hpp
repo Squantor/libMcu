@@ -63,7 +63,7 @@ struct Dma {
   std::uint8_t RESERVED_2[4];           /*!< Reserved */
   volatile const std::uint32_t ACTIVE;  /*!< Channel Active status */
   std::uint8_t RESERVED_3[4];           /*!< Reserved */
-  volatile const std::uint32_t BUSY;    /*!< Channel Busy status */
+  volatile const std::uint32_t kBusy;   /*!< Channel Busy status */
   std::uint8_t RESERVED_4[4];           /*!< Reserved */
   volatile std::uint32_t ERRINT;        /*!< Error Interrupt status */
   std::uint8_t RESERVED_5[4];           /*!< Reserved */
@@ -141,17 +141,17 @@ constexpr inline std::uint32_t ACT_MASK(std::uint32_t channel) {
   return (1u << channel);
 }
 }  // namespace ACTIVE
-namespace BUSY {
+namespace kBusy {
 constexpr inline std::uint32_t kRESERVED_MASK{0x01FFFFFFu}; /*!< register mask for allowed bits */
 /**
  * @brief Format busy flags for DMA channels
  * @param channel DMA channel to check
- * @return formatted data for BUSY
+ * @return formatted data for kBusy
  */
 constexpr inline std::uint32_t BSY_MASK(std::uint32_t channel) {
   return (1u << channel);
 }
-}  // namespace BUSY
+}  // namespace kBusy
 namespace ERRINT {
 constexpr inline std::uint32_t kRESERVED_MASK{0x01FFFFFFu}; /*!< register mask for allowed bits */
 /**

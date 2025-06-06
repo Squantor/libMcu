@@ -115,7 +115,7 @@ struct i2cSyncPol {
     i2cPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTART;
     masterWait();
     if ((i2cPeripheral()->STAT & hardware::STAT::MSTSTATE_MASK) != hardware::STAT::MSTSTATE_TXRDY)
-      return libmcu::Results::ERROR;
+      return libmcu::Results::kError;
     return continueMasterWrite(transmitBuffer);
   }
   /**
@@ -131,7 +131,7 @@ struct i2cSyncPol {
     i2cPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTART;
     masterWait();
     if ((i2cPeripheral()->STAT & hardware::STAT::MSTSTATE_MASK) != hardware::STAT::MSTSTATE_TXRDY)
-      return libmcu::Results::ERROR;
+      return libmcu::Results::kError;
     return continueMasterWrite(data);
   }
   /**
@@ -141,13 +141,13 @@ struct i2cSyncPol {
    * @return constexpr libmcu::Results
    */
   constexpr libmcu::Results continueMasterWrite(const std::span<const std::uint8_t> transmitBuffer) {
-    libmcu::Results result = libmcu::Results::NO_ERROR;
+    libmcu::Results result = libmcu::Results::kNoError;
     for (const std::uint8_t& data : transmitBuffer) {
       result = continueMasterWrite(data);
-      if (result != libmcu::Results::NO_ERROR)
+      if (result != libmcu::Results::kNoError)
         return result;
     }
-    return libmcu::Results::NO_ERROR;
+    return libmcu::Results::kNoError;
   }
   /**
    * @brief Writes more I2C data to the I2C bus
@@ -160,8 +160,8 @@ struct i2cSyncPol {
     i2cPeripheral()->MSTCTL = hardware::MSTCTL::MSTCONTINUE;
     masterWait();
     if ((i2cPeripheral()->STAT & hardware::STAT::MSTSTATE_MASK) != hardware::STAT::MSTSTATE_TXRDY)
-      return libmcu::Results::ERROR;
-    return libmcu::Results::NO_ERROR;
+      return libmcu::Results::kError;
+    return libmcu::Results::kNoError;
   }
   /**
    * @brief Stops I2C master transmission
@@ -170,7 +170,7 @@ struct i2cSyncPol {
   constexpr libmcu::Results stopMaster() {
     i2cPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTOP;
     masterWait();
-    return libmcu::Results::NO_ERROR;
+    return libmcu::Results::kNoError;
   }
 
  private:

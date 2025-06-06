@@ -114,18 +114,18 @@ struct i2c : libmcu::PeripheralBase {
           goto timeout;
       } while (!(i2cPeripheral()->IC_RAW_INTR_STAT & hardware::IC_RAW_INTR_STAT::TX_EMPTY));
     }
-    return libmcu::Results::DONE;
+    return libmcu::Results::kDone;
   // error handling
   timeout:
     i2cPeripheral()->IC_ENABLE = hardware::IC_ENABLE::ABORT;
-    return libmcu::Results::TIMEOUT;
+    return libmcu::Results::kTimeout;
   abort:
     // TODO change TX abort handling to be more like RX abort
-    libmcu::Results result{libmcu::Results::ERROR};
+    libmcu::Results result{libmcu::Results::kError};
     if (abortReason & hardware::IC_TX_ABRT_SOURCE::ABRT_7B_ADDR_NOACK)
-      result = libmcu::Results::INVALID_ADDRESS;
+      result = libmcu::Results::kInvalidAddress;
     else if (abortReason & hardware::IC_TX_ABRT_SOURCE::ABRT_TXDATA_NOACK)
-      result = libmcu::Results::TRANSFER_ERROR;
+      result = libmcu::Results::kTransferError;
     return result;
   }
   /**
@@ -160,15 +160,15 @@ struct i2c : libmcu::PeripheralBase {
       } while (!i2cPeripheral()->IC_RXFLR);
       receiveBuffer[index] = i2cPeripheral()->IC_DATA_CMD;
     }
-    return libmcu::Results::DONE;
+    return libmcu::Results::kDone;
   // error handling
   timeout:
     i2cPeripheral()->IC_ENABLE = hardware::IC_ENABLE::ABORT;
-    return libmcu::Results::TIMEOUT;
+    return libmcu::Results::kTimeout;
   abort:
-    libmcu::Results result{libmcu::Results::ERROR};
+    libmcu::Results result{libmcu::Results::kError};
     if (abortReason & hardware::IC_TX_ABRT_SOURCE::ABRT_7B_ADDR_NOACK)
-      result = libmcu::Results::INVALID_ADDRESS;
+      result = libmcu::Results::kInvalidAddress;
     i2cPeripheral()->IC_CLR_TX_ABRT;
     return result;
   }

@@ -418,7 +418,7 @@ struct Dma : libmcu::PeripheralBase {
    */
   constexpr bool IsChannelBusy(SoftwareDescriptors channel) {
     std::uint32_t channel_value = static_cast<std::uint32_t>(channel);
-    return (hardware::BUSY::BSY_MASK(channel_value) & DmaPeripheral()->BUSY) != 0;
+    return (hardware::kBusy::BSY_MASK(channel_value) & DmaPeripheral()->kBusy) != 0;
   }
   /**
    * @brief Is the current channel busy
@@ -426,7 +426,7 @@ struct Dma : libmcu::PeripheralBase {
    */
   constexpr bool IsChannelBusy(HardwareDescriptors channel) {
     std::uint32_t channel_value = static_cast<std::uint32_t>(channel);
-    return (hardware::BUSY::BSY_MASK(channel_value) & DmaPeripheral()->BUSY) != 0;
+    return (hardware::kBusy::BSY_MASK(channel_value) & DmaPeripheral()->kBusy) != 0;
   }
   /**
    * @brief get descriptor table from peripheral

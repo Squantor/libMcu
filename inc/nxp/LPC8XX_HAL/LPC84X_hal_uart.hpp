@@ -134,7 +134,7 @@ struct SyncUart : public libmcuhal::HalUartBase {
       status = GetStatus();
     } while ((status & kTransmitDataMask) == 0);
     ll_uart_sync.Write(buffer);
-    return libmcu::Results::NO_ERROR;
+    return libmcu::Results::kNoError;
   }
 
   /**
@@ -155,9 +155,9 @@ struct SyncUart : public libmcuhal::HalUartBase {
       timeout -= 1;
     } while ((status & kReceiverDataMask) == 0 && timeout > 0);
     if (timeout == 0)
-      return libmcu::Results::TIMEOUT;
+      return libmcu::Results::kTimeout;
     ll_uart_sync.Read(buffer);
-    return libmcu::Results::NO_ERROR;
+    return libmcu::Results::kNoError;
   }
 
  private:

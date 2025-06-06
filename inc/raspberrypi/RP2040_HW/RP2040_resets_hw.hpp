@@ -19,9 +19,9 @@ namespace libmcuhw::resets {
  * @brief resets register definitions
  */
 struct resets {
-  volatile std::uint32_t RESET;      /*!< Reset control */
-  volatile std::uint32_t WDSEL;      /*!< Watchdog select */
-  volatile std::uint32_t RESET_DONE; /*!< Reset done */
+  volatile std::uint32_t RESET;       /*!< Reset control */
+  volatile std::uint32_t WDSEL;       /*!< Watchdog select */
+  volatile std::uint32_t RESET_kDone; /*!< Reset done */
 };
 namespace RESET {
 constexpr inline std::uint32_t kRESERVED_MASK{0x01FF'FFFFu}; /*!< Mask for allowed bits */
@@ -79,7 +79,7 @@ constexpr inline std::uint32_t DMA{1u << 2};                 /*!< DMA reset bit 
 constexpr inline std::uint32_t BUSCTRL{1u << 1};             /*!< Buscontrol reset bit */
 constexpr inline std::uint32_t ADC{1u << 0};                 /*!< ADC reset bit */
 }  // namespace WDSEL
-namespace RESET_DONE {
+namespace RESET_kDone {
 constexpr inline std::uint32_t kRESERVED_MASK{0x01FF'FFFFu}; /*!< Mask for allowed bits */
 constexpr inline std::uint32_t USBCTRL{1u << 24};            /*!< USB controller reset bit */
 constexpr inline std::uint32_t UART1{1u << 23};              /*!< UART 1 reset bit */
@@ -106,6 +106,6 @@ constexpr inline std::uint32_t I2C0{1u << 3};                /*!< I2C 0 reset bi
 constexpr inline std::uint32_t DMA{1u << 2};                 /*!< DMA reset bit */
 constexpr inline std::uint32_t BUSCTRL{1u << 1};             /*!< Buscontrol reset bit */
 constexpr inline std::uint32_t ADC{1u << 0};                 /*!< ADC reset bit */
-}  // namespace RESET_DONE
+}  // namespace RESET_kDone
 }  // namespace libmcuhw::resets
 #endif

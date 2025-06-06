@@ -45,10 +45,10 @@ struct SSD1306 {
   constexpr libmcu::Results send(std::uint8_t action, const std::span<const std::uint8_t> commands) {
     libmcu::Results result;
     result = i2cHal.startMasterWrite(i2cAddress, action);
-    if (result != libmcu::Results::NO_ERROR)
+    if (result != libmcu::Results::kNoError)
       goto stopI2C;
     result = i2cHal.continueMasterWrite(commands);
-    if (result != libmcu::Results::NO_ERROR)
+    if (result != libmcu::Results::kNoError)
       goto stopI2C;
   stopI2C:
     i2cHal.stopMaster();
