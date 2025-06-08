@@ -18,7 +18,7 @@ namespace hardware = libmcuhw::crc;
  * @tparam crcAddress_
  */
 template <libmcu::CrcBaseAddress crcAddress_>
-struct Crc : libmcu::PeripheralBase {
+struct Crc : libmcull::PeripheralBase {
   /**
    * @brief get registers from peripheral
    * @return return pointer to CRC registers

@@ -32,7 +32,7 @@ constexpr inline std::uint32_t kVariant{0}; /*!< Type of systick */
 namespace nvic {
 constexpr inline std::uint32_t kPriorityMask{0x3}; /*!< NVIC priority bit mask */
 constexpr inline std::uint32_t kPriorityBits{2};   /*!< NVIC priority bit count */
-constexpr inline std::uint32_t vectorCount{48};    /*!< amount of interrupt vectors */
+constexpr inline std::uint32_t kVectorCount{48};   /*!< amount of interrupt vectors */
 }  // namespace nvic
 
 enum class Interrupts : std::int8_t {
@@ -40,7 +40,7 @@ enum class Interrupts : std::int8_t {
   kNonMaskable = -14,
   kHardFault = -13,
   kSvCall = -5,
-  pendSv = -2,
+  kPendSv = -2,
   systick = -1,
   wwdg = 0,                 /*!< Window WatchDog Interrupt */
   pvd = 1,                  /*!< PVD Interrupt through EXTI Lines 16 */
@@ -62,8 +62,8 @@ enum class Interrupts : std::int8_t {
   tim16 = 21,               /*!< TIM16 global Interrupt */
   tim17 = 22,               /*!< TIM17 global Interrupt */
   i2c1 = 23,                /*!< I2C1 Event Interrupt & EXTI Line23 Interrupt (I2C1 wakeup) */
-  spi1 = 25,                /*!< SPI1 global Interrupt */
-  uart1 = 27                /*!< USART1 global Interrupt & EXTI Line25 Interrupt (USART1 wakeup) */
+  kSpi1 = 25,               /*!< SPI1 global Interrupt */
+  kUart1 = 27               /*!< USART1 global Interrupt & EXTI Line25 Interrupt (USART1 wakeup) */
 };
 }  // namespace libmcuhw
 

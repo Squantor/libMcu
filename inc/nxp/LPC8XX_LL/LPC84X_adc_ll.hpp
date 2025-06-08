@@ -13,22 +13,22 @@
 
 namespace libmcull::adc {
 namespace hardware = libmcuhw::adc;
-template <libmcu::AdcBaseAddress adcAddress_>
-struct adc : libmcu::PeripheralBase {
+template <libmcu::AdcBaseAddress adc_address>
+struct Adc : libmcull::PeripheralBase {
   /**
    * @brief
    * @tparam &config clock configuration
    * @param rate sampling rate
    */
   template <auto &config>
-  constexpr void init(uint32_t rate) {
-    uint32_t maxRate{getInputClockFreq<config>() / 25};
+  constexpr void Init(uint32_t rate) {
+    uint32_t maxRate{GetInputClockFreq<config>() / 25};
     // initiate hardware selfcal
-    adcPeripheral()->CTRL = hardware::CTRL::kCALMODE | hardware::CTRL::CLKDIV(maxRate / 500000);
-    while (adcPeripheral()->CTRL & hardware::CTRL::kCALMODE)
+    GetPeripheral()->CTRL = hardware::CTRL::kCALMODE | hardware::CTRL::CLKDIV(maxRate / 500000);
+    while (GetPeripheral()->CTRL & hardware::CTRL::kCALMODE)
       ;
     // configure ADC sample rate
-    adcPeripheral()->CTRL = hardware::CTRL::CLKDIV(maxRate / rate);
+    GetPeripheral()->CTRL = hardware::CTRL::CLKDIV(maxRate / rate);
   }
   /**
    * @brief single shot sampling of an ADC pin
@@ -37,16 +37,16 @@ struct adc : libmcu::PeripheralBase {
    * @return ADC value
    */
   template <typename PIN>
-  constexpr std::uint32_t sample(PIN &pin) {
+  constexpr std::uint32_t Sample(PIN &pin) {
     std::uint32_t channelIndex = static_cast<std::uint32_t>(pin.adcPinIndex);
-    adcPeripheral()->SEQ_CTRL[hardware::kSequencerA] = hardware::SEQ_CTRL::CHANNELS(channelIndex) | hardware::SEQ_CTRL::kTRIG_NONE |
+    GetPeripheral()->SEQ_CTRL[hardware::kSequencerA] = hardware::SEQ_CTRL::CHANNELS(channelIndex) | hardware::SEQ_CTRL::kTRIG_NONE |
                                                        hardware::SEQ_CTRL::kTRIGPOL_POS | hardware::SEQ_CTRL::kLOWPRIO |
                                                        hardware::SEQ_CTRL::kSEQ_ENA;
-    adcPeripheral()->SEQ_CTRL[hardware::kSequencerA] =
-      adcPeripheral()->SEQ_CTRL[hardware::kSequencerA] | hardware::SEQ_CTRL::kSTART;
+    GetPeripheral()->SEQ_CTRL[hardware::kSequencerA] =
+      GetPeripheral()->SEQ_CTRL[hardware::kSequencerA] | hardware::SEQ_CTRL::kSTART;
     std::uint32_t adcSample;
     do {
-      adcSample = adcPeripheral()->DAT[channelIndex];
+      adcSample = GetPeripheral()->DAT[channelIndex];
     } while (!(adcSample & hardware::DAT::kDATAVALID_FLAG));
     return hardware::DAT::RESULT(adcSample);
   }
@@ -56,7 +56,7 @@ struct adc : libmcu::PeripheralBase {
    * @return clock frequency for this peripheral with this input
    */
   template <auto &config>
-  constexpr std::uint32_t getInputClockFreq() {
+  constexpr std::uint32_t GetInputClockFreq() {
     if constexpr (config.adcSource == libmcuhw::clock::periSource::SYS_PLL)
       return config.mainFreq;
     else if constexpr (config.adcSource == libmcuhw::clock::periSource::FRO)
@@ -68,12 +68,12 @@ struct adc : libmcu::PeripheralBase {
    * @brief get registers from peripheral
    * @return return pointer to ADC registers
    */
-  constexpr static hardware::Adc *adcPeripheral() {
-    return reinterpret_cast<hardware::Adc *>(adcAddress);
+  constexpr static hardware::Adc *GetPeripheral() {
+    return reinterpret_cast<hardware::Adc *>(adc_address_);
   }
 
  private:
-  static constexpr libmcu::HwAddressType adcAddress = adcAddress_; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType adc_address_ = adc_address; /*!< peripheral address */
 };
 
 }  // namespace libmcull::adc

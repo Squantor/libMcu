@@ -18,7 +18,7 @@ namespace hardware = libmcuhw::ppb;
  * @tparam ppbAddress_
  */
 template <libmcu::PpbBaseAddress const& ppbAddress_>
-struct ppb : libmcu::PeripheralBase {
+struct ppb : libmcull::PeripheralBase {
   /**
    * @brief Base initialization function
    *

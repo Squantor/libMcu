@@ -18,7 +18,7 @@ namespace hardware = libmcuhw::i2c;
  * @tparam i2c_address peripheral address
  */
 template <libmcu::I2cBaseAddress i2c_address>
-struct I2c : libmcu::PeripheralBase {
+struct I2c : libmcull::PeripheralBase {
   /**
    * @brief Initialize I2C master
    * @param bit_rate requested bit rate
@@ -41,7 +41,7 @@ struct I2c : libmcu::PeripheralBase {
    * @param address I2C device to write to
    * @param transmit_buffer data to send
    */
-  constexpr void Write(libmcu::i2cDeviceAddress address, const std::span<std::uint8_t> transmit_buffer) {
+  constexpr void Write(libmcull::I2cDeviceAddress address, const std::span<std::uint8_t> transmit_buffer) {
     std::uint32_t slave_address = static_cast<std::uint32_t>(address.value) << 1;
     GetPeripheral()->MSTDAT = slave_address;
     GetPeripheral()->MSTCTL = hardware::MSTCTL::kMSTSTART;
@@ -67,7 +67,7 @@ struct I2c : libmcu::PeripheralBase {
    * @param address I2C device to read from
    * @param receive_buffer place to put read data, needs to be at least size 1!
    */
-  constexpr void Read(libmcu::i2cDeviceAddress address, std::span<std::uint8_t> receive_buffer) {
+  constexpr void Read(libmcull::I2cDeviceAddress address, std::span<std::uint8_t> receive_buffer) {
     std::uint32_t slave_address = static_cast<std::uint32_t>(address.value) << 1;
     GetPeripheral()->MSTDAT = slave_address | 0x01;  // set read bit in Address
     GetPeripheral()->MSTCTL = hardware::MSTCTL::kMSTSTART;

@@ -23,7 +23,7 @@ namespace hardware = libmcuhw::spi;
  * @todo Slave initializations
  */
 template <libmcu::SpiBaseAddress spi_address, typename ChipEnable, typename TransferType>
-struct SpiPolled : libmcu::PeripheralBase {
+struct SpiPolled : libmcull::PeripheralBase {
   /**
    * @brief Initialise SPI peripheral as master device, LSB first mode, CPHA is 0, CPOL is 0,
    * @param bit_rate requested bit rate

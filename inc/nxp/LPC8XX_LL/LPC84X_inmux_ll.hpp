@@ -17,7 +17,7 @@ namespace hardware = libmcuhw::inmux;
 /**
  * @brief SCT0 input index
  */
-enum class sctInputIndexes : std::size_t {
+enum class SctInputIndexes : std::size_t {
   kSct0Inmux0 = 0, /*!< input mux for SCT input 0 */
   kSct0Inmux1 = 1, /*!< input mux for SCT input 1 */
   kSct0Inmux2 = 2, /*!< input mux for SCT input 2 */
@@ -26,7 +26,7 @@ enum class sctInputIndexes : std::size_t {
 /**
  * @brief SCT0 input sources
  */
-enum class sctInputSources : std::uint32_t {
+enum class SctInputSources : std::uint32_t {
   kSctPin0 = hardware::SCT_INMUX::kSCT_PIN0,             /*!< SCT input pin 0 */
   kSctPin1 = hardware::SCT_INMUX::kSCT_PIN1,             /*!< SCT input pin 1 */
   kSctPin2 = hardware::SCT_INMUX::kSCT_PIN2,             /*!< SCT input pin 2 */
@@ -42,7 +42,7 @@ enum class sctInputSources : std::uint32_t {
 /**
  * @brief DMA input multiplexer peripheral triggers
  */
-enum class dmaPeriInputTriggers : std::uint32_t {
+enum class DmaPeriInputTriggers : std::uint32_t {
   kAdcSeqAIrq = hardware::DMA_ITRIG_INMUX::kADC_SEQA_IRQ,         /*!< ADC sequence A interrupt */
   kAdcSeqBIrq = hardware::DMA_ITRIG_INMUX::kADC_SEQB_IRQ,         /*!< ADC sequence B interrupt */
   kSctDma0 = hardware::DMA_ITRIG_INMUX::kSCT_DMA0_IRQ,            /*!< SCT DMA 0 interrupt */
@@ -64,29 +64,29 @@ enum class dmaPeriInputTriggers : std::uint32_t {
  * @tparam inmuxAddress_ address of the Input multiplexer peripheral
  */
 template <libmcu::InmuxBaseAddress in_mux_address>
-struct InMux : libmcu::PeripheralBase {
+struct InMux : libmcull::PeripheralBase {
   /**
    * @brief setup multiplexer input for SCT input
    * @param sctInput SCT input to configure
    * @param source source to connect the SCT input to
    */
-  constexpr static void Setup(sctInputIndexes sctInput, sctInputSources source) {
+  constexpr static void Setup(SctInputIndexes sctInput, SctInputSources source) {
     std::size_t index = static_cast<std::size_t>(sctInput);
-    InmuxPeripheral()->SCT_INMUX[index] = static_cast<std::uint32_t>(source);
+    GetPeripheral()->SCT_INMUX[index] = static_cast<std::uint32_t>(source);
   }
   /**
    * @brief Configure DMA input trigger
    * @param dma_channel DMA input channel to configure
    * @param trigger DMA hardware trigger channel
    */
-  constexpr static void Setup(std::size_t dma_channel, dmaPeriInputTriggers trigger) {
-    InmuxPeripheral()->DMA_ITRIG_INMUX[dma_channel] = static_cast<std::uint32_t>(trigger);
+  constexpr static void Setup(std::size_t dma_channel, DmaPeriInputTriggers trigger) {
+    GetPeripheral()->DMA_ITRIG_INMUX[dma_channel] = static_cast<std::uint32_t>(trigger);
   }
   /**
    * @brief get registers from peripheral
    * @return return pointer to state configurable timer registers
    */
-  constexpr static hardware::InMux *InmuxPeripheral() {
+  constexpr static hardware::InMux *GetPeripheral() {
     return reinterpret_cast<hardware::InMux *>(in_mux_address_);
   }
 

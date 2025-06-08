@@ -176,11 +176,11 @@ enum class DstIncrements : std::uint32_t {
  * @tparam dmaAddress_ address of the Input multiplexer peripheral
  */
 template <libmcu::DmaBaseAddress dma_address>
-struct Dma : libmcu::PeripheralBase {
+struct Dma : libmcull::PeripheralBase {
   constexpr void Init() {
     descriptors_.fill({0, 0, 0, nullptr});
-    DmaPeripheral()->SRAMBASE = reinterpret_cast<std::uint32_t>(descriptors_.data());
-    DmaPeripheral()->CTRL = hardware::CTRL::kENABLE;
+    GetPeripheral()->SRAMBASE = reinterpret_cast<std::uint32_t>(descriptors_.data());
+    GetPeripheral()->CTRL = hardware::CTRL::kENABLE;
   }
   /**
    * @brief Configures a DMA channel descriptor
@@ -266,7 +266,7 @@ struct Dma : libmcu::PeripheralBase {
       cfg_register |= hardware::CFG::kDSTBURSTWRAP;
     cfg_register |= static_cast<std::uint32_t>(prio);
 
-    DmaPeripheral()->CHANNEL[index].CFG = cfg_register;
+    GetPeripheral()->CHANNEL[index].CFG = cfg_register;
   }
   /**
    * @brief Configure a DMA channel
@@ -290,7 +290,7 @@ struct Dma : libmcu::PeripheralBase {
       cfg_register |= hardware::CFG::kDSTBURSTWRAP;
     cfg_register |= static_cast<std::uint32_t>(prio);
 
-    DmaPeripheral()->CHANNEL[index].CFG = cfg_register;
+    GetPeripheral()->CHANNEL[index].CFG = cfg_register;
   }
   /**
    * @brief Configure dma channel transfer
@@ -318,7 +318,7 @@ struct Dma : libmcu::PeripheralBase {
     xfercfg_register |= static_cast<std::uint32_t>(src_inc);
     xfercfg_register |= static_cast<std::uint32_t>(dst_inc);
 
-    DmaPeripheral()->CHANNEL[index].XFERCFG = xfercfg_register;
+    GetPeripheral()->CHANNEL[index].XFERCFG = xfercfg_register;
   }
   /**
    * @brief Configure dma channel transfer
@@ -346,7 +346,7 @@ struct Dma : libmcu::PeripheralBase {
     xfercfg_register |= static_cast<std::uint32_t>(src_inc);
     xfercfg_register |= static_cast<std::uint32_t>(dst_inc);
 
-    DmaPeripheral()->CHANNEL[index].XFERCFG = xfercfg_register;
+    GetPeripheral()->CHANNEL[index].XFERCFG = xfercfg_register;
   }
   /**
    * @brief Validate channel configuration
@@ -354,7 +354,7 @@ struct Dma : libmcu::PeripheralBase {
    */
   constexpr void ValidateChannel(SoftwareDescriptors channel) {
     std::uint32_t channel_value = static_cast<std::uint32_t>(channel);
-    DmaPeripheral()->SETVALID = hardware::SETVALID::SV_MASK(channel_value);
+    GetPeripheral()->SETVALID = hardware::SETVALID::SV_MASK(channel_value);
   }
   /**
    * @brief Validate channel configuration
@@ -362,7 +362,7 @@ struct Dma : libmcu::PeripheralBase {
    */
   constexpr void ValidateChannel(HardwareDescriptors channel) {
     std::uint32_t channel_value = static_cast<std::uint32_t>(channel);
-    DmaPeripheral()->SETVALID = hardware::SETVALID::SV_MASK(channel_value);
+    GetPeripheral()->SETVALID = hardware::SETVALID::SV_MASK(channel_value);
   }
   /**
    * @brief Set channel trigger
@@ -370,7 +370,7 @@ struct Dma : libmcu::PeripheralBase {
    */
   constexpr void SetChannelTrigger(SoftwareDescriptors channel) {
     std::uint32_t channel_value = static_cast<std::uint32_t>(channel);
-    DmaPeripheral()->SETTRIG = hardware::SETTRIG::TRIG_MASK(channel_value);
+    GetPeripheral()->SETTRIG = hardware::SETTRIG::TRIG_MASK(channel_value);
   }
   /**
    * @brief Set channel trigger
@@ -378,7 +378,7 @@ struct Dma : libmcu::PeripheralBase {
    */
   constexpr void SetChannelTrigger(HardwareDescriptors channel) {
     std::uint32_t channel_value = static_cast<std::uint32_t>(channel);
-    DmaPeripheral()->SETTRIG = hardware::SETTRIG::TRIG_MASK(channel_value);
+    GetPeripheral()->SETTRIG = hardware::SETTRIG::TRIG_MASK(channel_value);
   }
   /**
    * @brief Enable channel
@@ -386,7 +386,7 @@ struct Dma : libmcu::PeripheralBase {
    */
   constexpr void EnableChannel(SoftwareDescriptors channel) {
     std::uint32_t channel_value = static_cast<std::uint32_t>(channel);
-    DmaPeripheral()->ENABLESET = hardware::ENABLESET::ENA(channel_value);
+    GetPeripheral()->ENABLESET = hardware::ENABLESET::ENA(channel_value);
   }
   /**
    * @brief Enable channel
@@ -394,7 +394,7 @@ struct Dma : libmcu::PeripheralBase {
    */
   constexpr void EnableChannel(HardwareDescriptors channel) {
     std::uint32_t channel_value = static_cast<std::uint32_t>(channel);
-    DmaPeripheral()->ENABLESET = hardware::ENABLESET::ENA(channel_value);
+    GetPeripheral()->ENABLESET = hardware::ENABLESET::ENA(channel_value);
   }
   /**
    * @brief Is the current channel active
@@ -402,7 +402,7 @@ struct Dma : libmcu::PeripheralBase {
    */
   constexpr bool IsChannelActive(SoftwareDescriptors channel) {
     std::uint32_t channel_value = static_cast<std::uint32_t>(channel);
-    return (hardware::ACTIVE::ACT_MASK(channel_value) & DmaPeripheral()->ACTIVE) != 0;
+    return (hardware::ACTIVE::ACT_MASK(channel_value) & GetPeripheral()->ACTIVE) != 0;
   }
   /**
    * @brief Is the current channel active
@@ -410,7 +410,7 @@ struct Dma : libmcu::PeripheralBase {
    */
   constexpr bool IsChannelActive(HardwareDescriptors channel) {
     std::uint32_t channel_value = static_cast<std::uint32_t>(channel);
-    return (hardware::ACTIVE::ACT_MASK(channel_value) & DmaPeripheral()->ACTIVE) != 0;
+    return (hardware::ACTIVE::ACT_MASK(channel_value) & GetPeripheral()->ACTIVE) != 0;
   }
   /**
    * @brief Is the current channel busy
@@ -418,7 +418,7 @@ struct Dma : libmcu::PeripheralBase {
    */
   constexpr bool IsChannelBusy(SoftwareDescriptors channel) {
     std::uint32_t channel_value = static_cast<std::uint32_t>(channel);
-    return (hardware::kBusy::BSY_MASK(channel_value) & DmaPeripheral()->kBusy) != 0;
+    return (hardware::kBusy::BSY_MASK(channel_value) & GetPeripheral()->kBusy) != 0;
   }
   /**
    * @brief Is the current channel busy
@@ -426,7 +426,7 @@ struct Dma : libmcu::PeripheralBase {
    */
   constexpr bool IsChannelBusy(HardwareDescriptors channel) {
     std::uint32_t channel_value = static_cast<std::uint32_t>(channel);
-    return (hardware::kBusy::BSY_MASK(channel_value) & DmaPeripheral()->kBusy) != 0;
+    return (hardware::kBusy::BSY_MASK(channel_value) & GetPeripheral()->kBusy) != 0;
   }
   /**
    * @brief get descriptor table from peripheral
@@ -441,7 +441,7 @@ struct Dma : libmcu::PeripheralBase {
    * @brief get registers from peripheral
    * @return return pointer to peripheral registers
    */
-  constexpr static hardware::Dma *DmaPeripheral() {
+  constexpr static hardware::Dma *GetPeripheral() {
     return reinterpret_cast<hardware::Dma *>(dmaAddress_);
   }
 

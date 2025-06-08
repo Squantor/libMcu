@@ -17,19 +17,19 @@ namespace hardware = libmcuhw::sct;
 /**
  * @brief SCT subcounter select
  */
-enum class subCounter : std::uint32_t {
+enum class SubCounters : std::uint32_t {
   UNITED, /*!< Unified counter */
   UPPER,  /*!< Upper counter */
   LOWER,  /*!< Lower counter */
 };
-enum class counterMode : std::uint32_t {
+enum class CounterModes : std::uint32_t {
   UNIFIED = hardware::CONFIG::kUNIFY, /*!< 32 bit combined counter*/
   SPLIT = 0,                          /*!< split into two 16 bit counter */
 };
 /**
  * @brief Match indices
  */
-enum class matcher : std::size_t {
+enum class Matchers : std::size_t {
   MATCH0 = 0, /*!< Match 0 register */
   MATCH1 = 1, /*!< Match 1 register */
   MATCH2 = 2, /*!< Match 2 register */
@@ -42,7 +42,7 @@ enum class matcher : std::size_t {
 /**
  * @brief event indices
  */
-enum class events : std::size_t {
+enum class Events : std::size_t {
   EVENT0 = 0, /*!< Event 0 */
   EVENT1 = 1, /*!< Event 1 */
   EVENT2 = 2, /*!< Event 2 */
@@ -55,7 +55,7 @@ enum class events : std::size_t {
 /**
  * @brief SCT output indices
  */
-enum class outputs : std::size_t {
+enum class Outputs : std::size_t {
   OUTPUT0 = 0, /*!< Output 0 */
   OUTPUT1 = 1, /*!< Output 1 */
   OUTPUT2 = 2, /*!< Output 2 */
@@ -64,7 +64,7 @@ enum class outputs : std::size_t {
   OUTPUT5 = 5, /*!< Output 5 */
   OUTPUT6 = 6, /*!< Output 6 */
 };
-namespace eventMasks {
+namespace event_masks {
 constexpr inline std::uint32_t EVENT0{1u << 0}; /*!< Mask for event 0 */
 constexpr inline std::uint32_t EVENT1{1u << 1}; /*!< Mask for event 1 */
 constexpr inline std::uint32_t EVENT2{1u << 2}; /*!< Mask for event 2 */
@@ -73,8 +73,8 @@ constexpr inline std::uint32_t EVENT4{1u << 4}; /*!< Mask for event 4 */
 constexpr inline std::uint32_t EVENT5{1u << 5}; /*!< Mask for event 5 */
 constexpr inline std::uint32_t EVENT6{1u << 6}; /*!< Mask for event 6 */
 constexpr inline std::uint32_t EVENT7{1u << 7}; /*!< Mask for event 7 */
-}  // namespace eventMasks
-namespace stateMasks {
+}  // namespace event_masks
+namespace state_masks {
 constexpr inline std::uint32_t STATE0{1u << 0}; /*!< Mask for state 0 */
 constexpr inline std::uint32_t STATE1{1u << 1}; /*!< Mask for state 1 */
 constexpr inline std::uint32_t STATE2{1u << 2}; /*!< Mask for state 2 */
@@ -83,11 +83,11 @@ constexpr inline std::uint32_t STATE4{1u << 4}; /*!< Mask for state 4 */
 constexpr inline std::uint32_t STATE5{1u << 5}; /*!< Mask for state 5 */
 constexpr inline std::uint32_t STATE6{1u << 6}; /*!< Mask for state 6 */
 constexpr inline std::uint32_t STATE7{1u << 7}; /*!< Mask for state 7 */
-}  // namespace stateMasks
+}  // namespace state_masks
 /**
  * @brief I/O conditions for I/O events
  */
-enum class ioEventConditions : std::size_t {
+enum class IoEventConditions : std::size_t {
   LOW = hardware::EV_CTRL::kIOCOND_LOW,   /*!< Low level I/O condition */
   RISE = hardware::EV_CTRL::kIOCOND_RISE, /*!< Rising edge I/O condition */
   FALL = hardware::EV_CTRL::kIOCOND_FALL, /*!< Falling edge I/O condition */
@@ -96,7 +96,7 @@ enum class ioEventConditions : std::size_t {
 /**
  * @brief I/O and match event combinations
  */
-enum class eventCombineModes : std::size_t {
+enum class EventCombineModes : std::size_t {
   OR = hardware::EV_CTRL::kCOMBMODE_OR,       /*!< Match or I/O condition */
   MATCH = hardware::EV_CTRL::kCOMBMODE_MATCH, /*!< Match only condition */
   IO = hardware::EV_CTRL::kCOMBMODE_IO,       /*!< I/O only condition */
@@ -105,7 +105,7 @@ enum class eventCombineModes : std::size_t {
 /**
  * @brief Counting directions
  */
-enum class eventCountingDirections : std::uint32_t {
+enum class EventCountingDirections : std::uint32_t {
   BIDI = hardware::EV_CTRL::kDIRECTION_BIDI, /*!< event triggers in both counting directions */
   UP = hardware::EV_CTRL::kDIRECTION_UP,     /*!< event triggers in up counting */
   DOWN = hardware::EV_CTRL::kDIRECTION_DOWN, /*!< event triggers in down counting */
@@ -113,97 +113,123 @@ enum class eventCountingDirections : std::uint32_t {
 /**
  * @brief SCT low level interface class
  * @tparam sct_address address of the SCT peripheral
+ * @todo some doxygen needs to be filled in
  */
 template <libmcu::SctBaseAddress sct_address>
-struct Sct : libmcu::PeripheralBase {
-  constexpr static void init(counterMode mode, bool bidirectional = true, bool autolimit = true) {
+struct Sct : libmcull::PeripheralBase {
+  constexpr static void Init(CounterModes mode, bool bidirectional = true, bool autolimit = true) {
     std::uint32_t configRegister = static_cast<std::uint32_t>(mode);
     std::uint32_t ctrlRegister = hardware::CTRL::kHALT_L | hardware::CTRL::kHALT_H;
-    sctPeripheral()->CTRL = ctrlRegister;
-    sctPeripheral()->COUNT = 0;
+    GetPeripheral()->CTRL = ctrlRegister;
+    GetPeripheral()->COUNT = 0;
     if (autolimit)
       configRegister |= hardware::CONFIG::kAUTOLIMIT_L | hardware::CONFIG::kAUTOLIMIT_H;
     if (bidirectional)
       ctrlRegister |= hardware::CTRL::kBIDIR_L | hardware::CTRL::kBIDIR_H;
-    sctPeripheral()->CONFIG = configRegister;
-    sctPeripheral()->CTRL = ctrlRegister;
+    GetPeripheral()->CONFIG = configRegister;
+    GetPeripheral()->CTRL = ctrlRegister;
   }
   /**
    * @brief Configure what events can limit the counter
    * @param eventMask mask of events that can limit
    * @param counter counter to apply this to
    */
-  constexpr static void setLimitEvents(std::uint32_t eventMask, subCounter counter = subCounter::UNITED) {
+  constexpr static void SetLimitEvents(std::uint32_t eventMask, SubCounters counter = SubCounters::UNITED) {
     switch (counter) {
-      case subCounter::UNITED:
-        sctPeripheral()->LIMIT = eventMask;
+      case SubCounters::UNITED:
+        GetPeripheral()->LIMIT = eventMask;
         break;
-      case subCounter::LOWER:
-        sctPeripheral()->LIMIT_ACCESS16BIT.LIMITL = eventMask;
+      case SubCounters::LOWER:
+        GetPeripheral()->LIMIT_ACCESS16BIT.LIMITL = eventMask;
         break;
-      case subCounter::UPPER:
-        sctPeripheral()->LIMIT_ACCESS16BIT.LIMITH = eventMask;
+      case SubCounters::UPPER:
+        GetPeripheral()->LIMIT_ACCESS16BIT.LIMITH = eventMask;
         break;
     }
   }
-  constexpr static void setHaltEvents(std::uint32_t eventmask, subCounter counter = subCounter::UNITED) {
+  /**
+   * @brief Set the Halt Events object
+   * @param eventmask
+   * @param counter
+   */
+  constexpr static void SetHaltEvents(std::uint32_t eventmask, SubCounters counter = SubCounters::UNITED) {
     switch (counter) {
-      case subCounter::UNITED:
-        sctPeripheral()->HALT = eventmask;
+      case SubCounters::UNITED:
+        GetPeripheral()->HALT = eventmask;
         break;
-      case subCounter::LOWER:
-        sctPeripheral()->HALT_ACCESS16BIT.HALTL = eventmask;
+      case SubCounters::LOWER:
+        GetPeripheral()->HALT_ACCESS16BIT.HALTL = eventmask;
         break;
-      case subCounter::UPPER:
-        sctPeripheral()->HALT_ACCESS16BIT.HALTH = eventmask;
+      case SubCounters::UPPER:
+        GetPeripheral()->HALT_ACCESS16BIT.HALTH = eventmask;
         break;
     }
   }
-  constexpr static void setStopEvents(std::uint32_t eventmask, subCounter counter = subCounter::UNITED) {
+  /**
+   * @brief Set the Stop Events object
+   * @param eventmask
+   * @param counter
+   */
+  constexpr static void SetStopEvents(std::uint32_t eventmask, SubCounters counter = SubCounters::UNITED) {
     switch (counter) {
-      case subCounter::UNITED:
-        sctPeripheral()->STOP = eventmask;
+      case SubCounters::UNITED:
+        GetPeripheral()->STOP = eventmask;
         break;
-      case subCounter::LOWER:
-        sctPeripheral()->STOP_ACCESS16BIT.STOPL = eventmask;
+      case SubCounters::LOWER:
+        GetPeripheral()->STOP_ACCESS16BIT.STOPL = eventmask;
         break;
-      case subCounter::UPPER:
-        sctPeripheral()->STOP_ACCESS16BIT.STOPH = eventmask;
+      case SubCounters::UPPER:
+        GetPeripheral()->STOP_ACCESS16BIT.STOPH = eventmask;
         break;
     }
   }
-  constexpr static void setStartEvents(std::uint32_t eventmask, subCounter counter = subCounter::UNITED) {
+  /**
+   * @brief Set the Start Events object
+   * @param eventmask
+   * @param counter
+   */
+  constexpr static void SetStartEvents(std::uint32_t eventmask, SubCounters counter = SubCounters::UNITED) {
     switch (counter) {
-      case subCounter::UNITED:
-        sctPeripheral()->START = eventmask;
+      case SubCounters::UNITED:
+        GetPeripheral()->START = eventmask;
         break;
-      case subCounter::LOWER:
-        sctPeripheral()->START_ACCESS16BIT.STARTL = eventmask;
+      case SubCounters::LOWER:
+        GetPeripheral()->START_ACCESS16BIT.STARTL = eventmask;
         break;
-      case subCounter::UPPER:
-        sctPeripheral()->START_ACCESS16BIT.STARTH = eventmask;
+      case SubCounters::UPPER:
+        GetPeripheral()->START_ACCESS16BIT.STARTH = eventmask;
     }
   }
-  constexpr static void setOutputSetEvents(outputs output, std::uint32_t eventmask) {
+  /**
+   * @brief Set the Output Set Events object
+   * @param output
+   * @param eventmask
+   */
+  constexpr static void SetOutputSetEvents(Outputs output, std::uint32_t eventmask) {
     std::size_t index = static_cast<std::size_t>(output);
-    sctPeripheral()->OUT[index].SET = eventmask;
+    GetPeripheral()->OUT[index].SET = eventmask;
   }
-  constexpr static void setOutputClearEvents(outputs output, std::uint32_t eventmask) {
+  /**
+   * @brief Set the Output Clear Events object
+   * @param output
+   * @param eventmask
+   */
+  constexpr static void SetOutputClearEvents(Outputs output, std::uint32_t eventmask) {
     std::size_t index = static_cast<std::size_t>(output);
-    sctPeripheral()->OUT[index].CLR = eventmask;
+    GetPeripheral()->OUT[index].CLR = eventmask;
   }
   /**
    * @brief Start counter
    * @param counter counter to start
    */
-  constexpr static void start(subCounter counter = subCounter::UNITED) {
+  constexpr static void Start(SubCounters counter = SubCounters::UNITED) {
     switch (counter) {
-      case subCounter::UNITED:
-      case subCounter::LOWER:
-        sctPeripheral()->CTRL = sctPeripheral()->CTRL & ~hardware::CTRL::kHALT_L;
+      case SubCounters::UNITED:
+      case SubCounters::LOWER:
+        GetPeripheral()->CTRL = GetPeripheral()->CTRL & ~hardware::CTRL::kHALT_L;
         break;
-      case subCounter::UPPER:
-        sctPeripheral()->CTRL = sctPeripheral()->CTRL & ~hardware::CTRL::kHALT_H;
+      case SubCounters::UPPER:
+        GetPeripheral()->CTRL = GetPeripheral()->CTRL & ~hardware::CTRL::kHALT_H;
         break;
     }
   }
@@ -211,14 +237,14 @@ struct Sct : libmcu::PeripheralBase {
    * @brief Halt counter
    * @param counter counter to halt
    */
-  constexpr static void halt(subCounter counter = subCounter::UNITED) {
+  constexpr static void Halt(SubCounters counter = SubCounters::UNITED) {
     switch (counter) {
-      case subCounter::UNITED:
-      case subCounter::LOWER:
-        sctPeripheral()->CTRL = sctPeripheral()->CTRL | hardware::CTRL::kHALT_L;
+      case SubCounters::UNITED:
+      case SubCounters::LOWER:
+        GetPeripheral()->CTRL = GetPeripheral()->CTRL | hardware::CTRL::kHALT_L;
         break;
-      case subCounter::UPPER:
-        sctPeripheral()->CTRL = sctPeripheral()->CTRL | hardware::CTRL::kHALT_H;
+      case SubCounters::UPPER:
+        GetPeripheral()->CTRL = GetPeripheral()->CTRL | hardware::CTRL::kHALT_H;
         break;
     }
   }
@@ -227,16 +253,16 @@ struct Sct : libmcu::PeripheralBase {
    * @param counter counter to get value
    * @return current count
    */
-  constexpr static std::uint32_t getCounter(subCounter counter = subCounter::UNITED) {
+  constexpr static std::uint32_t GetCounter(SubCounters counter = SubCounters::UNITED) {
     switch (counter) {
-      case subCounter::UNITED:
-        return sctPeripheral()->COUNT;
+      case SubCounters::UNITED:
+        return GetPeripheral()->COUNT;
         break;
-      case subCounter::LOWER:
-        return static_cast<std::uint32_t>(sctPeripheral()->COUNT_ACCESS16BIT.COUNTL);
+      case SubCounters::LOWER:
+        return static_cast<std::uint32_t>(GetPeripheral()->COUNT_ACCESS16BIT.COUNTL);
         break;
-      case subCounter::UPPER:
-        return static_cast<std::uint32_t>(sctPeripheral()->COUNT_ACCESS16BIT.COUNTH);
+      case SubCounters::UPPER:
+        return static_cast<std::uint32_t>(GetPeripheral()->COUNT_ACCESS16BIT.COUNTH);
     }
   }
   /**
@@ -245,23 +271,23 @@ struct Sct : libmcu::PeripheralBase {
    * @param value value of the match register
    * @param counter counter the match register belangs to
    */
-  constexpr static void setupMatch(matcher match, std::uint32_t value, subCounter counter = subCounter::UNITED) {
+  constexpr static void SetupMatch(Matchers match, std::uint32_t value, SubCounters counter = SubCounters::UNITED) {
     std::uint32_t index = static_cast<std::uint32_t>(match);
     switch (counter) {
-      case subCounter::UNITED:
-        sctPeripheral()->REGMODE = sctPeripheral()->REGMODE & ~(1 << index);
-        sctPeripheral()->MATCH[index] = value;
-        sctPeripheral()->MATCHREL[index] = value;
+      case SubCounters::UNITED:
+        GetPeripheral()->REGMODE = GetPeripheral()->REGMODE & ~(1 << index);
+        GetPeripheral()->MATCH[index] = value;
+        GetPeripheral()->MATCHREL[index] = value;
         break;
-      case subCounter::LOWER:
-        sctPeripheral()->REGMODE = sctPeripheral()->REGMODE & ~(1 << index);
-        sctPeripheral()->MATCH_ACCESS16BIT[index].MATCHL = static_cast<std::uint16_t>(value);
-        sctPeripheral()->MATCHREL_ACCESS16BIT[index].MATCHRELL = static_cast<std::uint16_t>(value);
+      case SubCounters::LOWER:
+        GetPeripheral()->REGMODE = GetPeripheral()->REGMODE & ~(1 << index);
+        GetPeripheral()->MATCH_ACCESS16BIT[index].MATCHL = static_cast<std::uint16_t>(value);
+        GetPeripheral()->MATCHREL_ACCESS16BIT[index].MATCHRELL = static_cast<std::uint16_t>(value);
         break;
-      case subCounter::UPPER:
-        sctPeripheral()->REGMODE = sctPeripheral()->REGMODE & ~(1 << (index + 16));
-        sctPeripheral()->MATCH_ACCESS16BIT[index].MATCHH = static_cast<std::uint16_t>(value);
-        sctPeripheral()->MATCHREL_ACCESS16BIT[index].MATCHRELH = static_cast<std::uint16_t>(value);
+      case SubCounters::UPPER:
+        GetPeripheral()->REGMODE = GetPeripheral()->REGMODE & ~(1 << (index + 16));
+        GetPeripheral()->MATCH_ACCESS16BIT[index].MATCHH = static_cast<std::uint16_t>(value);
+        GetPeripheral()->MATCHREL_ACCESS16BIT[index].MATCHRELH = static_cast<std::uint16_t>(value);
         break;
     }
   }
@@ -280,21 +306,21 @@ struct Sct : libmcu::PeripheralBase {
    * @param direction count direction the event can occur
    * @param counter what counter to associate this event to
    */
-  constexpr static void setupEvent(events event, std::uint32_t stateMask, matcher match, bool output, std::uint32_t ioIndex,
-                                   ioEventConditions ioCondition, eventCombineModes combineMode, bool stateLoad,
+  constexpr static void SetupEvent(Events event, std::uint32_t stateMask, Matchers match, bool output, std::uint32_t ioIndex,
+                                   IoEventConditions ioCondition, EventCombineModes combineMode, bool stateLoad,
                                    std::uint32_t stateValue, bool matchGreater = true,
-                                   eventCountingDirections direction = eventCountingDirections::BIDI,
-                                   subCounter counter = subCounter::UNITED) {
+                                   EventCountingDirections direction = EventCountingDirections::BIDI,
+                                   SubCounters counter = SubCounters::UNITED) {
     std::size_t index = static_cast<std::size_t>(event);
     std::uint32_t eventRegister = hardware::EV_CTRL::MATCHSESEL(static_cast<std::uint32_t>(match)) |
                                   hardware::EV_CTRL::IOSEL(ioIndex) | static_cast<std::uint32_t>(ioCondition) |
                                   static_cast<std::uint32_t>(combineMode) | hardware::EV_CTRL::STATEV(stateValue) |
                                   static_cast<std::uint32_t>(direction);
     switch (counter) {
-      case subCounter::LOWER:
-      case subCounter::UNITED:
+      case SubCounters::LOWER:
+      case SubCounters::UNITED:
         break;
-      case subCounter::UPPER:
+      case SubCounters::UPPER:
         eventRegister = eventRegister | hardware::EV_CTRL::kHEVENT;
         break;
     }
@@ -304,15 +330,15 @@ struct Sct : libmcu::PeripheralBase {
       eventRegister = eventRegister | hardware::EV_CTRL::kSTATELD;
     if (matchGreater)
       eventRegister = eventRegister | hardware::EV_CTRL::kMATCHMEM;
-    sctPeripheral()->EV[index].CTRL = eventRegister;
-    sctPeripheral()->EV[index].STATE = stateMask;
+    GetPeripheral()->EV[index].CTRL = eventRegister;
+    GetPeripheral()->EV[index].STATE = stateMask;
   }
 
   /**
    * @brief get registers from peripheral
    * @return return pointer to state configurable timer registers
    */
-  constexpr static hardware::Sct *sctPeripheral() {
+  constexpr static hardware::Sct *GetPeripheral() {
     return reinterpret_cast<hardware::Sct *>(sct_address_);
   }
 

@@ -18,7 +18,7 @@ namespace hardware = libmcuhw::pinint;
  * @tparam pinint_address
  */
 template <libmcu::PinintBaseAddress pinint_address>
-struct Pinint : libmcu::PeripheralBase {
+struct Pinint : libmcull::PeripheralBase {
   /**
    * @brief get registers from peripheral
    * @return pointer to pin interrupt registers

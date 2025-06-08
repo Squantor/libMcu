@@ -22,7 +22,7 @@ enum class i2cModes : std::uint32_t {
   HIGH = hardware::IC_CON::SPEED_HIGH,
 };
 template <libmcu::I2cBaseAddress const& i2c_address>
-struct i2c : libmcu::PeripheralBase {
+struct i2c : libmcull::PeripheralBase {
   /**
    * @brief Base initialization function
    *
@@ -89,7 +89,7 @@ struct i2c : libmcu::PeripheralBase {
    * @param transmitBuffer data to send, should at least contain one byte!
    * @param maxTime maximum amount of iterations to wait between each I2C operation
    */
-  constexpr libmcu::Results write(libmcu::i2cDeviceAddress address, std::span<const std::uint8_t> transmitBuffer,
+  constexpr libmcu::Results write(libmcull::I2cDeviceAddress address, std::span<const std::uint8_t> transmitBuffer,
                                   std::uint32_t maxTime) {
     std::uint32_t i2cAddress = static_cast<std::uint32_t>(address.value);
     i2cPeripheral()->IC_ENABLE = hardware::IC_ENABLE::ABORT;
@@ -134,7 +134,7 @@ struct i2c : libmcu::PeripheralBase {
    * @param address I2C device to read from
    * @param receiveBuffer place to put read data, needs to be at least size 1!
    */
-  constexpr libmcu::Results read(libmcu::i2cDeviceAddress address, std::span<std::uint8_t> receiveBuffer, std::uint32_t maxTime) {
+  constexpr libmcu::Results read(libmcull::I2cDeviceAddress address, std::span<std::uint8_t> receiveBuffer, std::uint32_t maxTime) {
     std::uint32_t i2cAddress = static_cast<std::uint32_t>(address.value);
     i2cPeripheral()->IC_ENABLE = hardware::IC_ENABLE::ABORT;
     i2cPeripheral()->IC_TAR = i2cAddress;

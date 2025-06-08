@@ -34,9 +34,9 @@ struct gpio : libmcuhal::HalGpioBase {
    */
   template <typename PIN>
   constexpr void output(PIN& pin) {
-    if constexpr (pin.port == libmcuhw::IOports::PORT0) {
+    if constexpr (pin.port == libmcuhw::IoPorts::PORT0) {
       sioPeripheral()->GPIO_OE_SET = pin.pinMask;
-    } else if constexpr (pin.port == libmcuhw::IOports::PORT0) {
+    } else if constexpr (pin.port == libmcuhw::IoPorts::PORT0) {
       sioPeripheral()->GPIO_HI_OE_SET = pin.pinMask;
     } else {
       static_assert("Unknown port!");
@@ -49,9 +49,9 @@ struct gpio : libmcuhal::HalGpioBase {
    */
   template <typename PIN>
   constexpr void input(PIN& pin) {
-    if constexpr (pin.port == libmcuhw::IOports::PORT0) {
+    if constexpr (pin.port == libmcuhw::IoPorts::PORT0) {
       sioPeripheral()->GPIO_OE_CLR = pin.pinMask;
-    } else if constexpr (pin.port == libmcuhw::IOports::PORT0) {
+    } else if constexpr (pin.port == libmcuhw::IoPorts::PORT0) {
       sioPeripheral()->GPIO_HI_OE_CLR = pin.pinMask;
     } else {
       static_assert("Unknown port!");
@@ -64,9 +64,9 @@ struct gpio : libmcuhal::HalGpioBase {
    */
   template <typename PIN>
   constexpr void high(PIN& pin) {
-    if constexpr (pin.port == libmcuhw::IOports::PORT0) {
+    if constexpr (pin.port == libmcuhw::IoPorts::PORT0) {
       sioPeripheral()->GPIO_OUT_SET = pin.pinMask;
-    } else if constexpr (pin.port == libmcuhw::IOports::PORT0) {
+    } else if constexpr (pin.port == libmcuhw::IoPorts::PORT0) {
       sioPeripheral()->GPIO_HI_OUT_SET = pin.pinMask;
     } else {
       static_assert("Unknown port!");
@@ -79,9 +79,9 @@ struct gpio : libmcuhal::HalGpioBase {
    */
   template <typename PIN>
   constexpr void low(PIN& pin) {
-    if constexpr (pin.port == libmcuhw::IOports::PORT0) {
+    if constexpr (pin.port == libmcuhw::IoPorts::PORT0) {
       sioPeripheral()->GPIO_OUT_CLR = pin.pinMask;
-    } else if constexpr (pin.port == libmcuhw::IOports::PORT0) {
+    } else if constexpr (pin.port == libmcuhw::IoPorts::PORT0) {
       sioPeripheral()->GPIO_HI_OUT_CLR = pin.pinMask;
     } else {
       static_assert("Unknown port!");
@@ -94,9 +94,9 @@ struct gpio : libmcuhal::HalGpioBase {
    */
   template <typename PIN>
   constexpr void toggle(PIN& pin) {
-    if constexpr (pin.port == libmcuhw::IOports::PORT0) {
+    if constexpr (pin.port == libmcuhw::IoPorts::PORT0) {
       sioPeripheral()->GPIO_OUT_XOR = pin.pinMask;
-    } else if constexpr (pin.port == libmcuhw::IOports::PORT0) {
+    } else if constexpr (pin.port == libmcuhw::IoPorts::PORT0) {
       sioPeripheral()->GPIO_HI_OUT_XOR = pin.pinMask;
     } else {
       static_assert("Unknown port!");
@@ -110,12 +110,12 @@ struct gpio : libmcuhal::HalGpioBase {
    */
   template <typename PIN>
   constexpr void set(PIN& pin, std::uint32_t setting) {
-    if constexpr (pin.port == libmcuhw::IOports::PORT0) {
+    if constexpr (pin.port == libmcuhw::IoPorts::PORT0) {
       if (setting)
         sioPeripheral()->GPIO_OUT_SET = pin.pinMask;
       else
         sioPeripheral()->GPIO_OUT_CLR = pin.pinMask;
-    } else if constexpr (pin.port == libmcuhw::IOports::PORT0) {
+    } else if constexpr (pin.port == libmcuhw::IoPorts::PORT0) {
       if (setting)
         sioPeripheral()->GPIO_HI_OUT_SET = pin.pinMask;
       else
@@ -132,9 +132,9 @@ struct gpio : libmcuhal::HalGpioBase {
    */
   template <typename PIN>
   constexpr std::uint32_t get(PIN& pin) {
-    if constexpr (pin.port == libmcuhw::IOports::PORT0) {
+    if constexpr (pin.port == libmcuhw::IoPorts::PORT0) {
       return sioPeripheral()->GPIO_IN & pin.pinMask;
-    } else if constexpr (pin.port == libmcuhw::IOports::PORT0) {
+    } else if constexpr (pin.port == libmcuhw::IoPorts::PORT0) {
       return sioPeripheral()->GPIO_HI_IN & pin.pinMask;
     } else {
       static_assert("Unknown port!");
@@ -148,12 +148,12 @@ struct gpio : libmcuhal::HalGpioBase {
    */
   template <typename T>
   void pullmode(T& pin, pullModes pull) {
-    if constexpr (pin.port == libmcuhw::IOports::PORT0) {
+    if constexpr (pin.port == libmcuhw::IoPorts::PORT0) {
       uint32_t setting = padsBank0Peripheral()->GPIO[pin.pinIndex] & ~(libmcuhw::pads::GPIO::PDE | libmcuhw::pads::GPIO::PUE);
       setting = setting | static_cast<std::uint32_t>(pull);
       padsBank0Peripheral()->GPIO[pin.pinIndex] = setting;
-    } else if constexpr (pin.port == libmcuhw::IOports::PORT0) {
-      static_assert(pin.port == libmcuhw::IOports::QSPI, "Does not support QSPI pins yet");
+    } else if constexpr (pin.port == libmcuhw::IoPorts::PORT0) {
+      static_assert(pin.port == libmcuhw::IoPorts::QSPI, "Does not support QSPI pins yet");
     } else {
       static_assert("Unknown port!");
     }

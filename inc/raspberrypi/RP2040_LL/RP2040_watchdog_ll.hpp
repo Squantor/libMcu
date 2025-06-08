@@ -14,7 +14,7 @@
 namespace libmcull::watchdog {
 namespace hardware = libmcuhw::watchdog;
 template <libmcu::WatchdogBaseAddress const& watchdogAddress_>
-struct watchdog : libmcu::PeripheralBase {
+struct watchdog : libmcull::PeripheralBase {
   /**
    * @brief Base initialization function
    */

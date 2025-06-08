@@ -18,7 +18,7 @@ namespace hardware = libmcuhw::busctrl;
  * @tparam busctrlAddress_
  */
 template <libmcu::BusCtrlBaseAddress const& busctrlAddress_>
-struct busctrl : libmcu::PeripheralBase {
+struct busctrl : libmcull::PeripheralBase {
   /**
    * @brief Base initialization function
    */

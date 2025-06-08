@@ -101,7 +101,7 @@ enum PeripheralPowers : std::uint32_t {
 };
 
 template <libmcu::SysconBaseAddress syscon_address>
-struct Syscon : libmcu::PeripheralBase {
+struct Syscon : libmcull::PeripheralBase {
   /**
    * @brief reset a peripheral
    * @param setting bit setting from peripheralResets enum

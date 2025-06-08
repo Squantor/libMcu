@@ -18,7 +18,7 @@ namespace hardware = libmcuhw::mrt;
  * @tparam mrt_address peripheral address
  */
 template <libmcu::MrtBaseAddress mrt_address>
-struct Mrt : libmcu::PeripheralBase {
+struct Mrt : libmcull::PeripheralBase {
   /**
    * @brief get registers from peripheral
    * @return return pointer to mrt registers

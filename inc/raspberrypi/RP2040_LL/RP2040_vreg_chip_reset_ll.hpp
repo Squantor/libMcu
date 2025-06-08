@@ -14,7 +14,7 @@
 namespace libmcull::vregChipReset {
 namespace hardware = libmcuhw::vregChipReset;
 template <libmcu::VregChipResetBaseAddress const& vregChipResetAddress_>
-struct vregChipReset : libmcu::PeripheralBase {
+struct vregChipReset : libmcull::PeripheralBase {
   /**
    * @brief Base initialization function
    */

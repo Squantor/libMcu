@@ -14,7 +14,7 @@
 namespace libmcull::usbCtrl {
 namespace hardware = libmcuhw::usbCtrl;
 template <libmcu::UsbCtrlRegsBaseAddress const& usbctrlAddress_>
-struct usbctrl : libmcu::PeripheralBase {
+struct usbctrl : libmcull::PeripheralBase {
   /**
    * @brief Base initialization function
    */

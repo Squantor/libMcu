@@ -5,11 +5,11 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * @file LPC84X_sync_usart_ll.hpp
+ * @file LPC84X_usart_poll_ll.hpp
  * @brief Synchronous low level USART interface for the LPC840 series
  */
-#ifndef LPC84X_SYNC_USART_LL_HPP
-#define LPC84X_SYNC_USART_LL_HPP
+#ifndef LPC84X_USART_POLL_LL_HPP
+#define LPC84X_USART_POLL_LL_HPP
 
 namespace libmcull::usart {
 namespace hardware = ::libmcuhw::usart;
@@ -21,7 +21,6 @@ enum class UartLengths : std::uint32_t {
   kSize8 = hardware::CFG::kDATALEN8BIT, /*!< USART transmit length of 8 bits */
   kSize9 = hardware::CFG::kDATALEN9BIT, /*!< USART transmit length of 9 bits */
 };
-
 /**
  * @brief Parity bit options
  */
@@ -30,7 +29,6 @@ enum class UartParities : std::uint32_t {
   kEven = hardware::CFG::kPARITY_EVEN, /*!< Even parity */
   kOdd = hardware::CFG::kPARITY_ODD,   /*!< Odd parity */
 };
-
 /**
  * @brief stop bit options
  */
@@ -38,7 +36,6 @@ enum class UartStops : std::uint32_t {
   kStop1 = hardware::CFG::kSTOPBIT1, /*!< 1 stop bit */
   kStop2 = hardware::CFG::kSTOPBIT2, /*!< 2 stop bits */
 };
-
 /**
  * @brief Uart status bits
  * These bit patterns match the USART STAT register settings
@@ -60,14 +57,13 @@ enum UartStatuses : std::uint32_t {
   kRxNoise = hardware::STAT::kRXNOISEINT,       /*!< Recieved noise flag */
   kAutobaudError = hardware::STAT::kABERR,      /*!< Autobaud error flags */
 };
-
 /**
  * @brief synchronous USART peripheral instance
  * @tparam usart_address Peripheral base usartAddress
  * @tparam TransferType datatype to use for data transfers
  */
 template <const libmcu::UartBaseAddress usart_address, typename TransferType>
-struct SyncUart : libmcull::SyncUartBase {
+struct UartPolled : libmcull::SyncUartBase {
   /**
    * @brief Setup USART
    * @tparam &clock_config clock configuration to use
@@ -126,15 +122,15 @@ struct SyncUart : libmcull::SyncUartBase {
   template <const libmcuhw::clock::periClockConfig &clock_config>
   constexpr std::uint32_t GetInputClockFreq() {
     // constexpr check if we configure the right peripheral
-    if constexpr ((usartAddress_ == libmcuhw::kUsart0Address) && (clock_config.peripheral == libmcuhw::clock::periSelect::UART0))
+    if constexpr ((usart_address_ == libmcuhw::kUsart0Address) && (clock_config.peripheral == libmcuhw::clock::periSelect::UART0))
       return clock_config.getFrequency();
-    else if constexpr ((usartAddress_ == libmcuhw::usart1Address) &&
+    else if constexpr ((usart_address_ == libmcuhw::kUsart1Address) &&
                        (clock_config.peripheral == libmcuhw::clock::periSelect::UART1))
       return clock_config.getFrequency();
-    else if constexpr ((usartAddress_ == libmcuhw::usart2Address) &&
+    else if constexpr ((usart_address_ == libmcuhw::kUsart2Address) &&
                        (clock_config.peripheral == libmcuhw::clock::periSelect::UART2))
       return clock_config.getFrequency();
-    else if constexpr ((usartAddress_ == libmcuhw::usart3Address) &&
+    else if constexpr ((usart_address_ == libmcuhw::kUsart3Address) &&
                        (clock_config.peripheral == libmcuhw::clock::periSelect::UART3))
       return clock_config.getFrequency();
     else
@@ -149,7 +145,6 @@ struct SyncUart : libmcull::SyncUartBase {
   constexpr static std::uint32_t GetTxDataAddress() {
     return reinterpret_cast<std::uint32_t>(&(UsartPeripheral()->TXDAT));
   }
-
   /**
    * @brief Get the Receiver Data register address
    * This value is typically used for DMA transfer address configuration
@@ -158,17 +153,16 @@ struct SyncUart : libmcull::SyncUartBase {
   constexpr static std::uint32_t GetRxDataAddress() {
     return reinterpret_cast<std::uint32_t>(&(UsartPeripheral()->RXDAT));
   }
-
   /**
    * @brief get registers from peripheral
    * @return return pointer to usart registers
    */
   constexpr static hardware::Usart *UsartPeripheral() {
-    return reinterpret_cast<hardware::Usart *>(usartAddress_);
+    return reinterpret_cast<hardware::Usart *>(usart_address_);
   }
 
  private:
-  static constexpr libmcu::HwAddressType usartAddress_ = usart_address; /*!< peripheral usartAddress */
+  static constexpr libmcu::HwAddressType usart_address_ = usart_address; /*!< peripheral usartAddress */
 };
 }  // namespace libmcull::usart
 #endif

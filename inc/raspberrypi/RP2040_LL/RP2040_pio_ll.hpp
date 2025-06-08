@@ -18,7 +18,7 @@ namespace hardware = libmcuhw::pio;
  * @tparam pioAddress_
  */
 template <libmcu::PioBaseAddress const& pioAddress_>
-struct pio : libmcu::PeripheralBase {
+struct pio : libmcull::PeripheralBase {
   /**
    * @brief Base initialization function
    */

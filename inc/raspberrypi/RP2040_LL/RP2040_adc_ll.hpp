@@ -14,7 +14,7 @@
 namespace libmcull::adc {
 namespace hardware = libmcuhw::adc;
 template <libmcu::AdcBaseAddress const& adcAddress_>
-struct adc : libmcu::PeripheralBase {
+struct adc : libmcull::PeripheralBase {
   /**
    * @brief Base initialization function
    *

@@ -53,7 +53,7 @@ struct pins {
    */
   template <typename T>
   void setup(T& pin, driveModes drive, pullModes pull, speedModes slew, bool schmittOn) {
-    if constexpr (pin.port == libmcuhw::IOports::PORT0) {
+    if constexpr (pin.port == libmcuhw::IoPorts::PORT0) {
       gpioBank0Peripheral()->GPIO[pin.pinIndex].CTRL =
         libmcuhw::gpioBank0::CTRL::FUNCSEL(static_cast<std::uint32_t>(pin.functionSelect));
       uint32_t setting = libmcuhw::pads::GPIO::IE | libmcuhw::pads::GPIO::DRIVE(static_cast<std::uint32_t>(drive)) |
@@ -62,7 +62,7 @@ struct pins {
         setting = setting | libmcuhw::pads::GPIO::SCHMITT;
       padsBank0Peripheral()->GPIO[pin.pinIndex] = setting;
     } else
-      static_assert(pin.port == libmcuhw::IOports::QSPI, "Does not support QSPI pins yet");
+      static_assert(pin.port == libmcuhw::IoPorts::QSPI, "Does not support QSPI pins yet");
   }
   /**
    * @brief resets pin to reset defaults

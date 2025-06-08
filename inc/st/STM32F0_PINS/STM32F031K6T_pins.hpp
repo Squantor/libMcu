@@ -16,7 +16,7 @@ namespace hardware = libmcuhw::gpio;
 /**
  * @brief pins available on the STM32F031K6T
  */
-enum class IOpins : std::uint8_t {
+enum class IoPins : std::uint8_t {
   PA0,  /*!< PA0 pin */
   PA1,  /*!< PA1 pin */
   PA2,  /*!< PA2 pin */
@@ -48,7 +48,7 @@ enum class IOpins : std::uint8_t {
 /**
  * @brief ports available on the STM32F031K6T
  */
-enum class IOports : std::uint8_t {
+enum class IoPorts : std::uint8_t {
   PORTA, /*!< Port A */
   PORTB, /*!< Port B */
   PORTF, /*!< Port F */
@@ -127,7 +127,7 @@ enum class IOfunctSelects : std::uint8_t {
  * @tparam T_PIN    IO pin
  * @tparam T_FUNCT  IO function
  */
-template <IOports T_PORT, IOpins T_PIN, IOfuncts T_FUNCT, bool DUMMY = false>
+template <IoPorts T_PORT, IoPins T_PIN, IOfuncts T_FUNCT, bool DUMMY = false>
 struct pin : libmcu::PinBase {
   static_assert(DUMMY, "This I/O pin configuration is invalid!");
 };
@@ -136,7 +136,7 @@ struct pin : libmcu::PinBase {
  * @brief Specialization for Pin 8 on Port A with MCO function
  */
 template <>
-struct pin<IOports::PORTA, IOpins::PA8, IOfuncts::GPIO> : libmcu::PinBase {
+struct pin<IoPorts::PORTA, IoPins::PA8, IOfuncts::GPIO> : libmcu::PinBase {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::NONE;
 };
 
@@ -144,7 +144,7 @@ struct pin<IOports::PORTA, IOpins::PA8, IOfuncts::GPIO> : libmcu::PinBase {
  * @brief Specialization for Pin 8 on Port A with MCO function
  */
 template <>
-struct pin<IOports::PORTA, IOpins::PA8, IOfuncts::MCO> : libmcu::PinBase {
+struct pin<IoPorts::PORTA, IoPins::PA8, IOfuncts::MCO> : libmcu::PinBase {
   static constexpr IOfunctSelects functionSelect = IOfunctSelects::AF0;
 };
 

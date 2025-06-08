@@ -12,20 +12,23 @@
 #define LPC81X_WKT_HPP
 
 namespace libmcull::wkt {
-using namespace libmcuhw::wkt;
-template <libmcu::WktBaseAddress wktAddress_>
-struct wkt {
+namespace hardware = libmcuhw::wkt;
+/**
+ * @brief
+ * @tparam wkt_address
+ */
+template <libmcu::WktBaseAddress wkt_address>
+struct Wkt {
   /**
    * @brief get registers from peripheral
-   *
    * @return return pointer to wkt registers
    */
-  static libmcuhw::wkt::Wkt *wktPeripheral() {
-    return reinterpret_cast<libmcuhw::wkt::Wkt *>(wktAddress);
+  static libmcuhw::wkt::Wkt *GetPeripheral() {
+    return reinterpret_cast<libmcuhw::wkt::Wkt *>(wkt_address_);
   }
 
  private:
-  static constexpr libmcu::HwAddressType wktAddress = wktAddress_; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType wkt_address_ = wkt_address; /*!< peripheral address */
 };
 }  // namespace libmcull::wkt
 #endif

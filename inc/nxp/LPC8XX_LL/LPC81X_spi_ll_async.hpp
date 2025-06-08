@@ -23,7 +23,7 @@ namespace hardware = ::libmcuhw::spi;
  * @tparam TransferType datatype to use for data transfers
  */
 template <libmcu::SpiBaseAddress spi_address, typename ChipEnable, typename TransferType>
-struct SpiAsync : libmcu::PeripheralBase {
+struct SpiAsync : libmcull::PeripheralBase {
   /**
    * @brief Construct a new spi Async object
    * Initializes the internal state to defaults

@@ -12,18 +12,23 @@
 #define LPC81X_WWDT_HPP
 
 namespace libmcull::wwdt {
-using namespace libmcuhw::wwdt;
-template <libmcu::WwdtBaseAddress wwdtAddress_>
+namespace hardware = libmcuhw::wwdt;
+/**
+ * @brief
+ * @tparam wwdtAddress_
+ */
+template <libmcu::WwdtBaseAddress wwdt_address>
 struct Wwdt {
-  static constexpr libmcu::HwAddressType wwdtAddress = wwdtAddress_; /*!< peripheral address */
   /**
    * @brief get registers from peripheral
-   *
    * @return return pointer to windowed watchdog registers
    */
-  static libmcuhw::wwdt::Wwdt *wwdtPeripheral() {
-    return reinterpret_cast<libmcuhw::wwdt::Wwdt *>(wwdtAddress);
+  static libmcuhw::wwdt::Wwdt *GetPeripheral() {
+    return reinterpret_cast<libmcuhw::wwdt::Wwdt *>(wwdt_address_);
   }
+
+ private:
+  static constexpr libmcu::HwAddressType wwdt_address_ = wwdt_address; /*!< peripheral address */
 };
 }  // namespace libmcull::wwdt
 #endif

@@ -23,7 +23,7 @@ namespace hardware = libmcuhw::usart;
  * @tparam TransferType datatype to use for data transfers
  */
 template <libmcu::UartBaseAddress usart_address, typename TransferType>
-struct UsartAsync : libmcu::PeripheralBase {
+struct UsartAsync : libmcull::AsyncUartBase {
   /**
    * @brief Construct a new usart Async object
    * Initializes the internal state to defaults
@@ -38,7 +38,7 @@ struct UsartAsync : libmcu::PeripheralBase {
   constexpr std::uint32_t Init(std::uint32_t baudRate) {
     std::uint32_t baudDivider = CLOCK_MAIN / (baudRate * 16);
     GetPeripheral()->BRG = baudDivider;
-    GetPeripheral()->CFG = CFG::kENABLE | UartLengths::kSize8 | UartParities::kParityNone | UartStops::kStop1;
+    GetPeripheral()->CFG = hardware::CFG::kENABLE | UartLengths::kSize8 | UartParities::kParityNone | UartStops::kStop1;
     return CLOCK_MAIN / 16 / baudDivider;
   }
   /**
@@ -52,7 +52,7 @@ struct UsartAsync : libmcu::PeripheralBase {
   constexpr std::uint32_t Init(std::uint32_t baudRate, UartLengths lengthBits, UartParities parity, UartStops stopBits) {
     std::uint32_t baudDivider = CLOCK_MAIN / (baudRate * 16);
     GetPeripheral()->BRG = baudDivider;
-    GetPeripheral()->CFG = CFG::kENABLE | lengthBits | parity | stopBits;
+    GetPeripheral()->CFG = hardware::CFG::kENABLE | lengthBits | parity | stopBits;
     return CLOCK_MAIN / 16 / baudDivider;
   }
   /**
@@ -131,7 +131,7 @@ struct UsartAsync : libmcu::PeripheralBase {
     if (transaction_read_state_ != libmcu::AsynchronousStates::kBusy) {
       return libmcu::Results::kError;
     }
-    if (GetPeripheral()->STAT & STAT::kRXRDY) {
+    if (GetPeripheral()->STAT & hardware::STAT::kRXRDY) {
       transaction_read_data_[transaction_read_index_] = static_cast<TransferType>(GetPeripheral()->RXDAT);
       transaction_read_index_++;
       if (transaction_read_data_.size() == transaction_read_index_) {
@@ -152,12 +152,12 @@ struct UsartAsync : libmcu::PeripheralBase {
       return libmcu::Results::kError;
     }
     std::uint32_t status = GetPeripheral()->STAT;
-    if (status & STAT::kTXRDY) {
+    if (status & hardware::STAT::kTXRDY) {
       if (transaction_write_data_.size() > transaction_write_index_) {
         GetPeripheral()->TXDAT = static_cast<std::uint32_t>(transaction_write_data_[transaction_write_index_]);
         transaction_write_index_++;
       } else {
-        if (status & STAT::kTXIDLE) {
+        if (status & hardware::STAT::kTXIDLE) {
           transaction_write_state_ = libmcu::AsynchronousStates::kClaimed;
           return libmcu::Results::kDone;
         }

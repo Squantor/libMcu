@@ -1,12 +1,12 @@
 /*
  * SPDX-License-Identifier: MIT
  *
- * Copyright (c) 2023 Bart Bilos
+ * Copyright (c) 2025 Bart Bilos
  * For conditions of distribution and use, see LICENSE file
  */
 /**
  * @file LPC84X_spi_poll_ll.hpp
- * @brief LPC84X series polling SPI interface class and definitions
+ * @brief LPC84X series polling SPI low level interface class and definitions
  */
 #ifndef LPC84X_SPI_POLL_LL_HPP
 #define LPC84X_SPI_POLL_LL_HPP
@@ -31,7 +31,7 @@ enum class SpiChipEnables : std::uint32_t {
  * @todo Slave initializations
  */
 template <libmcu::SpiBaseAddress spi_address, typename ChipEnable, typename TransferType>
-struct SpiPolled : libmcull::SyncI2cBase {
+struct SpiPolled : libmcull::SyncSpiBase {
   /**
    * @brief Initialise SPI peripheral as master device, LSB first mode, CPHA is 0, CPOL is 0,
    * @tparam &clock_config clock configuration to use
@@ -67,9 +67,9 @@ struct SpiPolled : libmcull::SyncI2cBase {
   template <const libmcuhw::clock::periClockConfig &clock_config>
   constexpr std::uint32_t GetInputClockFreq() {
     // constexpr check if we configure the right peripheral
-    if constexpr ((spi_address_ == libmcuhw::spi0Address) && (clock_config.peripheral == libmcuhw::clock::periSelect::SPI0))
+    if constexpr ((spi_address_ == libmcuhw::kSpi0Address) && (clock_config.peripheral == libmcuhw::clock::periSelect::SPI0))
       return clock_config.getFrequency();
-    else if constexpr ((spi_address_ == libmcuhw::spi1Address) && (clock_config.peripheral == libmcuhw::clock::periSelect::SPI1))
+    else if constexpr ((spi_address_ == libmcuhw::kSpi1Address) && (clock_config.peripheral == libmcuhw::clock::periSelect::SPI1))
       return clock_config.getFrequency();
     else
       static_assert(false, "Clock config and peripherals unknown or not matching!");
