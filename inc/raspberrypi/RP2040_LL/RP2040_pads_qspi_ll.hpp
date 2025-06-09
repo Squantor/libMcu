@@ -8,31 +8,31 @@
  * @file RP2040_pads_qspi_ll.hpp
  * @brief low level interface for the RP2040 pads QSPI
  */
-#ifndef RP2040_PADS_QSPI_SW_HPP
-#define RP2040_PADS_QSPI_SW_HPP
+#ifndef RP2040_PADS_QSPI_LL_HPP
+#define RP2040_PADS_QSPI_LL_HPP
 
-namespace libmcull::padsQspi {
-namespace hardware = libmcuhw::padsQspi;
+namespace libmcull::pads {
+namespace hardware_qspi = libmcuhw::padsQspi;
 /**
  * @brief
- * @tparam padsQspiAddress_
+ * @tparam pads_qspi_address
  */
-template <libmcu::PadsQspiBaseAddress const& padsQspiAddress_>
-struct padsQspi : libmcull::PeripheralBase {
+template <libmcu::PadsQspiBaseAddress const& pads_qspi_address>
+struct PadsQspi : libmcull::PeripheralBase {
   /**
    * @brief Base initialization function
    */
-  constexpr void init() {}
+  constexpr void Init() {}
   /**
    * @brief get registers from peripheral
    * @return return pointer to peripheral
    */
-  static hardware::padsQspi* padsQspiPeripheral() {
-    return reinterpret_cast<hardware::padsQspi*>(padsQspiAddress);
+  static hardware_qspi::PadsQspi* GetPeripheral() {
+    return reinterpret_cast<hardware_qspi::PadsQspi*>(pads_qspi_address_);
   }
 
  private:
-  static constexpr libmcu::HwAddressType padsQspiAddress = padsQspiAddress_; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType pads_qspi_address_ = pads_qspi_address; /*!< peripheral address */
 };
-}  // namespace libmcull::padsQspi
+}  // namespace libmcull::pads
 #endif

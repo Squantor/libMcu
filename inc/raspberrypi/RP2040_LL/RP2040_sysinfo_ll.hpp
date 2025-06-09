@@ -8,27 +8,31 @@
  * @file RP2040_sysinfo_ll.hpp
  * @brief low level interface for the RP2040 Sysinfo
  */
-#ifndef RP2040_SYSINFO_SW_HPP
-#define RP2040_SYSINFO_SW_HPP
+#ifndef RP2040_SYSINFO_LL_HPP
+#define RP2040_SYSINFO_LL_HPP
 
 namespace libmcull::sysinfo {
 namespace hardware = libmcuhw::sysinfo;
-template <libmcu::SysinfoBaseAddress const& sysinfoAddress_>
-struct sysinfo : libmcull::PeripheralBase {
+/**
+ * @brief
+ * @tparam sysinfo_address
+ */
+template <libmcu::SysinfoBaseAddress const& sysinfo_address>
+struct Sysinfo : libmcull::PeripheralBase {
   /**
    * @brief Base initialization function
    */
-  constexpr void init() {}
+  constexpr void Init() {}
   /**
    * @brief get registers from peripheral
    * @return return pointer to peripheral
    */
-  static hardware::sysinfo* sysinfoPeripheral() {
-    return reinterpret_cast<hardware::sysinfo*>(sysinfoAddress);
+  static hardware::Sysinfo* GetPeripheral() {
+    return reinterpret_cast<hardware::Sysinfo*>(sysinfo_address_);
   }
 
  private:
-  static constexpr libmcu::HwAddressType sysinfoAddress = sysinfoAddress_; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType sysinfo_address_ = sysinfo_address; /*!< peripheral address */
 };
 }  // namespace libmcull::sysinfo
 #endif

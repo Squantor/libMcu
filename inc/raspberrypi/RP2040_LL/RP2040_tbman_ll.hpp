@@ -8,27 +8,31 @@
  * @file RP2040_tbman_ll.hpp
  * @brief low level interface for the RP2040 Testbench Manager
  */
-#ifndef RP2040_TBMAN_SW_HPP
-#define RP2040_TBMAN_SW_HPP
+#ifndef RP2040_TBMAN_LL_HPP
+#define RP2040_TBMAN_LL_HPP
 
 namespace libmcull::tbman {
 namespace hardware = libmcuhw::tbman;
-template <libmcu::TbmanBaseAddress const& tbmanAddress_>
-struct tbman : libmcull::PeripheralBase {
+/**
+ * @brief
+ * @tparam tbman_address
+ */
+template <libmcu::TbmanBaseAddress const& tbman_address>
+struct Tbman : libmcull::PeripheralBase {
   /**
    * @brief Base initialization function
    */
-  constexpr void init() {}
+  constexpr void Init() {}
   /**
    * @brief get registers from peripheral
    * @return return pointer to peripheral
    */
-  static hardware::tbman* tbmanPeripheral() {
-    return reinterpret_cast<hardware::tbman*>(tbmanAddress);
+  static hardware::Tbman* GetPeripheral() {
+    return reinterpret_cast<hardware::Tbman*>(tbman_address_);
   }
 
  private:
-  static constexpr libmcu::HwAddressType tbmanAddress{tbmanAddress_}; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType tbman_address_{tbman_address}; /*!< peripheral address */
 };
 }  // namespace libmcull::tbman
 #endif

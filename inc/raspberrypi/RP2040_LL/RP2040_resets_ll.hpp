@@ -8,58 +8,58 @@
  * @file RP2040_resets_ll.hpp
  * @brief low level interface for the RP2040 resets
  */
-#ifndef RP2040_RESETS_SW_HPP
-#define RP2040_RESETS_SW_HPP
+#ifndef RP2040_RESETS_LL_HPP
+#define RP2040_RESETS_LL_HPP
 
 namespace libmcull::resets {
 namespace hardware = libmcuhw::resets;
 /**
  * @brief
  */
-enum peripheralResets : std::uint32_t {
-  USBCTRL = hardware::RESET::USBCTRL,       /*!< USB controller reset bit */
-  UART1 = hardware::RESET::UART1,           /*!< UART 1 reset bit */
-  UART0 = hardware::RESET::UART0,           /*!< UART 0 reset bit */
-  TIMER = hardware::RESET::TIMER,           /*!< Timer reset bit */
-  TBMAN = hardware::RESET::TBMAN,           /*!< Test Bench manager reset bit */
-  SYSINFO = hardware::RESET::SYSINFO,       /*!< System information reset bit */
-  SYSCFG = hardware::RESET::SYSCFG,         /*!< System configuration reset bit */
-  SPI1 = hardware::RESET::SPI1,             /*!< SPI 1 reset bit */
-  SPI0 = hardware::RESET::SPI0,             /*!< SPI 0 reset bit */
-  RTC = hardware::RESET::RTC,               /*!< RTC reset bit */
-  PWM = hardware::RESET::PWM,               /*!< PWM reset bit */
-  PLL_USB = hardware::RESET::PLL_USB,       /*!< USB PLL reset bit */
-  PLL_SYS = hardware::RESET::PLL_SYS,       /*!< System PLL reset bit */
-  PIO1 = hardware::RESET::PIO1,             /*!< PIO1 reset bit */
-  PIO0 = hardware::RESET::PIO0,             /*!< PIO0 reset bit */
-  PADS_QSPI = hardware::RESET::PADS_QSPI,   /*!< Pads QSPI reset bit */
-  PADS_BANK0 = hardware::RESET::PADS_BANK0, /*!< Pads Bank0 reset bit */
-  JTAG = hardware::RESET::JTAG,             /*!< JTAG reset bit */
-  IO_QSPI = hardware::RESET::IO_QSPI,       /*!< IO QSPI reset bit */
-  IO_BANK0 = hardware::RESET::IO_BANK0,     /*!< IO BANK0 reset bit */
-  I2C1 = hardware::RESET::I2C1,             /*!< I2C 1 reset bit */
-  I2C0 = hardware::RESET::I2C0,             /*!< I2C 0 reset bit */
-  DMA = hardware::RESET::DMA,               /*!< DMA reset bit */
-  BUSCTRL = hardware::RESET::BUSCTRL,       /*!< Buscontrol reset bit */
-  ADC = hardware::RESET::ADC,               /*!< ADC reset bit */
+enum PeripheralResets : std::uint32_t {
+  kUsbCtrl = hardware::RESET::USBCTRL,      /*!< USB controller reset bit */
+  kUart1 = hardware::RESET::UART1,          /*!< UART 1 reset bit */
+  kUart0 = hardware::RESET::UART0,          /*!< UART 0 reset bit */
+  kTimer = hardware::RESET::TIMER,          /*!< Timer reset bit */
+  kTbman = hardware::RESET::TBMAN,          /*!< Test Bench manager reset bit */
+  kSysinfo = hardware::RESET::SYSINFO,      /*!< System information reset bit */
+  kSyscfg = hardware::RESET::SYSCFG,        /*!< System configuration reset bit */
+  kSpi1 = hardware::RESET::SPI1,            /*!< SPI 1 reset bit */
+  kSpi0 = hardware::RESET::SPI0,            /*!< SPI 0 reset bit */
+  kRtc = hardware::RESET::RTC,              /*!< RTC reset bit */
+  kPwm = hardware::RESET::PWM,              /*!< PWM reset bit */
+  kPllUsb = hardware::RESET::PLL_USB,       /*!< USB PLL reset bit */
+  kPllSys = hardware::RESET::PLL_SYS,       /*!< System PLL reset bit */
+  kPio1 = hardware::RESET::PIO1,            /*!< PIO1 reset bit */
+  kPio0 = hardware::RESET::PIO0,            /*!< PIO0 reset bit */
+  kPadsQspi = hardware::RESET::PADS_QSPI,   /*!< Pads QSPI reset bit */
+  kPadsBank0 = hardware::RESET::PADS_BANK0, /*!< Pads Bank0 reset bit */
+  kJtag = hardware::RESET::JTAG,            /*!< JTAG reset bit */
+  kIoQspi = hardware::RESET::IO_QSPI,       /*!< IO QSPI reset bit */
+  kIoBank0 = hardware::RESET::IO_BANK0,     /*!< IO BANK0 reset bit */
+  kI2c1 = hardware::RESET::I2C1,            /*!< I2C 1 reset bit */
+  kI2c0 = hardware::RESET::I2C0,            /*!< I2C 0 reset bit */
+  kDma = hardware::RESET::DMA,              /*!< DMA reset bit */
+  kBusctrl = hardware::RESET::BUSCTRL,      /*!< Buscontrol reset bit */
+  kAdc = hardware::RESET::ADC,              /*!< ADC reset bit */
 };
 /**
  * @brief resets peripheral
- * @tparam resetsAddress_  base resets peripheral address
+ * @tparam resets_address  base resets peripheral address
  */
-template <libmcu::ResetsBaseAddress const& resetsAddress_>
-struct resets : libmcull::PeripheralBase {
+template <libmcu::ResetsBaseAddress const& resets_address>
+struct Resets : libmcull::PeripheralBase {
   /**
    * @brief Resets peripherals and waits until they have been reset
-   * @param peripheralBits     bit set of peripherals to reset, see RESETS_RESET_Enum for peripherals
-   * @param timeout     how many times to check if the status set
-   * @return         returns zero when timed out or nonzero when resets are executed
+   * @param peripheralBits bit set of peripherals to reset, see RESETS_RESET_Enum for peripherals
+   * @param timeout how many times to check if the status set
+   * @return returns zero when timed out or nonzero when resets are executed
    */
-  constexpr inline std::uint32_t reset(uint32_t peripheralBits, uint32_t timeout) {
-    resetsPeripheralSet()->RESET = peripheralBits;
-    resetsPeripheralClear()->RESET = peripheralBits;
+  constexpr inline std::uint32_t Reset(uint32_t peripheralBits, uint32_t timeout) {
+    GetPeripheralSet()->RESET = peripheralBits;
+    GetPeripheralClear()->RESET = peripheralBits;
     // wait until resets have arrived
-    while ((~resetsPeripheral()->RESET_kDone & peripheralBits) && (timeout > 0)) {
+    while ((~GetPeripheral()->RESET_kDone & peripheralBits) && (timeout > 0)) {
       timeout--;
     }
     return timeout;
@@ -68,33 +68,33 @@ struct resets : libmcull::PeripheralBase {
    * @brief get registers from peripheral for normal access
    * @return return pointer to peripheral
    */
-  static hardware::resets* resetsPeripheral() {
-    return reinterpret_cast<hardware::resets*>(resetsAddress + libmcuhw::peripheralOffsetNormal);
+  static hardware::Resets* GetPeripheral() {
+    return reinterpret_cast<hardware::Resets*>(resets_address_ + libmcuhw::kPeripheralOffsetNormal);
   }
   /**
    * @brief get registers from peripheral for atomic set access
    * @return return pointer to peripheral
    */
-  static hardware::resets* resetsPeripheralSet() {
-    return reinterpret_cast<hardware::resets*>(resetsAddress + libmcuhw::peripheralOffsetSet);
+  static hardware::Resets* GetPeripheralSet() {
+    return reinterpret_cast<hardware::Resets*>(resets_address_ + libmcuhw::kPeripheralOffsetSet);
   }
   /**
    * @brief get registers from peripheral for atomic Clear access
    * @return return pointer to peripheral
    */
-  static hardware::resets* resetsPeripheralClear() {
-    return reinterpret_cast<hardware::resets*>(resetsAddress + libmcuhw::peripheralOffsetClear);
+  static hardware::Resets* GetPeripheralClear() {
+    return reinterpret_cast<hardware::Resets*>(resets_address_ + libmcuhw::kPeripheralOffsetClear);
   }
   /**
    * @brief get registers from peripheral for atomic XOR access
    * @return return pointer to peripheral
    */
-  static hardware::resets* resetsPeripheralXor() {
-    return reinterpret_cast<hardware::resets*>(resetsAddress + libmcuhw::peripheralOffsetXor);
+  static hardware::Resets* GetPeripheralXor() {
+    return reinterpret_cast<hardware::Resets*>(resets_address_ + libmcuhw::kPeripheralOffsetXor);
   }
 
  private:
-  static constexpr libmcu::HwAddressType resetsAddress{resetsAddress_}; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType resets_address_{resets_address}; /*!< peripheral address */
 };
 }  // namespace libmcull::resets
 #endif

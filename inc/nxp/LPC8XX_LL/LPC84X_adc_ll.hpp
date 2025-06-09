@@ -57,9 +57,9 @@ struct Adc : libmcull::PeripheralBase {
    */
   template <auto &config>
   constexpr std::uint32_t GetInputClockFreq() {
-    if constexpr (config.adcSource == libmcuhw::clock::periSource::SYS_PLL)
+    if constexpr (config.adcSource == libmcuhw::clock::PeriSource::SYS_PLL)
       return config.mainFreq;
-    else if constexpr (config.adcSource == libmcuhw::clock::periSource::FRO)
+    else if constexpr (config.adcSource == libmcuhw::clock::PeriSource::FRO)
       return config.froFreq;
     else
       static_assert(false, "Not available/implemented clock source!");

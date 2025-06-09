@@ -8,33 +8,31 @@
  * @file RP2040_pwm_ll.hpp
  * @brief low level interface for the RP2040 PWM
  */
-#ifndef RP2040_PWM_SW_HPP
-#define RP2040_PWM_SW_HPP
+#ifndef RP2040_PWM_LL_HPP
+#define RP2040_PWM_LL_HPP
 
 namespace libmcull::pwm {
 namespace hardware = libmcuhw::pwm;
 /**
  * @brief
- * @tparam pwmAddress_
+ * @tparam pwm_address
  */
-template <libmcu::PwmBaseAddress const& pwmAddress_>
-struct pwm : libmcull::PeripheralBase {
+template <libmcu::PwmBaseAddress const& pwm_address>
+struct Pwm : libmcull::PeripheralBase {
   /**
    * @brief Base initialization function
-   *
    */
-  constexpr void init() {}
+  constexpr void Init() {}
   /**
    * @brief get registers from peripheral
-   *
    * @return return pointer to peripheral
    */
-  static hardware::pwm* pwmPeripheral() {
-    return reinterpret_cast<hardware::pwm*>(pwmAddress);
+  static hardware::Pwm* GetPeripheral() {
+    return reinterpret_cast<hardware::Pwm*>(pwm_address_);
   }
 
  private:
-  static constexpr libmcu::HwAddressType pwmAddress{pwmAddress_}; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType pwm_address_{pwm_address}; /*!< peripheral address */
 };
 }  // namespace libmcull::pwm
 #endif

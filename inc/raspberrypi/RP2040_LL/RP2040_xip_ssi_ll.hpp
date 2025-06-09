@@ -8,27 +8,31 @@
  * @file RP2040_xip_ssi_ll.hpp
  * @brief low level interface for the RP2040 Execute In Place Serial interface
  */
-#ifndef RP2040_XIP_SSI_SW_HPP
-#define RP2040_XIP_SSI_SW_HPP
+#ifndef RP2040_XIP_SSI_LL_HPP
+#define RP2040_XIP_SSI_LL_HPP
 
 namespace libmcull::xipSsi {
 namespace hardware = libmcuhw::xipSsi;
-template <libmcu::XipSsiBaseAddress const& xipSsiAddress_>
-struct xipSsi : libmcull::PeripheralBase {
+/**
+ * @brief
+ * @tparam xipssi_address
+ */
+template <libmcu::XipSsiBaseAddress const& xipssi_address>
+struct XipSsi : libmcull::PeripheralBase {
   /**
    * @brief Base initialization function
    */
-  constexpr void init() {}
+  constexpr void Init() {}
   /**
    * @brief get registers from peripheral
    * @return return pointer to peripheral
    */
-  static hardware::xipSsi* xipSsiPeripheral() {
-    return reinterpret_cast<hardware::xipSsi*>(xipSsiAddress);
+  static hardware::XipSsi* GetPeripheral() {
+    return reinterpret_cast<hardware::XipSsi*>(xipssi_address_);
   }
 
  private:
-  static constexpr libmcu::HwAddressType xipSsiAddress{xipSsiAddress_}; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType xipssi_address_{xipssi_address}; /*!< peripheral address */
 };
 }  // namespace libmcull::xipSsi
 #endif

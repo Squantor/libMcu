@@ -40,7 +40,7 @@ struct Device {
 Next up are the register namespaces, each namespace holds all the settings to one register and if needed some formatting functions. We use the standard k prefix for constants but we do deviate from the capitalisation to match the microcontroller datasheet.
 ```
 namespace CTRL {
-constexpr inline std::uint32_t kRESERVED_MASK{0x00000FFF}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x00000FFF}; /*!< register mask for allowed bits */
 constexpr inline std::uint32_t kBIT_A{1u << 0};            /*!< Bit A */
 constexpr inline std::uint32_t kBIT_B{1u << 1};            /*!< Bit B */
 constexpr inline std::uint32_t kBIT_C{1 << 2};             /*!< Bit C */

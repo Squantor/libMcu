@@ -6,7 +6,7 @@
  */
 /**
  * @file LPC84X_usart_poll_ll.hpp
- * @brief Synchronous low level USART interface for the LPC840 series
+ * @brief Polled low level USART interface for the LPC840 series
  */
 #ifndef LPC84X_USART_POLL_LL_HPP
 #define LPC84X_USART_POLL_LL_HPP
@@ -73,7 +73,7 @@ struct UartPolled : libmcull::SyncUartBase {
    * @param stop_bits Amount of stop bits
    * @return actual baud rate
    */
-  template <const libmcuhw::clock::periClockConfig &clock_config>
+  template <const libmcuhw::clock::PeriClockConfig &clock_config>
   constexpr std::uint32_t Init(std::uint32_t baud_rate, UartParities parity = UartParities::kNone,
                                UartStops stop_bits = UartStops::kStop1, UartLengths length_bits = UartLengths::kSize8) {
     std::uint32_t frequency = GetInputClockFreq<clock_config>();
@@ -88,14 +88,14 @@ struct UartPolled : libmcull::SyncUartBase {
    * @return std::uint32_t one to one copy of the status register, see bit masks for options
    */
   constexpr std::uint32_t Status() {
-    return UsartPeripheral()->STAT & hardware::STAT::kRESERVED_MASK;
+    return UsartPeripheral()->STAT & hardware::STAT::RESERVED_MASK;
   }
   /**
    * @brief Send data out of the UART
    * @param data data to send, amount is sent according to configuration
    */
   constexpr void Write(TransferType data) {
-    UsartPeripheral()->TXDAT = static_cast<TransferType>(data & hardware::TXDAT::kRESERVED_MASK);
+    UsartPeripheral()->TXDAT = static_cast<TransferType>(data & hardware::TXDAT::RESERVED_MASK);
   }
   /**
    * @brief Read data from UART
@@ -119,20 +119,20 @@ struct UartPolled : libmcull::SyncUartBase {
    * @tparam config clock configuration
    * @return current input clock frequency
    */
-  template <const libmcuhw::clock::periClockConfig &clock_config>
+  template <const libmcuhw::clock::PeriClockConfig &clock_config>
   constexpr std::uint32_t GetInputClockFreq() {
     // constexpr check if we configure the right peripheral
-    if constexpr ((usart_address_ == libmcuhw::kUsart0Address) && (clock_config.peripheral == libmcuhw::clock::periSelect::UART0))
-      return clock_config.getFrequency();
+    if constexpr ((usart_address_ == libmcuhw::kUsart0Address) && (clock_config.peripheral_ == libmcuhw::clock::PeriSelect::UART0))
+      return clock_config.GetFrequency();
     else if constexpr ((usart_address_ == libmcuhw::kUsart1Address) &&
-                       (clock_config.peripheral == libmcuhw::clock::periSelect::UART1))
-      return clock_config.getFrequency();
+                       (clock_config.peripheral_ == libmcuhw::clock::PeriSelect::UART1))
+      return clock_config.GetFrequency();
     else if constexpr ((usart_address_ == libmcuhw::kUsart2Address) &&
-                       (clock_config.peripheral == libmcuhw::clock::periSelect::UART2))
-      return clock_config.getFrequency();
+                       (clock_config.peripheral_ == libmcuhw::clock::PeriSelect::UART2))
+      return clock_config.GetFrequency();
     else if constexpr ((usart_address_ == libmcuhw::kUsart3Address) &&
-                       (clock_config.peripheral == libmcuhw::clock::periSelect::UART3))
-      return clock_config.getFrequency();
+                       (clock_config.peripheral_ == libmcuhw::clock::PeriSelect::UART3))
+      return clock_config.GetFrequency();
     else
       static_assert(false, "Clock config and peripherals unknown or not matching!");
     return 0;

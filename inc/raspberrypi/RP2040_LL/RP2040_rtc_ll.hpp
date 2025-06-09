@@ -8,29 +8,31 @@
  * @file RP2040_rtc_ll.hpp
  * @brief low level interface for the RP2040 RTC
  */
-#ifndef RP2040_RTC_SW_HPP
-#define RP2040_RTC_SW_HPP
+#ifndef RP2040_RTC_LL_HPP
+#define RP2040_RTC_LL_HPP
 
 namespace libmcull::rtc {
 namespace hardware = libmcuhw::rtc;
-template <libmcu::RtcBaseAddress const& rtcAddress_>
-struct rtc : libmcull::PeripheralBase {
+/**
+ * @brief
+ * @tparam rtc_address
+ */
+template <libmcu::RtcBaseAddress const& rtc_address>
+struct Rtc : libmcull::PeripheralBase {
   /**
    * @brief Base initialization function
-   *
    */
-  constexpr void init() {}
+  constexpr void Init() {}
   /**
    * @brief get registers from peripheral
-   *
    * @return return pointer to peripheral
    */
-  static hardware::rtc* rtcPeripheral() {
-    return reinterpret_cast<hardware::rtc*>(rtcAddress);
+  static hardware::Rtc* GetPeripheral() {
+    return reinterpret_cast<hardware::Rtc*>(rtc_address_);
   }
 
  private:
-  static constexpr libmcu::HwAddressType rtcAddress{rtcAddress_}; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType rtc_address_{rtc_address}; /*!< peripheral address */
 };
 }  // namespace libmcull::rtc
 #endif

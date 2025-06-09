@@ -28,7 +28,7 @@ struct nvic {
   volatile std::uint32_t IP[8u]; /*!< interrupt priority register */
 };
 namespace ISER {
-constexpr inline std::uint32_t kRESERVED_MASK{0xFFFFFFFFu}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0xFFFFFFFFu}; /*!< register mask for allowed bits */
 /**
  * @brief format for SETENA bits
  *
@@ -40,7 +40,7 @@ constexpr inline std::uint32_t SETENA(std::uint32_t interrupt) {
 }
 }  // namespace ISER
 namespace ICER {
-constexpr inline std::uint32_t kRESERVED_MASK{0xFFFFFFFFu}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0xFFFFFFFFu}; /*!< register mask for allowed bits */
 /**
  * @brief format for CLRENA bits
  *
@@ -52,7 +52,7 @@ constexpr inline std::uint32_t CLRENA(std::uint32_t interrupt) {
 }
 }  // namespace ICER
 namespace ISPR {
-constexpr inline std::uint32_t kRESERVED_MASK{0xFFFFFFFFu}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0xFFFFFFFFu}; /*!< register mask for allowed bits */
 /**
  * @brief format for SETPEND bits
  *
@@ -74,7 +74,7 @@ constexpr inline std::uint32_t GETPEND(std::uint32_t registerValue, std::uint32_
 }
 }  // namespace ISPR
 namespace ICPR {
-constexpr inline std::uint32_t kRESERVED_MASK{0xFFFFFFFF}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0xFFFFFFFF}; /*!< register mask for allowed bits */
 /**
  * @brief format for CLRPEND bits
  *
@@ -86,7 +86,7 @@ constexpr inline std::uint32_t CLRPEND(std::uint32_t interrupt) {
 }
 }  // namespace ICPR
 namespace IP {
-constexpr inline std::uint32_t kRESERVED_MASK{0xC0C0C0C0}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0xC0C0C0C0}; /*!< register mask for allowed bits */
 /**
  * @brief format for IPR
  *

@@ -8,29 +8,31 @@
  * @file RP2040_rosc_ll.hpp
  * @brief low level interface for the RP2040 RC oscillator
  */
-#ifndef RP2040_ROSC_SW_HPP
-#define RP2040_ROSC_SW_HPP
+#ifndef RP2040_ROSC_LL_HPP
+#define RP2040_ROSC_LL_HPP
 
 namespace libmcull::rosc {
 namespace hardware = libmcuhw::rosc;
-template <libmcu::RoscBaseAddress const& roscAddress_>
-struct rosc : libmcull::PeripheralBase {
+/**
+ * @brief
+ * @tparam rosc_address
+ */
+template <libmcu::RoscBaseAddress const& rosc_address>
+struct Rosc : libmcull::PeripheralBase {
   /**
    * @brief Base initialization function
-   *
    */
-  constexpr void init() {}
+  constexpr void Init() {}
   /**
    * @brief get registers from peripheral
-   *
    * @return return pointer to peripheral
    */
-  static hardware::rosc* roscPeripheral() {
-    return reinterpret_cast<hardware::rosc*>(roscAddress);
+  static hardware::Rosc* GetPeripheral() {
+    return reinterpret_cast<hardware::Rosc*>(rosc_address_);
   }
 
  private:
-  static constexpr libmcu::HwAddressType roscAddress = roscAddress_; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType rosc_address_ = rosc_address; /*!< peripheral address */
 };
 }  // namespace libmcull::rosc
 #endif

@@ -130,7 +130,7 @@ struct Sct {
   } OUT[7];                     /*!< Output register  */
 };
 namespace CONFIG {
-constexpr inline std::uint32_t kRESERVED_MASK{0x00061FFFu}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x00061FFFu};  /*!< register mask for allowed bits */
 constexpr inline std::uint32_t kUNIFY{1u << 0};             /*!< SCT operates as unified 32 bit counter */
 constexpr inline std::uint32_t kSYSCLKMODE{0u << 1};        /*!< System clock mode */
 constexpr inline std::uint32_t kSAMPLEDSYSCLKMODE{1u << 1}; /*!< Sampled SCT input clocking mode */
@@ -156,12 +156,12 @@ constexpr inline std::uint32_t kAUTOLIMIT_L{1u << 17};      /*!< low/united matc
 constexpr inline std::uint32_t kAUTOLIMIT_H{1u << 18};      /*!< upper match 0 is limit for counter */
 }  // namespace CONFIG
 namespace CTRL {
-constexpr inline std::uint32_t kRESERVED_MASK{0x1FFF1FFFu}; /*!< register mask for allowed bits */
-constexpr inline std::uint32_t kDOWN_L{1u << 0};            /*!< low/united counter is counting down */
-constexpr inline std::uint32_t kSTOP_L{1u << 1};            /*!< low/united counter is stopped */
-constexpr inline std::uint32_t kHALT_L{1u << 2};            /*!< low/united counter is halted */
-constexpr inline std::uint32_t kCLRCTR_L{1u << 3};          /*!< clear counter low/united */
-constexpr inline std::uint32_t kBIDIR_L{1u << 4};           /*!< low/united counter is bidirectional */
+constexpr inline std::uint32_t RESERVED_MASK{0x1FFF1FFFu}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kDOWN_L{1u << 0};           /*!< low/united counter is counting down */
+constexpr inline std::uint32_t kSTOP_L{1u << 1};           /*!< low/united counter is stopped */
+constexpr inline std::uint32_t kHALT_L{1u << 2};           /*!< low/united counter is halted */
+constexpr inline std::uint32_t kCLRCTR_L{1u << 3};         /*!< clear counter low/united */
+constexpr inline std::uint32_t kBIDIR_L{1u << 4};          /*!< low/united counter is bidirectional */
 /**
  * @brief Format low/united counter prescaler
  * @param prescale counter clock is SCT clock divided by prescale+1
@@ -185,73 +185,73 @@ constexpr inline std::uint32_t PRE_H(std::uint32_t prescale) {
 }
 }  // namespace CTRL
 namespace LIMIT {
-constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 namespace HALT {
-constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 namespace STOP {
-constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 namespace START {
-constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 namespace COUNT {
-constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 namespace STATE {
-constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 namespace INPUT {
-constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 namespace REGMODE {
-constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 namespace OUTPUT {
-constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 namespace OUTPUTDIRCTRL {
-constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 namespace RES {
-constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 namespace DMAREQ0 {
-constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 namespace DMAREQ1 {
-constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 namespace EVEN {
-constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 namespace EVFLAG {
-constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 namespace CONEN {
-constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 namespace CONFLAG {
-constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 namespace MATCH {
-constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 namespace CAP {
-constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 namespace MATCHREL {
-constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 namespace CAPCTRL {
-constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 namespace EV_STATE {
-constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 namespace EV_CTRL {
-constexpr inline std::uint32_t kRESERVED_MASK{0x007FFFFFu}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x007FFFFFu}; /*!< register mask for allowed bits */
 /**
  * @brief Format match register associated with this event
  * @param prescale counter clock is SCT clock divided by prescale+1
@@ -293,10 +293,10 @@ constexpr inline std::uint32_t kDIRECTION_UP{1u << 21};   /*!< event triggers in
 constexpr inline std::uint32_t kDIRECTION_DOWN{2u << 21}; /*!< event triggers in down counting */
 }  // namespace EV_CTRL
 namespace OUT_SET {
-constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 namespace OUT_CLR {
-constexpr inline std::uint32_t kRESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x00000000u}; /*!< register mask for allowed bits */
 }
 }  // namespace libmcuhw::sct
 #endif

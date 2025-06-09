@@ -16,6 +16,12 @@
 #include <span>
 
 namespace libMcuMid::display {
+/**
+ * @brief
+ *
+ * @tparam config
+ * @tparam driver
+ */
 template <auto& config, auto& driver>
 // TODO maybe rename to displayDriverColumn based?
 class displayDirSSD1306 {

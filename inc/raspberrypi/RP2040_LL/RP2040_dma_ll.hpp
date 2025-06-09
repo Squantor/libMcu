@@ -8,29 +8,33 @@
  * @file RP2040_dma_ll.hpp
  * @brief low level interface for the RP2040 DMA
  */
-#ifndef RP2040_DMA_SW_HPP
-#define RP2040_DMA_SW_HPP
+#ifndef RP2040_DMA_LL_HPP
+#define RP2040_DMA_LL_HPP
 
 namespace libmcull::dma {
 namespace hardware = libmcuhw::dma;
-template <libmcu::DmaBaseAddress const& dmaAddress_>
+/**
+ * @brief
+ * @tparam dma_address
+ */
+template <libmcu::DmaBaseAddress const& dma_address>
 struct Dma : libmcull::PeripheralBase {
   /**
    * @brief Base initialization function
    *
    */
-  constexpr void init() {}
+  constexpr void Init() {}
   /**
    * @brief get registers from peripheral
    *
    * @return return pointer to peripheral
    */
-  static hardware::dma* dmaPeripheral() {
-    return reinterpret_cast<hardware::dma*>(dmaAddress);
+  static hardware::Dma* GetPeripheral() {
+    return reinterpret_cast<hardware::Dma*>(dma_address_);
   }
 
  private:
-  static constexpr libmcu::HwAddressType dmaAddress = dmaAddress_; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType dma_address_ = dma_address; /*!< peripheral address */
 };
 }  // namespace libmcull::dma
 #endif

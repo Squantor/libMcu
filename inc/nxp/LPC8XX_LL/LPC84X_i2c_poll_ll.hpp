@@ -27,7 +27,7 @@ struct I2cPolled : libmcull::SyncI2cBase {
    * @param timeout clocks to timeout
    * @return std::uint32_t actual bit rate
    */
-  template <const libmcuhw::clock::periClockConfig &clock_config>
+  template <const libmcuhw::clock::PeriClockConfig &clock_config>
   constexpr std::uint32_t InitMaster(std::uint32_t bit_rate, std::uint32_t timeout) {
     /*
     we multiply by 20 as by default MSTTIME divides the timing by 2 and I2C peripheral needs 10 clocks for something.
@@ -190,16 +190,16 @@ struct I2cPolled : libmcull::SyncI2cBase {
    * @tparam config clock configuration
    * @return current input clock frequency
    */
-  template <const libmcuhw::clock::periClockConfig &clock_config>
+  template <const libmcuhw::clock::PeriClockConfig &clock_config>
   constexpr std::uint32_t getInputClockFreq() {
     // constexpr check if we configure the right peripheral
-    if constexpr ((i2c_address_ == libmcuhw::kI2c0Address) && (clock_config.peripheral == libmcuhw::clock::periSelect::I2C0))
+    if constexpr ((i2c_address_ == libmcuhw::kI2c0Address) && (clock_config.peripheral == libmcuhw::clock::PeriSelect::I2C0))
       return clock_config.getFrequency();
-    else if constexpr ((i2c_address_ == libmcuhw::kI2c1Address) && (clock_config.peripheral == libmcuhw::clock::periSelect::I2C1))
+    else if constexpr ((i2c_address_ == libmcuhw::kI2c1Address) && (clock_config.peripheral == libmcuhw::clock::PeriSelect::I2C1))
       return clock_config.getFrequency();
-    else if constexpr ((i2c_address_ == libmcuhw::kI2c2Address) && (clock_config.peripheral == libmcuhw::clock::periSelect::I2C2))
+    else if constexpr ((i2c_address_ == libmcuhw::kI2c2Address) && (clock_config.peripheral == libmcuhw::clock::PeriSelect::I2C2))
       return clock_config.getFrequency();
-    else if constexpr ((i2c_address_ == libmcuhw::kI2c3Address) && (clock_config.peripheral == libmcuhw::clock::periSelect::I2C3))
+    else if constexpr ((i2c_address_ == libmcuhw::kI2c3Address) && (clock_config.peripheral == libmcuhw::clock::PeriSelect::I2C3))
       return clock_config.getFrequency();
     else
       static_assert(false, "Clock config and peripherals unknown or not matching!");

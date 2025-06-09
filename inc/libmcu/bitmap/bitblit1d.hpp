@@ -29,7 +29,7 @@ namespace libmcu::bitmap {
  * @param op operation to perform
  */
 template <typename destType, typename srcType>
-void pixelOperation(destType &destBuf, std::size_t destShift, destType srcMask, srcType srcPixel, bitblitOperation op) noexcept {
+void PixelOperation(destType &destBuf, std::size_t destShift, destType srcMask, srcType srcPixel, BitblitOperations op) noexcept {
   static_assert(!std::numeric_limits<destType>::is_signed && !std::numeric_limits<srcType>::is_signed,
                 "readModifyWrite only accepts unsigned types!");
   static_assert(std::numeric_limits<destType>::digits >= std::numeric_limits<srcType>::digits,
@@ -37,22 +37,22 @@ void pixelOperation(destType &destBuf, std::size_t destShift, destType srcMask, 
   destType input = destBuf;
   destType data = (srcMask & srcPixel) << destShift;
   switch (op) {
-    case bitblitOperation::OP_AND:
+    case BitblitOperations::kAnd:
       data = data | ~(srcMask << destShift);
       input = input & data;
       break;
-    case bitblitOperation::OP_MOV:
+    case BitblitOperations::kMove:
       input = input & ~(srcMask << destShift);
       input = input | data;
       break;
-    case bitblitOperation::OP_NOT:
+    case BitblitOperations::kNot:
       input = input & ~(srcMask << destShift);
       input = input & ~data;
       break;
-    case bitblitOperation::OP_OR:
+    case BitblitOperations::kOr:
       input = input | data;
       break;
-    case bitblitOperation::OP_XOR:
+    case BitblitOperations::kXor:
       input = input ^ data;
       break;
   }
@@ -73,8 +73,8 @@ void pixelOperation(destType &destBuf, std::size_t destShift, destType srcMask, 
  * @param op operation to apply on the source
  */
 template <std::size_t bitsPerPixel, typename destType, typename srcType>
-void bitblitInEqOu(std::span<destType> destBuf, std::size_t destPos, std::span<const srcType> srcBuf, std::size_t srcPos,
-                   std::size_t count, bitblitOperation op) noexcept {
+void BitblitInEqOut(std::span<destType> destBuf, std::size_t destPos, std::span<const srcType> srcBuf, std::size_t srcPos,
+                    std::size_t count, BitblitOperations op) noexcept {
   // generate constants
   constexpr std::size_t bitsPerElement{libmcu::BitsInType<destType>()};
   constexpr srcType pixelMask{static_cast<srcType>(0xFFFFFFFF >> (32 - bitsPerPixel))};
@@ -106,7 +106,7 @@ void bitblitInEqOu(std::span<destType> destBuf, std::size_t destPos, std::span<c
     sourcePixel = (sourcePixel >> srcPixelIndexMod);
 
     destType destPixel = destBuf[destBitIndex / bitsPerElement];
-    pixelOperation(destPixel, destPixelIndexMod, pixelMask, sourcePixel, op);
+    PixelOperation(destPixel, destPixelIndexMod, pixelMask, sourcePixel, op);
     destBuf[destBitIndex / bitsPerElement] = destPixel;
 
     destBitIndex = destBitIndex + bitsPerPixel;
@@ -116,23 +116,23 @@ void bitblitInEqOu(std::span<destType> destBuf, std::size_t destPos, std::span<c
 }
 
 template <std::size_t bitsPerPixel, typename destType, typename srcType>
-void bitblitInGrOu(std::span<destType> destBuf, std::size_t destPos, std::span<const srcType> srcBuf, std::size_t srcPos,
-                   std::size_t count, bitblitOperation op) noexcept {}
+void BitblitInGrOut(std::span<destType> destBuf, std::size_t destPos, std::span<const srcType> srcBuf, std::size_t srcPos,
+                    std::size_t count, BitblitOperations op) noexcept {}
 
 template <std::size_t bitsPerPixel, typename destType, typename srcType>
-void bitblitInSmOu(std::span<destType> destBuf, std::size_t destPos, std::span<const srcType> srcBuf, std::size_t srcPos,
-                   std::size_t count, bitblitOperation op) noexcept {}
+void BitblitInSmOut(std::span<destType> destBuf, std::size_t destPos, std::span<const srcType> srcBuf, std::size_t srcPos,
+                    std::size_t count, BitblitOperations op) noexcept {}
 
 template <std::size_t bitsPerPixel, typename destType, typename srcType>
-void bitblit(std::span<destType> destBuf, std::size_t destPos, std::span<const srcType> srcBuf, std::size_t srcPos,
-             std::size_t count, bitblitOperation op) noexcept {
+void Bitblit(std::span<destType> destBuf, std::size_t destPos, std::span<const srcType> srcBuf, std::size_t srcPos,
+             std::size_t count, BitblitOperations op) noexcept {
   //! @todo assert if types are not unsigned
   if constexpr (sizeof(srcType) < sizeof(destType))
-    return bitblitInGrOu<bitsPerPixel>(destBuf, destPos, srcBuf, srcPos, count, op);
+    return BitblitInGrOut<bitsPerPixel>(destBuf, destPos, srcBuf, srcPos, count, op);
   else if constexpr (sizeof(srcType) > sizeof(destType))
-    return bitblitInSmOu<bitsPerPixel>(destBuf, destPos, srcBuf, srcPos, count, op);
+    return BitblitInSmOut<bitsPerPixel>(destBuf, destPos, srcBuf, srcPos, count, op);
   else
-    return bitblitInEqOu<bitsPerPixel>(destBuf, destPos, srcBuf, srcPos, count, op);
+    return BitblitInEqOut<bitsPerPixel>(destBuf, destPos, srcBuf, srcPos, count, op);
 }
 
 /**
@@ -152,7 +152,7 @@ void bitblit(std::span<destType> destBuf, std::size_t destPos, std::span<const s
 // Second version of bitblit but defunct for now
 template <typename destType, typename srcType>
 void bitblit1d(std::span<destType> destBuf, std::size_t destBitPos, std::span<const srcType> srcBuf, std::size_t srcBitWidth,
-               bitblitOperation op) noexcept {
+               BitblitOperations op) noexcept {
   // compute fixed constants
   constexpr std::size_t destBitCnt = libmcu::bitsInType<destType>();
   constexpr std::size_t srcBitCnt = libmcu::bitsInType<srcType>();
@@ -208,7 +208,7 @@ void bitblit1d(std::span<destType> destBuf, std::size_t destBitPos, std::span<co
 /* commented out while developing new one
 template <typename destType, typename srcType>
 void bitblit1d(std::span<destType> destBuf, std::size_t destBitWidth, std::size_t destBitPos, std::span<srcType> srcBuf,
-               std::size_t srcBitWidth, bitblitOperation op) noexcept {
+               std::size_t srcBitWidth, BitblitOperations op) noexcept {
   // compute fixed constants
   constexpr std::size_t destBitCnt = libmcu::bitsInType<destType>();
   constexpr std::size_t srcBitCnt = libmcu::bitsInType<srcType>();

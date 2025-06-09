@@ -33,9 +33,9 @@ namespace libmcu::bitmap {
  * @param op
  */
 template <typename destType, typename srcType>
-void bitblit2dsmall(destType *__restrict__ dest, unsigned int destWidth, unsigned int destHeight, unsigned int destX,
+void Bitblit2dsmall(destType *__restrict__ dest, unsigned int destWidth, unsigned int destHeight, unsigned int destX,
                     unsigned int destY, const srcType *__restrict__ src, unsigned int srcWidth, unsigned int srcHeight,
-                    bitblitOperation op) noexcept {
+                    BitblitOperations op) noexcept {
   constexpr int destDigits = std::numeric_limits<destType>::digits;
   constexpr int srcDigits = std::numeric_limits<srcType>::digits;
   if (destX > destWidth)
@@ -78,19 +78,19 @@ void bitblit2dsmall(destType *__restrict__ dest, unsigned int destWidth, unsigne
       bool destPixel = (*currDestLine & destMask) ? true : false;
       // transfer a bit according to operation
       switch (op) {
-        case bitblitOperation::OP_AND:
+        case BitblitOperations::kAnd:
           destPixel = destPixel && srcPixel;
           break;
-        case bitblitOperation::OP_MOV:
+        case BitblitOperations::kMove:
           destPixel = srcPixel;
           break;
-        case bitblitOperation::OP_NOT:
+        case BitblitOperations::kNot:
           destPixel = !srcPixel;
           break;
-        case bitblitOperation::OP_OR:
+        case BitblitOperations::kOr:
           destPixel = destPixel || srcPixel;
           break;
-        case bitblitOperation::OP_XOR:
+        case BitblitOperations::kXor:
           destPixel = destPixel != srcPixel;
           break;
         default:

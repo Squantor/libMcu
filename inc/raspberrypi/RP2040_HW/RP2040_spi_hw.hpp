@@ -37,9 +37,8 @@ struct Spi {
   volatile std::uint32_t SSPPCELLID3; /*!< PrimeCell identification register 3 */
 };
 namespace SSPCR0 {
-constexpr inline std::uint32_t kRESERVED_MASK{0x0000'FFFFu}; /*!< Mask for allowed bits */
-
-constexpr inline std::uint32_t SCR_MASK{0xFFu << 8}; /*!< Mask for SCR */
+constexpr inline std::uint32_t RESERVED_MASK{0x0000'FFFFu}; /*!< Mask for allowed bits */
+constexpr inline std::uint32_t SCR_MASK{0xFFu << 8};        /*!< Mask for SCR */
 /**
  * @brief Format SCR field to SSPCR0 register
  * @param rate Serial clock rate
@@ -78,56 +77,56 @@ constexpr inline std::uint32_t DSS(std::uint32_t bitSize) {
 }
 }  // namespace SSPCR0
 namespace SSPCR1 {
-constexpr inline std::uint32_t kRESERVED_MASK{0x0000'000Fu}; /*!< Mask for allowed bits */
-constexpr inline std::uint32_t SOD{1u << 3};                 /*!< Slave mode output disable */
-constexpr inline std::uint32_t MS{1u << 2};                  /*!< Master or slave mode select */
-constexpr inline std::uint32_t SSE{1u << 1};                 /*!< SPI enable */
-constexpr inline std::uint32_t LBM{1u << 0};                 /*!< Loopback mode enable */
+constexpr inline std::uint32_t RESERVED_MASK{0x0000'000Fu}; /*!< Mask for allowed bits */
+constexpr inline std::uint32_t SOD{1u << 3};                /*!< Slave mode output disable */
+constexpr inline std::uint32_t MS{1u << 2};                 /*!< Master or slave mode select */
+constexpr inline std::uint32_t SSE{1u << 1};                /*!< SPI enable */
+constexpr inline std::uint32_t LBM{1u << 0};                /*!< Loopback mode enable */
 }  // namespace SSPCR1
 namespace SSPDR {
-constexpr inline std::uint32_t kRESERVED_MASK{0x0000'FFFFu}; /*!< Mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x0000'FFFFu}; /*!< Mask for allowed bits */
 }  // namespace SSPDR
 namespace SSPSR {
-constexpr inline std::uint32_t kRESERVED_MASK{0x0000'001Fu}; /*!< Mask for allowed bits */
-constexpr inline std::uint32_t BSY_MASK{1u << 4};            /*!< SSP busy flag */
-constexpr inline std::uint32_t RFF_MASK{1u << 3};            /*!< Receive FIFO full flag */
-constexpr inline std::uint32_t RNE_MASK{1u << 2};            /*!< Receive FIFO empty flag */
-constexpr inline std::uint32_t TNF_MASK{1u << 1};            /*!< Transmit FIFO not full flag */
-constexpr inline std::uint32_t TFE_MASK{1u << 0};            /*!< Transmit FIFO empty flag */
+constexpr inline std::uint32_t RESERVED_MASK{0x0000'001Fu}; /*!< Mask for allowed bits */
+constexpr inline std::uint32_t BSY_MASK{1u << 4};           /*!< SSP busy flag */
+constexpr inline std::uint32_t RFF_MASK{1u << 3};           /*!< Receive FIFO full flag */
+constexpr inline std::uint32_t RNE_MASK{1u << 2};           /*!< Receive FIFO empty flag */
+constexpr inline std::uint32_t TNF_MASK{1u << 1};           /*!< Transmit FIFO not full flag */
+constexpr inline std::uint32_t TFE_MASK{1u << 0};           /*!< Transmit FIFO empty flag */
 }  // namespace SSPSR
 namespace SSPCPSR {
-constexpr inline std::uint32_t kRESERVED_MASK{0x0000'00FFu}; /*!< Mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x0000'00FFu}; /*!< Mask for allowed bits */
 }  // namespace SSPCPSR
 namespace SSPIMSC {
-constexpr inline std::uint32_t kRESERVED_MASK{0x0000'000Fu}; /*!< Mask for allowed bits */
-constexpr inline std::uint32_t TXIM{1u << 3};                /*!< Transmit FIFO interrupt mask */
-constexpr inline std::uint32_t RXIM{1u << 2};                /*!< Receive FIFO interrupt mask */
-constexpr inline std::uint32_t RTIM{1u << 1};                /*!< Receive timeout interrupt mask */
-constexpr inline std::uint32_t RORIM{1u << 0};               /*!< Receive overrun interrupt mask */
+constexpr inline std::uint32_t RESERVED_MASK{0x0000'000Fu}; /*!< Mask for allowed bits */
+constexpr inline std::uint32_t TXIM{1u << 3};               /*!< Transmit FIFO interrupt mask */
+constexpr inline std::uint32_t RXIM{1u << 2};               /*!< Receive FIFO interrupt mask */
+constexpr inline std::uint32_t RTIM{1u << 1};               /*!< Receive timeout interrupt mask */
+constexpr inline std::uint32_t RORIM{1u << 0};              /*!< Receive overrun interrupt mask */
 }  // namespace SSPIMSC
 namespace SSPRIS {
-constexpr inline std::uint32_t kRESERVED_MASK{0x0000'000Fu}; /*!< Mask for allowed bits */
-constexpr inline std::uint32_t TXRIS_MASK{1u << 3};          /*!< Raw SSPTXINTR state */
-constexpr inline std::uint32_t RXRIS_MASK{1u << 2};          /*!< Raw SSPRXINTR state */
-constexpr inline std::uint32_t RTRIS_MASK{1u << 1};          /*!< Raw SSPRTINTR state */
-constexpr inline std::uint32_t RORRIS_MASK{1u << 0};         /*!< Raw SSPRORINTR state */
+constexpr inline std::uint32_t RESERVED_MASK{0x0000'000Fu}; /*!< Mask for allowed bits */
+constexpr inline std::uint32_t TXRIS_MASK{1u << 3};         /*!< Raw SSPTXINTR state */
+constexpr inline std::uint32_t RXRIS_MASK{1u << 2};         /*!< Raw SSPRXINTR state */
+constexpr inline std::uint32_t RTRIS_MASK{1u << 1};         /*!< Raw SSPRTINTR state */
+constexpr inline std::uint32_t RORRIS_MASK{1u << 0};        /*!< Raw SSPRORINTR state */
 }  // namespace SSPRIS
 namespace SSPMIS {
-constexpr inline std::uint32_t kRESERVED_MASK{0x0000'000Fu}; /*!< Mask for allowed bits */
-constexpr inline std::uint32_t TXMIS_MASK{1u << 3};          /*!< masked SSPTXINTR state */
-constexpr inline std::uint32_t RXMIS_MASK{1u << 2};          /*!< masked SSPRXINTR state */
-constexpr inline std::uint32_t RTMIS_MASK{1u << 1};          /*!< masked SSPRTINTR state */
-constexpr inline std::uint32_t RORMIS_MASK{1u << 0};         /*!< masked SSPRORINTR state */
+constexpr inline std::uint32_t RESERVED_MASK{0x0000'000Fu}; /*!< Mask for allowed bits */
+constexpr inline std::uint32_t TXMIS_MASK{1u << 3};         /*!< masked SSPTXINTR state */
+constexpr inline std::uint32_t RXMIS_MASK{1u << 2};         /*!< masked SSPRXINTR state */
+constexpr inline std::uint32_t RTMIS_MASK{1u << 1};         /*!< masked SSPRTINTR state */
+constexpr inline std::uint32_t RORMIS_MASK{1u << 0};        /*!< masked SSPRORINTR state */
 }  // namespace SSPMIS
 namespace SSPICR {
-constexpr inline std::uint32_t kRESERVED_MASK{0x0000'0003u}; /*!< Mask for allowed bits */
-constexpr inline std::uint32_t RTIC{1u << 1};                /*!< Clears SSPRTINTR */
-constexpr inline std::uint32_t RORIC{1u << 0};               /*!< Clears SSPRORINTR */
+constexpr inline std::uint32_t RESERVED_MASK{0x0000'0003u}; /*!< Mask for allowed bits */
+constexpr inline std::uint32_t RTIC{1u << 1};               /*!< Clears SSPRTINTR */
+constexpr inline std::uint32_t RORIC{1u << 0};              /*!< Clears SSPRORINTR */
 }  // namespace SSPICR
 namespace SSPDMACR {
-constexpr inline std::uint32_t kRESERVED_MASK{0x0000'0003u}; /*!< Mask for allowed bits */
-constexpr inline std::uint32_t TXDMAE{1u << 1};              /*!< Transmit DMA Enable */
-constexpr inline std::uint32_t RXDMAE{1u << 0};              /*!< Receive DMA Enable */
+constexpr inline std::uint32_t RESERVED_MASK{0x0000'0003u}; /*!< Mask for allowed bits */
+constexpr inline std::uint32_t TXDMAE{1u << 1};             /*!< Transmit DMA Enable */
+constexpr inline std::uint32_t RXDMAE{1u << 0};             /*!< Receive DMA Enable */
 }  // namespace SSPDMACR
 }  // namespace libmcuhw::spi
 #endif

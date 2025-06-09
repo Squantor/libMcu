@@ -8,33 +8,31 @@
  * @file RP2040_psm_ll.hpp
  * @brief low level interface for the RP2040 PSM
  */
-#ifndef RP2040_PSM_SW_HPP
-#define RP2040_PSM_SW_HPP
+#ifndef RP2040_PSM_LL_HPP
+#define RP2040_PSM_LL_HPP
 
 namespace libmcull::psm {
 namespace hardware = libmcuhw::psm;
 /**
  * @brief
- * @tparam psmAddress_
+ * @tparam psm_address
  */
-template <libmcu::PsmBaseAddress const& psmAddress_>
-struct psm : libmcull::PeripheralBase {
+template <libmcu::PsmBaseAddress const& psm_address>
+struct Psm : libmcull::PeripheralBase {
   /**
    * @brief Base initialization function
-   *
    */
-  constexpr void init() {}
+  constexpr void Init() {}
   /**
    * @brief get registers from peripheral
-   *
    * @return return pointer to peripheral
    */
-  static hardware::psm* psmPeripheral() {
-    return reinterpret_cast<hardware::psm*>(psmAddress);
+  static hardware::Psm* GetPeripheral() {
+    return reinterpret_cast<hardware::Psm*>(psm_address_);
   }
 
  private:
-  static constexpr libmcu::HwAddressType psmAddress{psmAddress_}; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType psm_address_{psm_address}; /*!< peripheral address */
 };
 }  // namespace libmcull::psm
 #endif

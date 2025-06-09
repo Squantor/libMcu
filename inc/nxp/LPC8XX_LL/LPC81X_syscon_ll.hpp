@@ -162,14 +162,14 @@ struct Syscon : libmcull::PeripheralBase {
    * @param setting bit setting from peripheralClocks
    */
   constexpr void EnablePeripheralClocks(std::uint32_t setting) {
-    GetPeripheral()->SYSAHBCLKCTRL = GetPeripheral()->SYSAHBCLKCTRL | (hardware::SYSAHBCLKCTRL::kRESERVED_MASK & setting);
+    GetPeripheral()->SYSAHBCLKCTRL = GetPeripheral()->SYSAHBCLKCTRL | (hardware::SYSAHBCLKCTRL::RESERVED_MASK & setting);
   }
   /**
    * @brief disable peripheral clocks
    * @param setting bit setting from peripheralClocks
    */
   constexpr void DisablePeripheralClocks(std::uint32_t setting) {
-    GetPeripheral()->SYSAHBCLKCTRL = GetPeripheral()->SYSAHBCLKCTRL & ~(hardware::SYSAHBCLKCTRL::kRESERVED_MASK & setting);
+    GetPeripheral()->SYSAHBCLKCTRL = GetPeripheral()->SYSAHBCLKCTRL & ~(hardware::SYSAHBCLKCTRL::RESERVED_MASK & setting);
   }
   /**
    * @brief Set the Usart Clock Divider
@@ -183,14 +183,14 @@ struct Syscon : libmcull::PeripheralBase {
    * @param setting bit setting from PeripheralPowers enum
    */
   constexpr void PowerPeripherals(std::uint32_t setting) {
-    GetPeripheral()->PDRUNCFG = GetPeripheral()->PDRUNCFG & ~(hardware::PDRUNCFG::kRESERVED_MASK & setting);
+    GetPeripheral()->PDRUNCFG = GetPeripheral()->PDRUNCFG & ~(hardware::PDRUNCFG::RESERVED_MASK & setting);
   }
   /**
    * @brief Power down peripherals
    * @param setting bit setting from PeripheralPowers enum
    */
   constexpr void DepowerPeripherals(std::uint32_t setting) {
-    GetPeripheral()->PDRUNCFG = GetPeripheral()->PDRUNCFG | (hardware::PDRUNCFG::kRESERVED_MASK & setting);
+    GetPeripheral()->PDRUNCFG = GetPeripheral()->PDRUNCFG | (hardware::PDRUNCFG::RESERVED_MASK & setting);
   }
   /**
    * @brief Get the DEVICE ID

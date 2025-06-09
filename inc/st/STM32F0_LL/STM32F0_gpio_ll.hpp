@@ -14,9 +14,12 @@
 
 namespace libmcull::gpio {
 namespace hardware = libmcuhw::gpio;
-
-template <libmcu::gpioBaseAddress const& gpioAddress_>
-struct gpio : libmcull::PeripheralBase {
+/**
+ * @brief
+ * @tparam gpio_address
+ */
+template <libmcull::GpioBaseAddress const& gpio_address>
+struct Gpio : libmcull::PeripheralBase {
   template <typename T>
   constexpr void setup(T& pin) {
     // setup peripheral mode
@@ -25,12 +28,12 @@ struct gpio : libmcull::PeripheralBase {
    * @brief get registers from peripheral
    * @return return pointer to peripheral
    */
-  static libmcuhw::gpio::gpio* gpioPeripheral() {
-    return reinterpret_cast<libmcuhw::gpio::gpio*>(gpioAddress);
+  static libmcuhw::gpio::Gpio* gpioPeripheral() {
+    return reinterpret_cast<libmcuhw::gpio::Gpio*>(gpio_address_);
   }
 
  private:
-  static constexpr libmcu::HwAddressType gpioAddress = gpioAddress_; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType gpio_address_ = gpio_address; /*!< peripheral address */
 };
 
 }  // namespace libmcull::gpio

@@ -8,31 +8,31 @@
  * @file RP2040_busctrl_ll.hpp
  * @brief low level interface for the RP2040 bus controller
  */
-#ifndef RP2040_BUSCTRL_SW_HPP
-#define RP2040_BUSCTRL_SW_HPP
+#ifndef RP2040_BUSCTRL_LL_HPP
+#define RP2040_BUSCTRL_LL_HPP
 
 namespace libmcull::busctrl {
 namespace hardware = libmcuhw::busctrl;
 /**
  * @brief
- * @tparam busctrlAddress_
+ * @tparam busctrl_address
  */
-template <libmcu::BusCtrlBaseAddress const& busctrlAddress_>
-struct busctrl : libmcull::PeripheralBase {
+template <libmcu::BusCtrlBaseAddress const& busctrl_address>
+struct Busctrl : libmcull::PeripheralBase {
   /**
    * @brief Base initialization function
    */
-  constexpr void init() {}
+  constexpr void Init() {}
   /**
    * @brief get registers from peripheral
    * @return return pointer to peripheral
    */
-  static hardware::busctrl* busctrlPeripheral() {
-    return reinterpret_cast<hardware::busctrl*>(busctrlAddress);
+  static hardware::BusCtrl* GetPeripheral() {
+    return reinterpret_cast<hardware::BusCtrl*>(busctrl_address_);
   }
 
  private:
-  static constexpr libmcu::HwAddressType busctrlAddress = busctrlAddress_; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType busctrl_address_ = busctrl_address; /*!< peripheral address */
 };
 }  // namespace libmcull::busctrl
 #endif

@@ -41,29 +41,29 @@ enum class Interrupts : std::int8_t {
   kHardFault = -13,
   kSvCall = -5,
   kPendSv = -2,
-  systick = -1,
-  wwdg = 0,                 /*!< Window WatchDog Interrupt */
-  pvd = 1,                  /*!< PVD Interrupt through EXTI Lines 16 */
-  rtc = 2,                  /*!< RTC Interrupt through EXTI Lines 17, 19 and 20 */
-  flash = 3,                /*!< FLASH global Interrupt */
-  rcc = 4,                  /*!< RCC global Interrupt */
-  exti0_1 = 5,              /*!< EXTI Line 0 and 1 Interrupt */
-  exti2_3 = 6,              /*!< EXTI Line 2 and 3 Interrupt */
-  exti4_5 = 7,              /*!< EXTI Line 4 to 15 Interrupt */
-  dma1_1 = 9,               /*!< DMA1 Channel 1 Interrupt */
-  dma1_2_3 = 10,            /*!< DMA1 Channel 2 and Channel 3 Interrupt */
-  dma1_4_5 = 11,            /*!< DMA1 Channel 4 and Channel 5 Interrupt */
-  adc1 = 12,                /*!< ADC1 Interrupt */
-  tim1_brk_up_trg_com = 13, /*!< TIM1 Break, Update, Trigger and Commutation Interrupt */
-  tim1_cc = 14,             /*!< TIM1 Capture Compare Interrupt */
-  tim2 = 15,                /*!< TIM2 global Interrupt */
-  tim3 = 16,                /*!< TIM3 global Interrupt */
-  tim14 = 19,               /*!< TIM14 global Interrupt */
-  tim16 = 21,               /*!< TIM16 global Interrupt */
-  tim17 = 22,               /*!< TIM17 global Interrupt */
-  i2c1 = 23,                /*!< I2C1 Event Interrupt & EXTI Line23 Interrupt (I2C1 wakeup) */
-  kSpi1 = 25,               /*!< SPI1 global Interrupt */
-  kUart1 = 27               /*!< USART1 global Interrupt & EXTI Line25 Interrupt (USART1 wakeup) */
+  kSystick = -1,
+  kWwdg = 0,             /*!< Window WatchDog Interrupt */
+  kPvd = 1,              /*!< PVD Interrupt through EXTI Lines 16 */
+  kRtc = 2,              /*!< RTC Interrupt through EXTI Lines 17, 19 and 20 */
+  kFlash = 3,            /*!< FLASH global Interrupt */
+  kRcc = 4,              /*!< RCC global Interrupt */
+  kExti0_1 = 5,          /*!< EXTI Line 0 and 1 Interrupt */
+  kExti2_3 = 6,          /*!< EXTI Line 2 and 3 Interrupt */
+  kExti4_5 = 7,          /*!< EXTI Line 4 to 15 Interrupt */
+  kDma1_1 = 9,           /*!< DMA1 Channel 1 Interrupt */
+  kDma1_2_3 = 10,        /*!< DMA1 Channel 2 and Channel 3 Interrupt */
+  kDma1_4_5 = 11,        /*!< DMA1 Channel 4 and Channel 5 Interrupt */
+  kAdc1 = 12,            /*!< ADC1 Interrupt */
+  kTim1BrkUpTrgCom = 13, /*!< TIM1 Break, Update, Trigger and Commutation Interrupt */
+  kTim1_cc = 14,         /*!< TIM1 Capture Compare Interrupt */
+  kTim2 = 15,            /*!< TIM2 global Interrupt */
+  kTim3 = 16,            /*!< TIM3 global Interrupt */
+  kTim14 = 19,           /*!< TIM14 global Interrupt */
+  kTim16 = 21,           /*!< TIM16 global Interrupt */
+  kTim17 = 22,           /*!< TIM17 global Interrupt */
+  kI2c1 = 23,            /*!< I2C1 Event Interrupt & EXTI Line23 Interrupt (I2C1 wakeup) */
+  kSpi1 = 25,            /*!< SPI1 global Interrupt */
+  kUart1 = 27            /*!< USART1 global Interrupt & EXTI Line25 Interrupt (USART1 wakeup) */
 };
 }  // namespace libmcuhw
 
@@ -71,63 +71,63 @@ enum class Interrupts : std::int8_t {
 
 namespace libmcuhw {
 /* memory map */
-constexpr inline libmcu::MemoryAddress ahb2BaseAddress{0x4800'0000u};
-constexpr inline libmcu::MemoryAddress ahb1BaseAddress{0x4002'0000u};
-constexpr inline libmcu::MemoryAddress apbBaseAddress{0x4000'0000u};
-constexpr inline libmcu::MemoryAddress ramBaseAddress{0x2000'0000u};
-constexpr inline libmcu::MemoryAddress optBaseAddress{0x1FFF'F800u};
-constexpr inline libmcu::MemoryAddress flashBaseAddress{0x0800'0000u};
-constexpr inline libmcu::MemoryAddress mainBaseAddress{0x0000'0000u};
+constexpr inline libmcu::MemoryAddress kAhb2BaseAddress{0x4800'0000u};
+constexpr inline libmcu::MemoryAddress kAhb1BaseAddress{0x4002'0000u};
+constexpr inline libmcu::MemoryAddress kApbBaseAddress{0x4000'0000u};
+constexpr inline libmcu::MemoryAddress kRamBaseAddress{0x2000'0000u};
+constexpr inline libmcu::MemoryAddress kOptBaseAddress{0x1FFF'F800u};
+constexpr inline libmcu::MemoryAddress kFlashBaseAddress{0x0800'0000u};
+constexpr inline libmcu::MemoryAddress kMainBaseAddress{0x0000'0000u};
 /* AHB2 peripheral addresses */
-constexpr inline libmcu::GpioBaseAddress gpiofAddress{0x4800'1400u}; /*!< GPIO port F */
-constexpr inline libmcu::GpioBaseAddress gpioeAddress{0x4800'1000u}; /*!< GPIO port E */
-constexpr inline libmcu::GpioBaseAddress gpiodAddress{0x4800'0C00u}; /*!< GPIO port D */
-constexpr inline libmcu::GpioBaseAddress gpiocAddress{0x4800'0800u}; /*!< GPIO port C */
-constexpr inline libmcu::GpioBaseAddress gpiobAddress{0x4800'0400u}; /*!< GPIO port B */
-constexpr inline libmcu::GpioBaseAddress gpioaAddress{0x4800'0000u}; /*!< GPIO port A */
+constexpr inline libmcu::GpioBaseAddress kGpiofAddress{0x4800'1400u}; /*!< GPIO port F */
+constexpr inline libmcu::GpioBaseAddress kGpioeAddress{0x4800'1000u}; /*!< GPIO port E */
+constexpr inline libmcu::GpioBaseAddress kGpiodAddress{0x4800'0C00u}; /*!< GPIO port D */
+constexpr inline libmcu::GpioBaseAddress kGpiocAddress{0x4800'0800u}; /*!< GPIO port C */
+constexpr inline libmcu::GpioBaseAddress kGpiobAddress{0x4800'0400u}; /*!< GPIO port B */
+constexpr inline libmcu::GpioBaseAddress kGpioaAddress{0x4800'0000u}; /*!< GPIO port A */
 /* AHB1 peripheral addresses */
-constexpr inline libmcu::stmBaseAddress tscAddress{0x4002'4000u};   /*!< TSC */
-constexpr inline libmcu::CrcBaseAddress crcAddress{0x4002'3000u};   /*!< CRC */
-constexpr inline libmcu::stmBaseAddress flashAddress{0x4002'2000u}; /*!< Flash interface */
-constexpr inline libmcu::stmBaseAddress rccAddress{0x4002'1000u};   /*!< RCC */
-constexpr inline libmcu::DmaBaseAddress dma2Address{0x4002'0400u};  /*!< DMA2 */
-constexpr inline libmcu::DmaBaseAddress dma1Address{0x4002'0000u};  /*!< DMA */
+constexpr inline libmcu::stmBaseAddress kTscAddress{0x4002'4000u};   /*!< TSC */
+constexpr inline libmcu::CrcBaseAddress kCrcAddress{0x4002'3000u};   /*!< CRC */
+constexpr inline libmcu::stmBaseAddress kFlashAddress{0x4002'2000u}; /*!< Flash interface */
+constexpr inline libmcu::stmBaseAddress kRccAddress{0x4002'1000u};   /*!< RCC */
+constexpr inline libmcu::DmaBaseAddress kDma2Address{0x4002'0400u};  /*!< DMA2 */
+constexpr inline libmcu::DmaBaseAddress kDma1Address{0x4002'0000u};  /*!< DMA */
 /* APB peripheral addresses */
-constexpr inline libmcu::stmBaseAddress dbgmcuAddress{0x4001'5800u};    /*!< DBGMCU */
-constexpr inline libmcu::stmBaseAddress tim17Address{0x4001'4800u};     /*!< TIM17 */
-constexpr inline libmcu::stmBaseAddress tim16Address{0x4001'4400u};     /*!< TIM16 */
-constexpr inline libmcu::stmBaseAddress tim15Address{0x4001'4000u};     /*!< TIM15 */
-constexpr inline libmcu::UartBaseAddress usart1Address{0x4001'3800u};   /*!< USART1 */
-constexpr inline libmcu::stmBaseAddress spi1I2s1Address{0x4001'3000u};  /*!< SPI1/I2S1 */
-constexpr inline libmcu::stmBaseAddress tim1Address{0x4001'2C00u};      /*!< TIM1 */
-constexpr inline libmcu::AdcBaseAddress adcAddress{0x4001'2400u};       /*!< ADC */
-constexpr inline libmcu::UartBaseAddress usart8Address{0x4001'1C00u};   /*!< USART8 */
-constexpr inline libmcu::UartBaseAddress usart7Address{0x4001'1800u};   /*!< USART7 */
-constexpr inline libmcu::UartBaseAddress usart6Address{0x4001'1400u};   /*!< USART6 */
-constexpr inline libmcu::stmBaseAddress extiAddress{0x4001'0400u};      /*!< EXTI */
-constexpr inline libmcu::SyscfgBaseAddress syscfgAddress{0x4001'0000u}; /*!< SYSCFG/COMP */
-constexpr inline libmcu::stmBaseAddress cecAddress{0x4000'7800u};       /*!< CEC */
-constexpr inline libmcu::DacBaseAddress dacAddress{0x4000'7400u};       /*!< DAC */
-constexpr inline libmcu::stmBaseAddress pwrAddress{0x4000'7000u};       /*!< PWR */
-constexpr inline libmcu::stmBaseAddress crsAddress{0x4000'6C00u};       /*!< CRS */
-constexpr inline libmcu::stmBaseAddress canAddress{0x4000'6400u};       /*!< CAN */
-constexpr inline libmcu::stmBaseAddress ramUsbCanAddress{0x4000'6000u}; /*!< USB/CAN RAM */
-constexpr inline libmcu::stmBaseAddress usbAddress{0x4000'5C00u};       /*!< USB */
-constexpr inline libmcu::I2cBaseAddress i2c2Address{0x4000'5800u};      /*!< I2C2 */
-constexpr inline libmcu::I2cBaseAddress i2c1Address{0x4000'5400u};      /*!< I2C1 */
-constexpr inline libmcu::UartBaseAddress usart5Address{0x4000'5000u};   /*!< USART5 */
-constexpr inline libmcu::UartBaseAddress usart4Address{0x4000'4C00u};   /*!< USART4 */
-constexpr inline libmcu::UartBaseAddress usart3Address{0x4000'4800u};   /*!< USART3 */
-constexpr inline libmcu::UartBaseAddress usart2Address{0x4000'4400u};   /*!< USART2 */
-constexpr inline libmcu::SpiBaseAddress spi2Address{0x4000'3800u};      /*!< SPI2 */
-constexpr inline libmcu::stmBaseAddress iwdgAddress{0x4000'3000u};      /*!< IWDG */
-constexpr inline libmcu::stmBaseAddress wwdgAddress{0x4000'2C00u};      /*!< WWDG */
-constexpr inline libmcu::stmBaseAddress rtcAddress{0x4000'2800u};       /*!< RTC */
-constexpr inline libmcu::stmBaseAddress tim14Address{0x4000'2000u};     /*!< timer 14 */
-constexpr inline libmcu::stmBaseAddress tim7Address{0x4000'1400u};      /*!< timer 7 */
-constexpr inline libmcu::stmBaseAddress tim6Address{0x4000'1000u};      /*!< timer 6 */
-constexpr inline libmcu::stmBaseAddress tim3Address{0x4000'0400u};      /*!< timer 3 */
-constexpr inline libmcu::stmBaseAddress tim2Address{0x4000'0000u};      /*!< Timer 2 */
+constexpr inline libmcu::stmBaseAddress kDbgmcuAddress{0x4001'5800u};    /*!< DBGMCU */
+constexpr inline libmcu::stmBaseAddress kTim17Address{0x4001'4800u};     /*!< TIM17 */
+constexpr inline libmcu::stmBaseAddress kTim16Address{0x4001'4400u};     /*!< TIM16 */
+constexpr inline libmcu::stmBaseAddress kTim15Address{0x4001'4000u};     /*!< TIM15 */
+constexpr inline libmcu::UartBaseAddress kUsart1Address{0x4001'3800u};   /*!< USART1 */
+constexpr inline libmcu::stmBaseAddress kSpi1I2s1Address{0x4001'3000u};  /*!< SPI1/I2S1 */
+constexpr inline libmcu::stmBaseAddress kTim1Address{0x4001'2C00u};      /*!< TIM1 */
+constexpr inline libmcu::AdcBaseAddress kAdcAddress{0x4001'2400u};       /*!< ADC */
+constexpr inline libmcu::UartBaseAddress kUsart8Address{0x4001'1C00u};   /*!< USART8 */
+constexpr inline libmcu::UartBaseAddress kUsart7Address{0x4001'1800u};   /*!< USART7 */
+constexpr inline libmcu::UartBaseAddress kUsart6Address{0x4001'1400u};   /*!< USART6 */
+constexpr inline libmcu::stmBaseAddress kExtiAddress{0x4001'0400u};      /*!< EXTI */
+constexpr inline libmcu::SyscfgBaseAddress kSyscfgAddress{0x4001'0000u}; /*!< SYSCFG/COMP */
+constexpr inline libmcu::stmBaseAddress kCecAddress{0x4000'7800u};       /*!< CEC */
+constexpr inline libmcu::DacBaseAddress kDacAddress{0x4000'7400u};       /*!< DAC */
+constexpr inline libmcu::stmBaseAddress kPwrAddress{0x4000'7000u};       /*!< PWR */
+constexpr inline libmcu::stmBaseAddress kCrsAddress{0x4000'6C00u};       /*!< CRS */
+constexpr inline libmcu::stmBaseAddress kCanAddress{0x4000'6400u};       /*!< CAN */
+constexpr inline libmcu::stmBaseAddress kRamUsbCanAddress{0x4000'6000u}; /*!< USB/CAN RAM */
+constexpr inline libmcu::stmBaseAddress kUsbAddress{0x4000'5C00u};       /*!< USB */
+constexpr inline libmcu::I2cBaseAddress kI2c2Address{0x4000'5800u};      /*!< I2C2 */
+constexpr inline libmcu::I2cBaseAddress kI2c1Address{0x4000'5400u};      /*!< I2C1 */
+constexpr inline libmcu::UartBaseAddress kUsart5Address{0x4000'5000u};   /*!< USART5 */
+constexpr inline libmcu::UartBaseAddress kUsart4Address{0x4000'4C00u};   /*!< USART4 */
+constexpr inline libmcu::UartBaseAddress kUsart3Address{0x4000'4800u};   /*!< USART3 */
+constexpr inline libmcu::UartBaseAddress kUsart2Address{0x4000'4400u};   /*!< USART2 */
+constexpr inline libmcu::SpiBaseAddress kSpi2Address{0x4000'3800u};      /*!< SPI2 */
+constexpr inline libmcu::stmBaseAddress kIwdgAddress{0x4000'3000u};      /*!< IWDG */
+constexpr inline libmcu::stmBaseAddress kWwdgAddress{0x4000'2C00u};      /*!< WWDG */
+constexpr inline libmcu::stmBaseAddress kRtcAddress{0x4000'2800u};       /*!< RTC */
+constexpr inline libmcu::stmBaseAddress kTim14Address{0x4000'2000u};     /*!< timer 14 */
+constexpr inline libmcu::stmBaseAddress kTim7Address{0x4000'1400u};      /*!< timer 7 */
+constexpr inline libmcu::stmBaseAddress kTim6Address{0x4000'1000u};      /*!< timer 6 */
+constexpr inline libmcu::stmBaseAddress kTim3Address{0x4000'0400u};      /*!< timer 3 */
+constexpr inline libmcu::stmBaseAddress kTim2Address{0x4000'0000u};      /*!< Timer 2 */
 }  // namespace libmcuhw
 
 // includes that define the registers namespace go here.

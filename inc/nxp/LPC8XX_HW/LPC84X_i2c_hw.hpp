@@ -36,15 +36,15 @@ struct I2c {
   volatile const std::uint32_t MONRXDAT; /*!< Monitor receiver data register */
 };
 namespace CFG {
-constexpr inline std::uint32_t kRESERVED_MASK{0x0000001Fu}; /*!< register mask for allowed bits */
-constexpr inline std::uint32_t kMSTEN{1u << 0};             /*!< Master Enable*/
-constexpr inline std::uint32_t kSLVEN{1u << 1};             /*!< Slave enable */
-constexpr inline std::uint32_t kMONEN{1u << 2};             /*!< Monitor enable */
-constexpr inline std::uint32_t kTIMEOUTEN{1u << 3};         /*!< I2C timeout enable */
-constexpr inline std::uint32_t kMONCLKSTR{1u << 4};         /*!< Monitor clock stretching enable */
+constexpr inline std::uint32_t RESERVED_MASK{0x0000001Fu}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kMSTEN{1u << 0};            /*!< Master Enable*/
+constexpr inline std::uint32_t kSLVEN{1u << 1};            /*!< Slave enable */
+constexpr inline std::uint32_t kMONEN{1u << 2};            /*!< Monitor enable */
+constexpr inline std::uint32_t kTIMEOUTEN{1u << 3};        /*!< I2C timeout enable */
+constexpr inline std::uint32_t kMONCLKSTR{1u << 4};        /*!< Monitor clock stretching enable */
 }  // namespace CFG
 namespace STAT {
-constexpr inline std::uint32_t kRESERVED_MASK{0x030FFF5Fu};  /*!< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x030FFF5Fu};   /*!< register mask for allowed bits */
 constexpr inline std::uint32_t kMSTPENDING{1u << 0};         /*!< Master Enable */
 constexpr inline std::uint32_t kMSTSTATE_MASK{0x7u << 1};    /*!< Master State mask */
 constexpr inline std::uint32_t kMSTSTATE_IDLE{0u << 1};      /*!< Master Idle state */
@@ -75,35 +75,35 @@ constexpr inline std::uint32_t kEVENTTIMEOUT{1u << 24};      /*!< Event timeout 
 constexpr inline std::uint32_t kSCLTIMEOUT{1u << 25};        /*!< SCL timeout interrupt flag */
 }  // namespace STAT
 namespace INTENSET {
-constexpr inline std::uint32_t kRESERVED_MASK{0x030B8951u}; /*!< register mask for allowed bits */
-constexpr inline std::uint32_t kMSTPENDINGEN{1u << 0};      /*!< Master Pending interrupt Enable */
-constexpr inline std::uint32_t kMSTARBLOSSEN{1u << 4};      /*!< Master Arbitration Loss interrupt Enable */
-constexpr inline std::uint32_t kMSTSTSTPERREN{1u << 6};     /*!< Master Start/Stop Error interrupt Enable */
-constexpr inline std::uint32_t kSLVPENDINGEN{1u << 8};      /*!< Slave Pending interrupt Enable */
-constexpr inline std::uint32_t kSLVNOTSTREN{1u << 11};      /*!< Slave Not Stretching interrupt Enable */
-constexpr inline std::uint32_t kSLVDESELEN{1u << 15};       /*!< Slave Deselect interrupt Enable */
-constexpr inline std::uint32_t kMONRDYEN{1u << 16};         /*!< Monitor data Ready interrupt Enable */
-constexpr inline std::uint32_t kMONOVEN{1u << 17};          /*!< Monitor Overrun interrupt Enable */
-constexpr inline std::uint32_t kMONIDLEEN{1u << 17};        /*!< Monitor Idle interrupt Enable */
-constexpr inline std::uint32_t kEVENTTIMEOUTEN{1u << 24};   /*!< Event time-out interrupt Enable */
-constexpr inline std::uint32_t kSCLTIMEOUTEN{1u << 25};     /*!< SCL time-out interrupt Enable */
+constexpr inline std::uint32_t RESERVED_MASK{0x030B8951u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kMSTPENDINGEN{1u << 0};     /*!< Master Pending interrupt Enable */
+constexpr inline std::uint32_t kMSTARBLOSSEN{1u << 4};     /*!< Master Arbitration Loss interrupt Enable */
+constexpr inline std::uint32_t kMSTSTSTPERREN{1u << 6};    /*!< Master Start/Stop Error interrupt Enable */
+constexpr inline std::uint32_t kSLVPENDINGEN{1u << 8};     /*!< Slave Pending interrupt Enable */
+constexpr inline std::uint32_t kSLVNOTSTREN{1u << 11};     /*!< Slave Not Stretching interrupt Enable */
+constexpr inline std::uint32_t kSLVDESELEN{1u << 15};      /*!< Slave Deselect interrupt Enable */
+constexpr inline std::uint32_t kMONRDYEN{1u << 16};        /*!< Monitor data Ready interrupt Enable */
+constexpr inline std::uint32_t kMONOVEN{1u << 17};         /*!< Monitor Overrun interrupt Enable */
+constexpr inline std::uint32_t kMONIDLEEN{1u << 17};       /*!< Monitor Idle interrupt Enable */
+constexpr inline std::uint32_t kEVENTTIMEOUTEN{1u << 24};  /*!< Event time-out interrupt Enable */
+constexpr inline std::uint32_t kSCLTIMEOUTEN{1u << 25};    /*!< SCL time-out interrupt Enable */
 }  // namespace INTENSET
 namespace INTENCLR {
-constexpr inline std::uint32_t kRESERVED_MASK{0x030B8951u}; /*!< register mask for allowed bits */
-constexpr inline std::uint32_t kMSTPENDINGCLR{1u << 0};     /*!< Master Pending interrupt clear */
-constexpr inline std::uint32_t kMSTARBLOSSCLR{1u << 4};     /*!< Master Arbitration Loss interrupt clear */
-constexpr inline std::uint32_t kMSTSTSTPERRCLR{1u << 6};    /*!< Master Start/Stop Error interrupt clear */
-constexpr inline std::uint32_t kSLVPENDINGCLR{1u << 8};     /*!< Slave Pending interrupt clear */
-constexpr inline std::uint32_t kSLVNOTSTRCLR{1u << 11};     /*!< Slave Not Stretching interrupt clear */
-constexpr inline std::uint32_t kSLVDESELCLR{1u << 15};      /*!< Slave Deselect interrupt clear */
-constexpr inline std::uint32_t kMONRDYCLR{1u << 16};        /*!< Monitor data Ready interrupt clear */
-constexpr inline std::uint32_t kMONOVCLR{1u << 17};         /*!< Monitor Overrun interrupt clear */
-constexpr inline std::uint32_t kMONIDLECLR{1u << 19};       /*!< Monitor Idle interrupt clear */
-constexpr inline std::uint32_t kEVENTTIMEOUTCLR{1u << 24};  /*!< Event time-out interrupt clear */
-constexpr inline std::uint32_t kSCLTIMEOUTCLR{1u << 25};    /*!< SCL time-out interrupt clear */
+constexpr inline std::uint32_t RESERVED_MASK{0x030B8951u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kMSTPENDINGCLR{1u << 0};    /*!< Master Pending interrupt clear */
+constexpr inline std::uint32_t kMSTARBLOSSCLR{1u << 4};    /*!< Master Arbitration Loss interrupt clear */
+constexpr inline std::uint32_t kMSTSTSTPERRCLR{1u << 6};   /*!< Master Start/Stop Error interrupt clear */
+constexpr inline std::uint32_t kSLVPENDINGCLR{1u << 8};    /*!< Slave Pending interrupt clear */
+constexpr inline std::uint32_t kSLVNOTSTRCLR{1u << 11};    /*!< Slave Not Stretching interrupt clear */
+constexpr inline std::uint32_t kSLVDESELCLR{1u << 15};     /*!< Slave Deselect interrupt clear */
+constexpr inline std::uint32_t kMONRDYCLR{1u << 16};       /*!< Monitor data Ready interrupt clear */
+constexpr inline std::uint32_t kMONOVCLR{1u << 17};        /*!< Monitor Overrun interrupt clear */
+constexpr inline std::uint32_t kMONIDLECLR{1u << 19};      /*!< Monitor Idle interrupt clear */
+constexpr inline std::uint32_t kEVENTTIMEOUTCLR{1u << 24}; /*!< Event time-out interrupt clear */
+constexpr inline std::uint32_t kSCLTIMEOUTCLR{1u << 25};   /*!< SCL time-out interrupt clear */
 }  // namespace INTENCLR
 namespace TIMEOUT {
-constexpr inline std::uint32_t kRESERVED_MASK{0x0000FFFFu}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x0000FFFFu}; /*!< register mask for allowed bits */
 /**
  * @brief Formats data to TO register field
  * @param data data to put in TO register, a value of 0 is 16 clocks, 1 is 32 clocks
@@ -114,7 +114,7 @@ constexpr inline std::uint32_t TO(std::uint_fast16_t data) {
 }
 }  // namespace TIMEOUT
 namespace CLKDIV {
-constexpr inline std::uint32_t kRESERVED_MASK{0x0000FFFFu}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x0000FFFFu}; /*!< register mask for allowed bits */
 /**
  * @brief Formats data to DIVVAL register field
  * @param data data to put in DIVVAL register, 0 is no division of PCLK, 1 is division by 2
@@ -125,28 +125,28 @@ constexpr inline std::uint32_t DIVVAL(std::uint_fast16_t data) {
 }
 }  // namespace CLKDIV
 namespace INTSTAT {
-constexpr inline std::uint32_t kRESERVED_MASK{0x030B8951u}; /*!< register mask for allowed bits */
-constexpr inline std::uint32_t kMSTPENDING{1u << 0};        /*!< Master Pending */
-constexpr inline std::uint32_t kMSTARBLOSS{1u << 4};        /*!< Master Arbitration Loss flag */
-constexpr inline std::uint32_t kMSTSTSTPERR{1u << 6};       /*!< Master Start/Stop Error flag */
-constexpr inline std::uint32_t kSLVPENDING{1u << 8};        /*!< Slave Pending */
-constexpr inline std::uint32_t kSLVNOTSTR{1u << 11};        /*!< Slave Not Stretching status */
-constexpr inline std::uint32_t kSLVDESEL{1u << 15};         /*!< Slave Deselected flag */
-constexpr inline std::uint32_t kMONRDY{1u << 16};           /*!< Monitor Ready */
-constexpr inline std::uint32_t kMONOV{1u << 17};            /*!< Monitor Overflow flag */
-constexpr inline std::uint32_t kMONIDLE{1u << 19};          /*!< Monitor Idle flag */
-constexpr inline std::uint32_t kEVENTTIMEOUT{1u << 24};     /*!< Event time-out Interrupt flag */
-constexpr inline std::uint32_t kSCLTIMEOUT{1u << 25};       /*!< SCL time-out Interrupt flag */
+constexpr inline std::uint32_t RESERVED_MASK{0x030B8951u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kMSTPENDING{1u << 0};       /*!< Master Pending */
+constexpr inline std::uint32_t kMSTARBLOSS{1u << 4};       /*!< Master Arbitration Loss flag */
+constexpr inline std::uint32_t kMSTSTSTPERR{1u << 6};      /*!< Master Start/Stop Error flag */
+constexpr inline std::uint32_t kSLVPENDING{1u << 8};       /*!< Slave Pending */
+constexpr inline std::uint32_t kSLVNOTSTR{1u << 11};       /*!< Slave Not Stretching status */
+constexpr inline std::uint32_t kSLVDESEL{1u << 15};        /*!< Slave Deselected flag */
+constexpr inline std::uint32_t kMONRDY{1u << 16};          /*!< Monitor Ready */
+constexpr inline std::uint32_t kMONOV{1u << 17};           /*!< Monitor Overflow flag */
+constexpr inline std::uint32_t kMONIDLE{1u << 19};         /*!< Monitor Idle flag */
+constexpr inline std::uint32_t kEVENTTIMEOUT{1u << 24};    /*!< Event time-out Interrupt flag */
+constexpr inline std::uint32_t kSCLTIMEOUT{1u << 25};      /*!< SCL time-out Interrupt flag */
 }  // namespace INTSTAT
 namespace MSTCTL {
-constexpr inline std::uint32_t kRESERVED_MASK{0x00000007u}; /*!< register mask for allowed bits */
-constexpr inline std::uint32_t kMSTCONTINUE{1u << 0};       /*!< Master Continue */
-constexpr inline std::uint32_t kMSTSTART{1u << 1};          /*!< Master Start control */
-constexpr inline std::uint32_t kMSTSTOP{1u << 2};           /*!< Master Stop control */
-constexpr inline std::uint32_t kMSTDMA{1u << 3};            /*!< Master DMA control */
+constexpr inline std::uint32_t RESERVED_MASK{0x00000007u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kMSTCONTINUE{1u << 0};      /*!< Master Continue */
+constexpr inline std::uint32_t kMSTSTART{1u << 1};         /*!< Master Start control */
+constexpr inline std::uint32_t kMSTSTOP{1u << 2};          /*!< Master Stop control */
+constexpr inline std::uint32_t kMSTDMA{1u << 3};           /*!< Master DMA control */
 }  // namespace MSTCTL
 namespace MSTTIME {
-constexpr inline std::uint32_t kRESERVED_MASK{0x00000077u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x00000077u}; /*!< register mask for allowed bits */
 /**
  * @brief Formats data to MSTSCLLOW register field
  * @param data data to put in MSTSCLLOW register, 0 is 2 cycles SCL low, 1 is 3 cycles SCL low
@@ -165,7 +165,7 @@ constexpr inline std::uint32_t MSTSCLHIGH(std::uint_fast8_t data) {
 }
 }  // namespace MSTTIME
 namespace MSTDAT {
-constexpr inline std::uint32_t kRESERVED_MASK = 0x000000FFu; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK = 0x000000FFu; /*!< register mask for allowed bits */
 /**
  * @brief Formats data to DATA register field
  * @param data data to put in DATA register
@@ -176,13 +176,13 @@ constexpr inline std::uint32_t DATA(std::uint_fast8_t data) {
 }
 }  // namespace MSTDAT
 namespace SLVCTL {
-constexpr inline std::uint32_t kRESERVED_MASK{0x00000003u}; /*!< register mask for allowed bits */
-constexpr inline std::uint32_t kSLVCONTINUE{1u << 0};       /*!< Slave Continue */
-constexpr inline std::uint32_t kSLVNACK{1u << 1};           /*!< Slave NACK */
-constexpr inline std::uint32_t kSLVDMA{1u << 2};            /*!< Slave DMA enable */
+constexpr inline std::uint32_t RESERVED_MASK{0x00000003u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kSLVCONTINUE{1u << 0};      /*!< Slave Continue */
+constexpr inline std::uint32_t kSLVNACK{1u << 1};          /*!< Slave NACK */
+constexpr inline std::uint32_t kSLVDMA{1u << 2};           /*!< Slave DMA enable */
 }  // namespace SLVCTL
 namespace SLVDAT {
-constexpr inline std::uint32_t kRESERVED_MASK{0x000000FFu}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x000000FFu}; /*!< register mask for allowed bits */
 /**
  * @brief Formats data to DATA register field
  * @param data data to put in DATA register
@@ -193,8 +193,8 @@ constexpr inline std::uint32_t DATA(std::uint_fast8_t data) {
 }
 }  // namespace SLVDAT
 namespace SLVADR {
-constexpr inline std::uint32_t kRESERVED_MASK{0x000000FFu}; /*!< register mask for allowed bits */
-constexpr inline std::uint32_t kSADISABLE{1u << 0};         /*!< Slave Address n Disable */
+constexpr inline std::uint32_t RESERVED_MASK{0x000000FFu}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kSADISABLE{1u << 0};        /*!< Slave Address n Disable */
 /**
  * @brief Formats data to SLVADR register field
  * @param data data to put in SLVADR register
@@ -205,8 +205,8 @@ constexpr inline std::uint32_t SLVADR(std::uint_fast8_t data) {
 }
 }  // namespace SLVADR
 namespace SLVQUAL0 {
-constexpr inline std::uint32_t kRESERVED_MASK{0x000000FFu}; /*!< register mask for allowed bits */
-constexpr inline std::uint32_t kQUALMODE0{1u << 0};         /*!< SLVQUAL0 field extends address 0 matching */
+constexpr inline std::uint32_t RESERVED_MASK{0x000000FFu}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kQUALMODE0{1u << 0};        /*!< SLVQUAL0 field extends address 0 matching */
 /**
  * @brief Formats data to SLVQUAL0 register field
  * @param data data to put in SLVQUAL0 register
@@ -217,7 +217,7 @@ constexpr inline std::uint32_t SLVQUAL0(std::uint_fast8_t data) {
 }
 }  // namespace SLVQUAL0
 namespace MONRXDAT {
-constexpr inline std::uint32_t kRESERVED_MASK{0x000007FFu}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x000007FFu}; /*!< register mask for allowed bits */
 /**
  * @brief Formats MONRXDAT to a value
  * @param data data to put in SLVQUAL0 register

@@ -17,108 +17,108 @@ namespace hardware = libmcuhw::gpio;
  * @brief pins available on the STM32F031K6T
  */
 enum class IoPins : std::uint8_t {
-  PA0,  /*!< PA0 pin */
-  PA1,  /*!< PA1 pin */
-  PA2,  /*!< PA2 pin */
-  PA3,  /*!< PA3 pin */
-  PA4,  /*!< PA4 pin */
-  PA5,  /*!< PA5 pin */
-  PA6,  /*!< PA6 pin */
-  PA7,  /*!< PA7 pin */
-  PA8,  /*!< PA8 pin */
-  PA9,  /*!< PA9 pin */
-  PA10, /*!< PA10 pin */
-  PA11, /*!< PA11 pin */
-  PA12, /*!< PA12 pin */
-  PA13, /*!< PA13 pin */
-  PA14, /*!< PA14 pin */
-  PA15, /*!< PA15 pin */
-  PB0,  /*!< PB0 pin */
-  PB1,  /*!< PB1 pin */
-  PB2,  /*!< PB2 pin */
-  PB3,  /*!< PB3 pin */
-  PB4,  /*!< PB4 pin */
-  PB5,  /*!< PB5 pin */
-  PB6,  /*!< PB6 pin */
-  PB7,  /*!< PB7 pin */
-  PF0,  /*!< PF0 pin */
-  PF1,  /*!< PF1 pin */
+  kPa0,  /*!< PA0 pin */
+  kPa1,  /*!< PA1 pin */
+  kPa2,  /*!< PA2 pin */
+  kPa3,  /*!< PA3 pin */
+  kPa4,  /*!< PA4 pin */
+  kPa5,  /*!< PA5 pin */
+  kPa6,  /*!< PA6 pin */
+  kPa7,  /*!< PA7 pin */
+  kPa8,  /*!< PA8 pin */
+  kPa9,  /*!< PA9 pin */
+  kPa10, /*!< PA10 pin */
+  kPa11, /*!< PA11 pin */
+  kPa12, /*!< PA12 pin */
+  kPa13, /*!< PA13 pin */
+  kPa14, /*!< PA14 pin */
+  kPa15, /*!< PA15 pin */
+  kPb0,  /*!< PB0 pin */
+  kPb1,  /*!< PB1 pin */
+  kPb2,  /*!< PB2 pin */
+  kPb3,  /*!< PB3 pin */
+  kPb4,  /*!< PB4 pin */
+  kPb5,  /*!< PB5 pin */
+  kPb6,  /*!< PB6 pin */
+  kPb7,  /*!< PB7 pin */
+  kPf0,  /*!< PF0 pin */
+  kPf1,  /*!< PF1 pin */
 };
 
 /**
  * @brief ports available on the STM32F031K6T
  */
 enum class IoPorts : std::uint8_t {
-  PORTA, /*!< Port A */
-  PORTB, /*!< Port B */
-  PORTF, /*!< Port F */
+  kPortA, /*!< Port A */
+  kPortB, /*!< Port B */
+  kPortF, /*!< Port F */
 };
 /**
  * @brief STM32F031 I/O functions
  * Some of them might not be available on the microcontroller it is for
  */
-enum class IOfuncts : std::uint8_t {
-  GPIO,        /*!< GPIO function */
-  EVENTOUT,    /*!< EVENTOUT function */
-  MCO,         /*!< MCO function */
-  SWDIO,       /*!< SWDIO */
-  IR_OUT,      /*!< Infrared out */
-  SWCLK,       /*!< SWCLK */
-  USART1_TX,   /*!< USART1 transmit */
-  USART1_RX,   /*!< USART1 receive */
-  USART1_CTS,  /*!< USART1 clear to send */
-  USART1_RTS,  /*!< USART1 request to send */
-  USART1_CK,   /*!< USART1 clock */
-  SPI1_MISO,   /*!< SPI1 MISO */
-  SPI1_MOSI,   /*!< SPI1 MOSI */
-  SPI1_SCK,    /*!< SPI1 clock */
-  SPI1_NSS,    /*!< SPI1 NSS */
-  I2S1_SD,     /*!< I2S1 SD */
-  I2S1_MCK,    /*!< I2S1 master clock */
-  I2S1_WS,     /*!< I2S1 word select */
-  I2S1_CK,     /*!< I2S1 clock */
-  I2C1_SCL,    /*!< I2C1 clock */
-  I2C1_SDA,    /*!< I2C1 data */
-  I2C1_SMBA,   /*!< I2C1 SMBus alert */
-  TIM1_BKIN,   /*!< TIM1 break input */
-  TIM1_CH1,    /*!< TIM1 channel 1 output */
-  TIM1_CH1N,   /*!< TIM1 channel 1 complimentary output */
-  TIM1_CH2,    /*!< TIM1 channel 2 output */
-  TIM1_CH2N,   /*!< TIM1 channel 2 complimentary output */
-  TIM1_CH3,    /*!< TIM1 channel 3 output */
-  TIM1_CH3N,   /*!< TIM1 channel 3 complimentary output */
-  TIM1_CH4,    /*!< TIM1 channel 4 output */
-  TIM1_ETR,    /*!< TIM1 external trigger */
-  TIM2_CH_ETR, /*!< TIM2 channel external trigger */
-  TIM2_CH2,    /*!< TIM2 channel 2 output */
-  TIM2_CH3,    /*!< TIM2 channel 3 output */
-  TIM2_CH4,    /*!< TIM2 channel 4 output */
-  TIM3_CH1,    /*!< TIM3 channel 1 output */
-  TIM3_CH2,    /*!< TIM3 channel 2 output */
-  TIM3_CH3,    /*!< TIM3 channel 3 output */
-  TIM3_CH4,    /*!< TIM3 channel 4 output */
-  TIM14_CH1,   /*!< TIM14 channel 1 output */
-  TIM16_CH1,   /*!< TIM16 channel 1 output */
-  TIM16_CH1N,  /*!< TIM16 channel 1 complimentary output */
-  TIM16_BKIN,  /*!< TIM16 break input */
-  TIM17_CH1,   /*!< TIM17 channel 1 output */
-  TIM17_CH1N,  /*!< TIM17 channel 1 complimentary output */
-  TIM17_BKIN,  /*!< TIM17 break input */
+enum class IoFunctions : std::uint8_t {
+  kGpio,      /*!< GPIO function */
+  kEventOut,  /*!< EVENTOUT function */
+  kMco,       /*!< MCO function */
+  kSwdio,     /*!< SWDIO */
+  kIrOut,     /*!< Infrared out */
+  kSwclk,     /*!< SWCLK */
+  kUsart1Tx,  /*!< USART1 transmit */
+  kUsart1Rx,  /*!< USART1 receive */
+  kUsart1Cts, /*!< USART1 clear to send */
+  kUsart1Rts, /*!< USART1 request to send */
+  kUsart1Ck,  /*!< USART1 clock */
+  kSpi1Miso,  /*!< SPI1 MISO */
+  kSpi1Mosi,  /*!< SPI1 MOSI */
+  kSpi1Sck,   /*!< SPI1 clock */
+  kSpi1Nss,   /*!< SPI1 NSS */
+  kI2s1Sd,    /*!< I2S1 SD */
+  kI2s1Mck,   /*!< I2S1 master clock */
+  kI2s1Ws,    /*!< I2S1 word select */
+  kI2s1Ck,    /*!< I2S1 clock */
+  kI2c1Scl,   /*!< I2C1 clock */
+  kI2c1Sda,   /*!< I2C1 data */
+  kI2c1Smba,  /*!< I2C1 SMBus alert */
+  kTim1Bkin,  /*!< TIM1 break input */
+  kTim1Ch1,   /*!< TIM1 channel 1 output */
+  kTim1Ch1n,  /*!< TIM1 channel 1 complimentary output */
+  kTim1Ch2,   /*!< TIM1 channel 2 output */
+  kTim1Ch2n,  /*!< TIM1 channel 2 complimentary output */
+  kTim1Ch3,   /*!< TIM1 channel 3 output */
+  kTim1Ch3n,  /*!< TIM1 channel 3 complimentary output */
+  kTim1Ch4,   /*!< TIM1 channel 4 output */
+  kTim1ETR,   /*!< TIM1 external trigger */
+  kTim2ChEtr, /*!< TIM2 channel external trigger */
+  kTim2Ch2,   /*!< TIM2 channel 2 output */
+  kTim2Ch3,   /*!< TIM2 channel 3 output */
+  kTim2Ch4,   /*!< TIM2 channel 4 output */
+  kTim3Ch1,   /*!< TIM3 channel 1 output */
+  kTim3Ch2,   /*!< TIM3 channel 2 output */
+  kTim3Ch3,   /*!< TIM3 channel 3 output */
+  kTim3Ch4,   /*!< TIM3 channel 4 output */
+  kTim14Ch1,  /*!< TIM14 channel 1 output */
+  kTim16Ch1,  /*!< TIM16 channel 1 output */
+  kTim16Ch1n, /*!< TIM16 channel 1 complimentary output */
+  kTim16BkIn, /*!< TIM16 break input */
+  kTim17Ch1,  /*!< TIM17 channel 1 output */
+  kTim17Ch1n, /*!< TIM17 channel 1 complimentary output */
+  kTim17BkIn, /*!< TIM17 break input */
 };
 
 /**
  * @brief Available pin function selects available
  */
 enum class IOfunctSelects : std::uint8_t {
-  AF0 = libmcuhw::gpio::AFR::AF0, /*!< Alternate function 0 */
-  AF1 = libmcuhw::gpio::AFR::AF1, /*!< Alternate function 1 */
-  AF2 = libmcuhw::gpio::AFR::AF2, /*!< Alternate function 2 */
-  AF3 = libmcuhw::gpio::AFR::AF3, /*!< Alternate function 3 */
-  AF4 = libmcuhw::gpio::AFR::AF4, /*!< Alternate function 4 */
-  AF5 = libmcuhw::gpio::AFR::AF5, /*!< Alternate function 5 */
-  AF6 = libmcuhw::gpio::AFR::AF6, /*!< Alternate function 6 */
-  AF7 = libmcuhw::gpio::AFR::AF7, /*!< Alternate function 7 */
-  NONE = 0xff,                    /*!< No alternate function */
+  kAf0 = libmcuhw::gpio::AFR::AF0, /*!< Alternate function 0 */
+  kAf1 = libmcuhw::gpio::AFR::AF1, /*!< Alternate function 1 */
+  kAf2 = libmcuhw::gpio::AFR::AF2, /*!< Alternate function 2 */
+  kAf3 = libmcuhw::gpio::AFR::AF3, /*!< Alternate function 3 */
+  kAf4 = libmcuhw::gpio::AFR::AF4, /*!< Alternate function 4 */
+  kAf5 = libmcuhw::gpio::AFR::AF5, /*!< Alternate function 5 */
+  kAf6 = libmcuhw::gpio::AFR::AF6, /*!< Alternate function 6 */
+  kAf7 = libmcuhw::gpio::AFR::AF7, /*!< Alternate function 7 */
+  kNone = 0xff,                    /*!< No alternate function */
 };
 
 /**
@@ -127,25 +127,25 @@ enum class IOfunctSelects : std::uint8_t {
  * @tparam T_PIN    IO pin
  * @tparam T_FUNCT  IO function
  */
-template <IoPorts T_PORT, IoPins T_PIN, IOfuncts T_FUNCT, bool DUMMY = false>
-struct pin : libmcu::PinBase {
-  static_assert(DUMMY, "This I/O pin configuration is invalid!");
+template <IoPorts port, IoPins pin, IoFunctions function, bool dummy = false>
+struct Pin : libmcu::PinBase {
+  static_assert(dummy, "This I/O pin configuration is invalid!");
 };
 
 /**
  * @brief Specialization for Pin 8 on Port A with MCO function
  */
 template <>
-struct pin<IoPorts::PORTA, IoPins::PA8, IOfuncts::GPIO> : libmcu::PinBase {
-  static constexpr IOfunctSelects functionSelect = IOfunctSelects::NONE;
+struct Pin<IoPorts::kPortA, IoPins::kPa8, IoFunctions::kGpio> : libmcu::PinBase {
+  static constexpr IOfunctSelects function_select = IOfunctSelects::kNone;
 };
 
 /**
  * @brief Specialization for Pin 8 on Port A with MCO function
  */
 template <>
-struct pin<IoPorts::PORTA, IoPins::PA8, IOfuncts::MCO> : libmcu::PinBase {
-  static constexpr IOfunctSelects functionSelect = IOfunctSelects::AF0;
+struct Pin<IoPorts::kPortA, IoPins::kPa8, IoFunctions::kMco> : libmcu::PinBase {
+  static constexpr IOfunctSelects function_select = IOfunctSelects::kAf0;
 };
 
 }  // namespace libmcuhw

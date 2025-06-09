@@ -32,6 +32,7 @@ struct SyncSpiBase : PeripheralBase {};   /*!< Synchronous SPI base class */
 struct AsyncSpiBase : PeripheralBase {};  /*!< Asynchronous SPI base class */
 struct SyncI2cBase : PeripheralBase {};   /*!< Synchronous I2C base class */
 struct AsyncI2cBase : PeripheralBase {};  /*!< Asynchronous I2C base class */
+struct AdcBase : PeripheralBase {};       /*!< ADC base class */
 
 /* I2C general definitions */
 using I2cDeviceAddressBase = libmcu::Constant<std::uint8_t>;

@@ -8,31 +8,31 @@
  * @file RP2040_pio_ll.hpp
  * @brief low level interface for the RP2040 PIO
  */
-#ifndef RP2040_PIO_SW_HPP
-#define RP2040_PIO_SW_HPP
+#ifndef RP2040_PIO_LL_HPP
+#define RP2040_PIO_LL_HPP
 
 namespace libmcull::pio {
 namespace hardware = libmcuhw::pio;
 /**
  * @brief
- * @tparam pioAddress_
+ * @tparam pio_address
  */
-template <libmcu::PioBaseAddress const& pioAddress_>
-struct pio : libmcull::PeripheralBase {
+template <libmcu::PioBaseAddress const& pio_address>
+struct Pio : libmcull::PeripheralBase {
   /**
    * @brief Base initialization function
    */
-  constexpr void init() {}
+  constexpr void Init() {}
   /**
    * @brief get registers from peripheral
    * @return return pointer to peripheral
    */
-  static hardware::pio* pioPeripheral() {
-    return reinterpret_cast<hardware::pio*>(pioAddress);
+  static hardware::Pio* GetPeripheral() {
+    return reinterpret_cast<hardware::Pio*>(pio_address_);
   }
 
  private:
-  static constexpr libmcu::HwAddressType pioAddress = pioAddress_; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType pio_address_ = pio_address; /*!< peripheral address */
 };
 }  // namespace libmcull::pio
 #endif

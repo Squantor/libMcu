@@ -53,14 +53,14 @@ struct usartSync : libmcull::PeripheralBase {
    * @return std::uint32_t one to one copy of the status register, see bit masks for options
    */
   constexpr std::uint32_t Status() {
-    return GetPeripheral()->STAT & hardware::STAT::kRESERVED_MASK;
+    return GetPeripheral()->STAT & hardware::STAT::RESERVED_MASK;
   }
   /**
    * @brief Send data out of the UART
    * @param data data to send, amount is sent according to configuration
    */
   constexpr void Transmit(TransferType data) {
-    GetPeripheral()->TXDAT = static_cast<TransferType>(data & hardware::TXDAT::kRESERVED_MASK);
+    GetPeripheral()->TXDAT = static_cast<TransferType>(data & hardware::TXDAT::RESERVED_MASK);
   }
   /**
    * @brief Read data from UART

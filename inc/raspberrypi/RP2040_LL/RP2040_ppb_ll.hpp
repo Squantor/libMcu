@@ -8,8 +8,8 @@
  * @file RP2040_ppb_ll.hpp
  * @brief low level interface for the RP2040 PPB
  */
-#ifndef RP2040_PPB_SW_HPP
-#define RP2040_PPB_SW_HPP
+#ifndef RP2040_PPB_LL_HPP
+#define RP2040_PPB_LL_HPP
 
 namespace libmcull::ppb {
 namespace hardware = libmcuhw::ppb;
@@ -17,24 +17,22 @@ namespace hardware = libmcuhw::ppb;
  * @brief
  * @tparam ppbAddress_
  */
-template <libmcu::PpbBaseAddress const& ppbAddress_>
-struct ppb : libmcull::PeripheralBase {
+template <libmcu::PpbBaseAddress const& ppb_address>
+struct Ppb : libmcull::PeripheralBase {
   /**
    * @brief Base initialization function
-   *
    */
-  constexpr void init() {}
+  constexpr void Init() {}
   /**
    * @brief get registers from peripheral
-   *
    * @return return pointer to peripheral
    */
-  static hardware::ppb* ppbPeripheral() {
-    return reinterpret_cast<hardware::ppb*>(ppbAddress);
+  static hardware::Ppb* GetPeripheral() {
+    return reinterpret_cast<hardware::Ppb*>(ppb_address_);
   }
 
  private:
-  static constexpr libmcu::HwAddressType ppbAddress = ppbAddress_; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType ppb_address_ = ppb_address; /*!< peripheral address */
 };
 }  // namespace libmcull::ppb
 #endif

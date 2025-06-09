@@ -9,8 +9,8 @@
  * @brief LPC810 series State configurable timer interface class and definitions
  * @todo add unified/split timer support
  */
-#ifndef LPC81X_SCT_SW_HPP
-#define LPC81X_SCT_SW_HPP
+#ifndef LPC81X_SCT_LL_HPP
+#define LPC81X_SCT_LL_HPP
 
 namespace libmcull::sct {
 namespace hardware = libmcuhw::sct;

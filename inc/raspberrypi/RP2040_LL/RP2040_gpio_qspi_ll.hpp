@@ -8,28 +8,32 @@
  * @file RP2040_gpio_qspi_ll.hpp
  * @brief low level interface for the RP2040 GPIO QSPI
  */
-#ifndef RP2040_GPIO_QSPI_SW_HPP
-#define RP2040_GPIO_QSPI_SW_HPP
+#ifndef RP2040_GPIO_QSPI_LL_HPP
+#define RP2040_GPIO_QSPI_LL_HPP
 
 namespace libmcull::gpioQspi {
-template <libmcu::IoQspiBaseAddress const& gpioQspiAddress_>
-struct gpioQspi : libmcull::PeripheralBase {
+namespace hardware = libmcuhw::gpio_qspi;
+/**
+ * @brief
+ * @tparam gpio_qspi_address
+ */
+template <libmcu::IoQspiBaseAddress const& gpio_qspi_address>
+struct GpioQspi : libmcull::PeripheralBase {
   /**
    * @brief Base initialization function
    *
    */
-  constexpr void init() {}
+  constexpr void Init() {}
   /**
    * @brief get registers from peripheral
-   *
    * @return return pointer to peripheral
    */
-  static libmcuhw::gpioQspi::gpioQspi* gpioQspiPeripheral() {
-    return reinterpret_cast<libmcuhw::gpioQspi::gpioQspi*>(gpioQspiAddress);
+  static libmcuhw::gpio_qspi::GpioQspi* GetPeripheral() {
+    return reinterpret_cast<libmcuhw::gpio_qspi::GpioQspi*>(gpio_qspi_address_);
   }
 
  private:
-  static constexpr libmcu::HwAddressType gpioQspiAddress = gpioQspiAddress_; /*!< peripheral address */
-};
+  static constexpr libmcu::HwAddressType gpio_qspi_address_ = gpio_qspi_address; /*!< peripheral address */
+};  // namespace libmcu::IoQspiBaseAddress
 }  // namespace libmcull::gpioQspi
 #endif

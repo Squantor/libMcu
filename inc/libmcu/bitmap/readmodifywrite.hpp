@@ -28,8 +28,8 @@ namespace libmcu::bitmap {
  * @param op          operation to perform
  */
 template <typename destType, typename srcType>
-void readModifyWrite(destType &__restrict__ dest, const srcType &__restrict__ src, destType srcMask, int srcShift,
-                     bitblitOperation op) noexcept {
+void ReadModifyWrite(destType &__restrict__ dest, const srcType &__restrict__ src, destType srcMask, int srcShift,
+                     BitblitOperations op) noexcept {
   static_assert(!std::numeric_limits<destType>::is_signed && !std::numeric_limits<srcType>::is_signed,
                 "readModifyWrite only accepts unsigned types!");
   static_assert(std::numeric_limits<destType>::digits >= std::numeric_limits<srcType>::digits,
@@ -42,19 +42,19 @@ void readModifyWrite(destType &__restrict__ dest, const srcType &__restrict__ sr
   else
     dataSrc = src;
   switch (op) {
-    case bitblitOperation::OP_AND:
+    case BitblitOperations::kAnd:
       dest = dest & (dataSrc | ~srcMask);
       break;
-    case bitblitOperation::OP_MOV:
+    case BitblitOperations::kMove:
       dest = (dest & ~srcMask) | (dataSrc & srcMask);
       break;
-    case bitblitOperation::OP_NOT:
+    case BitblitOperations::kNot:
       dest = (dest & ~srcMask) | (~dataSrc & srcMask);
       break;
-    case bitblitOperation::OP_OR:
+    case BitblitOperations::kOr:
       dest = dest | (dataSrc & srcMask);
       break;
-    case bitblitOperation::OP_XOR:
+    case BitblitOperations::kXor:
       dest = dest ^ (dataSrc & srcMask);
       break;
   }

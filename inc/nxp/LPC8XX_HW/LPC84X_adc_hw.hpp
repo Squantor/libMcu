@@ -39,7 +39,7 @@ struct Adc {
   volatile std::uint32_t TRM;               /*!< ADC Startup register */
 };
 namespace CTRL {
-constexpr inline std::uint32_t kRESERVED_MASK{0x4000'05FFu}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x4000'05FFu}; /*!< register mask for allowed bits */
 /**
  * @brief Format clock divider value
  * @param divider ADC divider value
@@ -53,7 +53,7 @@ constexpr inline std::uint32_t kLPWRMODE{1u << 10}; /*!< Low power ADC mode */
 constexpr inline std::uint32_t kCALMODE{1u << 30};  /*!< Initiate ADC selfcalibration cycle */
 }  // namespace CTRL
 namespace SEQ_CTRL {
-constexpr inline std::uint32_t kRESERVED_MASK{0xFC0C'7FFFu}; /*!< Register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0xFC0C'7FFFu}; /*!< Register mask for allowed bits */
 /**
  * @brief Format channel value to CHANNELS bitfield
  * @param channel ADC channel to set in CHANNELS bitfield
@@ -83,7 +83,7 @@ constexpr inline std::uint32_t kMODE_SEQ{1u << 30};           /*!< Interrupt/DMA
 constexpr inline std::uint32_t kSEQ_ENA{1u << 31};            /*!< Enable sequence */
 }  // namespace SEQ_CTRL
 namespace SEQ_GDAT {
-constexpr inline std::uint32_t kRESERVED_MASK{0xFC0F'FFF0u}; /*!< Register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0xFC0F'FFF0u}; /*!< Register mask for allowed bits */
 constexpr inline std::uint32_t kRESULT_MASK{0x0000'FFF0};
 /**
  * @brief format SEQ_GDAT register to extract RESULT field
@@ -105,7 +105,7 @@ constexpr inline std::uint32_t kOVERRUN_FLAG{1u << 30};   /*!< Data overrun dete
 constexpr inline std::uint32_t kDATAVALID_FLAG{1u << 31}; /*!< Valid data available */
 }  // namespace SEQ_GDAT
 namespace DAT {
-constexpr inline std::uint32_t kRESERVED_MASK{0xFC0F'FFF0u}; /*!< Register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0xFC0F'FFF0u}; /*!< Register mask for allowed bits */
 constexpr inline std::uint32_t kRESULT_MASK{0x0000'FFF0};
 /**
  * @brief format SEQ_GDAT register to extract RESULT field
@@ -127,28 +127,28 @@ constexpr inline std::uint32_t kOVERRUN_FLAG{1u << 30};   /*!< Data overrun dete
 constexpr inline std::uint32_t kDATAVALID_FLAG{1u << 31}; /*!< Valid data available */
 }  // namespace DAT
 namespace THR0_LOW {
-constexpr inline std::uint32_t kRESERVED_MASK{0x0000'FFF0u}; /*!< Register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x0000'FFF0u}; /*!< Register mask for allowed bits */
 }
 namespace THR1_LOW {
-constexpr inline std::uint32_t kRESERVED_MASK{0x0000'FFF0u}; /*!< Register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x0000'FFF0u}; /*!< Register mask for allowed bits */
 }
 namespace THR0_HIGH {
-constexpr inline std::uint32_t kRESERVED_MASK{0x0000'FFF0u}; /*!< Register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x0000'FFF0u}; /*!< Register mask for allowed bits */
 }
 namespace THR1_HIGH {
-constexpr inline std::uint32_t kRESERVED_MASK{0x0000'FFF0u}; /*!< Register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x0000'FFF0u}; /*!< Register mask for allowed bits */
 }
 namespace CHAN_THRSEL {
-constexpr inline std::uint32_t kRESERVED_MASK{0x0000'0FFFu}; /*!< Register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x0000'0FFFu}; /*!< Register mask for allowed bits */
 }
 namespace INTEN {
-constexpr inline std::uint32_t kRESERVED_MASK{0x07FF'FFFFu}; /*!< Register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x07FF'FFFFu}; /*!< Register mask for allowed bits */
 }
 namespace FLAGS {
-constexpr inline std::uint32_t kRESERVED_MASK{0xF3FF'FFFFu}; /*!< Register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0xF3FF'FFFFu}; /*!< Register mask for allowed bits */
 }
 namespace TRM {
-constexpr inline std::uint32_t kRESERVED_MASK{0x0000'0020u}; /*!< Register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x0000'0020u}; /*!< Register mask for allowed bits */
 }
 }  // namespace libmcuhw::adc
 #endif

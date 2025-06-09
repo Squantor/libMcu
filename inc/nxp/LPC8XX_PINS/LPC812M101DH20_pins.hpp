@@ -47,23 +47,23 @@ enum class IoPins : std::uint8_t {
  * @brief Available ports on LPC812M101DH20
  */
 enum class IoPorts : std::uint8_t {
-  PORT0, /*!< Port 0 */
+  kPort0, /*!< Port 0 */
 };
 /**
  * @brief base I/O pin template
  * @tparam T_PORT IO port
  * @tparam T_PIN  IO pin
  */
-template <IoPorts T_PORT, IoPins T_PIN, bool DUMMY = false>
+template <IoPorts port, IoPins pin, bool dummy = false>
 struct Pin {
-  static_assert(DUMMY, "This I/O pin configuration is invalid!");
+  static_assert(dummy, "This I/O pin configuration is invalid!");
 };
 /**
  * @brief Specialization for Pin 0 on Port 0
  *
  */
 template <>
-struct Pin<IoPorts::PORT0, IoPins::kPin00> {
+struct Pin<IoPorts::kPort0, IoPins::kPin00> {
   static constexpr std::uint8_t type_flags{PinTypeFlags::kNormal};
   static constexpr std::uint8_t iocon_index{17u};
   static constexpr std::uint8_t gpio_pin_index{0u};
@@ -77,7 +77,7 @@ struct Pin<IoPorts::PORT0, IoPins::kPin00> {
  *
  */
 template <>
-struct Pin<IoPorts::PORT0, IoPins::kPin01> {
+struct Pin<IoPorts::kPort0, IoPins::kPin01> {
   static constexpr std::uint8_t type_flags{PinTypeFlags::kNormal};
   static constexpr std::uint8_t iocon_index{11u};
   static constexpr std::uint8_t gpio_pin_index{1u};
@@ -91,7 +91,7 @@ struct Pin<IoPorts::PORT0, IoPins::kPin01> {
  *
  */
 template <>
-struct Pin<IoPorts::PORT0, IoPins::kPin02> {
+struct Pin<IoPorts::kPort0, IoPins::kPin02> {
   static constexpr std::uint8_t type_flags{PinTypeFlags::kNormal};
   static constexpr std::uint8_t iocon_index{6u};
   static constexpr std::uint8_t gpio_pin_index{2u};
@@ -105,7 +105,7 @@ struct Pin<IoPorts::PORT0, IoPins::kPin02> {
  *
  */
 template <>
-struct Pin<IoPorts::PORT0, IoPins::kPin03> {
+struct Pin<IoPorts::kPort0, IoPins::kPin03> {
   static constexpr std::uint8_t type_flags{PinTypeFlags::kNormal};
   static constexpr std::uint8_t iocon_index{5u};
   static constexpr std::uint8_t gpio_pin_index{3u};
@@ -119,7 +119,7 @@ struct Pin<IoPorts::PORT0, IoPins::kPin03> {
  *
  */
 template <>
-struct Pin<IoPorts::PORT0, IoPins::kPin04> {
+struct Pin<IoPorts::kPort0, IoPins::kPin04> {
   static constexpr std::uint8_t type_flags{PinTypeFlags::kNormal};
   static constexpr std::uint8_t iocon_index{4u};
   static constexpr std::uint8_t gpio_pin_index{4u};
@@ -133,7 +133,7 @@ struct Pin<IoPorts::PORT0, IoPins::kPin04> {
  *
  */
 template <>
-struct Pin<IoPorts::PORT0, IoPins::kPin05> {
+struct Pin<IoPorts::kPort0, IoPins::kPin05> {
   static constexpr std::uint8_t type_flags{PinTypeFlags::kNormal};
   static constexpr std::uint8_t iocon_index{3u};
   static constexpr std::uint8_t gpio_pin_index{5u};
@@ -147,7 +147,7 @@ struct Pin<IoPorts::PORT0, IoPins::kPin05> {
  *
  */
 template <>
-struct Pin<IoPorts::PORT0, IoPins::kPin06> {
+struct Pin<IoPorts::kPort0, IoPins::kPin06> {
   static constexpr std::uint8_t type_flags{PinTypeFlags::kNormal};
   static constexpr std::uint8_t iocon_index{16u};
   static constexpr std::uint8_t gpio_pin_index{6u};
@@ -161,7 +161,7 @@ struct Pin<IoPorts::PORT0, IoPins::kPin06> {
  *
  */
 template <>
-struct Pin<IoPorts::PORT0, IoPins::kPin07> {
+struct Pin<IoPorts::kPort0, IoPins::kPin07> {
   static constexpr std::uint8_t type_flags{PinTypeFlags::kNormal};
   static constexpr std::uint8_t iocon_index{15u};
   static constexpr std::uint8_t gpio_pin_index{7u};
@@ -175,7 +175,7 @@ struct Pin<IoPorts::PORT0, IoPins::kPin07> {
  *
  */
 template <>
-struct Pin<IoPorts::PORT0, IoPins::kPin08> {
+struct Pin<IoPorts::kPort0, IoPins::kPin08> {
   static constexpr std::uint8_t type_flags{PinTypeFlags::kNormal};
   static constexpr std::uint8_t iocon_index{14u};
   static constexpr std::uint8_t gpio_pin_index{8u};
@@ -189,7 +189,7 @@ struct Pin<IoPorts::PORT0, IoPins::kPin08> {
  *
  */
 template <>
-struct Pin<IoPorts::PORT0, IoPins::kPin09> {
+struct Pin<IoPorts::kPort0, IoPins::kPin09> {
   static constexpr std::uint8_t type_flags{PinTypeFlags::kNormal};
   static constexpr std::uint8_t iocon_index{13u};
   static constexpr std::uint8_t gpio_pin_index{9u};
@@ -203,7 +203,7 @@ struct Pin<IoPorts::PORT0, IoPins::kPin09> {
  *
  */
 template <>
-struct Pin<IoPorts::PORT0, IoPins::kPin10> {
+struct Pin<IoPorts::kPort0, IoPins::kPin10> {
   static constexpr std::uint8_t type_flags{PinTypeFlags::kIoconI2c};
   static constexpr std::uint8_t iocon_index{8u};
   static constexpr std::uint8_t gpio_pin_index{10u};
@@ -217,7 +217,7 @@ struct Pin<IoPorts::PORT0, IoPins::kPin10> {
  *
  */
 template <>
-struct Pin<IoPorts::PORT0, IoPins::kPin11> {
+struct Pin<IoPorts::kPort0, IoPins::kPin11> {
   static constexpr std::uint8_t type_flags{PinTypeFlags::kIoconI2c};
   static constexpr std::uint8_t iocon_index{7u};
   static constexpr std::uint8_t gpio_pin_index{11u};
@@ -231,7 +231,7 @@ struct Pin<IoPorts::PORT0, IoPins::kPin11> {
  *
  */
 template <>
-struct Pin<IoPorts::PORT0, IoPins::kPin12> {
+struct Pin<IoPorts::kPort0, IoPins::kPin12> {
   static constexpr std::uint8_t type_flags{PinTypeFlags::kNormal};
   static constexpr std::uint8_t iocon_index{2u};
   static constexpr std::uint8_t gpio_pin_index{12u};
@@ -245,7 +245,7 @@ struct Pin<IoPorts::PORT0, IoPins::kPin12> {
  *
  */
 template <>
-struct Pin<IoPorts::PORT0, IoPins::kPin13> {
+struct Pin<IoPorts::kPort0, IoPins::kPin13> {
   static constexpr std::uint8_t type_flags{PinTypeFlags::kNormal};
   static constexpr std::uint8_t iocon_index{1u};
   static constexpr std::uint8_t gpio_pin_index{13u};
@@ -259,7 +259,7 @@ struct Pin<IoPorts::PORT0, IoPins::kPin13> {
  *
  */
 template <>
-struct Pin<IoPorts::PORT0, IoPins::kPin14> {
+struct Pin<IoPorts::kPort0, IoPins::kPin14> {
   static constexpr std::uint8_t type_flags{PinTypeFlags::kNormal};
   static constexpr std::uint8_t iocon_index{18u};
   static constexpr std::uint8_t gpio_pin_index{14u};
@@ -273,7 +273,7 @@ struct Pin<IoPorts::PORT0, IoPins::kPin14> {
  *
  */
 template <>
-struct Pin<IoPorts::PORT0, IoPins::kPin15> {
+struct Pin<IoPorts::kPort0, IoPins::kPin15> {
   static constexpr std::uint8_t type_flags{PinTypeFlags::kNormal};
   static constexpr std::uint8_t iocon_index{10u};
   static constexpr std::uint8_t gpio_pin_index{15u};
@@ -287,7 +287,7 @@ struct Pin<IoPorts::PORT0, IoPins::kPin15> {
  *
  */
 template <>
-struct Pin<IoPorts::PORT0, IoPins::kPin16> {
+struct Pin<IoPorts::kPort0, IoPins::kPin16> {
   static constexpr std::uint8_t type_flags{PinTypeFlags::kNormal};
   static constexpr std::uint8_t iocon_index{9u};
   static constexpr std::uint8_t gpio_pin_index{16u};
@@ -301,7 +301,7 @@ struct Pin<IoPorts::PORT0, IoPins::kPin16> {
  *
  */
 template <>
-struct Pin<IoPorts::PORT0, IoPins::kPin17> {
+struct Pin<IoPorts::kPort0, IoPins::kPin17> {
   static constexpr std::uint8_t type_flags{PinTypeFlags::kNormal};
   static constexpr std::uint8_t iocon_index{0u};
   static constexpr std::uint8_t gpio_pin_index{17u};
@@ -315,16 +315,16 @@ struct Pin<IoPorts::PORT0, IoPins::kPin17> {
  *
  * @tparam T_PORT IO port
  */
-template <IoPorts T_PORT, bool DUMMY = false>
+template <IoPorts port, bool dummy = false>
 struct Port {
-  static_assert(DUMMY, "This I/O port configuration is invalid!");
+  static_assert(dummy, "This I/O port configuration is invalid!");
 };
 /**
  * @brief Specialization for Port 0
  *
  */
 template <>
-struct Port<IoPorts::PORT0> {
+struct Port<IoPorts::kPort0> {
   static constexpr std::uint8_t gpio_port_index{0u};
 };
 }  // namespace libmcuhw

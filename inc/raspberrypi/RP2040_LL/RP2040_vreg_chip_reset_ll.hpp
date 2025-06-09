@@ -8,27 +8,31 @@
  * @file RP2040_vreg_chip_reset_ll.hpp
  * @brief low level interface for the RP2040 Voltage regulator and chip reset
  */
-#ifndef RP2040_VREG_CHIP_RESET_SW_HPP
-#define RP2040_VREG_CHIP_RESET_SW_HPP
+#ifndef RP2040_VREG_CHIP_RESET_LL_HPP
+#define RP2040_VREG_CHIP_RESET_LL_HPP
 
 namespace libmcull::vregChipReset {
 namespace hardware = libmcuhw::vregChipReset;
-template <libmcu::VregChipResetBaseAddress const& vregChipResetAddress_>
-struct vregChipReset : libmcull::PeripheralBase {
+/**
+ * @brief
+ * @tparam vregchip_reset_address
+ */
+template <libmcu::VregChipResetBaseAddress const& vregchip_reset_address>
+struct VregChipReset : libmcull::PeripheralBase {
   /**
    * @brief Base initialization function
    */
-  constexpr void init() {}
+  constexpr void Init() {}
   /**
    * @brief get registers from peripheral
    * @return return pointer to peripheral
    */
-  static hardware::vregChipReset* vregChipResetPeripheral() {
-    return reinterpret_cast<hardware::vregChipReset*>(vregChipResetAddress);
+  static hardware::VregChipReset* GetPeripheral() {
+    return reinterpret_cast<hardware::VregChipReset*>(vregchip_reset_address_);
   }
 
  private:
-  static constexpr libmcu::HwAddressType vregChipResetAddress{vregChipResetAddress_}; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType vregchip_reset_address_{vregchip_reset_address}; /*!< peripheral address */
 };
 }  // namespace libmcull::vregChipReset
 #endif

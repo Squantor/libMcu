@@ -73,7 +73,7 @@ struct SyncUart : public libmcuhal::HalUartBase {
    * @param stopBits Amount of stop bits
    * @return actual baud rate
    */
-  template <const libmcuhw::clock::periClockConfig& clock_config>
+  template <const libmcuhw::clock::PeriClockConfig& clock_config>
   constexpr std::uint32_t Init(std::uint32_t baudRate, UartParities parity = UartParities::kNone,
                                UartStops stopBits = UartStops::kStop1, UartLengths lengthBits = UartLengths::kSize8) {
     return ll_uart_sync.template Init<clock_config>(baudRate, static_cast<lowlevel::UartParities>(parity),

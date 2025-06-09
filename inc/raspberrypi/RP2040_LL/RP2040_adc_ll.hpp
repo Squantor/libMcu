@@ -8,29 +8,31 @@
  * @file RP2040_adc_ll.hpp
  * @brief low level interface for the RP2040 ADC
  */
-#ifndef RP2040_ADC_SW_HPP
-#define RP2040_ADC_SW_HPP
+#ifndef RP2040_ADC_LL_HPP
+#define RP2040_ADC_LL_HPP
 
 namespace libmcull::adc {
 namespace hardware = libmcuhw::adc;
-template <libmcu::AdcBaseAddress const& adcAddress_>
-struct adc : libmcull::PeripheralBase {
+/**
+ * @brief
+ * @tparam adc_address
+ */
+template <libmcu::AdcBaseAddress const& adc_address>
+struct Adc : libmcull::AdcBase {
   /**
    * @brief Base initialization function
-   *
    */
-  constexpr void init() {}
+  constexpr void Init() {}
   /**
    * @brief get registers from peripheral
-   *
    * @return return pointer to peripheral
    */
-  static hardware::adc* adcPeripheral() {
-    return reinterpret_cast<hardware::adc*>(adcAddress);
+  static hardware::Adc* GetPeripheral() {
+    return reinterpret_cast<hardware::Adc*>(adc_address_);
   }
 
  private:
-  static constexpr libmcu::HwAddressType adcAddress = adcAddress_; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType adc_address_ = adc_address; /*!< peripheral address */
 };
 }  // namespace libmcull::adc
 #endif

@@ -154,9 +154,9 @@ enum class pinFunctionTypes : std::uint8_t {
  * @tparam T_FUNC pin function
  * @tparam DUMMY  needed for the static_assert
  */
-template <PinFunctions T_FUNC, bool DUMMY = false>
+template <PinFunctions T_FUNC, bool dummy = false>
 struct PinFunction {
-  static_assert(DUMMY, "This configuration is invalid!");
+  static_assert(dummy, "This configuration is invalid!");
 };
 /**
  * @brief Template specialization for UART 0 TX output

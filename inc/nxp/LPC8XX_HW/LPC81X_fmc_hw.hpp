@@ -25,18 +25,18 @@ struct Fmc {
   volatile const std::uint32_t FMSW[1];      /*!< Signature word regsiter */
 };
 namespace FLASHCFG {
-constexpr inline std::uint32_t kkRESERVED_MASK{0x0000'0003u}; /*!< register mask for allowed bits */
-constexpr inline std::uint32_t kFLASHTIM_1_CLOCK{0u << 0};    /*!< 1 clock flash access time*/
-constexpr inline std::uint32_t kFLASHTIM_2_CLOCK{1u << 0};    /*!< 1 clock flash access time*/
+constexpr inline std::uint32_t RESERVED_MASK{0x0000'0003u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t kFLASHTIM_1_CLOCK{0u << 0};  /*!< 1 clock flash access time*/
+constexpr inline std::uint32_t kFLASHTIM_2_CLOCK{1u << 0};  /*!< 1 clock flash access time*/
 }  // namespace FLASHCFG
 namespace FMSSTART {
-constexpr inline std::uint32_t kkRESERVED_MASK{0x0000'0000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x0000'0000u}; /*!< register mask for allowed bits */
 }  // namespace FMSSTART
 namespace FMSSTOP {
-constexpr inline std::uint32_t kkRESERVED_MASK{0x0000'0000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x0000'0000u}; /*!< register mask for allowed bits */
 }  // namespace FMSSTOP
 namespace FMSW {
-constexpr inline std::uint32_t kkRESERVED_MASK{0x0000'0000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x0000'0000u}; /*!< register mask for allowed bits */
 }  // namespace FMSW
 
 }  // namespace libmcuhw::fmc

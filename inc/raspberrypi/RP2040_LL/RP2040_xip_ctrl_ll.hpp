@@ -8,27 +8,31 @@
  * @file RP2040_xip_ctrl_ll.hpp
  * @brief low level interface for the RP2040 Execute In Place
  */
-#ifndef RP2040_XIP_CTRL_SW_HPP
-#define RP2040_XIP_CTRL_SW_HPP
+#ifndef RP2040_XIP_CTRL_LL_HPP
+#define RP2040_XIP_CTRL_LL_HPP
 
 namespace libmcull::xip {
 namespace hardware = libmcuhw::xip;
-template <libmcu::XipCtrlBaseAddress const& xipCtrlAddress_>
-struct xipCtrl : libmcull::PeripheralBase {
+/**
+ * @brief
+ * @tparam xipctrl_address
+ */
+template <libmcu::XipCtrlBaseAddress const& xipctrl_address>
+struct XipCtrl : libmcull::PeripheralBase {
   /**
    * @brief Base initialization function
    */
-  constexpr void init() {}
+  constexpr void Init() {}
   /**
    * @brief get registers from peripheral
    * @return return pointer to peripheral
    */
-  static hardware::xip* xipCtrlPeripheral() {
-    return reinterpret_cast<hardware::xip*>(xipCtrlAddress);
+  static hardware::Xip* GetPeripheral() {
+    return reinterpret_cast<hardware::Xip*>(xipctrl_address_);
   }
 
  private:
-  static constexpr libmcu::HwAddressType xipCtrlAddress{xipCtrlAddress_}; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType xipctrl_address_{xipctrl_address}; /*!< peripheral address */
 };
 }  // namespace libmcull::xip
 #endif

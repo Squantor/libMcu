@@ -8,21 +8,25 @@
  * @file RP2040_sio_gpio_ll.hpp
  * @brief low level interface for the RP2040 SIO GPIO
  */
-#ifndef RP2040_SIO_GPIO_SW_HPP
-#define RP2040_SIO_GPIO_SW_HPP
+#ifndef RP2040_SIO_GPIO_LL_HPP
+#define RP2040_SIO_GPIO_LL_HPP
 
 namespace libmcull::sioGpio {
 namespace hardware = libmcuhw::sio;
-template <libmcu::SioBaseAddress const &sioAddress_>
-struct sioGpio : libmcull::PeripheralBase {
+/**
+ * @brief
+ * @tparam &sio_address
+ */
+template <libmcu::SioBaseAddress const &sio_address>
+struct SioGpio : libmcull::PeripheralBase {
   /**
    * @brief Set gpio pin to output mode
    * @tparam PIN pin instance
    * @param pin reference to pin instance
    */
   template <typename PIN>
-  constexpr void output(PIN &pin) {
-    sioPeripheral()->GPIO_OE_SET = pin.pinMask;
+  constexpr void SetOutput(PIN &pin) {
+    GetPeripheral()->GPIO_OE_SET = pin.pin_mask;
   }
   /**
    * @brief Set gpio pin to input mode
@@ -30,8 +34,8 @@ struct sioGpio : libmcull::PeripheralBase {
    * @param pin reference to pin instance
    */
   template <typename PIN>
-  constexpr void input(PIN &pin) {
-    sioPeripheral()->GPIO_OE_CLR = pin.pinMask;
+  constexpr void SetInput(PIN &pin) {
+    GetPeripheral()->GPIO_OE_CLR = pin.pin_mask;
   }
   /**
    * @brief Set gpio pin to high
@@ -39,8 +43,8 @@ struct sioGpio : libmcull::PeripheralBase {
    * @param pin reference to pin instance
    */
   template <typename PIN>
-  constexpr void high(PIN &pin) {
-    sioPeripheral()->GPIO_OUT_SET = pin.pinMask;
+  constexpr void SetHigh(PIN &pin) {
+    GetPeripheral()->GPIO_OUT_SET = pin.pin_mask;
   }
   /**
    * @brief Set gpio pin to low
@@ -48,8 +52,8 @@ struct sioGpio : libmcull::PeripheralBase {
    * @param pin reference to pin instance
    */
   template <typename PIN>
-  constexpr void low(PIN &pin) {
-    sioPeripheral()->GPIO_OUT_CLR = pin.pinMask;
+  constexpr void SetLow(PIN &pin) {
+    GetPeripheral()->GPIO_OUT_CLR = pin.pin_mask;
   }
   /**
    * @brief Toggle gpio pin
@@ -57,8 +61,8 @@ struct sioGpio : libmcull::PeripheralBase {
    * @param pin reference to pin instance
    */
   template <typename PIN>
-  constexpr void toggle(PIN &pin) {
-    sioPeripheral()->GPIO_OUT_XOR = pin.pinMask;
+  constexpr void Toggle(PIN &pin) {
+    GetPeripheral()->GPIO_OUT_XOR = pin.pin_mask;
   }
   /**
    * @brief Get the gpio pin state
@@ -67,8 +71,8 @@ struct sioGpio : libmcull::PeripheralBase {
    * @return std::uint32_t pin state, 0 for low, non zero for high
    */
   template <typename PIN>
-  constexpr std::uint32_t get(PIN &pin) {
-    return sioPeripheral()->GPIO_IN & pin.pinMask;
+  constexpr std::uint32_t GetLevel(PIN &pin) {
+    return GetPeripheral()->GPIO_IN & pin.pin_mask;
   }
   /**
    * @brief Set the gpio pin state
@@ -77,22 +81,22 @@ struct sioGpio : libmcull::PeripheralBase {
    * @param setting pin state, 0 for low, 1 for high
    */
   template <typename PIN>
-  constexpr void set(PIN &pin, std::uint32_t setting) {
+  constexpr void SetLevel(PIN &pin, std::uint32_t setting) {
     if (setting)
-      sioPeripheral()->GPIO_OUT_SET = pin.pinMask;
+      GetPeripheral()->GPIO_OUT_SET = pin.pin_mask;
     else
-      sioPeripheral()->GPIO_OUT_CLR = pin.pinMask;
+      GetPeripheral()->GPIO_OUT_CLR = pin.pin_mask;
   }
   /**
    * @brief get registers from peripheral for normal access
    * @return return pointer to peripheral
    */
-  static hardware::sio *sioPeripheral() {
-    return reinterpret_cast<hardware::sio *>(sioAddress + libmcuhw::peripheralOffsetNormal);
+  static hardware::Sio *GetPeripheral() {
+    return reinterpret_cast<hardware::Sio *>(sio_address_ + libmcuhw::kPeripheralOffsetNormal);
   }
 
  private:
-  static constexpr libmcu::HwAddressType sioAddress{sioAddress_}; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType sio_address_{sio_address}; /*!< peripheral address */
 };
 }  // namespace libmcull::sioGpio
 #endif
