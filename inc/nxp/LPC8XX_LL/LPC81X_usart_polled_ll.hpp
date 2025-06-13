@@ -22,7 +22,7 @@ namespace hardware = libmcuhw::usart;
  * @tparam transferType datatype to use for data transfers
  */
 template <libmcu::UartBaseAddress usart_address, typename TransferType>
-struct usartSync : libmcull::PeripheralBase {
+struct UsartPolled : libmcull::PeripheralBase {
   /**
    * @brief Setup USART to 8n1
    * @param baudRate Baud rate value

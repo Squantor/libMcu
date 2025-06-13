@@ -13,12 +13,12 @@
 namespace libmcull::scb {
 namespace hardware = libmcuhw::scb;
 template <libmcu::ScbBaseAddress const& scbAddress_>
-struct scb {
+struct Scb {
   /**
    * @brief Construct a new systick object
    *
    */
-  scb() {}
+  Scb() {}
   /**
    * @brief Setup scb
    *

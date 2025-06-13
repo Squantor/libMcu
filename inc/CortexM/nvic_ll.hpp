@@ -14,34 +14,14 @@ namespace libmcull::nvic {
 namespace hardware = libmcuhw::nvic;
 namespace hardwareScb = libmcuhw::scb;
 template <libmcu::NvicBaseAddress const& nvicAddress_, libmcu::ScbBaseAddress const& scbAddress_>
-struct nvic {
+struct Nvic {
   /**
    * @brief Construct a new systick object
-   *
    */
-  nvic() {}
-
-  /**
-   * @brief get registers from peripheral
-   *
-   * @return return pointer to nvic peripheral
-   */
-  static hardware::nvic* nvicPeripheral() {
-    return reinterpret_cast<hardware::nvic*>(nvicAddress);
-  }
-
-  /**
-   * @brief get registers from SCB peripheral
-   *
-   * @return return pointer to scb peripheral
-   */
-  static hardwareScb::Scb* scbPeripheral() {
-    return reinterpret_cast<hardwareScb::Scb*>(scbAddress);
-  }
+  Nvic() {}
 
   /**
    * @brief Setup nvic
-   *
    * Nothing to setup here
    */
   constexpr void init() {}
@@ -56,7 +36,7 @@ struct nvic {
     if (number >= 0) {
       std::uint32_t index = getInterruptIndex(interrupt);
       std::uint32_t bitIndex = getInterruptBit(interrupt);
-      nvicPeripheral()->ISER[index] = hardware::ISER::SETENA(bitIndex);
+      GetPeripheral()->ISER[index] = hardware::ISER::SETENA(bitIndex);
     }
   }
 
@@ -70,7 +50,7 @@ struct nvic {
     if (number >= 0) {
       std::uint32_t index = getInterruptIndex(interrupt);
       std::uint32_t bitIndex = getInterruptBit(interrupt);
-      nvicPeripheral()->ICER[index] = hardware::ICER::CLRENA(bitIndex);
+      GetPeripheral()->ICER[index] = hardware::ICER::CLRENA(bitIndex);
       libmcull::dsb();
       libmcull::isb();
     }
@@ -85,7 +65,7 @@ struct nvic {
     if (number >= 0) {
       std::uint32_t index = getInterruptIndex(interrupt);
       std::uint32_t bitIndex = getInterruptBit(interrupt);
-      nvicPeripheral()->ISPR[index] = hardware::ISPR::SETPEND(bitIndex);
+      GetPeripheral()->ISPR[index] = hardware::ISPR::SETPEND(bitIndex);
     }
   }
 
@@ -99,7 +79,7 @@ struct nvic {
     if (number >= 0) {
       std::uint32_t index = getInterruptIndex(interrupt);
       std::uint32_t bitIndex = getInterruptBit(interrupt);
-      nvicPeripheral()->ICPR[index] = hardware::ICPR::CLRPEND(bitIndex);
+      GetPeripheral()->ICPR[index] = hardware::ICPR::CLRPEND(bitIndex);
     }
   }
 
@@ -115,7 +95,7 @@ struct nvic {
     if (number >= 0) {
       std::uint32_t index = getInterruptIndex(interrupt);
       std::uint32_t bitIndex = getInterruptBit(interrupt);
-      if (hardware::ISPR::GETPEND(nvicPeripheral()->ISPR[index], bitIndex) == 0)
+      if (hardware::ISPR::GETPEND(GetPeripheral()->ISPR[index], bitIndex) == 0)
         return false;
       else
         return true;
@@ -127,11 +107,12 @@ struct nvic {
     std::int32_t number = static_cast<std::int32_t>(interrupt);
     if (number >= 0) {
       std::uint32_t index = getInterruptPrioIndex(number);
-      nvicPeripheral()->IP[index] = hardware::IP::IPR(nvicPeripheral()->IP[index], static_cast<std::uint32_t>(number), priority);
+      GetPeripheral()->IP[index] = hardware::IP::IPR(GetPeripheral()->IP[index], static_cast<std::uint32_t>(number), priority);
     } else {
       number = number + 8;  // translate negative isrs to SCB priority field index with offset for first 8 ISR's
       std::uint32_t index = getInterruptPrioIndex(number);
-      scbPeripheral()->SHP[index] = hardware::IP::IPR(scbPeripheral()->SHP[index], static_cast<std::uint32_t>(number), priority);
+      GetScbPeripheral()->SHP[index] =
+        hardware::IP::IPR(GetScbPeripheral()->SHP[index], static_cast<std::uint32_t>(number), priority);
     }
   }
 
@@ -171,8 +152,23 @@ struct nvic {
     return static_cast<std::uint32_t>(interrupt) >> 2;
   }
 
-  static constexpr libmcu::HwAddressType nvicAddress = nvicAddress_; /*!< nvic peripheral address */
-  static constexpr libmcu::HwAddressType scbAddress = scbAddress_;   /*!< scb peripheral address */
+  /**
+   * @brief get registers from peripheral
+   * @return return pointer to nvic peripheral
+   */
+  static hardware::nvic* GetPeripheral() {
+    return reinterpret_cast<hardware::nvic*>(nvic_address_);
+  }
+  /**
+   * @brief get registers from SCB peripheral
+   * @return return pointer to scb peripheral
+   */
+  static hardwareScb::Scb* GetScbPeripheral() {
+    return reinterpret_cast<hardwareScb::Scb*>(scb_address_);
+  }
+
+  static constexpr libmcu::HwAddressType nvic_address_ = nvicAddress_; /*!< nvic peripheral address */
+  static constexpr libmcu::HwAddressType scb_address_ = scbAddress_;   /*!< scb peripheral address */
 };
 }  // namespace libmcull::nvic
 #endif

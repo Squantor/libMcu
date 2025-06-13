@@ -130,8 +130,8 @@ constexpr inline libmcu::PinintBaseAddress kPinintAddress{0xA000'4000u}; /*!< Pi
 #include "LPC8XX_LL/LPC81X_pmu_ll.hpp"
 #include "LPC8XX_LL/LPC81X_sct_ll.hpp"
 #include "LPC8XX_LL/LPC81X_syscon_ll.hpp"
-#include "LPC8XX_LL/LPC81X_usart_ll_sync.hpp"
-#include "LPC8XX_LL/LPC81X_usart_ll_async.hpp"
+#include "LPC8XX_LL/LPC81X_usart_polled_ll.hpp"
+#include "LPC8XX_LL/LPC81X_usart_ll_async.hpp"  //! @todo refactor to interrupt based async uart
 #include "LPC8XX_LL/LPC81X_wkt_ll.hpp"
 #include "LPC8XX_LL/LPC81X_wwdt_ll.hpp"
 

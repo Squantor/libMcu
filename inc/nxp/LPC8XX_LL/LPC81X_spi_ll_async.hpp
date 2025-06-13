@@ -21,6 +21,7 @@ namespace hardware = ::libmcuhw::spi;
  * @tparam spi_address Peripheral base address
  * @tparam ChipEnable enum of available chip enables
  * @tparam TransferType datatype to use for data transfers
+ * @todo basically remove or transform into SpiInterrupt for a proper async SPI interface
  */
 template <libmcu::SpiBaseAddress spi_address, typename ChipEnable, typename TransferType>
 struct SpiAsync : libmcull::PeripheralBase {

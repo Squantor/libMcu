@@ -15,29 +15,25 @@
 #define SYSTICK_LL_HPP
 namespace libmcull::systick {
 namespace hardware = libmcuhw::systick;
-template <libmcu::SystickBaseAddress const& systickAddress_>
-struct systick {
+/**
+ * @brief
+ * @tparam systick_address
+ */
+template <libmcu::SystickBaseAddress const& systick_address>
+struct Systick {
   /**
    * @brief Construct a new systick object
    *
    */
-  systick() {}
+  Systick() {}
 
-  /**
-   * @brief get registers from peripheral
-   *
-   * @return return pointer to analog comparator registers
-   */
-  static hardware::systick* systickPeripheral() {
-    return reinterpret_cast<hardware::systick*>(systickAddress);
-  }
   /**
    * @brief setup systick peripheral
    *
    * @param interval systick interval count
    */
   constexpr void init(std::uint32_t interval) {
-    systickPeripheral()->RVR = interval;
+    GetPeripheral()->RVR = interval;
   }
 
   /**
@@ -46,7 +42,7 @@ struct systick {
    * @param interval systick interval to put in reload register
    */
   constexpr void setReload(std::uint32_t interval) {
-    systickPeripheral()->RVR = interval;
+    GetPeripheral()->RVR = interval;
   }
 
   /**
@@ -55,7 +51,7 @@ struct systick {
    * @return current systick count
    */
   constexpr std::uint32_t getCount() {
-    return systickPeripheral()->CVR;
+    return GetPeripheral()->CVR;
   }
 
   /**
@@ -64,19 +60,19 @@ struct systick {
    * @return zero if not, non zero if so
    */
   constexpr std::uint32_t getZeroPass() {
-    return systickPeripheral()->CSR & hardware::CSR::kCOUNTFLAG_MASK;
+    return GetPeripheral()->CSR & hardware::CSR::kCOUNTFLAG_MASK;
   }
 
   /**
    * @brief start the systick peripheral without any interrupts
    */
   constexpr void start() {
-    systickPeripheral()->CSR = hardware::CSR::kCLKSOURCE_PROC | hardware::CSR::kENABLE;
+    GetPeripheral()->CSR = hardware::CSR::kCLKSOURCE_PROC | hardware::CSR::kENABLE;
   }
 
   constexpr void start(libmcu::IsrLambda lambda) {
     callback = lambda;
-    systickPeripheral()->CSR = hardware::CSR::kCLKSOURCE_PROC | hardware::CSR::kENABLE | hardware::CSR::kTICKINT;
+    GetPeripheral()->CSR = hardware::CSR::kCLKSOURCE_PROC | hardware::CSR::kENABLE | hardware::CSR::kTICKINT;
   }
 
   // TODO start(lambda) for callbacks when interrupts, depends on NVIC
@@ -86,7 +82,7 @@ struct systick {
    *
    */
   constexpr void stop() {
-    systickPeripheral()->CSR = hardware::CSR::kCLKSOURCE_PROC;
+    GetPeripheral()->CSR = hardware::CSR::kCLKSOURCE_PROC;
   }
 
   /**
@@ -99,7 +95,15 @@ struct systick {
     callback();
   }
 
-  static constexpr libmcu::HwAddressType systickAddress = systickAddress_; /*!< peripheral address */
+  /**
+   * @brief get registers from peripheral
+   * @return return pointer to peripheral registers
+   */
+  static hardware::systick* GetPeripheral() {
+    return reinterpret_cast<hardware::systick*>(systickAddress);
+  }
+
+  static constexpr libmcu::HwAddressType systickAddress = systick_address; /*!< peripheral address */
   libmcu::IsrLambda callback;
 };
 }  // namespace libmcull::systick
