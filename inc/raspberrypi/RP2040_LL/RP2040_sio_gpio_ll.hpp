@@ -11,14 +11,14 @@
 #ifndef RP2040_SIO_GPIO_LL_HPP
 #define RP2040_SIO_GPIO_LL_HPP
 
-namespace libmcull::sioGpio {
+namespace libmcull::sio_gpio {
 namespace hardware = libmcuhw::sio;
 /**
  * @brief
  * @tparam &sio_address
  */
 template <libmcu::SioBaseAddress const &sio_address>
-struct SioGpio : libmcull::PeripheralBase {
+struct SioGpio : libmcull::GpioBase {
   /**
    * @brief Set gpio pin to output mode
    * @tparam PIN pin instance
@@ -98,5 +98,5 @@ struct SioGpio : libmcull::PeripheralBase {
  private:
   static constexpr libmcu::HwAddressType sio_address_{sio_address}; /*!< peripheral address */
 };
-}  // namespace libmcull::sioGpio
+}  // namespace libmcull::sio_gpio
 #endif

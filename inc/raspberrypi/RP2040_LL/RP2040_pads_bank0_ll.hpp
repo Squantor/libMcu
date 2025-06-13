@@ -16,6 +16,14 @@
 namespace libmcull::pads {
 namespace hardware_bank0 = libmcuhw::padsBank0;
 /**
+ * @brief available pull modes
+ */
+enum class PullModes : std::uint32_t {
+  kNone = 0,                             /*!< No pullup modes */
+  kPullUp = hardware_bank0::GPIO::PUE,   /*!< Pullup */
+  kPullDown = hardware_bank0::GPIO::PDE, /*!< Pulldown */
+};
+/**
  * @brief
  * @tparam pads_bank0_address
  */
@@ -26,30 +34,38 @@ struct PadsBank0 : libmcull::PeripheralBase {
    * @brief Setup pin pads
    * @tparam T pin trait template
    * @param pin pin instance
-   * @param driveStrength Pin drive strength, see driveModes enum class
-   * @param pullUpEnable Enable pullup resistor
-   * @param pullDownEnable Enable pulldown resistor
+   * @param drive_strength Pin drive strength, see driveModes enum class
+   * @param pull_mode pullup/down mode
    * @param schmittOn Enable schmitt trigger on input
    * @param fastSlew Set fast slew rate
    */
   template <typename T>
-  constexpr void Setup(T& pin, DriveModes driveStrength, bool pullUpEnable, bool pullDownEnable, bool schmittOn, bool fastSlew) {
+  constexpr void Setup(T& pin, DriveModes drive_strength, PullModes pull_mode, bool schmittOn, bool fastSlew) {
     uint32_t setting = hardware_bank0::GPIO::IE;  // Safe default setting
-    if (pullUpEnable)
-      setting = setting | hardware_bank0::GPIO::PUE;
-    if (pullDownEnable)
-      setting = setting | hardware_bank0::GPIO::PDE;
+    setting = setting | static_cast<std::uint32_t>(pull_mode);
     if (schmittOn)
       setting = setting | hardware_bank0::GPIO::SCHMITT;
     if (fastSlew)
       setting = setting | hardware_bank0::GPIO::SLEWFAST;
-    setting = setting | hardware_bank0::GPIO::DRIVE(static_cast<std::uint32_t>(driveStrength));
+    setting = setting | static_cast<std::uint32_t>(drive_strength);
+    GetPeripheral()->GPIO[pin.pin_index] = setting;
+  }
+  /**
+   * @brief
+   *
+   * @tparam T
+   * @param pin
+   * @param pull_mode
+   */
+  template <typename T>
+  constexpr void Setup(T& pin, PullModes pull_mode) {
+    uint32_t setting = hardware_bank0::GPIO::IE | hardware_bank0::GPIO::DRIVE_4MA;  // Safe default setting
+    setting = setting | static_cast<std::uint32_t>(pull_mode);
     GetPeripheral()->GPIO[pin.pin_index] = setting;
   }
   // TODO simplified setup methods
   /**
    * @brief get registers from peripheral
-   *
    * @return return pointer to peripheral
    */
   static libmcuhw::padsBank0::PadsBank0* GetPeripheral() {

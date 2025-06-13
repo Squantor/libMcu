@@ -14,7 +14,7 @@
 #include "libmcu_RP2040_ll.hpp"
 #include "../libmcu/libmcuhal.hpp"
 
-#include "RP2040_HAL/RP2040_hal_pins.hpp"
+// #include "RP2040_HAL/RP2040_hal_pins.hpp" // depricated
 #include "RP2040_HAL/RP2040_hal_gpio.hpp"
 #include "RP2040_HAL/RP2040_spi_poll_hal.hpp"
 #include "RP2040_HAL/RP2040_uart_poll_hal.hpp"
