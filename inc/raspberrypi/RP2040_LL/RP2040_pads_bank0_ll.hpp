@@ -29,7 +29,7 @@ enum class PullModes : std::uint32_t {
  */
 template <libmcu::PadsBank0BaseAddress const& pads_bank0_address>
 // TODO voltage select method
-struct PadsBank0 : libmcull::PeripheralBase {
+struct PadsBank0 : libmcull::PadsBase {
   /**
    * @brief Setup pin pads
    * @tparam T pin trait template

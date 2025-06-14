@@ -48,6 +48,12 @@ concept DerivedFromSyncI2c = std::is_base_of_v<libmcull::SyncI2cBase, T>;
  */
 template <typename T>
 concept DerivedFromAsyncI2c = std::is_base_of_v<libmcull::AsyncI2cBase, T>;
+/**
+ * @brief Concept for types that inherit from libMcuLL::GpioBase
+ * @tparam T
+ */
+template <typename T>
+concept DerivedFromGpio = std::is_base_of_v<libmcull::GpioBase, T>;
 
 }  // namespace libmcull
 

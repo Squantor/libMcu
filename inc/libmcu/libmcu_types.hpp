@@ -31,9 +31,15 @@ struct Constant {
  * @brief Base class where all pin traits are based of from
  * This baseclass is used as a base derivation for the pin traits. We can use the base to typecheck passing pins to various
  * drivers/functions
- *
  */
 struct PinBase {};
+
+/**
+ * @brief Base class where all port traits are based on
+ * This baseclass is used as a base derivation for the port traits. We can use the base to typecheck passing ports to various
+ * drivers/functions
+ */
+struct PortBase {};
 
 using IsrLambda = std::add_pointer<void()>::type; /*!< Base type for an ISR lambda */
 

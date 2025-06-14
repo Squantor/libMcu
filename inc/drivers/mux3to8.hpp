@@ -23,7 +23,8 @@ using namespace libmcuhal;
  * @tparam a1PinType trait template type for A1 pin
  * @tparam a2PinType trait template type for A2 pin
  */
-template <auto &gpio_hal, typename notEnablePinType, typename a0PinType, typename a1PinType, typename a2PinType>
+template <libmcuhal::DerivedFromHalGpio auto &gpio_hal, libmcu::DerivedFromPin notEnablePinType, libmcu::DerivedFromPin a0PinType,
+          libmcu::DerivedFromPin a1PinType, libmcu::DerivedFromPin a2PinType>
 struct mux3to8 {
   /**
    * @brief setup gpio pins to outputs and default to disabled multiplexer

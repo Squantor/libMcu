@@ -30,6 +30,12 @@ concept DerivedFromHalSpi = std::is_base_of_v<libmcuhal::HalSpiBase, T>;
  */
 template <typename T>
 concept DerivedFromHalI2c = std::is_base_of_v<libmcuhal::HalI2cBase, T>;
+/**
+ * @brief Concept for checking types that inherit from libMcuHal::HalGpioBase
+ * @tparam T
+ */
+template <typename T>
+concept DerivedFromHalGpio = std::is_base_of_v<libmcuhal::HalGpioBase, T>;
 
 }  // namespace libmcuhal
 
