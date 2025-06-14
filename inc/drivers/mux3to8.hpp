@@ -29,36 +29,22 @@ struct mux3to8 {
    * @brief setup gpio pins to outputs and default to disabled multiplexer
    */
   void initialize() {
-    gpio_hal.SetHigh(notEnablePin);
-    gpio_hal.SetOutput(notEnablePin);
-    gpio_hal.SetOutput(a0Pin);
-    gpio_hal.SetOutput(a1Pin);
-    gpio_hal.SetOutput(a2Pin);
+    gpio_hal.SetupOutput(notEnablePin, 1);
+    gpio_hal.SetupOutput(a0Pin, 0);
+    gpio_hal.SetupOutput(a1Pin, 0);
+    gpio_hal.SetupOutput(a2Pin, 0);
   }
 
   /**
    * @brief setup multiplexer
-   *
    * @param enable enable or disable
    * @param value which value to multiplex
    */
   void set(bool enable, std::uint32_t value) {
-    if (value & 0x01)
-      gpio_hal.SetHigh(a0Pin);
-    else
-      gpio_hal.SetLow(a0Pin);
-    if (value & 0x02)
-      gpio_hal.SetHigh(a1Pin);
-    else
-      gpio_hal.SetLow(a1Pin);
-    if (value & 0x04)
-      gpio_hal.SetHigh(a2Pin);
-    else
-      gpio_hal.SetLow(a2Pin);
-    if (enable)
-      gpio_hal.SetLow(notEnablePin);
-    else
-      gpio_hal.SetHigh(notEnablePin);
+    gpio_hal.SetLevel(a0Pin, value & 0x01);
+    gpio_hal.SetLevel(a1Pin, value & 0x02);
+    gpio_hal.SetLevel(a2Pin, value & 0x04);
+    gpio_hal.SetLevel(notEnablePin, enable ? 0 : 1);
   }
 
  private:

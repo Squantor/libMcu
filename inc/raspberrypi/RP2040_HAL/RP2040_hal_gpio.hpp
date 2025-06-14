@@ -41,29 +41,42 @@ struct Gpio : libmcuhal::HalGpioBase {
    * @param pull_mode pullup/down mode to use
    */
   template <typename PIN>
-  constexpr void Setup(PIN& pin, PullModes pull_mode) {
+  constexpr void SetupInput(PIN& pin, PullModes pull_mode = PullModes::kNone) {
     gpio_lowlevel.SetInput(pin);
     pads_lowlevel.Setup(pin, static_cast<llpads::PullModes>(pull_mode));
   }
+  /**
+   * @brief Set gpio pin to output mode with defined level
+   * @tparam PIN pin instance
+   * @param pin pin instance
+   * @param level output level, zero for low, non zero for high
+   */
   template <typename PIN>
-  constexpr bool Get(PIN& pin) {
-    return gpio_lowlevel.GetLevel(pin);
+  constexpr void SetupOutput(PIN& pin, std::uint32_t level) {
+    gpio_lowlevel.SetLevel(pin, level);
+    gpio_lowlevel.SetOutput(pin);
   }
   /**
-   * @brief Set gpio pin to output mode
+   * @brief Set gpio pin
    * @tparam PIN pin instance
-   * @param pin reference to pin instance
+   * @param pin pin instance
+   * @param level output level, zero for low, non zero for high
    */
-  /*   template <typename PIN>
-    constexpr void SetOutput(PIN& pin) {
-      if constexpr (pin.port == libmcuhw::IoPorts::kPort0) {
-        GetSioPeripheral()->GPIO_OE_SET = pin.pin_mask;
-      } else if constexpr (pin.port == libmcuhw::IoPorts::kPort0) {
-        GetSioPeripheral()->GPIO_HI_OE_SET = pin.pin_mask;
-      } else {
-        static_assert("Unknown port!");
-      }
-    } */
+  template <typename PIN>
+  constexpr void SetLevel(PIN& pin, std::uint32_t level) {
+    gpio_lowlevel.SetLevel(pin, level);
+  }
+  /**
+   * @brief Get gpio pin level
+   * @tparam PIN pin instance
+   * @param pin pin instance
+   * @returns zero for low, non zero for high
+   */
+  template <typename PIN>
+  constexpr std::uint32_t GetLevel(PIN& pin) {
+    return gpio_lowlevel.GetLevel(pin);
+  }
+
  private:
 };
 }  // namespace libmcuhal::gpio

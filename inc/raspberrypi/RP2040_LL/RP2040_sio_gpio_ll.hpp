@@ -78,7 +78,7 @@ struct SioGpio : libmcull::GpioBase {
    * @brief Set the gpio pin state
    * @tparam PIN pin instance
    * @param pin reference to pin instance
-   * @param setting pin state, 0 for low, 1 for high
+   * @param setting pin state, 0 for low, non zero for high
    */
   template <typename PIN>
   constexpr void SetLevel(PIN &pin, std::uint32_t setting) {
