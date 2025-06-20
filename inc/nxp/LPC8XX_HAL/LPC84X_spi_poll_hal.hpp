@@ -23,11 +23,11 @@ namespace nvic = libmcuhw::nvic;
  * @tparam spiBaseAddress_ Base address of the spi peripheral structure
  */
 template <libmcu::SpiBaseAddress const& spiBaseAddress_>
-struct SpiSyncPol {
+struct SpiPolling {
   /**
    * @brief Construct a new synchronous polling spi
    */
-  SpiSyncPol() {}
+  SpiPolling() {}
 
   template <const libmcuhw::clock::periClockConfig& t_clockConfig>
   /**

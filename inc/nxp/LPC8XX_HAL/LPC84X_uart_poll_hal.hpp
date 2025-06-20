@@ -11,7 +11,7 @@
 #ifndef LPC84X_UART_HAL_HPP
 #define LPC84X_UART_HAL_HPP
 
-#include "LPC84X_hal_uart_common.hpp"
+#include "LPC84X_uart_common_hal.hpp"
 
 namespace libmcuhal::usart {
 namespace hardware = libmcuhw::usart;
@@ -63,7 +63,7 @@ enum UartStateMasks : std::uint32_t {
  * @tparam ll_uart_sync synchronous uart low level interface class
  */
 template <libmcull::DerivedFromSyncUart auto& ll_uart_sync, typename TransferType, std::size_t action_timeout = 0x1000>
-struct SyncUart : public libmcuhal::HalUartBase {
+struct UartPolled : public libmcuhal::HalUartBase {
   /**
    * @brief Setup USART
    * @tparam &clock_config clock configuration to use

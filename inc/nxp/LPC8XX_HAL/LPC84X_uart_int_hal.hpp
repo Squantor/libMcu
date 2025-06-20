@@ -7,6 +7,7 @@
 /**
  * @file LPC84X_hal_uartasync_int.hpp
  * @brief LPC840 series interrupt synchronous UART HAL
+ * @todo depricate synchronous interrupt interfaces
  */
 #ifndef LPC84X_HAL_UARTSYNC_INT_HPP
 #define LPC84X_HAL_UARTSYNC_INT_HPP
@@ -19,11 +20,11 @@ namespace nvic = libmcuhw::nvic;
 
 template <libmcu::UartBaseAddress const& uartBaseAddress_, libmcu::NvicBaseAddress const& nvicBaseAddress_, typename TransferType,
           std::size_t bufSize>
-struct SyncUartOld {
+struct UartInterrupt {
   /**
    * @brief Construct a new asynchronous uart
    */
-  SyncUartOld() {}
+  UartInterrupt() {}
   /**
    * @brief Initialize
    */

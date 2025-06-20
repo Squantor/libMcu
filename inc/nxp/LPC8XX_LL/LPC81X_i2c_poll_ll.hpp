@@ -5,11 +5,11 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * @file LPC81X_i2c_ll.hpp
- * @brief LPC810 series I2C interface class and definitions
+ * @file LPC81X_i2c_poll_ll.hpp
+ * @brief LPC810 series polled synchronous I2C interface class and definitions
  */
-#ifndef LPC81X_I2C_HPP
-#define LPC81X_I2C_HPP
+#ifndef LPC81X_I2C_POLL_LL_HPP
+#define LPC81X_I2C_POLL_LL_HPP
 
 namespace libmcull::i2c {
 namespace hardware = libmcuhw::i2c;
@@ -18,7 +18,7 @@ namespace hardware = libmcuhw::i2c;
  * @tparam i2c_address peripheral address
  */
 template <libmcu::I2cBaseAddress i2c_address>
-struct I2c : libmcull::PeripheralBase {
+struct I2cPolled : libmcull::PeripheralBase {
   /**
    * @brief Initialize I2C master
    * @param bit_rate requested bit rate

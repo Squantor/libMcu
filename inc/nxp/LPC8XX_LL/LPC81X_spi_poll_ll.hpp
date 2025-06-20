@@ -5,13 +5,13 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * @file LPC81X_spi_ll_polled.hpp
+ * @file LPC81X_spi_poll_ll.hpp
  * @brief LPC810 series polled synchronous SPI interface class and definitions
  */
-#ifndef LPC81X_SPI_LL_POLLED_HPP
-#define LPC81X_SPI_LL_POLLED_HPP
+#ifndef LPC81X_SPI_POLL_LL_HPP
+#define LPC81X_SPI_POLL_LL_HPP
 
-#include "LPC81X_spi_ll_common.hpp"
+#include "LPC81X_spi_common_ll.hpp"
 
 namespace libmcull::spi {
 namespace hardware = libmcuhw::spi;

@@ -14,7 +14,7 @@
 #include "libmcu_LPC845M301BD48_ll.hpp"
 #include "../libmcu/libmcuhal.hpp"
 
-#include "LPC8XX_HAL/LPC84X_hal_uart.hpp"
+#include "LPC8XX_HAL/LPC84X_uart_poll_hal.hpp"
 // #include "LPC8XX_HAL/LPC84X_sync_uart_hal.hpp"
 // #include "LPC8XX_HAL/LPC84X_hal_uartsync_int.hpp"
 // #include "LPC8XX_HAL/LPC84X_hal_spisync_pol.hpp"

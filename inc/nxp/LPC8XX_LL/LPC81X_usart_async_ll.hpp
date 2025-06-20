@@ -5,13 +5,14 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * @file LPC81X_usart_ll_async.hpp
+ * @file LPC81X_usart_async_ll.hpp
  * @brief LPC810 series asynchronous USART interface class and definitions
+ * @todo depricate async polling interfaces
  */
-#ifndef LPC81X_USART_ASYNC_HPP
-#define LPC81X_USART_ASYNC_HPP
+#ifndef LPC81X_USART_ASYNC_LL_HPP
+#define LPC81X_USART_ASYNC_LL_HPP
 
-#include "LPC81X_usart_ll_common.hpp"
+#include "LPC81X_usart_common_ll.hpp"
 
 namespace libmcull::usart {
 

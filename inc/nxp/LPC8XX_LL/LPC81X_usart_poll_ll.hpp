@@ -5,13 +5,13 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * @file LPC81X_usart_ll_sync.hpp
- * @brief LPC810 series synchronous USART interface class and definitions
+ * @file LPC81X_usart_poll_ll.hpp
+ * @brief LPC810 series polled synchronous USART interface class and definitions
  */
-#ifndef LPC81X_USART_HPP
-#define LPC81X_USART_HPP
+#ifndef LPC81X_USART_POLL_LL_HPP
+#define LPC81X_USART_POLL_LL_HPP
 
-#include "LPC81X_usart_ll_common.hpp"
+#include "LPC81X_usart_common_ll.hpp"
 
 namespace libmcull::usart {
 namespace hardware = libmcuhw::usart;

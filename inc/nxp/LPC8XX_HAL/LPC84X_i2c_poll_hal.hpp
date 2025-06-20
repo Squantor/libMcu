@@ -11,7 +11,7 @@
 #ifndef LPC84X_HAL_I2CSYNC_POL_HPP
 #define LPC84X_HAL_I2CSYNC_POL_HPP
 
-#include "LPC84X_hal_i2c_common.hpp"
+#include "LPC84X_i2c_common_hal.hpp"
 
 namespace libmcuhal::i2c {
 namespace hardware = libmcuhw::i2c;
@@ -23,11 +23,11 @@ namespace nvic = libmcuhw::nvic;
  * @tparam bufSize buffer size
  */
 template <libmcu::i2cBaseAddress const& i2cBaseAddress_, std::size_t bufSize>
-struct i2cSyncPol {
+struct I2cPolling {
   /**
    * @brief Construct a new synchronous polling i2c
    */
-  i2cSyncPol() {}
+  I2cPolling() {}
   /**
    * @brief Initialize I2C peripheral clocks
    * @tparam &t_clockConfig clock configuration for this peripheral

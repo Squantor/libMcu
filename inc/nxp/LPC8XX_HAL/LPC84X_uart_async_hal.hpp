@@ -7,6 +7,7 @@
 /**
  * @file LPC84X_hal_uartasync_pol.hpp
  * @brief LPC840 series asynchronous polling UART HAL
+ * @todo depricate async polling interfaces
  */
 #ifndef LPC84X_HAL_UARTASYNC_POL_HPP
 #define LPC84X_HAL_UARTASYNC_POL_HPP
@@ -17,11 +18,11 @@ namespace libmcuhal::usart {
 namespace hardware = libmcuhw::usart;
 
 template <libmcu::UartBaseAddress const& uartBaseAddress_, typename TransferType>
-struct uartAsync {
+struct UartAsync {
   /**
    * @brief Construct a new asynchronous uart
    */
-  uartAsync() : transactionWriteState{detail::synchonousStates::IDLE}, transactionReadState{detail::synchonousStates::IDLE} {}
+  UartAsync() : transactionWriteState{detail::synchonousStates::IDLE}, transactionReadState{detail::synchonousStates::IDLE} {}
   /**
    * @brief Initialize
    */

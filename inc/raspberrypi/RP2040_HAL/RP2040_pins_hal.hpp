@@ -6,10 +6,10 @@
  */
 /**
  * @file RP2040_hal_pins.hpp
- * @brief HAL library for RP2040 pins
+ * @brief RP2040 pins HAL class
  */
-#ifndef RP2040_HAL_PINS
-#define RP2040_HAL_PINS
+#ifndef RP2040_PINS_HAL_HPP
+#define RP2040_PINS_HAL_HPP
 
 namespace libmcuhal::pins {
 namespace llpads = libmcull::pads;

@@ -6,10 +6,10 @@
  */
 /**
  * @file RP2040_hal_gpio.hpp
- * @brief HAL library for RP2040 GPIO
+ * @brief RP2040 GPIO HAL class
  */
-#ifndef RP2040_HAL_GPIO
-#define RP2040_HAL_GPIO
+#ifndef RP2040_GPIO_HAL_HPP
+#define RP2040_GPIO_HAL_HPP
 
 namespace libmcuhal::gpio {
 namespace llpads = libmcull::pads;

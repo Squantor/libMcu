@@ -17,7 +17,7 @@ namespace hardware = libmcuhw::spi;
  * @brief allowed SPI chip selects
  * We use a bit mask pattern as that matches the SPI peripheral
  */
-enum class spiSlaveSelects : uint32_t {
+enum class SpiSlaveSelects : uint32_t {
   None = 0,    /*!< No SPI slave select */
   Select0 = 1, /*!< SPI slave select 0 */
   Select1 = 2, /*!< SPI slave select 1 */

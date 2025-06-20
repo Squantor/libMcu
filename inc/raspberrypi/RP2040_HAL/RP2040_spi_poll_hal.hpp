@@ -6,7 +6,7 @@
  */
 /**
  * @file  RP2040_spi_poll_hal.hpp
- * @brief RP2040 polling SPI hal class
+ * @brief RP2040 polling SPI HAL class
  */
 #ifndef RP2040_SPI_POLL_HAL_HPP
 #define RP2040_SPI_POLL_HAL_HPP
@@ -19,7 +19,7 @@ namespace lowlevel = libmcull::spi;
  * @tparam spi_poll_lowlevel
  */
 template <const auto& spi_poll_lowlevel>
-struct spi {
+struct SpiPoll {
   /**
    * @brief
    */

@@ -5,13 +5,14 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * @file LPC81X_spi_ll_async.hpp
+ * @file LPC81X_spi_async_ll.hpp
  * @brief LPC810 series asynchronous SPI interface class and definitions
+ * @todo depricate async polling interfaces
  */
-#ifndef LPC81X_SPI_LL_ASYNC_HPP
-#define LPC81X_SPI_LL_ASYNC_HPP
+#ifndef LPC81X_SPI_ASYNC_LL_HPP
+#define LPC81X_SPI_ASYNC_LL_HPP
 
-#include "LPC81X_spi_ll_common.hpp"
+#include "LPC81X_spi_common_ll.hpp"
 
 namespace libmcull::spi {
 namespace hardware = ::libmcuhw::spi;

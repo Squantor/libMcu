@@ -13,5 +13,6 @@
 
 namespace libmcuhal::i2c {
 namespace hardware = libmcuhw::i2c;
-}
+namespace lowlevel = libmcull::i2c;
+}  // namespace libmcuhal::i2c
 #endif
