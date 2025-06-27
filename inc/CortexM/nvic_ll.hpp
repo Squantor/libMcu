@@ -156,8 +156,8 @@ struct Nvic {
    * @brief get registers from peripheral
    * @return return pointer to nvic peripheral
    */
-  static hardware::nvic* GetPeripheral() {
-    return reinterpret_cast<hardware::nvic*>(nvic_address_);
+  static hardware::Nvic* GetPeripheral() {
+    return reinterpret_cast<hardware::Nvic*>(nvic_address_);
   }
   /**
    * @brief get registers from SCB peripheral

@@ -15,7 +15,7 @@ namespace libmcuhw::nvic {
 /**
  * @brief register interface for the vectored interrupt controller
  */
-struct nvic {
+struct Nvic {
   volatile std::uint32_t ISER[1u]; /*!< interrupt set enable register */
   std::uint32_t RESERVED0[31u];
   volatile std::uint32_t ICER[1u]; /*!< interrupt clear enable register */

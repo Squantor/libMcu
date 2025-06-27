@@ -15,6 +15,7 @@ namespace libmcull::i2c {
 namespace hardware = libmcuhw::i2c;
 /**
  * @brief
+ * @todo error handling is lacking, need a centralized error handler and additional result codes
  * @tparam i2c_address
  */
 template <libmcu::I2cBaseAddress i2c_address>
@@ -116,11 +117,11 @@ struct I2cPolled : libmcull::SyncI2cBase {
   /**
    * @brief Starts transmitting I2C data to a closed I2C bus
    * Opens the I2C bus state
-   * @param data Data to transmit
+   * @param address Address data
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results StartMasterTransmit(const std::uint8_t data) {
-    GetPeripheral()->MSTDAT = static_cast<std::uint32_t>(data);
+  constexpr libmcu::Results StartMasterTransmit(const std::uint8_t address) {
+    GetPeripheral()->MSTDAT = static_cast<std::uint32_t>(address);
     GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTART;
     MasterWait();
     if ((GetPeripheral()->STAT & hardware::STAT::MSTSTATE_MASK) != hardware::STAT::MSTSTATE_TXRDY)

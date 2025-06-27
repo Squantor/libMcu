@@ -15,10 +15,19 @@ namespace libmcull::i2c {
 namespace hardware = libmcuhw::i2c;
 /**
  * @brief
+ * @todo error handling is lacking, need a centralized error handler and additional result codes
+ * @todo claim and unclaim maybe need a handle number to ensure no double unclaims
  * @tparam i2c_address
  */
 template <libmcu::I2cBaseAddress i2c_address>
 struct I2cInterrupt : libmcull::AsyncI2cBase {
+  /**
+   * @brief Get the I2C interrupt peripheral current status
+   * @return current status
+   */
+  constexpr libmcu::Results GetStatus() {
+    return current_state_;
+  }
   /**
    * @brief Initialize I2C master
    * @todo need to take into account the sampling periods of SCL SDA
@@ -37,34 +46,52 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
     std::uint32_t divider = peripheralFrequency / (bit_rate * 20);
     GetPeripheral()->TIMEOUT = hardware::TIMEOUT::TO(timeout);
     GetPeripheral()->CLKDIV = divider + 1;
+    GetPeripheral()->INTENCLR = hardware::INTENCLR::RESERVED_MASK;
+    GetPeripheral()->INTENSET = hardware::INTENSET::MSTARBLOSSEN | hardware::INTENSET::MSTSTSTPERREN |
+                                hardware::INTENSET::EVENTTIMEOUTEN | hardware::INTENSET::SCLTIMEOUTEN;
     GetPeripheral()->CFG = hardware::CFG::MSTEN;
+    current_state_ = libmcu::Results::kIdle;
     return peripheralFrequency / divider / 20;
   }
   /**
+   * @brief Claim the I2C interface
+   * @return kClaimed when the claim has been successful, any other value indicates an error
+   */
+  constexpr libmcu::Results Claim(void) {
+    if (current_state_ == libmcu::Results::kClaimed) {
+      return libmcu::Results::kInUse;
+    }
+    if (current_state_ == libmcu::Results::kIdle) {
+      current_state_ = libmcu::Results::kClaimed;
+    }
+    return current_state_;
+  }
+  /**
+   * @brief Unclaim the I2C interface
+   * @return kUnclaimed when the unclaim has been successful, any other value indicates an error
+   */
+  constexpr libmcu::Results Unclaim(void) {
+    if (current_state_ == libmcu::Results::kClaimed) {
+      current_state_ = libmcu::Results::kIdle;
+      return libmcu::Results::kUnclaimed;
+    }
+    return current_state_;
+  }
+  /**
    * @brief Transmit data to I2C device
+   * @todo need return values
    * @param address I2C device to transmit to
    * @param transmit_buffer Data to transmit
    */
-  constexpr void Transmit(const libmcull::I2cDeviceAddress address, const std::span<const std::uint8_t> transmit_buffer) {
+  constexpr libmcu::Results Transmit(const libmcull::I2cDeviceAddress address, std::span<std::uint8_t> transmit_buffer) {
+    if (current_state_ != libmcu::Results::kClaimed)
+      return current_state_;
+    current_state_ = libmcu::Results::kBusyTransmit;
     std::uint32_t slave_address = static_cast<std::uint32_t>(address.value) << 1;
-    GetPeripheral()->MSTDAT = slave_address;
-    GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTART;
-    while (!(GetPeripheral()->STAT & (hardware::STAT::MSTPENDING | hardware::STAT::EVENTTIMEOUT | hardware::STAT::SCLTIMEOUT)))
-      ;
-    if ((GetPeripheral()->STAT & hardware::STAT::MSTSTATE_MASK) != hardware::STAT::MSTSTATE_TXRDY)
-      goto stop;
-    for (const std::uint8_t &data : transmit_buffer) {
-      GetPeripheral()->MSTDAT = static_cast<std::uint32_t>(data);
-      GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTCONTINUE;
-      while (!(GetPeripheral()->STAT & (hardware::STAT::MSTPENDING | hardware::STAT::EVENTTIMEOUT | hardware::STAT::SCLTIMEOUT)))
-        ;
-      if ((GetPeripheral()->STAT & hardware::STAT::MSTSTATE_MASK) != hardware::STAT::MSTSTATE_TXRDY)
-        break;
-    }
-  stop:
-    GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTOP;
-    while (!(GetPeripheral()->STAT & (hardware::STAT::MSTPENDING | hardware::STAT::EVENTTIMEOUT | hardware::STAT::SCLTIMEOUT)))
-      ;
+    buffer_index_ = 0;
+    buffer_ = transmit_buffer;
+    StartMasterTransmit(slave_address);
+    return current_state_;
   }
   /**
    * @brief Receive data from I2C device
@@ -72,26 +99,22 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
    * @param receive_buffer place to put received data, needs to be at least size 1!
    */
   constexpr void Receive(const libmcull::I2cDeviceAddress address, std::span<std::uint8_t> receive_buffer) {
-    std::uint32_t slave_address = static_cast<std::uint32_t>(address.value) << 1;
-    GetPeripheral()->MSTDAT = slave_address | 0x01;  // set read bit in Address
+    std::uint32_t slave_address = (static_cast<std::uint32_t>(address.value) << 1) | 0x01;  // set read bit in Address
+    GetPeripheral()->MSTDAT = slave_address;
     GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTART;
-    while (!(GetPeripheral()->STAT & (hardware::STAT::MSTPENDING | hardware::STAT::EVENTTIMEOUT | hardware::STAT::SCLTIMEOUT)))
-      ;
+    MasterWait();
     if ((GetPeripheral()->STAT & hardware::STAT::MSTSTATE_MASK) != hardware::STAT::MSTSTATE_RXRDY)
       goto stop;
     receive_buffer[0] = static_cast<std::uint8_t>(GetPeripheral()->MSTDAT);
     for (std::uint8_t &data : receive_buffer.subspan(1)) {
       GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTCONTINUE;
-      while (!(GetPeripheral()->STAT & (hardware::STAT::MSTPENDING | hardware::STAT::EVENTTIMEOUT | hardware::STAT::SCLTIMEOUT)))
-        ;
+      MasterWait();
       if ((GetPeripheral()->STAT & hardware::STAT::MSTSTATE_MASK) != hardware::STAT::MSTSTATE_RXRDY)
         break;
       data = static_cast<std::uint8_t>(GetPeripheral()->MSTDAT);
     }
   stop:
-    GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTOP;
-    while (!(GetPeripheral()->STAT & (hardware::STAT::MSTPENDING | hardware::STAT::EVENTTIMEOUT | hardware::STAT::SCLTIMEOUT)))
-      ;
+    StopMaster();
   }
   /**
    * @brief Starts a transmit operation and transmits a block of data
@@ -103,16 +126,10 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
   constexpr libmcu::Results StartMasterTransmit(const libmcull::I2cDeviceAddress address,
                                                 const std::span<const std::uint8_t> transmit_buffer) {
     std::uint32_t slave_address = static_cast<std::uint32_t>(address.value) << 1;
-    GetPeripheral()->MSTDAT = slave_address;
-    GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTART;
-    MasterWait();
-    if ((GetPeripheral()->STAT & hardware::STAT::MSTSTATE_MASK) != hardware::STAT::MSTSTATE_TXRDY)
+    if (StartMasterTransmit(slave_address) != libmcu::Results::kNoError)
       return libmcu::Results::kError;
     for (const std::uint8_t &data : transmit_buffer) {
-      GetPeripheral()->MSTDAT = static_cast<std::uint32_t>(data);
-      GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTCONTINUE;
-      MasterWait();
-      if ((GetPeripheral()->STAT & hardware::STAT::MSTSTATE_MASK) != hardware::STAT::MSTSTATE_TXRDY)
+      if (ContinueMasterTransmit(data) != libmcu::Results::kNoError)
         return libmcu::Results::kError;
     }
     return libmcu::Results::kNoError;
@@ -126,16 +143,22 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
    */
   constexpr libmcu::Results StartMasterTransmit(const libmcull::I2cDeviceAddress address, const std::uint8_t data) {
     std::uint32_t slave_address = static_cast<std::uint32_t>(address.value) << 1;
-    GetPeripheral()->MSTDAT = slave_address;
+    if (StartMasterTransmit(slave_address) != libmcu::Results::kNoError)
+      return libmcu::Results::kError;
+    if (ContinueMasterTransmit(data) != libmcu::Results::kNoError)
+      return libmcu::Results::kError;
+    return libmcu::Results::kNoError;
+  }
+  /**
+   * @brief Starts transmitting I2C data to a closed I2C bus
+   * Opens the I2C bus state
+   * @param address Address data
+   * @return constexpr libmcu::Results
+   */
+  constexpr libmcu::Results StartMasterTransmit(const std::uint32_t address) {
+    GetPeripheral()->MSTDAT = static_cast<std::uint32_t>(address);
     GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTART;
-    MasterWait();
-    if ((GetPeripheral()->STAT & hardware::STAT::MSTSTATE_MASK) != hardware::STAT::MSTSTATE_TXRDY)
-      return libmcu::Results::kError;
-    GetPeripheral()->MSTDAT = static_cast<std::uint32_t>(data);
-    GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTCONTINUE;
-    MasterWait();
-    if ((GetPeripheral()->STAT & hardware::STAT::MSTSTATE_MASK) != hardware::STAT::MSTSTATE_TXRDY)
-      return libmcu::Results::kError;
+    GetPeripheral()->INTENSET = hardware::INTENSET::MSTPENDINGEN;
     return libmcu::Results::kNoError;
   }
   /**
@@ -146,10 +169,7 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
    */
   constexpr libmcu::Results ContinueMasterTransmit(const std::span<const std::uint8_t> transmit_buffer) {
     for (const std::uint8_t &data : transmit_buffer) {
-      GetPeripheral()->MSTDAT = static_cast<std::uint32_t>(data);
-      GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTCONTINUE;
-      MasterWait();
-      if ((GetPeripheral()->STAT & hardware::STAT::MSTSTATE_MASK) != hardware::STAT::MSTSTATE_TXRDY)
+      if (ContinueMasterTransmit(data) != libmcu::Results::kNoError)
         return libmcu::Results::kError;
     }
     return libmcu::Results::kNoError;
@@ -186,6 +206,36 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
       ;
   }
   /**
+   * @brief Interrupt handler for this I2C peripheral
+   * @todo there might be contention issue on current_state_, better to have a separate state variable?
+   */
+  constexpr void InterruptHandler() {
+    std::uint32_t status = GetPeripheral()->STAT & hardware::STAT::RESERVED_MASK;
+    if (status & hardware::STAT::MSTPENDING) {
+      // handle transmit/receives
+      if ((current_state_ == libmcu::Results::kBusyTransmit) || (current_state_ == libmcu::Results::kBusyReceive)) {
+        // check if buffer is empty
+        if (buffer_index_ == buffer_.size()) {
+          // stop master by sending stop and changing state
+          GetPeripheral()->INTENCLR = hardware::INTENCLR::MSTPENDINGCLR;
+          GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTOP;
+          current_state_ = libmcu::Results::kClaimed;
+        } else {
+          if (current_state_ == libmcu::Results::kBusyTransmit) {
+            // continue transmitting
+            GetPeripheral()->MSTDAT = static_cast<std::uint32_t>(buffer_[buffer_index_++]);
+            GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTCONTINUE;
+          } else {
+            // continue receiving
+            buffer_[buffer_index_++] = static_cast<std::uint8_t>(GetPeripheral()->MSTDAT);
+            GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTCONTINUE;
+          }
+        }
+      }
+    } else {
+    }
+  }
+  /**
    * @brief get the input clock of this I2C peripheral
    * @tparam config clock configuration
    * @return current input clock frequency
@@ -193,13 +243,13 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
   template <const libmcuhw::clock::PeriClockConfig &clock_config>
   constexpr std::uint32_t GetInputClockFreq() {
     // constexpr check if we configure the right peripheral
-    if constexpr ((i2c_address_ == libmcuhw::kI2c0Address) && (clock_config.peripheral == libmcuhw::clock::PeriSelect::I2C0))
+    if constexpr ((i2c_address_ == libmcuhw::kI2c0Address) && (clock_config.peripheral_ == libmcuhw::clock::PeriSelect::I2C0))
       return clock_config.GetFrequency();
-    else if constexpr ((i2c_address_ == libmcuhw::kI2c1Address) && (clock_config.peripheral == libmcuhw::clock::PeriSelect::I2C1))
+    else if constexpr ((i2c_address_ == libmcuhw::kI2c1Address) && (clock_config.peripheral_ == libmcuhw::clock::PeriSelect::I2C1))
       return clock_config.GetFrequency();
-    else if constexpr ((i2c_address_ == libmcuhw::kI2c2Address) && (clock_config.peripheral == libmcuhw::clock::PeriSelect::I2C2))
+    else if constexpr ((i2c_address_ == libmcuhw::kI2c2Address) && (clock_config.peripheral_ == libmcuhw::clock::PeriSelect::I2C2))
       return clock_config.GetFrequency();
-    else if constexpr ((i2c_address_ == libmcuhw::kI2c3Address) && (clock_config.peripheral == libmcuhw::clock::PeriSelect::I2C3))
+    else if constexpr ((i2c_address_ == libmcuhw::kI2c3Address) && (clock_config.peripheral_ == libmcuhw::clock::PeriSelect::I2C3))
       return clock_config.GetFrequency();
     else
       static_assert(false, "Clock config and peripherals unknown or not matching!");
@@ -215,6 +265,9 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
 
  private:
   static constexpr libmcu::HwAddressType i2c_address_ = i2c_address; /*!< peripheral address */
+  libmcu::Results current_state_;                                    /*!< current state */
+  std::span<std::uint8_t> buffer_;                                   /*!< current buffer */
+  std::size_t buffer_index_;                                         /*!< current buffer index */
 };
 }  // namespace libmcull::i2c
 #endif

@@ -14,13 +14,17 @@
 namespace libmcu {
 /**
  * @brief result class used in libMcu for various return values
- * @todo rename enumeration elements to adhere to google standard
+ * This enum is also used as state within asycnhronous capable classes, this is done to save on translation code between state
+ * and result
  */
-enum class Results : std::uint32_t {
+enum class Results : std::uint8_t {
   kNoError,        /*!< No error */
   kError,          /*!< Error has occured */
   kStarted,        /*!< Operation started */
+  kIdle,           /*!< Interface is idle */
   kBusy,           /*!< Operation Busy */
+  kBusyTransmit,   /*!< Interface is busy with a Transmit operation */
+  kBusyReceive,    /*!< Interface is busy with a Reception operation */
   kDone,           /*!< Operation completed*/
   kInUse,          /*!< Currently in use */
   kClaimed,        /*!< Interface has been successfully claimed */
