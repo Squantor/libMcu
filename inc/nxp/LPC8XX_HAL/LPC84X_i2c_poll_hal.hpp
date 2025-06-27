@@ -41,7 +41,7 @@ struct I2cPolling {
     we multiply by 20 as by default MSTTIME divides the timing by 2 and I2C peripheral needs 10 clocks for something.
     This is not described in the datasheet but the calculation does match their example.
     */
-    std::uint32_t peripheralFrequency = getInputClockFreq<t_clockConfig>();
+    std::uint32_t peripheralFrequency = GetInputClockFreq<t_clockConfig>();
     std::uint32_t divider = peripheralFrequency / (bitRate * 20);
     i2cPeripheral()->TIMEOUT = hardware::TIMEOUT::TO(timeout);
     i2cPeripheral()->CLKDIV = divider + 1;
@@ -113,7 +113,7 @@ struct I2cPolling {
     std::uint32_t i2cAddress = static_cast<std::uint32_t>(address.value) << 1;
     i2cPeripheral()->MSTDAT = i2cAddress;
     i2cPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTART;
-    masterWait();
+    MasterWait();
     if ((i2cPeripheral()->STAT & hardware::STAT::MSTSTATE_MASK) != hardware::STAT::MSTSTATE_TXRDY)
       return libmcu::Results::kError;
     return continueMasterWrite(transmitBuffer);
@@ -129,7 +129,7 @@ struct I2cPolling {
     std::uint32_t i2cAddress = static_cast<std::uint32_t>(address.value) << 1;
     i2cPeripheral()->MSTDAT = i2cAddress;
     i2cPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTART;
-    masterWait();
+    MasterWait();
     if ((i2cPeripheral()->STAT & hardware::STAT::MSTSTATE_MASK) != hardware::STAT::MSTSTATE_TXRDY)
       return libmcu::Results::kError;
     return continueMasterWrite(data);
@@ -158,7 +158,7 @@ struct I2cPolling {
   constexpr libmcu::Results continueMasterWrite(const std::uint8_t data) {
     i2cPeripheral()->MSTDAT = static_cast<std::uint32_t>(data);
     i2cPeripheral()->MSTCTL = hardware::MSTCTL::MSTCONTINUE;
-    masterWait();
+    MasterWait();
     if ((i2cPeripheral()->STAT & hardware::STAT::MSTSTATE_MASK) != hardware::STAT::MSTSTATE_TXRDY)
       return libmcu::Results::kError;
     return libmcu::Results::kNoError;
@@ -169,7 +169,7 @@ struct I2cPolling {
    */
   constexpr libmcu::Results stopMaster() {
     i2cPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTOP;
-    masterWait();
+    MasterWait();
     return libmcu::Results::kNoError;
   }
 
@@ -177,7 +177,7 @@ struct I2cPolling {
   /**
    * @brief Waits until the master action has completed
    */
-  constexpr void masterWait() {
+  constexpr void MasterWait() {
     // @todo add timeout
     while (!(i2cPeripheral()->STAT & (hardware::STAT::MSTPENDING | hardware::STAT::EVENTTIMEOUT | hardware::STAT::SCLTIMEOUT)))
       ;
@@ -188,9 +188,9 @@ struct I2cPolling {
    * @return current input clock frequency
    */
   template <auto& config>
-  constexpr std::uint32_t getInputClockFreq() {
+  constexpr std::uint32_t GetInputClockFreq() {
     static_assert(config.peripheral == libmcuhw::clock::periSelect::I2C0);
-    return config.getFrequency();
+    return config.GetFrequency();
   }
   /**
    * @brief access i2c registers

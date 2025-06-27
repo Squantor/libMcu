@@ -37,7 +37,7 @@ struct UartInterrupt {
   template <auto& config>
   constexpr std::uint32_t init(std::uint32_t baudRate) {
     // we upscale the input clock by 16 to detect rounding errors
-    std::uint32_t baudDivider = (getInputClockFreq<config>() * 16) / (baudRate * 16);
+    std::uint32_t baudDivider = (GetInputClockFreq<config>() * 16) / (baudRate * 16);
     // check fractional part and round when needed
     if ((baudDivider & 0x0F) < 7)
       baudDivider = baudDivider >> 4;
@@ -48,7 +48,7 @@ struct UartInterrupt {
     usartPeripheral()->CFG = hardware::CFG::kENABLE | static_cast<std::uint32_t>(uartLength::SIZE_8) |
                              static_cast<std::uint32_t>(uartParity::NONE) | static_cast<std::uint32_t>(uartStop::STOP_1);
     usartPeripheral()->INTENSET = hardware::INTENSET::kRXRDYEN;
-    return getInputClockFreq<config>() / 16 / baudDivider;
+    return GetInputClockFreq<config>() / 16 / baudDivider;
   }
   /**
    * @brief Setup USART
@@ -60,12 +60,12 @@ struct UartInterrupt {
    */
   template <auto& config>
   constexpr std::uint32_t init(std::uint32_t baudRate, uartLength lengthBits, uartParity parity, uartStop stopBits) {
-    std::uint32_t baudDivider = getInputClockFreq<config>() / (baudRate * 16);
+    std::uint32_t baudDivider = GetInputClockFreq<config>() / (baudRate * 16);
     usartPeripheral()->BRG = baudDivider;
     usartPeripheral()->CFG = hardware::CFG::kENABLE | static_cast<std::uint32_t>(lengthBits) | static_cast<std::uint32_t>(parity) |
                              static_cast<std::uint32_t>(stopBits);
     usartPeripheral()->INTENSET = hardware::INTENSET::kRXRDYEN;
-    return getInputClockFreq<config>() / 16 / baudDivider;
+    return GetInputClockFreq<config>() / 16 / baudDivider;
   }
   /**
    * @brief blocking USART transmit
@@ -141,8 +141,8 @@ struct UartInterrupt {
    * @return current input clock frequency
    */
   template <auto& config>
-  constexpr std::uint32_t getInputClockFreq() {
-    return config.getFrequency();
+  constexpr std::uint32_t GetInputClockFreq() {
+    return config.GetFrequency();
   }
 
  private:

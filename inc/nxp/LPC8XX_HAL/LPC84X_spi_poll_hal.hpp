@@ -45,7 +45,7 @@ struct SpiPolling {
     while (!(spiPeripheral()->STAT & hardware::STAT::kMSTIDLE))
       ;
     spiPeripheral()->CFG = 0;  // disable
-    std::uint32_t peripheralFrequency = getInputClockFreq<t_clockConfig>();
+    std::uint32_t peripheralFrequency = GetInputClockFreq<t_clockConfig>();
     std::uint32_t divider = peripheralFrequency / bitRate;
     spiPeripheral()->DIV = hardware::DIV::DIVVAL(divider);
     spiPeripheral()->DLY = hardware::DLY::PRE_DELAY(preDelay) | hardware::DLY::POST_DELAY(postDelay) |
@@ -108,9 +108,9 @@ struct SpiPolling {
    * @return current input clock frequency
    */
   template <auto& config>
-  constexpr std::uint32_t getInputClockFreq() {
+  constexpr std::uint32_t GetInputClockFreq() {
     static_assert(config.peripheral == libmcuhw::clock::periSelect::SPI0);
-    return config.getFrequency();
+    return config.GetFrequency();
   }
   /**
    * @brief access spi registers

@@ -34,11 +34,11 @@ struct UartAsync {
    */
   template <auto& config>
   constexpr std::uint32_t init(std::uint32_t baudRate) {
-    std::uint32_t baudDivider = getInputClockFreq<config>() / (baudRate * 16);
+    std::uint32_t baudDivider = GetInputClockFreq<config>() / (baudRate * 16);
     usartPeripheral()->BRG = baudDivider;
     usartPeripheral()->CFG = hardware::CFG::ENABLE | static_cast<std::uint32_t>(uartLength::SIZE_8) |
                              static_cast<std::uint32_t>(uartParity::NONE) | static_cast<std::uint32_t>(uartStop::STOP_1);
-    return getInputClockFreq<config>() / 16 / baudDivider;
+    return GetInputClockFreq<config>() / 16 / baudDivider;
   }
   /**
    * @brief Setup USART
@@ -50,11 +50,11 @@ struct UartAsync {
    */
   template <auto& config>
   constexpr std::uint32_t init(std::uint32_t baudRate, uartLength lengthBits, uartParity parity, uartStop stopBits) {
-    std::uint32_t baudDivider = getInputClockFreq<config>() / (baudRate * 16);
+    std::uint32_t baudDivider = GetInputClockFreq<config>() / (baudRate * 16);
     usartPeripheral()->BRG = baudDivider;
     usartPeripheral()->CFG = hardware::CFG::ENABLE | static_cast<std::uint32_t>(lengthBits) | static_cast<std::uint32_t>(parity) |
                              static_cast<std::uint32_t>(stopBits);
-    return getInputClockFreq<config>() / 16 / baudDivider;
+    return GetInputClockFreq<config>() / 16 / baudDivider;
   }
   /**
    * @brief Claim the Usart interface
@@ -171,7 +171,7 @@ struct UartAsync {
    * @return current input clock frequency
    */
   template <auto& config>
-  constexpr std::uint32_t getInputClockFreq() {
+  constexpr std::uint32_t GetInputClockFreq() {
     if constexpr (uartBaseAddress == libmcuhw::usart0Address) {
       if constexpr (config.uart0Source == libmcuhw::clock::periSource::MAIN) {
         return config.mainFreq;

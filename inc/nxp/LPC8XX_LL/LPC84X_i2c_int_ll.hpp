@@ -33,7 +33,7 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
     we multiply by 20 as by default MSTTIME divides the timing by 2 and I2C peripheral needs 10 clocks for something.
     This is not described in the datasheet but the calculation does match their example.
     */
-    std::uint32_t peripheralFrequency = getInputClockFreq<clock_config>();
+    std::uint32_t peripheralFrequency = GetInputClockFreq<clock_config>();
     std::uint32_t divider = peripheralFrequency / (bit_rate * 20);
     GetPeripheral()->TIMEOUT = hardware::TIMEOUT::TO(timeout);
     GetPeripheral()->CLKDIV = divider + 1;
@@ -105,13 +105,13 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
     std::uint32_t slave_address = static_cast<std::uint32_t>(address.value) << 1;
     GetPeripheral()->MSTDAT = slave_address;
     GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTART;
-    masterWait();
+    MasterWait();
     if ((GetPeripheral()->STAT & hardware::STAT::MSTSTATE_MASK) != hardware::STAT::MSTSTATE_TXRDY)
       return libmcu::Results::kError;
     for (const std::uint8_t &data : transmit_buffer) {
       GetPeripheral()->MSTDAT = static_cast<std::uint32_t>(data);
       GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTCONTINUE;
-      masterWait();
+      MasterWait();
       if ((GetPeripheral()->STAT & hardware::STAT::MSTSTATE_MASK) != hardware::STAT::MSTSTATE_TXRDY)
         return libmcu::Results::kError;
     }
@@ -128,12 +128,12 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
     std::uint32_t slave_address = static_cast<std::uint32_t>(address.value) << 1;
     GetPeripheral()->MSTDAT = slave_address;
     GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTART;
-    masterWait();
+    MasterWait();
     if ((GetPeripheral()->STAT & hardware::STAT::MSTSTATE_MASK) != hardware::STAT::MSTSTATE_TXRDY)
       return libmcu::Results::kError;
     GetPeripheral()->MSTDAT = static_cast<std::uint32_t>(data);
     GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTCONTINUE;
-    masterWait();
+    MasterWait();
     if ((GetPeripheral()->STAT & hardware::STAT::MSTSTATE_MASK) != hardware::STAT::MSTSTATE_TXRDY)
       return libmcu::Results::kError;
     return libmcu::Results::kNoError;
@@ -148,7 +148,7 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
     for (const std::uint8_t &data : transmit_buffer) {
       GetPeripheral()->MSTDAT = static_cast<std::uint32_t>(data);
       GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTCONTINUE;
-      masterWait();
+      MasterWait();
       if ((GetPeripheral()->STAT & hardware::STAT::MSTSTATE_MASK) != hardware::STAT::MSTSTATE_TXRDY)
         return libmcu::Results::kError;
     }
@@ -163,7 +163,7 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
   constexpr libmcu::Results ContinueMasterTransmit(const std::uint8_t data) {
     GetPeripheral()->MSTDAT = static_cast<std::uint32_t>(data);
     GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTCONTINUE;
-    masterWait();
+    MasterWait();
     if ((GetPeripheral()->STAT & hardware::STAT::MSTSTATE_MASK) != hardware::STAT::MSTSTATE_TXRDY)
       return libmcu::Results::kError;
     return libmcu::Results::kNoError;
@@ -174,13 +174,13 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
    */
   constexpr libmcu::Results StopMaster() {
     GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTOP;
-    masterWait();
+    MasterWait();
     return libmcu::Results::kNoError;
   }
   /**
    * @brief Waits until the master action has completed
    */
-  constexpr void masterWait() {
+  constexpr void MasterWait() {
     // @todo add timeout
     while (!(GetPeripheral()->STAT & (hardware::STAT::MSTPENDING | hardware::STAT::EVENTTIMEOUT | hardware::STAT::SCLTIMEOUT)))
       ;
@@ -191,16 +191,16 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
    * @return current input clock frequency
    */
   template <const libmcuhw::clock::PeriClockConfig &clock_config>
-  constexpr std::uint32_t getInputClockFreq() {
+  constexpr std::uint32_t GetInputClockFreq() {
     // constexpr check if we configure the right peripheral
     if constexpr ((i2c_address_ == libmcuhw::kI2c0Address) && (clock_config.peripheral == libmcuhw::clock::PeriSelect::I2C0))
-      return clock_config.getFrequency();
+      return clock_config.GetFrequency();
     else if constexpr ((i2c_address_ == libmcuhw::kI2c1Address) && (clock_config.peripheral == libmcuhw::clock::PeriSelect::I2C1))
-      return clock_config.getFrequency();
+      return clock_config.GetFrequency();
     else if constexpr ((i2c_address_ == libmcuhw::kI2c2Address) && (clock_config.peripheral == libmcuhw::clock::PeriSelect::I2C2))
-      return clock_config.getFrequency();
+      return clock_config.GetFrequency();
     else if constexpr ((i2c_address_ == libmcuhw::kI2c3Address) && (clock_config.peripheral == libmcuhw::clock::PeriSelect::I2C3))
-      return clock_config.getFrequency();
+      return clock_config.GetFrequency();
     else
       static_assert(false, "Clock config and peripherals unknown or not matching!");
     return 0;
