@@ -25,6 +25,7 @@ enum class Results : std::uint8_t {
   kBusy,           /*!< Operation Busy */
   kBusyTransmit,   /*!< Interface is busy with a Transmit operation */
   kBusyReceive,    /*!< Interface is busy with a Reception operation */
+  kWaitForNext,    /*!< Interface is waiting for the next operation to start */
   kDone,           /*!< Operation completed*/
   kInUse,          /*!< Currently in use */
   kClaimed,        /*!< Interface has been successfully claimed */
