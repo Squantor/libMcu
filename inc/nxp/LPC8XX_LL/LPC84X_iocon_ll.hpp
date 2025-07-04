@@ -7,6 +7,7 @@
 /**
  * @file LPC84X_iocon_ll.hpp
  * @brief LPC84X series IOCON interface class and definitions
+ * @todo refactor enum class definitions and namespace settings to CamelCase
  */
 #ifndef LPC84X_IOCON_LL_HPP
 #define LPC84X_IOCON_LL_HPP
@@ -17,40 +18,40 @@ namespace hardware = libmcuhw::iocon;
  * @brief Pin pull modes
  */
 enum class PullModes : std::uint32_t {
-  INACTIVE = hardware::PIO::kINACTIVE, /*!< No pullup/down */
-  PULLDOWN = hardware::PIO::kPULLDOWN, /*!< Pulldown enabled */
-  PULLUP = hardware::PIO::kPULLUP,     /*!< Pullup enabled */
-  REPEATER = hardware::PIO::kREPEATER, /*!< Repeater mode */
+  Inactive = hardware::PIO::INACTIVE, /*!< No pullup/down */
+  Pulldown = hardware::PIO::PULLDOWN, /*!< Pulldown enabled */
+  Pullup = hardware::PIO::PULLUP,     /*!< Pullup enabled */
+  Repeater = hardware::PIO::REPEATER, /*!< Repeater mode */
 };
 /**
  * @brief pin filtering modes
  */
 enum class PinFilters : std::uint32_t {
-  BYPASS = hardware::PIO::kBYPASS,   /*!< Bypassed input filter */
-  CYCLES1 = hardware::PIO::kCYCLES1, /*!< 1 clock cycle pulses are filtered */
-  CYCLES2 = hardware::PIO::kCYCLES2, /*!< 2 clock cycle pulses are filtered */
-  CYCLES3 = hardware::PIO::kCYCLES3, /*!< 3 clock cycle pulses are filtered */
+  Bypass = hardware::PIO::BYPASS,   /*!< Bypassed input filter */
+  Cycles1 = hardware::PIO::CYCLES1, /*!< 1 clock cycle pulses are filtered */
+  Cycles2 = hardware::PIO::CYCLES2, /*!< 2 clock cycle pulses are filtered */
+  Cycles3 = hardware::PIO::CYCLES3, /*!< 3 clock cycle pulses are filtered */
 };
 /**
  * @brief Clock divider to use for filtering
  * @todo change this to a consteval function
  */
 enum class ClockDividers : std::uint32_t {
-  IOCONCLKDIV0 = hardware::PIO::kIOCONCLKDIV0, /*!< use IOCONCLKDIV0 in SYSCON */
-  IOCONCLKDIV1 = hardware::PIO::kIOCONCLKDIV1, /*!< use IOCONCLKDIV1 in SYSCON */
-  IOCONCLKDIV2 = hardware::PIO::kIOCONCLKDIV2, /*!< use IOCONCLKDIV2 in SYSCON */
-  IOCONCLKDIV3 = hardware::PIO::kIOCONCLKDIV3, /*!< use IOCONCLKDIV3 in SYSCON */
-  IOCONCLKDIV4 = hardware::PIO::kIOCONCLKDIV4, /*!< use IOCONCLKDIV4 in SYSCON */
-  IOCONCLKDIV5 = hardware::PIO::kIOCONCLKDIV5, /*!< use IOCONCLKDIV5 in SYSCON */
-  IOCONCLKDIV6 = hardware::PIO::kIOCONCLKDIV6, /*!< use IOCONCLKDIV6 in SYSCON */
+  IoconClkDiv0 = hardware::PIO::IOCONCLKDIV0, /*!< use IOCONCLKDIV0 in SYSCON */
+  IoconClkDiv1 = hardware::PIO::IOCONCLKDIV1, /*!< use IOCONCLKDIV1 in SYSCON */
+  IoconClkDiv2 = hardware::PIO::IOCONCLKDIV2, /*!< use IOCONCLKDIV2 in SYSCON */
+  IoconClkDiv3 = hardware::PIO::IOCONCLKDIV3, /*!< use IOCONCLKDIV3 in SYSCON */
+  IoconClkDiv4 = hardware::PIO::IOCONCLKDIV4, /*!< use IOCONCLKDIV4 in SYSCON */
+  IoconClkDiv5 = hardware::PIO::IOCONCLKDIV5, /*!< use IOCONCLKDIV5 in SYSCON */
+  IoconClkDiv6 = hardware::PIO::IOCONCLKDIV6, /*!< use IOCONCLKDIV6 in SYSCON */
 };
 /**
  * @brief I2C pin modes
  */
 enum class I2cModes : std::uint32_t {
-  I2C_STD = hardware::PIO::kI2C_STD,   /*!< standard/fast I2C mode */
-  IO_STD = hardware::PIO::kIO_STD,     /*!< standard I/O functionality */
-  I2C_FAST = hardware::PIO::kI2C_FAST, /*!< fast mode plus I2C */
+  Standard = hardware::PIO::I2C_STD, /*!< standard/fast I2C mode */
+  Gpio = hardware::PIO::IO_STD,      /*!< standard I/O functionality */
+  Fast = hardware::PIO::I2C_FAST,    /*!< fast mode plus I2C */
 };
 template <libmcu::IoconBaseAddress iocon_address>
 struct Iocon : libmcull::PeripheralBase {

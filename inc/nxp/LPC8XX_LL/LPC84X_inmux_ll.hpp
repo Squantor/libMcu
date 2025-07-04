@@ -18,45 +18,45 @@ namespace hardware = libmcuhw::inmux;
  * @brief SCT0 input index
  */
 enum class SctInputIndexes : std::size_t {
-  kSct0Inmux0 = 0, /*!< input mux for SCT input 0 */
-  kSct0Inmux1 = 1, /*!< input mux for SCT input 1 */
-  kSct0Inmux2 = 2, /*!< input mux for SCT input 2 */
-  kSct0Inmux3 = 3, /*!< input mux for SCT input 3 */
+  Sct0Inmux0 = 0, /*!< input mux for SCT input 0 */
+  Sct0Inmux1 = 1, /*!< input mux for SCT input 1 */
+  Sct0Inmux2 = 2, /*!< input mux for SCT input 2 */
+  Sct0Inmux3 = 3, /*!< input mux for SCT input 3 */
 };
 /**
  * @brief SCT0 input sources
  */
 enum class SctInputSources : std::uint32_t {
-  kSctPin0 = hardware::SCT_INMUX::kSCT_PIN0,             /*!< SCT input pin 0 */
-  kSctPin1 = hardware::SCT_INMUX::kSCT_PIN1,             /*!< SCT input pin 1 */
-  kSctPin2 = hardware::SCT_INMUX::kSCT_PIN2,             /*!< SCT input pin 2 */
-  kSctPin3 = hardware::SCT_INMUX::kSCT_PIN3,             /*!< SCT input pin 3 */
-  kAdcThcmpIrq = hardware::SCT_INMUX::kADC_THCMP_IRQ,    /*!< ADC Threshold comparator interrupt */
-  kAcmpOut = hardware::SCT_INMUX::kACMP_O,               /*!< Analog comparator output */
-  kTimer0Match2 = hardware::SCT_INMUX::kT0_MAT2,         /*!< Timer 0 Match 2 */
-  kGpioIntBMatch = hardware::SCT_INMUX::kGPIOINT_BMATCH, /*!< GPIO interrupt B match */
-  kArmTxEvent = hardware::SCT_INMUX::kARM_TXEV,          /*!< ARM core TXEV event */
-  kDebugHalted = hardware::SCT_INMUX::kDEBUG_HALTED,     /*!< Debug halted? */
-  kNone = 0xFF,                                          /*!< default */
+  SctPin0 = hardware::SCT_INMUX::SCT_PIN0,             /*!< SCT input pin 0 */
+  SctPin1 = hardware::SCT_INMUX::SCT_PIN1,             /*!< SCT input pin 1 */
+  SctPin2 = hardware::SCT_INMUX::SCT_PIN2,             /*!< SCT input pin 2 */
+  SctPin3 = hardware::SCT_INMUX::SCT_PIN3,             /*!< SCT input pin 3 */
+  AdcThcmpIrq = hardware::SCT_INMUX::ADC_THCMP_IRQ,    /*!< ADC Threshold comparator interrupt */
+  AcmpOut = hardware::SCT_INMUX::ACMP_O,               /*!< Analog comparator output */
+  Timer0Match2 = hardware::SCT_INMUX::T0_MAT2,         /*!< Timer 0 Match 2 */
+  GpioIntBMatch = hardware::SCT_INMUX::GPIOINT_BMATCH, /*!< GPIO interrupt B match */
+  ArmTxEvent = hardware::SCT_INMUX::ARM_TXEV,          /*!< ARM core TXEV event */
+  DebugHalted = hardware::SCT_INMUX::DEBUG_HALTED,     /*!< Debug halted? */
+  None = 0xFF,                                         /*!< default */
 };
 /**
  * @brief DMA input multiplexer peripheral triggers
  */
 enum class DmaPeriInputTriggers : std::uint32_t {
-  kAdcSeqAIrq = hardware::DMA_ITRIG_INMUX::kADC_SEQA_IRQ,         /*!< ADC sequence A interrupt */
-  kAdcSeqBIrq = hardware::DMA_ITRIG_INMUX::kADC_SEQB_IRQ,         /*!< ADC sequence B interrupt */
-  kSctDma0 = hardware::DMA_ITRIG_INMUX::kSCT_DMA0_IRQ,            /*!< SCT DMA 0 interrupt */
-  kSctDma1 = hardware::DMA_ITRIG_INMUX::kSCT_DMA1_IRQ,            /*!< SCT DMA 1 interrupt */
-  KAcmpO = hardware::DMA_ITRIG_INMUX::kACMP_O,                    /*!< ACMP output */
-  kPinInt4 = hardware::DMA_ITRIG_INMUX::kPININT4,                 /*!< GPIO interrupt 4 */
-  kPinInt5 = hardware::DMA_ITRIG_INMUX::kPININT5,                 /*!< GPIO interrupt 5 */
-  kPinInt6 = hardware::DMA_ITRIG_INMUX::kPININT6,                 /*!< GPIO interrupt 6 */
-  kPinInt7 = hardware::DMA_ITRIG_INMUX::kPININT7,                 /*!< GPIO interrupt 7 */
-  kTimer0DmaReqM0 = hardware::DMA_ITRIG_INMUX::kT0_DMAREQ_M0,     /*!< Timer 0 DMA request 0 */
-  kTimer0DmaReqM1 = hardware::DMA_ITRIG_INMUX::kT0_DMAREQ_M1,     /*!< Timer 0 DMA request 1 */
-  kDmaInmuxInmux0 = hardware::DMA_ITRIG_INMUX::kDMA_INMUX_INMUX0, /*!< DMA trigger mux 0 */
-  kDmaInmuxInmux1 = hardware::DMA_ITRIG_INMUX::kDMA_INMUX_INMUX1, /*!< DMA trigger mux 1 */
-  kNone = 0xFF,                                                   /*!< default */
+  AdcSeqAIrq = hardware::DMA_ITRIG_INMUX::ADC_SEQA_IRQ,         /*!< ADC sequence A interrupt */
+  AdcSeqBIrq = hardware::DMA_ITRIG_INMUX::ADC_SEQB_IRQ,         /*!< ADC sequence B interrupt */
+  SctDma0 = hardware::DMA_ITRIG_INMUX::SCT_DMA0_IRQ,            /*!< SCT DMA 0 interrupt */
+  SctDma1 = hardware::DMA_ITRIG_INMUX::SCT_DMA1_IRQ,            /*!< SCT DMA 1 interrupt */
+  AcmpO = hardware::DMA_ITRIG_INMUX::ACMP_O,                    /*!< ACMP output */
+  PinInt4 = hardware::DMA_ITRIG_INMUX::PININT4,                 /*!< GPIO interrupt 4 */
+  PinInt5 = hardware::DMA_ITRIG_INMUX::PININT5,                 /*!< GPIO interrupt 5 */
+  PinInt6 = hardware::DMA_ITRIG_INMUX::PININT6,                 /*!< GPIO interrupt 6 */
+  PinInt7 = hardware::DMA_ITRIG_INMUX::PININT7,                 /*!< GPIO interrupt 7 */
+  Timer0DmaReqM0 = hardware::DMA_ITRIG_INMUX::T0_DMAREQ_M0,     /*!< Timer 0 DMA request 0 */
+  Timer0DmaReqM1 = hardware::DMA_ITRIG_INMUX::T0_DMAREQ_M1,     /*!< Timer 0 DMA request 1 */
+  DmaInmuxInmux0 = hardware::DMA_ITRIG_INMUX::DMA_INMUX_INMUX0, /*!< DMA trigger mux 0 */
+  DmaInmuxInmux1 = hardware::DMA_ITRIG_INMUX::DMA_INMUX_INMUX1, /*!< DMA trigger mux 1 */
+  None = 0xFF,                                                  /*!< default */
 };
 
 /**

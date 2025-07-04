@@ -18,26 +18,26 @@ namespace hardware = libmcuhw::usart;
  * @brief amount of bits to transmit
  */
 enum class UartLength : std::uint32_t {
-  SIZE_7 = hardware::CFG::kDATALEN7BIT, /*!< USART transmit length of 7 bits */
-  SIZE_8 = hardware::CFG::kDATALEN8BIT, /*!< USART transmit length of 8 bits */
-  SIZE_9 = hardware::CFG::kDATALEN9BIT, /*!< USART transmit length of 9 bits */
+  SIZE_7 = hardware::CFG::DATALEN7BIT, /*!< USART transmit length of 7 bits */
+  SIZE_8 = hardware::CFG::DATALEN8BIT, /*!< USART transmit length of 8 bits */
+  SIZE_9 = hardware::CFG::DATALEN9BIT, /*!< USART transmit length of 9 bits */
 };
 
 /**
  * @brief Parity bit options
  */
 enum class UartParity : std::uint32_t {
-  NONE = hardware::CFG::kPARITY_NONE, /*!< No parity */
-  EVEN = hardware::CFG::kPARITY_EVEN, /*!< Even parity */
-  ODD = hardware::CFG::kPARITY_ODD,   /*!< Odd parity */
+  NONE = hardware::CFG::PARITY_NONE, /*!< No parity */
+  EVEN = hardware::CFG::PARITY_EVEN, /*!< Even parity */
+  ODD = hardware::CFG::PARITY_ODD,   /*!< Odd parity */
 };
 
 /**
  * @brief stop bit options
  */
 enum class UartStop : std::uint32_t {
-  STOP_1 = hardware::CFG::kSTOPBIT1, /*!< 1 stop bit */
-  STOP_2 = hardware::CFG::kSTOPBIT2, /*!< 2 stop bits */
+  STOP_1 = hardware::CFG::STOPBIT1, /*!< 1 stop bit */
+  STOP_2 = hardware::CFG::STOPBIT2, /*!< 2 stop bits */
 };
 
 /**
@@ -46,21 +46,21 @@ enum class UartStop : std::uint32_t {
  * These bit patterns match the USART STAT register settings
  */
 enum UartStatus : std::uint32_t {
-  RXRDY = hardware::STAT::kRXRDY,               /*!< Receiver ready flag, Read only */
-  RXIDLE = hardware::STAT::kRXIDLE,             /*!< Receiver idle, Read only */
-  TXRDY = hardware::STAT::kTXRDY,               /*!< Transmitter ready, Read only  */
-  TXIDLE = hardware::STAT::kTXIDLE,             /*!< Transmitter idle, Read only */
-  CTS = hardware::STAT::kCTS,                   /*!< CTS signal state, Read only */
-  DELTACTS = hardware::STAT::kDELTACTS,         /*!< Change detected in CTS signal, write 1 clear */
-  TXDISINT = hardware::STAT::kTXDISINT,         /*!< Transmitter disabled confirmation, read only  */
-  OVERRUNINT = hardware::STAT::kOVERRUNINT,     /*!< Overrun error interrupt flag, write 1 clear */
-  RXBRK = hardware::STAT::kRXBRK,               /*!< Received break, read only */
-  DELTARXBRK = hardware::STAT::kDELTARXBRK,     /*!< Change detected in receiver break, write 1 clear */
-  START = hardware::STAT::kSTART,               /*!< Start condition detected, write 1 clear */
-  FRAMERRINT = hardware::STAT::kFRAMERRINT,     /*!< Frame error interrupt flag, write 1 clear */
-  PARITYERRINT = hardware::STAT::kPARITYERRINT, /*!< Parity error interrupt flag, write 1 clear */
-  RXNOISEINT = hardware::STAT::kRXNOISEINT,     /*!< Recieved noise interrupt flag, write 1 clear*/
-  ABERR = hardware::STAT::kABERR,               /*!< Autobaud error flag, write 1 clears */
+  RXRDY = hardware::STAT::RXRDY,               /*!< Receiver ready flag, Read only */
+  RXIDLE = hardware::STAT::RXIDLE,             /*!< Receiver idle, Read only */
+  TXRDY = hardware::STAT::TXRDY,               /*!< Transmitter ready, Read only  */
+  TXIDLE = hardware::STAT::TXIDLE,             /*!< Transmitter idle, Read only */
+  CTS = hardware::STAT::CTS,                   /*!< CTS signal state, Read only */
+  DELTACTS = hardware::STAT::DELTACTS,         /*!< Change detected in CTS signal, write 1 clear */
+  TXDISINT = hardware::STAT::TXDISINT,         /*!< Transmitter disabled confirmation, read only  */
+  OVERRUNINT = hardware::STAT::OVERRUNINT,     /*!< Overrun error interrupt flag, write 1 clear */
+  RXBRK = hardware::STAT::RXBRK,               /*!< Received break, read only */
+  DELTARXBRK = hardware::STAT::DELTARXBRK,     /*!< Change detected in receiver break, write 1 clear */
+  START = hardware::STAT::START,               /*!< Start condition detected, write 1 clear */
+  FRAMERRINT = hardware::STAT::FRAMERRINT,     /*!< Frame error interrupt flag, write 1 clear */
+  PARITYERRINT = hardware::STAT::PARITYERRINT, /*!< Parity error interrupt flag, write 1 clear */
+  RXNOISEINT = hardware::STAT::RXNOISEINT,     /*!< Recieved noise interrupt flag, write 1 clear*/
+  ABERR = hardware::STAT::ABERR,               /*!< Autobaud error flag, write 1 clears */
 };
 
 namespace detail {

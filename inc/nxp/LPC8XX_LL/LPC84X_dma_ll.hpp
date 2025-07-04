@@ -23,78 +23,78 @@ using DescriptorTable = std::array<hardware::DmaDescriptor, hardware::kChannelCo
  * @brief DMA channels
  */
 enum class SoftwareDescriptors : std::size_t {
-  kChannel0 = 0,
-  kChannel1 = 1,
-  kChannel2 = 2,
-  kChannel3 = 3,
-  kChannel4 = 4,
-  kChannel5 = 5,
-  kChannel6 = 6,
-  kChannel7 = 7,
-  kChannel8 = 8,
-  kChannel9 = 9,
-  kChannel10 = 10,
-  kChannel11 = 11,
-  kChannel12 = 12,
-  kChannel13 = 13,
-  kChannel14 = 14,
-  kChannel15 = 15,
-  kChannel16 = 16,
-  kChannel17 = 17,
-  kChannel18 = 18,
-  kChannel19 = 19,
-  kChannel20 = 20,
-  kChannel21 = 21,
-  kChannel22 = 22,
-  kChannel23 = 23,
-  kChannel24 = 24
+  Channel0 = 0,
+  Channel1 = 1,
+  Channel2 = 2,
+  Channel3 = 3,
+  Channel4 = 4,
+  Channel5 = 5,
+  Channel6 = 6,
+  Channel7 = 7,
+  Channel8 = 8,
+  Channel9 = 9,
+  Channel10 = 10,
+  Channel11 = 11,
+  Channel12 = 12,
+  Channel13 = 13,
+  Channel14 = 14,
+  Channel15 = 15,
+  Channel16 = 16,
+  Channel17 = 17,
+  Channel18 = 18,
+  Channel19 = 19,
+  Channel20 = 20,
+  Channel21 = 21,
+  Channel22 = 22,
+  Channel23 = 23,
+  Channel24 = 24
 };
 /**
  * @brief DMA peripheral request input mapping to channels
  */
 enum class HardwareDescriptors : std::uint32_t {
-  kUSART0_RX_DMA = hardware::kUSART0_RX_DMA, /*!< USART0 RX DMA request input */
-  kUSART0_TX_DMA = hardware::kUSART0_TX_DMA, /*!< USART0 TX DMA request input */
-  kUSART1_RX_DMA = hardware::kUSART1_RX_DMA, /*!< USART1 RX DMA request input */
-  kUSART1_TX_DMA = hardware::kUSART1_TX_DMA, /*!< USART1 TX DMA request input */
-  kUSART2_RX_DMA = hardware::kUSART2_RX_DMA, /*!< USART2 RX DMA request input */
-  kUSART2_TX_DMA = hardware::kUSART2_TX_DMA, /*!< USART2 TX DMA request input */
-  kUSART3_RX_DMA = hardware::kUSART3_RX_DMA, /*!< USART3 RX DMA request input */
-  kUSART3_TX_DMA = hardware::kUSART3_TX_DMA, /*!< USART3 TX DMA request input */
-  kUSART4_RX_DMA = hardware::kUSART4_RX_DMA, /*!< USART4 RX DMA request input */
-  kUSART4_TX_DMA = hardware::kUSART4_TX_DMA, /*!< USART4 TX DMA request input */
-  kSPI0_RX_DMA = hardware::kSPI0_RX_DMA,     /*!< SPI0 RX DMA request input */
-  kSPI0_TX_DMA = hardware::kSPI0_TX_DMA,     /*!< SPI0 TX DMA request input */
-  kSPI1_RX_DMA = hardware::kSPI1_RX_DMA,     /*!< SPI1 RX DMA request input */
-  kSPI1_TX_DMA = hardware::kSPI1_TX_DMA,     /*!< SPI1 TX DMA request input */
-  kI2C0_SLV_DMA = hardware::kI2C0_SLV_DMA,   /*!< I2C0 slave DMA request input */
-  kI2C0_MST_DMA = hardware::kI2C0_MST_DMA,   /*!< I2C0 master DMA request input */
-  kI2C1_SLV_DMA = hardware::kI2C1_SLV_DMA,   /*!< I2C1 slave DMA request input */
-  kI2C1_MST_DMA = hardware::kI2C1_MST_DMA,   /*!< I2C1 master DMA request input */
-  kI2C2_SLV_DMA = hardware::kI2C2_SLV_DMA,   /*!< I2C2 slave DMA request input */
-  kI2C2_MST_DMA = hardware::kI2C2_MST_DMA,   /*!< I2C2 master DMA request input */
-  kI2C3_SLV_DMA = hardware::kI2C3_SLV_DMA,   /*!< I2C3 slave DMA request input */
-  kI2C3_MST_DMA = hardware::kI2C3_MST_DMA,   /*!< I2C3 master DMA request input */
-  kDAC0_DMAREQ = hardware::kDAC0_DMAREQ,     /*!< DAC0 DMA request input */
-  kDAC1_DMAREQ = hardware::kDAC1_DMAREQ,     /*!< DAC1 DMA request input */
-  kCAPT_DMA = hardware::kCAPT_DMA,           /*!< Capture DMA request input */
+  Usart0RxDma = hardware::USART0_RX_DMA,  /*!< USART0 RX DMA request input */
+  Usart0TxDma = hardware::USART0_TX_DMA,  /*!< USART0 TX DMA request input */
+  Usart1RxDma = hardware::USART1_RX_DMA,  /*!< USART1 RX DMA request input */
+  Usart1TxDma = hardware::USART1_TX_DMA,  /*!< USART1 TX DMA request input */
+  Usart2RxDma = hardware::USART2_RX_DMA,  /*!< USART2 RX DMA request input */
+  Usart2TxDma = hardware::USART2_TX_DMA,  /*!< USART2 TX DMA request input */
+  Usart3RxDma = hardware::USART3_RX_DMA,  /*!< USART3 RX DMA request input */
+  Usart3TxDma = hardware::USART3_TX_DMA,  /*!< USART3 TX DMA request input */
+  Usart4RxDma = hardware::USART4_RX_DMA,  /*!< USART4 RX DMA request input */
+  Usart4TxDma = hardware::USART4_TX_DMA,  /*!< USART4 TX DMA request input */
+  Spi0RxDma = hardware::SPI0_RX_DMA,      /*!< SPI0 RX DMA request input */
+  Spi0TxDma = hardware::SPI0_TX_DMA,      /*!< SPI0 TX DMA request input */
+  Spi1RxDma = hardware::SPI1_RX_DMA,      /*!< SPI1 RX DMA request input */
+  Spi1TxDma = hardware::SPI1_TX_DMA,      /*!< SPI1 TX DMA request input */
+  I2c0SlaveDma = hardware::I2C0_SLV_DMA,  /*!< I2C0 slave DMA request input */
+  I2c0MasterDma = hardware::I2C0_MST_DMA, /*!< I2C0 master DMA request input */
+  I2c1SlaveDma = hardware::I2C1_SLV_DMA,  /*!< I2C1 slave DMA request input */
+  I2c1MasterDma = hardware::I2C1_MST_DMA, /*!< I2C1 master DMA request input */
+  I2c2SlaveDma = hardware::I2C2_SLV_DMA,  /*!< I2C2 slave DMA request input */
+  I2c2MasterDma = hardware::I2C2_MST_DMA, /*!< I2C2 master DMA request input */
+  I2c3SlaveDma = hardware::I2C3_SLV_DMA,  /*!< I2C3 slave DMA request input */
+  I2c3MasterDma = hardware::I2C3_MST_DMA, /*!< I2C3 master DMA request input */
+  Dac0DmaRequest = hardware::DAC0_DMAREQ, /*!< DAC0 DMA request input */
+  Dac1DmaRequest = hardware::DAC1_DMAREQ, /*!< DAC1 DMA request input */
+  CaptureDma = hardware::CAPT_DMA,        /*!< Capture DMA request input */
 };
 
 /**
  * @brief DMA burst sizes
  */
 enum class BurstSizes : std::uint32_t {
-  k1 = hardware::CFG::kBURSTSIZE_1,      /*!< Burst size of 1 */
-  k2 = hardware::CFG::kBURSTSIZE_2,      /*!< Burst size of 2 */
-  k4 = hardware::CFG::kBURSTSIZE_4,      /*!< Burst size of 4 */
-  k8 = hardware::CFG::kBURSTSIZE_8,      /*!< Burst size of 8 */
-  k16 = hardware::CFG::kBURSTSIZE_16,    /*!< Burst size of 16 */
-  k32 = hardware::CFG::kBURSTSIZE_32,    /*!< Burst size of 32 */
-  k64 = hardware::CFG::kBURSTSIZE_64,    /*!< Burst size of 64 */
-  k128 = hardware::CFG::kBURSTSIZE_128,  /*!< Burst size of 128 */
-  k256 = hardware::CFG::kBURSTSIZE_256,  /*!< Burst size of 256 */
-  k512 = hardware::CFG::kBURSTSIZE_512,  /*!< Burst size of 512 */
-  k1024 = hardware::CFG::kBURSTSIZE_1024 /*!< Burst size of 1024 */
+  Burst1 = hardware::CFG::BURSTSIZE_1,      /*!< Burst size of 1 */
+  Burst2 = hardware::CFG::BURSTSIZE_2,      /*!< Burst size of 2 */
+  Burst4 = hardware::CFG::BURSTSIZE_4,      /*!< Burst size of 4 */
+  Burst8 = hardware::CFG::BURSTSIZE_8,      /*!< Burst size of 8 */
+  Burst16 = hardware::CFG::BURSTSIZE_16,    /*!< Burst size of 16 */
+  Burst32 = hardware::CFG::BURSTSIZE_32,    /*!< Burst size of 32 */
+  Burst64 = hardware::CFG::BURSTSIZE_64,    /*!< Burst size of 64 */
+  Burst128 = hardware::CFG::BURSTSIZE_128,  /*!< Burst size of 128 */
+  Burst256 = hardware::CFG::BURSTSIZE_256,  /*!< Burst size of 256 */
+  Burst512 = hardware::CFG::BURSTSIZE_512,  /*!< Burst size of 512 */
+  Burst1024 = hardware::CFG::BURSTSIZE_1024 /*!< Burst size of 1024 */
 };
 
 /**
@@ -104,71 +104,71 @@ enum class TriggerConfigs : std::uint32_t {
   /*!< No trigger configuration */
   kNone = 0u,
   /*!< Falling edge trigger */
-  kFallingEdge = hardware::CFG::kHWTRIGEN,
+  kFallingEdge = hardware::CFG::HWTRIGEN,
   /*!< Rising edge trigger */
-  kRisingEdge = hardware::CFG::kHWTRIGEN | hardware::CFG::kTRIGPOL,
+  kRisingEdge = hardware::CFG::HWTRIGEN | hardware::CFG::TRIGPOL,
   /*!< Low level trigger */
-  kLowLevel = hardware::CFG::kHWTRIGEN | hardware::CFG::kTRIGTYPE,
+  kLowLevel = hardware::CFG::HWTRIGEN | hardware::CFG::TRIGTYPE,
   /*!< High level trigger */
-  kHighLevel = hardware::CFG::kHWTRIGEN | hardware::CFG::kTRIGTYPE | hardware::CFG::kTRIGPOL,
+  kHighLevel = hardware::CFG::HWTRIGEN | hardware::CFG::TRIGTYPE | hardware::CFG::TRIGPOL,
   /*!< Falling edge trigger with burst transfer enabled */
-  kFallingEdgeBurst = hardware::CFG::kHWTRIGEN | hardware::CFG::kTRIGBURST,
+  kFallingEdgeBurst = hardware::CFG::HWTRIGEN | hardware::CFG::TRIGBURST,
   /*!< Rising edge trigger with burst transfer enabled */
-  kRisingEdgeBurst = hardware::CFG::kHWTRIGEN | hardware::CFG::kTRIGBURST | hardware::CFG::kTRIGPOL,
+  kRisingEdgeBurst = hardware::CFG::HWTRIGEN | hardware::CFG::TRIGBURST | hardware::CFG::TRIGPOL,
   /*!< Low level trigger with burst transfer enabled */
-  kLowLevelBurst = hardware::CFG::kHWTRIGEN | hardware::CFG::kTRIGBURST | hardware::CFG::kTRIGTYPE,
+  kLowLevelBurst = hardware::CFG::HWTRIGEN | hardware::CFG::TRIGBURST | hardware::CFG::TRIGTYPE,
   /*!< High level trigger with burst transfer enabled */
-  kHighLevelBurst = hardware::CFG::kHWTRIGEN | hardware::CFG::kTRIGBURST | hardware::CFG::kTRIGTYPE | hardware::CFG::kTRIGPOL
+  kHighLevelBurst = hardware::CFG::HWTRIGEN | hardware::CFG::TRIGBURST | hardware::CFG::TRIGTYPE | hardware::CFG::TRIGPOL
 };
 /**
  * @brief DMA channel priorities
  */
 enum class ChannelPrios : std::uint32_t {
-  kHighest = hardware::CFG::kCHPRIO_0,
-  k0 = hardware::CFG::kCHPRIO_0,
-  k1 = hardware::CFG::kCHPRIO_1,
-  k2 = hardware::CFG::kCHPRIO_2,
-  k3 = hardware::CFG::kCHPRIO_3,
-  k4 = hardware::CFG::kCHPRIO_4,
-  k5 = hardware::CFG::kCHPRIO_5,
-  k6 = hardware::CFG::kCHPRIO_6,
-  k7 = hardware::CFG::kCHPRIO_7,
-  kLowest = hardware::CFG::kCHPRIO_7,
+  kHighest = hardware::CFG::CHPRIO_0,
+  k0 = hardware::CFG::CHPRIO_0,
+  k1 = hardware::CFG::CHPRIO_1,
+  k2 = hardware::CFG::CHPRIO_2,
+  k3 = hardware::CFG::CHPRIO_3,
+  k4 = hardware::CFG::CHPRIO_4,
+  k5 = hardware::CFG::CHPRIO_5,
+  k6 = hardware::CFG::CHPRIO_6,
+  k7 = hardware::CFG::CHPRIO_7,
+  kLowest = hardware::CFG::CHPRIO_7,
 };
 /**
  * @brief interrupt flag set options
  */
 enum class InterruptFlags : std::uint32_t {
   kNone = 0u,
-  kSetA = hardware::XFERCFG::kSETINTA,
-  kSetB = hardware::XFERCFG::kSETINTB,
-  kSetAB = hardware::XFERCFG::kSETINTA | hardware::XFERCFG::kSETINTB,
+  kSetA = hardware::XFERCFG::SETINTA,
+  kSetB = hardware::XFERCFG::SETINTB,
+  kSetAB = hardware::XFERCFG::SETINTA | hardware::XFERCFG::SETINTB,
 };
 /**
  * @brief Transfer bit widths
  */
 enum class TransferSizes : std::uint32_t {
-  k8Bit = hardware::XFERCFG::kWIDTH_8BIT,
-  k16Bit = hardware::XFERCFG::kWIDTH_16BIT,
-  k32Bit = hardware::XFERCFG::kWIDTH_32BIT,
+  k8Bit = hardware::XFERCFG::WIDTH_8BIT,
+  k16Bit = hardware::XFERCFG::WIDTH_16BIT,
+  k32Bit = hardware::XFERCFG::WIDTH_32BIT,
 };
 /**
  * @brief Source increments
  */
 enum class SrcIncrements : std::uint32_t {
-  k0 = hardware::XFERCFG::kSRCINC_NONE,
-  k1 = hardware::XFERCFG::kSRCINC_1xWIDTH,
-  k2 = hardware::XFERCFG::kSRCINC_2xWIDTH,
-  k4 = hardware::XFERCFG::kSRCINC_4xWIDTH
+  k0 = hardware::XFERCFG::SRCINC_NONE,
+  k1 = hardware::XFERCFG::SRCINC_1xWIDTH,
+  k2 = hardware::XFERCFG::SRCINC_2xWIDTH,
+  k4 = hardware::XFERCFG::SRCINC_4xWIDTH
 };
 /**
  * @brief Destination increments
  */
 enum class DstIncrements : std::uint32_t {
-  k0 = hardware::XFERCFG::kDSTINC_NONE,
-  k1 = hardware::XFERCFG::kDSTINC_1xWIDTH,
-  k2 = hardware::XFERCFG::kDSTINC_2xWIDTH,
-  k4 = hardware::XFERCFG::kDSTINC_4xWIDTH
+  k0 = hardware::XFERCFG::DSTINC_NONE,
+  k1 = hardware::XFERCFG::DSTINC_1xWIDTH,
+  k2 = hardware::XFERCFG::DSTINC_2xWIDTH,
+  k4 = hardware::XFERCFG::DSTINC_4xWIDTH
 };
 
 /**
@@ -180,7 +180,7 @@ struct Dma : libmcull::PeripheralBase {
   constexpr void Init() {
     descriptors_.fill({0, 0, 0, nullptr});
     GetPeripheral()->SRAMBASE = reinterpret_cast<std::uint32_t>(descriptors_.data());
-    GetPeripheral()->CTRL = hardware::CTRL::kENABLE;
+    GetPeripheral()->CTRL = hardware::CTRL::ENABLE;
   }
   /**
    * @brief Configures a DMA channel descriptor
@@ -261,9 +261,9 @@ struct Dma : libmcull::PeripheralBase {
     std::uint32_t cfg_register = static_cast<std::uint32_t>(trigger_config) | static_cast<std::uint32_t>(burst_size);
 
     if (src_burst_wrap)
-      cfg_register |= hardware::CFG::kSRCBURSTWRAP;
+      cfg_register |= hardware::CFG::SRCBURSTWRAP;
     if (dest_burst_wrap)
-      cfg_register |= hardware::CFG::kDSTBURSTWRAP;
+      cfg_register |= hardware::CFG::DSTBURSTWRAP;
     cfg_register |= static_cast<std::uint32_t>(prio);
 
     GetPeripheral()->CHANNEL[index].CFG = cfg_register;
@@ -282,12 +282,12 @@ struct Dma : libmcull::PeripheralBase {
                                   bool src_burst_wrap, bool dest_burst_wrap, ChannelPrios prio) {
     std::size_t index = static_cast<std::size_t>(hardware_channel);
     std::uint32_t cfg_register =
-      static_cast<std::uint32_t>(trigger_config) | static_cast<std::uint32_t>(burst_size) | hardware::CFG::kPERIPHREQEN;
+      static_cast<std::uint32_t>(trigger_config) | static_cast<std::uint32_t>(burst_size) | hardware::CFG::PERIPHREQEN;
 
     if (src_burst_wrap)
-      cfg_register |= hardware::CFG::kSRCBURSTWRAP;
+      cfg_register |= hardware::CFG::SRCBURSTWRAP;
     if (dest_burst_wrap)
-      cfg_register |= hardware::CFG::kDSTBURSTWRAP;
+      cfg_register |= hardware::CFG::DSTBURSTWRAP;
     cfg_register |= static_cast<std::uint32_t>(prio);
 
     GetPeripheral()->CHANNEL[index].CFG = cfg_register;
@@ -307,12 +307,12 @@ struct Dma : libmcull::PeripheralBase {
                                    InterruptFlags int_flags, TransferSizes bits, SrcIncrements src_inc, DstIncrements dst_inc,
                                    std::size_t count) {
     std::size_t index = static_cast<std::size_t>(software_channel);
-    std::uint32_t xfercfg_register = hardware::XFERCFG::XFERCOUNT(count) | hardware::XFERCFG::kSWTRIG;
+    std::uint32_t xfercfg_register = hardware::XFERCFG::XFERCOUNT(count) | hardware::XFERCFG::SWTRIG;
 
     if (reload)
-      xfercfg_register |= hardware::XFERCFG::kRELOAD_MASK;
+      xfercfg_register |= hardware::XFERCFG::RELOAD_MASK;
     if (clear_trig_exhaust)
-      xfercfg_register |= hardware::XFERCFG::kCLRTRIG;
+      xfercfg_register |= hardware::XFERCFG::CLRTRIG;
     xfercfg_register |= static_cast<std::uint32_t>(int_flags);
     xfercfg_register |= static_cast<std::uint32_t>(bits);
     xfercfg_register |= static_cast<std::uint32_t>(src_inc);
@@ -338,9 +338,9 @@ struct Dma : libmcull::PeripheralBase {
     std::uint32_t xfercfg_register = hardware::XFERCFG::XFERCOUNT(count);
 
     if (reload)
-      xfercfg_register |= hardware::XFERCFG::kRELOAD_MASK;
+      xfercfg_register |= hardware::XFERCFG::RELOAD_MASK;
     if (clear_trig_exhaust)
-      xfercfg_register |= hardware::XFERCFG::kCLRTRIG;
+      xfercfg_register |= hardware::XFERCFG::CLRTRIG;
     xfercfg_register |= static_cast<std::uint32_t>(int_flags);
     xfercfg_register |= static_cast<std::uint32_t>(bits);
     xfercfg_register |= static_cast<std::uint32_t>(src_inc);
@@ -418,7 +418,7 @@ struct Dma : libmcull::PeripheralBase {
    */
   constexpr bool IsChannelBusy(SoftwareDescriptors channel) {
     std::uint32_t channel_value = static_cast<std::uint32_t>(channel);
-    return (hardware::kBusy::BSY_MASK(channel_value) & GetPeripheral()->kBusy) != 0;
+    return (hardware::BUSY::BSY_MASK(channel_value) & GetPeripheral()->BUSY) != 0;
   }
   /**
    * @brief Is the current channel busy
@@ -426,7 +426,7 @@ struct Dma : libmcull::PeripheralBase {
    */
   constexpr bool IsChannelBusy(HardwareDescriptors channel) {
     std::uint32_t channel_value = static_cast<std::uint32_t>(channel);
-    return (hardware::kBusy::BSY_MASK(channel_value) & GetPeripheral()->kBusy) != 0;
+    return (hardware::BUSY::BSY_MASK(channel_value) & GetPeripheral()->BUSY) != 0;
   }
   /**
    * @brief get descriptor table from peripheral

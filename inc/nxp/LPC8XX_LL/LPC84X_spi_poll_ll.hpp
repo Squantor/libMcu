@@ -18,10 +18,10 @@ namespace hardware = libmcuhw::spi;
  * @brief SPI hardware chip enables
  */
 enum class SpiChipEnables : std::uint32_t {
-  kDevice0 = hardware::TXCTL::kTXSSEL0_N, /*!< Hardware chip enable 0 */
-  kDevice1 = hardware::TXCTL::kTXSSEL1_N, /*!< Hardware chip enable 1 */
-  kDevice2 = hardware::TXCTL::kTXSSEL2_N, /*!< Hardware chip enable 2 */
-  kDevice3 = hardware::TXCTL::kTXSSEL3_N, /*!< Hardware chip enable 3 */
+  Device0 = hardware::TXCTL::TXSSEL0_N, /*!< Hardware chip enable 0 */
+  Device1 = hardware::TXCTL::TXSSEL1_N, /*!< Hardware chip enable 1 */
+  Device2 = hardware::TXCTL::TXSSEL2_N, /*!< Hardware chip enable 2 */
+  Device3 = hardware::TXCTL::TXSSEL3_N, /*!< Hardware chip enable 3 */
 };
 /**
  * @brief synchronous SPI peripheral instance
@@ -41,7 +41,7 @@ struct SpiPolled : libmcull::SyncSpiBase {
   template <const libmcuhw::clock::PeriClockConfig &clock_config>
   constexpr std::uint32_t InitMaster(std::uint32_t bit_rate) {
     std::uint32_t actual_bitrate = SetBitRate<clock_config>(bit_rate);
-    GetPeripheral()->CFG = hardware::CFG::kENABLE | hardware::CFG::kMASTER;
+    GetPeripheral()->CFG = hardware::CFG::ENABLE | hardware::CFG::MASTER;
     return actual_bitrate;
   }
   /**

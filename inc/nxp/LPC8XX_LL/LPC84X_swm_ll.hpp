@@ -24,15 +24,15 @@ struct Swm : libmcull::PeripheralBase {
    */
   template <typename PIN, typename FUNC>
   constexpr void Setup(PIN &pin, FUNC &function) {
-    if constexpr (FUNC::type == hardware::pinFunctionTypes::kMovable) {
+    if constexpr (FUNC::type == hardware::pinFunctionTypes::Movable) {
       // create a mask for resetting the pin setting
       constexpr std::uint32_t mask = ~(0xFFu << function.shift);
       GetPeripheral()->PINASSIGNS[function.index] =
         (GetPeripheral()->PINASSIGNS[function.index] & mask) | (pin.pio << function.shift);
-    } else if constexpr (FUNC::type == hardware::pinFunctionTypes::kFixed0) {
+    } else if constexpr (FUNC::type == hardware::pinFunctionTypes::Fixed0) {
       static_assert(PIN::pio == FUNC::pio, "this function is not available on this pin!");
       GetPeripheral()->PINENABLE0 = GetPeripheral()->PINENABLE0 & ~function.mask;
-    } else if constexpr (FUNC::type == hardware::pinFunctionTypes::kFixed1) {
+    } else if constexpr (FUNC::type == hardware::pinFunctionTypes::Fixed1) {
       static_assert(PIN::pio == FUNC::pio, "this function is not available on this pin!");
       GetPeripheral()->PINENABLE1 = GetPeripheral()->PINENABLE1 & ~function.mask;
     }
@@ -46,14 +46,14 @@ struct Swm : libmcull::PeripheralBase {
    */
   template <typename PIN, typename FUNC>
   constexpr void Clear([[maybe_unused]] PIN &pin, FUNC &function) {
-    if constexpr (FUNC::type == hardware::pinFunctionTypes::kMovable) {
+    if constexpr (FUNC::type == hardware::pinFunctionTypes::Movable) {
       // create a mask for unassigning pin setting
       constexpr std::uint32_t mask = (0xFFu << function.shift);
       GetPeripheral()->PINASSIGNS[function.index] = (GetPeripheral()->PINASSIGNS[function.index] | mask);
-    } else if constexpr (FUNC::type == hardware::pinFunctionTypes::kFixed0) {
+    } else if constexpr (FUNC::type == hardware::pinFunctionTypes::Fixed0) {
       static_assert(PIN::pio == FUNC::pio, "this function is not available on this pin!");
       GetPeripheral()->PINENABLE0 = GetPeripheral()->PINENABLE0 | function.mask;
-    } else if constexpr (FUNC::type == hardware::pinFunctionTypes::kFixed1) {
+    } else if constexpr (FUNC::type == hardware::pinFunctionTypes::Fixed1) {
       static_assert(PIN::pio == FUNC::pio, "this function is not available on this pin!");
       GetPeripheral()->PINENABLE1 = GetPeripheral()->PINENABLE1 | function.mask;
     }

@@ -48,9 +48,9 @@ constexpr inline std::uint32_t RESERVED_MASK{0x4000'05FFu}; /*!< register mask f
 constexpr inline std::uint32_t CLKDIV(std::uint32_t divider) {
   return divider << 0;
 }
-constexpr inline std::uint32_t kASYNCMODE{1u << 8}; /*!< Asynchronous mode */
-constexpr inline std::uint32_t kLPWRMODE{1u << 10}; /*!< Low power ADC mode */
-constexpr inline std::uint32_t kCALMODE{1u << 30};  /*!< Initiate ADC selfcalibration cycle */
+constexpr inline std::uint32_t ASYNCMODE{1u << 8}; /*!< Asynchronous mode */
+constexpr inline std::uint32_t LPWRMODE{1u << 10}; /*!< Low power ADC mode */
+constexpr inline std::uint32_t CALMODE{1u << 30};  /*!< Initiate ADC selfcalibration cycle */
 }  // namespace CTRL
 namespace SEQ_CTRL {
 constexpr inline std::uint32_t RESERVED_MASK{0xFC0C'7FFFu}; /*!< Register mask for allowed bits */
@@ -62,36 +62,36 @@ constexpr inline std::uint32_t RESERVED_MASK{0xFC0C'7FFFu}; /*!< Register mask f
 constexpr inline std::uint32_t CHANNELS(std::uint32_t channel) {
   return 1u << channel;
 }
-constexpr inline std::uint32_t kTRIG_NONE{0u << 12};          /*!< No trigger */
-constexpr inline std::uint32_t kTRIG_PININT0_IRQ{1u << 12};   /*!< GPIO_INT interrupt 0 */
-constexpr inline std::uint32_t kTRIG_PININT1_IRQ{2u << 12};   /*!< GPIO_INT interrupt 1 */
-constexpr inline std::uint32_t kTRIG_SCT0_OUT3{3u << 12};     /*!< SCT output 3 */
-constexpr inline std::uint32_t kTRIG_SCT0_OUT4{4u << 12};     /*!< SCT output 4 */
-constexpr inline std::uint32_t kTRIG_T0_MAT3{5u << 12};       /*!< CTIMER match 3 */
-constexpr inline std::uint32_t kTRIG_CMP0_OUT_ADC{6u << 12};  /*!< Analog comparator output */
-constexpr inline std::uint32_t kTRIG_GPIO_INT_BMAT{7u << 12}; /*!< GPIO_INT bmatch */
-constexpr inline std::uint32_t kTRIG_ARM_TXEV{8u << 12};      /*!< ARM core TXEV event */
-constexpr inline std::uint32_t kTRIGPOL_NEG{0u << 18};        /*!< Negative trigger polarity */
-constexpr inline std::uint32_t kTRIGPOL_POS{1u << 18};        /*!< Positive trigger polarity */
-constexpr inline std::uint32_t kSYNCBYPASS{1u << 19};         /*!< Bypass trigger synchronizer */
-constexpr inline std::uint32_t kSTART{1u << 26};              /*!< Starts single conversion sequence */
-constexpr inline std::uint32_t kBURST{1u << 27};              /*!< Continuous conversion sequence */
-constexpr inline std::uint32_t kSINGLESTEP{1u << 28};         /*!< Stepped conversion squence */
-constexpr inline std::uint32_t kLOWPRIO{1u << 29};            /*!< High priority over sequence B */
-constexpr inline std::uint32_t kMODE_CONV{0u << 30};          /*!< interrupt/DMA after each conversion */
-constexpr inline std::uint32_t kMODE_SEQ{1u << 30};           /*!< Interrupt/DMA after each sequence */
-constexpr inline std::uint32_t kSEQ_ENA{1u << 31};            /*!< Enable sequence */
+constexpr inline std::uint32_t TRIG_NONE{0u << 12};          /*!< No trigger */
+constexpr inline std::uint32_t TRIG_PININT0_IRQ{1u << 12};   /*!< GPIO_INT interrupt 0 */
+constexpr inline std::uint32_t TRIG_PININT1_IRQ{2u << 12};   /*!< GPIO_INT interrupt 1 */
+constexpr inline std::uint32_t TRIG_SCT0_OUT3{3u << 12};     /*!< SCT output 3 */
+constexpr inline std::uint32_t TRIG_SCT0_OUT4{4u << 12};     /*!< SCT output 4 */
+constexpr inline std::uint32_t TRIG_T0_MAT3{5u << 12};       /*!< CTIMER match 3 */
+constexpr inline std::uint32_t TRIG_CMP0_OUT_ADC{6u << 12};  /*!< Analog comparator output */
+constexpr inline std::uint32_t TRIG_GPIO_INT_BMAT{7u << 12}; /*!< GPIO_INT bmatch */
+constexpr inline std::uint32_t TRIG_ARM_TXEV{8u << 12};      /*!< ARM core TXEV event */
+constexpr inline std::uint32_t TRIGPOL_NEG{0u << 18};        /*!< Negative trigger polarity */
+constexpr inline std::uint32_t TRIGPOL_POS{1u << 18};        /*!< Positive trigger polarity */
+constexpr inline std::uint32_t SYNCBYPASS{1u << 19};         /*!< Bypass trigger synchronizer */
+constexpr inline std::uint32_t START{1u << 26};              /*!< Starts single conversion sequence */
+constexpr inline std::uint32_t BURST{1u << 27};              /*!< Continuous conversion sequence */
+constexpr inline std::uint32_t SINGLESTEP{1u << 28};         /*!< Stepped conversion squence */
+constexpr inline std::uint32_t LOWPRIO{1u << 29};            /*!< High priority over sequence B */
+constexpr inline std::uint32_t MODE_CONV{0u << 30};          /*!< interrupt/DMA after each conversion */
+constexpr inline std::uint32_t MODE_SEQ{1u << 30};           /*!< Interrupt/DMA after each sequence */
+constexpr inline std::uint32_t SEQ_ENA{1u << 31};            /*!< Enable sequence */
 }  // namespace SEQ_CTRL
 namespace SEQ_GDAT {
 constexpr inline std::uint32_t RESERVED_MASK{0xFC0F'FFF0u}; /*!< Register mask for allowed bits */
-constexpr inline std::uint32_t kRESULT_MASK{0x0000'FFF0};
+constexpr inline std::uint32_t RESULT_MASK{0x0000'FFF0};
 /**
  * @brief format SEQ_GDAT register to extract RESULT field
  * @param register SEQ_GDAT register
  * @return extracted RESULT field
  */
 constexpr inline std::uint32_t RESULT(std::uint32_t data) {
-  return (data & kRESULT_MASK) >> 4;
+  return (data & RESULT_MASK) >> 4;
 }
 /**
  * @brief format SEQ_GDAT register to extract CHN field
@@ -101,19 +101,19 @@ constexpr inline std::uint32_t RESULT(std::uint32_t data) {
 constexpr inline std::uint32_t CHN(std::uint32_t data) {
   return data >> 26;
 }
-constexpr inline std::uint32_t kOVERRUN_FLAG{1u << 30};   /*!< Data overrun detected */
-constexpr inline std::uint32_t kDATAVALID_FLAG{1u << 31}; /*!< Valid data available */
+constexpr inline std::uint32_t OVERRUN_FLAG{1u << 30};   /*!< Data overrun detected */
+constexpr inline std::uint32_t DATAVALID_FLAG{1u << 31}; /*!< Valid data available */
 }  // namespace SEQ_GDAT
 namespace DAT {
 constexpr inline std::uint32_t RESERVED_MASK{0xFC0F'FFF0u}; /*!< Register mask for allowed bits */
-constexpr inline std::uint32_t kRESULT_MASK{0x0000'FFF0};
+constexpr inline std::uint32_t RESULT_MASK{0x0000'FFF0};
 /**
  * @brief format SEQ_GDAT register to extract RESULT field
  * @param register SEQ_GDAT register
  * @return extracted RESULT field
  */
 constexpr inline std::uint32_t RESULT(std::uint32_t data) {
-  return (data & kRESULT_MASK) >> 4;
+  return (data & RESULT_MASK) >> 4;
 }
 /**
  * @brief format SEQ_GDAT register to extract CHN field
@@ -123,8 +123,8 @@ constexpr inline std::uint32_t RESULT(std::uint32_t data) {
 constexpr inline std::uint32_t CHN(std::uint32_t data) {
   return data >> 26;
 }
-constexpr inline std::uint32_t kOVERRUN_FLAG{1u << 30};   /*!< Data overrun detected */
-constexpr inline std::uint32_t kDATAVALID_FLAG{1u << 31}; /*!< Valid data available */
+constexpr inline std::uint32_t OVERRUN_FLAG{1u << 30};   /*!< Data overrun detected */
+constexpr inline std::uint32_t DATAVALID_FLAG{1u << 31}; /*!< Valid data available */
 }  // namespace DAT
 namespace THR0_LOW {
 constexpr inline std::uint32_t RESERVED_MASK{0x0000'FFF0u}; /*!< Register mask for allowed bits */

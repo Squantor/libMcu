@@ -24,8 +24,8 @@ struct Adc : libmcull::PeripheralBase {
   constexpr void Init(uint32_t rate) {
     uint32_t maxRate{GetInputClockFreq<config>() / 25};
     // initiate hardware selfcal
-    GetPeripheral()->CTRL = hardware::CTRL::kCALMODE | hardware::CTRL::CLKDIV(maxRate / 500000);
-    while (GetPeripheral()->CTRL & hardware::CTRL::kCALMODE)
+    GetPeripheral()->CTRL = hardware::CTRL::CALMODE | hardware::CTRL::CLKDIV(maxRate / 500000);
+    while (GetPeripheral()->CTRL & hardware::CTRL::CALMODE)
       ;
     // configure ADC sample rate
     GetPeripheral()->CTRL = hardware::CTRL::CLKDIV(maxRate / rate);
@@ -39,15 +39,14 @@ struct Adc : libmcull::PeripheralBase {
   template <typename PIN>
   constexpr std::uint32_t Sample(PIN &pin) {
     std::uint32_t channelIndex = static_cast<std::uint32_t>(pin.adcPinIndex);
-    GetPeripheral()->SEQ_CTRL[hardware::kSequencerA] = hardware::SEQ_CTRL::CHANNELS(channelIndex) | hardware::SEQ_CTRL::kTRIG_NONE |
-                                                       hardware::SEQ_CTRL::kTRIGPOL_POS | hardware::SEQ_CTRL::kLOWPRIO |
-                                                       hardware::SEQ_CTRL::kSEQ_ENA;
-    GetPeripheral()->SEQ_CTRL[hardware::kSequencerA] =
-      GetPeripheral()->SEQ_CTRL[hardware::kSequencerA] | hardware::SEQ_CTRL::kSTART;
+    GetPeripheral()->SEQ_CTRL[hardware::kSequencerA] = hardware::SEQ_CTRL::CHANNELS(channelIndex) | hardware::SEQ_CTRL::TRIG_NONE |
+                                                       hardware::SEQ_CTRL::TRIGPOL_POS | hardware::SEQ_CTRL::LOWPRIO |
+                                                       hardware::SEQ_CTRL::SEQ_ENA;
+    GetPeripheral()->SEQ_CTRL[hardware::kSequencerA] = GetPeripheral()->SEQ_CTRL[hardware::kSequencerA] | hardware::SEQ_CTRL::START;
     std::uint32_t adcSample;
     do {
       adcSample = GetPeripheral()->DAT[channelIndex];
-    } while (!(adcSample & hardware::DAT::kDATAVALID_FLAG));
+    } while (!(adcSample & hardware::DAT::DATAVALID_FLAG));
     return hardware::DAT::RESULT(adcSample);
   }
   /**

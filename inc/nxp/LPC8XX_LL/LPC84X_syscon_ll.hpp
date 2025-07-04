@@ -18,185 +18,185 @@ namespace hardware = libmcuhw::syscon;
  * @brief Peripheral reset for first setting
  */
 namespace peripheral_resets_0 {
-constexpr inline std::uint32_t kFlash = hardware::PRESETCTRL0::kFLASH;     /*!< FLASH peripheral reset */
-constexpr inline std::uint32_t kI2c0 = hardware::PRESETCTRL0::kI2C0;       /*!< I2C0 peripheral reset */
-constexpr inline std::uint32_t kGpio0 = hardware::PRESETCTRL0::kGPIO0;     /*!< GPIO0 peripheral reset */
-constexpr inline std::uint32_t kSwm = hardware::PRESETCTRL0::kSWM;         /*!< SWM peripheral reset */
-constexpr inline std::uint32_t kSct = hardware::PRESETCTRL0::kSCT;         /*!< SCT peripheral reset */
-constexpr inline std::uint32_t kWkt = hardware::PRESETCTRL0::kWKT;         /*!< WKT peripheral reset */
-constexpr inline std::uint32_t kMrt = hardware::PRESETCTRL0::kMRT;         /*!< MRT peripheral reset */
-constexpr inline std::uint32_t kSpi0 = hardware::PRESETCTRL0::kSPI0;       /*!< SPI0 peripheral reset */
-constexpr inline std::uint32_t kSpi1 = hardware::PRESETCTRL0::kSPI1;       /*!< SPI1 peripheral reset */
-constexpr inline std::uint32_t kCrc = hardware::PRESETCTRL0::kCRC;         /*!< CRC peripheral reset */
-constexpr inline std::uint32_t kUart0 = hardware::PRESETCTRL0::kUART0;     /*!< UART0 peripheral reset */
-constexpr inline std::uint32_t kUart1 = hardware::PRESETCTRL0::kUART1;     /*!< UART1 peripheral reset */
-constexpr inline std::uint32_t kUart2 = hardware::PRESETCTRL0::kUART2;     /*!< UART2 peripheral reset */
-constexpr inline std::uint32_t kIocon = hardware::PRESETCTRL0::kIOCON;     /*!< IOCON peripheral reset */
-constexpr inline std::uint32_t kAcmp = hardware::PRESETCTRL0::kACMP;       /*!< ACMP peripheral reset */
-constexpr inline std::uint32_t kGpio1 = hardware::PRESETCTRL0::kGPIO1;     /*!< GPIO1 peripheral reset */
-constexpr inline std::uint32_t kI2c1 = hardware::PRESETCTRL0::kI2C1;       /*!< I2C1 peripheral reset */
-constexpr inline std::uint32_t kI2c2 = hardware::PRESETCTRL0::kI2C2;       /*!< I2C2 peripheral reset */
-constexpr inline std::uint32_t kI2c3 = hardware::PRESETCTRL0::kI2C3;       /*!< I2C3 peripheral reset */
-constexpr inline std::uint32_t kAdc = hardware::PRESETCTRL0::kADC;         /*!< ADC peripheral reset */
-constexpr inline std::uint32_t kCtimer0 = hardware::PRESETCTRL0::kCTIMER0; /*!< CTIMER0 peripheral reset */
-constexpr inline std::uint32_t kDac0 = hardware::PRESETCTRL0::kDAC0;       /*!< DAC0 peripheral reset */
-constexpr inline std::uint32_t kGpioInt = hardware::PRESETCTRL0::kGPIOINT; /*!< GPIOINT peripheral reset */
-constexpr inline std::uint32_t kDma = hardware::PRESETCTRL0::kDMA;         /*!< DMA peripheral reset */
-constexpr inline std::uint32_t kUart3 = hardware::PRESETCTRL0::kUART3;     /*!< UART3 peripheral reset */
-constexpr inline std::uint32_t kUart4 = hardware::PRESETCTRL0::kUART4;     /*!< UART4 peripheral reset */
+constexpr inline std::uint32_t Flash = hardware::PRESETCTRL0::FLASH;     /*!< FLASH peripheral reset */
+constexpr inline std::uint32_t I2c0 = hardware::PRESETCTRL0::I2C0;       /*!< I2C0 peripheral reset */
+constexpr inline std::uint32_t Gpio0 = hardware::PRESETCTRL0::GPIO0;     /*!< GPIO0 peripheral reset */
+constexpr inline std::uint32_t Swm = hardware::PRESETCTRL0::SWM;         /*!< SWM peripheral reset */
+constexpr inline std::uint32_t Sct = hardware::PRESETCTRL0::SCT;         /*!< SCT peripheral reset */
+constexpr inline std::uint32_t Wkt = hardware::PRESETCTRL0::WKT;         /*!< WKT peripheral reset */
+constexpr inline std::uint32_t Mrt = hardware::PRESETCTRL0::MRT;         /*!< MRT peripheral reset */
+constexpr inline std::uint32_t Spi0 = hardware::PRESETCTRL0::SPI0;       /*!< SPI0 peripheral reset */
+constexpr inline std::uint32_t Spi1 = hardware::PRESETCTRL0::SPI1;       /*!< SPI1 peripheral reset */
+constexpr inline std::uint32_t Crc = hardware::PRESETCTRL0::CRC;         /*!< CRC peripheral reset */
+constexpr inline std::uint32_t Uart0 = hardware::PRESETCTRL0::UART0;     /*!< UART0 peripheral reset */
+constexpr inline std::uint32_t Uart1 = hardware::PRESETCTRL0::UART1;     /*!< UART1 peripheral reset */
+constexpr inline std::uint32_t Uart2 = hardware::PRESETCTRL0::UART2;     /*!< UART2 peripheral reset */
+constexpr inline std::uint32_t Iocon = hardware::PRESETCTRL0::IOCON;     /*!< IOCON peripheral reset */
+constexpr inline std::uint32_t Acmp = hardware::PRESETCTRL0::ACMP;       /*!< ACMP peripheral reset */
+constexpr inline std::uint32_t Gpio1 = hardware::PRESETCTRL0::GPIO1;     /*!< GPIO1 peripheral reset */
+constexpr inline std::uint32_t I2c1 = hardware::PRESETCTRL0::I2C1;       /*!< I2C1 peripheral reset */
+constexpr inline std::uint32_t I2c2 = hardware::PRESETCTRL0::I2C2;       /*!< I2C2 peripheral reset */
+constexpr inline std::uint32_t I2c3 = hardware::PRESETCTRL0::I2C3;       /*!< I2C3 peripheral reset */
+constexpr inline std::uint32_t Adc = hardware::PRESETCTRL0::ADC;         /*!< ADC peripheral reset */
+constexpr inline std::uint32_t Ctimer0 = hardware::PRESETCTRL0::CTIMER0; /*!< CTIMER0 peripheral reset */
+constexpr inline std::uint32_t Dac0 = hardware::PRESETCTRL0::DAC0;       /*!< DAC0 peripheral reset */
+constexpr inline std::uint32_t GpioInt = hardware::PRESETCTRL0::GPIOINT; /*!< GPIOINT peripheral reset */
+constexpr inline std::uint32_t Dma = hardware::PRESETCTRL0::DMA;         /*!< DMA peripheral reset */
+constexpr inline std::uint32_t Uart3 = hardware::PRESETCTRL0::UART3;     /*!< UART3 peripheral reset */
+constexpr inline std::uint32_t Uart4 = hardware::PRESETCTRL0::UART4;     /*!< UART4 peripheral reset */
 }  // namespace peripheral_resets_0
 /**
  * @brief Peripheral resets for second setting
  */
 namespace peripheral_resets_1 {
-constexpr inline std::uint32_t kCapt = hardware::PRESETCTRL1::kCAPT; /*!< CAPT peripheral reset */
-constexpr inline std::uint32_t kDac1 = hardware::PRESETCTRL1::kDAC1; /*!< DAC1 peripheral reset */
-constexpr inline std::uint32_t kFrg0 = hardware::PRESETCTRL1::kFRG0; /*!< FRG0 peripheral reset */
-constexpr inline std::uint32_t kFrg1 = hardware::PRESETCTRL1::kFRG1; /*!< FRG1 peripheral reset */
+constexpr inline std::uint32_t Capt = hardware::PRESETCTRL1::CAPT; /*!< CAPT peripheral reset */
+constexpr inline std::uint32_t Dac1 = hardware::PRESETCTRL1::DAC1; /*!< DAC1 peripheral reset */
+constexpr inline std::uint32_t Frg0 = hardware::PRESETCTRL1::FRG0; /*!< FRG0 peripheral reset */
+constexpr inline std::uint32_t Frg1 = hardware::PRESETCTRL1::FRG1; /*!< FRG1 peripheral reset */
 }  // namespace peripheral_resets_1
 /**
  * @brief PLL post divider options
  */
 enum class PllPostDividers : std::uint32_t {
-  kDiv2 = hardware::SYSPLLCTRL::kPSEL_DIV2,   /*!< PLL post division ration of 2 */
-  kDiv4 = hardware::SYSPLLCTRL::kPSEL_DIV4,   /*!< PLL post division ration of 4 */
-  kDiv8 = hardware::SYSPLLCTRL::kPSEL_DIV8,   /*!< PLL post division ration of 8 */
-  kDiv16 = hardware::SYSPLLCTRL::kPSEL_DIV16, /*!< PLL post division ration of 16 */
+  Div2 = hardware::SYSPLLCTRL::PSEL_DIV2,   /*!< PLL post division ration of 2 */
+  Div4 = hardware::SYSPLLCTRL::PSEL_DIV4,   /*!< PLL post division ration of 4 */
+  Div8 = hardware::SYSPLLCTRL::PSEL_DIV8,   /*!< PLL post division ration of 8 */
+  Div16 = hardware::SYSPLLCTRL::PSEL_DIV16, /*!< PLL post division ration of 16 */
 };  // namespace pllPostDivider
 /**
  * @brief PLL source options
  */
 enum class PllClockSources : std::uint32_t {
-  kFro = hardware::SYSPLLCLKSEL::kFRO,       /*!< FRO clock source */
-  kExt = hardware::SYSPLLCLKSEL::kEXT,       /*!< External clock */
-  kWdo = hardware::SYSPLLCLKSEL::kWDO,       /*!< Watchdog oscillator*/
-  kFroDiv = hardware::SYSPLLCLKSEL::kFRO_DIV /*!< FRO divided clock source */
+  Fro = hardware::SYSPLLCLKSEL::FRO,       /*!< FRO clock source */
+  Ext = hardware::SYSPLLCLKSEL::EXT,       /*!< External clock */
+  Wdo = hardware::SYSPLLCLKSEL::WDO,       /*!< Watchdog oscillator*/
+  FroDiv = hardware::SYSPLLCLKSEL::FRO_DIV /*!< FRO divided clock source */
 };
 /**
  * @brief main clock pll sources options
  */
 enum class mainClockPllSources : std::uint32_t {
-  kPrePll = hardware::MAINCLKPLLSEL::kPRE,    /*!< Select main clock before PLL*/
-  kSysPll = hardware::MAINCLKPLLSEL::kSYSPLL, /*!< select main clock PLL*/
+  PrePll = hardware::MAINCLKPLLSEL::PRE,    /*!< Select main clock before PLL*/
+  SysPll = hardware::MAINCLKPLLSEL::SYSPLL, /*!< select main clock PLL*/
 };  // namespace mainClockSources
 /**
  * @brief main clock sources options
  */
 enum class mainClockSources : std::uint32_t {
-  kFro = hardware::MAINCLKSEL::kFRO,        /*!< main clock source is FRO */
-  kExt = hardware::MAINCLKSEL::kEXT,        /*!< main clock source is external clock */
-  kWdo = hardware::MAINCLKSEL::kWDO,        /*!< main clock source is WDT oscillator */
-  kFroDiv = hardware::MAINCLKSEL::kFRO_DIV, /*!< main clock source is FRO/2 */
+  Fro = hardware::MAINCLKSEL::FRO,        /*!< main clock source is FRO */
+  Ext = hardware::MAINCLKSEL::EXT,        /*!< main clock source is external clock */
+  Wdo = hardware::MAINCLKSEL::WDO,        /*!< main clock source is WDT oscillator */
+  FroDiv = hardware::MAINCLKSEL::FRO_DIV, /*!< main clock source is FRO/2 */
 };  // namespace mainClockSources
 /**
  * @brief Peripherals to set the clock source of
  */
 enum class ClockSourceSelects : std::uint32_t {
-  kUart0 = hardware::FCLKSEL::kUART0, /*!< UART0 clock select */
-  kUart1 = hardware::FCLKSEL::kUART1, /*!< UART1 clock select */
-  kUart2 = hardware::FCLKSEL::kUART2, /*!< UART2 clock select */
-  kUart3 = hardware::FCLKSEL::kUART3, /*!< UART3 clock select */
-  kUart4 = hardware::FCLKSEL::kUART4, /*!< UART4 clock select */
-  kI2c0 = hardware::FCLKSEL::kI2C0,   /*!< I2C0 clock select */
-  kI2c1 = hardware::FCLKSEL::kI2C1,   /*!< I2C1 clock select */
-  kI2c2 = hardware::FCLKSEL::kI2C2,   /*!< I2C2 clock select */
-  kI2c3 = hardware::FCLKSEL::kI2C3,   /*!< I2C3 clock select */
-  kSpi0 = hardware::FCLKSEL::kSPI0,   /*!< SPI0 clock select */
-  kSpi1 = hardware::FCLKSEL::kSPI1,   /*!< SPI1 clock select */
+  Uart0 = hardware::FCLKSEL::UART0, /*!< UART0 clock select */
+  Uart1 = hardware::FCLKSEL::UART1, /*!< UART1 clock select */
+  Uart2 = hardware::FCLKSEL::UART2, /*!< UART2 clock select */
+  Uart3 = hardware::FCLKSEL::UART3, /*!< UART3 clock select */
+  Uart4 = hardware::FCLKSEL::UART4, /*!< UART4 clock select */
+  I2c0 = hardware::FCLKSEL::I2C0,   /*!< I2C0 clock select */
+  I2c1 = hardware::FCLKSEL::I2C1,   /*!< I2C1 clock select */
+  I2c2 = hardware::FCLKSEL::I2C2,   /*!< I2C2 clock select */
+  I2c3 = hardware::FCLKSEL::I2C3,   /*!< I2C3 clock select */
+  Spi0 = hardware::FCLKSEL::SPI0,   /*!< SPI0 clock select */
+  Spi1 = hardware::FCLKSEL::SPI1,   /*!< SPI1 clock select */
 };
 /**
  * @brief Peripheral clock options
  */
 enum class ClockSources : std::uint32_t {
-  kFro = hardware::FCLKSEL::kFRO,        /*!< FRO clock source */
-  kMain = hardware::FCLKSEL::kMAIN,      /*!< Main clock source */
-  kFrg0 = hardware::FCLKSEL::kFRG0,      /*!< Fractional clock generator 0 */
-  kFrg1 = hardware::FCLKSEL::kFRG1,      /*!< Fractional clock generator 1 */
-  kFroDiv = hardware::FCLKSEL::kFRO_DIV, /*!< FRO divided by 2 clock source  */
-  kNone = hardware::FCLKSEL::kNONE,      /*!< No clock source */
+  Fro = hardware::FCLKSEL::FRO,        /*!< FRO clock source */
+  Main = hardware::FCLKSEL::MAIN,      /*!< Main clock source */
+  Frg0 = hardware::FCLKSEL::FRG0,      /*!< Fractional clock generator 0 */
+  Frg1 = hardware::FCLKSEL::FRG1,      /*!< Fractional clock generator 1 */
+  FroDiv = hardware::FCLKSEL::FRO_DIV, /*!< FRO divided by 2 clock source  */
+  None = hardware::FCLKSEL::NONE,      /*!< No clock source */
 };
 /**
  * @brief ADC clock sources
  */
 enum class AdcClockSources : std::uint32_t {
-  kFro = hardware::ADCCLKSEL::kFRO,       /*!< FRO clock source */
-  kSysPll = hardware::ADCCLKSEL::kSYSPLL, /*!< System PLL clock source */
+  Fro = hardware::ADCCLKSEL::FRO,       /*!< FRO clock source */
+  SysPll = hardware::ADCCLKSEL::SYSPLL, /*!< System PLL clock source */
 };
 /**
  * @brief SCT clock sources
  */
 enum class SctClockSources : std::uint32_t {
-  kFro = hardware::SCTCLKSEL::kFRO,       /*!< FRO clock source */
-  kMain = hardware::SCTCLKSEL::kMAINCLK,  /*!< Main clock source */
-  kSysPll = hardware::SCTCLKSEL::kSYSPLL, /*!< System PLL clock source */
+  Fro = hardware::SCTCLKSEL::FRO,       /*!< FRO clock source */
+  Main = hardware::SCTCLKSEL::MAINCLK,  /*!< Main clock source */
+  SysPll = hardware::SCTCLKSEL::SYSPLL, /*!< System PLL clock source */
 };
 /**
  * @brief Peripheral clock enable/disable options section 0
  */
 namespace peripheral_clocks_0 {
-constexpr inline std::uint32_t kRom = hardware::SYSAHBCLKCTRL0::kROM;          /*!< ROM clock enable */
-constexpr inline std::uint32_t kRam = hardware::SYSAHBCLKCTRL0::kRAM0_1;       /*!< RAM clock enable */
-constexpr inline std::uint32_t kFlash = hardware::SYSAHBCLKCTRL0::kFLASH;      /*!< Flash clock enable */
-constexpr inline std::uint32_t kI2c0 = hardware::SYSAHBCLKCTRL0::kI2C0;        /*!< I2C0 clock enable */
-constexpr inline std::uint32_t kGpio0 = hardware::SYSAHBCLKCTRL0::kGPIO0;      /*!< GPIO0 clock enable */
-constexpr inline std::uint32_t kSwm = hardware::SYSAHBCLKCTRL0::kSWM;          /*!< SWM clock enable */
-constexpr inline std::uint32_t kSct = hardware::SYSAHBCLKCTRL0::kSCT;          /*!< SCT clock enable */
-constexpr inline std::uint32_t kWkt = hardware::SYSAHBCLKCTRL0::kWKT;          /*!< WKT clock enable */
-constexpr inline std::uint32_t kMrt = hardware::SYSAHBCLKCTRL0::kMRT;          /*!< MRT clock enable */
-constexpr inline std::uint32_t kSpi0 = hardware::SYSAHBCLKCTRL0::kSPI0;        /*!< SPI0 clock enable */
-constexpr inline std::uint32_t kSpi1 = hardware::SYSAHBCLKCTRL0::kSPI1;        /*!< SPI1 clock enable */
-constexpr inline std::uint32_t kCrc = hardware::SYSAHBCLKCTRL0::kCRC;          /*!< CRC clock enable */
-constexpr inline std::uint32_t kUart0 = hardware::SYSAHBCLKCTRL0::kUART0;      /*!< UART0 clock enable */
-constexpr inline std::uint32_t kUart1 = hardware::SYSAHBCLKCTRL0::kUART1;      /*!< UART1 clock enable */
-constexpr inline std::uint32_t kUart2 = hardware::SYSAHBCLKCTRL0::kUART2;      /*!< UART2 clock enable */
-constexpr inline std::uint32_t kWwdt = hardware::SYSAHBCLKCTRL0::kWWDT;        /*!< WWDT clock enable */
-constexpr inline std::uint32_t kIocon = hardware::SYSAHBCLKCTRL0::kIOCON;      /*!< IOCON clock enable */
-constexpr inline std::uint32_t kAcmp = hardware::SYSAHBCLKCTRL0::kACMP;        /*!< ACMP clock enable */
-constexpr inline std::uint32_t kGpio1 = hardware::SYSAHBCLKCTRL0::kGPIO1;      /*!< GPIO1 clock enable */
-constexpr inline std::uint32_t kI2c1 = hardware::SYSAHBCLKCTRL0::kI2C1;        /*!< I2C1 clock enable */
-constexpr inline std::uint32_t kI2c2 = hardware::SYSAHBCLKCTRL0::kI2C2;        /*!< I2C2 clock enable */
-constexpr inline std::uint32_t kI2c3 = hardware::SYSAHBCLKCTRL0::kI2C3;        /*!< I2C3 clock enable */
-constexpr inline std::uint32_t kAdc = hardware::SYSAHBCLKCTRL0::kADC;          /*!< ADC clock enable */
-constexpr inline std::uint32_t kCtimer0 = hardware::SYSAHBCLKCTRL0::kCTIMER0;  /*!< CTIMER0 clock enable */
-constexpr inline std::uint32_t kMtb = hardware::SYSAHBCLKCTRL0::kMTB;          /*!< MTB clock enable */
-constexpr inline std::uint32_t kDac0 = hardware::SYSAHBCLKCTRL0::kDAC0;        /*!< DAC0 clock enable */
-constexpr inline std::uint32_t kGpioInt = hardware::SYSAHBCLKCTRL0::kGPIO_INT; /*!< GPIO_INT clock enable */
-constexpr inline std::uint32_t kDma = hardware::SYSAHBCLKCTRL0::kDMA;          /*!< DMA clock enable */
-constexpr inline std::uint32_t kUart3 = hardware::SYSAHBCLKCTRL0::kUART3;      /*!< UART3 clock enable */
-constexpr inline std::uint32_t kUart4 = hardware::SYSAHBCLKCTRL0::kUART4;      /*!< UART4 clock enable */
+constexpr inline std::uint32_t Rom = hardware::SYSAHBCLKCTRL0::ROM;          /*!< ROM clock enable */
+constexpr inline std::uint32_t Ram = hardware::SYSAHBCLKCTRL0::RAM0_1;       /*!< RAM clock enable */
+constexpr inline std::uint32_t Flash = hardware::SYSAHBCLKCTRL0::FLASH;      /*!< Flash clock enable */
+constexpr inline std::uint32_t I2c0 = hardware::SYSAHBCLKCTRL0::I2C0;        /*!< I2C0 clock enable */
+constexpr inline std::uint32_t Gpio0 = hardware::SYSAHBCLKCTRL0::GPIO0;      /*!< GPIO0 clock enable */
+constexpr inline std::uint32_t Swm = hardware::SYSAHBCLKCTRL0::SWM;          /*!< SWM clock enable */
+constexpr inline std::uint32_t Sct = hardware::SYSAHBCLKCTRL0::SCT;          /*!< SCT clock enable */
+constexpr inline std::uint32_t Wkt = hardware::SYSAHBCLKCTRL0::WKT;          /*!< WKT clock enable */
+constexpr inline std::uint32_t Mrt = hardware::SYSAHBCLKCTRL0::MRT;          /*!< MRT clock enable */
+constexpr inline std::uint32_t Spi0 = hardware::SYSAHBCLKCTRL0::SPI0;        /*!< SPI0 clock enable */
+constexpr inline std::uint32_t Spi1 = hardware::SYSAHBCLKCTRL0::SPI1;        /*!< SPI1 clock enable */
+constexpr inline std::uint32_t Crc = hardware::SYSAHBCLKCTRL0::CRC;          /*!< CRC clock enable */
+constexpr inline std::uint32_t Uart0 = hardware::SYSAHBCLKCTRL0::UART0;      /*!< UART0 clock enable */
+constexpr inline std::uint32_t Uart1 = hardware::SYSAHBCLKCTRL0::UART1;      /*!< UART1 clock enable */
+constexpr inline std::uint32_t Uart2 = hardware::SYSAHBCLKCTRL0::UART2;      /*!< UART2 clock enable */
+constexpr inline std::uint32_t Wwdt = hardware::SYSAHBCLKCTRL0::WWDT;        /*!< WWDT clock enable */
+constexpr inline std::uint32_t Iocon = hardware::SYSAHBCLKCTRL0::IOCON;      /*!< IOCON clock enable */
+constexpr inline std::uint32_t Acmp = hardware::SYSAHBCLKCTRL0::ACMP;        /*!< ACMP clock enable */
+constexpr inline std::uint32_t Gpio1 = hardware::SYSAHBCLKCTRL0::GPIO1;      /*!< GPIO1 clock enable */
+constexpr inline std::uint32_t I2c1 = hardware::SYSAHBCLKCTRL0::I2C1;        /*!< I2C1 clock enable */
+constexpr inline std::uint32_t I2c2 = hardware::SYSAHBCLKCTRL0::I2C2;        /*!< I2C2 clock enable */
+constexpr inline std::uint32_t I2c3 = hardware::SYSAHBCLKCTRL0::I2C3;        /*!< I2C3 clock enable */
+constexpr inline std::uint32_t Adc = hardware::SYSAHBCLKCTRL0::ADC;          /*!< ADC clock enable */
+constexpr inline std::uint32_t Ctimer0 = hardware::SYSAHBCLKCTRL0::CTIMER0;  /*!< CTIMER0 clock enable */
+constexpr inline std::uint32_t Mtb = hardware::SYSAHBCLKCTRL0::MTB;          /*!< MTB clock enable */
+constexpr inline std::uint32_t Dac0 = hardware::SYSAHBCLKCTRL0::DAC0;        /*!< DAC0 clock enable */
+constexpr inline std::uint32_t GpioInt = hardware::SYSAHBCLKCTRL0::GPIO_INT; /*!< GPIO_INT clock enable */
+constexpr inline std::uint32_t Dma = hardware::SYSAHBCLKCTRL0::DMA;          /*!< DMA clock enable */
+constexpr inline std::uint32_t Uart3 = hardware::SYSAHBCLKCTRL0::UART3;      /*!< UART3 clock enable */
+constexpr inline std::uint32_t Uart4 = hardware::SYSAHBCLKCTRL0::UART4;      /*!< UART4 clock enable */
 }  // namespace peripheral_clocks_0
 /**
  * @brief Peripheral clock enable/disable options section 1
  */
 namespace peripheral_clocks_1 {
-constexpr inline std::uint32_t kCapt = hardware::SYSAHBCLKCTRL1::kCAPT; /*!< CAPT clock enable */
-constexpr inline std::uint32_t kDac1 = hardware::SYSAHBCLKCTRL1::kDAC1; /*!< DAC1 clock enable */
+constexpr inline std::uint32_t Capt = hardware::SYSAHBCLKCTRL1::CAPT; /*!< CAPT clock enable */
+constexpr inline std::uint32_t Dac1 = hardware::SYSAHBCLKCTRL1::DAC1; /*!< DAC1 clock enable */
 }  // namespace peripheral_clocks_1
 /**
  * @brief Peripheral power up/down options
  */
 namespace power_options {
-constexpr inline std::uint32_t kFroOut = hardware::PDRUNCFG::kFROOUT; /*!< FRO oscillator output power */
-constexpr inline std::uint32_t kFro = hardware::PDRUNCFG::kFRO;       /*!< FRO oscillator power */
-constexpr inline std::uint32_t kFlash = hardware::PDRUNCFG::kFLASH;   /*!< Flash power */
-constexpr inline std::uint32_t kBod = hardware::PDRUNCFG::kBOD;       /*!< BOD power */
-constexpr inline std::uint32_t kAdc = hardware::PDRUNCFG::kADC;       /*!< ADC power */
-constexpr inline std::uint32_t kSysOsc = hardware::PDRUNCFG::kSYSOSC; /*!< Crystal oscillator power */
-constexpr inline std::uint32_t kWdtOsc = hardware::PDRUNCFG::kWDTOSC; /*!< Watchdog oscillator power */
-constexpr inline std::uint32_t kSysPll = hardware::PDRUNCFG::kSYSPLL; /*!< System PLL oscillator power */
-constexpr inline std::uint32_t kDac0 = hardware::PDRUNCFG::kDAC0;     /*!< DAC0 power */
-constexpr inline std::uint32_t kDac1 = hardware::PDRUNCFG::kDAC1;     /*!< DAC1 power */
-constexpr inline std::uint32_t kAcmp = hardware::PDRUNCFG::kACMP;     /*!< ACMP power */
+constexpr inline std::uint32_t FroOut = hardware::PDRUNCFG::FROOUT; /*!< FRO oscillator output power */
+constexpr inline std::uint32_t Fro = hardware::PDRUNCFG::FRO;       /*!< FRO oscillator power */
+constexpr inline std::uint32_t Flash = hardware::PDRUNCFG::FLASH;   /*!< Flash power */
+constexpr inline std::uint32_t Bod = hardware::PDRUNCFG::BOD;       /*!< BOD power */
+constexpr inline std::uint32_t Adc = hardware::PDRUNCFG::ADC;       /*!< ADC power */
+constexpr inline std::uint32_t SysOsc = hardware::PDRUNCFG::SYSOSC; /*!< Crystal oscillator power */
+constexpr inline std::uint32_t WdtOsc = hardware::PDRUNCFG::WDTOSC; /*!< Watchdog oscillator power */
+constexpr inline std::uint32_t SysPll = hardware::PDRUNCFG::SYSPLL; /*!< System PLL oscillator power */
+constexpr inline std::uint32_t Dac0 = hardware::PDRUNCFG::DAC0;     /*!< DAC0 power */
+constexpr inline std::uint32_t Dac1 = hardware::PDRUNCFG::DAC1;     /*!< DAC1 power */
+constexpr inline std::uint32_t Acmp = hardware::PDRUNCFG::ACMP;     /*!< ACMP power */
 }  // namespace power_options
 /**
  * @brief Clock output sources
  */
 enum class ClockOutSources : std::uint32_t {
-  kFro = hardware::CLKOUTSEL::kFRO,           /*!< FRO clock source */
-  kMain = hardware::CLKOUTSEL::kMAIN,         /*!< Main clock source */
-  kSysPll = hardware::CLKOUTSEL::kSYSPLL,     /*!< System PLL clock source */
-  kExternal = hardware::CLKOUTSEL::kEXTERNAL, /*!< External clock source */
-  kWatchdog = hardware::CLKOUTSEL::kWATCHDOG, /*!< Watchdog oscillator clock source */
+  Fro = hardware::CLKOUTSEL::FRO,           /*!< FRO clock source */
+  Main = hardware::CLKOUTSEL::MAIN,         /*!< Main clock source */
+  SysPll = hardware::CLKOUTSEL::SYSPLL,     /*!< System PLL clock source */
+  External = hardware::CLKOUTSEL::EXTERNAL, /*!< External clock source */
+  Watchdog = hardware::CLKOUTSEL::WATCHDOG, /*!< Watchdog oscillator clock source */
 };
 
 template <libmcu::SysconBaseAddress syscon_address>
@@ -229,8 +229,8 @@ struct Syscon : libmcull::PeripheralBase {
    */
   constexpr void SelectPllClock(PllClockSources setting) {
     GetPeripheral()->SYSPLLCLKSEL = static_cast<std::uint32_t>(setting);
-    GetPeripheral()->SYSPLLCLKUEN = hardware::SYSPLLCLKUEN::kNO_CHANGE;
-    GetPeripheral()->SYSPLLCLKUEN = hardware::SYSPLLCLKUEN::kUPDATE;
+    GetPeripheral()->SYSPLLCLKUEN = hardware::SYSPLLCLKUEN::NO_CHANGE;
+    GetPeripheral()->SYSPLLCLKUEN = hardware::SYSPLLCLKUEN::UPDATE;
   }
   /**
    * @brief Select main clock PLL source
@@ -238,8 +238,8 @@ struct Syscon : libmcull::PeripheralBase {
    */
   constexpr void SelectMainPllClock(mainClockPllSources setting) {
     GetPeripheral()->MAINCLKPLLSEL = static_cast<std::uint32_t>(setting);
-    GetPeripheral()->MAINCLKPLLUEN = hardware::MAINCLKPLLUEN::kNO_CHANGE;
-    GetPeripheral()->MAINCLKPLLUEN = hardware::MAINCLKPLLUEN::kUPDATE;
+    GetPeripheral()->MAINCLKPLLUEN = hardware::MAINCLKPLLUEN::NO_CHANGE;
+    GetPeripheral()->MAINCLKPLLUEN = hardware::MAINCLKPLLUEN::UPDATE;
   }
   /**
    * @brief Select main clock source
@@ -247,8 +247,8 @@ struct Syscon : libmcull::PeripheralBase {
    */
   constexpr void SelectMainClock(mainClockSources setting) {
     GetPeripheral()->MAINCLKSEL = static_cast<std::uint32_t>(setting);
-    GetPeripheral()->MAINCLKUEN = hardware::MAINCLKUEN::kNO_CHANGE;
-    GetPeripheral()->MAINCLKUEN = hardware::MAINCLKUEN::kUPDATE;
+    GetPeripheral()->MAINCLKUEN = hardware::MAINCLKUEN::NO_CHANGE;
+    GetPeripheral()->MAINCLKUEN = hardware::MAINCLKUEN::UPDATE;
   }
   /**
    * @brief Set the AHB system clock Divider
@@ -327,7 +327,7 @@ struct Syscon : libmcull::PeripheralBase {
    * @param setting bit setting from powerEnables enum
    */
   constexpr void PowerPeripherals(std::uint32_t setting) {
-    GetPeripheral()->PDRUNCFG = (GetPeripheral()->PDRUNCFG & ~setting) | hardware::PDRUNCFG::kRESERVED_BITS;
+    GetPeripheral()->PDRUNCFG = (GetPeripheral()->PDRUNCFG & ~setting) | hardware::PDRUNCFG::RESERVED_BITS;
   }
   /**
    * @brief Power down a peripheral
@@ -350,38 +350,38 @@ struct Syscon : libmcull::PeripheralBase {
       //! @todo support 24MHz FRO frequency
       //! support romfunction FRO and get valid list of FRO frequency
       if constexpr (config.GetSourceFreq() == libmcuhw::clock::kFroDefaultClockFreq)
-        SelectMainClock(mainClockSources::kFro);
+        SelectMainClock(mainClockSources::Fro);
       else
         static_assert(false, "Unsupported FRO frequency!");
     } else if constexpr (config.source_ == libmcuhw::clock::ClockInputSources::XTAL) {
       if constexpr (config.GetSourceFreq() > 15'000'000) {
-        SetSysOscControl(libmcuhw::syscon::SYSOSCCTRL::kNO_BYPASS | libmcuhw::syscon::SYSOSCCTRL::kFREQ_15_25MHz);
+        SetSysOscControl(libmcuhw::syscon::SYSOSCCTRL::NO_BYPASS | libmcuhw::syscon::SYSOSCCTRL::FREQ_15_25MHz);
       } else
-        SetSysOscControl(libmcuhw::syscon::SYSOSCCTRL::kNO_BYPASS | libmcuhw::syscon::SYSOSCCTRL::kFREQ_1_20MHz);
-      PowerPeripherals(libmcull::syscon::power_options::kSysOsc);
+        SetSysOscControl(libmcuhw::syscon::SYSOSCCTRL::NO_BYPASS | libmcuhw::syscon::SYSOSCCTRL::FREQ_1_20MHz);
+      PowerPeripherals(libmcull::syscon::power_options::SysOsc);
       libmcu::Delay(3000);
-      SelectMainClock(mainClockSources::kExt);
+      SelectMainClock(mainClockSources::Ext);
     }
     //! @todo handle WDT clock source
     //! @todo some peripherals can only use the PLL out as a clock source
-    SelectMainPllClock(mainClockPllSources::kPrePll);
+    SelectMainPllClock(mainClockPllSources::PrePll);
     // can we achieve the frequency we need without using the PLL?
     if constexpr (config.GetMainFreq() == config.GetSourceFreq()) {
       SetMainClockDivider(config.GetMainFreq() / config.GetSystemFreq());
     } else {
       if constexpr (config.source_ == libmcuhw::clock::ClockInputSources::FRO) {
-        SelectPllClock(libmcull::syscon::PllClockSources::kFro);
+        SelectPllClock(libmcull::syscon::PllClockSources::Fro);
       } else if constexpr (config.source_ == libmcuhw::clock::ClockInputSources::XTAL) {
-        SelectPllClock(libmcull::syscon::PllClockSources::kExt);
+        SelectPllClock(libmcull::syscon::PllClockSources::Ext);
       }
-      DepowerPeripherals(libmcull::syscon::power_options::kSysPll);
+      DepowerPeripherals(libmcull::syscon::power_options::SysPll);
       SetSystemPllControl(libmcuhw::clock::FindSystemPllMsel(config.GetSourceFreq(), config.GetMainFreq()),
                           static_cast<libmcull::syscon::PllPostDividers>(libmcuhw::clock::FindSystemPllPsel(config.GetMainFreq())));
-      PowerPeripherals(libmcull::syscon::power_options::kSysPll);
+      PowerPeripherals(libmcull::syscon::power_options::SysPll);
       while (GetSystemPllStatus() == 0)
         ;
       SetMainClockDivider(config.GetMainFreq() / config.GetSystemFreq());
-      SelectMainPllClock(libmcull::syscon::mainClockPllSources::kSysPll);
+      SelectMainPllClock(libmcull::syscon::mainClockPllSources::SysPll);
     }
   }
   /**
@@ -393,16 +393,16 @@ struct Syscon : libmcull::PeripheralBase {
   constexpr void ConfigurePeripheralClock() {
     if constexpr (config.peripheral == libmcuhw::clock::PeriSelect::UART0) {
       if constexpr (config.source == libmcuhw::clock::PeriSource::FRO)
-        GetPeripheral()->FCLKSEL[hardware::FCLKSEL::kUART0] = hardware::FCLKSEL::kFRO;
+        GetPeripheral()->FCLKSEL[hardware::FCLKSEL::UART0] = hardware::FCLKSEL::FRO;
       else if constexpr (config.source == libmcuhw::clock::PeriSource::MAIN)
-        GetPeripheral()->FCLKSEL[hardware::FCLKSEL::kUART0] = hardware::FCLKSEL::kMAIN;
+        GetPeripheral()->FCLKSEL[hardware::FCLKSEL::UART0] = hardware::FCLKSEL::MAIN;
       else
         static_assert(false, "Unsupported clock source for UART0!");
     } else if constexpr (config.peripheral == libmcuhw::clock::PeriSelect::UART1) {
       if constexpr (config.source == libmcuhw::clock::PeriSource::FRO)
-        GetPeripheral()->FCLKSEL[hardware::FCLKSEL::kUART0] = hardware::FCLKSEL::kFRO;
+        GetPeripheral()->FCLKSEL[hardware::FCLKSEL::UART0] = hardware::FCLKSEL::FRO;
       else if constexpr (config.source == libmcuhw::clock::PeriSource::MAIN)
-        GetPeripheral()->FCLKSEL[hardware::FCLKSEL::kUART0] = hardware::FCLKSEL::kMAIN;
+        GetPeripheral()->FCLKSEL[hardware::FCLKSEL::UART0] = hardware::FCLKSEL::MAIN;
       else
         static_assert(false, "Unsupported clock source for UART1!");
     } else
