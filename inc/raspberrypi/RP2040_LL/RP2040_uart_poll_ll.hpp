@@ -82,21 +82,21 @@ struct UartPolled : libmcull::SyncUartBase {
         countdown = countdown - 1;
       }
       if (countdown == 0)
-        return libmcu::Results::kTimeout;
+        return libmcu::Results::Timeout;
       std::uint32_t receivedData = GetPeripheral()->UARTDR;
       if (receivedData & hardware::UARTDR::kError_MASK) {
         if (receivedData & hardware::UARTDR::OE_FLAG)
-          return libmcu::Results::kOverrun;
+          return libmcu::Results::Overrun;
         else if (receivedData & hardware::UARTDR::BE_FLAG)
-          return libmcu::Results::kBreakError;
+          return libmcu::Results::BreakError;
         else if (receivedData & hardware::UARTDR::PE_FLAG)
-          return libmcu::Results::kParityError;
+          return libmcu::Results::ParityError;
         else if (receivedData & hardware::UARTDR::FE_FLAG)
-          return libmcu::Results::kFramingError;
+          return libmcu::Results::FramingError;
       }
       character = static_cast<std::uint8_t>(receivedData);
     }
-    return libmcu::Results::kNoError;
+    return libmcu::Results::NoError;
   }
   /**
    * @brief get registers from peripheral

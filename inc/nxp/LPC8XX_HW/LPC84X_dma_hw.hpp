@@ -146,7 +146,7 @@ constexpr inline std::uint32_t RESERVED_MASK{0x01FFFFFFu}; /*!< register mask fo
 /**
  * @brief Format busy flags for DMA channels
  * @param channel DMA channel to check
- * @return formatted data for kBusy
+ * @return formatted data for Busy
  */
 constexpr inline std::uint32_t BSY_MASK(std::uint32_t channel) {
   return (1u << channel);

@@ -49,10 +49,10 @@ struct I2cPolled : libmcull::SyncI2cBase {
    */
   constexpr void Transmit(const libmcull::I2cDeviceAddress address, const std::span<const std::uint8_t> transmit_buffer) {
     std::uint32_t slave_address = static_cast<std::uint32_t>(address.value) << 1;
-    if (StartMasterTransmit(slave_address) != libmcu::Results::kNoError)
+    if (StartMasterTransmit(slave_address) != libmcu::Results::NoError)
       goto stop;
     for (const std::uint8_t &data : transmit_buffer) {
-      if (ContinueMasterTransmit(data) != libmcu::Results::kNoError)
+      if (ContinueMasterTransmit(data) != libmcu::Results::NoError)
         break;
     }
   stop:
@@ -91,13 +91,13 @@ struct I2cPolled : libmcull::SyncI2cBase {
   constexpr libmcu::Results StartMasterTransmit(const libmcull::I2cDeviceAddress address,
                                                 const std::span<const std::uint8_t> transmit_buffer) {
     std::uint32_t slave_address = static_cast<std::uint32_t>(address.value) << 1;
-    if (StartMasterTransmit(slave_address) != libmcu::Results::kNoError)
-      return libmcu::Results::kError;
+    if (StartMasterTransmit(slave_address) != libmcu::Results::NoError)
+      return libmcu::Results::Error;
     for (const std::uint8_t &data : transmit_buffer) {
-      if (ContinueMasterTransmit(data) != libmcu::Results::kNoError)
-        return libmcu::Results::kError;
+      if (ContinueMasterTransmit(data) != libmcu::Results::NoError)
+        return libmcu::Results::Error;
     }
-    return libmcu::Results::kNoError;
+    return libmcu::Results::NoError;
   }
   /**
    * @brief Starts a transmit operation and writes a single byte
@@ -108,11 +108,11 @@ struct I2cPolled : libmcull::SyncI2cBase {
    */
   constexpr libmcu::Results StartMasterTransmit(const libmcull::I2cDeviceAddress address, const std::uint8_t data) {
     std::uint32_t slave_address = static_cast<std::uint32_t>(address.value) << 1;
-    if (StartMasterTransmit(slave_address) != libmcu::Results::kNoError)
-      return libmcu::Results::kError;
-    if (ContinueMasterTransmit(data) != libmcu::Results::kNoError)
-      return libmcu::Results::kError;
-    return libmcu::Results::kNoError;
+    if (StartMasterTransmit(slave_address) != libmcu::Results::NoError)
+      return libmcu::Results::Error;
+    if (ContinueMasterTransmit(data) != libmcu::Results::NoError)
+      return libmcu::Results::Error;
+    return libmcu::Results::NoError;
   }
   /**
    * @brief Starts transmitting I2C data to a closed I2C bus
@@ -125,8 +125,8 @@ struct I2cPolled : libmcull::SyncI2cBase {
     GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTART;
     MasterWait();
     if ((GetPeripheral()->STAT & hardware::STAT::MSTSTATE_MASK) != hardware::STAT::MSTSTATE_TXRDY)
-      return libmcu::Results::kError;
-    return libmcu::Results::kNoError;
+      return libmcu::Results::Error;
+    return libmcu::Results::NoError;
   }
   /**
    * @brief Transmits more I2C data to the open I2C bus
@@ -136,10 +136,10 @@ struct I2cPolled : libmcull::SyncI2cBase {
    */
   constexpr libmcu::Results ContinueMasterTransmit(const std::span<const std::uint8_t> transmit_buffer) {
     for (const std::uint8_t &data : transmit_buffer) {
-      if (ContinueMasterTransmit(data) != libmcu::Results::kNoError)
-        return libmcu::Results::kError;
+      if (ContinueMasterTransmit(data) != libmcu::Results::NoError)
+        return libmcu::Results::Error;
     }
-    return libmcu::Results::kNoError;
+    return libmcu::Results::NoError;
   }
   /**
    * @brief Transmits more I2C data to the open I2C bus
@@ -152,8 +152,8 @@ struct I2cPolled : libmcull::SyncI2cBase {
     GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTCONTINUE;
     MasterWait();
     if ((GetPeripheral()->STAT & hardware::STAT::MSTSTATE_MASK) != hardware::STAT::MSTSTATE_TXRDY)
-      return libmcu::Results::kError;
-    return libmcu::Results::kNoError;
+      return libmcu::Results::Error;
+    return libmcu::Results::NoError;
   }
   /**
    * @brief Stops I2C master
@@ -162,7 +162,7 @@ struct I2cPolled : libmcull::SyncI2cBase {
   constexpr libmcu::Results StopMaster() {
     GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTOP;
     MasterWait();
-    return libmcu::Results::kNoError;
+    return libmcu::Results::NoError;
   }
   /**
    * @brief Waits until the master action has completed

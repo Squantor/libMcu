@@ -50,12 +50,12 @@ enum UartStatusMasks : std::uint32_t {
   kCts = hardware::STAT::kCTS,                  /*!< CTS signal state, Read only */
   kDeltaCts = hardware::STAT::kDELTACTS,        /*!< Change detected in CTS signal, write 1 clear */
   kTxdDisabled = hardware::STAT::kTXDISINT,     /*!< Transmitter disabled confirmation, read only  */
-  kOverrun = hardware::STAT::kOVERRUNINT,       /*!< Overrun error interrupt flag, write 1 clear */
+  Overrun = hardware::STAT::kOVERRUNINT,        /*!< Overrun error interrupt flag, write 1 clear */
   kRxBreak = hardware::STAT::kRXBRK,            /*!< Received break, read only */
   kRxBreakChange = hardware::STAT::kDELTARXBRK, /*!< Change detected in receiver break, write 1 clear */
   kStart = hardware::STAT::kSTART,              /*!< Start condition detected, write 1 clear */
   kFrameError = hardware::STAT::kFRAMERRINT,    /*!< Frame error interrupt flag, write 1 clear */
-  kParityError = hardware::STAT::kPARITYERRINT, /*!< Parity error interrupt flag, write 1 clear */
+  ParityError = hardware::STAT::kPARITYERRINT,  /*!< Parity error interrupt flag, write 1 clear */
   kRxNoise = hardware::STAT::kRXNOISEINT,       /*!< Recieved noise interrupt flag, write 1 clear*/
 };
 }  // namespace libmcull::usart

@@ -115,7 +115,7 @@ struct I2cPolling {
     i2cPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTART;
     MasterWait();
     if ((i2cPeripheral()->STAT & hardware::STAT::MSTSTATE_MASK) != hardware::STAT::MSTSTATE_TXRDY)
-      return libmcu::Results::kError;
+      return libmcu::Results::Error;
     return continueMasterWrite(transmitBuffer);
   }
   /**
@@ -131,7 +131,7 @@ struct I2cPolling {
     i2cPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTART;
     MasterWait();
     if ((i2cPeripheral()->STAT & hardware::STAT::MSTSTATE_MASK) != hardware::STAT::MSTSTATE_TXRDY)
-      return libmcu::Results::kError;
+      return libmcu::Results::Error;
     return continueMasterWrite(data);
   }
   /**
@@ -141,13 +141,13 @@ struct I2cPolling {
    * @return constexpr libmcu::Results
    */
   constexpr libmcu::Results continueMasterWrite(const std::span<const std::uint8_t> transmitBuffer) {
-    libmcu::Results result = libmcu::Results::kNoError;
+    libmcu::Results result = libmcu::Results::NoError;
     for (const std::uint8_t& data : transmitBuffer) {
       result = continueMasterWrite(data);
-      if (result != libmcu::Results::kNoError)
+      if (result != libmcu::Results::NoError)
         return result;
     }
-    return libmcu::Results::kNoError;
+    return libmcu::Results::NoError;
   }
   /**
    * @brief Writes more I2C data to the I2C bus
@@ -160,8 +160,8 @@ struct I2cPolling {
     i2cPeripheral()->MSTCTL = hardware::MSTCTL::MSTCONTINUE;
     MasterWait();
     if ((i2cPeripheral()->STAT & hardware::STAT::MSTSTATE_MASK) != hardware::STAT::MSTSTATE_TXRDY)
-      return libmcu::Results::kError;
-    return libmcu::Results::kNoError;
+      return libmcu::Results::Error;
+    return libmcu::Results::NoError;
   }
   /**
    * @brief Stops I2C master transmission
@@ -170,7 +170,7 @@ struct I2cPolling {
   constexpr libmcu::Results stopMaster() {
     i2cPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTOP;
     MasterWait();
-    return libmcu::Results::kNoError;
+    return libmcu::Results::NoError;
   }
 
  private:

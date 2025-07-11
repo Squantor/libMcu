@@ -18,29 +18,29 @@ namespace libmcu {
  * and result
  */
 enum class Results : std::uint8_t {
-  kNoError,        /*!< No error */
-  kError,          /*!< Error has occured */
-  kStarted,        /*!< Operation started */
-  kIdle,           /*!< Interface is idle */
-  kBusy,           /*!< Operation Busy */
-  kBusyTransmit,   /*!< Interface is busy with a Transmit operation */
-  kBusyReceive,    /*!< Interface is busy with a Reception operation */
-  kWaitForNext,    /*!< Interface is waiting for the next operation to start */
-  kDone,           /*!< Operation completed*/
-  kInUse,          /*!< Currently in use */
-  kClaimed,        /*!< Interface has been successfully claimed */
-  kUnclaimed,      /*!< Interface has been successfully unclaimed */
-  kNotClaimed,     /*!< Interface has not been claimed */
-  kInvalidHandle,  /*!< Invalid handle */
-  kTimeout,        /*!< Operation timed out */
-  kInvalidAddress, /*!< Invalid address */
-  kTransferError,  /*!< Error occured during data transfer*/
-  kOverrun,        /*!< buffer overrun */
-  kFramingError,   /*!< Framing error*/
-  kParityError,    /*!< Parity error */
-  kBreakError,     /*!< Break error */
-  kFull,           /*!< Buffer is full */
-  kEmpty,          /*!< Buffer is empty */
+  NoError,        /*!< No error */
+  Error,          /*!< Error has occured */
+  Started,        /*!< Operation started */
+  Idle,           /*!< Interface is idle */
+  Busy,           /*!< Operation Busy */
+  BusyTransmit,   /*!< Interface is busy with a Transmit operation */
+  BusyReceive,    /*!< Interface is busy with a Reception operation */
+  WaitForNext,    /*!< Interface is waiting for the next operation to start */
+  Done,           /*!< Operation completed*/
+  InUse,          /*!< Currently in use */
+  Claimed,        /*!< Interface has been successfully claimed */
+  Unclaimed,      /*!< Interface has been successfully unclaimed */
+  NotClaimed,     /*!< Interface has not been claimed */
+  InvalidHandle,  /*!< Invalid handle */
+  Timeout,        /*!< Operation timed out */
+  InvalidAddress, /*!< Invalid address */
+  TransferError,  /*!< Error occured during data transfer*/
+  Overrun,        /*!< buffer overrun */
+  FramingError,   /*!< Framing error*/
+  ParityError,    /*!< Parity error */
+  BreakError,     /*!< Break error */
+  Full,           /*!< Buffer is full */
+  Empty,          /*!< Buffer is empty */
 };
 }  // namespace libmcu
 

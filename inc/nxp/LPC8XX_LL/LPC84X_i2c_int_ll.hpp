@@ -50,7 +50,7 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
     GetPeripheral()->INTENSET = hardware::INTENSET::MSTARBLOSSEN | hardware::INTENSET::MSTSTSTPERREN |
                                 hardware::INTENSET::EVENTTIMEOUTEN | hardware::INTENSET::SCLTIMEOUTEN;
     GetPeripheral()->CFG = hardware::CFG::MSTEN;
-    current_state_ = libmcu::Results::kIdle;
+    current_state_ = libmcu::Results::Idle;
     return peripheralFrequency / divider / 20;
   }
   /**
@@ -58,11 +58,11 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
    * @return kClaimed when the claim has been successful, any other value indicates an error
    */
   constexpr libmcu::Results Claim(void) {
-    if (current_state_ == libmcu::Results::kClaimed) {
-      return libmcu::Results::kInUse;
+    if (current_state_ == libmcu::Results::Claimed) {
+      return libmcu::Results::InUse;
     }
-    if (current_state_ == libmcu::Results::kIdle) {
-      current_state_ = libmcu::Results::kClaimed;
+    if (current_state_ == libmcu::Results::Idle) {
+      current_state_ = libmcu::Results::Claimed;
     }
     return current_state_;
   }
@@ -71,9 +71,9 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
    * @return kUnclaimed when the unclaim has been successful, any other value indicates an error
    */
   constexpr libmcu::Results Unclaim(void) {
-    if (current_state_ == libmcu::Results::kClaimed) {
-      current_state_ = libmcu::Results::kIdle;
-      return libmcu::Results::kUnclaimed;
+    if (current_state_ == libmcu::Results::Claimed) {
+      current_state_ = libmcu::Results::Idle;
+      return libmcu::Results::Unclaimed;
     }
     return current_state_;
   }
@@ -85,13 +85,13 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
    */
   constexpr libmcu::Results Transmit(const libmcull::I2cDeviceAddress address, std::span<std::uint8_t> transmit_buffer,
                                      TransactionType transaction_type = TransactionType::kSingle) {
-    if (current_state_ != libmcu::Results::kClaimed) {
-      if (current_state_ == libmcu::Results::kBusyTransmit) {
-        return libmcu::Results::kBusy;
+    if (current_state_ != libmcu::Results::Claimed) {
+      if (current_state_ == libmcu::Results::BusyTransmit) {
+        return libmcu::Results::Busy;
       }
       return current_state_;
     }
-    current_state_ = libmcu::Results::kBusyTransmit;
+    current_state_ = libmcu::Results::BusyTransmit;
     transaction_type_ = transaction_type;
     std::uint32_t slave_address = static_cast<std::uint32_t>(address.value) << 1;
     buffer_index_ = 0;
@@ -106,13 +106,13 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
    */
   constexpr libmcu::Results Receive(const libmcull::I2cDeviceAddress address, std::span<std::uint8_t> receive_buffer,
                                     TransactionType transaction_type = TransactionType::kSingle) {
-    if (current_state_ != libmcu::Results::kClaimed) {
-      if (current_state_ == libmcu::Results::kBusyReceive) {
-        return libmcu::Results::kBusy;
+    if (current_state_ != libmcu::Results::Claimed) {
+      if (current_state_ == libmcu::Results::BusyReceive) {
+        return libmcu::Results::Busy;
       }
       return current_state_;
     }
-    current_state_ = libmcu::Results::kBusyReceive;
+    current_state_ = libmcu::Results::BusyReceive;
     transaction_type_ = transaction_type;
     std::uint32_t slave_address = (static_cast<std::uint32_t>(address.value) << 1) | 0x01;  // set read bit in Address
     buffer_index_ = 0;
@@ -130,13 +130,13 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
   constexpr libmcu::Results StartMasterTransmit(const libmcull::I2cDeviceAddress address,
                                                 const std::span<const std::uint8_t> transmit_buffer) {
     std::uint32_t slave_address = static_cast<std::uint32_t>(address.value) << 1;
-    if (StartMasterTransmit(slave_address) != libmcu::Results::kNoError)
-      return libmcu::Results::kError;
+    if (StartMasterTransmit(slave_address) != libmcu::Results::NoError)
+      return libmcu::Results::Error;
     for (const std::uint8_t &data : transmit_buffer) {
-      if (ContinueMasterTransmit(data) != libmcu::Results::kNoError)
-        return libmcu::Results::kError;
+      if (ContinueMasterTransmit(data) != libmcu::Results::NoError)
+        return libmcu::Results::Error;
     }
-    return libmcu::Results::kNoError;
+    return libmcu::Results::NoError;
   }
   /**
    * @brief Starts a transmit operation and writes a single byte
@@ -147,11 +147,11 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
    */
   constexpr libmcu::Results StartMasterTransmit(const libmcull::I2cDeviceAddress address, const std::uint8_t data) {
     std::uint32_t slave_address = static_cast<std::uint32_t>(address.value) << 1;
-    if (StartMasterTransmit(slave_address) != libmcu::Results::kNoError)
-      return libmcu::Results::kError;
-    if (ContinueMasterTransmit(data) != libmcu::Results::kNoError)
-      return libmcu::Results::kError;
-    return libmcu::Results::kNoError;
+    if (StartMasterTransmit(slave_address) != libmcu::Results::NoError)
+      return libmcu::Results::Error;
+    if (ContinueMasterTransmit(data) != libmcu::Results::NoError)
+      return libmcu::Results::Error;
+    return libmcu::Results::NoError;
   }
   /**
    * @brief Starts transmitting I2C data to a closed I2C bus
@@ -163,7 +163,7 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
     GetPeripheral()->MSTDAT = static_cast<std::uint32_t>(address);
     GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTART;
     GetPeripheral()->INTENSET = hardware::INTENSET::MSTPENDINGEN;
-    return libmcu::Results::kNoError;
+    return libmcu::Results::NoError;
   }
   /**
    * @brief Transmits more I2C data to the open I2C bus
@@ -173,10 +173,10 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
    */
   constexpr libmcu::Results ContinueMasterTransmit(const std::span<const std::uint8_t> transmit_buffer) {
     for (const std::uint8_t &data : transmit_buffer) {
-      if (ContinueMasterTransmit(data) != libmcu::Results::kNoError)
-        return libmcu::Results::kError;
+      if (ContinueMasterTransmit(data) != libmcu::Results::NoError)
+        return libmcu::Results::Error;
     }
-    return libmcu::Results::kNoError;
+    return libmcu::Results::NoError;
   }
   /**
    * @brief Transmits more I2C data to the open I2C bus
@@ -189,8 +189,8 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
     GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTCONTINUE;
     MasterWait();
     if ((GetPeripheral()->STAT & hardware::STAT::MSTSTATE_MASK) != hardware::STAT::MSTSTATE_TXRDY)
-      return libmcu::Results::kError;
-    return libmcu::Results::kNoError;
+      return libmcu::Results::Error;
+    return libmcu::Results::NoError;
   }
   /**
    * @brief Stops I2C master
@@ -199,7 +199,7 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
   constexpr libmcu::Results StopMaster() {
     GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTOP;
     MasterWait();
-    return libmcu::Results::kNoError;
+    return libmcu::Results::NoError;
   }
   /**
    * @brief Waits until the master action has completed
@@ -226,7 +226,7 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
           } else if (transaction_type_ == TransactionType::kMultiple) {
             // Multiple transfers, stop pending interrupt, it will be enabled when the next transfer starts
             GetPeripheral()->INTENCLR = hardware::INTENCLR::MSTPENDINGCLR;
-            current_state_ = libmcu::Results::kWaitForNext;
+            current_state_ = libmcu::Results::WaitForNext;
           }
         } else {
           if (status_state == hardware::STAT::MSTSTATE_TXRDY) {
@@ -242,7 +242,7 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
       } else if (status_state == hardware::STAT::MSTSTATE_IDLE) {
         // we are idle, disable master pending interrupt and change internal state
         GetPeripheral()->INTENCLR = hardware::INTENCLR::MSTPENDINGCLR;
-        current_state_ = libmcu::Results::kClaimed;
+        current_state_ = libmcu::Results::Claimed;
       } else {
         //! @todo handle NACK addres, NACK data states
       }

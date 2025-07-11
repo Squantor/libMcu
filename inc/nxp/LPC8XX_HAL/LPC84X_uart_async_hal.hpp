@@ -58,12 +58,12 @@ struct UartAsync {
   }
   /**
    * @brief Claim the Usart interface
-   * @return kInUse when already in use
+   * @return InUse when already in use
    * @return CLAIMED when the claim has been successful
    */
   constexpr libmcu::Results claim(void) {
     if ((transactionWriteState != detail::synchonousStates::IDLE) && (transactionReadState != detail::synchonousStates::IDLE)) {
-      return libmcu::Results::kInUse;
+      return libmcu::Results::InUse;
     }
     transactionWriteState = detail::synchonousStates::CLAIMED;
     transactionReadState = detail::synchonousStates::CLAIMED;
@@ -71,85 +71,85 @@ struct UartAsync {
   }
   /**
    * @brief Unclaim the Usart interface
-   * @return kError when already idle or inconsistent, possible programming error!
-   * @return kBusy when still executing a transaction
+   * @return Error when already idle or inconsistent, possible programming error!
+   * @return Busy when still executing a transaction
    * @return UNCLAIMED when unclaim sucessful
    */
   constexpr libmcu::Results unclaim(void) {
     if ((transactionWriteState == detail::synchonousStates::TRANSACTING) ||
         (transactionReadState == detail::synchonousStates::TRANSACTING)) {
-      return libmcu::Results::kBusy;
+      return libmcu::Results::Busy;
     } else if ((transactionWriteState == detail::synchonousStates::CLAIMED) &&
                (transactionReadState == detail::synchonousStates::CLAIMED)) {
       transactionWriteState = detail::synchonousStates::IDLE;
       transactionReadState = detail::synchonousStates::IDLE;
       return libmcu::Results::UNCLAIMED;
     } else {
-      return libmcu::Results::kError;
+      return libmcu::Results::Error;
     }
   }
   /**
    * @brief Start a read transaction
    * @param buffer buffer of data to read
-   * @return kError if not claimed interface or busy
-   * @return kStarted when transaction started
+   * @return Error if not claimed interface or busy
+   * @return Started when transaction started
    */
   constexpr libmcu::Results startRead(std::span<transferType> buffer) {
     if (transactionReadState != detail::synchonousStates::CLAIMED) {
-      return libmcu::Results::kError;
+      return libmcu::Results::Error;
     }
     // store transaction information
     transactionReadIndex = 0u;
     transactionReadData = buffer;
     transactionReadState = detail::synchonousStates::TRANSACTING;
-    return libmcu::Results::kStarted;
+    return libmcu::Results::Started;
   }
   /**
    * @brief Start a write transaction
    * @param buffer buffer of data to read
-   * @return kError if not claimed interface or busy
-   * @return kStarted when transaction started
+   * @return Error if not claimed interface or busy
+   * @return Started when transaction started
    */
   constexpr libmcu::Results startWrite(std::span<transferType> buffer) {
     if (transactionWriteState != detail::synchonousStates::CLAIMED) {
-      return libmcu::Results::kError;
+      return libmcu::Results::Error;
     }
     // store transaction information
     transactionWriteIndex = 0u;
     transactionWriteData = buffer;
     transactionWriteState = detail::synchonousStates::TRANSACTING;
     // TODO write first data in UART register
-    return libmcu::Results::kStarted;
+    return libmcu::Results::Started;
   }
   /**
    * @brief continue started read transaction
-   * @return kError if transaction has not started
-   * @return kBusy if transaction is still in progress
-   * @return kDone if transaction is done and buffer filled with data
+   * @return Error if transaction has not started
+   * @return Busy if transaction is still in progress
+   * @return Done if transaction is done and buffer filled with data
    */
   constexpr libmcu::Results progressRead(void) {
     if (transactionReadState != detail::synchonousStates::TRANSACTING) {
-      return libmcu::Results::kError;
+      return libmcu::Results::Error;
     }
     if (usartPeripheral()->STAT & hardware::STAT::RXRDY) {
       transactionReadData[transactionReadIndex] = static_cast<transferType>(usartPeripheral()->RXDAT);
       transactionReadIndex++;
       if (transactionReadData.size() == transactionReadIndex) {
         transactionReadState = detail::synchonousStates::CLAIMED;
-        return libmcu::Results::kDone;
+        return libmcu::Results::Done;
       }
     }
-    return libmcu::Results::kBusy;
+    return libmcu::Results::Busy;
   }
   /**
    * @brief continue started write transaction
-   * @return kError if transaction has not started
-   * @return kBusy if transaction is still in progress
-   * @return kDone if transaction is done and buffer of data has been written
+   * @return Error if transaction has not started
+   * @return Busy if transaction is still in progress
+   * @return Done if transaction is done and buffer of data has been written
    */
   constexpr libmcu::Results progressWrite(void) {
     if (transactionWriteState != detail::synchonousStates::TRANSACTING) {
-      return libmcu::Results::kError;
+      return libmcu::Results::Error;
     }
     std::uint32_t status = usartPeripheral()->STAT;
     if (status & hardware::STAT::TXRDY) {
@@ -159,11 +159,11 @@ struct UartAsync {
       } else {
         if (status & hardware::STAT::TXIDLE) {
           transactionWriteState = detail::synchonousStates::CLAIMED;
-          return libmcu::Results::kDone;
+          return libmcu::Results::Done;
         }
       }
     }
-    return libmcu::Results::kBusy;
+    return libmcu::Results::Busy;
   }
   /**
    * @brief get the input clock of this UART peripheral

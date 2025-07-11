@@ -49,12 +49,12 @@ using IsrLambda = std::add_pointer<void()>::type; /*!< Base type for an ISR lamb
  * @todo depricate usage of this state enum and use the results enum
  */
 enum class AsynchronousStates : std::uint8_t {
-  kIdle,         /*!< Interface is idle, ready to be claimed */
-  kClaimed,      /*!< Interface is claimed, ready to transact */
-  kBusy,         /*!< Interface is busy */
-  kBusyReceive,  /*!< Interface is busy with a Reception operation */
-  kBusyTransmit, /*!< Interface is busy with a Transmit operation */
-  kError,        /*!< Interface is in an error state */
+  Idle,         /*!< Interface is idle, ready to be claimed */
+  Claimed,      /*!< Interface is claimed, ready to transact */
+  Busy,         /*!< Interface is busy */
+  BusyReceive,  /*!< Interface is busy with a Reception operation */
+  BusyTransmit, /*!< Interface is busy with a Transmit operation */
+  Error,        /*!< Interface is in an error state */
 };
 
 }  // namespace libmcu

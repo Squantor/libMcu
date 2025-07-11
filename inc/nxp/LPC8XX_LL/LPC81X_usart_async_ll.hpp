@@ -30,7 +30,7 @@ struct UsartAsync : libmcull::AsyncUartBase {
    * Initializes the internal state to defaults
    */
   UsartAsync()
-    : transaction_write_state_{libmcu::AsynchronousStates::kIdle}, transaction_read_state_{libmcu::AsynchronousStates::kIdle} {}
+    : transaction_write_state_{libmcu::AsynchronousStates::Idle}, transaction_read_state_{libmcu::AsynchronousStates::Idle} {}
   /**
    * @brief Setup USART to 8n1
    * @param baudRate Baud rate value
@@ -58,99 +58,99 @@ struct UsartAsync : libmcull::AsyncUartBase {
   }
   /**
    * @brief Claim the Usart interface
-   * @return kInUse when already in use
-   * @return kClaimed when the claim has been successful
+   * @return InUse when already in use
+   * @return Claimed when the claim has been successful
    */
   constexpr libmcu::Results Claim(void) {
-    if ((transaction_write_state_ != libmcu::AsynchronousStates::kIdle) &&
-        (transaction_read_state_ != libmcu::AsynchronousStates::kIdle)) {
-      return libmcu::Results::kInUse;
+    if ((transaction_write_state_ != libmcu::AsynchronousStates::Idle) &&
+        (transaction_read_state_ != libmcu::AsynchronousStates::Idle)) {
+      return libmcu::Results::InUse;
     }
-    transaction_write_state_ = libmcu::AsynchronousStates::kClaimed;
-    transaction_read_state_ = libmcu::AsynchronousStates::kClaimed;
-    return libmcu::Results::kClaimed;
+    transaction_write_state_ = libmcu::AsynchronousStates::Claimed;
+    transaction_read_state_ = libmcu::AsynchronousStates::Claimed;
+    return libmcu::Results::Claimed;
   }
   /**
    * @brief Unclaim the Usart interface
-   * @returns kError when already idle or inconsistent, possible programming error!
-   * @returns kBusy when still executing a transaction
-   * @returns kUnclaimed when unclaim sucessful
+   * @returns Error when already idle or inconsistent, possible programming error!
+   * @returns Busy when still executing a transaction
+   * @returns Unclaimed when unclaim sucessful
    */
   constexpr libmcu::Results Unclaim(void) {
-    if ((transaction_write_state_ == libmcu::AsynchronousStates::kBusy) ||
-        (transaction_read_state_ == libmcu::AsynchronousStates::kBusy)) {
-      return libmcu::Results::kBusy;
-    } else if ((transaction_write_state_ == libmcu::AsynchronousStates::kClaimed) &&
-               (transaction_read_state_ == libmcu::AsynchronousStates::kClaimed)) {
-      transaction_write_state_ = libmcu::AsynchronousStates::kIdle;
-      transaction_read_state_ = libmcu::AsynchronousStates::kIdle;
-      return libmcu::Results::kUnclaimed;
+    if ((transaction_write_state_ == libmcu::AsynchronousStates::Busy) ||
+        (transaction_read_state_ == libmcu::AsynchronousStates::Busy)) {
+      return libmcu::Results::Busy;
+    } else if ((transaction_write_state_ == libmcu::AsynchronousStates::Claimed) &&
+               (transaction_read_state_ == libmcu::AsynchronousStates::Claimed)) {
+      transaction_write_state_ = libmcu::AsynchronousStates::Idle;
+      transaction_read_state_ = libmcu::AsynchronousStates::Idle;
+      return libmcu::Results::Unclaimed;
     } else {
-      return libmcu::Results::kError;
+      return libmcu::Results::Error;
     }
   }
   /**
    * @brief Start a receive operation
    * @param buffer buffer of data to read, needs to be accessible while out of scope
-   * @return kError if not claimed interface or busy
-   * @return kStarted when transaction started
+   * @return Error if not claimed interface or busy
+   * @return Started when transaction started
    */
   constexpr libmcu::Results Receive(std::span<TransferType> buffer) {
-    if (transaction_read_state_ != libmcu::AsynchronousStates::kClaimed) {
-      return libmcu::Results::kError;
+    if (transaction_read_state_ != libmcu::AsynchronousStates::Claimed) {
+      return libmcu::Results::Error;
     }
     // store transaction information
     transaction_read_index_ = 0u;
     transaction_read_data_ = buffer;
-    transaction_read_state_ = libmcu::AsynchronousStates::kBusy;
-    return libmcu::Results::kStarted;
+    transaction_read_state_ = libmcu::AsynchronousStates::Busy;
+    return libmcu::Results::Started;
   }
   /**
    * @brief Start a transmit operation
    * @param buffer buffer of data to read, needs to be accessible while out of scope
-   * @return kError if not claimed interface or busy
-   * @return kStarted when transaction started
+   * @return Error if not claimed interface or busy
+   * @return Started when transaction started
    */
   constexpr libmcu::Results Transmit(std::span<TransferType> buffer) {
-    if (transaction_write_state_ != libmcu::AsynchronousStates::kClaimed) {
-      return libmcu::Results::kError;
+    if (transaction_write_state_ != libmcu::AsynchronousStates::Claimed) {
+      return libmcu::Results::Error;
     }
     // store transaction information
     transaction_write_index_ = 0u;
     transaction_write_data_ = buffer;
-    transaction_write_state_ = libmcu::AsynchronousStates::kBusy;
+    transaction_write_state_ = libmcu::AsynchronousStates::Busy;
     // TODO write first data in UART register
-    return libmcu::Results::kStarted;
+    return libmcu::Results::Started;
   }
   /**
    * @brief continue receive operation
-   * @return kError if transaction has not started
-   * @return kBusy if transaction is still in progress
-   * @return kDone if transaction is done and buffer filled with data
+   * @return Error if transaction has not started
+   * @return Busy if transaction is still in progress
+   * @return Done if transaction is done and buffer filled with data
    */
   constexpr libmcu::Results ProgressReceive(void) {
-    if (transaction_read_state_ != libmcu::AsynchronousStates::kBusy) {
-      return libmcu::Results::kError;
+    if (transaction_read_state_ != libmcu::AsynchronousStates::Busy) {
+      return libmcu::Results::Error;
     }
     if (GetPeripheral()->STAT & hardware::STAT::kRXRDY) {
       transaction_read_data_[transaction_read_index_] = static_cast<TransferType>(GetPeripheral()->RXDAT);
       transaction_read_index_++;
       if (transaction_read_data_.size() == transaction_read_index_) {
-        transaction_read_state_ = libmcu::AsynchronousStates::kClaimed;
-        return libmcu::Results::kDone;
+        transaction_read_state_ = libmcu::AsynchronousStates::Claimed;
+        return libmcu::Results::Done;
       }
     }
-    return libmcu::Results::kBusy;
+    return libmcu::Results::Busy;
   }
   /**
    * @brief continue transmission operation
-   * @return kError if transaction has not started
-   * @return kBusy if transaction is still in progress
-   * @return kDone if transaction is done and buffer of data has been written
+   * @return Error if transaction has not started
+   * @return Busy if transaction is still in progress
+   * @return Done if transaction is done and buffer of data has been written
    */
   constexpr libmcu::Results ProgressTransmit(void) {
-    if (transaction_write_state_ != libmcu::AsynchronousStates::kBusy) {
-      return libmcu::Results::kError;
+    if (transaction_write_state_ != libmcu::AsynchronousStates::Busy) {
+      return libmcu::Results::Error;
     }
     std::uint32_t status = GetPeripheral()->STAT;
     if (status & hardware::STAT::kTXRDY) {
@@ -159,12 +159,12 @@ struct UsartAsync : libmcull::AsyncUartBase {
         transaction_write_index_++;
       } else {
         if (status & hardware::STAT::kTXIDLE) {
-          transaction_write_state_ = libmcu::AsynchronousStates::kClaimed;
-          return libmcu::Results::kDone;
+          transaction_write_state_ = libmcu::AsynchronousStates::Claimed;
+          return libmcu::Results::Done;
         }
       }
     }
-    return libmcu::Results::kBusy;
+    return libmcu::Results::Busy;
   }
   /**
    * @brief get registers from peripheral

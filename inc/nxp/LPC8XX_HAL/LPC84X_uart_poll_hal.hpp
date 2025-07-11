@@ -83,31 +83,31 @@ struct UartPolled : public libmcuhal::HalUartBase {
   /**
    * @brief Claim an the asynchronous interface
    * @param[out] handle for the claimed interface, set when claimed
-   * @returns kClaimed if successful
+   * @returns Claimed if successful
    * @returns kInUse if the interface is already in use
    */
   libmcu::Results Claim(AsyncHandle& handle) {
-    if (state_ != libmcu::AsynchronousStates::kIdle)
-      return libmcu::Results::kInUse;
+    if (state_ != libmcu::AsynchronousStates::Idle)
+      return libmcu::Results::InUse;
     handle = async_handle_;
-    state_ = libmcu::AsynchronousStates::kClaimed;
-    return libmcu::Results::kClaimed;
+    state_ = libmcu::AsynchronousStates::Claimed;
+    return libmcu::Results::Claimed;
   }
   /**
    * @brief Release the asynchronous interface
    * @param handle for the interface to be released
    * @returns kUnclaimed if successful
-   * @returns kNotClaimed if the interface is not claimed
-   * @returns kInvalidHandle if the handle is invalid
+   * @returns NotClaimed if the interface is not claimed
+   * @returns InvalidHandle if the handle is invalid
    */
   libmcu::Results Release(AsyncHandle handle) {
-    if (state_ != libmcu::AsynchronousStates::kClaimed)
-      return libmcu::Results::kNotClaimed;
+    if (state_ != libmcu::AsynchronousStates::Claimed)
+      return libmcu::Results::NotClaimed;
     if (handle != async_handle_)
-      return libmcu::Results::kInvalidHandle;
+      return libmcu::Results::InvalidHandle;
     async_handle_ += 1;
-    state_ = libmcu::AsynchronousStates::kIdle;
-    return libmcu::Results::kUnclaimed;
+    state_ = libmcu::AsynchronousStates::Idle;
+    return libmcu::Results::Unclaimed;
   }
   /**
    * @brief Get the status of the UART interface
@@ -125,16 +125,16 @@ struct UartPolled : public libmcuhal::HalUartBase {
    * @return libmcu::Results
    */
   libmcu::Results Transmit(AsyncHandle handle, TransferType buffer) {
-    if (state_ != libmcu::AsynchronousStates::kClaimed)
-      return libmcu::Results::kNotClaimed;
+    if (state_ != libmcu::AsynchronousStates::Claimed)
+      return libmcu::Results::NotClaimed;
     if (handle != async_handle_)
-      return libmcu::Results::kInvalidHandle;
+      return libmcu::Results::InvalidHandle;
     UartStateMasks status;
     do {
       status = GetStatus();
     } while ((status & kTransmitDataMask) == 0);
     ll_uart_sync.Write(buffer);
-    return libmcu::Results::kNoError;
+    return libmcu::Results::NoError;
   }
 
   /**
@@ -144,10 +144,10 @@ struct UartPolled : public libmcuhal::HalUartBase {
    * @return libmcu::Results
    */
   libmcu::Results Receive(AsyncHandle handle, TransferType& buffer) {
-    if (state_ != libmcu::AsynchronousStates::kClaimed)
-      return libmcu::Results::kNotClaimed;
+    if (state_ != libmcu::AsynchronousStates::Claimed)
+      return libmcu::Results::NotClaimed;
     if (handle != async_handle_)
-      return libmcu::Results::kInvalidHandle;
+      return libmcu::Results::InvalidHandle;
     UartStateMasks status;
     std::size_t timeout = action_timeout;
     do {
@@ -155,14 +155,14 @@ struct UartPolled : public libmcuhal::HalUartBase {
       timeout -= 1;
     } while ((status & kReceiverDataMask) == 0 && timeout > 0);
     if (timeout == 0)
-      return libmcu::Results::kTimeout;
+      return libmcu::Results::Timeout;
     ll_uart_sync.Read(buffer);
-    return libmcu::Results::kNoError;
+    return libmcu::Results::NoError;
   }
 
  private:
   AsyncHandle async_handle_ = 0; /*!< Async handle to be passed to the claimant, incremented per claim/unclaim pair */
-  libmcu::AsynchronousStates state_ = libmcu::AsynchronousStates::kIdle;
+  libmcu::AsynchronousStates state_ = libmcu::AsynchronousStates::Idle;
 };
 
 }  // namespace libmcuhal::usart
