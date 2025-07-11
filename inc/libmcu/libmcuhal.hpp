@@ -8,5 +8,10 @@
  * @file libmcuhal.hpp
  * @brief top level include for libMcuHal
  */
-#include "libmcuhal_types.hpp"
-#include "libmcuhal_concepts.hpp"
+#ifndef LIBMCUHAL_HPP
+#define LIBMCUHAL_HPP
+
+#include "hal_types.hpp"
+#include "hal_concepts.hpp"
+
+#endif

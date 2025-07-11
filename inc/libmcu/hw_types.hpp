@@ -5,11 +5,11 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * @file libmcuhw_types.hpp
+ * @file hw_types.hpp
  * @brief Types used by libMcuHw
  */
-#ifndef LIBMCUHW_TYPES_HPP
-#define LIBMCUHW_TYPES_HPP
+#ifndef HW_TYPES_HPP
+#define HW_TYPES_HPP
 
 //! @todo work in progress to change to namespace libmcuhw below
 namespace libmcu {

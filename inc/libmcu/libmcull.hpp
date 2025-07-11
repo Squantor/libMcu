@@ -8,7 +8,12 @@
  * @file libmcull.hpp
  * @brief top level include for libMcuLL
  */
+#ifndef LIBMCULL_HPP
+#define LIBMCULL_HPP
+
 #include "libmcu.hpp"
 #include "libmcuhw.hpp"
-#include "libmcull_types.hpp"
-#include "libmcull_concepts.hpp"
+#include "ll_types.hpp"
+#include "ll_concepts.hpp"
+
+#endif

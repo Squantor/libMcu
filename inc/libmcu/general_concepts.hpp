@@ -5,11 +5,11 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * @file libmcu_concepts.hpp
+ * @file general_concepts.hpp
  * @brief concepts used by libMcu in general
  */
-#ifndef LIBMCU_CONCEPTS_HPP
-#define LIBMCU_CONCEPTS_HPP
+#ifndef GENERAL_CONCEPTS_HPP
+#define GENERAL_CONCEPTS_HPP
 
 namespace libmcu {
 /**

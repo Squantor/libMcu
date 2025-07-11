@@ -5,11 +5,11 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file libmcu_algorithms.hpp
+ * \file general_algorithms.hpp
  * \brief algorithms used by libMcu
  */
-#ifndef LIBMCU_ALGORITHMS_HPP
-#define LIBMCU_ALGORITHMS_HPP
+#ifndef GENERAL_ALGORITHMS_HPP
+#define GENERAL_ALGORITHMS_HPP
 
 namespace libmcu {
 /**

@@ -5,8 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file libmcu.hpp
- * \brief single location for all all libmcu includes
+ * @file libmcu.hpp
+ * @brief single location for all all libmcu includes
  */
 #ifndef LIBMCU_HPP
 #define LIBMCU_HPP
@@ -17,11 +17,11 @@
 #include <span>
 #include <type_traits>
 #include <limits>
-#include "libmcu_results.hpp"
-#include "libmcu_types.hpp"
-#include "libmcu_concepts.hpp"
-#include "libmcu_functions.hpp"
-#include "ringbuffer.hpp"
-#include "libmcu_algorithms.hpp"
+#include "general_results.hpp"
+#include "general_types.hpp"
+#include "general_concepts.hpp"
+#include "general_functions.hpp"
+#include "general_ringbuffer.hpp"
+#include "general_algorithms.hpp"
 
 #endif

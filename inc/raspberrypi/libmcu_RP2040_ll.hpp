@@ -12,7 +12,7 @@
 #define LIBMCURP2040LL_HPP
 
 #include "../libmcu/libmcull.hpp"
-#include "../libmcu/libmcu_functions_CM0.hpp"
+#include "../libmcu/general_functions_CM0.hpp"
 #include "detail/RP2040_LL_types.hpp"
 #include "detail/RP2040_LL_concepts.hpp"
 

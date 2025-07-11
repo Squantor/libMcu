@@ -5,11 +5,11 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * @file libmcuhal_types.hpp
+ * @file hal_types.hpp
  * @brief Types used by libMcuHal
  */
-#ifndef LIBMCUHAL_TYPES_HPP
-#define LIBMCUHAL_TYPES_HPP
+#ifndef HAL_TYPES_HPP
+#define HAL_TYPES_HPP
 
 namespace libmcuhal {
 /**

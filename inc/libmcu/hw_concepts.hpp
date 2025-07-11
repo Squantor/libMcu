@@ -5,11 +5,11 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * @file libmcuhw_concepts.hpp
+ * @file hw_concepts.hpp
  * @brief concepts used by libMcuHw
  */
-#ifndef LIBMCUHW_CONCEPTS_HPP
-#define LIBMCUHW_CONCEPTS_HPP
+#ifndef HW_CONCEPTS_HPP
+#define HW_CONCEPTS_HPP
 
 namespace libmcuhw {}
 

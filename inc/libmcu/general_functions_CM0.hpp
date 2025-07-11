@@ -5,11 +5,11 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file libmcu_functions_CM0.hpp
+ * \file general_functions_CM0.hpp
  * \brief helper functions used by libMcu used by CortexM0 processors
  */
-#ifndef LIBMCU_FUNCTIONS_CM0_HPP
-#define LIBMCU_FUNCTIONS_CM0_HPP
+#ifndef GENERAL_FUNCTIONS_CM0_HPP
+#define GENERAL_FUNCTIONS_CM0_HPP
 
 #include <climits>
 

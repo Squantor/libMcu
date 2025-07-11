@@ -5,11 +5,11 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * @file libmcull_concepts.hpp
+ * @file ll_concepts.hpp
  * @brief concepts used by libMcuLL
  */
-#ifndef LIBMCULL_CONCEPTS_HPP
-#define LIBMCULL_CONCEPTS_HPP
+#ifndef LL_CONCEPTS_HPP
+#define LL_CONCEPTS_HPP
 
 namespace libmcull {
 /**

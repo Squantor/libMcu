@@ -8,8 +8,8 @@
  * @file libmcu_results.hpp
  * @brief result types used by libMcu
  */
-#ifndef LIBMCU_RESULTS_HPP
-#define LIBMCU_RESULTS_HPP
+#ifndef GENERAL_RESULTS_HPP
+#define GENERAL_RESULTS_HPP
 
 namespace libmcu {
 /**

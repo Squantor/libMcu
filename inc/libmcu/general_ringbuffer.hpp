@@ -13,8 +13,8 @@
  * @todo peekfront(size_t count), peekback(size count)
  * @todo dropfront(size_t count), dropback(size_t count)
  */
-#ifndef RINGBUFFER_HPP
-#define RINGBUFFER_HPP
+#ifndef GENERAL_RINGBUFFER_HPP
+#define GENERAL_RINGBUFFER_HPP
 
 #include <array>
 #include <cstdint>

@@ -8,8 +8,8 @@
  * @file libmcu_functions.hpp
  * @brief helper functions used by libMcu
  */
-#ifndef LIBMCU_FUNCTIONS_HPP
-#define LIBMCU_FUNCTIONS_HPP
+#ifndef GENERAL_FUNCTIONS_HPP
+#define GENERAL_FUNCTIONS_HPP
 
 #include <climits>
 

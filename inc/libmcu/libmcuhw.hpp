@@ -11,7 +11,7 @@
 #ifndef LIBMCUHW_HPP
 #define LIBMCUHW_HPP
 
-#include "libmcuhw_types.hpp"
-#include "libmcuhw_concepts.hpp"
+#include "hw_types.hpp"
+#include "hw_concepts.hpp"
 
 #endif
