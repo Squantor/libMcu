@@ -21,41 +21,41 @@ namespace lowlevel = libmcull::usart;
  * @brief amount of bits to transmit
  */
 enum class UartLengths : std::uint32_t {
-  kSize7 = static_cast<std::uint32_t>(lowlevel::UartLengths::kSize7), /*!< USART transmit length of 7 bits */
-  kSize8 = static_cast<std::uint32_t>(lowlevel::UartLengths::kSize8), /*!< USART transmit length of 8 bits */
-  kSize9 = static_cast<std::uint32_t>(lowlevel::UartLengths::kSize9), /*!< USART transmit length of 9 bits */
+  kSize7 = static_cast<std::uint32_t>(lowlevel::UartLengths::Size7), /*!< USART transmit length of 7 bits */
+  kSize8 = static_cast<std::uint32_t>(lowlevel::UartLengths::Size8), /*!< USART transmit length of 8 bits */
+  kSize9 = static_cast<std::uint32_t>(lowlevel::UartLengths::Size9), /*!< USART transmit length of 9 bits */
 };
 
 /**
  * @brief Parity bit options
  */
 enum class UartParities : std::uint32_t {
-  kNone = static_cast<std::uint32_t>(lowlevel::UartParities::kNone), /*!< No parity */
-  kEven = static_cast<std::uint32_t>(lowlevel::UartParities::kEven), /*!< Even parity */
-  kOdd = static_cast<std::uint32_t>(lowlevel::UartParities::kOdd),   /*!< Odd parity */
+  kNone = static_cast<std::uint32_t>(lowlevel::UartParities::None), /*!< No parity */
+  kEven = static_cast<std::uint32_t>(lowlevel::UartParities::Even), /*!< Even parity */
+  kOdd = static_cast<std::uint32_t>(lowlevel::UartParities::Odd),   /*!< Odd parity */
 };
 
 /**
  * @brief stop bit options
  */
 enum class UartStops : std::uint32_t {
-  kStop1 = static_cast<std::uint32_t>(lowlevel::UartStops::kStop1), /*!< 1 stop bit */
-  kStop2 = static_cast<std::uint32_t>(lowlevel::UartStops::kStop2), /*!< 2 stop bits */
+  kStop1 = static_cast<std::uint32_t>(lowlevel::UartStops::Stop1), /*!< 1 stop bit */
+  kStop2 = static_cast<std::uint32_t>(lowlevel::UartStops::Stop2), /*!< 2 stop bits */
 };
 /**
  * @brief Uart status bits, multiple bits can be set
  */
 enum UartStateMasks : std::uint32_t {
-  kReceiverDataMask = lowlevel::kRxReady,        /*!< Receiver data ready flag */
-  kReceiverIdleMask = lowlevel::kRxIdle,         /*!< Receiver idle */
-  kTransmitDataMask = lowlevel::kTxReady,        /*!< Transmitter ready for data */
-  kTransmitIdleMask = lowlevel::kTxIdle,         /*!< Transmitter idle */
-  kOverrunMask = lowlevel::kOverrun,             /*!< Overrun error flag */
-  kReceiverBreakMask = lowlevel::kRxBreak,       /*!< Received break flag */
-  kFramingErrorMask = lowlevel::kFrameError,     /*!< Frame error interrupt flag */
-  kParityErrorMask = lowlevel::kParityError,     /*!< Parity error interrupt flag */
-  kReceiverNoiseMask = lowlevel::kRxNoise,       /*!< Recieved noise interrupt flag */
-  kAutobaudErrorMask = lowlevel::kAutobaudError, /*!< Autobaud error flag */
+  kReceiverDataMask = lowlevel::RxReady,        /*!< Receiver data ready flag */
+  kReceiverIdleMask = lowlevel::RxIdle,         /*!< Receiver idle */
+  kTransmitDataMask = lowlevel::TxReady,        /*!< Transmitter ready for data */
+  kTransmitIdleMask = lowlevel::TxIdle,         /*!< Transmitter idle */
+  kOverrunMask = lowlevel::Overrun,             /*!< Overrun error flag */
+  kReceiverBreakMask = lowlevel::RxBreak,       /*!< Received break flag */
+  kFramingErrorMask = lowlevel::FrameError,     /*!< Frame error interrupt flag */
+  kParityErrorMask = lowlevel::ParityError,     /*!< Parity error interrupt flag */
+  kReceiverNoiseMask = lowlevel::RxNoise,       /*!< Recieved noise interrupt flag */
+  kAutobaudErrorMask = lowlevel::AutobaudError, /*!< Autobaud error flag */
 };
 
 /**
