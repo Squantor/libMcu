@@ -42,7 +42,7 @@ struct SpiPolling {
    */
   constexpr std::uint32_t init(std::uint32_t bitRate, std::uint32_t selectPolarity = 0, std::uint32_t preDelay = 0,
                                std::uint32_t postDelay = 0, std::uint32_t frameDelay = 0, std::uint32_t transferDelay = 0) {
-    while (!(spiPeripheral()->STAT & hardware::STAT::kMSTIDLE))
+    while (!(spiPeripheral()->STAT & hardware::STAT::MSTIDLE))
       ;
     spiPeripheral()->CFG = 0;  // disable
     std::uint32_t peripheralFrequency = GetInputClockFreq<t_clockConfig>();
@@ -50,7 +50,7 @@ struct SpiPolling {
     spiPeripheral()->DIV = hardware::DIV::DIVVAL(divider);
     spiPeripheral()->DLY = hardware::DLY::PRE_DELAY(preDelay) | hardware::DLY::POST_DELAY(postDelay) |
                            hardware::DLY::FRAME_DELAY(frameDelay) | hardware::DLY::TRANSFER_DELAY(transferDelay);
-    std::uint32_t config = hardware::CFG::kENABLE | hardware::CFG::kMASTER;
+    std::uint32_t config = hardware::CFG::ENABLE | hardware::CFG::MASTER;
     config |= hardware::CFG::SPOL(selectPolarity);
     spiPeripheral()->CFG = config;
     return peripheralFrequency / divider;
@@ -68,14 +68,14 @@ struct SpiPolling {
   constexpr void writeGeneric(const std::span<const bufferType> data, const std::uint32_t bitSize, spiSlaveSelects select,
                               bool endOfTransfer, bool lsbFirst) {
     // check if busy
-    while (!(spiPeripheral()->STAT & hardware::STAT::kMSTIDLE))
+    while (!(spiPeripheral()->STAT & hardware::STAT::MSTIDLE))
       ;
     // configure new settings
     std::uint32_t config = spiPeripheral()->CFG;
     if (lsbFirst)
-      config |= hardware::CFG::kLSBF;
+      config |= hardware::CFG::LSBF;
     else
-      config &= ~hardware::CFG::kLSBF;
+      config &= ~hardware::CFG::LSBF;
     spiPeripheral()->CFG = config;
     // setup transfer
     uint32_t txctl =
@@ -84,13 +84,13 @@ struct SpiPolling {
     std::size_t index = 0;
     // write data minus one element
     while (index < data.size() - 1) {
-      while (!(spiPeripheral()->STAT & hardware::STAT::kTXRDY))
+      while (!(spiPeripheral()->STAT & hardware::STAT::TXRDY))
         ;
       spiPeripheral()->TXDAT = data[index];
       index++;
     }
     // write last data and terminate transfer if needed
-    while (!(spiPeripheral()->STAT & hardware::STAT::kTXRDY))
+    while (!(spiPeripheral()->STAT & hardware::STAT::TXRDY))
       ;
     if (endOfTransfer)
       txctl |= hardware::TXCTL::kEOT;

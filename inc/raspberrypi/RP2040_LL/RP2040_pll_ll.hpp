@@ -48,21 +48,21 @@ struct Pll : libmcull::PeripheralBase {
    * @return return pointer to peripheral
    */
   static hardware::Pll* GetPeripheralSet() {
-    return reinterpret_cast<hardware::Pll*>(pll_address_ + libmcuhw::kPeripheralOffsetSet);
+    return reinterpret_cast<hardware::Pll*>(pll_address_ + libmcuhw::PeripheralOffsetSet);
   }
   /**
    * @brief get registers from peripheral for atomic Clear access
    * @return return pointer to peripheral
    */
   static hardware::Pll* GetPeripheralClear() {
-    return reinterpret_cast<hardware::Pll*>(pll_address_ + libmcuhw::kPeripheralOffsetClear);
+    return reinterpret_cast<hardware::Pll*>(pll_address_ + libmcuhw::PeripheralOffsetClear);
   }
   /**
    * @brief get registers from peripheral for atomic XOR access
    * @return return pointer to peripheral
    */
   static hardware::Pll* GetPeripheralXor() {
-    return reinterpret_cast<hardware::Pll*>(pll_address_ + libmcuhw::kPeripheralOffsetXor);
+    return reinterpret_cast<hardware::Pll*>(pll_address_ + libmcuhw::PeripheralOffsetXor);
   }
 
  private:

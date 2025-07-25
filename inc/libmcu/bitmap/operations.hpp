@@ -16,11 +16,11 @@ namespace libmcu::bitmap {
  * @brief operations possible when bits are involved
  */
 enum class BitblitOperations {
-  kMove, /*!< move to overwrite bits */
-  kNot,  /*!< invert bits */
-  kAnd,  /*!< AND bits with source bits */
-  kOr,   /*!< OR bits with source bits */
-  kXor   /*!< XOR bits with source bits */
+  Move, /*!< move to overwrite bits */
+  Not,  /*!< invert bits */
+  And,  /*!< AND bits with source bits */
+  Or,   /*!< OR bits with source bits */
+  Xor   /*!< XOR bits with source bits */
 };
 }  // namespace libmcu::bitmap
 

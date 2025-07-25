@@ -38,7 +38,7 @@ struct SpiAsync : libmcull::PeripheralBase {
    */
   constexpr std::uint32_t InitMaster(std::uint32_t bit_rate) {
     std::uint32_t actual_bitrate = SetBitRate(bit_rate);
-    GetPeripheral()->CFG = hardware::CFG::kENABLE | hardware::CFG::kMASTER;
+    GetPeripheral()->CFG = hardware::CFG::ENABLE | hardware::CFG::MASTER;
     return actual_bitrate;
   }
   /**
@@ -51,7 +51,7 @@ struct SpiAsync : libmcull::PeripheralBase {
   constexpr std::uint32_t InitMaster(std::uint32_t bit_rate, Waveforms waveform, SlavePolaritySelects polarity) {
     std::uint32_t actual_bitrate = SetBitRate(bit_rate);
     GetPeripheral()->CFG =
-      hardware::CFG::kENABLE | hardware::CFG::kMASTER | static_cast<std::uint32_t>(waveform) | static_cast<std::uint32_t>(polarity);
+      hardware::CFG::ENABLE | hardware::CFG::MASTER | static_cast<std::uint32_t>(waveform) | static_cast<std::uint32_t>(polarity);
     return actual_bitrate;
   }
   /**
@@ -203,7 +203,7 @@ struct SpiAsync : libmcull::PeripheralBase {
    * @retval Busy when interface is busy or still some data to be read remains
    */
   constexpr libmcu::Results ProgressPartialRead(void) {
-    if ((GetPeripheral()->STAT & hardware::STAT::kRXRDY) != 0u) {
+    if ((GetPeripheral()->STAT & hardware::STAT::RXRDY) != 0u) {
       if (transaction_read_bits_ > element_bit_count_) {
         transaction_read_data_[transaction_read_index_] = hardware::RXDAT::RXDAT(GetPeripheral()->RXDAT);
         transaction_read_bits_ -= element_bit_count_;
@@ -225,7 +225,7 @@ struct SpiAsync : libmcull::PeripheralBase {
    * @retval Busy when interface is busy or still some data remains
    */
   constexpr libmcu::Results ProgressPartialWrite(std::uint32_t transfer_command, TransferType data) {
-    if (((GetPeripheral()->STAT & hardware::STAT::kTXRDY) != 0u)) {
+    if (((GetPeripheral()->STAT & hardware::STAT::TXRDY) != 0u)) {
       if (transaction_write_bits_ > element_bit_count_) {
         GetPeripheral()->TXDATCTL =
           transfer_command | hardware::TXDATCTL::TXDAT(static_cast<uint16_t>(data)) | hardware::TXDATCTL::LEN(element_bit_count_);
@@ -233,7 +233,7 @@ struct SpiAsync : libmcull::PeripheralBase {
         transaction_write_index_++;
       } else if (transaction_write_bits_ > 0u) {
         if (transaction_disable_device_)
-          transfer_command |= hardware::TXDATCTL::kEOT;
+          transfer_command |= hardware::TXDATCTL::EOT;
         GetPeripheral()->TXDATCTL = transfer_command | hardware::TXDATCTL::TXDAT(static_cast<uint16_t>(data)) |
                                     hardware::TXDATCTL::LEN(transaction_write_bits_);
         transaction_write_bits_ = 0u;  // reset to zero so any further calls while TX is ready will cause no data written
@@ -262,7 +262,7 @@ struct SpiAsync : libmcull::PeripheralBase {
    */
   constexpr libmcu::Results ProgressWrite(void) {
     libmcu::Results writeResult = ProgressPartialWrite(
-      hardware::TXDATCTL::TXSSEL(static_cast<std::uint32_t>(transaction_device_enable_)) | hardware::TXDATCTL::kRXIGNORE,
+      hardware::TXDATCTL::TXSSEL(static_cast<std::uint32_t>(transaction_device_enable_)) | hardware::TXDATCTL::RXIGNORE,
       transaction_write_data_[transaction_write_index_]);
     if (writeResult == libmcu::Results::Done) {
       transaction_state_ = libmcu::AsynchronousStates::Claimed;

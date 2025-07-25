@@ -37,22 +37,22 @@ void PixelOperation(destType &destBuf, std::size_t destShift, destType srcMask, 
   destType input = destBuf;
   destType data = (srcMask & srcPixel) << destShift;
   switch (op) {
-    case BitblitOperations::kAnd:
+    case BitblitOperations::And:
       data = data | ~(srcMask << destShift);
       input = input & data;
       break;
-    case BitblitOperations::kMove:
+    case BitblitOperations::Move:
       input = input & ~(srcMask << destShift);
       input = input | data;
       break;
-    case BitblitOperations::kNot:
+    case BitblitOperations::Not:
       input = input & ~(srcMask << destShift);
       input = input & ~data;
       break;
-    case BitblitOperations::kOr:
+    case BitblitOperations::Or:
       input = input | data;
       break;
-    case BitblitOperations::kXor:
+    case BitblitOperations::Xor:
       input = input ^ data;
       break;
   }

@@ -84,7 +84,7 @@ struct UartPolled : libmcull::SyncUartBase {
       if (countdown == 0)
         return libmcu::Results::Timeout;
       std::uint32_t receivedData = GetPeripheral()->UARTDR;
-      if (receivedData & hardware::UARTDR::kError_MASK) {
+      if (receivedData & hardware::UARTDR::ERROR_MASK) {
         if (receivedData & hardware::UARTDR::OE_FLAG)
           return libmcu::Results::Overrun;
         else if (receivedData & hardware::UARTDR::BE_FLAG)
@@ -110,21 +110,21 @@ struct UartPolled : libmcull::SyncUartBase {
    * @return return pointer to peripheral
    */
   static hardware::Uart* GetPeripheralSet() {
-    return reinterpret_cast<hardware::Uart*>(uart_address_ + libmcuhw::kPeripheralOffsetSet);
+    return reinterpret_cast<hardware::Uart*>(uart_address_ + libmcuhw::PeripheralOffsetSet);
   }
   /**
    * @brief get registers from peripheral for atomic Clear access
    * @return return pointer to peripheral
    */
   static hardware::Uart* GetPeripheralClear() {
-    return reinterpret_cast<hardware::Uart*>(uart_address_ + libmcuhw::kPeripheralOffsetClear);
+    return reinterpret_cast<hardware::Uart*>(uart_address_ + libmcuhw::PeripheralOffsetClear);
   }
   /**
    * @brief get registers from peripheral for atomic XOR access
    * @return return pointer to peripheral
    */
   static hardware::Uart* GetPeripheralXor() {
-    return reinterpret_cast<hardware::Uart*>(uart_address_ + libmcuhw::kPeripheralOffsetXor);
+    return reinterpret_cast<hardware::Uart*>(uart_address_ + libmcuhw::PeripheralOffsetXor);
   }
 
  private:

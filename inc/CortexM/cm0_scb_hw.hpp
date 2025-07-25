@@ -26,43 +26,43 @@ struct Scb {
   volatile std::uint32_t SHP[2U];     /*!< System Handlers Priority Registers. [0] is RESERVED */
 };
 namespace CPUID {
-constexpr inline std::uint32_t RESERVED_MASK{0xFFFFFFFFu};     /*!< register mask for allowed bits */
-constexpr inline std::uint32_t kREVISION_MASK{0xFu << 0};      /*!< revision, implementation defined */
-constexpr inline std::uint32_t kPARTNO_MASK{0xFFFu << 4};      /*!< part number, implementation defined */
-constexpr inline std::uint32_t kARCHITECTURE_MASK{0xFu << 16}; /*!< architecture field, 0xC for ARMv6-M */
-constexpr inline std::uint32_t kVARIANT_MASK{0xFu << 20};      /*!< Variant field, implementation defined */
-constexpr inline std::uint32_t kIMPLEMENTER_MASK{0xFFu << 24}; /*!< implementer field, 0x41('A') for ARM */
+constexpr inline std::uint32_t RESERVED_MASK{0xFFFFFFFFu};    /*!< register mask for allowed bits */
+constexpr inline std::uint32_t REVISION_MASK{0xFu << 0};      /*!< revision, implementation defined */
+constexpr inline std::uint32_t PARTNO_MASK{0xFFFu << 4};      /*!< part number, implementation defined */
+constexpr inline std::uint32_t ARCHITECTURE_MASK{0xFu << 16}; /*!< architecture field, 0xC for ARMv6-M */
+constexpr inline std::uint32_t VARIANT_MASK{0xFu << 20};      /*!< Variant field, implementation defined */
+constexpr inline std::uint32_t IMPLEMENTER_MASK{0xFFu << 24}; /*!< implementer field, 0x41('A') for ARM */
 }  // namespace CPUID
 namespace ICSR {
-constexpr inline std::uint32_t RESERVED_MASK{0xFFFFF1FFu};     /*!< register mask for allowed bits */
-constexpr inline std::uint32_t kVECTACTIVE_MASK{0xFFu << 0};   /*!< exception number currently executing */
-constexpr inline std::uint32_t kVECTPENDING_MASK{0xFFu << 12}; /*!< highest priority pending exception */
-constexpr inline std::uint32_t kISRPENDING_MASK{0x1u << 22};   /*!< NVIC interrupt is pending */
-constexpr inline std::uint32_t kPENDSTCLR{0x1u << 25};         /*!< Clear pending systick */
-constexpr inline std::uint32_t kPENDSTSET{0x1u << 26};         /*!< Set pending systick */
-constexpr inline std::uint32_t kPENDSVCLR{0x1u << 27};         /*!< Clear pending PendSV */
-constexpr inline std::uint32_t kPENDSVSET{0x1u << 28};         /*!< Set pending PendSV interrupt */
-constexpr inline std::uint32_t kNMIPENDSET{0x1u << 31};        /*!< Activate NMI exception */
+constexpr inline std::uint32_t RESERVED_MASK{0xFFFFF1FFu};    /*!< register mask for allowed bits */
+constexpr inline std::uint32_t VECTACTIVE_MASK{0xFFu << 0};   /*!< exception number currently executing */
+constexpr inline std::uint32_t VECTPENDING_MASK{0xFFu << 12}; /*!< highest priority pending exception */
+constexpr inline std::uint32_t ISRPENDING_MASK{0x1u << 22};   /*!< NVIC interrupt is pending */
+constexpr inline std::uint32_t PENDSTCLR{0x1u << 25};         /*!< Clear pending systick */
+constexpr inline std::uint32_t PENDSTSET{0x1u << 26};         /*!< Set pending systick */
+constexpr inline std::uint32_t PENDSVCLR{0x1u << 27};         /*!< Clear pending PendSV */
+constexpr inline std::uint32_t PENDSVSET{0x1u << 28};         /*!< Set pending PendSV interrupt */
+constexpr inline std::uint32_t NMIPENDSET{0x1u << 31};        /*!< Activate NMI exception */
 }  // namespace ICSR
 namespace AIRCR {
-constexpr inline std::uint32_t RESERVED_MASK{0xFFFF8006u};   /*!< register mask for allowed bits */
-constexpr inline std::uint32_t kVECTCLRACTIVE{0x1u << 1};    /*!< clear state information */
-constexpr inline std::uint32_t kSYSRESETREQ{0x1u << 2};      /*!< request system reset */
-constexpr inline std::uint32_t kENDIANNESS_MASK{0x1u << 15}; /*!< system endianness, 0 little, 1 big */
-constexpr inline std::uint32_t kVECTKEY_MASK{0xFFFFu << 16}; /*!< Vector key, 0x05FA must be written */
-constexpr inline std::uint32_t kVECTKEY_KEY{0x05FA0000u};    /*!< Vector key, key value */
+constexpr inline std::uint32_t RESERVED_MASK{0xFFFF8006u};  /*!< register mask for allowed bits */
+constexpr inline std::uint32_t VECTCLRACTIVE{0x1u << 1};    /*!< clear state information */
+constexpr inline std::uint32_t SYSRESETREQ{0x1u << 2};      /*!< request system reset */
+constexpr inline std::uint32_t ENDIANNESS_MASK{0x1u << 15}; /*!< system endianness, 0 little, 1 big */
+constexpr inline std::uint32_t VECTKEY_MASK{0xFFFFu << 16}; /*!< Vector key, 0x05FA must be written */
+constexpr inline std::uint32_t VECTKEY_KEY{0x05FA0000u};    /*!< Vector key, key value */
 
 }  // namespace AIRCR
 namespace SCR {
 constexpr inline std::uint32_t RESERVED_MASK{0x00000016u}; /*!< register mask for allowed bits */
-constexpr inline std::uint32_t kSLEEPONEXIT{0x1u << 1};    /*!< enter sleep state after ISR exit */
-constexpr inline std::uint32_t kSLEEPDEEP{0x1u << 2};      /*!< sleep enters deep sleep */
-constexpr inline std::uint32_t kSEVONPEND{0x1u << 4};      /*!< transitions from inactive are wakeup events */
+constexpr inline std::uint32_t SLEEPONEXIT{0x1u << 1};     /*!< enter sleep state after ISR exit */
+constexpr inline std::uint32_t SLEEPDEEP{0x1u << 2};       /*!< sleep enters deep sleep */
+constexpr inline std::uint32_t SEVONPEND{0x1u << 4};       /*!< transitions from inactive are wakeup events */
 }  // namespace SCR
 namespace CCR {
 constexpr inline std::uint32_t RESERVED_MASK{0x00000208u}; /*!< register mask for allowed bits */
-constexpr inline std::uint32_t kUNALIGN_TRP{0x1u << 3};    /*!< unaligned accesses generate a hardfault */
-constexpr inline std::uint32_t kSTKALIGN{0x1u << 9};       /*!< align stack on exception exit */
+constexpr inline std::uint32_t UNALIGN_TRP{0x1u << 3};     /*!< unaligned accesses generate a hardfault */
+constexpr inline std::uint32_t STKALIGN{0x1u << 9};        /*!< align stack on exception exit */
 }  // namespace CCR
 namespace SHP {
 constexpr inline std::uint32_t RESERVED_MASK{0xFFFF0000}; /*!< register mask for allowed bits */

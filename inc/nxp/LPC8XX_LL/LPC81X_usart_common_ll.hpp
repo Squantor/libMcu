@@ -17,46 +17,46 @@ namespace hardware = libmcuhw::usart;
  * @brief amount of bits to transmit
  */
 enum UartLengths : std::uint32_t {
-  kSize7 = hardware::CFG::kDATALEN7BIT, /*!< USART transmit length of 7 bits */
-  kSize8 = hardware::CFG::kDATALEN8BIT, /*!< USART transmit length of 8 bits */
-  kSize9 = hardware::CFG::kDATALEN9BIT, /*!< USART transmit length of 9 bits */
+  Size7 = hardware::CFG::DATALEN7BIT, /*!< USART transmit length of 7 bits */
+  Size8 = hardware::CFG::DATALEN8BIT, /*!< USART transmit length of 8 bits */
+  Size9 = hardware::CFG::DATALEN9BIT, /*!< USART transmit length of 9 bits */
 };
 
 /**
  * @brief Parity bit options
  */
 enum UartParities : std::uint32_t {
-  kParityNone = hardware::CFG::kPARITY_NONE, /*!< No parity */
-  kParityEven = hardware::CFG::kPARITY_EVEN, /*!< Even parity */
-  kParityOdd = hardware::CFG::kPARITY_ODD,   /*!< Odd parity */
+  ParityNone = hardware::CFG::PARITY_NONE, /*!< No parity */
+  ParityEven = hardware::CFG::PARITY_EVEN, /*!< Even parity */
+  ParityOdd = hardware::CFG::PARITY_ODD,   /*!< Odd parity */
 };
 
 /**
  * @brief stop bit options
  */
 enum UartStops : std::uint32_t {
-  kStop1 = hardware::CFG::kSTOPBIT1, /*!< 1 stop bit */
-  kStop2 = hardware::CFG::kSTOPBIT2, /*!< 2 stop bits */
+  Stop1 = hardware::CFG::STOPBIT1, /*!< 1 stop bit */
+  Stop2 = hardware::CFG::STOPBIT2, /*!< 2 stop bits */
 };
 
 /**
  * @brief Uart status bit masks
  */
 enum UartStatusMasks : std::uint32_t {
-  kRxReady = hardware::STAT::kRXRDY,            /*!< Receiver ready flag, Read only */
-  kRxIdle = hardware::STAT::kRXIDLE,            /*!< Receiver idle, Read only */
-  kTxReady = hardware::STAT::kCTS,              /*!< Transmitter ready, Read only  */
-  kTxIdle = hardware::STAT::kTXIDLE,            /*!< Transmitter idle, Read only */
-  kCts = hardware::STAT::kCTS,                  /*!< CTS signal state, Read only */
-  kDeltaCts = hardware::STAT::kDELTACTS,        /*!< Change detected in CTS signal, write 1 clear */
-  kTxdDisabled = hardware::STAT::kTXDISINT,     /*!< Transmitter disabled confirmation, read only  */
-  Overrun = hardware::STAT::kOVERRUNINT,        /*!< Overrun error interrupt flag, write 1 clear */
-  kRxBreak = hardware::STAT::kRXBRK,            /*!< Received break, read only */
-  kRxBreakChange = hardware::STAT::kDELTARXBRK, /*!< Change detected in receiver break, write 1 clear */
-  kStart = hardware::STAT::kSTART,              /*!< Start condition detected, write 1 clear */
-  kFrameError = hardware::STAT::kFRAMERRINT,    /*!< Frame error interrupt flag, write 1 clear */
-  ParityError = hardware::STAT::kPARITYERRINT,  /*!< Parity error interrupt flag, write 1 clear */
-  kRxNoise = hardware::STAT::kRXNOISEINT,       /*!< Recieved noise interrupt flag, write 1 clear*/
+  RxReady = hardware::STAT::RXRDY,            /*!< Receiver ready flag, Read only */
+  RxIdle = hardware::STAT::RXIDLE,            /*!< Receiver idle, Read only */
+  TxReady = hardware::STAT::CTS,              /*!< Transmitter ready, Read only  */
+  TxIdle = hardware::STAT::TXIDLE,            /*!< Transmitter idle, Read only */
+  Cts = hardware::STAT::CTS,                  /*!< CTS signal state, Read only */
+  DeltaCts = hardware::STAT::DELTACTS,        /*!< Change detected in CTS signal, write 1 clear */
+  TxdDisabled = hardware::STAT::TXDISINT,     /*!< Transmitter disabled confirmation, read only  */
+  Overrun = hardware::STAT::OVERRUNINT,       /*!< Overrun error interrupt flag, write 1 clear */
+  RxBreak = hardware::STAT::RXBRK,            /*!< Received break, read only */
+  RxBreakChange = hardware::STAT::DELTARXBRK, /*!< Change detected in receiver break, write 1 clear */
+  Start = hardware::STAT::START,              /*!< Start condition detected, write 1 clear */
+  FrameError = hardware::STAT::FRAMERRINT,    /*!< Frame error interrupt flag, write 1 clear */
+  ParityError = hardware::STAT::PARITYERRINT, /*!< Parity error interrupt flag, write 1 clear */
+  RxNoise = hardware::STAT::RXNOISEINT,       /*!< Recieved noise interrupt flag, write 1 clear*/
 };
 }  // namespace libmcull::usart
 #endif

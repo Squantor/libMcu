@@ -122,15 +122,15 @@ struct UartPolled : libmcull::SyncUartBase {
   template <const libmcuhw::clock::PeriClockConfig &clock_config>
   constexpr std::uint32_t GetInputClockFreq() {
     // constexpr check if we configure the right peripheral
-    if constexpr ((usart_address_ == libmcuhw::kUsart0Address) && (clock_config.peripheral_ == libmcuhw::clock::PeriSelect::UART0))
+    if constexpr ((usart_address_ == libmcuhw::Usart0Address) && (clock_config.peripheral_ == libmcuhw::clock::PeriSelect::UART0))
       return clock_config.GetFrequency();
-    else if constexpr ((usart_address_ == libmcuhw::kUsart1Address) &&
+    else if constexpr ((usart_address_ == libmcuhw::Usart1Address) &&
                        (clock_config.peripheral_ == libmcuhw::clock::PeriSelect::UART1))
       return clock_config.GetFrequency();
-    else if constexpr ((usart_address_ == libmcuhw::kUsart2Address) &&
+    else if constexpr ((usart_address_ == libmcuhw::Usart2Address) &&
                        (clock_config.peripheral_ == libmcuhw::clock::PeriSelect::UART2))
       return clock_config.GetFrequency();
-    else if constexpr ((usart_address_ == libmcuhw::kUsart3Address) &&
+    else if constexpr ((usart_address_ == libmcuhw::Usart3Address) &&
                        (clock_config.peripheral_ == libmcuhw::clock::PeriSelect::UART3))
       return clock_config.GetFrequency();
     else

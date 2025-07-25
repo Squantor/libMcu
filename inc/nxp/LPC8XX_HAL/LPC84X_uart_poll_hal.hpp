@@ -21,41 +21,41 @@ namespace lowlevel = libmcull::usart;
  * @brief amount of bits to transmit
  */
 enum class UartLengths : std::uint32_t {
-  kSize7 = static_cast<std::uint32_t>(lowlevel::UartLengths::Size7), /*!< USART transmit length of 7 bits */
-  kSize8 = static_cast<std::uint32_t>(lowlevel::UartLengths::Size8), /*!< USART transmit length of 8 bits */
-  kSize9 = static_cast<std::uint32_t>(lowlevel::UartLengths::Size9), /*!< USART transmit length of 9 bits */
+  Size7 = static_cast<std::uint32_t>(lowlevel::UartLengths::Size7), /*!< USART transmit length of 7 bits */
+  Size8 = static_cast<std::uint32_t>(lowlevel::UartLengths::Size8), /*!< USART transmit length of 8 bits */
+  Size9 = static_cast<std::uint32_t>(lowlevel::UartLengths::Size9), /*!< USART transmit length of 9 bits */
 };
 
 /**
  * @brief Parity bit options
  */
 enum class UartParities : std::uint32_t {
-  kNone = static_cast<std::uint32_t>(lowlevel::UartParities::None), /*!< No parity */
-  kEven = static_cast<std::uint32_t>(lowlevel::UartParities::Even), /*!< Even parity */
-  kOdd = static_cast<std::uint32_t>(lowlevel::UartParities::Odd),   /*!< Odd parity */
+  None = static_cast<std::uint32_t>(lowlevel::UartParities::None), /*!< No parity */
+  Even = static_cast<std::uint32_t>(lowlevel::UartParities::Even), /*!< Even parity */
+  Odd = static_cast<std::uint32_t>(lowlevel::UartParities::Odd),   /*!< Odd parity */
 };
 
 /**
  * @brief stop bit options
  */
 enum class UartStops : std::uint32_t {
-  kStop1 = static_cast<std::uint32_t>(lowlevel::UartStops::Stop1), /*!< 1 stop bit */
-  kStop2 = static_cast<std::uint32_t>(lowlevel::UartStops::Stop2), /*!< 2 stop bits */
+  Stop1 = static_cast<std::uint32_t>(lowlevel::UartStops::Stop1), /*!< 1 stop bit */
+  Stop2 = static_cast<std::uint32_t>(lowlevel::UartStops::Stop2), /*!< 2 stop bits */
 };
 /**
  * @brief Uart status bits, multiple bits can be set
  */
 enum UartStateMasks : std::uint32_t {
-  kReceiverDataMask = lowlevel::RxReady,        /*!< Receiver data ready flag */
-  kReceiverIdleMask = lowlevel::RxIdle,         /*!< Receiver idle */
-  kTransmitDataMask = lowlevel::TxReady,        /*!< Transmitter ready for data */
-  kTransmitIdleMask = lowlevel::TxIdle,         /*!< Transmitter idle */
-  kOverrunMask = lowlevel::Overrun,             /*!< Overrun error flag */
-  kReceiverBreakMask = lowlevel::RxBreak,       /*!< Received break flag */
-  kFramingErrorMask = lowlevel::FrameError,     /*!< Frame error interrupt flag */
-  kParityErrorMask = lowlevel::ParityError,     /*!< Parity error interrupt flag */
-  kReceiverNoiseMask = lowlevel::RxNoise,       /*!< Recieved noise interrupt flag */
-  kAutobaudErrorMask = lowlevel::AutobaudError, /*!< Autobaud error flag */
+  ReceiverDataMask = lowlevel::RxReady,        /*!< Receiver data ready flag */
+  ReceiverIdleMask = lowlevel::RxIdle,         /*!< Receiver idle */
+  TransmitDataMask = lowlevel::TxReady,        /*!< Transmitter ready for data */
+  TransmitIdleMask = lowlevel::TxIdle,         /*!< Transmitter idle */
+  OverrunMask = lowlevel::Overrun,             /*!< Overrun error flag */
+  ReceiverBreakMask = lowlevel::RxBreak,       /*!< Received break flag */
+  FramingErrorMask = lowlevel::FrameError,     /*!< Frame error interrupt flag */
+  ParityErrorMask = lowlevel::ParityError,     /*!< Parity error interrupt flag */
+  ReceiverNoiseMask = lowlevel::RxNoise,       /*!< Recieved noise interrupt flag */
+  AutobaudErrorMask = lowlevel::AutobaudError, /*!< Autobaud error flag */
 };
 
 /**
@@ -74,8 +74,8 @@ struct UartPolled : public libmcuhal::SyncUartBase {
    * @return actual baud rate
    */
   template <const libmcuhw::clock::PeriClockConfig& clock_config>
-  constexpr std::uint32_t Init(std::uint32_t baudRate, UartParities parity = UartParities::kNone,
-                               UartStops stopBits = UartStops::kStop1, UartLengths lengthBits = UartLengths::kSize8) {
+  constexpr std::uint32_t Init(std::uint32_t baudRate, UartParities parity = UartParities::None,
+                               UartStops stopBits = UartStops::Stop1, UartLengths lengthBits = UartLengths::Size8) {
     return ll_uart_sync.template Init<clock_config>(baudRate, static_cast<lowlevel::UartParities>(parity),
                                                     static_cast<lowlevel::UartStops>(stopBits),
                                                     static_cast<lowlevel::UartLengths>(lengthBits));
@@ -84,7 +84,7 @@ struct UartPolled : public libmcuhal::SyncUartBase {
    * @brief Claim an the asynchronous interface
    * @param[out] handle for the claimed interface, set when claimed
    * @returns Claimed if successful
-   * @returns kInUse if the interface is already in use
+   * @returns InUse if the interface is already in use
    */
   libmcu::Results Claim(libmcu::AsyncHandle& handle) {
     if (state_ != libmcu::AsynchronousStates::Idle)
@@ -96,7 +96,7 @@ struct UartPolled : public libmcuhal::SyncUartBase {
   /**
    * @brief Release the asynchronous interface
    * @param handle for the interface to be released
-   * @returns kUnclaimed if successful
+   * @returns Unclaimed if successful
    * @returns NotClaimed if the interface is not claimed
    * @returns InvalidHandle if the handle is invalid
    */
@@ -132,7 +132,7 @@ struct UartPolled : public libmcuhal::SyncUartBase {
     UartStateMasks status;
     do {
       status = GetStatus();
-    } while ((status & kTransmitDataMask) == 0);
+    } while ((status & TransmitDataMask) == 0);
     ll_uart_sync.Write(buffer);
     return libmcu::Results::NoError;
   }
@@ -153,7 +153,7 @@ struct UartPolled : public libmcuhal::SyncUartBase {
     do {
       status = GetStatus();
       timeout -= 1;
-    } while ((status & kReceiverDataMask) == 0 && timeout > 0);
+    } while ((status & ReceiverDataMask) == 0 && timeout > 0);
     if (timeout == 0)
       return libmcu::Results::Timeout;
     ll_uart_sync.Read(buffer);

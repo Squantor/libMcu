@@ -14,7 +14,7 @@
 
 namespace libmcuhw::dma {
 
-constexpr std::size_t kChannelCount = 25; /*!< DMA controller channel count */
+constexpr std::size_t ChannelCount = 25; /*!< DMA controller channel count */
 /**
  * @brief DMA descriptor structure
  */

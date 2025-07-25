@@ -18,64 +18,64 @@ namespace libmcuhw {
 
 // MCU configuration options
 namespace core {
-constexpr inline std::uint32_t kRevision{0x0000}; /*!< Revision number */
+constexpr inline std::uint32_t Revision{0x0000}; /*!< Revision number */
 }  // namespace core
 namespace mpu {
-constexpr inline bool kPresent{false}; /*!< Presence of memory protection unit */
+constexpr inline bool Present{false}; /*!< Presence of memory protection unit */
 }  // namespace mpu
 namespace vtor {
-constexpr inline bool kPresent{true};                      /*!< presence of vector relocation */
-constexpr inline std::uint32_t kAddressMask{0xFFFFFF00UL}; /*!< VTOR bit count */
+constexpr inline bool Present{true};                      /*!< presence of vector relocation */
+constexpr inline std::uint32_t AddressMask{0xFFFFFF00UL}; /*!< VTOR bit count */
 }  // namespace vtor
 namespace systick {
-constexpr inline std::uint32_t kVariant{0}; /*!< Type of systick */
+constexpr inline std::uint32_t Variant{0}; /*!< Type of systick */
 }  // namespace systick
 namespace nvic {
-constexpr inline std::uint32_t kPriorityMask{0x3}; /*!< NVIC priority bit mask */
-constexpr inline std::uint32_t kPriorityBits{2};   /*!< NVIC priority bit count */
-constexpr inline std::uint32_t kVectorCount{48};   /*!< amount of interrupt vectors */
+constexpr inline std::uint32_t PriorityMask{0x3}; /*!< NVIC priority bit mask */
+constexpr inline std::uint32_t PriorityBits{2};   /*!< NVIC priority bit count */
+constexpr inline std::uint32_t VectorCount{48};   /*!< amount of interrupt vectors */
 }  // namespace nvic
 /**
  * @brief Interrupts available for the LPC845M301BD48
  */
 enum class Interrupts : std::int8_t {
-  kReset = -15,       /*!< Reset interrupt */
-  kNonMaskable = -14, /*!< Non maskable interrupt */
-  kHardFault = -13,   /*!< Hard fault interrupt */
-  kSvCall = -5,       /*!< Supervisor call interrupt */
-  kPendSv = -2,       /*!< Pendable request interrupt */
-  kSystick = -1,      /*!< SysTick interrupt */
-  kSpi0 = 0,          /*!< SPI0 interrupt */
-  kSpi1 = 1,          /*!< SPI1 interrupt */
-  kDac0 = 2,          /*!< DAC0 interrupt */
-  kUart0 = 3,         /*!< USART0 interrupt */
-  kUart1 = 4,         /*!< USART1 interrupt */
-  kUart2 = 5,         /*!< USART2 interrupt */
-  kI2c1 = 7,          /*!< I2C1 interrupt */
-  kI2c0 = 8,          /*!< I2C0 interrupt */
-  kSct0 = 9,          /*!< State configurable timer interrupt */
-  kMrt0 = 10,         /*!< Multi-rate timer interrupt */
-  kAcmp0 = 11,        /*!< Analog comparator interrupt or Capacitive Touch interrupt */
-  kWwdt = 12,         /*!< Windowed watchdog timer interrupt */
-  kBod = 13,          /*!< BOD interrupts */
-  kFlash = 14,        /*!< flash interrupt */
-  kWkt = 15,          /*!< Self-wake-up timer interrupt */
-  kAdc0SeqA = 16,     /*!< ADC0 sequence A completion. */
-  kAdc0SeqB = 17,     /*!< ADC0 sequence B completion. */
-  kAdc0ThCmp = 18,    /*!< ADC0 threshold compare and error. */
-  kAdc0Ovr = 19,      /*!< ADC0 overrun */
-  kDma = 20,          /*!< DMA0 interrupt */
-  kI2c2 = 21,         /*!< I2C2 interrupt */
-  kI2c3 = 22,         /*!< I2C3 interrupt */
-  kCtimer0 = 23,      /*!< Timer interrupt */
-  kPinint0 = 24,      /*!< Pin interrupt 0 or pattern match engine slice 0 interrupt */
-  kPinint1 = 25,      /*!< Pin interrupt 1 or pattern match engine slice 1 interrupt */
-  kPinint2 = 26,      /*!< Pin interrupt 2 or pattern match engine slice 2 interrupt */
-  kPinint3 = 27,      /*!< Pin interrupt 3 or pattern match engine slice 3 interrupt */
-  kPinint4 = 28,      /*!< Pin interrupt 4 or pattern match engine slice 4 interrupt */
-  kPinint5Dac1 = 29,  /*!< Pin interrupt 5 or pattern match engine slice 5 interrupt or DAC1 interrupt */
-  kPinint6Uart3 = 30, /*!< Pin interrupt 6 or pattern match engine slice 6 interrupt or UART3 interrupt */
-  kPinint7Uart4 = 31  /*!< Pin interrupt 7 or pattern match engine slice 7 interrupt or UART4 interrupt */
+  Reset = -15,       /*!< Reset interrupt */
+  NonMaskable = -14, /*!< Non maskable interrupt */
+  HardFault = -13,   /*!< Hard fault interrupt */
+  SvCall = -5,       /*!< Supervisor call interrupt */
+  PendSv = -2,       /*!< Pendable request interrupt */
+  Systick = -1,      /*!< SysTick interrupt */
+  Spi0 = 0,          /*!< SPI0 interrupt */
+  Spi1 = 1,          /*!< SPI1 interrupt */
+  Dac0 = 2,          /*!< DAC0 interrupt */
+  Uart0 = 3,         /*!< USART0 interrupt */
+  Uart1 = 4,         /*!< USART1 interrupt */
+  Uart2 = 5,         /*!< USART2 interrupt */
+  I2c1 = 7,          /*!< I2C1 interrupt */
+  I2c0 = 8,          /*!< I2C0 interrupt */
+  Sct0 = 9,          /*!< State configurable timer interrupt */
+  Mrt0 = 10,         /*!< Multi-rate timer interrupt */
+  Acmp0 = 11,        /*!< Analog comparator interrupt or Capacitive Touch interrupt */
+  Wwdt = 12,         /*!< Windowed watchdog timer interrupt */
+  Bod = 13,          /*!< BOD interrupts */
+  Flash = 14,        /*!< flash interrupt */
+  Wkt = 15,          /*!< Self-wake-up timer interrupt */
+  Adc0SeqA = 16,     /*!< ADC0 sequence A completion. */
+  Adc0SeqB = 17,     /*!< ADC0 sequence B completion. */
+  Adc0ThCmp = 18,    /*!< ADC0 threshold compare and error. */
+  Adc0Ovr = 19,      /*!< ADC0 overrun */
+  Dma = 20,          /*!< DMA0 interrupt */
+  I2c2 = 21,         /*!< I2C2 interrupt */
+  I2c3 = 22,         /*!< I2C3 interrupt */
+  Ctimer0 = 23,      /*!< Timer interrupt */
+  Pinint0 = 24,      /*!< Pin interrupt 0 or pattern match engine slice 0 interrupt */
+  Pinint1 = 25,      /*!< Pin interrupt 1 or pattern match engine slice 1 interrupt */
+  Pinint2 = 26,      /*!< Pin interrupt 2 or pattern match engine slice 2 interrupt */
+  Pinint3 = 27,      /*!< Pin interrupt 3 or pattern match engine slice 3 interrupt */
+  Pinint4 = 28,      /*!< Pin interrupt 4 or pattern match engine slice 4 interrupt */
+  Pinint5Dac1 = 29,  /*!< Pin interrupt 5 or pattern match engine slice 5 interrupt or DAC1 interrupt */
+  Pinint6Uart3 = 30, /*!< Pin interrupt 6 or pattern match engine slice 6 interrupt or UART3 interrupt */
+  Pinint7Uart4 = 31  /*!< Pin interrupt 7 or pattern match engine slice 7 interrupt or UART4 interrupt */
 };
 }  // namespace libmcuhw
 
@@ -83,46 +83,46 @@ enum class Interrupts : std::int8_t {
 
 namespace libmcuhw {
 /* Base addresses */
-constexpr inline libmcu::MemoryAddress kFlashBaseAddress{0x0000'0000u};
-constexpr inline libmcu::MemoryAddress kRamBaseAddress{0x1000'0000u};
-constexpr inline libmcu::MemoryAddress kRomBaseAddress{0xF001'FF10u};
-constexpr inline libmcu::MemoryAddress kApb0BaseAddress{0x4000'0000u};
-constexpr inline libmcu::MemoryAddress kAhbBaseAddress{0x5000'0000u};
+constexpr inline libmcu::MemoryAddress FlashBaseAddress{0x0000'0000u};
+constexpr inline libmcu::MemoryAddress RamBaseAddress{0x1000'0000u};
+constexpr inline libmcu::MemoryAddress RomBaseAddress{0xF001'FF10u};
+constexpr inline libmcu::MemoryAddress Apb0BaseAddress{0x4000'0000u};
+constexpr inline libmcu::MemoryAddress AhbBaseAddress{0x5000'0000u};
 /* APB peripherals, see UM11029 2.2.1 */
-constexpr inline libmcu::WwdtBaseAddress kWwdtAddress{0x4000'0000u};      /*!< Windowed watchdog base address */
-constexpr inline libmcu::MrtBaseAddress kMrt0Address{0x4000'4000u};       /*!< Multi rate timer base address */
-constexpr inline libmcu::WktBaseAddress kWktAddress{0x4000'8000u};        /*!< Wakeup timer base address */
-constexpr inline libmcu::SwmBaseAddress kSwmAddress{0x4000'C000u};        /*!< Switch matrix base address */
-constexpr inline libmcu::FaimBaseAddress kFaimAddress{0x4001'0000u};      /*!< Fast memory init base address */
-constexpr inline libmcu::DacBaseAddress kDac0Address{0x4001'4000u};       /*!< DAC 0 base address */
-constexpr inline libmcu::DacBaseAddress kDac1Address{0x4001'8000u};       /*!< DAC 1 base address */
-constexpr inline libmcu::AdcBaseAddress kAdc0Address{0x4001'C000u};       /*!< ADC 0 matrix base address */
-constexpr inline libmcu::PmuBaseAddress kPmuAddress{0x4002'0000u};        /*!< Power management unit base address */
-constexpr inline libmcu::AcmpBaseAddress kAcmpAddress{0x4002'4000u};      /*!< Analog comparator base address */
-constexpr inline libmcu::InmuxBaseAddress kInmuxAddress{0x4002'C000u};    /*!< Input multiplexer base address */
-constexpr inline libmcu::I2cBaseAddress kI2c2Address{0x4003'0000u};       /*!< I2C 2 base address */
-constexpr inline libmcu::I2cBaseAddress kI2c3Address{0x4003'4000u};       /*!< I2C 3 base address */
-constexpr inline libmcu::CtimerBaseAddress kCtimer0Address{0x4003'8000u}; /*!< Standard counter/timer 0 base address */
-constexpr inline libmcu::FmcBaseAddress kFmcAddress{0x4004'0000u};        /*!< Flash memory controller base address */
-constexpr inline libmcu::IoconBaseAddress kIoconAddress{0x4004'4000u};    /*!< I/O control base address */
-constexpr inline libmcu::SysconBaseAddress kSysconAddress{0x4004'8000u};  /*!< System control base address */
-constexpr inline libmcu::I2cBaseAddress kI2c0Address{0x4005'0000u};       /*!< I2C 0 base address */
-constexpr inline libmcu::I2cBaseAddress kI2c1Address{0x4005'4000u};       /*!< I2C 1 base address */
-constexpr inline libmcu::SpiBaseAddress kSpi0Address{0x4005'8000u};       /*!< SPI 0 base address */
-constexpr inline libmcu::SpiBaseAddress kSpi1Address{0x4005'C000u};       /*!< SPI 1 base address */
-constexpr inline libmcu::CaptBaseAddress kCapt0Address{0x4006'0000u};     /*!< Capacitive touch 0 base address */
-constexpr inline libmcu::UartBaseAddress kUsart0Address{0x4006'4000u};    /*!< USART 0 base address */
-constexpr inline libmcu::UartBaseAddress kUsart1Address{0x4006'8000u};    /*!< USART 1 base address */
-constexpr inline libmcu::UartBaseAddress kUsart2Address{0x4006'C000u};    /*!< USART 2 base address */
-constexpr inline libmcu::UartBaseAddress kUsart3Address{0x4007'0000u};    /*!< USART 3 base address */
+constexpr inline libmcu::WwdtBaseAddress WwdtAddress{0x4000'0000u};      /*!< Windowed watchdog base address */
+constexpr inline libmcu::MrtBaseAddress Mrt0Address{0x4000'4000u};       /*!< Multi rate timer base address */
+constexpr inline libmcu::WktBaseAddress WktAddress{0x4000'8000u};        /*!< Wakeup timer base address */
+constexpr inline libmcu::SwmBaseAddress SwmAddress{0x4000'C000u};        /*!< Switch matrix base address */
+constexpr inline libmcu::FaimBaseAddress FaimAddress{0x4001'0000u};      /*!< Fast memory init base address */
+constexpr inline libmcu::DacBaseAddress Dac0Address{0x4001'4000u};       /*!< DAC 0 base address */
+constexpr inline libmcu::DacBaseAddress Dac1Address{0x4001'8000u};       /*!< DAC 1 base address */
+constexpr inline libmcu::AdcBaseAddress Adc0Address{0x4001'C000u};       /*!< ADC 0 matrix base address */
+constexpr inline libmcu::PmuBaseAddress PmuAddress{0x4002'0000u};        /*!< Power management unit base address */
+constexpr inline libmcu::AcmpBaseAddress AcmpAddress{0x4002'4000u};      /*!< Analog comparator base address */
+constexpr inline libmcu::InmuxBaseAddress InmuxAddress{0x4002'C000u};    /*!< Input multiplexer base address */
+constexpr inline libmcu::I2cBaseAddress I2c2Address{0x4003'0000u};       /*!< I2C 2 base address */
+constexpr inline libmcu::I2cBaseAddress I2c3Address{0x4003'4000u};       /*!< I2C 3 base address */
+constexpr inline libmcu::CtimerBaseAddress Ctimer0Address{0x4003'8000u}; /*!< Standard counter/timer 0 base address */
+constexpr inline libmcu::FmcBaseAddress FmcAddress{0x4004'0000u};        /*!< Flash memory controller base address */
+constexpr inline libmcu::IoconBaseAddress IoconAddress{0x4004'4000u};    /*!< I/O control base address */
+constexpr inline libmcu::SysconBaseAddress SysconAddress{0x4004'8000u};  /*!< System control base address */
+constexpr inline libmcu::I2cBaseAddress I2c0Address{0x4005'0000u};       /*!< I2C 0 base address */
+constexpr inline libmcu::I2cBaseAddress I2c1Address{0x4005'4000u};       /*!< I2C 1 base address */
+constexpr inline libmcu::SpiBaseAddress Spi0Address{0x4005'8000u};       /*!< SPI 0 base address */
+constexpr inline libmcu::SpiBaseAddress Spi1Address{0x4005'C000u};       /*!< SPI 1 base address */
+constexpr inline libmcu::CaptBaseAddress Capt0Address{0x4006'0000u};     /*!< Capacitive touch 0 base address */
+constexpr inline libmcu::UartBaseAddress Usart0Address{0x4006'4000u};    /*!< USART 0 base address */
+constexpr inline libmcu::UartBaseAddress Usart1Address{0x4006'8000u};    /*!< USART 1 base address */
+constexpr inline libmcu::UartBaseAddress Usart2Address{0x4006'C000u};    /*!< USART 2 base address */
+constexpr inline libmcu::UartBaseAddress Usart3Address{0x4007'0000u};    /*!< USART 3 base address */
 /* AHB peripherals, see UM11029 2.2.1 */
-constexpr inline libmcu::CrcBaseAddress kCrcAddress{0x5000'0000u};  /*!< CRC calculator base address */
-constexpr inline libmcu::SctBaseAddress kSct0Address{0x5000'4000u}; /*!< State configurable timer 0 base address */
-constexpr inline libmcu::DmaBaseAddress kDmaAddress{0x5000'8000u};  /*!< DMA 0 base address */
-constexpr inline libmcu::MtbBaseAddress kMtbAddress{0x5000'C000u};  /*!< MTB base address */
+constexpr inline libmcu::CrcBaseAddress CrcAddress{0x5000'0000u};  /*!< CRC calculator base address */
+constexpr inline libmcu::SctBaseAddress Sct0Address{0x5000'4000u}; /*!< State configurable timer 0 base address */
+constexpr inline libmcu::DmaBaseAddress DmaAddress{0x5000'8000u};  /*!< DMA 0 base address */
+constexpr inline libmcu::MtbBaseAddress MtbAddress{0x5000'C000u};  /*!< MTB base address */
 /* Direct connected peripherals */
-constexpr inline libmcu::GpioBaseAddress kGpioAddress{0xA000'0000u};     /*!< General Purpose I/O base address */
-constexpr inline libmcu::PinintBaseAddress kPinintAddress{0xA000'4000u}; /*!< Pin interrupt base address */
+constexpr inline libmcu::GpioBaseAddress GpioAddress{0xA000'0000u};     /*!< General Purpose I/O base address */
+constexpr inline libmcu::PinintBaseAddress PinintAddress{0xA000'4000u}; /*!< Pin interrupt base address */
 }  // namespace libmcuhw
 
 namespace libmcuhw::dma {
@@ -132,31 +132,31 @@ namespace libmcuhw::dma {
  * hardware request to trigger the DMA transfer accordingly. The index of the hardware request varies according to MCU .
  */
 enum class DmaRequestSources : std::uint8_t {
-  kUsart0Rx = 0u,    /*!< USART0 RX DMA  */
-  kUsart0Tx = 1u,    /*!< USART0 TX DMA  */
-  kUsart1Rx = 2u,    /*!< USART1 RX DMA  */
-  kUsart1Tx = 3u,    /*!< USART1 TX DMA  */
-  kUsart2Rx = 4u,    /*!< USART2 RX DMA  */
-  kUsart2Tx = 5u,    /*!< USART2 TX DMA  */
-  kUsart3Rx = 6u,    /*!< USART3 RX DMA  */
-  kUsart3Tx = 7u,    /*!< USART3 TX DMA  */
-  kUsart4Rx = 8u,    /*!< USART4 RX DMA  */
-  kUsart4Tx = 9u,    /*!< USART4 TX DMA  */
-  kSpi0Rx = 10u,     /*!< SPI0 RX DMA  */
-  kSpi0Tx = 11u,     /*!< SPI0 TX DMA  */
-  kSpi1Rx = 12u,     /*!< SPI1 RX DMA  */
-  kSpi1Tx = 13u,     /*!< SPI1 TX DMA  */
-  kI2c0Slave = 14u,  /*!< I2C0 SLAVE DMA  */
-  kI2c0Master = 15u, /*!< I2C0 MASTER DMA  */
-  kI2c1Slave = 16u,  /*!< I2C1 SLAVE DMA  */
-  kI2c1Master = 17u, /*!< I2C1 MASTER DMA  */
-  kI2c2Slave = 18u,  /*!< I2C2 SLAVE DMA  */
-  kI2c2Master = 19u, /*!< I2C2 MASTER DMA  */
-  kI2c3Slave = 20u,  /*!< I2C3 SLAVE DMA  */
-  kI2c3Master = 21u, /*!< I2C3 MASTER DMA  */
-  kDac0 = 22u,       /*!< DAC0 DMA REQUEST  */
-  kDac1 = 23u,       /*!< DAC1 DMA REQUEST  */
-  kCapt = 24u,       /*!< CAPT DMA  */
+  Usart0Rx = 0u,    /*!< USART0 RX DMA  */
+  Usart0Tx = 1u,    /*!< USART0 TX DMA  */
+  Usart1Rx = 2u,    /*!< USART1 RX DMA  */
+  Usart1Tx = 3u,    /*!< USART1 TX DMA  */
+  Usart2Rx = 4u,    /*!< USART2 RX DMA  */
+  Usart2Tx = 5u,    /*!< USART2 TX DMA  */
+  Usart3Rx = 6u,    /*!< USART3 RX DMA  */
+  Usart3Tx = 7u,    /*!< USART3 TX DMA  */
+  Usart4Rx = 8u,    /*!< USART4 RX DMA  */
+  Usart4Tx = 9u,    /*!< USART4 TX DMA  */
+  Spi0Rx = 10u,     /*!< SPI0 RX DMA  */
+  Spi0Tx = 11u,     /*!< SPI0 TX DMA  */
+  Spi1Rx = 12u,     /*!< SPI1 RX DMA  */
+  Spi1Tx = 13u,     /*!< SPI1 TX DMA  */
+  I2c0Slave = 14u,  /*!< I2C0 SLAVE DMA  */
+  I2c0Master = 15u, /*!< I2C0 MASTER DMA  */
+  I2c1Slave = 16u,  /*!< I2C1 SLAVE DMA  */
+  I2c1Master = 17u, /*!< I2C1 MASTER DMA  */
+  I2c2Slave = 18u,  /*!< I2C2 SLAVE DMA  */
+  I2c2Master = 19u, /*!< I2C2 MASTER DMA  */
+  I2c3Slave = 20u,  /*!< I2C3 SLAVE DMA  */
+  I2c3Master = 21u, /*!< I2C3 MASTER DMA  */
+  Dac0 = 22u,       /*!< DAC0 DMA REQUEST  */
+  Dac1 = 23u,       /*!< DAC1 DMA REQUEST  */
+  Capt = 24u,       /*!< CAPT DMA  */
 };
 }  // namespace libmcuhw::dma
 

@@ -18,50 +18,50 @@ namespace libmcuhw {
 
 // MCU configuration options
 namespace core {
-constexpr inline std::uint32_t kRevision{0x0001}; /*!< Revision number */
+constexpr inline std::uint32_t Revision{0x0001}; /*!< Revision number */
 }  // namespace core
 namespace mpu {
-constexpr inline bool kPresent{false}; /*!< Presence of memory protection unit */
+constexpr inline bool Present{false}; /*!< Presence of memory protection unit */
 }  // namespace mpu
 namespace vtor {
-constexpr inline bool kPresent{true};                      /*!< presence of vector relocation */
-constexpr inline std::uint32_t kAddressMask{0xFFFFFF00UL}; /*!< VTOR bit count */
+constexpr inline bool Present{true};                      /*!< presence of vector relocation */
+constexpr inline std::uint32_t AddressMask{0xFFFFFF00UL}; /*!< VTOR bit count */
 }  // namespace vtor
 namespace systick {
-constexpr inline std::uint32_t kVariant{0}; /*!< Type of systick */
+constexpr inline std::uint32_t Variant{0}; /*!< Type of systick */
 }  // namespace systick
 namespace nvic {
-constexpr inline std::uint32_t kPriorityMask{0x3}; /*!< NVIC priority bit mask */
-constexpr inline std::uint32_t kPriorityBits{2};   /*!< NVIC priority bit count */
+constexpr inline std::uint32_t PriorityMask{0x3}; /*!< NVIC priority bit mask */
+constexpr inline std::uint32_t PriorityBits{2};   /*!< NVIC priority bit count */
 }  // namespace nvic
 
 enum class Interrupts : int8_t {
-  kReset = -15,
-  kNonMaskable = -14,
-  kHardFault = -13,
-  kSvCall = -5,
-  kPendSv = -2,
-  kSystick = -1,
-  kSpi0 = 0,
-  kSpi1 = 1,
-  kUart0 = 3,
-  kUart1 = 4,
-  kUart2 = 5,
-  kI2c0 = 8,
-  kSct = 9,
-  kMrt = 10,
-  kAcmp = 11,
-  kWwdt = 12,
-  kBod = 13,
-  kWkt = 15,
-  kPinint0 = 24,
-  kPinInt1 = 25,
-  kPinInt2 = 26,
-  kPinInt3 = 27,
-  kPinInt4 = 28,
-  kPinInt5 = 29,
-  kPinInt6 = 30,
-  kPinInt7 = 31,
+  Reset = -15,
+  NonMaskable = -14,
+  HardFault = -13,
+  SvCall = -5,
+  PendSv = -2,
+  Systick = -1,
+  Spi0 = 0,
+  Spi1 = 1,
+  Uart0 = 3,
+  Uart1 = 4,
+  Uart2 = 5,
+  I2c0 = 8,
+  Sct = 9,
+  Mrt = 10,
+  Acmp = 11,
+  Wwdt = 12,
+  Bod = 13,
+  Wkt = 15,
+  Pinint0 = 24,
+  PinInt1 = 25,
+  PinInt2 = 26,
+  PinInt3 = 27,
+  PinInt4 = 28,
+  PinInt5 = 29,
+  PinInt6 = 30,
+  PinInt7 = 31,
 };
 }  // namespace libmcuhw
 
@@ -69,27 +69,27 @@ enum class Interrupts : int8_t {
 
 namespace libmcuhw {
 // Define peripheral addresses on APB0 bus
-constexpr inline libmcu::WwdtBaseAddress kWwdtAddress{0x4000'0000u};     /*!< Windowed watchdog base address */
-constexpr inline libmcu::MrtBaseAddress kMrtAddress{0x4000'4000u};       /*!< multi rate timer base address */
-constexpr inline libmcu::WktBaseAddress kWktAddress{0x4000'8000u};       /*!< wakeup timer base address */
-constexpr inline libmcu::SwmBaseAddress kSwmAddress{0x4000'C000u};       /*!< Switch matrix base address */
-constexpr inline libmcu::PmuBaseAddress kPmuAddress{0x4002'0000u};       /*!< Power management unit base address */
-constexpr inline libmcu::AcmpBaseAddress kAcmpAddress{0x4002'4000u};     /*!< Analog comparator base address */
-constexpr inline libmcu::FmcBaseAddress kFmcAddress{0x4004'0000u};       /*!< Flash memory controller base address */
-constexpr inline libmcu::IoconBaseAddress kIoconAddress{0x4004'4000u};   /*!< I/O control base address */
-constexpr inline libmcu::SysconBaseAddress kSysconAddress{0x4004'8000u}; /*!< System control base address */
-constexpr inline libmcu::I2cBaseAddress kI2c0Address{0x4005'0000u};      /*!< I2C 0 base address */
-constexpr inline libmcu::SpiBaseAddress kSpi0Address{0x4005'8000u};      /*!< SPI 0 base address */
-constexpr inline libmcu::SpiBaseAddress kSpi1Address{0x4005'C000u};      /*!< SPI 1 base address */
-constexpr inline libmcu::UartBaseAddress kUsart0Address{0x4006'4000u};   /*!< USART 0 base address */
-constexpr inline libmcu::UartBaseAddress kUsart1Address{0x4006'8000u};   /*!< USART 1 base address */
-constexpr inline libmcu::UartBaseAddress kUsart2Address{0x4006'C000u};   /*!< USART 2 base address */
+constexpr inline libmcu::WwdtBaseAddress WwdtAddress{0x4000'0000u};     /*!< Windowed watchdog base address */
+constexpr inline libmcu::MrtBaseAddress MrtAddress{0x4000'4000u};       /*!< multi rate timer base address */
+constexpr inline libmcu::WktBaseAddress WktAddress{0x4000'8000u};       /*!< wakeup timer base address */
+constexpr inline libmcu::SwmBaseAddress SwmAddress{0x4000'C000u};       /*!< Switch matrix base address */
+constexpr inline libmcu::PmuBaseAddress PmuAddress{0x4002'0000u};       /*!< Power management unit base address */
+constexpr inline libmcu::AcmpBaseAddress AcmpAddress{0x4002'4000u};     /*!< Analog comparator base address */
+constexpr inline libmcu::FmcBaseAddress FmcAddress{0x4004'0000u};       /*!< Flash memory controller base address */
+constexpr inline libmcu::IoconBaseAddress IoconAddress{0x4004'4000u};   /*!< I/O control base address */
+constexpr inline libmcu::SysconBaseAddress SysconAddress{0x4004'8000u}; /*!< System control base address */
+constexpr inline libmcu::I2cBaseAddress I2c0Address{0x4005'0000u};      /*!< I2C 0 base address */
+constexpr inline libmcu::SpiBaseAddress Spi0Address{0x4005'8000u};      /*!< SPI 0 base address */
+constexpr inline libmcu::SpiBaseAddress Spi1Address{0x4005'C000u};      /*!< SPI 1 base address */
+constexpr inline libmcu::UartBaseAddress Usart0Address{0x4006'4000u};   /*!< USART 0 base address */
+constexpr inline libmcu::UartBaseAddress Usart1Address{0x4006'8000u};   /*!< USART 1 base address */
+constexpr inline libmcu::UartBaseAddress Usart2Address{0x4006'C000u};   /*!< USART 2 base address */
 /* AHB peripherals */
-constexpr inline libmcu::CrcBaseAddress kCrcAddress{0x5000'0000u}; /*!< CRC calculator base address */
-constexpr inline libmcu::SctBaseAddress kSctAddress{0x5000'4000u}; /*!< State configurable timer 0 base address */
+constexpr inline libmcu::CrcBaseAddress CrcAddress{0x5000'0000u}; /*!< CRC calculator base address */
+constexpr inline libmcu::SctBaseAddress SctAddress{0x5000'4000u}; /*!< State configurable timer 0 base address */
 /* Direct connected peripherals */
-constexpr inline libmcu::GpioBaseAddress kGpioAddress{0xA000'0000u};     /*!< General Purpose I/O base address */
-constexpr inline libmcu::PinintBaseAddress kPinintAddress{0xA000'4000u}; /*!< Pin interrupt base address */
+constexpr inline libmcu::GpioBaseAddress GpioAddress{0xA000'0000u};     /*!< General Purpose I/O base address */
+constexpr inline libmcu::PinintBaseAddress PinintAddress{0xA000'4000u}; /*!< Pin interrupt base address */
 }  // namespace libmcuhw
 
 // includes that define the registers namespace go here.

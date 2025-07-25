@@ -92,7 +92,7 @@ struct SioGpio : libmcull::GpioBase {
    * @return return pointer to peripheral
    */
   static hardware::Sio *GetPeripheral() {
-    return reinterpret_cast<hardware::Sio *>(sio_address_ + libmcuhw::kPeripheralOffsetNormal);
+    return reinterpret_cast<hardware::Sio *>(sio_address_ + libmcuhw::PeripheralOffsetNormal);
   }
 
  private:

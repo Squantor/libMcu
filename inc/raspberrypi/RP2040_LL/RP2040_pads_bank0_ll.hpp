@@ -19,9 +19,9 @@ namespace hardware_bank0 = libmcuhw::padsBank0;
  * @brief available pull modes
  */
 enum class PullModes : std::uint32_t {
-  kNone = 0,                             /*!< No pullup modes */
-  kPullUp = hardware_bank0::GPIO::PUE,   /*!< Pullup */
-  kPullDown = hardware_bank0::GPIO::PDE, /*!< Pulldown */
+  None = 0,                             /*!< No pullup modes */
+  PullUp = hardware_bank0::GPIO::PUE,   /*!< Pullup */
+  PullDown = hardware_bank0::GPIO::PDE, /*!< Pulldown */
 };
 /**
  * @brief

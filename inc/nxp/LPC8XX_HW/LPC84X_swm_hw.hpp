@@ -1304,21 +1304,21 @@ struct PinFunction<PinFunctions::CapTouchYHIn> {
 struct Swm {
   union {                                  /* offset: 0x0 */
     struct {                               /* offset: 0x0 */
-      volatile std::uint32_t PINASSIGN0;   /*!< Pin assign register for kUart0Tx, kUart0Rx, kUart0Rts, kUart0Cts */
-      volatile std::uint32_t PINASSIGN1;   /*!< Pin assign register for kUart0SCLK, kUart1Tx, kUart1Rx, kUart1RT */
-      volatile std::uint32_t PINASSIGN2;   /*!< Pin assign register for kUart1Cts, kUart1SCLK, U2_Tx, U2_Rx */
-      volatile std::uint32_t PINASSIGN3;   /*!< Pin assign register for U2_Rts, U2_Cts, U2_SCLK, kSpi0SCK */
-      volatile std::uint32_t PINASSIGN4;   /*!< Pin assign register for kSpi0MOSI, kSpi0MISO, kSpi0SSEL0, kSpi0SSEL1 */
-      volatile std::uint32_t PINASSIGN5;   /*!< Pin assign register for kSpi0SSEL2, kSpi0SSEL3, kSpi1SCK, kSpi1MOSI */
-      volatile std::uint32_t PINASSIGN6;   /*!< Pin assign register for kSpi1MISO, kSpi1SSEL0, kSpi1SSEL1, SCT0_IN0 */
-      volatile std::uint32_t PINASSIGN7;   /*!< Pin assign register for SCT_IN1, SCT_IN2, SCT_IN3, kSctOut0 */
-      volatile std::uint32_t PINASSIGN8;   /*!< Pin assign register for kSctOut1, kSctOut2, kSctOut3, kSctOut4 */
-      volatile std::uint32_t PINASSIGN9;   /*!< Pin assign register for kSctOut5, kSctOut6, I2C1_SDA, I2C1_SCL */
+      volatile std::uint32_t PINASSIGN0;   /*!< Pin assign register for Uart0Tx, Uart0Rx, Uart0Rts, Uart0Cts */
+      volatile std::uint32_t PINASSIGN1;   /*!< Pin assign register for Uart0SCLK, Uart1Tx, Uart1Rx, Uart1RT */
+      volatile std::uint32_t PINASSIGN2;   /*!< Pin assign register for Uart1Cts, Uart1SCLK, U2_Tx, U2_Rx */
+      volatile std::uint32_t PINASSIGN3;   /*!< Pin assign register for U2_Rts, U2_Cts, U2_SCLK, Spi0SCK */
+      volatile std::uint32_t PINASSIGN4;   /*!< Pin assign register for Spi0MOSI, Spi0MISO, Spi0SSEL0, Spi0SSEL1 */
+      volatile std::uint32_t PINASSIGN5;   /*!< Pin assign register for Spi0SSEL2, Spi0SSEL3, Spi1SCK, Spi1MOSI */
+      volatile std::uint32_t PINASSIGN6;   /*!< Pin assign register for Spi1MISO, Spi1SSEL0, Spi1SSEL1, SCT0_IN0 */
+      volatile std::uint32_t PINASSIGN7;   /*!< Pin assign register for SCT_IN1, SCT_IN2, SCT_IN3, SctOut0 */
+      volatile std::uint32_t PINASSIGN8;   /*!< Pin assign register for SctOut1, SctOut2, SctOut3, SctOut4 */
+      volatile std::uint32_t PINASSIGN9;   /*!< Pin assign register for SctOut5, SctOut6, I2C1_SDA, I2C1_SCL */
       volatile std::uint32_t PINASSIGN10;  /*!< Pin assign register for I2C2_SDA, I2C2_SCL, I2C3_SDA, I2C3_SCL */
       volatile std::uint32_t PINASSIGN11;  /*!< Pin assign register for COMP0OutUT, CLKOUT, GPIOINT_BMATCH, UART3_Tx */
       volatile std::uint32_t PINASSIGN12;  /*!< Pin assign register for UART3_Rx, UART3_SCLK, UART4_Tx, UART4_Rx */
-      volatile std::uint32_t PINASSIGN13;  /*!< Pin assign register for UART4_SCLK, kTimer0MAT0, kTimer0MAT1, kTimer0MAT2 */
-      volatile std::uint32_t PINASSIGN14;  /*!< Pin assign register for kTimer0MAT3, kTimer0CAP0, kTimer0CAP1, kTimer0CAP2 */
+      volatile std::uint32_t PINASSIGN13;  /*!< Pin assign register for UART4_SCLK, Timer0MAT0, Timer0MAT1, Timer0MAT2 */
+      volatile std::uint32_t PINASSIGN14;  /*!< Pin assign register for Timer0MAT3, Timer0CAP0, Timer0CAP1, Timer0CAP2 */
     } PINASSIGN;                           /*!< Pin assignment register  */
     volatile std::uint32_t PINASSIGNS[15]; /*!< Pin assign register array */
   }; /* */

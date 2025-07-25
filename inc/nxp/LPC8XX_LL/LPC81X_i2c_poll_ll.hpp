@@ -33,7 +33,7 @@ struct I2cPolled : libmcull::PeripheralBase {
     std::uint32_t divider = CLOCK_AHB / (bit_rate * 20);
     GetPeripheral()->TIMEOUT = hardware::TIMEOUT::TO(timeout);
     GetPeripheral()->CLKDIV = divider + 1;
-    GetPeripheral()->CFG = hardware::CFG::kMSTEN;
+    GetPeripheral()->CFG = hardware::CFG::MSTEN;
     return CLOCK_AHB / divider / 20;
   }
   /**
@@ -44,22 +44,22 @@ struct I2cPolled : libmcull::PeripheralBase {
   constexpr void Write(libmcull::I2cDeviceAddress address, const std::span<std::uint8_t> transmit_buffer) {
     std::uint32_t slave_address = static_cast<std::uint32_t>(address.value) << 1;
     GetPeripheral()->MSTDAT = slave_address;
-    GetPeripheral()->MSTCTL = hardware::MSTCTL::kMSTSTART;
-    while (!(GetPeripheral()->STAT & (hardware::STAT::kMSTPENDING | hardware::STAT::kEVENTTIMEOUT | hardware::STAT::kSCLTIMEOUT)))
+    GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTART;
+    while (!(GetPeripheral()->STAT & (hardware::STAT::MSTPENDING | hardware::STAT::EVENTTIMEOUT | hardware::STAT::SCLTIMEOUT)))
       ;
-    if ((GetPeripheral()->STAT & hardware::STAT::kMSTSTATE_MASK) != hardware::STAT::kMSTSTATE_TXRDY)
+    if ((GetPeripheral()->STAT & hardware::STAT::MSTSTATE_MASK) != hardware::STAT::MSTSTATE_TXRDY)
       goto stop;
     for (const std::uint8_t &data : transmit_buffer) {
       GetPeripheral()->MSTDAT = static_cast<std::uint32_t>(data);
-      GetPeripheral()->MSTCTL = hardware::MSTCTL::kMSTCONTINUE;
-      while (!(GetPeripheral()->STAT & (hardware::STAT::kMSTPENDING | hardware::STAT::kEVENTTIMEOUT | hardware::STAT::kSCLTIMEOUT)))
+      GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTCONTINUE;
+      while (!(GetPeripheral()->STAT & (hardware::STAT::MSTPENDING | hardware::STAT::EVENTTIMEOUT | hardware::STAT::SCLTIMEOUT)))
         ;
-      if ((GetPeripheral()->STAT & hardware::STAT::kMSTSTATE_MASK) != hardware::STAT::kMSTSTATE_TXRDY)
+      if ((GetPeripheral()->STAT & hardware::STAT::MSTSTATE_MASK) != hardware::STAT::MSTSTATE_TXRDY)
         break;
     }
   stop:
-    GetPeripheral()->MSTCTL = hardware::MSTCTL::kMSTSTOP;
-    while (!(GetPeripheral()->STAT & (hardware::STAT::kMSTPENDING | hardware::STAT::kEVENTTIMEOUT | hardware::STAT::kSCLTIMEOUT)))
+    GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTOP;
+    while (!(GetPeripheral()->STAT & (hardware::STAT::MSTPENDING | hardware::STAT::EVENTTIMEOUT | hardware::STAT::SCLTIMEOUT)))
       ;
   }
   /**
@@ -70,23 +70,23 @@ struct I2cPolled : libmcull::PeripheralBase {
   constexpr void Read(libmcull::I2cDeviceAddress address, std::span<std::uint8_t> receive_buffer) {
     std::uint32_t slave_address = static_cast<std::uint32_t>(address.value) << 1;
     GetPeripheral()->MSTDAT = slave_address | 0x01;  // set read bit in Address
-    GetPeripheral()->MSTCTL = hardware::MSTCTL::kMSTSTART;
-    while (!(GetPeripheral()->STAT & (hardware::STAT::kMSTPENDING | hardware::STAT::kEVENTTIMEOUT | hardware::STAT::kSCLTIMEOUT)))
+    GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTART;
+    while (!(GetPeripheral()->STAT & (hardware::STAT::MSTPENDING | hardware::STAT::EVENTTIMEOUT | hardware::STAT::SCLTIMEOUT)))
       ;
-    if ((GetPeripheral()->STAT & hardware::STAT::kMSTSTATE_MASK) != hardware::STAT::kMSTSTATE_RXRDY)
+    if ((GetPeripheral()->STAT & hardware::STAT::MSTSTATE_MASK) != hardware::STAT::MSTSTATE_RXRDY)
       goto stop;
     receive_buffer[0] = static_cast<std::uint8_t>(GetPeripheral()->MSTDAT);
     for (std::uint8_t &data : receive_buffer.subspan(1)) {
-      GetPeripheral()->MSTCTL = hardware::MSTCTL::kMSTCONTINUE;
-      while (!(GetPeripheral()->STAT & (hardware::STAT::kMSTPENDING | hardware::STAT::kEVENTTIMEOUT | hardware::STAT::kSCLTIMEOUT)))
+      GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTCONTINUE;
+      while (!(GetPeripheral()->STAT & (hardware::STAT::MSTPENDING | hardware::STAT::EVENTTIMEOUT | hardware::STAT::SCLTIMEOUT)))
         ;
-      if ((GetPeripheral()->STAT & hardware::STAT::kMSTSTATE_MASK) != hardware::STAT::kMSTSTATE_RXRDY)
+      if ((GetPeripheral()->STAT & hardware::STAT::MSTSTATE_MASK) != hardware::STAT::MSTSTATE_RXRDY)
         break;
       data = static_cast<std::uint8_t>(GetPeripheral()->MSTDAT);
     }
   stop:
-    GetPeripheral()->MSTCTL = hardware::MSTCTL::kMSTSTOP;
-    while (!(GetPeripheral()->STAT & (hardware::STAT::kMSTPENDING | hardware::STAT::kEVENTTIMEOUT | hardware::STAT::kSCLTIMEOUT)))
+    GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTOP;
+    while (!(GetPeripheral()->STAT & (hardware::STAT::MSTPENDING | hardware::STAT::EVENTTIMEOUT | hardware::STAT::SCLTIMEOUT)))
       ;
   }
   /**

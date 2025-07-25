@@ -17,25 +17,25 @@ namespace hardware = libmcuhw::spi;
  * @brief Frame formats available
  */
 enum class FrameFormats : std::uint32_t {
-  kMotorola = hardware::SSPCR0::FRF_MOTOROLA, /*!< Motorola frame format */
-  kTi = hardware::SSPCR0::FRF_TI,             /*!< Texas instruments frame format */
-  kNational = hardware::SSPCR0::FRF_NATIONAL, /*!< National microwire frame format */
+  Motorola = hardware::SSPCR0::FRF_MOTOROLA, /*!< Motorola frame format */
+  Ti = hardware::SSPCR0::FRF_TI,             /*!< Texas instruments frame format */
+  National = hardware::SSPCR0::FRF_NATIONAL, /*!< National microwire frame format */
 };
 /**
  * @brief SPI hardware chip enables
  */
 enum class ChipEnables : std::uint32_t {
-  kNone = 0,         /*!< No chip select */
-  kSsel = (1 << 16), /*!< Hardware chip enable */
+  None = 0,         /*!< No chip select */
+  Ssel = (1 << 16), /*!< Hardware chip enable */
 };
 /**
  * @brief possible SPI clocking/phasing/ordering
  */
 enum class Waveforms : std::uint32_t {
-  kCpha0Cpol0 = 0,                                             /*!< CPHA is 0, CPOL is 0, MSB first */
-  kCpha1Cpol0 = hardware::SSPCR0::SPH,                         /*!< CPHA is 1, CPOL is 0, MSB first */
-  kCpha0Cpol1 = hardware::SSPCR0::SPO,                         /*!< CPHA is 0, CPOL is 1, MSB first */
-  kCpha1Cpol1 = hardware::SSPCR0::SPH | hardware::SSPCR0::SPO, /*!< CPHA is 1, CPOL is 1, MSB first */
+  Cpha0Cpol0 = 0,                                             /*!< CPHA is 0, CPOL is 0, MSB first */
+  Cpha1Cpol0 = hardware::SSPCR0::SPH,                         /*!< CPHA is 1, CPOL is 0, MSB first */
+  Cpha0Cpol1 = hardware::SSPCR0::SPO,                         /*!< CPHA is 0, CPOL is 1, MSB first */
+  Cpha1Cpol1 = hardware::SSPCR0::SPH | hardware::SSPCR0::SPO, /*!< CPHA is 1, CPOL is 1, MSB first */
 };
 /**
  * @brief
@@ -117,21 +117,21 @@ struct SpiPolled : libmcull::SyncSpiBase {
    * @return return pointer to peripheral
    */
   static hardware::Spi* GetPeripheralSet() {
-    return reinterpret_cast<hardware::Spi*>(spi_address_ + libmcuhw::kPeripheralOffsetSet);
+    return reinterpret_cast<hardware::Spi*>(spi_address_ + libmcuhw::PeripheralOffsetSet);
   }
   /**
    * @brief get registers from peripheral for atomic Clear access
    * @return return pointer to peripheral
    */
   static hardware::Spi* GetPeripheralClear() {
-    return reinterpret_cast<hardware::Spi*>(spi_address_ + libmcuhw::kPeripheralOffsetClear);
+    return reinterpret_cast<hardware::Spi*>(spi_address_ + libmcuhw::PeripheralOffsetClear);
   }
   /**
    * @brief get registers from peripheral for atomic XOR access
    * @return return pointer to peripheral
    */
   static hardware::Spi* GetPeripheralXor() {
-    return reinterpret_cast<hardware::Spi*>(spi_address_ + libmcuhw::kPeripheralOffsetXor);
+    return reinterpret_cast<hardware::Spi*>(spi_address_ + libmcuhw::PeripheralOffsetXor);
   }
 
  private:

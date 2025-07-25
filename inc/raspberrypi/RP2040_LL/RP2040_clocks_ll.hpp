@@ -18,105 +18,105 @@ namespace hardware = libmcuhw::clocks;
  * @brief available clock generators
  */
 enum class GpoutGenerators : std::uint32_t {
-  kGpout0 = hardware::ClockIndices::kGpout0, /*!< GPIO mux clock 0 */
-  kGpout1 = hardware::ClockIndices::kGpout1, /*!< GPIO mux clock 1 */
-  kGpout2 = hardware::ClockIndices::kGpout2, /*!< GPIO mux clock 2 */
-  kGpout3 = hardware::ClockIndices::kGpout3, /*!< GPIO mux clock 3 */
+  Gpout0 = hardware::ClockIndices::Gpout0, /*!< GPIO mux clock 0 */
+  Gpout1 = hardware::ClockIndices::Gpout1, /*!< GPIO mux clock 1 */
+  Gpout2 = hardware::ClockIndices::Gpout2, /*!< GPIO mux clock 2 */
+  Gpout3 = hardware::ClockIndices::Gpout3, /*!< GPIO mux clock 3 */
 };
 /**
  * @brief available clock sources for gpout clock generators
  */
 enum class GpoutSources : std::uint32_t {
-  kPllSys = hardware::CTRL::GPOUT_AUX_PLL_SYS,
-  kGpin0 = hardware::CTRL::GPOUT_AUX_GPIN0,
-  kGpin1 = hardware::CTRL::GPOUT_AUX_GPIN1,
-  kPllUsb = hardware::CTRL::GPOUT_AUX_PLL_USB,
-  kRosc = hardware::CTRL::GPOUT_AUX_ROSC,
-  kXosc = hardware::CTRL::GPOUT_AUX_XOSC,
-  kSys = hardware::CTRL::GPOUT_AUX_CLK_SYS,
-  kUsb = hardware::CTRL::GPOUT_AUX_CLK_USB,
-  kAdc = hardware::CTRL::GPOUT_AUX_CLK_ADC,
-  kRtc = hardware::CTRL::GPOUT_AUX_CLK_RTC,
-  kRef = hardware::CTRL::GPOUT_AUX_CLK_REF,
+  PllSys = hardware::CTRL::GPOUT_AUX_PLL_SYS,
+  Gpin0 = hardware::CTRL::GPOUT_AUX_GPIN0,
+  Gpin1 = hardware::CTRL::GPOUT_AUX_GPIN1,
+  PllUsb = hardware::CTRL::GPOUT_AUX_PLL_USB,
+  Rosc = hardware::CTRL::GPOUT_AUX_ROSC,
+  Xosc = hardware::CTRL::GPOUT_AUX_XOSC,
+  Sys = hardware::CTRL::GPOUT_AUX_CLK_SYS,
+  Usb = hardware::CTRL::GPOUT_AUX_CLK_USB,
+  Adc = hardware::CTRL::GPOUT_AUX_CLK_ADC,
+  Rtc = hardware::CTRL::GPOUT_AUX_CLK_RTC,
+  Ref = hardware::CTRL::GPOUT_AUX_CLK_REF,
 };
 /**
  * @brief
  */
 enum class ReferenceAuxSources : std::uint32_t {
-  kPllUsb = hardware::CTRL::REF_AUX_PLL_USB,
-  kGpin0 = hardware::CTRL::REF_AUX_GPIN0,
-  kGpin1 = hardware::CTRL::REF_AUX_GPIN1,
+  PllUsb = hardware::CTRL::REF_AUX_PLL_USB,
+  Gpin0 = hardware::CTRL::REF_AUX_GPIN0,
+  Gpin1 = hardware::CTRL::REF_AUX_GPIN1,
 };
 /**
  * @brief
  */
 enum class ReferenceSources : std::uint32_t {
-  kRosc = hardware::CTRL::REF_SRC_ROSC,
-  kAux = hardware::CTRL::REF_SRC_AUX,
-  kXosc = hardware::CTRL::REF_SRC_XOSC,
+  Rosc = hardware::CTRL::REF_SRC_ROSC,
+  Aux = hardware::CTRL::REF_SRC_AUX,
+  Xosc = hardware::CTRL::REF_SRC_XOSC,
 };
 /**
  * @brief
  */
 enum class SystemAuxSources : std::uint32_t {
-  kPllSys = hardware::CTRL::SYS_AUX_PLL_SYS,
-  kPllUsb = hardware::CTRL::SYS_AUX_PLL_USB,
-  kRosc = hardware::CTRL::SYS_AUX_ROSC,
-  kXosc = hardware::CTRL::SYS_AUX_XOSC,
-  kGpin0 = hardware::CTRL::SYS_AUX_GPIN0,
-  kGpin1 = hardware::CTRL::SYS_AUX_GPIN1,
+  PllSys = hardware::CTRL::SYS_AUX_PLL_SYS,
+  PllUsb = hardware::CTRL::SYS_AUX_PLL_USB,
+  Rosc = hardware::CTRL::SYS_AUX_ROSC,
+  Xosc = hardware::CTRL::SYS_AUX_XOSC,
+  Gpin0 = hardware::CTRL::SYS_AUX_GPIN0,
+  Gpin1 = hardware::CTRL::SYS_AUX_GPIN1,
 };
 /**
  * @brief
  */
 enum class SystemSources : std::uint32_t {
-  kRef = hardware::CTRL::SYS_SRC_CLK_REF,
-  kAux = hardware::CTRL::SYS_SRC_AUX,
+  Ref = hardware::CTRL::SYS_SRC_CLK_REF,
+  Aux = hardware::CTRL::SYS_SRC_AUX,
 };
 /**
  * @brief
  */
 enum class PeripheralSources : std::uint32_t {
-  kSys = hardware::CTRL::PERI_AUX_CLK_SYS,
-  kPllSys = hardware::CTRL::PERI_AUX_PLL_SYS,
-  kPllUsb = hardware::CTRL::PERI_AUX_PLL_USB,
-  kRosc = hardware::CTRL::PERI_AUX_ROSC,
-  kXosc = hardware::CTRL::PERI_AUX_XOSC,
-  kGpin0 = hardware::CTRL::PERI_AUX_GPIN0,
-  kGpin1 = hardware::CTRL::PERI_AUX_GPIN1,
+  Sys = hardware::CTRL::PERI_AUX_CLK_SYS,
+  PllSys = hardware::CTRL::PERI_AUX_PLL_SYS,
+  PllUsb = hardware::CTRL::PERI_AUX_PLL_USB,
+  Rosc = hardware::CTRL::PERI_AUX_ROSC,
+  Xosc = hardware::CTRL::PERI_AUX_XOSC,
+  Gpin0 = hardware::CTRL::PERI_AUX_GPIN0,
+  Gpin1 = hardware::CTRL::PERI_AUX_GPIN1,
 };
 /**
  * @brief
  */
 enum class UsbSources : std::uint32_t {
-  kPllUsb = hardware::CTRL::USB_AUX_PLL_USB,
-  kPllSys = hardware::CTRL::USB_AUX_PLL_SYS,
-  kRosc = hardware::CTRL::USB_AUX_ROSC,
-  kXosc = hardware::CTRL::USB_AUX_XOSC,
-  kGpin0 = hardware::CTRL::USB_AUX_GPIN0,
-  kGpin1 = hardware::CTRL::USB_AUX_GPIN1,
+  PllUsb = hardware::CTRL::USB_AUX_PLL_USB,
+  PllSys = hardware::CTRL::USB_AUX_PLL_SYS,
+  Rosc = hardware::CTRL::USB_AUX_ROSC,
+  Xosc = hardware::CTRL::USB_AUX_XOSC,
+  Gpin0 = hardware::CTRL::USB_AUX_GPIN0,
+  Gpin1 = hardware::CTRL::USB_AUX_GPIN1,
 };
 /**
  * @brief
  */
 enum class AdcSources : std::uint32_t {
-  kPllUsb = hardware::CTRL::ADC_AUX_PLL_USB,
-  kPllSys = hardware::CTRL::ADC_AUX_PLL_SYS,
-  kRosc = hardware::CTRL::ADC_AUX_ROSC,
-  kXosc = hardware::CTRL::ADC_AUX_XOSC,
-  kGpin0 = hardware::CTRL::ADC_AUX_GPIN0,
-  kGpin1 = hardware::CTRL::ADC_AUX_GPIN1,
+  PllUsb = hardware::CTRL::ADC_AUX_PLL_USB,
+  PllSys = hardware::CTRL::ADC_AUX_PLL_SYS,
+  Rosc = hardware::CTRL::ADC_AUX_ROSC,
+  Xosc = hardware::CTRL::ADC_AUX_XOSC,
+  Gpin0 = hardware::CTRL::ADC_AUX_GPIN0,
+  Gpin1 = hardware::CTRL::ADC_AUX_GPIN1,
 };
 /**
  * @brief
  */
 enum class RtcSources : std::uint32_t {
-  kPllUsb = hardware::CTRL::RTC_AUX_PLL_USB,
-  kPllSys = hardware::CTRL::RTC_AUX_PLL_SYS,
-  kRosc = hardware::CTRL::RTC_AUX_ROSC,
-  kXosc = hardware::CTRL::RTC_AUX_XOSC,
-  kGpin0 = hardware::CTRL::RTC_AUX_GPIN0,
-  kGpin1 = hardware::CTRL::RTC_AUX_GPIN1,
+  PllUsb = hardware::CTRL::RTC_AUX_PLL_USB,
+  PllSys = hardware::CTRL::RTC_AUX_PLL_SYS,
+  Rosc = hardware::CTRL::RTC_AUX_ROSC,
+  Xosc = hardware::CTRL::RTC_AUX_XOSC,
+  Gpin0 = hardware::CTRL::RTC_AUX_GPIN0,
+  Gpin1 = hardware::CTRL::RTC_AUX_GPIN1,
 };
 /**
  * @brief
@@ -148,7 +148,7 @@ struct Clocks : libmcull::PeripheralBase {
    * @param divisor
    */
   constexpr void Setup(ReferenceAuxSources source, std::uint32_t divisor, std::uint32_t delay) {
-    std::uint32_t index = hardware::ClockIndices::kRef;
+    std::uint32_t index = hardware::ClockIndices::Ref;
     std::uint32_t divisorRegister = hardware::DIV::INT(divisor);
     // set divisor if divisor is larger to prevent overspeed (taken from API description)
     if (divisorRegister > GetPeripheral()->CLK[index].DIV)
@@ -166,7 +166,7 @@ struct Clocks : libmcull::PeripheralBase {
    * @param divisor divisor
    */
   constexpr void Setup(ReferenceSources source, std::uint32_t divisor) {
-    std::uint32_t index = hardware::ClockIndices::kRef;
+    std::uint32_t index = hardware::ClockIndices::Ref;
     std::uint32_t divisorRegister = hardware::DIV::INT(divisor);
     // set divisor if divisor is larger to prevent overspeed (taken from API description)
     if (divisorRegister > GetPeripheral()->CLK[index].DIV)
@@ -182,7 +182,7 @@ struct Clocks : libmcull::PeripheralBase {
    * @param delay
    */
   constexpr void Setup(SystemAuxSources source, std::uint32_t divisor, std::uint32_t fraction, std::uint32_t delay) {
-    std::uint32_t index = hardware::ClockIndices::kSys;
+    std::uint32_t index = hardware::ClockIndices::Sys;
     std::uint32_t divisorRegister = hardware::DIV::INT(divisor) | hardware::DIV::FRAC(fraction);
     // set divisor if divisor is larger to prevent overspeed (taken from API description)
     if (divisorRegister > GetPeripheral()->CLK[index].DIV)
@@ -202,7 +202,7 @@ struct Clocks : libmcull::PeripheralBase {
    * @param delay
    */
   constexpr void Setup(SystemSources source, std::uint32_t divisor, std::uint32_t fraction) {
-    std::uint32_t index = hardware::ClockIndices::kSys;
+    std::uint32_t index = hardware::ClockIndices::Sys;
     std::uint32_t divisorRegister = hardware::DIV::INT(divisor) | hardware::DIV::FRAC(fraction);
     // set divisor if divisor is larger to prevent overspeed (taken from API description)
     if (divisorRegister > GetPeripheral()->CLK[index].DIV)
@@ -216,7 +216,7 @@ struct Clocks : libmcull::PeripheralBase {
    * @param delay delay of 3 input clocks for disable
    */
   constexpr void Setup(PeripheralSources source, std::uint32_t delay) {
-    std::uint32_t index = hardware::ClockIndices::kPeri;
+    std::uint32_t index = hardware::ClockIndices::Peri;
     std::uint32_t auxSource = static_cast<std::uint32_t>(source);
     SwitchAux(index, auxSource, 0u, 0u, delay);
   }
@@ -227,7 +227,7 @@ struct Clocks : libmcull::PeripheralBase {
    * @param delay delay of 3 input clocks for disable
    */
   constexpr void Setup(UsbSources source, std::uint32_t divisor, std::uint32_t delay) {
-    std::uint32_t index = hardware::ClockIndices::kUsb;
+    std::uint32_t index = hardware::ClockIndices::Usb;
     std::uint32_t auxSource = static_cast<std::uint32_t>(source);
     SwitchAux(index, auxSource, divisor, 0u, delay);
   }
@@ -238,7 +238,7 @@ struct Clocks : libmcull::PeripheralBase {
    * @param delay delay of 3 input clocks for disable
    */
   constexpr void Setup(AdcSources source, std::uint32_t divisor, std::uint32_t delay) {
-    std::uint32_t index = hardware::ClockIndices::kAdc;
+    std::uint32_t index = hardware::ClockIndices::Adc;
     std::uint32_t auxSource = static_cast<std::uint32_t>(source);
     SwitchAux(index, auxSource, divisor, 0u, delay);
   }
@@ -250,7 +250,7 @@ struct Clocks : libmcull::PeripheralBase {
    * @param delay delay of 3 input clocks for disable
    */
   constexpr void Setup(RtcSources source, std::uint32_t divisor, std::uint32_t fraction, std::uint32_t delay) {
-    std::uint32_t index = hardware::ClockIndices::kRtc;
+    std::uint32_t index = hardware::ClockIndices::Rtc;
     std::uint32_t auxSource = static_cast<std::uint32_t>(source);
     SwitchAux(index, auxSource, divisor, fraction, delay);
   }
@@ -297,28 +297,28 @@ struct Clocks : libmcull::PeripheralBase {
    * @return return pointer to peripheral
    */
   static hardware::Clocks* GetPeripheral() {
-    return reinterpret_cast<hardware::Clocks*>(clocks_address_ + libmcuhw::kPeripheralOffsetNormal);
+    return reinterpret_cast<hardware::Clocks*>(clocks_address_ + libmcuhw::PeripheralOffsetNormal);
   }
   /**
    * @brief get registers from peripheral for atomic set access
    * @return return pointer to peripheral
    */
   static hardware::Clocks* GetPeripheralSet() {
-    return reinterpret_cast<hardware::Clocks*>(clocks_address_ + libmcuhw::kPeripheralOffsetSet);
+    return reinterpret_cast<hardware::Clocks*>(clocks_address_ + libmcuhw::PeripheralOffsetSet);
   }
   /**
    * @brief get registers from peripheral for atomic Clear access
    * @return return pointer to peripheral
    */
   static hardware::Clocks* GetPeripheralClear() {
-    return reinterpret_cast<hardware::Clocks*>(clocks_address_ + libmcuhw::kPeripheralOffsetClear);
+    return reinterpret_cast<hardware::Clocks*>(clocks_address_ + libmcuhw::PeripheralOffsetClear);
   }
   /**
    * @brief get registers from peripheral for atomic XOR access
    * @return return pointer to peripheral
    */
   static hardware::Clocks* GetPeripheralXor() {
-    return reinterpret_cast<hardware::Clocks*>(clocks_address_ + libmcuhw::kPeripheralOffsetXor);
+    return reinterpret_cast<hardware::Clocks*>(clocks_address_ + libmcuhw::PeripheralOffsetXor);
   }
 
  private:

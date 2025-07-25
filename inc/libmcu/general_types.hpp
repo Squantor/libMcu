@@ -61,9 +61,9 @@ enum class AsynchronousStates : std::uint8_t {
  * @brief Type of asynchronous transactions possible
  */
 enum class TransactionType : std::uint8_t {
-  kSingle,    /*!< Single transfer */
-  kMultiple,  /*!< Multiple transfer */
-  kTerminate, /*!< Terminate transfer */
+  Single,    /*!< Single transfer */
+  Multiple,  /*!< Multiple transfer */
+  Terminate, /*!< Terminate transfer */
 };
 
 using AsyncHandle = std::uint32_t;

@@ -39,10 +39,10 @@ struct Adc : libmcull::PeripheralBase {
   template <typename PIN>
   constexpr std::uint32_t Sample(PIN &pin) {
     std::uint32_t channelIndex = static_cast<std::uint32_t>(pin.adcPinIndex);
-    GetPeripheral()->SEQ_CTRL[hardware::kSequencerA] = hardware::SEQ_CTRL::CHANNELS(channelIndex) | hardware::SEQ_CTRL::TRIG_NONE |
-                                                       hardware::SEQ_CTRL::TRIGPOL_POS | hardware::SEQ_CTRL::LOWPRIO |
-                                                       hardware::SEQ_CTRL::SEQ_ENA;
-    GetPeripheral()->SEQ_CTRL[hardware::kSequencerA] = GetPeripheral()->SEQ_CTRL[hardware::kSequencerA] | hardware::SEQ_CTRL::START;
+    GetPeripheral()->SEQ_CTRL[hardware::SequencerA] = hardware::SEQ_CTRL::CHANNELS(channelIndex) | hardware::SEQ_CTRL::TRIG_NONE |
+                                                      hardware::SEQ_CTRL::TRIGPOL_POS | hardware::SEQ_CTRL::LOWPRIO |
+                                                      hardware::SEQ_CTRL::SEQ_ENA;
+    GetPeripheral()->SEQ_CTRL[hardware::SequencerA] = GetPeripheral()->SEQ_CTRL[hardware::SequencerA] | hardware::SEQ_CTRL::START;
     std::uint32_t adcSample;
     do {
       adcSample = GetPeripheral()->DAT[channelIndex];

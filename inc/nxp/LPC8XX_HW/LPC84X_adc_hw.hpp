@@ -16,8 +16,8 @@ namespace libmcuhw::adc {
  * @brief
  */
 enum Sequencers : std::size_t {
-  kSequencerA = 0, /*!< ADC sequencer A */
-  kSequencerB = 1, /*!< ADC sequencer B */
+  SequencerA = 0, /*!< ADC sequencer A */
+  SequencerB = 1, /*!< ADC sequencer B */
 };
 /**
  * @brief Analog to Digital converter register definitions

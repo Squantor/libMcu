@@ -12,22 +12,23 @@
 #define SCB_LL_HPP
 namespace libmcull::scb {
 namespace hardware = libmcuhw::scb;
+/**
+ * @brief
+ * @tparam scbAddress_
+ */
 template <libmcu::ScbBaseAddress const& scbAddress_>
 struct Scb {
   /**
    * @brief Construct a new systick object
-   *
    */
   Scb() {}
   /**
    * @brief Setup scb
-   *
    * Nothing to setup here
    */
   constexpr void init() {}
   /**
    * @brief Get the allowed bits mask from the VTOR register
-   *
    * @return enabled bits in the VTOR register
    */
   constexpr std::uint32_t getVtorMask() {
@@ -39,19 +40,16 @@ struct Scb {
   }
   /**
    * @brief set vector table to specific address
-   *
    * Be aware that 7 LSB's are ignored so it needs to be aligned on a 128byte boundary
-   *
    * @param vectorTable address to an array of uint32_t's that contains the interrupt vector table
    */
   constexpr void setVtor(std::uint32_t* vectorTable) {
-    static_assert(libmcuhw::vtor::kPresent == true);
+    static_assert(libmcuhw::vtor::Present == true);
     std::uint32_t vtorAddress = reinterpret_cast<std::uint32_t>(vectorTable);
     scbPeripheral()->VTOR = hardware::VTOR::TBLOFF(vtorAddress);
   }
   /**
    * @brief Set the system sleep behaviour in various conditions
-   *
    * @param eventIsWakeup Do not sleep after a WFE (relevant for multiprocessors)
    * @param sleepIsDeep Sleep mode is deep sleep (deep sleep is implementation defined)
    * @param sleepOnIsrExit Sleep after ISR exit
@@ -59,11 +57,11 @@ struct Scb {
   constexpr void setSleepBehaviour(bool eventIsWakeup, bool sleepIsDeep, bool sleepOnIsrExit) {
     std::uint32_t newScr = 0UL;
     if (eventIsWakeup)
-      newScr |= hardware::SCR::kSEVONPEND;
+      newScr |= hardware::SCR::SEVONPEND;
     if (sleepIsDeep)
-      newScr |= hardware::SCR::kSLEEPDEEP;
+      newScr |= hardware::SCR::SLEEPDEEP;
     if (sleepOnIsrExit)
-      newScr |= hardware::SCR::kSLEEPONEXIT;
+      newScr |= hardware::SCR::SLEEPONEXIT;
     scbPeripheral()->SCR = newScr;
   }
   /**
@@ -72,7 +70,7 @@ struct Scb {
    */
   [[noreturn]] constexpr void reset() {
     libmcull::dsb();
-    scbPeripheral()->AIRCR = hardware::AIRCR::kVECTKEY_KEY | hardware::AIRCR::kSYSRESETREQ;
+    scbPeripheral()->AIRCR = hardware::AIRCR::VECTKEY_KEY | hardware::AIRCR::SYSRESETREQ;
     libmcull::dsb();
     while (1) {
       libmcull::nop();

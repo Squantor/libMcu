@@ -14,10 +14,10 @@
 namespace libmcuhw {
 
 // core peripheral definitions
-constexpr inline libmcu::ScsBaseAddress kScsAddress{0xE000'E000UL};         /*!< systemcontrol space base address */
-constexpr inline libmcu::SystickBaseAddress kSystickAddress{0xE000'E010UL}; /*!< systick base address*/
-constexpr inline libmcu::NvicBaseAddress kNvicAddress{0xE000'E100UL};       /*!< NVIC base address */
-constexpr inline libmcu::ScbBaseAddress kScbAddress{0xE000'ED00UL};         /*!< SCB base address */
+constexpr inline libmcu::ScsBaseAddress ScsAddress{0xE000'E000UL};         /*!< systemcontrol space base address */
+constexpr inline libmcu::SystickBaseAddress SystickAddress{0xE000'E010UL}; /*!< systick base address*/
+constexpr inline libmcu::NvicBaseAddress NvicAddress{0xE000'E100UL};       /*!< NVIC base address */
+constexpr inline libmcu::ScbBaseAddress ScbAddress{0xE000'ED00UL};         /*!< SCB base address */
 
 }  // namespace libmcuhw
 

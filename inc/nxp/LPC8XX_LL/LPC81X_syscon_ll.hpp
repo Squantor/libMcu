@@ -17,72 +17,72 @@ namespace hardware = libmcuhw::syscon;
  * @brief Peripheral reset options
  */
 enum PeripheralResets : std::uint32_t {
-  kResetSpi0 = hardware::PRESETCTRL::kSPI0_RST_N,       /*!< SPI0 reset control */
-  kResetSpi1 = hardware::PRESETCTRL::kSPI1_RST_N,       /*!< SPI1 reset control */
-  kResetUartFrg = hardware::PRESETCTRL::kUARTFRG_RST_N, /*!< UART fractional baud rate generator reset control */
-  kResetUart0 = hardware::PRESETCTRL::kUART0_RST_N,     /*!< UART0 reset control */
-  kResetUart1 = hardware::PRESETCTRL::kUART1_RST_N,     /*!< UART1 reset control */
-  kResetUart2 = hardware::PRESETCTRL::kUART2_RST_N,     /*!< UART2 reset control */
-  kResetI2c = hardware::PRESETCTRL::kI2C_RST_N,         /*!< I2C reset control */
-  kResetMrt = hardware::PRESETCTRL::kMRT_RST_N,         /*!< MRT reset control */
-  kResetSct = hardware::PRESETCTRL::kSCT_RST_N,         /*!< SCT reset control */
-  kResetWkt = hardware::PRESETCTRL::kWKT_RST_N,         /*!< WKT reset control */
-  kResetGpio = hardware::PRESETCTRL::kGPIO_RST_N,       /*!< GPIO reset control */
-  kResetFlash = hardware::PRESETCTRL::kFLASH_RST_N,     /*!< Flash reset control */
-  kResetAcmp = hardware::PRESETCTRL::kACMP_RST_N,       /*!< ACMP reset control */
+  ResetSpi0 = hardware::PRESETCTRL::SPI0_RST_N,       /*!< SPI0 reset control */
+  ResetSpi1 = hardware::PRESETCTRL::SPI1_RST_N,       /*!< SPI1 reset control */
+  ResetUartFrg = hardware::PRESETCTRL::UARTFRG_RST_N, /*!< UART fractional baud rate generator reset control */
+  ResetUart0 = hardware::PRESETCTRL::UART0_RST_N,     /*!< UART0 reset control */
+  ResetUart1 = hardware::PRESETCTRL::UART1_RST_N,     /*!< UART1 reset control */
+  ResetUart2 = hardware::PRESETCTRL::UART2_RST_N,     /*!< UART2 reset control */
+  ResetI2c = hardware::PRESETCTRL::I2C_RST_N,         /*!< I2C reset control */
+  ResetMrt = hardware::PRESETCTRL::MRT_RST_N,         /*!< MRT reset control */
+  ResetSct = hardware::PRESETCTRL::SCT_RST_N,         /*!< SCT reset control */
+  ResetWkt = hardware::PRESETCTRL::WKT_RST_N,         /*!< WKT reset control */
+  ResetGpio = hardware::PRESETCTRL::GPIO_RST_N,       /*!< GPIO reset control */
+  ResetFlash = hardware::PRESETCTRL::FLASH_RST_N,     /*!< Flash reset control */
+  ResetAcmp = hardware::PRESETCTRL::ACMP_RST_N,       /*!< ACMP reset control */
 };
 /**
  * @brief PLL post divider options
  */
 enum class PllPostDividers : std::uint32_t {
-  kDiv2 = hardware::SYSPLLCTRL::kPSEL_DIV2,   /*!< PLL post division ration of 2 */
-  kDiv4 = hardware::SYSPLLCTRL::kPSEL_DIV4,   /*!< PLL post division ration of 4 */
-  kDiv8 = hardware::SYSPLLCTRL::kPSEL_DIV8,   /*!< PLL post division ration of 8 */
-  kDiv16 = hardware::SYSPLLCTRL::kPSEL_DIV16, /*!< PLL post division ration of 16 */
+  Div2 = hardware::SYSPLLCTRL::PSEL_DIV2,   /*!< PLL post division ration of 2 */
+  Div4 = hardware::SYSPLLCTRL::PSEL_DIV4,   /*!< PLL post division ration of 4 */
+  Div8 = hardware::SYSPLLCTRL::PSEL_DIV8,   /*!< PLL post division ration of 8 */
+  Div16 = hardware::SYSPLLCTRL::PSEL_DIV16, /*!< PLL post division ration of 16 */
 };
 /**
  * @brief PLL source options
  */
 enum class PllClockSources : std::uint32_t {
-  kIrc = hardware::SYSPLLCLKSEL::kSEL_IRC,       /*!< IRC oscillator */
-  kSysOsc = hardware::SYSPLLCLKSEL::kSEL_SYSOSC, /*!< crystal oscillator */
-  kClkIn = hardware::SYSPLLCLKSEL::kSEL_CLKIN,   /*!< External clock input */
+  Irc = hardware::SYSPLLCLKSEL::SEL_IRC,       /*!< IRC oscillator */
+  SysOsc = hardware::SYSPLLCLKSEL::SEL_SYSOSC, /*!< crystal oscillator */
+  ClkIn = hardware::SYSPLLCLKSEL::SEL_CLKIN,   /*!< External clock input */
 };
 /**
  * @brief main clock sources
  * @todo refer to bit definitions
  */
 enum class MainClockSources : std::uint32_t {
-  kIrc = 0,    /*!< IRC oscillator */
-  kPllIn = 1,  /*!< PLL input */
-  kWdOsc = 2,  /*!< Watchdog oscillator */
-  kPllOut = 3, /*!< PLL output */
+  Irc = 0,    /*!< IRC oscillator */
+  PllIn = 1,  /*!< PLL input */
+  WdOsc = 2,  /*!< Watchdog oscillator */
+  PllOut = 3, /*!< PLL output */
 };
 
 /**
  * @brief Peripheral clock enable options
  */
 enum PeripheralClocks : std::uint32_t {
-  kClockSys = hardware::SYSAHBCLKCTRL::kSYS,           /*!< AHB bus, APB bridge and the processor core */
-  kClockRom = hardware::SYSAHBCLKCTRL::kROM,           /*!< ROM */
-  kClockRam = hardware::SYSAHBCLKCTRL::kRAM,           /*!< RAM */
-  kClockFlashReg = hardware::SYSAHBCLKCTRL::kFLASHREG, /*!< Flash register interface */
-  kClockFlash = hardware::SYSAHBCLKCTRL::kFLASH,       /*!< Flash */
-  kClockI2c = hardware::SYSAHBCLKCTRL::kI2C,           /*!< I2C */
-  kClockGpio = hardware::SYSAHBCLKCTRL::kGPIO,         /*!< GPIO */
-  kClockSwm = hardware::SYSAHBCLKCTRL::kSWM,           /*!< Switch Matrix */
-  kClockSct = hardware::SYSAHBCLKCTRL::kSCT,           /*!< State configurable timer */
-  kClockWkt = hardware::SYSAHBCLKCTRL::kWKT,           /*!< self wake-up timer */
-  kClockMrt = hardware::SYSAHBCLKCTRL::kMRT,           /*!< multi-rate timer */
-  kClockSpi0 = hardware::SYSAHBCLKCTRL::kSPI0,         /*!< SPI0 */
-  kClockSpi1 = hardware::SYSAHBCLKCTRL::kSPI1,         /*!< SPI1 */
-  kClockCrc = hardware::SYSAHBCLKCTRL::kCRC,           /*!< CRC */
-  kClockUart0 = hardware::SYSAHBCLKCTRL::kUART0,       /*!< UART0 */
-  kClockUart1 = hardware::SYSAHBCLKCTRL::kUART1,       /*!< UART1 */
-  kClockUart2 = hardware::SYSAHBCLKCTRL::kUART2,       /*!< UART2 */
-  kClockWwdt = hardware::SYSAHBCLKCTRL::kWWDT,         /*!< WWDT */
-  kClockIocon = hardware::SYSAHBCLKCTRL::kIOCON,       /*!< IOCON */
-  kClockAcmp = hardware::SYSAHBCLKCTRL::kACMP,         /*!< analog comparator */
+  ClockSys = hardware::SYSAHBCLKCTRL::SYS,           /*!< AHB bus, APB bridge and the processor core */
+  ClockRom = hardware::SYSAHBCLKCTRL::ROM,           /*!< ROM */
+  ClockRam = hardware::SYSAHBCLKCTRL::RAM,           /*!< RAM */
+  ClockFlashReg = hardware::SYSAHBCLKCTRL::FLASHREG, /*!< Flash register interface */
+  ClockFlash = hardware::SYSAHBCLKCTRL::FLASH,       /*!< Flash */
+  ClockI2c = hardware::SYSAHBCLKCTRL::I2C,           /*!< I2C */
+  ClockGpio = hardware::SYSAHBCLKCTRL::GPIO,         /*!< GPIO */
+  ClockSwm = hardware::SYSAHBCLKCTRL::SWM,           /*!< Switch Matrix */
+  ClockSct = hardware::SYSAHBCLKCTRL::SCT,           /*!< State configurable timer */
+  ClockWkt = hardware::SYSAHBCLKCTRL::WKT,           /*!< self wake-up timer */
+  ClockMrt = hardware::SYSAHBCLKCTRL::MRT,           /*!< multi-rate timer */
+  ClockSpi0 = hardware::SYSAHBCLKCTRL::SPI0,         /*!< SPI0 */
+  ClockSpi1 = hardware::SYSAHBCLKCTRL::SPI1,         /*!< SPI1 */
+  ClockCrc = hardware::SYSAHBCLKCTRL::CRC,           /*!< CRC */
+  ClockUart0 = hardware::SYSAHBCLKCTRL::UART0,       /*!< UART0 */
+  ClockUart1 = hardware::SYSAHBCLKCTRL::UART1,       /*!< UART1 */
+  ClockUart2 = hardware::SYSAHBCLKCTRL::UART2,       /*!< UART2 */
+  ClockWwdt = hardware::SYSAHBCLKCTRL::WWDT,         /*!< WWDT */
+  ClockIocon = hardware::SYSAHBCLKCTRL::IOCON,       /*!< IOCON */
+  ClockAcmp = hardware::SYSAHBCLKCTRL::ACMP,         /*!< analog comparator */
 };
 
 /**
@@ -90,14 +90,14 @@ enum PeripheralClocks : std::uint32_t {
  * @todo refer to bit definitions
  */
 enum PeripheralPowers : std::uint32_t {
-  kPowerIrcOutput = (1 << 0), /*!< IRC oscillator output */
-  kPowerIrc = (1 << 1),       /*!< IRC oscillator*/
-  kPowerFlash = (1 << 2),     /*!< Flash*/
-  kPowerBod = (1 << 3),       /*!< BOD*/
-  kPowerSysOsc = (1 << 5),    /*!< Crystal oscillator*/
-  kPowerWdOsc = (1 << 6),     /*!< Watchdog oscillator*/
-  kPowerSysPll = (1 << 7),    /*!< System PLL*/
-  kPowerAcmp = (1 << 15),     /*!< Analog comparator*/
+  PowerIrcOutput = (1 << 0), /*!< IRC oscillator output */
+  PowerIrc = (1 << 1),       /*!< IRC oscillator*/
+  PowerFlash = (1 << 2),     /*!< Flash*/
+  PowerBod = (1 << 3),       /*!< BOD*/
+  PowerSysOsc = (1 << 5),    /*!< Crystal oscillator*/
+  PowerWdOsc = (1 << 6),     /*!< Watchdog oscillator*/
+  PowerSysPll = (1 << 7),    /*!< System PLL*/
+  PowerAcmp = (1 << 15),     /*!< Analog comparator*/
 };
 
 template <libmcu::SysconBaseAddress syscon_address>
@@ -138,8 +138,8 @@ struct Syscon : libmcull::PeripheralBase {
    */
   constexpr void SelectPllClockSource(PllClockSources setting) {
     GetPeripheral()->SYSPLLCLKSEL = static_cast<std::uint32_t>(setting);
-    GetPeripheral()->SYSPLLCLKUEN = hardware::SYSPLLCLKUEN::kNO_CHANGE;
-    GetPeripheral()->SYSPLLCLKUEN = hardware::SYSPLLCLKUEN::kUPDATE;
+    GetPeripheral()->SYSPLLCLKUEN = hardware::SYSPLLCLKUEN::NO_CHANGE;
+    GetPeripheral()->SYSPLLCLKUEN = hardware::SYSPLLCLKUEN::UPDATE;
   }
   /**
    * @brief Select main clock source
@@ -147,8 +147,8 @@ struct Syscon : libmcull::PeripheralBase {
    */
   constexpr void SelectMainClockSource(MainClockSources setting) {
     GetPeripheral()->MAINCLKSEL = static_cast<std::uint32_t>(setting);
-    GetPeripheral()->MAINCLKUEN = hardware::MAINCLKUEN::kNO_CHANGE;
-    GetPeripheral()->MAINCLKUEN = hardware::MAINCLKUEN::kUPDATE;
+    GetPeripheral()->MAINCLKUEN = hardware::MAINCLKUEN::NO_CHANGE;
+    GetPeripheral()->MAINCLKUEN = hardware::MAINCLKUEN::UPDATE;
   }
   /**
    * @brief Set the System Clock Divider

@@ -90,7 +90,7 @@ struct McuClockConfig {
     if constexpr (source_ == ClockInputSources::FRO) {
       return input_freq;
     } else {
-      return kFroDefaultClockFreq;
+      return FroDefaultClockFreq;
     }
   };
   // TODO fractional rate converters?
@@ -126,7 +126,7 @@ struct PeriClockConfig {
   }
 };
 /*!< Default clock configuration for LPC840 series*/
-inline McuClockConfig<ClockInputSources::FRO, kFroDefaultClockFreq, kFroDefaultClockFreq> const default_clock_config;
+inline McuClockConfig<ClockInputSources::FRO, FroDefaultClockFreq, FroDefaultClockFreq> const default_clock_config;
 
 }  // namespace libmcuhw::clock
 

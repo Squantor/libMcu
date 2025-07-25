@@ -26,8 +26,8 @@ struct Fmc {
 };
 namespace FLASHCFG {
 constexpr inline std::uint32_t RESERVED_MASK{0x0000'0003u}; /*!< register mask for allowed bits */
-constexpr inline std::uint32_t kFLASHTIM_1_CLOCK{0u << 0};  /*!< 1 clock flash access time*/
-constexpr inline std::uint32_t kFLASHTIM_2_CLOCK{1u << 0};  /*!< 1 clock flash access time*/
+constexpr inline std::uint32_t FLASHTIM_1_CLOCK{0u << 0};   /*!< 1 clock flash access time*/
+constexpr inline std::uint32_t FLASHTIM_2_CLOCK{1u << 0};   /*!< 1 clock flash access time*/
 }  // namespace FLASHCFG
 namespace FMSSTART {
 constexpr inline std::uint32_t RESERVED_MASK{0x0000'0000u}; /*!< register mask for allowed bits */

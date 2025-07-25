@@ -66,7 +66,7 @@ struct Iocon : libmcull::PeripheralBase {
    */
   template <typename T>
   constexpr void Setup(T &pin, PullModes mode, PinFilters filter, ClockDividers clock, std::uint32_t options) {
-    static_assert(pin.typeFlags == libmcuhw::PinTypeFlags::kNormal, "only normal pins can use this setup function");
+    static_assert(pin.typeFlags == libmcuhw::PinTypeFlags::Normal, "only normal pins can use this setup function");
     GetPeripheral()->PIO[pin.ioconIndex] =
       static_cast<std::uint32_t>(mode) | static_cast<std::uint32_t>(filter) | static_cast<std::uint32_t>(clock) | options;
   }
@@ -79,7 +79,7 @@ struct Iocon : libmcull::PeripheralBase {
    */
   template <typename T>
   constexpr void Setup(T &pin, PullModes mode, std::uint32_t options) {
-    static_assert(pin.typeFlags == libmcuhw::PinTypeFlags::kNormal, "only normal pins can use this setup function");
+    static_assert(pin.typeFlags == libmcuhw::PinTypeFlags::Normal, "only normal pins can use this setup function");
     GetPeripheral()->PIO[pin.ioconIndex] = static_cast<std::uint32_t>(mode) | options;
   }
   /**
@@ -89,7 +89,7 @@ struct Iocon : libmcull::PeripheralBase {
    */
   template <typename T>
   constexpr void Setup(T &pin, PullModes mode) {
-    static_assert(pin.typeFlags == libmcuhw::PinTypeFlags::kNormal, "only normal pins can use this setup function");
+    static_assert(pin.typeFlags == libmcuhw::PinTypeFlags::Normal, "only normal pins can use this setup function");
     GetPeripheral()->PIO[pin.ioconIndex] = static_cast<std::uint32_t>(mode);
   }
   /**
@@ -103,7 +103,7 @@ struct Iocon : libmcull::PeripheralBase {
    */
   template <typename T>
   constexpr void Setup(T &pin, I2cModes mode, PinFilters filter, ClockDividers clock, std::uint32_t options) {
-    static_assert(pin.typeFlags & libmcuhw::PinTypeFlags::kIoconI2c, "only I2C pins have a i2c mode setup");
+    static_assert(pin.typeFlags & libmcuhw::PinTypeFlags::IoconI2c, "only I2C pins have a i2c mode setup");
     GetPeripheral()->PIO[pin.ioconIndex] =
       static_cast<std::uint32_t>(mode) | static_cast<std::uint32_t>(filter) | static_cast<std::uint32_t>(clock) | options;
   }
@@ -116,7 +116,7 @@ struct Iocon : libmcull::PeripheralBase {
    */
   template <typename T>
   constexpr void Setup(T &pin, I2cModes mode, std::uint32_t options) {
-    static_assert(pin.typeFlags & libmcuhw::PinTypeFlags::kIoconI2c, "only I2C pins have a i2c mode setup");
+    static_assert(pin.typeFlags & libmcuhw::PinTypeFlags::IoconI2c, "only I2C pins have a i2c mode setup");
     GetPeripheral()->PIO[pin.ioconIndex] = static_cast<std::uint32_t>(mode) | options;
   }
   /**
@@ -127,7 +127,7 @@ struct Iocon : libmcull::PeripheralBase {
    */
   template <typename T>
   constexpr void Setup(T &pin, I2cModes mode) {
-    static_assert(pin.typeFlags & libmcuhw::PinTypeFlags::kIoconI2c, "only I2C pins have a i2c mode setup");
+    static_assert(pin.typeFlags & libmcuhw::PinTypeFlags::IoconI2c, "only I2C pins have a i2c mode setup");
     GetPeripheral()->PIO[pin.ioconIndex] = static_cast<std::uint32_t>(mode);
   }
   /**

@@ -55,7 +55,7 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
   }
   /**
    * @brief Claim the I2C interface
-   * @return kClaimed when the claim has been successful, any other value indicates an error
+   * @return Claimed when the claim has been successful, any other value indicates an error
    */
   constexpr libmcu::Results Claim(void) {
     if (current_state_ == libmcu::Results::Claimed) {
@@ -68,7 +68,7 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
   }
   /**
    * @brief Unclaim the I2C interface
-   * @return kUnclaimed when the unclaim has been successful, any other value indicates an error
+   * @return Unclaimed when the unclaim has been successful, any other value indicates an error
    */
   constexpr libmcu::Results Unclaim(void) {
     if (current_state_ == libmcu::Results::Claimed) {
@@ -84,7 +84,7 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
    * @param transaction_type Transaction type
    */
   constexpr libmcu::Results Transmit(const libmcull::I2cDeviceAddress address, std::span<std::uint8_t> transmit_buffer,
-                                     libmcu::TransactionType transaction_type = libmcu::TransactionType::kSingle) {
+                                     libmcu::TransactionType transaction_type = libmcu::TransactionType::Single) {
     if (current_state_ != libmcu::Results::Claimed) {
       if (current_state_ == libmcu::Results::BusyTransmit) {
         return libmcu::Results::Busy;
@@ -105,7 +105,7 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
    * @param receive_buffer place to put received data, needs to be at least size 1!
    */
   constexpr libmcu::Results Receive(const libmcull::I2cDeviceAddress address, std::span<std::uint8_t> receive_buffer,
-                                    libmcu::TransactionType transaction_type = libmcu::TransactionType::kSingle) {
+                                    libmcu::TransactionType transaction_type = libmcu::TransactionType::Single) {
     if (current_state_ != libmcu::Results::Claimed) {
       if (current_state_ == libmcu::Results::BusyReceive) {
         return libmcu::Results::Busy;
@@ -220,10 +220,10 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
       if ((status_state == hardware::STAT::MSTSTATE_TXRDY) || (status_state == hardware::STAT::MSTSTATE_RXRDY)) {
         // check if buffer is empty
         if (buffer_index_ == buffer_.size()) {
-          if (transaction_type_ == libmcu::TransactionType::kSingle) {
+          if (transaction_type_ == libmcu::TransactionType::Single) {
             // This was a single transfer, send master stop
             GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTOP;
-          } else if (transaction_type_ == libmcu::TransactionType::kMultiple) {
+          } else if (transaction_type_ == libmcu::TransactionType::Multiple) {
             // Multiple transfers, stop pending interrupt, it will be enabled when the next transfer starts
             GetPeripheral()->INTENCLR = hardware::INTENCLR::MSTPENDINGCLR;
             current_state_ = libmcu::Results::WaitForNext;
@@ -258,13 +258,13 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
   template <const libmcuhw::clock::PeriClockConfig &clock_config>
   constexpr std::uint32_t GetInputClockFreq() {
     // constexpr check if we configure the right peripheral
-    if constexpr ((i2c_address_ == libmcuhw::kI2c0Address) && (clock_config.peripheral_ == libmcuhw::clock::PeriSelect::I2C0))
+    if constexpr ((i2c_address_ == libmcuhw::I2c0Address) && (clock_config.peripheral_ == libmcuhw::clock::PeriSelect::I2C0))
       return clock_config.GetFrequency();
-    else if constexpr ((i2c_address_ == libmcuhw::kI2c1Address) && (clock_config.peripheral_ == libmcuhw::clock::PeriSelect::I2C1))
+    else if constexpr ((i2c_address_ == libmcuhw::I2c1Address) && (clock_config.peripheral_ == libmcuhw::clock::PeriSelect::I2C1))
       return clock_config.GetFrequency();
-    else if constexpr ((i2c_address_ == libmcuhw::kI2c2Address) && (clock_config.peripheral_ == libmcuhw::clock::PeriSelect::I2C2))
+    else if constexpr ((i2c_address_ == libmcuhw::I2c2Address) && (clock_config.peripheral_ == libmcuhw::clock::PeriSelect::I2C2))
       return clock_config.GetFrequency();
-    else if constexpr ((i2c_address_ == libmcuhw::kI2c3Address) && (clock_config.peripheral_ == libmcuhw::clock::PeriSelect::I2C3))
+    else if constexpr ((i2c_address_ == libmcuhw::I2c3Address) && (clock_config.peripheral_ == libmcuhw::clock::PeriSelect::I2C3))
       return clock_config.GetFrequency();
     else
       static_assert(false, "Clock config and peripherals unknown or not matching!");

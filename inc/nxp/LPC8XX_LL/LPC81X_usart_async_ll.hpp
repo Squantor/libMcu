@@ -39,7 +39,7 @@ struct UsartAsync : libmcull::AsyncUartBase {
   constexpr std::uint32_t Init(std::uint32_t baudRate) {
     std::uint32_t baudDivider = CLOCK_MAIN / (baudRate * 16);
     GetPeripheral()->BRG = baudDivider;
-    GetPeripheral()->CFG = hardware::CFG::kENABLE | UartLengths::kSize8 | UartParities::kParityNone | UartStops::kStop1;
+    GetPeripheral()->CFG = hardware::CFG::ENABLE | UartLengths::Size8 | UartParities::ParityNone | UartStops::Stop1;
     return CLOCK_MAIN / 16 / baudDivider;
   }
   /**
@@ -53,7 +53,7 @@ struct UsartAsync : libmcull::AsyncUartBase {
   constexpr std::uint32_t Init(std::uint32_t baudRate, UartLengths lengthBits, UartParities parity, UartStops stopBits) {
     std::uint32_t baudDivider = CLOCK_MAIN / (baudRate * 16);
     GetPeripheral()->BRG = baudDivider;
-    GetPeripheral()->CFG = hardware::CFG::kENABLE | lengthBits | parity | stopBits;
+    GetPeripheral()->CFG = hardware::CFG::ENABLE | lengthBits | parity | stopBits;
     return CLOCK_MAIN / 16 / baudDivider;
   }
   /**
@@ -132,7 +132,7 @@ struct UsartAsync : libmcull::AsyncUartBase {
     if (transaction_read_state_ != libmcu::AsynchronousStates::Busy) {
       return libmcu::Results::Error;
     }
-    if (GetPeripheral()->STAT & hardware::STAT::kRXRDY) {
+    if (GetPeripheral()->STAT & hardware::STAT::RXRDY) {
       transaction_read_data_[transaction_read_index_] = static_cast<TransferType>(GetPeripheral()->RXDAT);
       transaction_read_index_++;
       if (transaction_read_data_.size() == transaction_read_index_) {
@@ -153,12 +153,12 @@ struct UsartAsync : libmcull::AsyncUartBase {
       return libmcu::Results::Error;
     }
     std::uint32_t status = GetPeripheral()->STAT;
-    if (status & hardware::STAT::kTXRDY) {
+    if (status & hardware::STAT::TXRDY) {
       if (transaction_write_data_.size() > transaction_write_index_) {
         GetPeripheral()->TXDAT = static_cast<std::uint32_t>(transaction_write_data_[transaction_write_index_]);
         transaction_write_index_++;
       } else {
-        if (status & hardware::STAT::kTXIDLE) {
+        if (status & hardware::STAT::TXIDLE) {
           transaction_write_state_ = libmcu::AsynchronousStates::Claimed;
           return libmcu::Results::Done;
         }

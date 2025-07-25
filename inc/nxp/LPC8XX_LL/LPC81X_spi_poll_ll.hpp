@@ -31,7 +31,7 @@ struct SpiPolled : libmcull::PeripheralBase {
    */
   constexpr std::uint32_t InitMaster(std::uint32_t bit_rate) {
     std::uint32_t actual_bitrate = SetBitRate(bit_rate);
-    GetPeripheral()->CFG = hardware::CFG::kENABLE | hardware::CFG::kMASTER;
+    GetPeripheral()->CFG = hardware::CFG::ENABLE | hardware::CFG::MASTER;
     return actual_bitrate;
   }
   /**
@@ -44,7 +44,7 @@ struct SpiPolled : libmcull::PeripheralBase {
   constexpr std::uint32_t InitMaster(std::uint32_t bit_rate, Waveforms waveform, SlavePolaritySelects polarity) {
     std::uint32_t actual_bitrate = SetBitRate(bit_rate);
     GetPeripheral()->CFG =
-      hardware::CFG::kENABLE | hardware::CFG::kMASTER | static_cast<std::uint32_t>(waveform) | static_cast<std::uint32_t>(polarity);
+      hardware::CFG::ENABLE | hardware::CFG::MASTER | static_cast<std::uint32_t>(waveform) | static_cast<std::uint32_t>(polarity);
     return actual_bitrate;
   }
   /**
@@ -58,21 +58,21 @@ struct SpiPolled : libmcull::PeripheralBase {
                           bool last_action) {
     size_t index = 0u;
     std::uint32_t transfer_command =
-      hardware::TXDATCTL::TXSSEL(device) | hardware::TXDATCTL::kRXIGNORE;  // spi_address__ transfer command with presets
+      hardware::TXDATCTL::TXSSEL(device) | hardware::TXDATCTL::RXIGNORE;  // spi_address__ transfer command with presets
     while (bit_count > 16u) {
       GetPeripheral()->TXDATCTL =
         transfer_command | hardware::TXDATCTL::TXDAT(transmit_buffer[index]) | hardware::TXDATCTL::LEN(16);
-      while ((GetPeripheral()->STAT & hardware::STAT::kTXRDY) == 0u)
+      while ((GetPeripheral()->STAT & hardware::STAT::TXRDY) == 0u)
         ;
       bit_count -= 16u;
       index++;
     }
     // process remainder
     if (last_action)
-      transfer_command |= hardware::TXDATCTL::kEOT;
+      transfer_command |= hardware::TXDATCTL::EOT;
     GetPeripheral()->TXDATCTL =
       transfer_command | hardware::TXDATCTL::TXDAT(transmit_buffer[index]) | hardware::TXDATCTL::LEN(bit_count);
-    while ((GetPeripheral()->STAT & hardware::STAT::kTXRDY) == 0u)
+    while ((GetPeripheral()->STAT & hardware::STAT::TXRDY) == 0u)
       ;
   }
   /**
@@ -88,7 +88,7 @@ struct SpiPolled : libmcull::PeripheralBase {
       hardware::TXDATCTL::TXSSEL(static_cast<std::uint32_t>(device));  // spi_address__ transfer command with presets
     while (bit_count > 16u) {
       GetPeripheral()->TXDATCTL = transfer_command | hardware::TXDATCTL::LEN(16);
-      while ((GetPeripheral()->STAT & hardware::STAT::kRXRDY) == 0u)
+      while ((GetPeripheral()->STAT & hardware::STAT::RXRDY) == 0u)
         ;
       receive_buffer[index] = hardware::RXDAT::RXDAT(GetPeripheral()->RXDAT);
       bit_count -= 16u;
@@ -96,9 +96,9 @@ struct SpiPolled : libmcull::PeripheralBase {
     }
     // process remainder
     if (last_action)
-      transfer_command |= hardware::TXDATCTL::kEOT;
+      transfer_command |= hardware::TXDATCTL::EOT;
     GetPeripheral()->TXDATCTL = transfer_command | hardware::TXDATCTL::LEN(bit_count);
-    while ((GetPeripheral()->STAT & hardware::STAT::kRXRDY) == 0u)
+    while ((GetPeripheral()->STAT & hardware::STAT::RXRDY) == 0u)
       ;
     receive_buffer[index] = hardware::RXDAT::RXDAT(GetPeripheral()->RXDAT);
   }
@@ -128,7 +128,7 @@ struct SpiPolled : libmcull::PeripheralBase {
     while (bit_count > 16u) {
       GetPeripheral()->TXDATCTL =
         transfer_command | hardware::TXDATCTL::TXDAT(transmit_buffer[index]) | hardware::TXDATCTL::LEN(16);
-      while ((GetPeripheral()->STAT & hardware::STAT::kRXRDY) == 0u)
+      while ((GetPeripheral()->STAT & hardware::STAT::RXRDY) == 0u)
         ;
       receive_buffer[index] = hardware::RXDAT::RXDAT(GetPeripheral()->RXDAT);
       bit_count -= 16u;
@@ -136,10 +136,10 @@ struct SpiPolled : libmcull::PeripheralBase {
     }
     // process remainder
     if (last_action)
-      transfer_command |= hardware::TXDATCTL::kEOT;
+      transfer_command |= hardware::TXDATCTL::EOT;
     GetPeripheral()->TXDATCTL =
       transfer_command | hardware::TXDATCTL::TXDAT(transmit_buffer[index]) | hardware::TXDATCTL::LEN(bit_count);
-    while ((GetPeripheral()->STAT & hardware::STAT::kRXRDY) == 0u)
+    while ((GetPeripheral()->STAT & hardware::STAT::RXRDY) == 0u)
       ;
     receive_buffer[index] = hardware::RXDAT::RXDAT(GetPeripheral()->RXDAT);
   }

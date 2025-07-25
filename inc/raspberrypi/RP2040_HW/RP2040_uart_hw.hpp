@@ -49,7 +49,7 @@ constexpr inline std::uint32_t OE_FLAG{1u << 11};           /*!< RX FIFO overrun
 constexpr inline std::uint32_t BE_FLAG{1u << 10};           /*!< Break error */
 constexpr inline std::uint32_t PE_FLAG{1u << 9};            /*!< Parity error */
 constexpr inline std::uint32_t FE_FLAG{1u << 8};            /*!< Framing error */
-constexpr inline std::uint32_t kError_MASK{0xFu << 8};      /*!< Mask for all the error flags*/
+constexpr inline std::uint32_t ERROR_MASK{0xFu << 8};       /*!< Mask for all the error flags*/
 constexpr inline std::uint32_t DATA_MASK{0xFFu << 0};       /*!< Mask for data byte */
 /**
  * @brief Format DATA field to UARTDR register
@@ -74,7 +74,7 @@ constexpr inline std::uint32_t TXFE_FLAG{1u << 7};          /*!< TX FIFO empty *
 constexpr inline std::uint32_t RXFF_FLAG{1u << 6};          /*!< RX FIFO full */
 constexpr inline std::uint32_t TXFF_FLAG{1u << 5};          /*!< TX FIFO full */
 constexpr inline std::uint32_t RXFE_FLAG{1u << 4};          /*!< RX FIFO empty */
-constexpr inline std::uint32_t kBusy_FLAG{1u << 3};         /*!< Busy */
+constexpr inline std::uint32_t BUSY_FLAG{1u << 3};          /*!< Busy */
 constexpr inline std::uint32_t DCD_FLAG{1u << 2};           /*!< Data carrier detect */
 constexpr inline std::uint32_t DSR_FLAG{1u << 1};           /*!< Data set ready */
 constexpr inline std::uint32_t CTS_FLAG{1u << 0};           /*!< Clear to send */

@@ -146,19 +146,19 @@ typedef enum {
  * of the hardware request varies according  to the to SoC.
  */
 typedef enum dmaRequestSource {
-  kDmaRequestUSART0_RX_DMA = 0U, /*!< USART0 RX DMA  */
-  kDmaRequestUSART0_TX_DMA = 1U, /*!< USART0 TX DMA  */
-  kDmaRequestUSART1_RX_DMA = 2U, /*!< USART1 RX DMA  */
-  kDmaRequestUSART1_TX_DMA = 3U, /*!< USART1 TX DMA  */
-  kDmaRequestSPI0_RX_DMA = 10U,  /*!< SPI0 RX DMA  */
-  kDmaRequestSPI0_TX_DMA = 11U,  /*!< SPI0 TX DMA  */
-  kDmaRequestSPI1_RX_DMA = 12U,  /*!< SPI1 RX DMA  */
-  kDmaRequestSPI1_TX_DMA = 13U,  /*!< SPI1 TX DMA  */
-  kDmaRequestI2C0_SLV_DMA = 14U, /*!< I2C0 SLAVE DMA  */
-  kDmaRequestI2C0_MST_DMA = 15U, /*!< I2C0 MASTER DMA  */
-  kDmaRequestI2C1_SLV_DMA = 16U, /*!< I2C1 SLAVE DMA  */
-  kDmaRequestI2C1_MST_DMA = 17U, /*!< I2C1 MASTER DMA  */
-  kDmaRequestCAPT_DMA = 24U,     /*!< CAPT DMA  */
+  DmaRequestUSART0_RX_DMA = 0U, /*!< USART0 RX DMA  */
+  DmaRequestUSART0_TX_DMA = 1U, /*!< USART0 TX DMA  */
+  DmaRequestUSART1_RX_DMA = 2U, /*!< USART1 RX DMA  */
+  DmaRequestUSART1_TX_DMA = 3U, /*!< USART1 TX DMA  */
+  DmaRequestSPI0_RX_DMA = 10U,  /*!< SPI0 RX DMA  */
+  DmaRequestSPI0_TX_DMA = 11U,  /*!< SPI0 TX DMA  */
+  DmaRequestSPI1_RX_DMA = 12U,  /*!< SPI1 RX DMA  */
+  DmaRequestSPI1_TX_DMA = 13U,  /*!< SPI1 TX DMA  */
+  DmaRequestI2C0_SLV_DMA = 14U, /*!< I2C0 SLAVE DMA  */
+  DmaRequestI2C0_MST_DMA = 15U, /*!< I2C0 MASTER DMA  */
+  DmaRequestI2C1_SLV_DMA = 16U, /*!< I2C1 SLAVE DMA  */
+  DmaRequestI2C1_MST_DMA = 17U, /*!< I2C1 MASTER DMA  */
+  DmaRequestCAPT_DMA = 24U,     /*!< CAPT DMA  */
 } dmaRequestSource_t;
 
 /**

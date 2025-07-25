@@ -180,13 +180,13 @@ struct I2cPolled : libmcull::SyncI2cBase {
   template <const libmcuhw::clock::PeriClockConfig &clock_config>
   constexpr std::uint32_t GetInputClockFreq() {
     // constexpr check if we configure the right peripheral
-    if constexpr ((i2c_address_ == libmcuhw::kI2c0Address) && (clock_config.peripheral_ == libmcuhw::clock::PeriSelect::I2C0))
+    if constexpr ((i2c_address_ == libmcuhw::I2c0Address) && (clock_config.peripheral_ == libmcuhw::clock::PeriSelect::I2C0))
       return clock_config.GetFrequency();
-    else if constexpr ((i2c_address_ == libmcuhw::kI2c1Address) && (clock_config.peripheral_ == libmcuhw::clock::PeriSelect::I2C1))
+    else if constexpr ((i2c_address_ == libmcuhw::I2c1Address) && (clock_config.peripheral_ == libmcuhw::clock::PeriSelect::I2C1))
       return clock_config.GetFrequency();
-    else if constexpr ((i2c_address_ == libmcuhw::kI2c2Address) && (clock_config.peripheral_ == libmcuhw::clock::PeriSelect::I2C2))
+    else if constexpr ((i2c_address_ == libmcuhw::I2c2Address) && (clock_config.peripheral_ == libmcuhw::clock::PeriSelect::I2C2))
       return clock_config.GetFrequency();
-    else if constexpr ((i2c_address_ == libmcuhw::kI2c3Address) && (clock_config.peripheral_ == libmcuhw::clock::PeriSelect::I2C3))
+    else if constexpr ((i2c_address_ == libmcuhw::I2c3Address) && (clock_config.peripheral_ == libmcuhw::clock::PeriSelect::I2C3))
       return clock_config.GetFrequency();
     else
       static_assert(false, "Clock config and peripherals unknown or not matching!");

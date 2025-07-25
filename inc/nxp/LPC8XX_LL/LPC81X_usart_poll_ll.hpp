@@ -31,7 +31,7 @@ struct UsartPolled : libmcull::PeripheralBase {
   constexpr std::uint32_t Init(std::uint32_t baudRate) {
     std::uint32_t baudDivider = CLOCK_MAIN / (baudRate * 16);
     GetPeripheral()->BRG = baudDivider;
-    GetPeripheral()->CFG = hardware::CFG::kENABLE | UartLengths::kSize8 | UartParities::kParityNone | UartStops::kStop1;
+    GetPeripheral()->CFG = hardware::CFG::ENABLE | UartLengths::Size8 | UartParities::ParityNone | UartStops::Stop1;
     return CLOCK_MAIN / 16 / baudDivider;
   }
   /**
@@ -45,7 +45,7 @@ struct UsartPolled : libmcull::PeripheralBase {
   constexpr std::uint32_t Init(std::uint32_t baudRate, UartLengths lengthBits, UartParities parity, UartStops stopBits) {
     std::uint32_t baudDivider = CLOCK_MAIN / (baudRate * 16);
     GetPeripheral()->BRG = baudDivider;
-    GetPeripheral()->CFG = hardware::CFG::kENABLE | lengthBits | parity | stopBits;
+    GetPeripheral()->CFG = hardware::CFG::ENABLE | lengthBits | parity | stopBits;
     return CLOCK_MAIN / 16 / baudDivider;
   }
   /**
@@ -76,8 +76,8 @@ struct UsartPolled : libmcull::PeripheralBase {
    */
   constexpr void Receive(TransferType &data, std::uint32_t &status) {
     std::uint32_t regData = GetPeripheral()->RXDATSTAT;
-    data = static_cast<TransferType>(regData & hardware::RXDATSTAT::kDATA_MASK);
-    status = regData & hardware::RXDATSTAT::kSTAT_MASK;
+    data = static_cast<TransferType>(regData & hardware::RXDATSTAT::DATA_MASK);
+    status = regData & hardware::RXDATSTAT::STAT_MASK;
   }
   /**
    * @brief get registers from peripheral

@@ -17,9 +17,9 @@ namespace hardware = libmcuhw::i2c;
  * @brief I2C speed modes
  */
 enum class I2cModes : std::uint32_t {
-  kStandard = hardware::IC_CON::SPEED_STD,
-  kFast = hardware::IC_CON::SPEED_FAST,
-  kHigh = hardware::IC_CON::SPEED_HIGH,
+  Standard = hardware::IC_CON::SPEED_STD,
+  Fast = hardware::IC_CON::SPEED_FAST,
+  High = hardware::IC_CON::SPEED_HIGH,
 };
 /**
  * @brief
@@ -38,7 +38,7 @@ struct I2cPolled : libmcull::PeripheralBase {
    * @param bitRate wanted bitrate
    * @return actual bitrate
    */
-  constexpr std::uint32_t setup(I2cModes mode, std::uint32_t bitRate) {
+  constexpr std::uint32_t Setup(I2cModes mode, std::uint32_t bitRate) {
     GetPeripheral()->IC_ENABLE = hardware::IC_ENABLE::ABORT;
     GetPeripheral()->IC_CON = hardware::IC_CON::MASTER_MODE | static_cast<std::uint32_t>(mode) | hardware::IC_CON::IC_RESTART_EN |
                               hardware::IC_CON::IC_SLAVE_DISABLE | hardware::IC_CON::TX_EMTPY_CTRL;
@@ -89,7 +89,7 @@ struct I2cPolled : libmcull::PeripheralBase {
    * @param transmitBuffer data to send, should at least contain one byte!
    * @param maxTime maximum amount of iterations to wait between each I2C operation
    */
-  constexpr libmcu::Results write(libmcull::I2cDeviceAddress address, std::span<const std::uint8_t> transmitBuffer,
+  constexpr libmcu::Results Write(libmcull::I2cDeviceAddress address, std::span<const std::uint8_t> transmitBuffer,
                                   std::uint32_t maxTime) {
     std::uint32_t i2cAddress = static_cast<std::uint32_t>(address.value);
     GetPeripheral()->IC_ENABLE = hardware::IC_ENABLE::ABORT;
@@ -134,7 +134,7 @@ struct I2cPolled : libmcull::PeripheralBase {
    * @param address I2C device to read from
    * @param receiveBuffer place to put read data, needs to be at least size 1!
    */
-  constexpr libmcu::Results read(libmcull::I2cDeviceAddress address, std::span<std::uint8_t> receiveBuffer, std::uint32_t maxTime) {
+  constexpr libmcu::Results Read(libmcull::I2cDeviceAddress address, std::span<std::uint8_t> receiveBuffer, std::uint32_t maxTime) {
     std::uint32_t i2cAddress = static_cast<std::uint32_t>(address.value);
     GetPeripheral()->IC_ENABLE = hardware::IC_ENABLE::ABORT;
     GetPeripheral()->IC_TAR = i2cAddress;
@@ -185,21 +185,21 @@ struct I2cPolled : libmcull::PeripheralBase {
    * @return return pointer to peripheral
    */
   static hardware::I2c* GetPeripheralSet() {
-    return reinterpret_cast<hardware::I2c*>(i2cAddress + libmcuhw::kPeripheralOffsetSet);
+    return reinterpret_cast<hardware::I2c*>(i2cAddress + libmcuhw::PeripheralOffsetSet);
   }
   /**
    * @brief get registers from peripheral for atomic Clear access
    * @return return pointer to peripheral
    */
   static hardware::I2c* GetPeripheralClear() {
-    return reinterpret_cast<hardware::I2c*>(i2cAddress + libmcuhw::kPeripheralOffsetClear);
+    return reinterpret_cast<hardware::I2c*>(i2cAddress + libmcuhw::PeripheralOffsetClear);
   }
   /**
    * @brief get registers from peripheral for atomic XOR access
    * @return return pointer to peripheral
    */
   static hardware::I2c* GetPeripheralXor() {
-    return reinterpret_cast<hardware::I2c*>(i2cAddress + libmcuhw::kPeripheralOffsetXor);
+    return reinterpret_cast<hardware::I2c*>(i2cAddress + libmcuhw::PeripheralOffsetXor);
   }
 
  private:

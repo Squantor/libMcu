@@ -13,22 +13,22 @@
 
 namespace libmcuhw::clock {
 
-constexpr inline std::uint32_t kHsiDefaultClockFreq{8'000'000}; /*!< HSI default clock frequency */
+constexpr inline std::uint32_t HsiDefaultClockFreq{8'000'000}; /*!< HSI default clock frequency */
 
 /**
  * @brief clock sources available for this microcontroller
  */
 enum class ClockInputSources : std::uint8_t {
-  kHsi,   /*!< HSI 8MHz RC oscillator */
-  kHse,   /*!< HSE crystal oscillator */
-  kLsi,   /*!< LSI 40kHz RC oscillator */
-  kLse,   /*!< LSE low speed crystal oscillator (RTCCLK) */
-  kHsi14, /*!< HSI 14MHz RC oscillator for ADC */
+  Hsi,   /*!< HSI 8MHz RC oscillator */
+  Hse,   /*!< HSE crystal oscillator */
+  Lsi,   /*!< LSI 40kHz RC oscillator */
+  Lse,   /*!< LSE low speed crystal oscillator (RTCCLK) */
+  Hsi14, /*!< HSI 14MHz RC oscillator for ADC */
 };
 template <ClockInputSources source, std::uint32_t input_freq, std::uint32_t cpu_freq>
 struct McuClockConfig {};
 
-inline McuClockConfig<ClockInputSources::kHsi, kHsiDefaultClockFreq, kHsiDefaultClockFreq> const default_clock_config;
+inline McuClockConfig<ClockInputSources::Hsi, HsiDefaultClockFreq, HsiDefaultClockFreq> const default_clock_config;
 
 }  // namespace libmcuhw::clock
 #endif

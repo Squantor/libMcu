@@ -17,7 +17,7 @@ namespace libmcull::dma {
 
 namespace hardware = libmcuhw::dma;
 
-using DescriptorTable = std::array<hardware::DmaDescriptor, hardware::kChannelCount>;
+using DescriptorTable = std::array<hardware::DmaDescriptor, hardware::ChannelCount>;
 
 /**
  * @brief DMA channels
@@ -102,73 +102,73 @@ enum class BurstSizes : std::uint32_t {
  */
 enum class TriggerConfigs : std::uint32_t {
   /*!< No trigger configuration */
-  kNone = 0u,
+  None = 0u,
   /*!< Falling edge trigger */
-  kFallingEdge = hardware::CFG::HWTRIGEN,
+  FallingEdge = hardware::CFG::HWTRIGEN,
   /*!< Rising edge trigger */
-  kRisingEdge = hardware::CFG::HWTRIGEN | hardware::CFG::TRIGPOL,
+  RisingEdge = hardware::CFG::HWTRIGEN | hardware::CFG::TRIGPOL,
   /*!< Low level trigger */
-  kLowLevel = hardware::CFG::HWTRIGEN | hardware::CFG::TRIGTYPE,
+  LowLevel = hardware::CFG::HWTRIGEN | hardware::CFG::TRIGTYPE,
   /*!< High level trigger */
-  kHighLevel = hardware::CFG::HWTRIGEN | hardware::CFG::TRIGTYPE | hardware::CFG::TRIGPOL,
+  HighLevel = hardware::CFG::HWTRIGEN | hardware::CFG::TRIGTYPE | hardware::CFG::TRIGPOL,
   /*!< Falling edge trigger with burst transfer enabled */
-  kFallingEdgeBurst = hardware::CFG::HWTRIGEN | hardware::CFG::TRIGBURST,
+  FallingEdgeBurst = hardware::CFG::HWTRIGEN | hardware::CFG::TRIGBURST,
   /*!< Rising edge trigger with burst transfer enabled */
-  kRisingEdgeBurst = hardware::CFG::HWTRIGEN | hardware::CFG::TRIGBURST | hardware::CFG::TRIGPOL,
+  RisingEdgeBurst = hardware::CFG::HWTRIGEN | hardware::CFG::TRIGBURST | hardware::CFG::TRIGPOL,
   /*!< Low level trigger with burst transfer enabled */
-  kLowLevelBurst = hardware::CFG::HWTRIGEN | hardware::CFG::TRIGBURST | hardware::CFG::TRIGTYPE,
+  LowLevelBurst = hardware::CFG::HWTRIGEN | hardware::CFG::TRIGBURST | hardware::CFG::TRIGTYPE,
   /*!< High level trigger with burst transfer enabled */
-  kHighLevelBurst = hardware::CFG::HWTRIGEN | hardware::CFG::TRIGBURST | hardware::CFG::TRIGTYPE | hardware::CFG::TRIGPOL
+  HighLevelBurst = hardware::CFG::HWTRIGEN | hardware::CFG::TRIGBURST | hardware::CFG::TRIGTYPE | hardware::CFG::TRIGPOL
 };
 /**
  * @brief DMA channel priorities
  */
 enum class ChannelPrios : std::uint32_t {
-  kHighest = hardware::CFG::CHPRIO_0,
-  k0 = hardware::CFG::CHPRIO_0,
-  k1 = hardware::CFG::CHPRIO_1,
-  k2 = hardware::CFG::CHPRIO_2,
-  k3 = hardware::CFG::CHPRIO_3,
-  k4 = hardware::CFG::CHPRIO_4,
-  k5 = hardware::CFG::CHPRIO_5,
-  k6 = hardware::CFG::CHPRIO_6,
-  k7 = hardware::CFG::CHPRIO_7,
-  kLowest = hardware::CFG::CHPRIO_7,
+  PrioHighest = hardware::CFG::CHPRIO_0,
+  Prio0 = hardware::CFG::CHPRIO_0,
+  Prio1 = hardware::CFG::CHPRIO_1,
+  Prio2 = hardware::CFG::CHPRIO_2,
+  Prio3 = hardware::CFG::CHPRIO_3,
+  Prio4 = hardware::CFG::CHPRIO_4,
+  Prio5 = hardware::CFG::CHPRIO_5,
+  Prio6 = hardware::CFG::CHPRIO_6,
+  Prio7 = hardware::CFG::CHPRIO_7,
+  PrioLowest = hardware::CFG::CHPRIO_7,
 };
 /**
  * @brief interrupt flag set options
  */
 enum class InterruptFlags : std::uint32_t {
-  kNone = 0u,
-  kSetA = hardware::XFERCFG::SETINTA,
-  kSetB = hardware::XFERCFG::SETINTB,
-  kSetAB = hardware::XFERCFG::SETINTA | hardware::XFERCFG::SETINTB,
+  None = 0u,
+  SetA = hardware::XFERCFG::SETINTA,
+  SetB = hardware::XFERCFG::SETINTB,
+  SetAB = hardware::XFERCFG::SETINTA | hardware::XFERCFG::SETINTB,
 };
 /**
  * @brief Transfer bit widths
  */
 enum class TransferSizes : std::uint32_t {
-  k8Bit = hardware::XFERCFG::WIDTH_8BIT,
-  k16Bit = hardware::XFERCFG::WIDTH_16BIT,
-  k32Bit = hardware::XFERCFG::WIDTH_32BIT,
+  Size8Bit = hardware::XFERCFG::WIDTH_8BIT,
+  Size16Bit = hardware::XFERCFG::WIDTH_16BIT,
+  Size32Bit = hardware::XFERCFG::WIDTH_32BIT,
 };
 /**
  * @brief Source increments
  */
 enum class SrcIncrements : std::uint32_t {
-  k0 = hardware::XFERCFG::SRCINC_NONE,
-  k1 = hardware::XFERCFG::SRCINC_1xWIDTH,
-  k2 = hardware::XFERCFG::SRCINC_2xWIDTH,
-  k4 = hardware::XFERCFG::SRCINC_4xWIDTH
+  Inc0 = hardware::XFERCFG::SRCINC_NONE,
+  Inc1 = hardware::XFERCFG::SRCINC_1xWIDTH,
+  Inc2 = hardware::XFERCFG::SRCINC_2xWIDTH,
+  Inc4 = hardware::XFERCFG::SRCINC_4xWIDTH
 };
 /**
  * @brief Destination increments
  */
 enum class DstIncrements : std::uint32_t {
-  k0 = hardware::XFERCFG::DSTINC_NONE,
-  k1 = hardware::XFERCFG::DSTINC_1xWIDTH,
-  k2 = hardware::XFERCFG::DSTINC_2xWIDTH,
-  k4 = hardware::XFERCFG::DSTINC_4xWIDTH
+  Inc0 = hardware::XFERCFG::DSTINC_NONE,
+  Inc1 = hardware::XFERCFG::DSTINC_1xWIDTH,
+  Inc2 = hardware::XFERCFG::DSTINC_2xWIDTH,
+  Inc4 = hardware::XFERCFG::DSTINC_4xWIDTH
 };
 
 /**

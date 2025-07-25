@@ -7,6 +7,7 @@
 /**
  * @file cortex_m_ll.hpp
  * @brief Common Cortex M functions
+ * @todo rename functions
  */
 #ifndef CORTEX_M_LL_HPP
 #define CORTEX_M_LL_HPP

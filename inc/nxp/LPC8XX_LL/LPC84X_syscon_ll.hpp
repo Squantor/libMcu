@@ -349,7 +349,7 @@ struct Syscon : libmcull::PeripheralBase {
     if constexpr (config.source_ == libmcuhw::clock::ClockInputSources::FRO) {
       //! @todo support 24MHz FRO frequency
       //! support romfunction FRO and get valid list of FRO frequency
-      if constexpr (config.GetSourceFreq() == libmcuhw::clock::kFroDefaultClockFreq)
+      if constexpr (config.GetSourceFreq() == libmcuhw::clock::FroDefaultClockFreq)
         SelectMainClock(mainClockSources::Fro);
       else
         static_assert(false, "Unsupported FRO frequency!");

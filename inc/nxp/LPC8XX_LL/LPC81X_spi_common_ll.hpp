@@ -20,29 +20,29 @@ namespace hardware = libmcuhw::spi;
  * @brief SPI hardware chip enables
  */
 enum class ChipEnables : std::uint32_t {
-  kNone = 0,           /*!< No chip select */
-  kSsel0 = (1u << 16), /*!< Hardware chip enable */
+  None = 0,           /*!< No chip select */
+  Ssel0 = (1u << 16), /*!< Hardware chip enable */
 };
 /**
  * @brief possible SPI clocking/phasing/ordering
  */
 enum class Waveforms : std::uint32_t {
-  kCpha0Cpol0Msb = 0,                                                                  /*!< CPHA is 0, CPOL is 0, MSB first */
-  kCpha1Cpol0Msb = hardware::CFG::kCPHA,                                               /*!< CPHA is 1, CPOL is 0, MSB first */
-  kCpha0Cpol1Msb = hardware::CFG::kCPOL,                                               /*!< CPHA is 0, CPOL is 1, MSB first */
-  kCpha1Cpol1Msb = hardware::CFG::kCPHA | hardware::CFG::kCPOL,                        /*!< CPHA is 1, CPOL is 1, MSB first */
-  kCpha0Cpol0Lsb = hardware::CFG::kLSBF,                                               /*!< CPHA is 0, CPOL is 0, LSB first */
-  kCpha1Cpol0Lsb = hardware::CFG::kCPHA | hardware::CFG::kLSBF,                        /*!< CPHA is 1, CPOL is 0, LSB first */
-  kCpha0Cpol1Lsb = hardware::CFG::kCPOL | hardware::CFG::kLSBF,                        /*!< CPHA is 0, CPOL is 1, LSB first */
-  kCpha1Cpol1Lsb = hardware::CFG::kCPHA | hardware::CFG::kCPOL | hardware::CFG::kLSBF, /*!< CPHA is 1, CPOL is 1, LSB first */
+  Cpha0Cpol0Msb = 0,                                                               /*!< CPHA is 0, CPOL is 0, MSB first */
+  Cpha1Cpol0Msb = hardware::CFG::CPHA,                                             /*!< CPHA is 1, CPOL is 0, MSB first */
+  Cpha0Cpol1Msb = hardware::CFG::CPOL,                                             /*!< CPHA is 0, CPOL is 1, MSB first */
+  Cpha1Cpol1Msb = hardware::CFG::CPHA | hardware::CFG::CPOL,                       /*!< CPHA is 1, CPOL is 1, MSB first */
+  Cpha0Cpol0Lsb = hardware::CFG::LSBF,                                             /*!< CPHA is 0, CPOL is 0, LSB first */
+  Cpha1Cpol0Lsb = hardware::CFG::CPHA | hardware::CFG::LSBF,                       /*!< CPHA is 1, CPOL is 0, LSB first */
+  Cpha0Cpol1Lsb = hardware::CFG::CPOL | hardware::CFG::LSBF,                       /*!< CPHA is 0, CPOL is 1, LSB first */
+  Cpha1Cpol1Lsb = hardware::CFG::CPHA | hardware::CFG::CPOL | hardware::CFG::LSBF, /*!< CPHA is 1, CPOL is 1, LSB first */
 };
 /**
  * @brief Slave polarity selects
  *
  */
 enum class SlavePolaritySelects : std::uint32_t {
-  kLow = 0,                     /*!< Active low slave select */
-  kHigh = hardware::CFG::kSPOL, /*!< Active high slave select*/
+  Low = 0,                    /*!< Active low slave select */
+  High = hardware::CFG::SPOL, /*!< Active high slave select*/
 };
 }  // namespace libmcull::spi
 #endif

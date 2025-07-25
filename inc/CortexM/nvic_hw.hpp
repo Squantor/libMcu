@@ -97,7 +97,7 @@ constexpr inline std::uint32_t RESERVED_MASK{0xC0C0C0C0}; /*!< register mask for
  */
 constexpr inline std::uint32_t IPR(std::uint32_t registerValue, std::uint32_t interrupt, std::uint32_t priority) {
   std::uint32_t shiftValue{(interrupt & 0x3) * 8};
-  return (registerValue & ~(0xFF << shiftValue)) | (priority << (shiftValue + (8 - libmcuhw::nvic::kPriorityBits)));
+  return (registerValue & ~(0xFF << shiftValue)) | (priority << (shiftValue + (8 - libmcuhw::nvic::PriorityBits)));
 }
 }  // namespace IP
 

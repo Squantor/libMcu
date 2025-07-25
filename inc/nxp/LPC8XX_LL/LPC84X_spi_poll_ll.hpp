@@ -67,9 +67,9 @@ struct SpiPolled : libmcull::SyncSpiBase {
   template <const libmcuhw::clock::PeriClockConfig &clock_config>
   constexpr std::uint32_t GetInputClockFreq() {
     // constexpr check if we configure the right peripheral
-    if constexpr ((spi_address_ == libmcuhw::kSpi0Address) && (clock_config.peripheral_ == libmcuhw::clock::PeriSelect::SPI0))
+    if constexpr ((spi_address_ == libmcuhw::Spi0Address) && (clock_config.peripheral_ == libmcuhw::clock::PeriSelect::SPI0))
       return clock_config.GetFrequency();
-    else if constexpr ((spi_address_ == libmcuhw::kSpi1Address) && (clock_config.peripheral_ == libmcuhw::clock::PeriSelect::SPI1))
+    else if constexpr ((spi_address_ == libmcuhw::Spi1Address) && (clock_config.peripheral_ == libmcuhw::clock::PeriSelect::SPI1))
       return clock_config.GetFrequency();
     else
       static_assert(false, "Clock config and peripherals unknown or not matching!");

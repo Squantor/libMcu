@@ -42,19 +42,19 @@ void ReadModifyWrite(destType &__restrict__ dest, const srcType &__restrict__ sr
   else
     dataSrc = src;
   switch (op) {
-    case BitblitOperations::kAnd:
+    case BitblitOperations::And:
       dest = dest & (dataSrc | ~srcMask);
       break;
-    case BitblitOperations::kMove:
+    case BitblitOperations::Move:
       dest = (dest & ~srcMask) | (dataSrc & srcMask);
       break;
-    case BitblitOperations::kNot:
+    case BitblitOperations::Not:
       dest = (dest & ~srcMask) | (~dataSrc & srcMask);
       break;
-    case BitblitOperations::kOr:
+    case BitblitOperations::Or:
       dest = dest | (dataSrc & srcMask);
       break;
-    case BitblitOperations::kXor:
+    case BitblitOperations::Xor:
       dest = dest ^ (dataSrc & srcMask);
       break;
   }

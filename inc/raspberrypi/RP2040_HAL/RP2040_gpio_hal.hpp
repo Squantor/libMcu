@@ -18,9 +18,9 @@ namespace llgpio = libmcull::sio_gpio;
  * @brief Gpio pull modes
  */
 enum class PullModes : std::uint32_t {
-  kNone = static_cast<std::uint32_t>(llpads::PullModes::kNone),         /*!< No pullup modes */
-  kPullUp = static_cast<std::uint32_t>(llpads::PullModes::kPullUp),     /*!< Pullup */
-  kPullDown = static_cast<std::uint32_t>(llpads::PullModes::kPullDown), /*!< Pulldown */
+  None = static_cast<std::uint32_t>(llpads::PullModes::None),         /*!< No pullup modes */
+  PullUp = static_cast<std::uint32_t>(llpads::PullModes::PullUp),     /*!< Pullup */
+  PullDown = static_cast<std::uint32_t>(llpads::PullModes::PullDown), /*!< Pulldown */
 };
 /**
  * @brief
@@ -41,7 +41,7 @@ struct Gpio : libmcuhal::GpioBase {
    * @param pull_mode pullup/down mode to use
    */
   template <typename PIN>
-  constexpr void SetupInput(PIN& pin, PullModes pull_mode = PullModes::kNone) {
+  constexpr void SetupInput(PIN& pin, PullModes pull_mode = PullModes::None) {
     gpio_lowlevel.SetInput(pin);
     pads_lowlevel.Setup(pin, static_cast<llpads::PullModes>(pull_mode));
   }

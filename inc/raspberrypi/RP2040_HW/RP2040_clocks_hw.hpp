@@ -16,16 +16,16 @@ namespace libmcuhw::clocks {
  * @brief Clock indexes available of CLK
  */
 enum ClockIndices : std::uint32_t {
-  kGpout0 = 0,
-  kGpout1,
-  kGpout2,
-  kGpout3,
-  kRef,
-  kSys,
-  kPeri,
-  kUsb,
-  kAdc,
-  kRtc,
+  Gpout0 = 0,
+  Gpout1,
+  Gpout2,
+  Gpout3,
+  Ref,
+  Sys,
+  Peri,
+  Usb,
+  Adc,
+  Rtc,
 };
 /**
  * @brief clocks register definition
