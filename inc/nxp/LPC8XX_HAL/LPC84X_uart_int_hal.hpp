@@ -19,8 +19,7 @@ namespace libmcuhal::usart {
 namespace hardware = libmcuhw::usart;
 namespace nvic = libmcuhw::nvic;
 
-template <libmcu::UartBaseAddress const& uartBaseAddress_, libmcu::NvicBaseAddress const& nvicBaseAddress_, typename TransferType,
-          std::size_t bufSize>
+template <typename TransferType, std::size_t bufSize>
 struct UartInterrupt {
   /**
    * @brief Construct a new asynchronous uart
@@ -37,19 +36,7 @@ struct UartInterrupt {
    */
   template <auto& config>
   constexpr std::uint32_t init(std::uint32_t baudRate) {
-    // we upscale the input clock by 16 to detect rounding errors
-    std::uint32_t baudDivider = (GetInputClockFreq<config>() * 16) / (baudRate * 16);
-    // check fractional part and round when needed
-    if ((baudDivider & 0x0F) < 7)
-      baudDivider = baudDivider >> 4;
-    else
-      baudDivider = (baudDivider >> 4) + 1;
-
-    usartPeripheral()->BRG = baudDivider - 1;
-    usartPeripheral()->CFG = hardware::CFG::ENABLE | static_cast<std::uint32_t>(UartLength::SIZE_8) |
-                             static_cast<std::uint32_t>(UartParity::NONE) | static_cast<std::uint32_t>(UartStop::STOP_1);
-    usartPeripheral()->INTENSET = hardware::INTENSET::RXRDYEN;
-    return GetInputClockFreq<config>() / 16 / baudDivider;
+    return 0;
   }
   /**
    * @brief Setup USART
@@ -61,81 +48,44 @@ struct UartInterrupt {
    */
   template <auto& config>
   constexpr std::uint32_t init(std::uint32_t baudRate, UartLength lengthBits, UartParity parity, UartStop stopBits) {
-    std::uint32_t baudDivider = GetInputClockFreq<config>() / (baudRate * 16);
-    usartPeripheral()->BRG = baudDivider;
-    usartPeripheral()->CFG = hardware::CFG::ENABLE | static_cast<std::uint32_t>(lengthBits) | static_cast<std::uint32_t>(parity) |
-                             static_cast<std::uint32_t>(stopBits);
-    usartPeripheral()->INTENSET = hardware::INTENSET::RXRDYEN;
-    return GetInputClockFreq<config>() / 16 / baudDivider;
+    (void)baudRate;
+    (void)lengthBits;
+    (void)parity;
+    (void)stopBits;
+    return 0;
   }
   /**
    * @brief blocking USART transmit
    * @param input data to transmit via USART
    */
   constexpr void write(const TransferType& input) {
-    std::array<TransferType, 1> inputBuffer{input};
-    write(inputBuffer);
+    (void)input;
   }
   /**
    * @brief blocking USART transmit
    * @param buffer data to transmit via USART
    */
   constexpr void write(std::span<const TransferType> buffer) {
-    std::size_t bufferIndex = 0;
-    while (bufferIndex != buffer.size()) {
-      if (!txBuffer.full()) {
-        txBuffer.pushFront(buffer[bufferIndex]);
-        bufferIndex++;
-      }
-      // are we currently transmitting?
-      if (!(usartPeripheral()->INTENSET & hardware::INTENSET::TXRDYEN)) {
-        // no, lets start the whole transmit chain
-        TransferType data = 0;
-        if (txBuffer.popBack(data)) {
-          usartPeripheral()->TXDAT = data;
-          usartPeripheral()->INTENSET = hardware::INTENSET::TXRDYEN;
-        }
-      }
-    }
+    (void)buffer;
   }
   /**
    * @brief blocking USART receive
    * @param buffer data to receive from USART
    */
   constexpr void read(std::span<TransferType> buffer) {
-    std::size_t bufferIndex = 0;
-    while (bufferIndex != buffer.size()) {
-      if (!rxBuffer.empty()) {
-        rxBuffer.popBack(buffer[bufferIndex]);
-        bufferIndex++;
-      }
-    }
+    (void)buffer;
   }
   /**
    * @brief
    * @return constexpr std::uint32_t
    */
   constexpr std::uint32_t receiveDataAvailable() {
-    return rxBuffer.level();
+    return 0;
   }
   /**
    * @brief UART interrupt service routine
    */
-  constexpr void isr() {
-    if (usartPeripheral()->INTSTAT & hardware::INTSTAT::TXRDY) {
-      if (txBuffer.empty()) {
-        usartPeripheral()->INTENCLR = hardware::INTENCLR::TXRDYCLR;
-      } else {
-        TransferType data;
-        txBuffer.popBack(data);
-        usartPeripheral()->TXDAT = data;
-      }
-    }
-    if (usartPeripheral()->INTSTAT & hardware::INTSTAT::RXRDY) {
-      // TODO, what do we do if rx buffer is full?
-      rxBuffer.pushFront(usartPeripheral()->RXDAT);
-    }
-  }
+  constexpr void isr() {}
   /**
    * @brief get the input clock of this UART peripheral
    * @tparam config clock configuration
@@ -143,27 +93,10 @@ struct UartInterrupt {
    */
   template <auto& config>
   constexpr std::uint32_t GetInputClockFreq() {
-    return config.GetFrequency();
+    return 0;
   }
 
  private:
-  /**
-   * @brief access uart registers
-   * @return return pointer to peripheral
-   */
-  static hardware::Usart* usartPeripheral() {
-    return reinterpret_cast<hardware::Usart*>(uartBaseAddress);
-  }
-  /**
-   * @brief access nvic registers
-   * @return return pointer to peripheral
-   */
-  static nvic::Nvic* nvicPeripheral() {
-    return reinterpret_cast<nvic::Nvic*>(NvicBaseAddress);
-  }
-
-  static constexpr libmcu::HwAddressType uartBaseAddress = uartBaseAddress_; /*!< UART peripheral address */
-  static constexpr libmcu::HwAddressType NvicBaseAddress = nvicBaseAddress_; /*!< NVIC peripheral address */
   libmcu::RingBuffer<TransferType, bufSize> txBuffer;
   libmcu::RingBuffer<TransferType, bufSize> rxBuffer;
 };

@@ -18,6 +18,7 @@ namespace hardware = libmcuhw::systick;
 /**
  * @brief
  * @tparam systick_address
+ * @todo Rename methods to conform to standard
  */
 template <libmcu::SystickBaseAddress const& systick_address>
 struct Systick {
