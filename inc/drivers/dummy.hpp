@@ -11,4 +11,10 @@
 #ifndef DRIVER_DUMMY_HPP
 #define DRIVER_DUMMY_HPP
 
+namespace libMcuDrv::dummy {
+namespace spi = libmcuhal::spi;
+template <typename config, auto &spiHal>
+struct memlcd {};
+}  // namespace libMcuDrv::dummy
+
 #endif
