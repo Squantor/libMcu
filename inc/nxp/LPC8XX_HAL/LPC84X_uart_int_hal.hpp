@@ -8,11 +8,12 @@
  * @file LPC84X_hal_uartasync_int.hpp
  * @brief LPC840 series interrupt synchronous UART HAL
  * @todo depricate synchronous interrupt interfaces
+ * @todo Change this to use the Uart LL interrupt
  */
 #ifndef LPC84X_HAL_UARTSYNC_INT_HPP
 #define LPC84X_HAL_UARTSYNC_INT_HPP
 
-#include "LPC84X_hal_uart_common.hpp"
+#include "LPC84X_uart_common_hal.hpp"
 
 namespace libmcuhal::usart {
 namespace hardware = libmcuhw::usart;
@@ -45,26 +46,26 @@ struct UartInterrupt {
       baudDivider = (baudDivider >> 4) + 1;
 
     usartPeripheral()->BRG = baudDivider - 1;
-    usartPeripheral()->CFG = hardware::CFG::kENABLE | static_cast<std::uint32_t>(uartLength::SIZE_8) |
-                             static_cast<std::uint32_t>(uartParity::NONE) | static_cast<std::uint32_t>(uartStop::STOP_1);
-    usartPeripheral()->INTENSET = hardware::INTENSET::kRXRDYEN;
+    usartPeripheral()->CFG = hardware::CFG::ENABLE | static_cast<std::uint32_t>(UartLength::SIZE_8) |
+                             static_cast<std::uint32_t>(UartParity::NONE) | static_cast<std::uint32_t>(UartStop::STOP_1);
+    usartPeripheral()->INTENSET = hardware::INTENSET::RXRDYEN;
     return GetInputClockFreq<config>() / 16 / baudDivider;
   }
   /**
    * @brief Setup USART
    * @param baudRate Baud rate value
-   * @param lengthBits bit length of transmissions, see uartLength enum for options
-   * @param parity parity type of transmissions, see uartParity enum for options
-   * @param stopBits Amount of stop bits, see uartStop enum for options
+   * @param lengthBits bit length of transmissions, see UartLength enum for options
+   * @param parity parity type of transmissions, see UartParity enum for options
+   * @param stopBits Amount of stop bits, see UartStop enum for options
    * @return std::uint32_t actual baud rate
    */
   template <auto& config>
-  constexpr std::uint32_t init(std::uint32_t baudRate, uartLength lengthBits, uartParity parity, uartStop stopBits) {
+  constexpr std::uint32_t init(std::uint32_t baudRate, UartLength lengthBits, UartParity parity, UartStop stopBits) {
     std::uint32_t baudDivider = GetInputClockFreq<config>() / (baudRate * 16);
     usartPeripheral()->BRG = baudDivider;
-    usartPeripheral()->CFG = hardware::CFG::kENABLE | static_cast<std::uint32_t>(lengthBits) | static_cast<std::uint32_t>(parity) |
+    usartPeripheral()->CFG = hardware::CFG::ENABLE | static_cast<std::uint32_t>(lengthBits) | static_cast<std::uint32_t>(parity) |
                              static_cast<std::uint32_t>(stopBits);
-    usartPeripheral()->INTENSET = hardware::INTENSET::kRXRDYEN;
+    usartPeripheral()->INTENSET = hardware::INTENSET::RXRDYEN;
     return GetInputClockFreq<config>() / 16 / baudDivider;
   }
   /**
@@ -87,12 +88,12 @@ struct UartInterrupt {
         bufferIndex++;
       }
       // are we currently transmitting?
-      if (!(usartPeripheral()->INTENSET & hardware::INTENSET::kTXRDYEN)) {
+      if (!(usartPeripheral()->INTENSET & hardware::INTENSET::TXRDYEN)) {
         // no, lets start the whole transmit chain
         TransferType data = 0;
         if (txBuffer.popBack(data)) {
           usartPeripheral()->TXDAT = data;
-          usartPeripheral()->INTENSET = hardware::INTENSET::kTXRDYEN;
+          usartPeripheral()->INTENSET = hardware::INTENSET::TXRDYEN;
         }
       }
     }
@@ -121,16 +122,16 @@ struct UartInterrupt {
    * @brief UART interrupt service routine
    */
   constexpr void isr() {
-    if (usartPeripheral()->INTSTAT & hardware::INTSTAT::kTXRDY) {
+    if (usartPeripheral()->INTSTAT & hardware::INTSTAT::TXRDY) {
       if (txBuffer.empty()) {
-        usartPeripheral()->INTENCLR = hardware::INTENCLR::kTXRDYCLR;
+        usartPeripheral()->INTENCLR = hardware::INTENCLR::TXRDYCLR;
       } else {
         TransferType data;
         txBuffer.popBack(data);
         usartPeripheral()->TXDAT = data;
       }
     }
-    if (usartPeripheral()->INTSTAT & hardware::INTSTAT::kRXRDY) {
+    if (usartPeripheral()->INTSTAT & hardware::INTSTAT::RXRDY) {
       // TODO, what do we do if rx buffer is full?
       rxBuffer.pushFront(usartPeripheral()->RXDAT);
     }
@@ -157,8 +158,8 @@ struct UartInterrupt {
    * @brief access nvic registers
    * @return return pointer to peripheral
    */
-  static nvic::nvic* nvicPeripheral() {
-    return reinterpret_cast<nvic::nvic*>(NvicBaseAddress);
+  static nvic::Nvic* nvicPeripheral() {
+    return reinterpret_cast<nvic::Nvic*>(NvicBaseAddress);
   }
 
   static constexpr libmcu::HwAddressType uartBaseAddress = uartBaseAddress_; /*!< UART peripheral address */

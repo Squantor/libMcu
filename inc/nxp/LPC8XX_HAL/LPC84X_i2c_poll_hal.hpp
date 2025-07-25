@@ -5,11 +5,11 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * @file LPC84X_hal_i2csync_pol.hpp
- * @brief LPC840 series synchronous polling I2C HAL
+ * @file LPC84X_i2c_poll_hal.hpp
+ * @brief LPC840 series I2C HAL polling mode
  */
-#ifndef LPC84X_HAL_I2CSYNC_POL_HPP
-#define LPC84X_HAL_I2CSYNC_POL_HPP
+#ifndef LPC84X_HAL_I2C_POLL_HAL_HPP
+#define LPC84X_HAL_I2C_POLL_HAL_HPP
 
 #include "LPC84X_i2c_common_hal.hpp"
 
