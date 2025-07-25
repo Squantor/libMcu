@@ -84,7 +84,7 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
    * @param transaction_type Transaction type
    */
   constexpr libmcu::Results Transmit(const libmcull::I2cDeviceAddress address, std::span<std::uint8_t> transmit_buffer,
-                                     TransactionType transaction_type = TransactionType::kSingle) {
+                                     libmcu::TransactionType transaction_type = libmcu::TransactionType::kSingle) {
     if (current_state_ != libmcu::Results::Claimed) {
       if (current_state_ == libmcu::Results::BusyTransmit) {
         return libmcu::Results::Busy;
@@ -105,7 +105,7 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
    * @param receive_buffer place to put received data, needs to be at least size 1!
    */
   constexpr libmcu::Results Receive(const libmcull::I2cDeviceAddress address, std::span<std::uint8_t> receive_buffer,
-                                    TransactionType transaction_type = TransactionType::kSingle) {
+                                    libmcu::TransactionType transaction_type = libmcu::TransactionType::kSingle) {
     if (current_state_ != libmcu::Results::Claimed) {
       if (current_state_ == libmcu::Results::BusyReceive) {
         return libmcu::Results::Busy;
@@ -220,10 +220,10 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
       if ((status_state == hardware::STAT::MSTSTATE_TXRDY) || (status_state == hardware::STAT::MSTSTATE_RXRDY)) {
         // check if buffer is empty
         if (buffer_index_ == buffer_.size()) {
-          if (transaction_type_ == TransactionType::kSingle) {
+          if (transaction_type_ == libmcu::TransactionType::kSingle) {
             // This was a single transfer, send master stop
             GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTOP;
-          } else if (transaction_type_ == TransactionType::kMultiple) {
+          } else if (transaction_type_ == libmcu::TransactionType::kMultiple) {
             // Multiple transfers, stop pending interrupt, it will be enabled when the next transfer starts
             GetPeripheral()->INTENCLR = hardware::INTENCLR::MSTPENDINGCLR;
             current_state_ = libmcu::Results::WaitForNext;
@@ -281,7 +281,7 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
  private:
   static constexpr libmcu::HwAddressType i2c_address_ = i2c_address; /*!< peripheral address */
   volatile libmcu::Results current_state_;                           /*!< current state */
-  libmcull::TransactionType transaction_type_;                       /*!< current transaction type */
+  libmcu::TransactionType transaction_type_;                         /*!< current transaction type */
   std::span<std::uint8_t> buffer_;                                   /*!< current buffer */
   std::size_t buffer_index_;                                         /*!< current buffer index */
 };

@@ -29,7 +29,7 @@ enum class PullModes : std::uint32_t {
  * @tparam gpio_lowlevel
  */
 template <libmcull::DerivedFromPads auto& pads_lowlevel, libmcull::DerivedFromGpio auto& gpio_lowlevel>
-struct Gpio : libmcuhal::HalGpioBase {
+struct Gpio : libmcuhal::GpioBase {
   /**
    * @brief Initialize the gpio HAL
    */

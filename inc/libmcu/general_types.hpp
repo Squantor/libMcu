@@ -57,5 +57,16 @@ enum class AsynchronousStates : std::uint8_t {
   Error,        /*!< Interface is in an error state */
 };
 
+/**
+ * @brief Type of asynchronous transactions possible
+ */
+enum class TransactionType : std::uint8_t {
+  kSingle,    /*!< Single transfer */
+  kMultiple,  /*!< Multiple transfer */
+  kTerminate, /*!< Terminate transfer */
+};
+
+using AsyncHandle = std::uint32_t;
+
 }  // namespace libmcu
 #endif

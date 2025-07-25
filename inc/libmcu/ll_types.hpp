@@ -41,14 +41,5 @@ using I2cDeviceAddressType = typename I2cDeviceAddressBase::type;
 
 struct I2cDeviceAddress : I2cDeviceAddressBase {}; /*!< General purpose I2C address type */
 
-/**
- * @brief Type of asynchronous transactions possible
- */
-enum class TransactionType : std::uint8_t {
-  kSingle,    /*!< Single transfer */
-  kMultiple,  /*!< Multiple transfer */
-  kTerminate, /*!< Terminate transfer */
-};
-
 }  // namespace libmcull
 #endif

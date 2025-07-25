@@ -63,7 +63,7 @@ enum UartStateMasks : std::uint32_t {
  * @tparam ll_uart_sync synchronous uart low level interface class
  */
 template <libmcull::DerivedFromSyncUart auto& ll_uart_sync, typename TransferType, std::size_t action_timeout = 0x1000>
-struct UartPolled : public libmcuhal::HalUartBase {
+struct UartPolled : public libmcuhal::SyncUartBase {
   /**
    * @brief Setup USART
    * @tparam &clock_config clock configuration to use
@@ -86,7 +86,7 @@ struct UartPolled : public libmcuhal::HalUartBase {
    * @returns Claimed if successful
    * @returns kInUse if the interface is already in use
    */
-  libmcu::Results Claim(AsyncHandle& handle) {
+  libmcu::Results Claim(libmcu::AsyncHandle& handle) {
     if (state_ != libmcu::AsynchronousStates::Idle)
       return libmcu::Results::InUse;
     handle = async_handle_;
@@ -100,7 +100,7 @@ struct UartPolled : public libmcuhal::HalUartBase {
    * @returns NotClaimed if the interface is not claimed
    * @returns InvalidHandle if the handle is invalid
    */
-  libmcu::Results Release(AsyncHandle handle) {
+  libmcu::Results Release(libmcu::AsyncHandle handle) {
     if (state_ != libmcu::AsynchronousStates::Claimed)
       return libmcu::Results::NotClaimed;
     if (handle != async_handle_)
@@ -124,7 +124,7 @@ struct UartPolled : public libmcuhal::HalUartBase {
    * @param buffer
    * @return libmcu::Results
    */
-  libmcu::Results Transmit(AsyncHandle handle, TransferType buffer) {
+  libmcu::Results Transmit(libmcu::AsyncHandle handle, TransferType buffer) {
     if (state_ != libmcu::AsynchronousStates::Claimed)
       return libmcu::Results::NotClaimed;
     if (handle != async_handle_)
@@ -143,7 +143,7 @@ struct UartPolled : public libmcuhal::HalUartBase {
    * @param buffer
    * @return libmcu::Results
    */
-  libmcu::Results Receive(AsyncHandle handle, TransferType& buffer) {
+  libmcu::Results Receive(libmcu::AsyncHandle handle, TransferType& buffer) {
     if (state_ != libmcu::AsynchronousStates::Claimed)
       return libmcu::Results::NotClaimed;
     if (handle != async_handle_)
@@ -161,7 +161,7 @@ struct UartPolled : public libmcuhal::HalUartBase {
   }
 
  private:
-  AsyncHandle async_handle_ = 0; /*!< Async handle to be passed to the claimant, incremented per claim/unclaim pair */
+  libmcu::AsyncHandle async_handle_ = 0; /*!< Async handle to be passed to the claimant, incremented per claim/unclaim pair */
   libmcu::AsynchronousStates state_ = libmcu::AsynchronousStates::Idle;
 };
 

@@ -25,12 +25,11 @@ struct HalBase {
   HalBase& operator=(HalBase&&) = delete;
 };
 
-struct HalGpioBase : HalBase {}; /*!< GPIO hal base class */
-struct HalUartBase : HalBase {}; /*!< UART hal base class */
-struct HalSpiBase : HalBase {};  /*!< SPI hal base class */
-struct HalI2cBase : HalBase {};  /*!< I2C hal base class */
-
-using AsyncHandle = std::uint32_t; /*!< Async handle type */
+struct GpioBase : HalBase {};      /*!< GPIO hal base class */
+struct AsyncUartBase : HalBase {}; /*!< Asynchronous UART hal base class */
+struct SyncUartBase : HalBase {};  /*!< Synchronous UART hal base class */
+struct AsyncSpiBase : HalBase {};  /*!< Asynchronous SPI hal base class */
+struct AsyncI2cBase : HalBase {};  /*!< Asynchronous I2C hal base class */
 
 }  // namespace libmcuhal
 

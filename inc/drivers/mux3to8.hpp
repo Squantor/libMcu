@@ -23,7 +23,7 @@ using namespace libmcuhal;
  * @tparam a1PinType trait template type for A1 pin
  * @tparam a2PinType trait template type for A2 pin
  */
-template <libmcuhal::DerivedFromHalGpio auto &gpio_hal, libmcu::DerivedFromPin notEnablePinType, libmcu::DerivedFromPin a0PinType,
+template <libmcuhal::DerivedFromGpio auto &gpio_hal, libmcu::DerivedFromPin notEnablePinType, libmcu::DerivedFromPin a0PinType,
           libmcu::DerivedFromPin a1PinType, libmcu::DerivedFromPin a2PinType>
 struct mux3to8 {
   /**
@@ -56,7 +56,7 @@ struct mux3to8 {
 
   // add constraints here
   using halType = std::remove_reference<decltype(gpio_hal)>::type;
-  static_assert(std::is_base_of<libmcuhal::HalGpioBase, halType>::value, "gpioPeripheral is not derived from HalGpioBase");
+  static_assert(std::is_base_of<libmcuhal::GpioBase, halType>::value, "gpioPeripheral is not derived from HalGpioBase");
   static_assert(std::is_base_of<libmcu::PinBase, notEnablePinType>::value, "notEnablePinType is not derived from pinBase");
   static_assert(std::is_base_of<libmcu::PinBase, a0PinType>::value, "a0PinType is not derived from pinBase");
   static_assert(std::is_base_of<libmcu::PinBase, a1PinType>::value, "a1PinType is not derived from pinBase");

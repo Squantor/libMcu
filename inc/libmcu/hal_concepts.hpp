@@ -13,29 +13,29 @@
 
 namespace libmcuhal {
 /**
- * @brief Concept for types that inherit from libMcuHal::HalUartBase
+ * @brief Concept for types that inherit from libMcuHal::AsyncUartBase
  * @tparam T
  */
 template <typename T>
-concept DerivedFromHalUart = std::is_base_of_v<libmcuhal::HalUartBase, T>;
+concept DerivedFromAsyncUart = std::is_base_of_v<libmcuhal::AsyncUartBase, T>;
 /**
- * @brief Concept for types that inherit from libMcuHal::HalSpiBase
+ * @brief Concept for types that inherit from libMcuHal::AsyncSpiBase
  * @tparam T
  */
 template <typename T>
-concept DerivedFromHalSpi = std::is_base_of_v<libmcuhal::HalSpiBase, T>;
+concept DerivedFromAsyncSpi = std::is_base_of_v<libmcuhal::AsyncSpiBase, T>;
 /**
- * @brief Concept for types that inherit from libMcuHal::HalI2cBase
+ * @brief Concept for types that inherit from libMcuHal::AsyncI2cBase
  * @tparam T
  */
 template <typename T>
-concept DerivedFromHalI2c = std::is_base_of_v<libmcuhal::HalI2cBase, T>;
+concept DerivedFromAsyncI2c = std::is_base_of_v<libmcuhal::AsyncI2cBase, T>;
 /**
- * @brief Concept for checking types that inherit from libMcuHal::HalGpioBase
+ * @brief Concept for checking types that inherit from libMcuHal::GpioBase
  * @tparam T
  */
 template <typename T>
-concept DerivedFromHalGpio = std::is_base_of_v<libmcuhal::HalGpioBase, T>;
+concept DerivedFromGpio = std::is_base_of_v<libmcuhal::GpioBase, T>;
 
 }  // namespace libmcuhal
 
