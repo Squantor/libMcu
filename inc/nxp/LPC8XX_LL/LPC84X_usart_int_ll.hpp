@@ -1,27 +1,27 @@
 /*
  * SPDX-License-Identifier: MIT
  *
- * Copyright (c) 2023 Bart Bilos
+ * Copyright (c) 2025 Bart Bilos
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * @file LPC84X_usart_poll_ll.hpp
+ * @file LPC84X_usart_int_ll.hpp
  * @brief Polled low level USART interface for the LPC840 series
  */
-#ifndef LPC84X_USART_POLL_LL_HPP
-#define LPC84X_USART_POLL_LL_HPP
+#ifndef LPC84X_USART_INT_LL_HPP
+#define LPC84X_USART_INT_LL_HPP
 
 #include "LPC84X_usart_common_ll.hpp"
 
 namespace libmcull::usart {
 namespace hardware = ::libmcuhw::usart;
 /**
- * @brief synchronous USART peripheral instance
+ * @brief Interrupt driven USART peripheral instance
  * @tparam usart_address Peripheral base usartAddress
  * @tparam TransferType datatype to use for data transfers
  */
-template <const libmcu::UartBaseAddress usart_address, typename TransferType>
-struct UartPolled : libmcull::SyncUartBase {
+template <const libmcu::UartBaseAddress usart_address, typename TransferType, std::size_t buffer_size>
+struct UartInterrupt : libmcull::AsyncUartBase {
   /**
    * @brief Setup USART
    * @tparam &clock_config clock configuration to use
@@ -39,14 +39,39 @@ struct UartPolled : libmcull::SyncUartBase {
     UsartPeripheral()->BRG = divider;
     UsartPeripheral()->CFG = hardware::CFG::ENABLE | static_cast<std::uint32_t>(length_bits) | static_cast<std::uint32_t>(parity) |
                              static_cast<std::uint32_t>(stop_bits);
+    state = libmcu::States::Idle;
     return frequency / 16 / divider;
   }
   /**
    * @brief return uart status
-   * @return std::uint32_t one to one copy of the status register, see bit masks for options
+   * @return current status of the asynchronous interface
    */
-  constexpr std::uint32_t Status() {
-    return UsartPeripheral()->STAT & hardware::STAT::RESERVED_MASK;
+  constexpr libmcu::Results GetStatus() {
+    return static_cast<libmcu::Results>(state);
+  }
+  /**
+   * @brief Claim the USART interface
+   * @return Claimed when the claim has been successful, any other value indicates an error
+   */
+  constexpr libmcu::Results Claim(void) {
+    if (state == libmcu::States::Claimed) {
+      return libmcu::Results::InUse;
+    }
+    if (state == libmcu::States::Idle) {
+      state = libmcu::States::Claimed;
+    }
+    return static_cast<libmcu::Results>(state);
+  }
+  /**
+   * @brief Unclaim the USART interface
+   * @return Unclaimed when the unclaim has been successful, any other value indicates an error
+   */
+  constexpr libmcu::Results Unclaim(void) {
+    if (state == libmcu::States::Claimed) {
+      state = libmcu::States::Idle;
+      return libmcu::Results::Unclaimed;
+    }
+    return static_cast<libmcu::Results>(state);
   }
   /**
    * @brief Send data out of the UART
@@ -80,16 +105,13 @@ struct UartPolled : libmcull::SyncUartBase {
   template <const libmcuhw::clock::PeriClockConfig &clock_config>
   constexpr std::uint32_t GetInputClockFreq() {
     // constexpr check if we configure the right peripheral
-    if constexpr ((usart_address_ == libmcuhw::Usart0Address) && (clock_config.peripheral_ == libmcuhw::clock::PeriSelect::UART0))
+    if constexpr ((address == libmcuhw::Usart0Address) && (clock_config.peripheral_ == libmcuhw::clock::PeriSelect::UART0))
       return clock_config.GetFrequency();
-    else if constexpr ((usart_address_ == libmcuhw::Usart1Address) &&
-                       (clock_config.peripheral_ == libmcuhw::clock::PeriSelect::UART1))
+    else if constexpr ((address == libmcuhw::Usart1Address) && (clock_config.peripheral_ == libmcuhw::clock::PeriSelect::UART1))
       return clock_config.GetFrequency();
-    else if constexpr ((usart_address_ == libmcuhw::Usart2Address) &&
-                       (clock_config.peripheral_ == libmcuhw::clock::PeriSelect::UART2))
+    else if constexpr ((address == libmcuhw::Usart2Address) && (clock_config.peripheral_ == libmcuhw::clock::PeriSelect::UART2))
       return clock_config.GetFrequency();
-    else if constexpr ((usart_address_ == libmcuhw::Usart3Address) &&
-                       (clock_config.peripheral_ == libmcuhw::clock::PeriSelect::UART3))
+    else if constexpr ((address == libmcuhw::Usart3Address) && (clock_config.peripheral_ == libmcuhw::clock::PeriSelect::UART3))
       return clock_config.GetFrequency();
     else
       static_assert(false, "Clock config and peripherals unknown or not matching!");
@@ -116,11 +138,18 @@ struct UartPolled : libmcull::SyncUartBase {
    * @return return pointer to usart registers
    */
   constexpr static hardware::Usart *UsartPeripheral() {
-    return reinterpret_cast<hardware::Usart *>(usart_address_);
+    return reinterpret_cast<hardware::Usart *>(address);
   }
+  /**
+   * @brief Interrupt handler for this USART peripheral
+   */
+  constexpr void InterruptHandler() {}
 
  private:
-  static constexpr libmcu::HwAddressType usart_address_ = usart_address; /*!< peripheral usartAddress */
+  static constexpr libmcu::HwAddressType address = usart_address; /*!< peripheral usartAddress */
+  volatile libmcu::States state;                                  /*!< transmit state */
+  libmcu::RingBuffer<TransferType, buffer_size> rx_buffer;        /*!< receive buffer */
+  libmcu::RingBuffer<TransferType, buffer_size> tx_buffer;        /*!< transmit buffer */
 };
 }  // namespace libmcull::usart
 #endif

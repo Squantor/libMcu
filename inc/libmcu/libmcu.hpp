@@ -23,5 +23,6 @@
 #include "general_functions.hpp"
 #include "general_ringbuffer.hpp"
 #include "general_algorithms.hpp"
+#include "general_states.hpp"
 
 #endif
