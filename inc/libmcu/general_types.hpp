@@ -46,7 +46,7 @@ using IsrLambda = std::add_pointer<void()>::type; /*!< Base type for an ISR lamb
 /**
  * @brief States of the asynchronous interfaces
  * @todo Maybe change this into results enum as there are a lot of matching cases
- * @todo depricate usage of this state enum and use the results enum
+ * @todo depricate usage of this state enum and use the States enum that uses Results enum
  */
 enum class AsynchronousStates : std::uint8_t {
   Idle,         /*!< Interface is idle, ready to be claimed */

@@ -40,6 +40,7 @@ struct UartInterrupt : libmcull::AsyncUartBase {
     UsartPeripheral()->CFG = hardware::CFG::ENABLE | static_cast<std::uint32_t>(length_bits) | static_cast<std::uint32_t>(parity) |
                              static_cast<std::uint32_t>(stop_bits);
     state = libmcu::States::Idle;
+    UsartPeripheral()->INTENSET = hardware::INTENSET::RXRDYEN;
     return frequency / 16 / divider;
   }
   /**
@@ -47,6 +48,7 @@ struct UartInterrupt : libmcull::AsyncUartBase {
    * @return current status of the asynchronous interface
    */
   constexpr libmcu::Results GetStatus() {
+    // TODO need more detailed status
     return static_cast<libmcu::Results>(state);
   }
   /**
@@ -75,27 +77,110 @@ struct UartInterrupt : libmcull::AsyncUartBase {
   }
   /**
    * @brief Send data out of the UART
-   * @param data data to send, amount is sent according to configuration
+   * @param element Data to transmit
+   * @return NotClaimed if not claimed, Started if all okay
    */
-  constexpr void Write(TransferType data) {
-    UsartPeripheral()->TXDAT = static_cast<TransferType>(data & hardware::TXDAT::RESERVED_MASK);
+  constexpr libmcu::Results Transmit(TransferType element) {
+    if (state != libmcu::States::Claimed) {
+      return static_cast<libmcu::Results>(state);
+    }
+    // Busy until tx queue has space
+    while (tx_buffer.full()) {
+    }
+    tx_buffer.pushFront(element);
+    UsartPeripheral()->INTENSET = hardware::INTENSET::TXRDYEN;
+    return libmcu::Results::NoError;
   }
   /**
-   * @brief Read data from UART
-   * @param data reference to put received data in
+   * @brief Send data out of the UART
+   * @param buffer Data to transmit
+   * @return NotClaimed if not claimed, Started if all okay
    */
-  constexpr void Read(TransferType &data) {
-    data = static_cast<TransferType>(UsartPeripheral()->RXDAT);
+  constexpr libmcu::Results Transmit(std::span<TransferType> buffer) {
+    if (state != libmcu::States::Claimed) {
+      return static_cast<libmcu::Results>(state);
+    }
+    // Fill transmit queue before enabling TXRDY interrupt
+    std::size_t count = 0;
+    while (!tx_buffer.full() && count < buffer.size()) {
+      tx_buffer.pushFront(buffer[count]);
+      count++;
+    }
+    UsartPeripheral()->INTENSET = hardware::INTENSET::TXRDYEN;
+    // Continue filling queue until buffer is empty
+    while (!tx_buffer.full() && count < buffer.size()) {
+      tx_buffer.pushFront(buffer[count]);
+      count++;
+    }
+    return libmcu::Results::NoError;
   }
   /**
-   * @brief Read data and status from UART
-   * @param data reference to put received data in
-   * @param status reference to put received status in
+   * @brief Get the Receive buffer fill level
+   * @return How many elements have been received
    */
-  constexpr void Read(TransferType &data, std::uint32_t &status) {
-    std::uint32_t rx_status = UsartPeripheral()->RXDATSTAT;
-    data = static_cast<TransferType>(rx_status & hardware::RXDATSTAT::DATA_MASK);
-    status = rx_status & hardware::RXDATSTAT::STAT_MASK;
+  constexpr std::size_t GetReceiveLevel() {
+    return rx_buffer.level();
+  }
+  /**
+   * @brief Receive characters from the UART
+   * @todo timeout value so we are not waiting forever
+   * @param buffer buffer to put received characters into
+   * @return NoError if all okay
+   */
+  constexpr libmcu::Results Receive(std::span<TransferType> buffer) {
+    if (state != libmcu::States::Claimed) {
+      return static_cast<libmcu::Results>(state);
+    }
+    // Fill receive queue
+    std::size_t count = 0;
+    while (count < buffer.size()) {
+      if (!rx_buffer.empty()) {
+        rx_buffer.popBack(buffer[count]);
+        count++;
+      }
+    }
+    return libmcu::Results::NoError;
+  }
+  /**
+   * @brief Receive single character from the UART
+   * @todo timeout value so we are not waiting forever
+   * @param element buffer to put received characters into
+   * @return NoError if all okay
+   */
+  constexpr libmcu::Results Receive(TransferType &element) {
+    if (state != libmcu::States::Claimed) {
+      return static_cast<libmcu::Results>(state);
+    }
+    while (rx_buffer.empty()) {
+    }
+    rx_buffer.popBack(element);
+    return libmcu::Results::NoError;
+  }
+  /**
+   * @brief Interrupt handler for this USART peripheral
+   */
+  constexpr void InterruptHandler() {
+    TransferType element;
+    std::uint32_t status = UsartPeripheral()->STAT;
+    if (status & hardware::STAT::TXRDY) {
+      // check if buffer is empty
+      if (tx_buffer.empty()) {
+        UsartPeripheral()->INTENCLR = hardware::INTENCLR::TXRDYCLR;
+      } else {
+        tx_buffer.popBack(element);
+        UsartPeripheral()->TXDAT = static_cast<std::uint32_t>(element);
+      }
+    }
+    if (status & hardware::STAT::RXRDY) {
+      if (rx_buffer.full()) {
+        element = UsartPeripheral()->RXDAT;  // dummy read
+        // TODO report overflow
+      } else {
+        element = UsartPeripheral()->RXDAT;
+        rx_buffer.pushFront(element);
+      }
+    }
+    // TODO various errors
   }
   /**
    * @brief get the input clock of this UART peripheral
@@ -140,14 +225,10 @@ struct UartInterrupt : libmcull::AsyncUartBase {
   constexpr static hardware::Usart *UsartPeripheral() {
     return reinterpret_cast<hardware::Usart *>(address);
   }
-  /**
-   * @brief Interrupt handler for this USART peripheral
-   */
-  constexpr void InterruptHandler() {}
 
  private:
   static constexpr libmcu::HwAddressType address = usart_address; /*!< peripheral usartAddress */
-  volatile libmcu::States state;                                  /*!< transmit state */
+  volatile libmcu::States state;                                  /*!< claim status */
   libmcu::RingBuffer<TransferType, buffer_size> rx_buffer;        /*!< receive buffer */
   libmcu::RingBuffer<TransferType, buffer_size> tx_buffer;        /*!< transmit buffer */
 };
