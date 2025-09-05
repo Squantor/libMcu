@@ -96,7 +96,7 @@ struct UartInterrupt : libmcull::AsyncUartBase {
    * @param buffer Data to transmit
    * @return NotClaimed if not claimed, Started if all okay
    */
-  constexpr libmcu::Results Transmit(std::span<TransferType> buffer) {
+  constexpr libmcu::Results Transmit(std::span<const TransferType> buffer) {
     if (state != libmcu::States::Claimed) {
       return static_cast<libmcu::Results>(state);
     }

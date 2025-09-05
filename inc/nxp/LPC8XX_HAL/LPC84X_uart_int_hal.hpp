@@ -70,7 +70,7 @@ struct UartInterrupt : public libmcuhal::AsyncUartBase {
    * @param buffer span of elements to transmit
    * @returns see @ref libmcull::usart::UartInterrupt
    */
-  libmcu::Results Transmit(std::span<TransferType> buffer) {
+  libmcu::Results Transmit(std::span<const TransferType> buffer) {
     return ll_uart_async.Transmit(buffer);
   }
   /**
