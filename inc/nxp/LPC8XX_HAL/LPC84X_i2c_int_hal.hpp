@@ -14,6 +14,7 @@
 #include "LPC84X_i2c_common_hal.hpp"
 
 namespace libmcuhal::i2c {
+
 template <libmcull::DerivedFromAsyncI2c auto& ll_i2c_async>
 struct I2cInterrupt : public libmcuhal::AsyncI2cBase {
   /**

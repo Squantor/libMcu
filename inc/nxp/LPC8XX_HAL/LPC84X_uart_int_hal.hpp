@@ -17,88 +17,122 @@
 
 namespace libmcuhal::usart {
 namespace hardware = libmcuhw::usart;
+namespace lowlevel = libmcull::usart;
 namespace nvic = libmcuhw::nvic;
 
-template <typename TransferType, std::size_t bufSize>
-struct UartInterrupt {
-  /**
-   * @brief Construct a new asynchronous uart
-   */
-  UartInterrupt() {}
-  /**
-   * @brief Initialize
-   */
-  void initialize() {}
-  /**
-   * @brief Setup USART to 8n1
-   * @param baudRate Baud rate value
-   * @return std::uint32_t actual baud rate
-   */
-  template <auto& config>
-  constexpr std::uint32_t init(std::uint32_t baudRate) {
-    return 0;
-  }
+template <libmcull::DerivedFromAsyncUart auto& ll_uart_async, typename TransferType, std::size_t action_timeout = 0x1000>
+struct UartInterrupt : public libmcuhal::AsyncUartBase {
   /**
    * @brief Setup USART
+   * @tparam &clock_config clock configuration to use
    * @param baudRate Baud rate value
-   * @param lengthBits bit length of transmissions, see UartLength enum for options
-   * @param parity parity type of transmissions, see UartParity enum for options
-   * @param stopBits Amount of stop bits, see UartStop enum for options
-   * @return std::uint32_t actual baud rate
+   * @param lengthBits bit length of transmissions
+   * @param parity parity type of transmissions
+   * @param stopBits Amount of stop bits
+   * @return actual baud rate
    */
-  template <auto& config>
-  constexpr std::uint32_t init(std::uint32_t baudRate, UartLength lengthBits, UartParity parity, UartStop stopBits) {
-    (void)baudRate;
-    (void)lengthBits;
-    (void)parity;
-    (void)stopBits;
-    return 0;
+  template <const libmcuhw::clock::PeriClockConfig& clock_config>
+  constexpr std::uint32_t Init(std::uint32_t baudRate, UartParities parity = UartParities::None,
+                               UartStops stopBits = UartStops::Stop1, UartLengths lengthBits = UartLengths::Size8) {
+    return ll_uart_async.template Init<clock_config>(baudRate, static_cast<lowlevel::UartParities>(parity),
+                                                     static_cast<lowlevel::UartStops>(stopBits),
+                                                     static_cast<lowlevel::UartLengths>(lengthBits));
   }
   /**
-   * @brief blocking USART transmit
-   * @param input data to transmit via USART
+   * @brief Claim an the asynchronous interface
+   * @param[out] handle for the claimed interface, set when claimed
+   * @returns Claimed if successful
+   * @returns for the rest see @ref libmcull::I2cInterrupt
    */
-  constexpr void write(const TransferType& input) {
-    (void)input;
+  libmcu::Results Claim(libmcu::AsyncHandle& handle) {
+    libmcu::Results result = ll_uart_async.Claim();
+    if (result != libmcu::Results::Claimed)
+      return result;
+    handle = async_handle;
+    return result;
   }
   /**
-   * @brief blocking USART transmit
-   * @param buffer data to transmit via USART
+   * @brief Release the asynchronous interface
+   * @param handle for the interface to be released
+   * @returns InUse if the interface is already in use by another claimant
+   * @returns Unclaimed if the interface is not claimed
+   * @returns for the rest see @ref libmcull::I2cInterrupt
    */
-  constexpr void write(std::span<const TransferType> buffer) {
-    (void)buffer;
+  libmcu::Results Unclaim(libmcu::AsyncHandle handle) {
+    if (handle != async_handle)
+      return libmcu::Results::InUse;
+    libmcu::Results result = ll_uart_async.Unclaim();
+    if (result != libmcu::Results::Unclaimed)
+      return result;
+    async_handle += 1;
+    return result;
   }
   /**
-   * @brief blocking USART receive
-   * @param buffer data to receive from USART
+   * @brief Transmit single element
+   * @todo timeout handling
+   * @param handle Asynchronous handle from claim operation
+   * @param element single element to transmit
+   * @return libmcu::Results
    */
-  constexpr void read(std::span<TransferType> buffer) {
-    (void)buffer;
+  libmcu::Results Transmit(libmcu::AsyncHandle handle, TransferType element) {
+    if (ll_uart_async.GetStatus() != libmcu::Results::Claimed)
+      return libmcu::Results::NotClaimed;
+    if (handle != async_handle)
+      return libmcu::Results::InvalidHandle;
+    return ll_uart_async.Transmit(element);
   }
   /**
-   * @brief
-   * @return constexpr std::uint32_t
+   * @brief Transmit multiple elements
+   * @todo timeout handling
+   * @param handle Asynchronous handle from claim operation
+   * @param buffer span of elements to transmit
+   * @return libmcu::Results
    */
-  constexpr std::uint32_t receiveDataAvailable() {
-    return 0;
+  libmcu::Results Transmit(libmcu::AsyncHandle handle, std::span<TransferType> buffer) {
+    if (ll_uart_async.GetStatus() != libmcu::Results::Claimed)
+      return libmcu::Results::NotClaimed;
+    if (handle != async_handle)
+      return libmcu::Results::InvalidHandle;
+    return ll_uart_async.Transmit(buffer);
   }
   /**
-   * @brief UART interrupt service routine
+   * @brief Receive single element
+   * @todo timeout handling
+   * @param handle Asynchronous handle from claim operation
+   * @param element singe element to receive
+   * @return libmcu::Results
    */
-  constexpr void isr() {}
+  libmcu::Results Receive(libmcu::AsyncHandle handle, TransferType& element) {
+    if (ll_uart_async.GetStatus() != libmcu::Results::Claimed)
+      return libmcu::Results::NotClaimed;
+    if (handle != async_handle)
+      return libmcu::Results::InvalidHandle;
+    return ll_uart_async.Receive(element);
+  }
   /**
-   * @brief get the input clock of this UART peripheral
-   * @tparam config clock configuration
-   * @return current input clock frequency
+   * @brief Receive multiple elements
+   * @todo timeout handling
+   * @param handle Asynchronous handle from claim operation
+   * @param buffer span of elements to receive
+   * @return libmcu::Results
    */
-  template <auto& config>
-  constexpr std::uint32_t GetInputClockFreq() {
-    return 0;
+  libmcu::Results Receive(libmcu::AsyncHandle handle, std::span<TransferType> buffer) {
+    if (ll_uart_async.GetStatus() != libmcu::Results::Claimed)
+      return libmcu::Results::NotClaimed;
+    if (handle != async_handle)
+      return libmcu::Results::InvalidHandle;
+    return ll_uart_async.Receive(buffer);
+  }
+  /**
+   * @brief Get the Receive buffer fill level
+   * @return How many elements have been received
+   */
+  constexpr std::size_t GetReceiveLevel() {
+    return ll_uart_async.GetReceiveLevel();
   }
 
  private:
-  libmcu::RingBuffer<TransferType, bufSize> txBuffer;
-  libmcu::RingBuffer<TransferType, bufSize> rxBuffer;
+  libmcu::AsyncHandle async_handle = 0; /*!< Async handle to be passed to the claimant, incremented per claim/unclaim pair */
 };
 }  // namespace libmcuhal::usart
 
