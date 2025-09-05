@@ -39,88 +39,56 @@ struct UartInterrupt : public libmcuhal::AsyncUartBase {
                                                      static_cast<lowlevel::UartLengths>(lengthBits));
   }
   /**
-   * @brief Claim an the asynchronous interface
-   * @param[out] handle for the claimed interface, set when claimed
+   * @brief Claim asynchronous interface
    * @returns Claimed if successful
-   * @returns for the rest see @ref libmcull::I2cInterrupt
+   * @returns see @ref libmcull::usart::UartInterrupt
    */
-  libmcu::Results Claim(libmcu::AsyncHandle& handle) {
-    libmcu::Results result = ll_uart_async.Claim();
-    if (result != libmcu::Results::Claimed)
-      return result;
-    handle = async_handle;
-    return result;
+  libmcu::Results Claim() {
+    return ll_uart_async.Claim();
   }
   /**
    * @brief Release the asynchronous interface
-   * @param handle for the interface to be released
    * @returns InUse if the interface is already in use by another claimant
    * @returns Unclaimed if the interface is not claimed
-   * @returns for the rest see @ref libmcull::I2cInterrupt
+   * @returns see @ref libmcull::usart::UartInterrupt
    */
-  libmcu::Results Unclaim(libmcu::AsyncHandle handle) {
-    if (handle != async_handle)
-      return libmcu::Results::InUse;
-    libmcu::Results result = ll_uart_async.Unclaim();
-    if (result != libmcu::Results::Unclaimed)
-      return result;
-    async_handle += 1;
-    return result;
+  libmcu::Results Unclaim() {
+    return ll_uart_async.Unclaim();
   }
   /**
    * @brief Transmit single element
    * @todo timeout handling
-   * @param handle Asynchronous handle from claim operation
    * @param element single element to transmit
-   * @return libmcu::Results
+   * @returns see @ref libmcull::usart::UartInterrupt
    */
-  libmcu::Results Transmit(libmcu::AsyncHandle handle, TransferType element) {
-    if (ll_uart_async.GetStatus() != libmcu::Results::Claimed)
-      return libmcu::Results::NotClaimed;
-    if (handle != async_handle)
-      return libmcu::Results::InvalidHandle;
+  libmcu::Results Transmit(TransferType element) {
     return ll_uart_async.Transmit(element);
   }
   /**
    * @brief Transmit multiple elements
    * @todo timeout handling
-   * @param handle Asynchronous handle from claim operation
    * @param buffer span of elements to transmit
-   * @return libmcu::Results
+   * @returns see @ref libmcull::usart::UartInterrupt
    */
-  libmcu::Results Transmit(libmcu::AsyncHandle handle, std::span<TransferType> buffer) {
-    if (ll_uart_async.GetStatus() != libmcu::Results::Claimed)
-      return libmcu::Results::NotClaimed;
-    if (handle != async_handle)
-      return libmcu::Results::InvalidHandle;
+  libmcu::Results Transmit(std::span<TransferType> buffer) {
     return ll_uart_async.Transmit(buffer);
   }
   /**
    * @brief Receive single element
    * @todo timeout handling
-   * @param handle Asynchronous handle from claim operation
    * @param element singe element to receive
-   * @return libmcu::Results
+   * @returns see @ref libmcull::usart::UartInterrupt
    */
-  libmcu::Results Receive(libmcu::AsyncHandle handle, TransferType& element) {
-    if (ll_uart_async.GetStatus() != libmcu::Results::Claimed)
-      return libmcu::Results::NotClaimed;
-    if (handle != async_handle)
-      return libmcu::Results::InvalidHandle;
+  libmcu::Results Receive(TransferType& element) {
     return ll_uart_async.Receive(element);
   }
   /**
    * @brief Receive multiple elements
    * @todo timeout handling
-   * @param handle Asynchronous handle from claim operation
    * @param buffer span of elements to receive
    * @return libmcu::Results
    */
-  libmcu::Results Receive(libmcu::AsyncHandle handle, std::span<TransferType> buffer) {
-    if (ll_uart_async.GetStatus() != libmcu::Results::Claimed)
-      return libmcu::Results::NotClaimed;
-    if (handle != async_handle)
-      return libmcu::Results::InvalidHandle;
+  libmcu::Results Receive(std::span<TransferType> buffer) {
     return ll_uart_async.Receive(buffer);
   }
   /**
@@ -132,7 +100,6 @@ struct UartInterrupt : public libmcuhal::AsyncUartBase {
   }
 
  private:
-  libmcu::AsyncHandle async_handle = 0; /*!< Async handle to be passed to the claimant, incremented per claim/unclaim pair */
 };
 }  // namespace libmcuhal::usart
 
