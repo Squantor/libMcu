@@ -391,8 +391,16 @@ namespace NMISRC {
 constexpr inline std::uint32_t RESERVED_MASK{0x0000'0000u}; /*!< register mask for allowed bits */
 }
 namespace PINTSEL {
-constexpr inline std::uint32_t RESERVED_MASK{0x0000'0000u}; /*!< register mask for allowed bits */
-}
+constexpr inline std::uint32_t RESERVED_MASK{0x0000'003Fu}; /*!< register mask for allowed bits */
+constexpr inline std::size_t PINTSEL0{0u};                  /*!< PINTSEL0 index */
+constexpr inline std::size_t PINTSEL1{1u};                  /*!< PINTSEL1 index */
+constexpr inline std::size_t PINTSEL2{2u};                  /*!< PINTSEL2 index */
+constexpr inline std::size_t PINTSEL3{3u};                  /*!< PINTSEL3 index */
+constexpr inline std::size_t PINTSEL4{4u};                  /*!< PINTSEL4 index */
+constexpr inline std::size_t PINTSEL5{5u};                  /*!< PINTSEL5 index */
+constexpr inline std::size_t PINTSEL6{6u};                  /*!< PINTSEL6 index */
+constexpr inline std::size_t PINTSEL7{7u};                  /*!< PINTSEL7 index */
+}  // namespace PINTSEL
 namespace STARTERP0 {
 constexpr inline std::uint32_t RESERVED_MASK{0x0000'0000u}; /*!< register mask for allowed bits */
 }

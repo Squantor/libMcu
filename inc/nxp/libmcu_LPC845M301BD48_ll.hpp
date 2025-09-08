@@ -193,9 +193,9 @@ enum class DmaRequestSources : std::uint8_t {
 
 // includes that use the registers namespace go here
 // need to go after registers namespaces and device specific headers
+#include "LPC8XX_LL/LPC84X_syscon_ll.hpp"
 #include "LPC8XX_LL/LPC84X_swm_ll.hpp"
 #include "LPC8XX_LL/LPC84X_iocon_ll.hpp"
-#include "LPC8XX_LL/LPC84X_syscon_ll.hpp"
 #include "LPC8XX_LL/LPC84X_gpio_ll.hpp"
 #include "LPC8XX_LL/LPC84X_adc_ll.hpp"
 #include "LPC8XX_LL/LPC84X_i2c_poll_ll.hpp"
@@ -206,6 +206,7 @@ enum class DmaRequestSources : std::uint8_t {
 #include "LPC8XX_LL/LPC84X_dma_ll.hpp"
 #include "LPC8XX_LL/LPC84X_usart_poll_ll.hpp"
 #include "LPC8XX_LL/LPC84X_usart_int_ll.hpp"
+#include "LPC8XX_LL/LPC84X_pin_int_ll.hpp"
 
 #include "LPC8XX_CLOCK/LPC84X_clock.hpp"
 

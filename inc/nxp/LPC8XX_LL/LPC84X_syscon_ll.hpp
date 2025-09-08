@@ -131,6 +131,19 @@ enum class SctClockSources : std::uint32_t {
   SysPll = hardware::SCTCLKSEL::SYSPLL, /*!< System PLL clock source */
 };
 /**
+ * @brief Interrupt pins indices
+ */
+enum class InterruptPins : std::size_t {
+  PintSel0 = hardware::PINTSEL::PINTSEL0, /*!< PINTSEL0 */
+  PintSel1 = hardware::PINTSEL::PINTSEL1, /*!< PINTSEL1 */
+  PintSel2 = hardware::PINTSEL::PINTSEL2, /*!< PINTSEL2 */
+  PintSel3 = hardware::PINTSEL::PINTSEL3, /*!< PINTSEL3 */
+  PintSel4 = hardware::PINTSEL::PINTSEL4, /*!< PINTSEL4 */
+  PintSel5 = hardware::PINTSEL::PINTSEL5, /*!< PINTSEL5 */
+  PintSel6 = hardware::PINTSEL::PINTSEL6, /*!< PINTSEL6 */
+  PintSel7 = hardware::PINTSEL::PINTSEL7, /*!< PINTSEL7 */
+};
+/**
  * @brief Peripheral clock enable/disable options section 0
  */
 namespace peripheral_clocks_0 {
@@ -321,6 +334,16 @@ struct Syscon : libmcull::PeripheralBase {
     GetPeripheral()->CLKOUTDIV = hardware::CLKOUTDIV::DIV(0);
     GetPeripheral()->CLKOUTSEL = static_cast<std::uint32_t>(source);
     GetPeripheral()->CLKOUTDIV = hardware::CLKOUTDIV::DIV(divisor);
+  }
+  /**
+   * @brief Set the PIN instance to the interrupt pin channel
+   * @tparam PIN gpio pin instance type
+   * @param pin gpio pin instance
+   * @param channel interrupt pin channel to use
+   */
+  template <typename PIN>
+  constexpr void SetInterruptPin(PIN &pin, InterruptPins channel) {
+    GetPeripheral()->PINTSEL[static_cast<size_t>(channel)] = static_cast<std::uint32_t>(pin.interrupt_index);
   }
   /**
    * @brief Power up a peripheral
