@@ -56,7 +56,7 @@ struct Pinint : libmcull::PeripheralBase {
   constexpr static void EnableChannel(InterruptPins channel, EdgeSettings edge) {
     GetPeripheral()->CIENF = static_cast<std::uint32_t>(channel);
     GetPeripheral()->CIENR = static_cast<std::uint32_t>(channel);
-    GetPeripheral()->IST = static_cast<std::uint32_t>(channel);  // Clear interrupt
+    ClearChannel(channel);
     GetPeripheral()->ISEL = GetPeripheral()->ISEL & ~static_cast<std::uint32_t>(channel);
     switch (edge) {
       case EdgeSettings::Rising:
@@ -70,6 +70,13 @@ struct Pinint : libmcull::PeripheralBase {
         GetPeripheral()->SIENR = static_cast<std::uint32_t>(channel);
         break;
     }
+  }
+  /**
+   * @brief Clear channel interrupt
+   * @param channel channel to clear
+   */
+  constexpr static void ClearChannel(InterruptPins channel) {
+    GetPeripheral()->IST = static_cast<std::uint32_t>(channel);
   }
   /**
    * @brief Disable channel

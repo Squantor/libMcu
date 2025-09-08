@@ -194,7 +194,7 @@ struct Pin<IoPorts::Port0, IoPins::Pin06> {
   static constexpr std::uint8_t gpioPinIndex{6u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
-  static constexpr std::uint8_t interrupt_index{0u};
+  static constexpr std::uint8_t interrupt_index{6u};
   static constexpr hardware::PinAssignments pio{hardware::PinAssignments::PinAssign0_6};
   // Specific pin settings
   static constexpr std::uint8_t adcPinIndex{6u};
@@ -209,7 +209,7 @@ struct Pin<IoPorts::Port0, IoPins::Pin07> {
   static constexpr std::uint8_t gpioPinIndex{7u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
-  static constexpr std::uint8_t interrupt_index{0u};
+  static constexpr std::uint8_t interrupt_index{7u};
   static constexpr hardware::PinAssignments pio{hardware::PinAssignments::PinAssign0_7};
   // Specific pin settings
   static constexpr std::uint8_t adcPinIndex{0u};
@@ -224,7 +224,7 @@ struct Pin<IoPorts::Port0, IoPins::Pin08> {
   static constexpr std::uint8_t gpioPinIndex{8u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
-  static constexpr std::uint8_t interrupt_index{0u};
+  static constexpr std::uint8_t interrupt_index{8u};
   static constexpr hardware::PinAssignments pio{hardware::PinAssignments::PinAssign0_8};
 };
 /**
@@ -237,7 +237,7 @@ struct Pin<IoPorts::Port0, IoPins::Pin09> {
   static constexpr std::uint8_t gpioPinIndex{9u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
-  static constexpr std::uint8_t interrupt_index{0u};
+  static constexpr std::uint8_t interrupt_index{9u};
   static constexpr hardware::PinAssignments pio{hardware::PinAssignments::PinAssign0_9};
 };
 /**
@@ -250,7 +250,7 @@ struct Pin<IoPorts::Port0, IoPins::Pin10> {
   static constexpr std::uint8_t gpioPinIndex{10u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
-  static constexpr std::uint8_t interrupt_index{0u};
+  static constexpr std::uint8_t interrupt_index{10u};
   static constexpr hardware::PinAssignments pio{hardware::PinAssignments::PinAssign0_10};
 };
 /**
@@ -263,7 +263,7 @@ struct Pin<IoPorts::Port0, IoPins::Pin11> {
   static constexpr std::uint8_t gpioPinIndex{11u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
-  static constexpr std::uint8_t interrupt_index{0u};
+  static constexpr std::uint8_t interrupt_index{11u};
   static constexpr hardware::PinAssignments pio{hardware::PinAssignments::PinAssign0_11};
 };
 /**
@@ -276,7 +276,7 @@ struct Pin<IoPorts::Port0, IoPins::Pin12> {
   static constexpr std::uint8_t gpioPinIndex{12u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
-  static constexpr std::uint8_t interrupt_index{0u};
+  static constexpr std::uint8_t interrupt_index{12u};
   static constexpr hardware::PinAssignments pio{hardware::PinAssignments::PinAssign0_12};
 };
 /**
@@ -289,7 +289,7 @@ struct Pin<IoPorts::Port0, IoPins::Pin13> {
   static constexpr std::uint8_t gpioPinIndex{13u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
-  static constexpr std::uint8_t interrupt_index{0u};
+  static constexpr std::uint8_t interrupt_index{13u};
   static constexpr hardware::PinAssignments pio{hardware::PinAssignments::PinAssign0_13};
   // Specific pin settings
   static constexpr std::uint8_t adcPinIndex{13u};
@@ -304,7 +304,7 @@ struct Pin<IoPorts::Port0, IoPins::Pin14> {
   static constexpr std::uint8_t gpioPinIndex{14u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
-  static constexpr std::uint8_t interrupt_index{0u};
+  static constexpr std::uint8_t interrupt_index{14u};
   static constexpr hardware::PinAssignments pio{hardware::PinAssignments::PinAssign0_14};
   // Specific pin settings
   static constexpr std::uint8_t adcPinIndex{2u};
@@ -320,7 +320,7 @@ struct Pin<IoPorts::Port0, IoPins::Pin15> {
   static constexpr std::uint8_t gpioPinIndex{15u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
-  static constexpr std::uint8_t interrupt_index{0u};
+  static constexpr std::uint8_t interrupt_index{15u};
   static constexpr hardware::PinAssignments pio{hardware::PinAssignments::PinAssign0_15};
 };
 /**
@@ -333,7 +333,7 @@ struct Pin<IoPorts::Port0, IoPins::Pin16> {
   static constexpr std::uint8_t gpioPinIndex{16u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
-  static constexpr std::uint8_t interrupt_index{0u};
+  static constexpr std::uint8_t interrupt_index{16u};
   static constexpr hardware::PinAssignments pio{hardware::PinAssignments::PinAssign0_16};
 };
 /**
@@ -346,7 +346,7 @@ struct Pin<IoPorts::Port0, IoPins::Pin17> {
   static constexpr std::uint8_t gpioPinIndex{17u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
-  static constexpr std::uint8_t interrupt_index{0u};
+  static constexpr std::uint8_t interrupt_index{17u};
   static constexpr hardware::PinAssignments pio{hardware::PinAssignments::PinAssign0_17};
   // Specific pin settings
   static constexpr std::uint8_t adcPinIndex{9u};
@@ -361,7 +361,7 @@ struct Pin<IoPorts::Port0, IoPins::Pin18> {
   static constexpr std::uint8_t gpioPinIndex{18u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
-  static constexpr std::uint8_t interrupt_index{0u};
+  static constexpr std::uint8_t interrupt_index{18u};
   static constexpr hardware::PinAssignments pio{hardware::PinAssignments::PinAssign0_18};
   // Specific pin settings
   static constexpr std::uint8_t adcPinIndex{8u};
@@ -377,7 +377,7 @@ struct Pin<IoPorts::Port0, IoPins::Pin19> {
   static constexpr std::uint8_t gpioPinIndex{19u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
-  static constexpr std::uint8_t interrupt_index{0u};
+  static constexpr std::uint8_t interrupt_index{19u};
   static constexpr hardware::PinAssignments pio{hardware::PinAssignments::PinAssign0_19};
   // Specific pin settings
   static constexpr std::uint8_t adcPinIndex{7u};
@@ -393,7 +393,7 @@ struct Pin<IoPorts::Port0, IoPins::Pin20> {
   static constexpr std::uint8_t gpioPinIndex{20u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
-  static constexpr std::uint8_t interrupt_index{0u};
+  static constexpr std::uint8_t interrupt_index{20u};
   static constexpr hardware::PinAssignments pio{hardware::PinAssignments::PinAssign0_20};
   // Specific pin settings
   static constexpr std::uint8_t adcPinIndex{6u};
@@ -408,7 +408,7 @@ struct Pin<IoPorts::Port0, IoPins::Pin21> {
   static constexpr std::uint8_t gpioPinIndex{21u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
-  static constexpr std::uint8_t interrupt_index{0u};
+  static constexpr std::uint8_t interrupt_index{21u};
   static constexpr hardware::PinAssignments pio{hardware::PinAssignments::PinAssign0_21};
   // Specific pin settings
   static constexpr std::uint8_t adcPinIndex{5u};
@@ -423,7 +423,7 @@ struct Pin<IoPorts::Port0, IoPins::Pin22> {
   static constexpr std::uint8_t gpioPinIndex{22u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
-  static constexpr std::uint8_t interrupt_index{0u};
+  static constexpr std::uint8_t interrupt_index{22u};
   static constexpr hardware::PinAssignments pio{hardware::PinAssignments::PinAssign0_22};
   // Specific pin settings
   static constexpr std::uint8_t adcPinIndex{4u};
@@ -438,7 +438,7 @@ struct Pin<IoPorts::Port0, IoPins::Pin23> {
   static constexpr std::uint8_t gpioPinIndex{23u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
-  static constexpr std::uint8_t interrupt_index{0u};
+  static constexpr std::uint8_t interrupt_index{23u};
   static constexpr hardware::PinAssignments pio{hardware::PinAssignments::PinAssign0_23};
   // Specific pin settings
   static constexpr std::uint8_t adcPinIndex{3u};
@@ -454,7 +454,7 @@ struct Pin<IoPorts::Port0, IoPins::Pin24> {
   static constexpr std::uint8_t gpioPinIndex{24u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
-  static constexpr std::uint8_t interrupt_index{0u};
+  static constexpr std::uint8_t interrupt_index{24u};
   static constexpr hardware::PinAssignments pio{hardware::PinAssignments::PinAssign0_24};
 };
 /**
@@ -467,7 +467,7 @@ struct Pin<IoPorts::Port0, IoPins::Pin25> {
   static constexpr std::uint8_t gpioPinIndex{25u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
-  static constexpr std::uint8_t interrupt_index{0u};
+  static constexpr std::uint8_t interrupt_index{25u};
   static constexpr hardware::PinAssignments pio{hardware::PinAssignments::PinAssign0_25};
 };
 /**
@@ -480,7 +480,7 @@ struct Pin<IoPorts::Port0, IoPins::Pin26> {
   static constexpr std::uint8_t gpioPinIndex{26u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
-  static constexpr std::uint8_t interrupt_index{0u};
+  static constexpr std::uint8_t interrupt_index{26u};
   static constexpr hardware::PinAssignments pio{hardware::PinAssignments::PinAssign0_26};
 };
 /**
@@ -493,7 +493,7 @@ struct Pin<IoPorts::Port0, IoPins::Pin27> {
   static constexpr std::uint8_t gpioPinIndex{27u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
-  static constexpr std::uint8_t interrupt_index{0u};
+  static constexpr std::uint8_t interrupt_index{27u};
   static constexpr hardware::PinAssignments pio{hardware::PinAssignments::PinAssign0_27};
 };
 /**
@@ -506,7 +506,7 @@ struct Pin<IoPorts::Port0, IoPins::Pin28> {
   static constexpr std::uint8_t gpioPinIndex{28u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
-  static constexpr std::uint8_t interrupt_index{0u};
+  static constexpr std::uint8_t interrupt_index{28u};
   static constexpr hardware::PinAssignments pio{hardware::PinAssignments::PinAssign0_28};
 };
 /**
@@ -520,7 +520,7 @@ struct Pin<IoPorts::Port0, IoPins::Pin29> {
   static constexpr std::uint8_t gpioPinIndex{29u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
-  static constexpr std::uint8_t interrupt_index{0u};
+  static constexpr std::uint8_t interrupt_index{29u};
   static constexpr hardware::PinAssignments pio{hardware::PinAssignments::PinAssign0_29};
 };
 /**
@@ -533,7 +533,7 @@ struct Pin<IoPorts::Port0, IoPins::Pin30> {
   static constexpr std::uint8_t gpioPinIndex{30u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
-  static constexpr std::uint8_t interrupt_index{0u};
+  static constexpr std::uint8_t interrupt_index{30u};
   static constexpr hardware::PinAssignments pio{hardware::PinAssignments::PinAssign0_30};
   // Specific pin settings
   static constexpr std::uint8_t acmpPinIndex{5u};
@@ -548,7 +548,7 @@ struct Pin<IoPorts::Port0, IoPins::Pin31> {
   static constexpr std::uint8_t gpioPinIndex{31u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{0u};
-  static constexpr std::uint8_t interrupt_index{0u};
+  static constexpr std::uint8_t interrupt_index{31u};
   static constexpr hardware::PinAssignments pio{hardware::PinAssignments::PinAssign0_31};
 };
 /**
@@ -561,7 +561,7 @@ struct Pin<IoPorts::Port1, IoPins::Pin00> {
   static constexpr std::uint8_t gpioPinIndex{0u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{1u};
-  static constexpr std::uint8_t interrupt_index{0u};
+  static constexpr std::uint8_t interrupt_index{32u};
   static constexpr hardware::PinAssignments pio{hardware::PinAssignments::PinAssign1_0};
 };
 /**
@@ -574,7 +574,7 @@ struct Pin<IoPorts::Port1, IoPins::Pin01> {
   static constexpr std::uint8_t gpioPinIndex{1u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{1u};
-  static constexpr std::uint8_t interrupt_index{0u};
+  static constexpr std::uint8_t interrupt_index{33u};
   static constexpr hardware::PinAssignments pio{hardware::PinAssignments::PinAssign1_1};
 };
 /**
@@ -587,7 +587,7 @@ struct Pin<IoPorts::Port1, IoPins::Pin02> {
   static constexpr std::uint8_t gpioPinIndex{2u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{1u};
-  static constexpr std::uint8_t interrupt_index{0u};
+  static constexpr std::uint8_t interrupt_index{34u};
   static constexpr hardware::PinAssignments pio{hardware::PinAssignments::PinAssign1_2};
 };
 /**
@@ -600,7 +600,7 @@ struct Pin<IoPorts::Port1, IoPins::Pin03> {
   static constexpr std::uint8_t gpioPinIndex{3u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{1u};
-  static constexpr std::uint8_t interrupt_index{0u};
+  static constexpr std::uint8_t interrupt_index{35u};
   static constexpr hardware::PinAssignments pio{hardware::PinAssignments::PinAssign1_3};
 };
 /**
@@ -613,7 +613,7 @@ struct Pin<IoPorts::Port1, IoPins::Pin04> {
   static constexpr std::uint8_t gpioPinIndex{4u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{1u};
-  static constexpr std::uint8_t interrupt_index{0u};
+  static constexpr std::uint8_t interrupt_index{36u};
   static constexpr hardware::PinAssignments pio{hardware::PinAssignments::PinAssign1_4};
 };
 /**
@@ -626,7 +626,7 @@ struct Pin<IoPorts::Port1, IoPins::Pin05> {
   static constexpr std::uint8_t gpioPinIndex{5u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{1u};
-  static constexpr std::uint8_t interrupt_index{0u};
+  static constexpr std::uint8_t interrupt_index{37u};
   static constexpr hardware::PinAssignments pio{hardware::PinAssignments::PinAssign1_5};
 };
 /**
@@ -639,7 +639,7 @@ struct Pin<IoPorts::Port1, IoPins::Pin06> {
   static constexpr std::uint8_t gpioPinIndex{6u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{1u};
-  static constexpr std::uint8_t interrupt_index{0u};
+  static constexpr std::uint8_t interrupt_index{38u};
   static constexpr hardware::PinAssignments pio{hardware::PinAssignments::PinAssign1_6};
 };
 /**
@@ -652,7 +652,7 @@ struct Pin<IoPorts::Port1, IoPins::Pin07> {
   static constexpr std::uint8_t gpioPinIndex{7u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{1u};
-  static constexpr std::uint8_t interrupt_index{0u};
+  static constexpr std::uint8_t interrupt_index{39u};
   static constexpr hardware::PinAssignments pio{hardware::PinAssignments::PinAssign1_7};
 };
 /**
@@ -665,7 +665,7 @@ struct Pin<IoPorts::Port1, IoPins::Pin08> {
   static constexpr std::uint8_t gpioPinIndex{8u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{1u};
-  static constexpr std::uint8_t interrupt_index{0u};
+  static constexpr std::uint8_t interrupt_index{40u};
   static constexpr hardware::PinAssignments pio{hardware::PinAssignments::PinAssign1_8};
 };
 /**
@@ -678,7 +678,7 @@ struct Pin<IoPorts::Port1, IoPins::Pin09> {
   static constexpr std::uint8_t gpioPinIndex{9u};
   static constexpr std::uint32_t gpioPinMask{1u << gpioPinIndex};
   static constexpr std::uint8_t gpioPortIndex{1u};
-  static constexpr std::uint8_t interrupt_index{0u};
+  static constexpr std::uint8_t interrupt_index{41u};
   static constexpr hardware::PinAssignments pio{hardware::PinAssignments::PinAssign1_9};
 };
 /**
