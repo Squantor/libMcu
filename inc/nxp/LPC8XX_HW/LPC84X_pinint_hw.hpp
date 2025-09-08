@@ -13,6 +13,19 @@
 
 namespace libmcuhw::pinint {
 /**
+ * @brief Interrupt pins indices
+ */
+enum class InterruptPins : std::size_t {
+  PintSel0 = (1u << 0), /*!< PINTSEL0 */
+  PintSel1 = (1u << 1), /*!< PINTSEL1 */
+  PintSel2 = (1u << 2), /*!< PINTSEL2 */
+  PintSel3 = (1u << 3), /*!< PINTSEL3 */
+  PintSel4 = (1u << 4), /*!< PINTSEL4 */
+  PintSel5 = (1u << 5), /*!< PINTSEL5 */
+  PintSel6 = (1u << 6), /*!< PINTSEL6 */
+  PintSel7 = (1u << 7), /*!< PINTSEL7 */
+};
+/**
  * @brief PININT register definitions
  */
 struct Pinint {
