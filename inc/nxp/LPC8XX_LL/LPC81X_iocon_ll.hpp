@@ -97,6 +97,17 @@ struct Iocon : libmcull::PeripheralBase {
     GetPeripheral()->PIO[pin.iocon_index] = static_cast<std::uint32_t>(mode);
   }
   /**
+   * @brief Setup normal IOCON pin
+   * @tparam T      normal iocon pin type
+   * @param pin     instance of pin type to setup
+   * @param options additional single bit options to set
+   */
+  template <typename T>
+  constexpr void Setup(T &pin, PullModes mode, std::uint32_t options) {
+    static_assert(pin.type_flags == libmcuhw::PinTypeFlags::Normal, "only normal pins can use this setup function");
+    GetPeripheral()->PIO[pin.iocon_index] = static_cast<std::uint32_t>(mode) | options;
+  }
+  /**
    * @brief Setup I2C IOCON pin
    * @tparam T      i2c iocon pin type
    * @param pin     instance of pin type to setup

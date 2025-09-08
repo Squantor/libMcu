@@ -95,7 +95,6 @@ enum class ACMPpins : std::uint8_t {
 };
 /**
  * @brief base I/O pin template
- *
  * @tparam T_PORT IO port
  * @tparam T_PIN  IO pin
  */

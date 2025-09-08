@@ -336,13 +336,13 @@ struct Syscon : libmcull::PeripheralBase {
     GetPeripheral()->CLKOUTDIV = hardware::CLKOUTDIV::DIV(divisor);
   }
   /**
-   * @brief Set the PIN instance to the interrupt pin channel
-   * @tparam PIN gpio pin instance type
+   * @brief Set the Pin instance to the interrupt pin channel
+   * @tparam Pin gpio pin instance type
    * @param pin gpio pin instance
    * @param channel interrupt pin channel to use
    */
-  template <typename PIN>
-  constexpr void SetInterruptPin(PIN &pin, InterruptPins channel) {
+  template <typename Pin>
+  constexpr void SetInterruptPin(Pin &pin, InterruptPins channel) {
     GetPeripheral()->PINTSEL[static_cast<size_t>(channel)] = static_cast<std::uint32_t>(pin.interrupt_index);
   }
   /**
