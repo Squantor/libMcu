@@ -71,13 +71,7 @@ struct Syscon {
   volatile std::uint32_t EXTTRACECMD;        /*!< External trace buffer command register */
   volatile const std::uint32_t PIOPORCAP[2]; /*!< POR captured PIO N status register(PIO0 has 32 PIOs, PIO1 has 22 PIOs) */
   std::uint8_t RESERVED_9[44];               /*!< Reserved */
-  volatile std::uint32_t IOCONCLKDIV6;       /*!< Peripheral clock 6 to the IOCON block for programmable glitch filter */
-  volatile std::uint32_t IOCONCLKDIV5;       /*!< Peripheral clock 5 to the IOCON block for programmable glitch filter */
-  volatile std::uint32_t IOCONCLKDIV4;       /*!< Peripheral clock 4 to the IOCON block for programmable glitch filter */
-  volatile std::uint32_t IOCONCLKDIV3;       /*!< Peripheral clock 3 to the IOCON block for programmable glitch filter */
-  volatile std::uint32_t IOCONCLKDIV2;       /*!< Peripheral clock 2 to the IOCON block for programmable glitch filter */
-  volatile std::uint32_t IOCONCLKDIV1;       /*!< Peripheral clock 1 to the IOCON block for programmable glitch filter */
-  volatile std::uint32_t IOCONCLKDIV0;       /*!< Peripheral clock 0 to the IOCON block for programmable glitch filter */
+  volatile std::uint32_t IOCONCLKDIV[7];     /*!< Peripheral clock 6 to 0 for the IOCON programmable glitch filter, REVERSED! */
   volatile std::uint32_t BODCTRL;            /*!< BOD control register */
   volatile std::uint32_t SYSTCKCAL;          /*!< System tick timer calibration register */
   std::uint8_t RESERVED_10[24];              /*!< Reserved */
@@ -368,15 +362,8 @@ constexpr inline std::uint32_t RESERVED_MASK{0x0000'0000u}; /*!< register mask f
 namespace PIOPORCAP {
 constexpr inline std::uint32_t RESERVED_MASK{0x0000'0000u}; /*!< register mask for allowed bits */
 }
-namespace IOCONCLKDIV6 {}
-namespace IOCONCLKDIV5 {}
-namespace IOCONCLKDIV4 {}
-namespace IOCONCLKDIV3 {}
-namespace IOCONCLKDIV2 {}
-namespace IOCONCLKDIV1 {}
-namespace IOCONCLKDIV0 {}
 namespace IOCONCLKDIV {
-constexpr inline std::uint32_t RESERVED_MASK{0x0000'0000u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x0000'00FFu}; /*!< register mask for allowed bits */
 }
 namespace BODCTRL {
 constexpr inline std::uint32_t RESERVED_MASK{0x0000'0000u}; /*!< register mask for allowed bits */

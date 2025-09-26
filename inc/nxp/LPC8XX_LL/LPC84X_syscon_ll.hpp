@@ -144,6 +144,19 @@ enum class InterruptPins : std::size_t {
   PintSel7 = hardware::PINTSEL::PINTSEL7, /*!< PINTSEL7 */
 };
 /**
+ * @brief Iocon glitch filter indices
+ */
+enum class IoconGlitchFilters : std::uint32_t {
+  Filter0 = 6, /*!< Iocon glitch filter 0 */
+  Filter1 = 5, /*!< Iocon glitch filter 1 */
+  Filter2 = 4, /*!< Iocon glitch filter 2 */
+  Filter3 = 3, /*!< Iocon glitch filter 3 */
+  Filter4 = 2, /*!< Iocon glitch filter 4 */
+  Filter5 = 1, /*!< Iocon glitch filter 5 */
+  Filter6 = 0, /*!< Iocon glitch filter 6 */
+};
+
+/**
  * @brief Peripheral clock enable/disable options section 0
  */
 namespace peripheral_clocks_0 {
@@ -336,6 +349,14 @@ struct Syscon : libmcull::PeripheralBase {
     GetPeripheral()->CLKOUTDIV = hardware::CLKOUTDIV::DIV(divisor);
   }
   /**
+   * @brief Set the Iocon glitch filter divider
+   * @param filter Iocon filter to configure
+   * @param setting divisor setting from 0 (disabled) to 255
+   */
+  constexpr void SetIoconGlitchFiltDivider(IoconGlitchFilters filter, std::uint32_t setting) {
+    GetPeripheral()->IOCONCLKDIV[static_cast<size_t>(filter)] = setting;
+  }
+  /**
    * @brief Set the Pin instance to the interrupt pin channel
    * @tparam Pin gpio pin instance type
    * @param pin gpio pin instance
@@ -358,6 +379,19 @@ struct Syscon : libmcull::PeripheralBase {
    */
   constexpr void DepowerPeripherals(std::uint32_t setting) {
     GetPeripheral()->PDRUNCFG = GetPeripheral()->PDRUNCFG | setting;
+  }
+  /**
+   * @brief Get the DEVICE ID
+   * @return chip id value
+   * @return 0x00008100 is returned for LPC840M021FN8
+   * @return 0x00008110 is returned for LPC841M001JDH16
+   * @return 0x00008120 is returned for LPC842M101JDH16
+   * @return 0x00008121 is returned for LPC842M101JD20
+   * @return 0x00008122 is returned for LPC842M101JDH20
+   * @return 0x00008122 is returned for LPC842M101JTB16
+   */
+  constexpr std::uint32_t GetChipId(void) {
+    return GetPeripheral()->DEVICE_ID;
   }
   /**
    * @brief Configure microcontroller clocks with mcuConfiguration settings
@@ -430,20 +464,6 @@ struct Syscon : libmcull::PeripheralBase {
         static_assert(false, "Unsupported clock source for UART1!");
     } else
       static_assert(false, "Unknown or unsupported peripheral!");
-  }
-
-  /**
-   * @brief Get the DEVICE ID
-   * @return chip id value
-   * @return 0x00008100 is returned for LPC840M021FN8
-   * @return 0x00008110 is returned for LPC841M001JDH16
-   * @return 0x00008120 is returned for LPC842M101JDH16
-   * @return 0x00008121 is returned for LPC842M101JD20
-   * @return 0x00008122 is returned for LPC842M101JDH20
-   * @return 0x00008122 is returned for LPC842M101JTB16
-   */
-  constexpr std::uint32_t GetChipId(void) {
-    return GetPeripheral()->DEVICE_ID;
   }
   /**
    * @brief get registers from peripheral

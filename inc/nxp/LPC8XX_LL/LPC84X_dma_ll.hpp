@@ -11,8 +11,6 @@
 #ifndef LPC84X_DMA_LL_HPP
 #define LPC84X_DMA_LL_HPP
 
-#include <array>
-
 namespace libmcull::dma {
 
 namespace hardware = libmcuhw::dma;
