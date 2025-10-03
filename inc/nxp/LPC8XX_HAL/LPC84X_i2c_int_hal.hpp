@@ -21,6 +21,7 @@ struct I2cInterrupt : public libmcuhal::AsyncI2cBase {
    * @brief Setup I2C
    * @tparam &clock_config clock configuration to use
    * @param bit_rate Bit rate value
+   * @param timeout I2C timeout
    * @return actual baud rate
    */
   template <const libmcuhw::clock::PeriClockConfig& clock_config>

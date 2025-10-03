@@ -1,0 +1,52 @@
+/*
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2024 Bart Bilos
+ * For conditions of distribution and use, see LICENSE file
+ */
+/**
+ * @file SH1106_conf_gen_128x64.hpp
+ * @brief SH1106 configuration for a generic 128 x 64 display
+ */
+#ifndef SH1106_CONF_GEN_128X64_HPP
+#define SH1106_CONF_GEN_128X64_HPP
+
+namespace libMcuDriver::SH1106 {
+/**
+ * @brief SH1106 configuration for a generic 128 x 64 display
+ */
+struct generic128x64 {
+  static constexpr std::array<const std::uint8_t, 26> initCommands = {
+    cmd_display_sleep,
+    cmd_set_display_clock_divisor,
+    FormatDisplayClockDivisorArg(0x80),
+    cmd_set_multiplex_ratio,
+    FormatMultiplexRatioArg(63),
+    cmd_set_display_offset,
+    FormatDisplayOffsetArg(0),
+    CmdSetDisplayStartLine(0),
+    cmd_set_charge_pump,
+    FormatChargePumpOnArg(true),
+    cmd_set_addressing_mode,                                   // TODO remove, not valid for SH1106
+    formatAddressingModeArg(addressingModes::horizontalMode),  // TODO remove
+    CmdSetSegmentRemap(segmentMapping::column127),
+    CmdComOutputScanDirection(scanDirection::remappedDirection),
+    cmd_set_com_pins_hardware,
+    FormatComPinsHardwareArg(comPinMapping::SequentialNormal),
+    cmd_set_constrast,
+    FormatContrastLevelArg(0x01),
+    cmd_set_precharge_level,
+    FormatPrechargeLevelArg(0xF1),
+    cmd_set_vcom_deselect_level,
+    FormatVcomDeselectArg(4),
+    cmd_set_display_on,
+    cmd_set_display_normal,
+    cmd_set_scrolling_off,
+    cmd_set_display_active};
+
+  static constexpr std::uint8_t xSize{128};
+  static constexpr std::uint8_t ySize{64};
+};
+
+}  // namespace libMcuDriver::SH1106
+#endif
