@@ -19,31 +19,31 @@ namespace libMcuDriver::SH1106 {
  * @brief
  * @todo i2chal template parameter needs check with a concept
  * @todo porting from SSD1306 needs to be completed
- * @tparam &i2cHal
- * @tparam &i2cAddress
+ * @tparam &i2c_hal
+ * @tparam &i2c_address
  * @tparam &config
  */
-template <auto &i2cHal, const libmcuhal::I2cDeviceAddress &i2cAddress, auto &config>
+template <auto &i2c_hal, const libmcuhal::I2cDeviceAddress &i2c_address, auto &config>
 struct SH1106 {
   /**
    * @brief
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results init() {
-    return sendCommand(config.initCommands);
+  constexpr libmcu::Results Init() {
+    return SendCommand(config.initCommands);
   }
   /**
    * @brief Get the Xsize object
    * @return constexpr std::uint32_t
    */
-  constexpr std::uint32_t getXsize() {
+  constexpr std::uint32_t GetXsize() {
     return config.xSize;
   }
   /**
    * @brief Get the Ysize object
    * @return constexpr std::uint32_t
    */
-  constexpr std::uint32_t getYsize() {
+  constexpr std::uint32_t GetYsize() {
     return config.ySize;
   }
   /**
@@ -51,17 +51,17 @@ struct SH1106 {
    * @param commands
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results sendCommand(const std::span<const std::uint8_t> commands) {
-    return send(preamble_command, commands);
+  constexpr libmcu::Results SendCommand(const std::span<const std::uint8_t> commands) {
+    return Send(preamble_command, commands);
   }
   /**
    * @brief
    * @param command
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results sendCommand(std::uint8_t command) {
+  constexpr libmcu::Results SendCommand(std::uint8_t command) {
     std::array<std::uint8_t, 1> commands{command};
-    return sendCommand(commands);
+    return SendCommand(commands);
   }
   /**
    * @brief
@@ -69,17 +69,17 @@ struct SH1106 {
    * @param argument
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results sendCommand(std::uint8_t command, std::uint8_t argument) {
+  constexpr libmcu::Results SendCommand(std::uint8_t command, std::uint8_t argument) {
     std::array<std::uint8_t, 2> commands{command, argument};
-    return sendCommand(commands);
+    return SendCommand(commands);
   }
   /**
    * @brief
    * @param data
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results sendData(const std::span<const std::uint8_t> data) {
-    return send(preamble_data, data);
+  constexpr libmcu::Results SendData(const std::span<const std::uint8_t> data) {
+    return Send(preamble_data, data);
   }
   /**
    * @brief
@@ -87,16 +87,27 @@ struct SH1106 {
    * @param commands
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results send(std::uint8_t action, const std::span<const std::uint8_t> commands) {
+  constexpr libmcu::Results Send(std::uint8_t action, const std::span<const std::uint8_t> commands) {
     libmcu::Results result;
-    // result = i2cHal.startMasterWrite(i2cAddress, action);
+    libmcu::AsyncHandle handle;
+    result = i2c_hal.Claim(handle);
+    if (result != libmcu::Results::Claimed)
+      goto claim_fail;
+
+    result = i2c_hal.StartMasterTransmit(handle, i2c_address, action);
     if (result != libmcu::Results::NoError)
       goto stopI2C;
-    // result = i2cHal.continueMasterWrite(commands);
+    i2c_hal.MasterWait();
+
+    result = i2c_hal.ContinueMasterTransmit(handle, commands);
     if (result != libmcu::Results::NoError)
       goto stopI2C;
+    i2c_hal.MasterWait();
+
   stopI2C:
-    // i2cHal.stopMaster();
+    i2c_hal.StopMaster(handle);
+    i2c_hal.Unclaim(handle);
+  claim_fail:
     return result;
   }
   /**
@@ -104,30 +115,30 @@ struct SH1106 {
    * @param contrast contrast value from 1 to 255
    * @return status of I2C transaction
    */
-  constexpr libmcu::Results contrast(std::uint8_t value) {
-    return sendCommand(cmd_set_constrast, FormatContrastLevelArg(value));
+  constexpr libmcu::Results Contrast(std::uint8_t value) {
+    return SendCommand(cmd_set_constrast, FormatContrastLevelArg(value));
   }
   /**
    * @brief Set the Display Ram object
    * @param state
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results setDisplayRam(bool state) {
+  constexpr libmcu::Results SetDisplayRam(bool state) {
     if (state == true)
-      return sendCommand(cmdDisplayRam);
+      return SendCommand(cmdDisplayRam);
     else
-      return sendCommand(cmd_set_display_on);
+      return SendCommand(cmd_set_display_on);
   }
   /**
    * @brief Invert the display
    * @param state
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results invertDisplay(bool state) {
+  constexpr libmcu::Results InvertDisplay(bool state) {
     if (state == true)
-      return sendCommand(cmd_set_display_inverted);
+      return SendCommand(cmd_set_display_inverted);
     else
-      return sendCommand(cmd_set_display_normal);
+      return SendCommand(cmd_set_display_normal);
   }
   /**
    * @brief Set the Address of the display pointer in page mode
@@ -135,18 +146,18 @@ struct SH1106 {
    * @param page page address
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results setAddressInPageMode(uint8_t column, uint8_t page) {
+  constexpr libmcu::Results SetAddressInPageMode(uint8_t column, uint8_t page) {
     std::array<std::uint8_t, 3> commands{CmdSetPageStart(page), cmdSetLowerColumnAddress(column),
                                          cmdSetHigherColumnAddress(column)};
-    return sendCommand(commands);
+    return SendCommand(commands);
   }
   /**
    * @brief Set the Display Start Line object
    * @param line
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results setDisplayStartLine(uint32_t line) {
-    return sendCommand(CmdSetDisplayStartLine(line));
+  constexpr libmcu::Results SetDisplayStartLine(uint32_t line) {
+    return SendCommand(CmdSetDisplayStartLine(line));
   }
   /**
    * @brief Set the Column Address object
@@ -154,9 +165,9 @@ struct SH1106 {
    * @param end
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results setColumnAddress(uint32_t start, uint32_t end) {
+  constexpr libmcu::Results SetColumnAddress(uint32_t start, uint32_t end) {
     std::array<std::uint8_t, 3> commands{cmdSetColumnAddress, static_cast<std::uint8_t>(start), static_cast<std::uint8_t>(end)};
-    return sendCommand(commands);
+    return SendCommand(commands);
   }
   /**
    * @brief Set the Page Address object
@@ -164,9 +175,9 @@ struct SH1106 {
    * @param end
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results setPageAddress(uint32_t start, uint32_t end) {
+  constexpr libmcu::Results SetPageAddress(uint32_t start, uint32_t end) {
     std::array<std::uint8_t, 3> commands{cmdSetPageAddress, static_cast<std::uint8_t>(start), static_cast<std::uint8_t>(end)};
-    return sendCommand(commands);
+    return SendCommand(commands);
   }
 };
 
