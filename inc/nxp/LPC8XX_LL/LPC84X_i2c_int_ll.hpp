@@ -132,6 +132,7 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
     std::uint32_t slave_address = static_cast<std::uint32_t>(address.value) << 1;
     if (StartMasterTransmit(slave_address) != libmcu::Results::NoError)
       return libmcu::Results::Error;
+    MasterWait();
     for (const std::uint8_t &data : transmit_buffer) {
       if (ContinueMasterTransmit(data) != libmcu::Results::NoError)
         return libmcu::Results::Error;
@@ -149,6 +150,7 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
     std::uint32_t slave_address = static_cast<std::uint32_t>(address.value) << 1;
     if (StartMasterTransmit(slave_address) != libmcu::Results::NoError)
       return libmcu::Results::Error;
+    MasterWait();
     if (ContinueMasterTransmit(data) != libmcu::Results::NoError)
       return libmcu::Results::Error;
     return libmcu::Results::NoError;
@@ -161,8 +163,8 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
    */
   constexpr libmcu::Results StartMasterTransmit(const std::uint32_t address) {
     GetPeripheral()->MSTDAT = static_cast<std::uint32_t>(address);
-    GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTART;
     GetPeripheral()->INTENSET = hardware::INTENSET::MSTPENDINGEN;
+    GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTART;
     return libmcu::Results::NoError;
   }
   /**
