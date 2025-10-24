@@ -11,6 +11,7 @@
 #ifndef SH1106_I2C_HPP
 #define SH1106_I2C_HPP
 
+#include "../libmcu/libmcudriver.hpp"
 #include "SH1106/SH1106.hpp"
 
 namespace libMcuDriver::SH1106 {
@@ -162,7 +163,6 @@ struct SH1106 {
   /**
    * @brief Set the Column Address object
    * @param start
-   * @param end
    * @return constexpr libmcu::Results
    */
   constexpr libmcu::Results SetColumnAddress(uint32_t start, uint32_t end) {
