@@ -14,7 +14,7 @@
 namespace libmcull::adc {
 namespace hardware = libmcuhw::adc;
 template <libmcu::AdcBaseAddress adc_address>
-struct Adc : libmcull::PeripheralBase {
+struct Adc : libmcull::LowLevelBase {
   /**
    * @brief
    * @tparam &config clock configuration

@@ -43,6 +43,9 @@ struct UartInterrupt : libmcull::AsyncUartBase {
     UsartPeripheral()->INTENSET = hardware::INTENSET::RXRDYEN;
     return frequency / 16 / divider;
   }
+
+  void Progress(void) {}
+
   /**
    * @brief return uart status
    * @return current status of the asynchronous interface

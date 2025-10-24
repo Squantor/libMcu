@@ -116,7 +116,7 @@ enum class EventCountingDirections : std::uint32_t {
  * @todo some doxygen needs to be filled in
  */
 template <libmcu::SctBaseAddress sct_address>
-struct Sct : libmcull::PeripheralBase {
+struct Sct : libmcull::LowLevelBase {
   constexpr static void Init(CounterModes mode, bool bidirectional = true, bool autolimit = true) {
     std::uint32_t configRegister = static_cast<std::uint32_t>(mode);
     std::uint32_t ctrlRegister = hardware::CTRL::HALT_L | hardware::CTRL::HALT_H;

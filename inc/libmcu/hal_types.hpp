@@ -27,6 +27,7 @@ struct HalBase {
 /**
  * @brief Asynchronous interface base class
  * Every asynchronous capable class should inherit from this
+ * @todo add claim/unclaim interfaces here?
  */
 struct AsyncInterface : HalBase {
   virtual void Progress(void) = 0;

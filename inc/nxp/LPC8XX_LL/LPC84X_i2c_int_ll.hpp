@@ -77,6 +77,7 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
     }
     return current_state_;
   }
+  void Progress(void) {}
   /**
    * @brief Transmit data to I2C device
    * @param address I2C device to transmit to

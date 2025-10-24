@@ -47,7 +47,7 @@ enum class LevelSettings : std::uint32_t {
  * @tparam pinint_address
  */
 template <libmcu::PinintBaseAddress pinint_address>
-struct Pinint : libmcull::PeripheralBase {
+struct Pinint : libmcull::LowLevelBase {
   /**
    * @brief Enable channel with edge sensitivity
    * @param channel channel to setup
