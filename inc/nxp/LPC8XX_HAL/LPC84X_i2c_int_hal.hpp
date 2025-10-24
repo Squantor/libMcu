@@ -108,24 +108,12 @@ struct I2cInterrupt : public libmcuhal::AsyncI2cBase {
    * @return constexpr libmcu::Results
    */
   constexpr libmcu::Results StartMasterTransmit(libmcu::AsyncHandle handle, const libmcu::I2cDeviceAddress address,
-                                                const std::span<const std::uint8_t> transmit_buffer) {
+                                                const std::span<const std::uint8_t> transmit_buffer,
+                                                AsyncInterface* callback = nullptr) {
     if (handle != async_handle)
       return libmcu::Results::InvalidHandle;
-    return ll_i2c_async.StartMasterTransmit(address, transmit_buffer);
-  }
-  /**
-   * @brief Start a master transmit
-   * Opens the I2C bus state and transmits a single byte
-   * @param handle handle to use
-   * @param address I2C device to transmit to
-   * @param data Data byte to transmit after address
-   * @return constexpr libmcu::Results
-   */
-  constexpr libmcu::Results StartMasterTransmit(libmcu::AsyncHandle handle, const libmcu::I2cDeviceAddress address,
-                                                std::uint8_t data) {
-    if (handle != async_handle)
-      return libmcu::Results::InvalidHandle;
-    return ll_i2c_async.StartMasterTransmit(address, data);
+    return AddTransaction(
+      I2cTransaction{TransactionType::StartWrite, address, transmit_buffer, std::span<std::uint8_t>(), callback});
   }
   /**
    * @brief Start a master transmit
@@ -134,10 +122,12 @@ struct I2cInterrupt : public libmcuhal::AsyncI2cBase {
    * @param address I2C device to transmit to
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results StartMasterTransmit(libmcu::AsyncHandle handle, const libmcu::I2cDeviceAddress address) {
+  constexpr libmcu::Results StartMasterTransmit(libmcu::AsyncHandle handle, const libmcu::I2cDeviceAddress address,
+                                                AsyncInterface* callback = nullptr) {
     if (handle != async_handle)
       return libmcu::Results::InvalidHandle;
-    return ll_i2c_async.StartMasterTransmit(address);
+    return AddTransaction(
+      I2cTransaction{TransactionType::StartWrite, address, std::span<std::uint8_t>(), std::span<std::uint8_t>(), callback});
   }
   /**
    * @brief Continue a master transmit
@@ -146,39 +136,23 @@ struct I2cInterrupt : public libmcuhal::AsyncI2cBase {
    * @param transmit_buffer Data bytes to transmit
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results ContinueMasterTransmit(libmcu::AsyncHandle handle,
-                                                   const std::span<const std::uint8_t> transmit_buffer) {
+  constexpr libmcu::Results ContinueMasterTransmit(libmcu::AsyncHandle handle, const std::span<const std::uint8_t> transmit_buffer,
+                                                   AsyncInterface* callback = nullptr) {
     if (handle != async_handle)
       return libmcu::Results::InvalidHandle;
-    return ll_i2c_async.ContinueMasterTransmit(transmit_buffer);
+    return AddTransaction(I2cTransaction{TransactionType::ContinueWrite, 0, transmit_buffer, std::span<std::uint8_t>(), callback});
   }
-  /**
-   * @brief Continue a master transmit
-   * Continues a master transmit with a single byte
-   * @param handle handle to use
-   * @param data Data byte to transmit
-   * @return constexpr libmcu::Results
-   */
-  constexpr libmcu::Results ContinueMasterTransmit(libmcu::AsyncHandle handle, std::uint8_t data) {
-    if (handle != async_handle)
-      return libmcu::Results::InvalidHandle;
-    return ll_i2c_async.ContinueMasterTransmit(data);
-  }
-  /**
-   * @brief Wait for a master operation to complete
-   */
-  constexpr void MasterWait() {
-    ll_i2c_async.MasterWait();
-  }
+  // @todo read and continue read operations here
   /**
    * @brief Stop a master transmit
+   * @todo add variants where you can pass a buffer to transmit/receive
    * @param handle handle to use
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results StopMaster(libmcu::AsyncHandle handle) {
+  constexpr libmcu::Results StopMaster(libmcu::AsyncHandle handle, AsyncInterface* callback = nullptr) {
     if (handle != async_handle)
       return libmcu::Results::InvalidHandle;
-    return ll_i2c_async.StopMaster();
+    return AddTransaction(I2cTransaction{TransactionType::Stop, 0, std::span<std::uint8_t>(), std::span<std::uint8_t>(), callback});
   }
   /**
    * @brief
@@ -186,12 +160,11 @@ struct I2cInterrupt : public libmcuhal::AsyncI2cBase {
    * @return constexpr libmcu::Results
    */
   constexpr libmcu::Results AddTransaction(I2cTransaction transaction) {
-    if (!transactions.Push(transaction))
+    if (!transactions.PushFront(transaction))
       return libmcu::Results::Full;
     else
       return libmcu::Results::NoError;
   }
-  // @todo read and continue read operations here
   /**
    * @brief Continue operating any in-progress I2C operation
    * This should be periodically called to continue an in-progress I2C operation
@@ -222,6 +195,7 @@ struct I2cInterrupt : public libmcuhal::AsyncI2cBase {
       transactions.PopFront(element);
       switch (element.type) {
         case TransactionType::StartWrite:
+
           break;
         case TransactionType::ContinueWrite:
           break;

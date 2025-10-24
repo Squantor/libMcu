@@ -34,9 +34,6 @@ struct SH1106 : public Display {
     state = libmcu::States::Initializing;
     return SendCommand(config.initCommands, this);
   }
-  constexpr void Progress(void) override {}
-  constexpr void Callback(void) override {}
-
   /**
    * @brief Get the Xsize object
    * @return constexpr std::uint32_t
@@ -101,19 +98,18 @@ struct SH1106 : public Display {
     result = i2c_hal.Claim(handle);
     if (result != libmcu::Results::Claimed)
       goto claim_fail;
+    command_buffer[0] = action;
 
-    result = i2c_hal.StartMasterTransmit(handle, i2c_address, action);
+    result = i2c_hal.StartMasterTransmit(handle, i2c_address, std::span<std::uint8_t>(command_buffer.begin(), 1));
     if (result != libmcu::Results::NoError)
       goto stopI2C;
-    i2c_hal.MasterWait();
 
     result = i2c_hal.ContinueMasterTransmit(handle, commands);
     if (result != libmcu::Results::NoError)
       goto stopI2C;
-    i2c_hal.MasterWait();
 
   stopI2C:
-    i2c_hal.StopMaster(handle);
+    i2c_hal.StopMaster(handle, this);
     i2c_hal.Unclaim(handle);
   claim_fail:
     return result;
@@ -185,6 +181,26 @@ struct SH1106 : public Display {
   constexpr libmcu::Results SetPageAddress(uint32_t start, uint32_t end) {
     std::array<std::uint8_t, 3> commands{cmdSetPageAddress, static_cast<std::uint8_t>(start), static_cast<std::uint8_t>(end)};
     return SendCommand(commands);
+  }
+  /**
+   * @brief
+   */
+  constexpr void Progress(void) override {}
+  /**
+   * @brief Callback method
+   * Called from I2C HAL
+   */
+  constexpr void Callback(void) override {
+    switch (state) {
+      case libmcu::States::Initializing:
+        // we get callback from the I2C HAL driver
+        // todo check error status
+        state = libmcu::States::Idle;
+        break;
+      default:
+        // should not happen
+        break;
+    }
   }
 
  private:
