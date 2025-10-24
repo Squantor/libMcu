@@ -79,5 +79,9 @@ enum class TransactionType : std::uint8_t {
 using AsyncHandle = std::uint32_t;
 using IsrLambda = std::add_pointer<void()>::type; /*!< Base type for an ISR lambda */
 
+/* I2C general definitions */
+using I2cDeviceAddressBase = libmcu::Constant<std::uint8_t>;
+struct I2cDeviceAddress : I2cDeviceAddressBase {}; /*!< General purpose I2C address type */
+
 }  // namespace libmcu
 #endif

@@ -79,7 +79,7 @@ struct I2cInterrupt : public libmcuhal::AsyncI2cBase {
    * @param transmit_buffer Data to transmit
    * @param transaction_type Transaction type
    */
-  constexpr libmcu::Results Transmit(libmcu::AsyncHandle handle, const libmcuhal::I2cDeviceAddress address,
+  constexpr libmcu::Results Transmit(libmcu::AsyncHandle handle, const libmcu::I2cDeviceAddress address,
                                      std::span<std::uint8_t> transmit_buffer,
                                      libmcu::TransactionType transaction_type = libmcu::TransactionType::Single) {
     if (handle != async_handle)
@@ -92,7 +92,7 @@ struct I2cInterrupt : public libmcuhal::AsyncI2cBase {
    * @param address I2C device to receive from
    * @param receive_buffer place to put received data, needs to be at least size 1!
    */
-  constexpr libmcu::Results Receive(libmcu::AsyncHandle handle, const libmcuhal::I2cDeviceAddress address,
+  constexpr libmcu::Results Receive(libmcu::AsyncHandle handle, const libmcu::I2cDeviceAddress address,
                                     std::span<std::uint8_t> receive_buffer,
                                     libmcu::TransactionType transaction_type = libmcu::TransactionType::Single) {
     if (handle != async_handle)
@@ -107,7 +107,7 @@ struct I2cInterrupt : public libmcuhal::AsyncI2cBase {
    * @param transmit_buffer Data bytes to transmit after address
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results StartMasterTransmit(libmcu::AsyncHandle handle, const libmcuhal::I2cDeviceAddress address,
+  constexpr libmcu::Results StartMasterTransmit(libmcu::AsyncHandle handle, const libmcu::I2cDeviceAddress address,
                                                 const std::span<const std::uint8_t> transmit_buffer) {
     if (handle != async_handle)
       return libmcu::Results::InvalidHandle;
@@ -121,11 +121,11 @@ struct I2cInterrupt : public libmcuhal::AsyncI2cBase {
    * @param data Data byte to transmit after address
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results StartMasterTransmit(libmcu::AsyncHandle handle, const libmcuhal::I2cDeviceAddress address,
+  constexpr libmcu::Results StartMasterTransmit(libmcu::AsyncHandle handle, const libmcu::I2cDeviceAddress address,
                                                 std::uint8_t data) {
     if (handle != async_handle)
       return libmcu::Results::InvalidHandle;
-    return ll_i2c_async.StartMasterTransmit(libmcull::I2cDeviceAddress{address.value}, data);
+    return ll_i2c_async.StartMasterTransmit(address, data);
   }
   /**
    * @brief Start a master transmit
@@ -134,7 +134,7 @@ struct I2cInterrupt : public libmcuhal::AsyncI2cBase {
    * @param address I2C device to transmit to
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results StartMasterTransmit(libmcu::AsyncHandle handle, const libmcuhal::I2cDeviceAddress address) {
+  constexpr libmcu::Results StartMasterTransmit(libmcu::AsyncHandle handle, const libmcu::I2cDeviceAddress address) {
     if (handle != async_handle)
       return libmcu::Results::InvalidHandle;
     return ll_i2c_async.StartMasterTransmit(address);
@@ -207,11 +207,40 @@ struct I2cInterrupt : public libmcuhal::AsyncI2cBase {
    * Called from Progress when we are idle, otherwise from the LL driver when a transaction is complete
    */
   constexpr void Callback() {
-    if (!transactions.IsEmpty()) {
-      if (state == libmcu::States::Idle) {
-        state = libmcu::States::Busy;
+    if (state == libmcu::States::Idle) {
+      state = libmcu::States::Busy;
+    } else {
+      // We where busy so we got callback from I2C LL driver, handle transaction callback
+      if (current_transaction.asyncInterface != nullptr) {
+        current_transaction.asyncInterface->Callback();
       }
+    }
+    // Do we have any transactions left?
+    if (!transactions.IsEmpty()) {
       // Process next element
+      I2cTransaction element;
+      transactions.PopFront(element);
+      switch (element.type) {
+        case TransactionType::StartWrite:
+          break;
+        case TransactionType::ContinueWrite:
+          break;
+        case TransactionType::StartRead:
+          break;
+        case TransactionType::ContinueRead:
+          break;
+        case TransactionType::Stop:
+          break;
+        case TransactionType::EmptyEntry:
+          [[fallthrough]];
+        default:
+          // do nothing, but should not happen!
+          break;
+      }
+      current_transaction = element;
+    } else {
+      // No switch to idle
+      state = libmcu::States::Idle;
     }
   }
 
@@ -219,6 +248,7 @@ struct I2cInterrupt : public libmcuhal::AsyncI2cBase {
   libmcu::States state = libmcu::States::Idle;
   libmcu::AsyncHandle async_handle = 0; /*!< Async handle to be passed to the claimant, incremented per claim/unclaim pair */
   libmcu::RingBuffer<I2cTransaction, max_transactions> transactions;
+  I2cTransaction current_transaction;
 };
 
 }  // namespace libmcuhal::i2c

@@ -24,7 +24,7 @@ namespace libMcuDriver::SH1106 {
  * @tparam &i2c_address
  * @tparam &config
  */
-template <auto &i2c_hal, const libmcuhal::I2cDeviceAddress &i2c_address, auto &config>
+template <auto &i2c_hal, const libmcu::I2cDeviceAddress &i2c_address, auto &config>
 struct SH1106 : public Display {
   /**
    * @brief

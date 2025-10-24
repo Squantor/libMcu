@@ -52,12 +52,6 @@ struct SyncUartBase : public HalBase {};                                 /*!< Sy
 struct AsyncSpiBase : public HalBase, public libmcu::AsyncInterface {};  /*!< Asynchronous SPI hal base class */
 struct AsyncI2cBase : public HalBase, public libmcu::AsyncInterface {};  /*!< Asynchronous I2C hal base class */
 
-/* I2C general definitions */
-using I2cDeviceAddressBase = libmcu::Constant<std::uint8_t>;
-using I2cDeviceAddressType = typename I2cDeviceAddressBase::type;
-
-struct I2cDeviceAddress : I2cDeviceAddressBase {}; /*!< General purpose I2C address type */
-
 }  // namespace libmcuhal
 
 #endif

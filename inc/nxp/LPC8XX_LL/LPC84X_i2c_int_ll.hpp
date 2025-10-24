@@ -85,7 +85,7 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
    * @param transmit_buffer Data to transmit
    * @param transaction_type Transaction type
    */
-  constexpr libmcu::Results Transmit(const libmcull::I2cDeviceAddress address, std::span<std::uint8_t> transmit_buffer,
+  constexpr libmcu::Results Transmit(const libmcu::I2cDeviceAddress address, std::span<std::uint8_t> transmit_buffer,
                                      libmcu::TransactionType transaction_type = libmcu::TransactionType::Single) {
     if (current_state_ != libmcu::Results::Claimed) {
       if (current_state_ == libmcu::Results::BusyTransmit) {
@@ -106,7 +106,7 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
    * @param address I2C device to receive from
    * @param receive_buffer place to put received data, needs to be at least size 1!
    */
-  constexpr libmcu::Results Receive(const libmcull::I2cDeviceAddress address, std::span<std::uint8_t> receive_buffer,
+  constexpr libmcu::Results Receive(const libmcu::I2cDeviceAddress address, std::span<std::uint8_t> receive_buffer,
                                     libmcu::TransactionType transaction_type = libmcu::TransactionType::Single) {
     if (current_state_ != libmcu::Results::Claimed) {
       if (current_state_ == libmcu::Results::BusyReceive) {
@@ -129,7 +129,7 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
    * @param transmit_buffer Buffer of data to transmit
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results StartMasterTransmit(const libmcull::I2cDeviceAddress address,
+  constexpr libmcu::Results StartMasterTransmit(const libmcu::I2cDeviceAddress address,
                                                 const std::span<const std::uint8_t> transmit_buffer) {
     std::uint32_t slave_address = static_cast<std::uint32_t>(address.value) << 1;
     if (StartMasterTransmit(slave_address) != libmcu::Results::NoError)
@@ -148,7 +148,7 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
    * @param data Byte to transmit
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results StartMasterTransmit(const libmcull::I2cDeviceAddress address, const std::uint8_t data) {
+  constexpr libmcu::Results StartMasterTransmit(const libmcu::I2cDeviceAddress address, const std::uint8_t data) {
     std::uint32_t slave_address = static_cast<std::uint32_t>(address.value) << 1;
     if (StartMasterTransmit(slave_address) != libmcu::Results::NoError)
       return libmcu::Results::Error;
