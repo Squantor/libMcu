@@ -90,9 +90,9 @@ struct UartInterrupt : libmcull::AsyncUartBase {
       return static_cast<libmcu::Results>(state);
     }
     // Busy until tx queue has space
-    while (tx_buffer.full()) {
+    while (tx_buffer.IsFull()) {
     }
-    tx_buffer.pushFront(element);
+    tx_buffer.PushFront(element);
     UsartPeripheral()->INTENSET = hardware::INTENSET::TXRDYEN;
     return libmcu::Results::NoError;
   }
@@ -107,14 +107,14 @@ struct UartInterrupt : libmcull::AsyncUartBase {
     }
     // Fill transmit queue before enabling TXRDY interrupt
     std::size_t count = 0;
-    while (!tx_buffer.full() && count < buffer.size()) {
-      tx_buffer.pushFront(buffer[count]);
+    while (!tx_buffer.IsFull() && count < buffer.size()) {
+      tx_buffer.PushFront(buffer[count]);
       count++;
     }
     UsartPeripheral()->INTENSET = hardware::INTENSET::TXRDYEN;
     // Continue filling queue until buffer is empty
-    while (!tx_buffer.full() && count < buffer.size()) {
-      tx_buffer.pushFront(buffer[count]);
+    while (!tx_buffer.IsFull() && count < buffer.size()) {
+      tx_buffer.PushFront(buffer[count]);
       count++;
     }
     return libmcu::Results::NoError;
@@ -124,7 +124,7 @@ struct UartInterrupt : libmcull::AsyncUartBase {
    * @return How many elements have been received
    */
   constexpr std::size_t GetReceiveLevel() {
-    return rx_buffer.level();
+    return rx_buffer.GetLevel();
   }
   /**
    * @brief Receive characters from the UART
@@ -139,8 +139,8 @@ struct UartInterrupt : libmcull::AsyncUartBase {
     // Fill receive queue
     std::size_t count = 0;
     while (count < buffer.size()) {
-      if (!rx_buffer.empty()) {
-        rx_buffer.popBack(buffer[count]);
+      if (!rx_buffer.IsEmpty()) {
+        rx_buffer.PopBack(buffer[count]);
         count++;
       }
     }
@@ -156,9 +156,9 @@ struct UartInterrupt : libmcull::AsyncUartBase {
     if (state != libmcu::States::Claimed) {
       return static_cast<libmcu::Results>(state);
     }
-    while (rx_buffer.empty()) {
+    while (rx_buffer.IsEmpty()) {
     }
-    rx_buffer.popBack(element);
+    rx_buffer.PopBack(element);
     return libmcu::Results::NoError;
   }
   /**
@@ -169,20 +169,20 @@ struct UartInterrupt : libmcull::AsyncUartBase {
     std::uint32_t status = UsartPeripheral()->STAT;
     if (status & hardware::STAT::TXRDY) {
       // check if buffer is empty
-      if (tx_buffer.empty()) {
+      if (tx_buffer.IsEmpty()) {
         UsartPeripheral()->INTENCLR = hardware::INTENCLR::TXRDYCLR;
       } else {
-        tx_buffer.popBack(element);
+        tx_buffer.PopBack(element);
         UsartPeripheral()->TXDAT = static_cast<std::uint32_t>(element);
       }
     }
     if (status & hardware::STAT::RXRDY) {
-      if (rx_buffer.full()) {
+      if (rx_buffer.IsFull()) {
         element = UsartPeripheral()->RXDAT;  // dummy read
         // TODO report overflow
       } else {
         element = UsartPeripheral()->RXDAT;
-        rx_buffer.pushFront(element);
+        rx_buffer.PushFront(element);
       }
     }
     // TODO various errors

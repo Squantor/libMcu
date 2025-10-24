@@ -197,7 +197,7 @@ struct I2cInterrupt : public libmcuhal::AsyncI2cBase {
    * This should be periodically called to continue an in-progress I2C operation
    */
   constexpr void Progress() {
-    if (state != libmcu::States::Idle && !transactions.empty()) {
+    if (state != libmcu::States::Idle && !transactions.IsEmpty()) {
       // we are idle but have elements in the queue
       Callback();  // just call callback as we need to do something
     }
@@ -207,7 +207,7 @@ struct I2cInterrupt : public libmcuhal::AsyncI2cBase {
    * Called from Progress when we are idle, otherwise from the LL driver when a transaction is complete
    */
   constexpr void Callback() {
-    if (!transactions.empty()) {
+    if (!transactions.IsEmpty()) {
       if (state == libmcu::States::Idle) {
         state = libmcu::States::Busy;
       }
