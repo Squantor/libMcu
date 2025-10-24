@@ -25,29 +25,15 @@ struct LowLevelBase {
   LowLevelBase& operator=(LowLevelBase&&) = delete;
 };
 
-/**
- * @brief Asynchronous interface base class
- * Every asynchronous capable class should inherit from this
- */
-struct AsyncInterface : LowLevelBase {
-  /**
-   * @brief Progress function for asynchronous interfaces
-   * Usually callbacks are called from this context to upper levels
-   * @todo add claim/unclaim interfaces here?
-   */
-  virtual void Progress(void) = 0;
-  /* There is no Callback function for LL drivers are at the top level */
-};
-
 /* Peripheral bases used by most microcontrollers */
-struct SyncUartBase : LowLevelBase {};    /*!< Synchronous UART base class */
-struct AsyncUartBase : AsyncInterface {}; /*!< Asynchronous UART base class */
-struct SyncSpiBase : LowLevelBase {};     /*!< Synchronous SPI base class */
-struct AsyncSpiBase : AsyncInterface {};  /*!< Asynchronous SPI base class */
-struct SyncI2cBase : LowLevelBase {};     /*!< Synchronous I2C base class */
-struct AsyncI2cBase : AsyncInterface {};  /*!< Asynchronous I2C base class */
-struct AdcBase : LowLevelBase {};         /*!< ADC base class */
-struct GpioBase : LowLevelBase {};        /*!< GPIO base class */
+struct SyncUartBase : public LowLevelBase {};                                 /*!< Synchronous UART base class */
+struct AsyncUartBase : public LowLevelBase, public libmcu::AsyncInterface {}; /*!< Asynchronous UART base class */
+struct SyncSpiBase : public LowLevelBase {};                                  /*!< Synchronous SPI base class */
+struct AsyncSpiBase : public LowLevelBase, public libmcu::AsyncInterface {};  /*!< Asynchronous SPI base class */
+struct SyncI2cBase : public LowLevelBase {};                                  /*!< Synchronous I2C base class */
+struct AsyncI2cBase : public LowLevelBase, public libmcu::AsyncInterface {};  /*!< Asynchronous I2C base class */
+struct AdcBase : public LowLevelBase {};                                      /*!< ADC base class */
+struct GpioBase : public LowLevelBase {};                                     /*!< GPIO base class */
 
 /* I2C general definitions */
 using I2cDeviceAddressBase = libmcu::Constant<std::uint8_t>;

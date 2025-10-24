@@ -11,6 +11,22 @@
 #ifndef DRIVERTYPES_HPP
 #define DRIVERTYPES_HPP
 
-namespace libMcuDriver {}
+namespace libMcuDriver {
+/**
+ * @brief Driver base class that all Driver classes should inherit from
+ * You will never copy/move a Driver, they are "eternal" with respect to program lifetime
+ */
+struct DriverBase {
+  DriverBase() = default;
+  ~DriverBase() = default;
+  DriverBase(const DriverBase&) = delete;
+  DriverBase& operator=(const DriverBase&) = delete;
+  DriverBase(DriverBase&&) = delete;
+  DriverBase& operator=(DriverBase&&) = delete;
+};
+
+struct Display : public DriverBase, public libmcu::AsyncInterface {}; /*!< Display driver base class, they are all asynchronous */
+
+}  // namespace libMcuDriver
 
 #endif

@@ -19,10 +19,11 @@ namespace libmcu {
  * This enum depends on results making the translation from state to result easier
  */
 enum class States : std::uint8_t {
-  Idle = static_cast<std::uint8_t>(Results::Idle),       /*!< Interface is idle */
-  Busy = static_cast<std::uint8_t>(Results::Busy),       /*!< Operation Busy */
-  Done = static_cast<std::uint8_t>(Results::Done),       /*!< Operation completed*/
-  Claimed = static_cast<std::uint8_t>(Results::Claimed), /*!< Interface is claimed */
+  Initializing = static_cast<std::uint8_t>(Results::Initializing), /*!< Interface is initializing */
+  Idle = static_cast<std::uint8_t>(Results::Idle),                 /*!< Interface is idle */
+  Busy = static_cast<std::uint8_t>(Results::Busy),                 /*!< Operation Busy */
+  Done = static_cast<std::uint8_t>(Results::Done),                 /*!< Operation completed*/
+  Claimed = static_cast<std::uint8_t>(Results::Claimed),           /*!< Interface is claimed */
 };
 }  // namespace libmcu
 

@@ -46,6 +46,8 @@ struct UartInterrupt : libmcull::AsyncUartBase {
 
   void Progress(void) {}
 
+  void Callback(void) {}
+
   /**
    * @brief return uart status
    * @return current status of the asynchronous interface

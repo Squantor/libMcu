@@ -25,14 +25,18 @@ namespace libMcuDriver::SH1106 {
  * @tparam &config
  */
 template <auto &i2c_hal, const libmcuhal::I2cDeviceAddress &i2c_address, auto &config>
-struct SH1106 {
+struct SH1106 : public Display {
   /**
    * @brief
    * @return constexpr libmcu::Results
    */
   constexpr libmcu::Results Init() {
-    return SendCommand(config.initCommands);
+    state = libmcu::States::Initializing;
+    return SendCommand(config.initCommands, this);
   }
+  constexpr void Progress(void) override {}
+  constexpr void Callback(void) override {}
+
   /**
    * @brief Get the Xsize object
    * @return constexpr std::uint32_t
@@ -52,8 +56,8 @@ struct SH1106 {
    * @param commands
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results SendCommand(const std::span<const std::uint8_t> commands) {
-    return Send(preamble_command, commands);
+  constexpr libmcu::Results SendCommand(const std::span<const std::uint8_t> commands, AsyncInterface *callback = nullptr) {
+    return Send(preamble_command, commands, callback);
   }
   /**
    * @brief
@@ -86,11 +90,14 @@ struct SH1106 {
    * @brief
    * @param action
    * @param commands
+   * @param callback Callback to execute when Send is done
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results Send(std::uint8_t action, const std::span<const std::uint8_t> commands) {
+  constexpr libmcu::Results Send(std::uint8_t action, const std::span<const std::uint8_t> commands,
+                                 AsyncInterface *callback = nullptr) {
     libmcu::Results result;
     libmcu::AsyncHandle handle;
+    (void)callback;
     result = i2c_hal.Claim(handle);
     if (result != libmcu::Results::Claimed)
       goto claim_fail;
@@ -179,6 +186,9 @@ struct SH1106 {
     std::array<std::uint8_t, 3> commands{cmdSetPageAddress, static_cast<std::uint8_t>(start), static_cast<std::uint8_t>(end)};
     return SendCommand(commands);
   }
+
+ private:
+  libmcu::States state = libmcu::States::Initializing;
 };
 
 }  // namespace libMcuDriver::SH1106

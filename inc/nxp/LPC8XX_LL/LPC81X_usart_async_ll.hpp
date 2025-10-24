@@ -22,6 +22,7 @@ namespace hardware = libmcuhw::usart;
  * @brief Asynchronous USART peripheral instance
  * @tparam usart_address Peripheral base address
  * @tparam TransferType datatype to use for data transfers
+ * @todo refactor so you do not use libmcu::AsynchronousStates but libmcu::States instead
  */
 template <libmcu::UartBaseAddress usart_address, typename TransferType>
 struct UsartAsync : libmcull::AsyncUartBase {

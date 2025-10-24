@@ -21,6 +21,7 @@ enum class Results : std::uint8_t {
   NoError,        /*!< No error */
   Error,          /*!< Error has occured */
   Started,        /*!< Operation started */
+  Initializing,   /*!< Interface is initializing */
   Idle,           /*!< Interface is idle */
   Busy,           /*!< Operation Busy */
   BusyTransmit,   /*!< Interface is busy with a Transmit operation */

@@ -24,21 +24,12 @@ struct HalBase {
   HalBase(HalBase&&) = delete;
   HalBase& operator=(HalBase&&) = delete;
 };
-/**
- * @brief Asynchronous interface base class
- * Every asynchronous capable class should inherit from this
- * @todo add claim/unclaim interfaces here?
- */
-struct AsyncInterface : HalBase {
-  virtual void Progress(void) = 0;
-  virtual void Callback(void) = 0;
-};
 
-struct GpioBase : HalBase {};             /*!< GPIO hal base class */
-struct AsyncUartBase : AsyncInterface {}; /*!< Asynchronous UART hal base class */
-struct SyncUartBase : HalBase {};         /*!< Synchronous UART hal base class */
-struct AsyncSpiBase : AsyncInterface {};  /*!< Asynchronous SPI hal base class */
-struct AsyncI2cBase : AsyncInterface {};  /*!< Asynchronous I2C hal base class */
+struct GpioBase : public HalBase {};                                     /*!< GPIO hal base class */
+struct AsyncUartBase : public HalBase, public libmcu::AsyncInterface {}; /*!< Asynchronous UART hal base class */
+struct SyncUartBase : public HalBase {};                                 /*!< Synchronous UART hal base class */
+struct AsyncSpiBase : public HalBase, public libmcu::AsyncInterface {};  /*!< Asynchronous SPI hal base class */
+struct AsyncI2cBase : public HalBase, public libmcu::AsyncInterface {};  /*!< Asynchronous I2C hal base class */
 
 /* I2C general definitions */
 using I2cDeviceAddressBase = libmcu::Constant<std::uint8_t>;
