@@ -13,6 +13,17 @@
 
 namespace libmcuhal {
 /**
+ * @brief Various types of transactions
+ */
+enum class TransactionType : std::uint8_t {
+  EmptyEntry,    /*!< Empty entry */
+  StartWrite,    /*!< Start of transaction, needs an address */
+  ContinueWrite, /*!< Continue transaction, needs data */
+  StartRead,     /*!< Start of transaction, needs an address */
+  ContinueRead,  /*!< Continue transaction, needs data */
+  Stop           /*!< Stop transaction */
+};
+/**
  * @brief Hal base class that all Hal classes should inherit from
  * You will never copy/move a hal object, they are "eternal" with respect to program lifetime
  */
@@ -23,6 +34,16 @@ struct HalBase {
   HalBase& operator=(const HalBase&) = delete;
   HalBase(HalBase&&) = delete;
   HalBase& operator=(HalBase&&) = delete;
+};
+/**
+ * @brief I2C transaction structure
+ *
+ */
+struct I2cTransaction {
+  TransactionType type;                   /*!< Type of transaction */
+  std::uint8_t address;                   /*!< I2C address, needed for Start */
+  std::span<std::uint8_t> data;           /*!< Data to send, needed for Continue */
+  libmcu::AsyncInterface* asyncInterface; /*!< Pointer to class with async callback */
 };
 
 struct GpioBase : public HalBase {};                                     /*!< GPIO hal base class */

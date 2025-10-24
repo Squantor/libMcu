@@ -189,6 +189,7 @@ struct SH1106 : public Display {
 
  private:
   libmcu::States state = libmcu::States::Initializing;
+  std::array<std::uint8_t, 4> command_buffer;
 };
 
 }  // namespace libMcuDriver::SH1106

@@ -38,7 +38,9 @@ struct GpioBase : public LowLevelBase {};                                     /*
 /* I2C general definitions */
 using I2cDeviceAddressBase = libmcu::Constant<std::uint8_t>;
 using I2cDeviceAddressType = typename I2cDeviceAddressBase::type;
-
+/**
+ * @todo put this in libmcu namespace
+ */
 struct I2cDeviceAddress : I2cDeviceAddressBase {}; /*!< General purpose I2C address type */
 
 }  // namespace libmcull
