@@ -26,7 +26,7 @@ enum class I2cModes : std::uint32_t {
  * @tparam i2c_address
  */
 template <libmcu::I2cBaseAddress const& i2c_address>
-struct I2cPolled : libmcull::PeripheralBase {
+struct I2cPolled : libmcull::LowLevelBase {
   /**
    * @brief Base initialization function
    */

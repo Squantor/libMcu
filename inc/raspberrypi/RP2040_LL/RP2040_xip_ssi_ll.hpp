@@ -18,7 +18,7 @@ namespace hardware = libmcuhw::xipSsi;
  * @tparam xipssi_address
  */
 template <libmcu::XipSsiBaseAddress const& xipssi_address>
-struct XipSsi : libmcull::PeripheralBase {
+struct XipSsi : libmcull::LowLevelBase {
   /**
    * @brief Base initialization function
    */

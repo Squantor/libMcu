@@ -18,7 +18,7 @@ namespace hardware = libmcuhw::dma;
  * @tparam dma_address
  */
 template <libmcu::DmaBaseAddress const& dma_address>
-struct Dma : libmcull::PeripheralBase {
+struct Dma : libmcull::LowLevelBase {
   /**
    * @brief Base initialization function
    *

@@ -18,7 +18,7 @@ namespace hardware = libmcuhw::gpio_bank0;
  * @tparam gpio_bank0_address
  */
 template <libmcu::IoBank0BaseAddress const& gpio_bank0_address>
-struct GpioBank0 : libmcull::PeripheralBase {
+struct GpioBank0 : libmcull::LowLevelBase {
   /**
    * @brief Base initialization function
    */

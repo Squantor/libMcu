@@ -18,7 +18,7 @@ namespace hardware = libmcuhw::swm;
  * @tparam swm_address
  */
 template <libmcu::SwmBaseAddress swm_address>
-struct Swm : libmcull::PeripheralBase {
+struct Swm : libmcull::LowLevelBase {
   /**
    * @brief set pin to a function
    * @tparam Pin      pin to assign function

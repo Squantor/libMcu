@@ -123,7 +123,7 @@ enum class RtcSources : std::uint32_t {
  * @tparam clocks_address
  */
 template <libmcu::ClocksBaseAddress const& clocks_address>
-struct Clocks : libmcull::PeripheralBase {
+struct Clocks : libmcull::LowLevelBase {
   /**
    * @brief Base initialization function
    */

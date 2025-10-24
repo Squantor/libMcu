@@ -18,7 +18,7 @@ namespace hardware = libmcuhw::tbman;
  * @tparam tbman_address
  */
 template <libmcu::TbmanBaseAddress const& tbman_address>
-struct Tbman : libmcull::PeripheralBase {
+struct Tbman : libmcull::LowLevelBase {
   /**
    * @brief Base initialization function
    */

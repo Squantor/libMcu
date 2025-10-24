@@ -18,7 +18,7 @@ namespace hardware = libmcuhw::sysinfo;
  * @tparam sysinfo_address
  */
 template <libmcu::SysinfoBaseAddress const& sysinfo_address>
-struct Sysinfo : libmcull::PeripheralBase {
+struct Sysinfo : libmcull::LowLevelBase {
   /**
    * @brief Base initialization function
    */

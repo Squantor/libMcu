@@ -18,7 +18,7 @@ namespace hardware = libmcuhw::i2c;
  * @tparam i2c_address peripheral address
  */
 template <libmcu::I2cBaseAddress i2c_address>
-struct I2cPolled : libmcull::PeripheralBase {
+struct I2cPolled : libmcull::LowLevelBase {
   /**
    * @brief Initialize I2C master
    * @param bit_rate requested bit rate

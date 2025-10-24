@@ -25,7 +25,7 @@ namespace hardware = ::libmcuhw::spi;
  * @todo basically remove or transform into SpiInterrupt for a proper async SPI interface
  */
 template <libmcu::SpiBaseAddress spi_address, typename ChipEnable, typename TransferType>
-struct SpiAsync : libmcull::PeripheralBase {
+struct SpiAsync : libmcull::LowLevelBase {
   /**
    * @brief Construct a new spi Async object
    * Initializes the internal state to defaults

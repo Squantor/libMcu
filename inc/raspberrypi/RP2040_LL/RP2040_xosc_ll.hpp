@@ -18,7 +18,7 @@ namespace hardware = libmcuhw::xosc;
  * @tparam xosc_address
  */
 template <libmcu::XoscBaseAddress const& xosc_address>
-struct Xosc : libmcull::PeripheralBase {
+struct Xosc : libmcull::LowLevelBase {
   /**
    * @brief Base initialization function
    *

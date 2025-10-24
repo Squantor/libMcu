@@ -18,7 +18,7 @@ namespace hardware = libmcuhw::gpio_qspi;
  * @tparam gpio_qspi_address
  */
 template <libmcu::IoQspiBaseAddress const& gpio_qspi_address>
-struct GpioQspi : libmcull::PeripheralBase {
+struct GpioQspi : libmcull::LowLevelBase {
   /**
    * @brief Base initialization function
    *

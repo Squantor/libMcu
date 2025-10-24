@@ -48,7 +48,7 @@ enum PeripheralResets : std::uint32_t {
  * @tparam resets_address  base resets peripheral address
  */
 template <libmcu::ResetsBaseAddress const& resets_address>
-struct Resets : libmcull::PeripheralBase {
+struct Resets : libmcull::LowLevelBase {
   /**
    * @brief Resets peripherals and waits until they have been reset
    * @param peripheralBits bit set of peripherals to reset, see RESETS_RESET_Enum for peripherals

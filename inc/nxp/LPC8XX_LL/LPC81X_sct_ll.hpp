@@ -89,7 +89,7 @@ enum class CaptureConditions : std::uint32_t {
  * @tparam sct_address address of the SCT peripheral
  */
 template <libmcu::SctBaseAddress sct_address>
-struct Sct : libmcull::PeripheralBase {
+struct Sct : libmcull::LowLevelBase {
   /**
    * @brief Setup SCT to unified 32 bit timer
    * Clock should be enabled before calling this method.
