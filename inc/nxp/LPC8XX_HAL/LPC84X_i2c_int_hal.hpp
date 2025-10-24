@@ -58,6 +58,8 @@ struct I2cInterrupt : public libmcuhal::AsyncI2cBase {
     async_handle_ += 1;
     return result;
   }
+
+  constexpr void Callback() {}
   /**
    * @brief Get the I2C interrupt peripheral current status
    * @return current status

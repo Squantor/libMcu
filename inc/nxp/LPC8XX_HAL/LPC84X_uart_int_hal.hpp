@@ -55,6 +55,10 @@ struct UartInterrupt : public libmcuhal::AsyncUartBase {
   libmcu::Results Unclaim() {
     return ll_uart_async.Unclaim();
   }
+
+  constexpr void Progress() {}
+
+  constexpr void Callback() {}
   /**
    * @brief Transmit single element
    * @todo timeout handling
