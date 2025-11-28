@@ -19,15 +19,22 @@ namespace libmcu {
  * This enum depends on results making the translation from state to result easier
  */
 enum class States : std::uint8_t {
-  Initializing = static_cast<std::uint8_t>(Results::Initializing), /*!< Interface is initializing */
-  Idle = static_cast<std::uint8_t>(Results::Idle),                 /*!< Interface is idle */
-  Busy = static_cast<std::uint8_t>(Results::Busy),                 /*!< Busy with an operation */
-  BusyReceive = static_cast<std::uint8_t>(Results::BusyReceive),   /*!< Busy with a Reception operation */
-  BusyTransmit = static_cast<std::uint8_t>(Results::BusyTransmit), /*!< Busy with a Transmit operation */
-  BusyCallback = static_cast<std::uint8_t>(Results::BusyCallback), /*!< Busy with a Callback operation */
-  Done = static_cast<std::uint8_t>(Results::Done),                 /*!< Operation completed*/
-  Claimed = static_cast<std::uint8_t>(Results::Claimed),           /*!< Interface is claimed */
-  WaitForNext = static_cast<std::uint8_t>(Results::WaitForNext),   /*!< Interface is waiting for the next operation to start */
+  Initializing = static_cast<std::uint8_t>(Results::Initializing),               /*!< Interface is initializing */
+  Idle = static_cast<std::uint8_t>(Results::Idle),                               /*!< Interface is idle */
+  Busy = static_cast<std::uint8_t>(Results::Busy),                               /*!< Busy with an operation */
+  BusyReceiveSingle = static_cast<std::uint8_t>(Results::BusyReceiveSingle),     /*!< Busy with a single reception operation */
+  BusyTransmitSingle = static_cast<std::uint8_t>(Results::BusyTransmitSingle),   /*!< Busy with a single transmit operation */
+  BusyCallbackSingle = static_cast<std::uint8_t>(Results::BusyCallbackSingle),   /*!< Busy with a single callback operation */
+  BusyReceiveMulti = static_cast<std::uint8_t>(Results::BusyReceiveMulti),       /*!< Busy with a multiple reception operation */
+  BusyTransmitMulti = static_cast<std::uint8_t>(Results::BusyTransmitMulti),     /*!< Busy with a multiple transmit operation */
+  BusyCallbackMulti = static_cast<std::uint8_t>(Results::BusyCallbackMulti),     /*!< Busy with a multiple callback operation */
+  BusyCallbackMultiTx = static_cast<std::uint8_t>(Results::BusyCallbackMultiTx), /*!< Busy with a multiple callback operation */
+  BusyCallbackMultiRx = static_cast<std::uint8_t>(Results::BusyCallbackMultiRx), /*!< Busy with a multiple callback operation */
+  Done = static_cast<std::uint8_t>(Results::Done),                               /*!< Operation completed*/
+  Claimed = static_cast<std::uint8_t>(Results::Claimed),                         /*!< Interface is claimed */
+  WaitForNext = static_cast<std::uint8_t>(Results::WaitForNext),                 /*!< Waiting for the next operation */
+  WaitForNextTransmit = static_cast<std::uint8_t>(Results::WaitForNextTransmit), /*!< Waiting for the next transmit operation */
+  WaitForNextReceive = static_cast<std::uint8_t>(Results::WaitForNextReceive),   /*!< Waiting for the next receive operation */
 };
 }  // namespace libmcu
 
