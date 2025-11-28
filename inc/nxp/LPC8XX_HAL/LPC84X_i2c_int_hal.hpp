@@ -41,11 +41,10 @@ struct I2cInterrupt : public libmcuhal::AsyncI2cBase {
    * @returns for the rest see @ref libmcull::I2cInterrupt
    */
   libmcu::Results Claim(libmcu::AsyncHandle& handle) {
-    libmcu::Results result = ll_i2c_async.Claim();
-    if (result != libmcu::Results::Claimed)
-      return result;
+    if (state != libmcu::States::Idle)
+      return static_cast<libmcu::Results>(state);
     handle = async_handle;
-    return result;
+    return libmcu::Results::Claimed;
   }
   /**
    * @brief Release the asynchronous interface
@@ -57,11 +56,10 @@ struct I2cInterrupt : public libmcuhal::AsyncI2cBase {
   libmcu::Results Unclaim(libmcu::AsyncHandle handle) {
     if (handle != async_handle)
       return libmcu::Results::InUse;
-    libmcu::Results result = ll_i2c_async.Unclaim();
-    if (result != libmcu::Results::Unclaimed)
-      return result;
+    if (state != libmcu::States::Claimed)
+      return static_cast<libmcu::Results>(state);
     async_handle += 1;
-    return result;
+    return libmcu::Results::Unclaimed;
   }
   /**
    * @brief Get the I2C interrupt peripheral current status
@@ -174,6 +172,7 @@ struct I2cInterrupt : public libmcuhal::AsyncI2cBase {
       // we are idle but have elements in the queue
       Callback();  // just call callback as we need to do something
     }
+    ll_i2c_async.Progress();
   }
   /**
    * @brief Callback method
@@ -195,7 +194,7 @@ struct I2cInterrupt : public libmcuhal::AsyncI2cBase {
       transactions.PopBack(element);
       switch (element.type) {
         case TransactionType::StartWrite:
-
+          ll_i2c_async.StartMasterTransmit(element.address, element.transmit_data, this);
           break;
         case TransactionType::ContinueWrite:
           break;
@@ -204,6 +203,7 @@ struct I2cInterrupt : public libmcuhal::AsyncI2cBase {
         case TransactionType::ContinueRead:
           break;
         case TransactionType::Stop:
+          ll_i2c_async.StopMaster(this);
           break;
         case TransactionType::EmptyEntry:
           [[fallthrough]];

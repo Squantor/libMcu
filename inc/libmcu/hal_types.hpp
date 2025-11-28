@@ -41,7 +41,7 @@ struct HalBase {
  */
 struct I2cTransaction {
   TransactionType type;                        /*!< Type of transaction */
-  std::uint8_t address;                        /*!< I2C address, needed for Start */
+  libmcu::I2cDeviceAddress address;            /*!< I2C address, needed for Start */
   std::span<const std::uint8_t> transmit_data; /*!< Data to send, needed for Continue */
   std::span<std::uint8_t> receive_data;        /*!< Data to receive, needed for Continue */
   libmcu::AsyncInterface* asyncInterface;      /*!< Pointer to class with async callback */

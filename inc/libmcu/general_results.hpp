@@ -26,6 +26,7 @@ enum class Results : std::uint8_t {
   Busy,           /*!< Operation Busy */
   BusyTransmit,   /*!< Interface is busy with a Transmit operation */
   BusyReceive,    /*!< Interface is busy with a Reception operation */
+  BusyCallback,   /*!< Interface is busy with a Callback operation */
   WaitForNext,    /*!< Interface is waiting for the next operation to start */
   Done,           /*!< Operation completed*/
   InUse,          /*!< Currently in use */
