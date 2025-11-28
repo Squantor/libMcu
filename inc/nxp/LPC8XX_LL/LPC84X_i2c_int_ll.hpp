@@ -62,7 +62,9 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
    */
   void Progress(void) {
     if (current_state == libmcu::States::BusyCallback) {
-      transaction_callback->Callback();
+      if (transaction_callback != nullptr) {
+        transaction_callback->Callback();
+      }
       current_state = libmcu::States::Idle;
     }
   }
@@ -78,12 +80,13 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
    * @param transaction_type Transaction type
    */
   constexpr libmcu::Results Transmit(const libmcu::I2cDeviceAddress address, std::span<std::uint8_t> buffer,
-                                     libmcu::TransactionType transaction_type = libmcu::TransactionType::Single) {
+                                     libmcu::AsyncInterface *callback = nullptr) {
     if (current_state != libmcu::States::Idle) {
       return static_cast<libmcu::Results>(current_state);
     }
-    current_state = libmcu::Results::BusyTransmit;
-    transaction_type = transaction_type;
+    current_state = libmcu::States::BusyTransmit;
+    transaction_type = libmcu::TransactionType::Single;
+    transaction_callback = callback;
     buffer_index = 0;
     transmit_buffer = buffer;
     return StartMasterTransmit(address);
@@ -94,15 +97,13 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
    * @param receive_buffer place to put received data, needs to be at least size 1!
    */
   constexpr libmcu::Results Receive(const libmcu::I2cDeviceAddress address, std::span<std::uint8_t> buffer,
-                                    libmcu::TransactionType transaction_type = libmcu::TransactionType::Single) {
-    if (current_state != libmcu::States::Claimed) {
-      if (current_state == libmcu::States::BusyReceive) {
-        return libmcu::Results::Busy;
-      }
+                                    libmcu::AsyncInterface *callback = nullptr) {
+    if (current_state != libmcu::States::Idle) {
       return static_cast<libmcu::Results>(current_state);
     }
-    current_state = libmcu::Results::BusyReceive;
-    transaction_type = transaction_type;
+    current_state = libmcu::States::BusyReceive;
+    transaction_type = libmcu::TransactionType::Single;
+    transaction_callback = callback;
     buffer_index = 0;
     receive_buffer = buffer;
     return StartMasterReceive(address);
@@ -121,10 +122,10 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
       return static_cast<libmcu::Results>(current_state);
     }
     current_state = libmcu::States::BusyTransmit;
+    transaction_type = libmcu::TransactionType::Multiple;
     transaction_callback = callback;
     buffer_index = 0;
     transmit_buffer = buffer;
-    transaction_type = libmcu::TransactionType::Multiple;
     return StartMasterTransmit(address);
   }
   /**
@@ -143,6 +144,7 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
       return static_cast<libmcu::Results>(current_state);
     }
     current_state = libmcu::States::BusyTransmit;
+    transaction_type = libmcu::TransactionType::Multiple;
     transaction_callback = callback;
     if (StartMasterTransmit(address) != libmcu::Results::NoError)
       return libmcu::Results::Error;
@@ -159,8 +161,8 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
    */
   constexpr libmcu::Results StartMasterTransmit(libmcu::I2cDeviceAddress address) {
     GetPeripheral()->MSTDAT = static_cast<std::uint32_t>(address.value) << 1;
-    GetPeripheral()->INTENSET = hardware::INTENSET::MSTPENDINGEN;
     GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTART;
+    GetPeripheral()->INTENSET = hardware::INTENSET::MSTPENDINGEN;
     return libmcu::Results::NoError;
   }
   /**
@@ -171,8 +173,8 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
    */
   constexpr libmcu::Results StartMasterReceive(libmcu::I2cDeviceAddress address) {
     GetPeripheral()->MSTDAT = (static_cast<std::uint32_t>(address.value) << 1) | 0x01;
-    GetPeripheral()->INTENSET = hardware::INTENSET::MSTPENDINGEN;
     GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTART;
+    GetPeripheral()->INTENSET = hardware::INTENSET::MSTPENDINGEN;
     return libmcu::Results::NoError;
   }
   /**
@@ -216,45 +218,38 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
    * @brief Interrupt handler for this I2C peripheral
    * @todo separate handling for reception/transmission depending on state?
    * @todo there might be contention issue on current_state, better to have a separate state variable?
+   * We do not check if we are in transmit/read state as the i2c statemachine will have the correct states
    */
   constexpr void InterruptHandler() {
     std::uint32_t status = GetPeripheral()->STAT & hardware::STAT::RESERVED_MASK;
     if (status & hardware::STAT::MSTPENDING) {
       std::uint32_t status_state = status & hardware::STAT::MSTSTATE_MASK;
-      if ((status_state == hardware::STAT::MSTSTATE_TXRDY) || (status_state == hardware::STAT::MSTSTATE_RXRDY)) {
-        // check if buffer is empty
-        if (buffer_index == transmit_buffer.size()) {
-          if (transaction_type == libmcu::TransactionType::Single) {
-            // This was a single transfer, send master stop
-            GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTOP;
-          } else if (transaction_type == libmcu::TransactionType::Multiple) {
-            // Multiple transfers, stop pending interrupt, it will be enabled when the next transfer starts
-            GetPeripheral()->INTENCLR = hardware::INTENCLR::MSTPENDINGCLR;
-            current_state = libmcu::States::WaitForNext;
-          }
-        } else {
-          if (status_state == hardware::STAT::MSTSTATE_TXRDY) {
-            // continue transmitting
-            GetPeripheral()->MSTDAT = static_cast<std::uint32_t>(transmit_buffer[buffer_index++]);
-            GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTCONTINUE;
-          } else {
-            // continue receiving
-            receive_buffer[buffer_index++] = static_cast<std::uint8_t>(GetPeripheral()->MSTDAT);
-            GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTCONTINUE;
-          }
-        }
-      } else if (status_state == hardware::STAT::MSTSTATE_IDLE) {
-        // we are idle, disable master pending interrupt and change internal state
+
+      if (status_state == hardware::STAT::MSTSTATE_IDLE) {
+        // we are idle, disable interrupts
         GetPeripheral()->INTENCLR = hardware::INTENCLR::MSTPENDINGCLR;
-        if (transaction_callback != nullptr)
-          current_state = libmcu::States::BusyCallback;
-        else
-          current_state = libmcu::States::Claimed;
-      } else {
-        //! @todo handle NACK addres, NACK data states
+        current_state = libmcu::States::BusyCallback;  // we are done, callback if needed
+      } else if (status_state == hardware::STAT::MSTSTATE_RXRDY) {
+        if (buffer_index < receive_buffer.size()) {
+          receive_buffer[buffer_index++] = static_cast<std::uint8_t>(GetPeripheral()->MSTDAT);
+          GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTCONTINUE;
+        } else {
+          // No more data, send stop
+          GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTOP;
+        }
+      } else if (status_state == hardware::STAT::MSTSTATE_TXRDY) {
+        if (buffer_index < transmit_buffer.size()) {
+          GetPeripheral()->MSTDAT = static_cast<std::uint32_t>(transmit_buffer[buffer_index++]);
+          GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTCONTINUE;
+        } else {
+          // No more data, send stop
+          GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTOP;
+        }
+      } else if (status_state == hardware::STAT::MSTSTATE_NACK_ADDR) {
+        //! @todo handle Address NACK
+      } else if (status_state == hardware::STAT::MSTSTATE_NACK_DATA) {
+        //! @todo handle data NACK
       }
-    } else {
-      //! @todo handle MSTARBLOSS, MSTSTSTPERR, EVENTTIMEOUT, SCLTIMEOUT
     }
   }
   /**

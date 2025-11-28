@@ -139,7 +139,7 @@ constexpr inline std::uint32_t EVENTTIMEOUT{1u << 24};     /*!< Event time-out I
 constexpr inline std::uint32_t SCLTIMEOUT{1u << 25};       /*!< SCL time-out Interrupt flag */
 }  // namespace INTSTAT
 namespace MSTCTL {
-constexpr inline std::uint32_t RESERVED_MASK{0x00000007u}; /*!< register mask for allowed bits */
+constexpr inline std::uint32_t RESERVED_MASK{0x0000000Fu}; /*!< register mask for allowed bits */
 constexpr inline std::uint32_t MSTCONTINUE{1u << 0};       /*!< Master Continue */
 constexpr inline std::uint32_t MSTSTART{1u << 1};          /*!< Master Start control */
 constexpr inline std::uint32_t MSTSTOP{1u << 2};           /*!< Master Stop control */
