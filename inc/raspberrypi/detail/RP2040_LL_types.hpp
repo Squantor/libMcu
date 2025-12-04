@@ -13,7 +13,7 @@
 
 namespace libmcull {
 
-struct PadsBase : PeripheralBase {}; /*!< Pads LL base class */
+struct PadsBase : LowLevelBase {}; /*!< Pads LL base class */
 
 }  // namespace libmcull
 

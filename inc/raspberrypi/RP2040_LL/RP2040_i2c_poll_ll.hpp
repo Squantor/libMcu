@@ -89,7 +89,7 @@ struct I2cPolled : libmcull::LowLevelBase {
    * @param transmitBuffer data to send, should at least contain one byte!
    * @param maxTime maximum amount of iterations to wait between each I2C operation
    */
-  constexpr libmcu::Results Write(libmcull::I2cDeviceAddress address, std::span<const std::uint8_t> transmitBuffer,
+  constexpr libmcu::Results Write(libmcu::I2cDeviceAddress address, std::span<const std::uint8_t> transmitBuffer,
                                   std::uint32_t maxTime) {
     std::uint32_t i2cAddress = static_cast<std::uint32_t>(address.value);
     GetPeripheral()->IC_ENABLE = hardware::IC_ENABLE::ABORT;
@@ -134,7 +134,7 @@ struct I2cPolled : libmcull::LowLevelBase {
    * @param address I2C device to read from
    * @param receiveBuffer place to put read data, needs to be at least size 1!
    */
-  constexpr libmcu::Results Read(libmcull::I2cDeviceAddress address, std::span<std::uint8_t> receiveBuffer, std::uint32_t maxTime) {
+  constexpr libmcu::Results Read(libmcu::I2cDeviceAddress address, std::span<std::uint8_t> receiveBuffer, std::uint32_t maxTime) {
     std::uint32_t i2cAddress = static_cast<std::uint32_t>(address.value);
     GetPeripheral()->IC_ENABLE = hardware::IC_ENABLE::ABORT;
     GetPeripheral()->IC_TAR = i2cAddress;

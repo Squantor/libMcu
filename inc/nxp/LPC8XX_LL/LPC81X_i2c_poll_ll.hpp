@@ -41,7 +41,7 @@ struct I2cPolled : libmcull::LowLevelBase {
    * @param address I2C device to write to
    * @param transmit_buffer data to send
    */
-  constexpr void Write(libmcull::I2cDeviceAddress address, const std::span<std::uint8_t> transmit_buffer) {
+  constexpr void Write(libmcu::I2cDeviceAddress address, const std::span<std::uint8_t> transmit_buffer) {
     std::uint32_t slave_address = static_cast<std::uint32_t>(address.value) << 1;
     GetPeripheral()->MSTDAT = slave_address;
     GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTART;
@@ -67,7 +67,7 @@ struct I2cPolled : libmcull::LowLevelBase {
    * @param address I2C device to read from
    * @param receive_buffer place to put read data, needs to be at least size 1!
    */
-  constexpr void Read(libmcull::I2cDeviceAddress address, std::span<std::uint8_t> receive_buffer) {
+  constexpr void Read(libmcu::I2cDeviceAddress address, std::span<std::uint8_t> receive_buffer) {
     std::uint32_t slave_address = static_cast<std::uint32_t>(address.value) << 1;
     GetPeripheral()->MSTDAT = slave_address | 0x01;  // set read bit in Address
     GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTART;
