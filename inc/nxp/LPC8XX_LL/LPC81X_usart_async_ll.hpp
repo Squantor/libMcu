@@ -91,6 +91,18 @@ struct UsartAsync : libmcull::AsyncUartBase {
     }
   }
   /**
+   * @brief Callback method
+   * Never called as this is a top level driver
+   */
+  void Callback(void) override {}
+  /**
+   * @brief Progress method
+   * Called either by application or HAL to continue processing and invoke callbacks
+   */
+  void Progress(void) override {
+    //! @todo implement
+  }
+  /**
    * @brief Start a receive operation
    * @param buffer buffer of data to read, needs to be accessible while out of scope
    * @return Error if not claimed interface or busy

@@ -78,11 +78,10 @@ struct I2cInterrupt : public libmcuhal::AsyncI2cBase {
    * @param transaction_type Transaction type
    */
   constexpr libmcu::Results Transmit(libmcu::AsyncHandle handle, const libmcu::I2cDeviceAddress address,
-                                     std::span<std::uint8_t> transmit_buffer,
-                                     libmcu::TransactionType transaction_type = libmcu::TransactionType::Single) {
+                                     std::span<std::uint8_t> transmit_buffer) {
     if (handle != async_handle)
       return libmcu::Results::InvalidHandle;
-    return ll_i2c_async.Transmit(address, transmit_buffer, transaction_type);
+    return ll_i2c_async.Transmit(address, transmit_buffer);
   }
   /**
    * @brief Receive data from I2C device
@@ -91,11 +90,10 @@ struct I2cInterrupt : public libmcuhal::AsyncI2cBase {
    * @param receive_buffer place to put received data, needs to be at least size 1!
    */
   constexpr libmcu::Results Receive(libmcu::AsyncHandle handle, const libmcu::I2cDeviceAddress address,
-                                    std::span<std::uint8_t> receive_buffer,
-                                    libmcu::TransactionType transaction_type = libmcu::TransactionType::Single) {
+                                    std::span<std::uint8_t> receive_buffer) {
     if (handle != async_handle)
       return libmcu::Results::InvalidHandle;
-    return ll_i2c_async.Receive(address, receive_buffer, transaction_type);
+    return ll_i2c_async.Receive(address, receive_buffer);
   }
   /**
    * @brief Start a master transmit
