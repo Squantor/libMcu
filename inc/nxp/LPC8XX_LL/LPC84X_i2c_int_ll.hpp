@@ -60,7 +60,7 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
    * @param buffer Data to transmit
    * @param transaction_type Transaction type
    */
-  constexpr libmcu::Results Transmit(const libmcu::I2cDeviceAddress address, std::span<std::uint8_t> buffer,
+  constexpr libmcu::Results Transmit(const libmcu::I2cDeviceAddress address, const std::span<const std::uint8_t> buffer,
                                      libmcu::AsyncInterface *callback = nullptr) {
     if (current_state != libmcu::States::Idle) {
       return static_cast<libmcu::Results>(current_state);

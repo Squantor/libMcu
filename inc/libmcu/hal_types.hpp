@@ -17,11 +17,14 @@ namespace libmcuhal {
  */
 enum class TransactionType : std::uint8_t {
   EmptyEntry,    /*!< Empty entry */
+  SingleWrite,   /*!< Single write */
   StartWrite,    /*!< Start of transaction, needs an address */
   ContinueWrite, /*!< Continue transaction, needs data */
+  StopWrite,     /*!< Stop Writing transaction */
+  SingleRead,    /*!< Single read */
   StartRead,     /*!< Start of transaction, needs an address */
   ContinueRead,  /*!< Continue transaction, needs data */
-  Stop           /*!< Stop transaction */
+  StopRead,      /*!< Stop Reading transaction */
 };
 /**
  * @brief Hal base class that all Hal classes should inherit from
