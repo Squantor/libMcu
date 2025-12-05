@@ -17,10 +17,8 @@ namespace hardware = libmcuhw::i2c;
  * @brief
  * @tparam i2c_address
  * @todo error handling is lacking, need a centralized error handler and additional result codes
- * @todo claim and unclaim maybe need a handle number to ensure no double unclaims
- * @todo the async calls have some master waits for the address transmission phase, this could be handled without waiting but needs
- * probably an additional state and address variable
  * @todo duplicate code in entry on multiple methods checking states, refactor
+ * @todo Can we transition from ContinueTransmit to StartRecieve and other way around?
  */
 template <libmcu::I2cBaseAddress i2c_address>
 struct I2cInterrupt : libmcull::AsyncI2cBase {
@@ -57,6 +55,176 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
     return peripheralFrequency / divider / 20;
   }
   /**
+   * @brief Transmit data to I2C device
+   * @param address I2C device to transmit to
+   * @param buffer Data to transmit
+   * @param transaction_type Transaction type
+   */
+  constexpr libmcu::Results Transmit(const libmcu::I2cDeviceAddress address, std::span<std::uint8_t> buffer,
+                                     libmcu::AsyncInterface *callback = nullptr) {
+    if (current_state != libmcu::States::Idle) {
+      return static_cast<libmcu::Results>(current_state);
+    }
+    current_state = libmcu::States::BusyTransmitSingle;
+    transaction_callback = callback;
+    buffer_index = 0;
+    transmit_buffer = buffer;
+    GetPeripheral()->MSTDAT = static_cast<std::uint32_t>(address.value) << 1;
+    GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTART;
+    GetPeripheral()->INTENSET = hardware::INTENSET::MSTPENDINGEN;
+    return libmcu::Results::NoError;
+  }
+  /**
+   * @brief Starts a transmit operation and writes a single byte
+   * Leaves the I2C bus open
+   * @param address I2C address
+   * @param data Byte to transmit
+   * @return constexpr libmcu::Results
+   */
+  constexpr libmcu::Results StartMasterTransmit(const libmcu::I2cDeviceAddress address, const std::uint8_t data,
+                                                libmcu::AsyncInterface *callback = nullptr) {
+    if (current_state != libmcu::States::Idle) {
+      return static_cast<libmcu::Results>(current_state);
+    }
+    single_byte_transmit_buffer[0] = data;
+    return StartMasterTransmit(address, single_byte_transmit_buffer, callback);
+  }
+  /**
+   * @brief Starts a transmit operation and transmits a block of data
+   * Leaves the I2C bus open
+   * @param address I2C address
+   * @param transmit_buffer Buffer of data to transmit
+   * @return constexpr libmcu::Results
+   */
+  constexpr libmcu::Results StartMasterTransmit(const libmcu::I2cDeviceAddress address, const std::span<const std::uint8_t> buffer,
+                                                libmcu::AsyncInterface *callback = nullptr) {
+    if (current_state != libmcu::States::Idle) {
+      return static_cast<libmcu::Results>(current_state);
+    }
+    transmit_buffer = buffer;
+    return StartMasterTransmit(address, callback);
+  }
+  /**
+   * @brief Transmits more I2C data to the open I2C bus
+   * Leaves the I2C bus open
+   * @param data Data to transmit
+   * @return constexpr libmcu::Results
+   */
+  constexpr libmcu::Results ContinueMasterTransmit(const std::uint8_t data, libmcu::AsyncInterface *callback = nullptr) {
+    if (current_state != libmcu::States::WaitForNextTransmit) {
+      return static_cast<libmcu::Results>(current_state);
+    }
+    single_byte_transmit_buffer[0] = data;
+    return ContinueMasterTransmit(single_byte_transmit_buffer, callback);
+  }
+  /**
+   * @brief Transmits more I2C data to the open I2C bus
+   * Leaves the I2C bus open
+   * @param transmit_buffer Data to transmit
+   * @return constexpr libmcu::Results
+   */
+  constexpr libmcu::Results ContinueMasterTransmit(const std::span<const std::uint8_t> buffer,
+                                                   libmcu::AsyncInterface *callback = nullptr) {
+    if (current_state != libmcu::States::WaitForNextTransmit) {
+      return static_cast<libmcu::Results>(current_state);
+    }
+    transmit_buffer = buffer;
+    return ContinueMasterTransmit(callback);
+  }
+  /**
+   * @brief Stops I2C master
+   * @param buffer Data to transmit
+   * @param callback Callback when completed
+   * @return constexpr libmcu::Results
+   */
+  constexpr libmcu::Results StopMasterTransmit(const std::uint8_t data, libmcu::AsyncInterface *callback = nullptr) {
+    if (current_state != libmcu::States::WaitForNextTransmit) {
+      return static_cast<libmcu::Results>(current_state);
+    }
+    single_byte_transmit_buffer[0] = data;
+    return StopMasterTransmit(data, callback);
+  }
+  /**
+   * @brief Stops I2C master
+   * @param buffer Data to transmit
+   * @param callback Callback when completed
+   * @return constexpr libmcu::Results
+   */
+  constexpr libmcu::Results StopMasterTransmit(const std::span<const std::uint8_t> buffer,
+                                               libmcu::AsyncInterface *callback = nullptr) {
+    if (current_state != libmcu::States::WaitForNextTransmit) {
+      return static_cast<libmcu::Results>(current_state);
+    }
+    transmit_buffer = buffer;
+    return StopMasterTransmit(callback);
+  }
+  /**
+   * @brief Receive data from I2C device
+   * @param address I2C device to receive from
+   * @param receive_buffer place to put received data, needs to be at least size 1!
+   */
+  constexpr libmcu::Results Receive(const libmcu::I2cDeviceAddress address, std::span<std::uint8_t> buffer,
+                                    libmcu::AsyncInterface *callback = nullptr) {
+    if (current_state != libmcu::States::Idle) {
+      return static_cast<libmcu::Results>(current_state);
+    }
+    current_state = libmcu::States::BusyReceiveSingle;
+    transaction_callback = callback;
+    buffer_index = 0;
+    receive_buffer = buffer;
+    GetPeripheral()->MSTDAT = (static_cast<std::uint32_t>(address.value) << 1) | 0x01;
+    GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTART;
+    GetPeripheral()->INTENSET = hardware::INTENSET::MSTPENDINGEN;
+    return libmcu::Results::NoError;
+  }
+  /**
+   * @brief Starts receiving I2C data to a closed I2C bus
+   * Leaves the I2C bus open
+   * @param address Address data
+   * @return constexpr libmcu::Results
+   */
+  constexpr libmcu::Results StartMasterReceive(libmcu::I2cDeviceAddress address, std::span<std::uint8_t> buffer,
+                                               libmcu::AsyncInterface *callback = nullptr) {
+    if (current_state != libmcu::States::Idle) {
+      return static_cast<libmcu::Results>(current_state);
+    }
+    receive_buffer = buffer;
+    return StartMasterReceive(address, callback);
+  }
+  /**
+   * @brief Transmits more I2C data to the open I2C bus
+   * Leaves the I2C bus open
+   * @param transmit_buffer Data to transmit
+   * @return constexpr libmcu::Results
+   */
+  constexpr libmcu::Results ContinueMasterReceive(std::span<std::uint8_t> buffer, libmcu::AsyncInterface *callback = nullptr) {
+    if (current_state != libmcu::States::WaitForNextReceive) {
+      return static_cast<libmcu::Results>(current_state);
+    }
+    buffer_index = 0;
+    receive_buffer = buffer;
+    return ContinueMasterReceive(callback);
+  }
+  /**
+   * @brief Stops I2C master reception
+   * @return constexpr libmcu::Results
+   */
+  constexpr libmcu::Results StopMasterReceive(std::span<std::uint8_t> buffer, libmcu::AsyncInterface *callback = nullptr) {
+    if (current_state != libmcu::States::WaitForNextReceive) {
+      return static_cast<libmcu::Results>(current_state);
+    }
+    receive_buffer = buffer;
+    return StopMasterReceive(callback);
+  }
+  /**
+   * @brief Waits until the master action has completed
+   */
+  constexpr void MasterWait() {
+    // @todo add timeout
+    while (!(GetPeripheral()->STAT & (hardware::STAT::MSTPENDING | hardware::STAT::EVENTTIMEOUT | hardware::STAT::SCLTIMEOUT)))
+      ;
+  }
+  /**
    * @brief Progress the I2C interface
    * This should be periodically called to continue operation and callback if needed
    */
@@ -83,218 +251,6 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
    * Not called by anything as this is a top level driver
    */
   void Callback(void) {}
-  /**
-   * @brief Transmit data to I2C device
-   * @param address I2C device to transmit to
-   * @param buffer Data to transmit
-   * @param transaction_type Transaction type
-   */
-  constexpr libmcu::Results Transmit(const libmcu::I2cDeviceAddress address, std::span<std::uint8_t> buffer,
-                                     libmcu::AsyncInterface *callback = nullptr) {
-    if (current_state != libmcu::States::Idle) {
-      return static_cast<libmcu::Results>(current_state);
-    }
-    current_state = libmcu::States::BusyTransmitSingle;
-    transaction_callback = callback;
-    buffer_index = 0;
-    transmit_buffer = buffer;
-    GetPeripheral()->MSTDAT = static_cast<std::uint32_t>(address.value) << 1;
-    GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTART;
-    GetPeripheral()->INTENSET = hardware::INTENSET::MSTPENDINGEN;
-    return libmcu::Results::NoError;
-  }
-  /**
-   * @brief Receive data from I2C device
-   * @param address I2C device to receive from
-   * @param receive_buffer place to put received data, needs to be at least size 1!
-   */
-  constexpr libmcu::Results Receive(const libmcu::I2cDeviceAddress address, std::span<std::uint8_t> buffer,
-                                    libmcu::AsyncInterface *callback = nullptr) {
-    if (current_state != libmcu::States::Idle) {
-      return static_cast<libmcu::Results>(current_state);
-    }
-    current_state = libmcu::States::BusyReceiveSingle;
-    transaction_callback = callback;
-    buffer_index = 0;
-    receive_buffer = buffer;
-    GetPeripheral()->MSTDAT = (static_cast<std::uint32_t>(address.value) << 1) | 0x01;
-    GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTART;
-    GetPeripheral()->INTENSET = hardware::INTENSET::MSTPENDINGEN;
-    return libmcu::Results::NoError;
-  }
-
-  /**
-   * @brief Starts a transmit operation and transmits a block of data
-   * Leaves the I2C bus open
-   * @param address I2C address
-   * @param transmit_buffer Buffer of data to transmit
-   * @return constexpr libmcu::Results
-   */
-  constexpr libmcu::Results StartMasterTransmit(const libmcu::I2cDeviceAddress address, const std::span<const std::uint8_t> buffer,
-                                                libmcu::AsyncInterface *callback = nullptr) {
-    if (current_state != libmcu::States::Idle) {
-      return static_cast<libmcu::Results>(current_state);
-    }
-    buffer_index = 0;
-    transmit_buffer = buffer;
-    return StartMasterTransmit(address, callback);
-  }
-  /**
-   * @brief Starts a transmit operation and writes a single byte
-   * Leaves the I2C bus open
-   * @param address I2C address
-   * @param data Byte to transmit
-   * @return constexpr libmcu::Results
-   */
-  constexpr libmcu::Results StartMasterTransmit(const libmcu::I2cDeviceAddress address, const std::uint8_t data,
-                                                libmcu::AsyncInterface *callback = nullptr) {
-    if (current_state != libmcu::States::Idle) {
-      return static_cast<libmcu::Results>(current_state);
-    }
-    buffer_index = 0;
-    single_byte_transmit_buffer[0] = data;
-    transmit_buffer = single_byte_transmit_buffer;
-    return StartMasterTransmit(address, callback);
-  }
-  /**
-   * @brief Starts transmitting I2C data to a closed I2C bus
-   * Leaves the I2C bus open
-   * @param address Address data
-   * @return constexpr libmcu::Results
-   */
-  constexpr libmcu::Results StartMasterTransmit(libmcu::I2cDeviceAddress address, libmcu::AsyncInterface *callback = nullptr) {
-    if (current_state != libmcu::States::Idle) {
-      return static_cast<libmcu::Results>(current_state);
-    }
-    current_state = libmcu::States::BusyTransmitMulti;
-    transaction_callback = callback;
-    GetPeripheral()->MSTDAT = static_cast<std::uint32_t>(address.value) << 1;
-    GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTART;
-    GetPeripheral()->INTENSET = hardware::INTENSET::MSTPENDINGEN;
-    return libmcu::Results::NoError;
-  }
-  /**
-   * @brief Starts receiving I2C data to a closed I2C bus
-   * Leaves the I2C bus open
-   * @param address Address data
-   * @return constexpr libmcu::Results
-   */
-  constexpr libmcu::Results StartMasterReceive(libmcu::I2cDeviceAddress address, std::span<std::uint8_t> buffer,
-                                               libmcu::AsyncInterface *callback = nullptr) {
-    buffer_index = 0;
-    receive_buffer = buffer;
-    return StartMasterReceive(address, callback);
-  }
-  /**
-   * @brief Starts receiving I2C data to a closed I2C bus
-   * Leaves the I2C bus open
-   * @param address Address data
-   * @return constexpr libmcu::Results
-   */
-  constexpr libmcu::Results StartMasterReceive(libmcu::I2cDeviceAddress address, libmcu::AsyncInterface *callback = nullptr) {
-    current_state = libmcu::States::BusyReceiveMulti;
-    transaction_callback = callback;
-    GetPeripheral()->MSTDAT = (static_cast<std::uint32_t>(address.value) << 1) | 0x01;
-    GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTART;
-    GetPeripheral()->INTENSET = hardware::INTENSET::MSTPENDINGEN;
-    return libmcu::Results::NoError;
-  }
-  /**
-   * @brief Transmits more I2C data to the open I2C bus
-   * Leaves the I2C bus open
-   * @param transmit_buffer Data to transmit
-   * @return constexpr libmcu::Results
-   */
-  constexpr libmcu::Results ContinueMasterTransmit(const std::span<const std::uint8_t> buffer,
-                                                   libmcu::AsyncInterface *callback = nullptr) {
-    if (current_state != libmcu::States::WaitForNextTransmit) {
-      return static_cast<libmcu::Results>(current_state);
-    }
-    transmit_buffer = buffer;
-    return ContinueMasterTransmit(callback);
-  }
-  /**
-   * @brief Transmits more I2C data to the open I2C bus
-   * Leaves the I2C bus open
-   * @param data Data to transmit
-   * @return constexpr libmcu::Results
-   */
-  constexpr libmcu::Results ContinueMasterTransmit(const std::uint8_t data, libmcu::AsyncInterface *callback = nullptr) {
-    if (current_state != libmcu::States::WaitForNextTransmit) {
-      return static_cast<libmcu::Results>(current_state);
-    }
-    single_byte_transmit_buffer[0] = data;
-    transmit_buffer = single_byte_transmit_buffer;
-    return ContinueMasterTransmit(callback);
-  }
-  /**
-   * @brief Transmits more I2C data to the open I2C bus
-   * Leaves the I2C bus open
-   * @param callback Callback when completed
-   * @return constexpr libmcu::Results
-   */
-  constexpr libmcu::Results ContinueMasterTransmit(libmcu::AsyncInterface *callback = nullptr) {
-    if (current_state != libmcu::States::WaitForNextTransmit) {
-      return static_cast<libmcu::Results>(current_state);
-    }
-    buffer_index = 0;
-    current_state = libmcu::States::BusyTransmitMulti;
-    transaction_callback = callback;
-    GetPeripheral()->INTENSET = hardware::INTENSET::MSTPENDINGEN;
-    return libmcu::Results::NoError;
-  }
-  /**
-   * @brief Transmits more I2C data to the open I2C bus
-   * Leaves the I2C bus open
-   * @param transmit_buffer Data to transmit
-   * @return constexpr libmcu::Results
-   */
-  constexpr libmcu::Results ContinueMasterReceive(std::span<std::uint8_t> buffer, libmcu::AsyncInterface *callback = nullptr) {
-    if (current_state != libmcu::States::WaitForNextReceive) {
-      return static_cast<libmcu::Results>(current_state);
-    }
-    buffer_index = 0;
-    receive_buffer = buffer;
-    return ContinueMasterReceive(callback);
-  }
-  /**
-   * @brief Receives more I2C data
-   * Leaves the I2C bus open
-   * @param callback Callback when completed
-   * @return
-   */
-  constexpr libmcu::Results ContinueMasterReceive(libmcu::AsyncInterface *callback = nullptr) {
-    if (current_state != libmcu::States::WaitForNextReceive) {
-      return static_cast<libmcu::Results>(current_state);
-    }
-    current_state = libmcu::States::BusyReceiveMulti;
-    transaction_callback = callback;
-    GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTCONTINUE;
-    GetPeripheral()->INTENSET = hardware::INTENSET::MSTPENDINGEN;
-    return libmcu::Results::NoError;
-  }
-  /**
-   * @brief Stops I2C master
-   * @return constexpr libmcu::Results
-   */
-  constexpr libmcu::Results StopMaster(libmcu::AsyncInterface *callback = nullptr) {
-    if (current_state != libmcu::States::WaitForNextTransmit && current_state != libmcu::States::WaitForNextReceive) {
-      return static_cast<libmcu::Results>(current_state);
-    }
-    transaction_callback = callback;
-    current_state = libmcu::States::Busy;
-    GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTOP;
-    GetPeripheral()->INTENSET = hardware::INTENSET::MSTPENDINGEN;
-    return libmcu::Results::NoError;
-  }
-  /**
-   * @brief Waits until the master action has completed
-   */
-  constexpr void MasterWait() {
-    // @todo add timeout
-    while (!(GetPeripheral()->STAT & (hardware::STAT::MSTPENDING | hardware::STAT::EVENTTIMEOUT | hardware::STAT::SCLTIMEOUT)))
-      ;
-  }
   /**
    * @brief Interrupt handler for this I2C peripheral
    * @todo separate handling for reception/transmission depending on state?
@@ -374,6 +330,93 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
   }
 
  private:
+  /**
+   * @brief Starts transmitting I2C data to a closed I2C bus
+   * Leaves the I2C bus open
+   * @param address Address data
+   * @param callback callback to call when completed
+   * @return constexpr libmcu::Results
+   */
+  constexpr libmcu::Results StartMasterTransmit(libmcu::I2cDeviceAddress address, libmcu::AsyncInterface *callback) {
+    buffer_index = 0;
+    current_state = libmcu::States::BusyTransmitMulti;
+    transaction_callback = callback;
+    GetPeripheral()->MSTDAT = static_cast<std::uint32_t>(address.value) << 1;
+    GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTART;
+    GetPeripheral()->INTENSET = hardware::INTENSET::MSTPENDINGEN;
+    return libmcu::Results::NoError;
+  }
+  /**
+   * @brief Transmits more I2C data to the open I2C bus
+   * Leaves the I2C bus open
+   * @param callback Callback when completed
+   * @return constexpr libmcu::Results
+   */
+  constexpr libmcu::Results ContinueMasterTransmit(libmcu::AsyncInterface *callback) {
+    buffer_index = 0;
+    current_state = libmcu::States::BusyTransmitMulti;
+    transaction_callback = callback;
+    GetPeripheral()->INTENSET = hardware::INTENSET::MSTPENDINGEN;
+    return libmcu::Results::NoError;
+  }
+  /**
+   * @brief Stops I2C master
+   * Closes the I2C bus
+   * @param callback callback to call when completed
+   * @return constexpr libmcu::Results
+   */
+  constexpr libmcu::Results StopMasterTransmit(libmcu::AsyncInterface *callback) {
+    buffer_index = 0;
+    transaction_callback = callback;
+    current_state = libmcu::States::BusyTransmitSingle;  // We use the single transmit to stop
+    GetPeripheral()->INTENSET = hardware::INTENSET::MSTPENDINGEN;
+    return libmcu::Results::NoError;
+  }
+  /**
+   * @brief Starts receiving I2C data to a closed I2C bus
+   * Leaves the I2C bus open
+   * @param address Address data
+   * @return constexpr libmcu::Results
+   */
+  constexpr libmcu::Results StartMasterReceive(libmcu::I2cDeviceAddress address, libmcu::AsyncInterface *callback) {
+    buffer_index = 0;
+    transaction_callback = callback;
+    current_state = libmcu::States::BusyReceiveMulti;
+    GetPeripheral()->MSTDAT = (static_cast<std::uint32_t>(address.value) << 1) | 0x01;
+    GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTSTART;
+    GetPeripheral()->INTENSET = hardware::INTENSET::MSTPENDINGEN;
+    return libmcu::Results::NoError;
+  }
+  /**
+   * @brief Receives more I2C data
+   * Leaves the I2C bus open
+   * @param callback Callback when completed
+   * @return
+   */
+  constexpr libmcu::Results ContinueMasterReceive(libmcu::AsyncInterface *callback) {
+    if (current_state != libmcu::States::WaitForNextReceive) {
+      return static_cast<libmcu::Results>(current_state);
+    }
+    buffer_index = 0;
+    transaction_callback = callback;
+    current_state = libmcu::States::BusyReceiveMulti;
+    GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTCONTINUE;
+    GetPeripheral()->INTENSET = hardware::INTENSET::MSTPENDINGEN;
+    return libmcu::Results::NoError;
+  }
+  /**
+   * @brief Stops I2C master reception
+   * @return constexpr libmcu::Results
+   */
+  constexpr libmcu::Results StopMasterReceive(libmcu::AsyncInterface *callback) {
+    buffer_index = 0;
+    transaction_callback = callback;
+    current_state = libmcu::States::BusyReceiveSingle;  // We use the single receive to stop
+    GetPeripheral()->MSTCTL = hardware::MSTCTL::MSTCONTINUE;
+    GetPeripheral()->INTENSET = hardware::INTENSET::MSTPENDINGEN;
+    return libmcu::Results::NoError;
+  }
+
   static constexpr libmcu::HwAddressType i2c_address_ = i2c_address; /*!< peripheral address */
   volatile libmcu::States current_state;                             /*!< current state */
   std::span<std::uint8_t> receive_buffer;                            /*!< Receive buffer */

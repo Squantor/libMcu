@@ -31,43 +31,13 @@ struct I2cInterrupt : public libmcuhal::AsyncI2cBase {
    */
   template <const libmcuhw::clock::PeriClockConfig& clock_config>
   constexpr std::uint32_t Init(std::uint32_t bit_rate, std::uint32_t timeout) {
-    async_handle = 0;
     return ll_i2c_async.template InitMaster<clock_config>(bit_rate, timeout);
-  }
-  /**
-   * @brief Claim an the asynchronous interface
-   * @param[out] handle for the claimed interface, set when claimed
-   * @returns Claimed if successful
-   * @returns for the rest see @ref libmcull::I2cInterrupt
-   */
-  libmcu::Results Claim(libmcu::AsyncHandle& handle) {
-    if (state != libmcu::States::Idle)
-      return static_cast<libmcu::Results>(state);
-    handle = async_handle;
-    return libmcu::Results::Claimed;
-  }
-  /**
-   * @brief Release the asynchronous interface
-   * @param handle for the interface to be released
-   * @returns InUse if the interface is already in use by another claimant
-   * @returns Unclaimed if the interface is not claimed
-   * @returns for the rest see @ref libmcull::I2cInterrupt
-   */
-  libmcu::Results Unclaim(libmcu::AsyncHandle handle) {
-    if (handle != async_handle)
-      return libmcu::Results::InUse;
-    if (state != libmcu::States::Claimed)
-      return static_cast<libmcu::Results>(state);
-    async_handle += 1;
-    return libmcu::Results::Unclaimed;
   }
   /**
    * @brief Get the I2C interrupt peripheral current status
    * @return current status
    */
-  constexpr libmcu::Results GetStatus(libmcu::AsyncHandle handle) {
-    if (handle != async_handle)
-      return libmcu::Results::InvalidHandle;
+  constexpr libmcu::Results GetStatus() {
     return ll_i2c_async.GetStatus();
   }
   /**
@@ -77,10 +47,7 @@ struct I2cInterrupt : public libmcuhal::AsyncI2cBase {
    * @param transmit_buffer Data to transmit
    * @param transaction_type Transaction type
    */
-  constexpr libmcu::Results Transmit(libmcu::AsyncHandle handle, const libmcu::I2cDeviceAddress address,
-                                     std::span<std::uint8_t> transmit_buffer) {
-    if (handle != async_handle)
-      return libmcu::Results::InvalidHandle;
+  constexpr libmcu::Results Transmit(const libmcu::I2cDeviceAddress address, std::span<std::uint8_t> transmit_buffer) {
     return ll_i2c_async.Transmit(address, transmit_buffer);
   }
   /**
@@ -89,10 +56,7 @@ struct I2cInterrupt : public libmcuhal::AsyncI2cBase {
    * @param address I2C device to receive from
    * @param receive_buffer place to put received data, needs to be at least size 1!
    */
-  constexpr libmcu::Results Receive(libmcu::AsyncHandle handle, const libmcu::I2cDeviceAddress address,
-                                    std::span<std::uint8_t> receive_buffer) {
-    if (handle != async_handle)
-      return libmcu::Results::InvalidHandle;
+  constexpr libmcu::Results Receive(const libmcu::I2cDeviceAddress address, std::span<std::uint8_t> receive_buffer) {
     return ll_i2c_async.Receive(address, receive_buffer);
   }
   /**
@@ -103,11 +67,9 @@ struct I2cInterrupt : public libmcuhal::AsyncI2cBase {
    * @param transmit_buffer Data bytes to transmit after address
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results StartMasterTransmit(libmcu::AsyncHandle handle, const libmcu::I2cDeviceAddress address,
+  constexpr libmcu::Results StartMasterTransmit(const libmcu::I2cDeviceAddress address,
                                                 const std::span<const std::uint8_t> transmit_buffer,
                                                 AsyncInterface* callback = nullptr) {
-    if (handle != async_handle)
-      return libmcu::Results::InvalidHandle;
     return AddTransaction(
       I2cTransaction{TransactionType::StartWrite, address, transmit_buffer, std::span<std::uint8_t>(), callback});
   }
@@ -118,10 +80,7 @@ struct I2cInterrupt : public libmcuhal::AsyncI2cBase {
    * @param address I2C device to transmit to
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results StartMasterTransmit(libmcu::AsyncHandle handle, const libmcu::I2cDeviceAddress address,
-                                                AsyncInterface* callback = nullptr) {
-    if (handle != async_handle)
-      return libmcu::Results::InvalidHandle;
+  constexpr libmcu::Results StartMasterTransmit(const libmcu::I2cDeviceAddress address, AsyncInterface* callback = nullptr) {
     return AddTransaction(
       I2cTransaction{TransactionType::StartWrite, address, std::span<std::uint8_t>(), std::span<std::uint8_t>(), callback});
   }
@@ -132,10 +91,8 @@ struct I2cInterrupt : public libmcuhal::AsyncI2cBase {
    * @param transmit_buffer Data bytes to transmit
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results ContinueMasterTransmit(libmcu::AsyncHandle handle, const std::span<const std::uint8_t> transmit_buffer,
+  constexpr libmcu::Results ContinueMasterTransmit(const std::span<const std::uint8_t> transmit_buffer,
                                                    AsyncInterface* callback = nullptr) {
-    if (handle != async_handle)
-      return libmcu::Results::InvalidHandle;
     return AddTransaction(I2cTransaction{TransactionType::ContinueWrite, 0, transmit_buffer, std::span<std::uint8_t>(), callback});
   }
   // @todo read and continue read operations here
@@ -145,9 +102,7 @@ struct I2cInterrupt : public libmcuhal::AsyncI2cBase {
    * @param handle handle to use
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results StopMaster(libmcu::AsyncHandle handle, AsyncInterface* callback = nullptr) {
-    if (handle != async_handle)
-      return libmcu::Results::InvalidHandle;
+  constexpr libmcu::Results StopMaster(AsyncInterface* callback = nullptr) {
     return AddTransaction(I2cTransaction{TransactionType::Stop, 0, std::span<std::uint8_t>(), std::span<std::uint8_t>(), callback});
   }
   /**
@@ -218,7 +173,6 @@ struct I2cInterrupt : public libmcuhal::AsyncI2cBase {
 
  private:
   libmcu::States state = libmcu::States::Idle;
-  libmcu::AsyncHandle async_handle = 0; /*!< Async handle to be passed to the claimant, incremented per claim/unclaim pair */
   libmcu::RingBuffer<I2cTransaction, max_transactions> transactions;
   I2cTransaction current_transaction;
 };
