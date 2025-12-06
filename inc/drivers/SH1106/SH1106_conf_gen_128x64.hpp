@@ -15,8 +15,8 @@ namespace libMcuDriver::SH1106 {
 /**
  * @brief SH1106 configuration for a generic 128 x 64 display
  */
-struct generic128x64 {
-  static constexpr std::array<const std::uint8_t, 26> initCommands = {
+struct Generic128x64 {
+  static constexpr std::array<const std::uint8_t, 26> init_commands = {
     // configuration commands
     cmd_display_sleep,
     cmd_set_display_clock_divisor,
@@ -42,8 +42,8 @@ struct generic128x64 {
     cmd_set_display_normal,
     cmd_set_display_active};
 
-  static constexpr std::uint8_t xSize{128};
-  static constexpr std::uint8_t ySize{64};
+  static constexpr std::uint8_t size_x{128};
+  static constexpr std::uint8_t suze_y{64};
 };
 
 }  // namespace libMcuDriver::SH1106

@@ -37,6 +37,7 @@ constexpr inline std::uint32_t VectorCount{48};   /*!< amount of interrupt vecto
 }  // namespace nvic
 /**
  * @brief Interrupts available for the LPC845M301BD48
+ * @todo switch from enum class to normal enum
  */
 enum class Interrupts : std::int8_t {
   Reset = -15,       /*!< Reset interrupt */

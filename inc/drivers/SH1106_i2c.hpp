@@ -13,6 +13,7 @@
 
 #include "../libmcu/libmcudriver.hpp"
 #include "SH1106/SH1106.hpp"
+#include "SH1106/SH1106_conf_gen_128x64.hpp"
 
 namespace libMcuDriver::SH1106 {
 
@@ -32,7 +33,7 @@ struct SH1106 : public Display {
    */
   constexpr libmcu::Results Init() {
     state = libmcu::States::Initializing;
-    return SendCommand(config.InitCommands, this);
+    return SendCommand(config.init_commands, this);
   }
   /**
    * @brief Get the Xsize object
@@ -92,27 +93,12 @@ struct SH1106 : public Display {
    */
   constexpr libmcu::Results Send(std::uint8_t action, const std::span<const std::uint8_t> commands,
                                  AsyncInterface *callback = nullptr) {
-    libmcu::Results result;
-    libmcu::AsyncHandle handle;
-    (void)callback;
-    result = i2c_hal.Claim(handle);
-    if (result != libmcu::Results::Claimed)
-      goto claim_fail;
     command_buffer[0] = action;
 
-    result = i2c_hal.StartMasterTransmit(handle, i2c_address, std::span<std::uint8_t>(command_buffer.begin(), 1));
-    if (result != libmcu::Results::NoError)
-      goto stopI2C;
+    i2c_hal.StartMasterTransmit(i2c_address, std::span<std::uint8_t>(command_buffer.begin(), 1));
+    i2c_hal.StopMasterTransmit(commands, callback);
 
-    result = i2c_hal.ContinueMasterTransmit(handle, commands);
-    if (result != libmcu::Results::NoError)
-      goto stopI2C;
-
-  stopI2C:
-    i2c_hal.StopMaster(handle, this);
-    i2c_hal.Unclaim(handle);
-  claim_fail:
-    return result;
+    return libmcu::Results::NoError;
   }
   /**
    * @brief Set the display contrast value
