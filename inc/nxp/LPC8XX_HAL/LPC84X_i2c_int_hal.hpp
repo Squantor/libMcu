@@ -173,7 +173,39 @@ struct I2cInterrupt : public libmcuhal::AsyncI2cBase {
   constexpr void Progress() {
     if (state == libmcu::States::Idle && !transactions.IsEmpty()) {
       // we are idle but have elements in the queue
-      Callback();  // call the callback so we start processing the queue
+      transactions.PopBack(current_transaction);
+      switch (current_transaction.type) {
+        case TransactionType::SingleWrite:
+          ll_i2c_async.Transmit(current_transaction.address, current_transaction.transmit_data, this);
+          break;
+        case TransactionType::StartWrite:
+          ll_i2c_async.StartMasterTransmit(current_transaction.address, current_transaction.transmit_data, this);
+          break;
+        case TransactionType::ContinueWrite:
+          ll_i2c_async.ContinueMasterTransmit(current_transaction.transmit_data, this);
+          break;
+        case TransactionType::StopWrite:
+          ll_i2c_async.StopMasterTransmit(current_transaction.transmit_data, this);
+          break;
+        case TransactionType::SingleRead:
+          ll_i2c_async.Receive(current_transaction.address, current_transaction.receive_data, this);
+          break;
+        case TransactionType::StartRead:
+          ll_i2c_async.StartMasterReceive(current_transaction.address, current_transaction.receive_data, this);
+          break;
+        case TransactionType::ContinueRead:
+          ll_i2c_async.ContinueMasterReceive(current_transaction.receive_data, this);
+          break;
+        case TransactionType::StopRead:
+          ll_i2c_async.StopMasterReceive(current_transaction.receive_data, this);
+          break;
+        case TransactionType::EmptyEntry:
+          [[fallthrough]];
+        default:
+          // do nothing, but should not happen!
+          break;
+      }
+      state = libmcu::States::Busy;
     }
     ll_i2c_async.Progress();
   }
@@ -182,53 +214,11 @@ struct I2cInterrupt : public libmcuhal::AsyncI2cBase {
    * Called from Progress when we are idle, otherwise from the LL driver when a transaction is complete
    */
   constexpr void Callback() {
-    if (state == libmcu::States::Idle) {
-      state = libmcu::States::Busy;
-    } else {
+    if (state == libmcu::States::Busy) {
       // We where busy so we got callback from I2C LL driver, handle transaction callback
       if (current_transaction.asyncInterface != nullptr) {
         current_transaction.asyncInterface->Callback();
       }
-    }
-    // Do we have any transactions left?
-    if (!transactions.IsEmpty()) {
-      // Process next element
-      I2cTransaction element;
-      transactions.PopBack(element);
-      switch (element.type) {
-        case TransactionType::SingleWrite:
-          ll_i2c_async.Transmit(element.address, element.transmit_data, this);
-          break;
-        case TransactionType::StartWrite:
-          ll_i2c_async.StartMasterTransmit(element.address, element.transmit_data, this);
-          break;
-        case TransactionType::ContinueWrite:
-          ll_i2c_async.ContinueMasterTransmit(element.transmit_data, this);
-          break;
-        case TransactionType::StopWrite:
-          ll_i2c_async.StopMasterTransmit(element.transmit_data, this);
-          break;
-        case TransactionType::SingleRead:
-          ll_i2c_async.Receive(element.address, element.receive_data, this);
-          break;
-        case TransactionType::StartRead:
-          ll_i2c_async.StartMasterReceive(element.address, element.receive_data, this);
-          break;
-        case TransactionType::ContinueRead:
-          ll_i2c_async.ContinueMasterReceive(element.receive_data, this);
-          break;
-        case TransactionType::StopRead:
-          ll_i2c_async.StopMasterReceive(element.receive_data, this);
-          break;
-        case TransactionType::EmptyEntry:
-          [[fallthrough]];
-        default:
-          // do nothing, but should not happen!
-          break;
-      }
-      current_transaction = element;
-    } else {
-      // No switch to idle
       state = libmcu::States::Idle;
     }
   }
