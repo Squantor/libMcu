@@ -13,7 +13,7 @@
 
 namespace libmcull {
 /**
- * @brief Concept for types that inherit from libMcuLL::SyncUartBase
+ * @brief Concept for types that inherit from libmcull::SyncUartBase
  * @tparam T
  */
 template <typename T>

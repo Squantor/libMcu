@@ -13,7 +13,7 @@
 
 namespace libmcu {
 /**
- * @brief Concept for types that inherit from libMcuLL::GpioBase
+ * @brief Concept for types that inherit from libmcull::GpioBase
  * @tparam T
  */
 template <typename T>

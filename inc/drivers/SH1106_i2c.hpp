@@ -32,7 +32,7 @@ struct SH1106 : public Display {
    */
   constexpr libmcu::Results Init() {
     state = libmcu::States::Initializing;
-    return SendCommand(config.initCommands, this);
+    return SendCommand(config.InitCommands, this);
   }
   /**
    * @brief Get the Xsize object

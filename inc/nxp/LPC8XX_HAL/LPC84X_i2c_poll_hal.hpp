@@ -189,7 +189,7 @@ struct I2cPolling {
    */
   template <auto& config>
   constexpr std::uint32_t GetInputClockFreq() {
-    static_assert(config.peripheral == libmcuhw::clock::periSelect::I2C0);
+    static_assert(config.peripheral == libmcuhw::clock::PeriSelect::I2C0);
     return config.GetFrequency();
   }
   /**

@@ -172,23 +172,23 @@ struct UartAsync {
    */
   template <auto& config>
   constexpr std::uint32_t GetInputClockFreq() {
-    if constexpr (uartBaseAddress == libmcuhw::usart0Address) {
-      if constexpr (config.uart0Source == libmcuhw::clock::periSource::MAIN) {
+    if constexpr (uartBaseAddress == libmcuhw::Usart0Address) {
+      if constexpr (config.uart0Source == libmcuhw::clock::PeriSource::MAIN) {
         return config.mainFreq;
       } else
         static_assert(false, "unsupported peripheral source!");
-    } else if constexpr (uartBaseAddress == libmcuhw::usart1Address) {
-      if constexpr (config.uart1Source == libmcuhw::clock::periSource::MAIN) {
+    } else if constexpr (uartBaseAddress == libmcuhw::Usart1Address) {
+      if constexpr (config.uart1Source == libmcuhw::clock::PeriSource::MAIN) {
         return config.mainFreq;
       } else
         static_assert(false, "unsupported peripheral source!");
-    } else if constexpr (uartBaseAddress == libmcuhw::usart2Address) {
-      if constexpr (config.uart2Source == libmcuhw::clock::periSource::MAIN) {
+    } else if constexpr (uartBaseAddress == libmcuhw::Usart2Address) {
+      if constexpr (config.uart2Source == libmcuhw::clock::PeriSource::MAIN) {
         return config.mainFreq;
       } else
         static_assert(false, "unsupported peripheral source!");
-    } else if constexpr (uartBaseAddress == libmcuhw::usart3Address) {
-      if constexpr (config.uart3Source == libmcuhw::clock::periSource::MAIN) {
+    } else if constexpr (uartBaseAddress == libmcuhw::Usart3Address) {
+      if constexpr (config.uart3Source == libmcuhw::clock::PeriSource::MAIN) {
         return config.mainFreq;
       } else
         static_assert(false, "unsupported peripheral source!");

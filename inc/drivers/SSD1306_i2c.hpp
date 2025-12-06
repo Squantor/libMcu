@@ -20,7 +20,7 @@ namespace i2c = libmcull::i2c;
 template <auto &i2cHal, const libmcu::i2cDeviceAddress &i2cAddress, auto &config>
 struct SSD1306 {
   constexpr libmcu::Results init() {
-    return sendCommand(config.initCommands);
+    return sendCommand(config.InitCommands);
   }
   constexpr std::uint32_t getXsize() {
     return config.xSize;
@@ -44,7 +44,7 @@ struct SSD1306 {
   }
   constexpr libmcu::Results send(std::uint8_t action, const std::span<const std::uint8_t> commands) {
     libmcu::Results result;
-    result = i2cHal.startMasterWrite(i2cAddress, action);
+    result = i2cHal.StartMasterWrite(i2cAddress, action);
     if (result != libmcu::Results::NoError)
       goto stopI2C;
     result = i2cHal.continueMasterWrite(commands);

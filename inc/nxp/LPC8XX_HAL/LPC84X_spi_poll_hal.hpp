@@ -109,7 +109,7 @@ struct SpiPolling {
    */
   template <auto& config>
   constexpr std::uint32_t GetInputClockFreq() {
-    static_assert(config.peripheral == libmcuhw::clock::periSelect::SPI0);
+    static_assert(config.peripheral == libmcuhw::clock::PeriSelect::SPI0);
     return config.GetFrequency();
   }
   /**

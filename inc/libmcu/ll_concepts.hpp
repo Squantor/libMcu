@@ -13,43 +13,43 @@
 
 namespace libmcull {
 /**
- * @brief Concept for types that inherit from libMcuLL::SyncUartBase
+ * @brief Concept for types that inherit from libmcull::SyncUartBase
  * @tparam T
  */
 template <typename T>
 concept DerivedFromSyncUart = std::is_base_of_v<libmcull::SyncUartBase, T>;
 /**
- * @brief Concept for types that inherit from libMcuLL::AsyncUartBase
+ * @brief Concept for types that inherit from libmcull::AsyncUartBase
  * @tparam T
  */
 template <typename T>
 concept DerivedFromAsyncUart = std::is_base_of_v<libmcull::AsyncUartBase, T>;
 /**
- * @brief Concept for types that inherit from libMcuLL::SyncSpiBase
+ * @brief Concept for types that inherit from libmcull::SyncSpiBase
  * @tparam T
  */
 template <typename T>
 concept DerivedFromSyncSpi = std::is_base_of_v<libmcull::SyncSpiBase, T>;
 /**
- * @brief Concept for types that inherit from libMcuLL::AsyncSpiBase
+ * @brief Concept for types that inherit from libmcull::AsyncSpiBase
  * @tparam T
  */
 template <typename T>
 concept DerivedFromAsyncSpi = std::is_base_of_v<libmcull::AsyncSpiBase, T>;
 /**
- * @brief Concept for types that inherit from libMcuLL::SyncI2cBase
+ * @brief Concept for types that inherit from libmcull::SyncI2cBase
  * @tparam T
  */
 template <typename T>
 concept DerivedFromSyncI2c = std::is_base_of_v<libmcull::SyncI2cBase, T>;
 /**
- * @brief Concept for types that inherit from libMcuLL::AsyncI2cBase
+ * @brief Concept for types that inherit from libmcull::AsyncI2cBase
  * @tparam T
  */
 template <typename T>
 concept DerivedFromAsyncI2c = std::is_base_of_v<libmcull::AsyncI2cBase, T>;
 /**
- * @brief Concept for types that inherit from libMcuLL::GpioBase
+ * @brief Concept for types that inherit from libmcull::GpioBase
  * @tparam T
  */
 template <typename T>
