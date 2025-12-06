@@ -17,6 +17,7 @@ namespace libmcuhw::clock {
 
 /**
  * @brief
+ * @todo rename to naming conventions
  */
 enum class ClockInputSources : std::uint8_t {
   FRO,   /*!< FRO clock oscillator */
@@ -26,6 +27,7 @@ enum class ClockInputSources : std::uint8_t {
 };
 /**
  * @brief
+ * @todo rename to naming conventions
  */
 enum class PeriSelect : std::uint8_t {
   UART0, /*!< UART 0 peripheral */
@@ -41,6 +43,7 @@ enum class PeriSelect : std::uint8_t {
 };
 /**
  * @brief
+ * @todo rename to naming conventions
  */
 enum class PeriSource : std::uint8_t {
   FRO,     /*!< FRO oscillator */

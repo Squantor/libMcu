@@ -77,6 +77,7 @@ struct Systick {
   /**
    * @brief call site for the systick ISR
    * let the C style ISR call this method to make sure the callbacks get called properly
+   * @todo rename to InterruptHandler
    */
   constexpr void Isr() {
     callback();
