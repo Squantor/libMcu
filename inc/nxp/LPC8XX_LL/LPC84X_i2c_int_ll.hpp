@@ -61,7 +61,7 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
    * @param transaction_type Transaction type
    */
   constexpr libmcu::Results Transmit(const libmcu::I2cDeviceAddress address, const std::span<const std::uint8_t> buffer,
-                                     libmcu::AsyncInterface *callback = nullptr) {
+                                     libmcu::NonBlocking *callback = nullptr) {
     if (current_state != libmcu::States::Idle) {
       return static_cast<libmcu::Results>(current_state);
     }
@@ -82,7 +82,7 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
    * @return constexpr libmcu::Results
    */
   constexpr libmcu::Results StartMasterTransmit(const libmcu::I2cDeviceAddress address, const std::uint8_t data,
-                                                libmcu::AsyncInterface *callback = nullptr) {
+                                                libmcu::NonBlocking *callback = nullptr) {
     if (current_state != libmcu::States::Idle) {
       return static_cast<libmcu::Results>(current_state);
     }
@@ -97,7 +97,7 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
    * @return constexpr libmcu::Results
    */
   constexpr libmcu::Results StartMasterTransmit(const libmcu::I2cDeviceAddress address, const std::span<const std::uint8_t> buffer,
-                                                libmcu::AsyncInterface *callback = nullptr) {
+                                                libmcu::NonBlocking *callback = nullptr) {
     if (current_state != libmcu::States::Idle) {
       return static_cast<libmcu::Results>(current_state);
     }
@@ -110,7 +110,7 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
    * @param data Data to transmit
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results ContinueMasterTransmit(const std::uint8_t data, libmcu::AsyncInterface *callback = nullptr) {
+  constexpr libmcu::Results ContinueMasterTransmit(const std::uint8_t data, libmcu::NonBlocking *callback = nullptr) {
     if (current_state != libmcu::States::WaitForNextTransmit) {
       return static_cast<libmcu::Results>(current_state);
     }
@@ -124,7 +124,7 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
    * @return constexpr libmcu::Results
    */
   constexpr libmcu::Results ContinueMasterTransmit(const std::span<const std::uint8_t> buffer,
-                                                   libmcu::AsyncInterface *callback = nullptr) {
+                                                   libmcu::NonBlocking *callback = nullptr) {
     if (current_state != libmcu::States::WaitForNextTransmit) {
       return static_cast<libmcu::Results>(current_state);
     }
@@ -137,7 +137,7 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
    * @param callback Callback when completed
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results StopMasterTransmit(const std::uint8_t data, libmcu::AsyncInterface *callback = nullptr) {
+  constexpr libmcu::Results StopMasterTransmit(const std::uint8_t data, libmcu::NonBlocking *callback = nullptr) {
     if (current_state != libmcu::States::WaitForNextTransmit) {
       return static_cast<libmcu::Results>(current_state);
     }
@@ -151,7 +151,7 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
    * @return constexpr libmcu::Results
    */
   constexpr libmcu::Results StopMasterTransmit(const std::span<const std::uint8_t> buffer,
-                                               libmcu::AsyncInterface *callback = nullptr) {
+                                               libmcu::NonBlocking *callback = nullptr) {
     if (current_state != libmcu::States::WaitForNextTransmit) {
       return static_cast<libmcu::Results>(current_state);
     }
@@ -164,7 +164,7 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
    * @param receive_buffer place to put received data, needs to be at least size 1!
    */
   constexpr libmcu::Results Receive(const libmcu::I2cDeviceAddress address, std::span<std::uint8_t> buffer,
-                                    libmcu::AsyncInterface *callback = nullptr) {
+                                    libmcu::NonBlocking *callback = nullptr) {
     if (current_state != libmcu::States::Idle) {
       return static_cast<libmcu::Results>(current_state);
     }
@@ -184,7 +184,7 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
    * @return constexpr libmcu::Results
    */
   constexpr libmcu::Results StartMasterReceive(libmcu::I2cDeviceAddress address, std::span<std::uint8_t> buffer,
-                                               libmcu::AsyncInterface *callback = nullptr) {
+                                               libmcu::NonBlocking *callback = nullptr) {
     if (current_state != libmcu::States::Idle) {
       return static_cast<libmcu::Results>(current_state);
     }
@@ -197,7 +197,7 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
    * @param transmit_buffer Data to transmit
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results ContinueMasterReceive(std::span<std::uint8_t> buffer, libmcu::AsyncInterface *callback = nullptr) {
+  constexpr libmcu::Results ContinueMasterReceive(std::span<std::uint8_t> buffer, libmcu::NonBlocking *callback = nullptr) {
     if (current_state != libmcu::States::WaitForNextReceive) {
       return static_cast<libmcu::Results>(current_state);
     }
@@ -209,7 +209,7 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
    * @brief Stops I2C master reception
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results StopMasterReceive(std::span<std::uint8_t> buffer, libmcu::AsyncInterface *callback = nullptr) {
+  constexpr libmcu::Results StopMasterReceive(std::span<std::uint8_t> buffer, libmcu::NonBlocking *callback = nullptr) {
     if (current_state != libmcu::States::WaitForNextReceive) {
       return static_cast<libmcu::Results>(current_state);
     }
@@ -337,7 +337,7 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
    * @param callback callback to call when completed
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results StartMasterTransmit(libmcu::I2cDeviceAddress address, libmcu::AsyncInterface *callback) {
+  constexpr libmcu::Results StartMasterTransmit(libmcu::I2cDeviceAddress address, libmcu::NonBlocking *callback) {
     buffer_index = 0;
     current_state = libmcu::States::BusyTransmitMulti;
     transaction_callback = callback;
@@ -352,7 +352,7 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
    * @param callback Callback when completed
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results ContinueMasterTransmit(libmcu::AsyncInterface *callback) {
+  constexpr libmcu::Results ContinueMasterTransmit(libmcu::NonBlocking *callback) {
     buffer_index = 0;
     current_state = libmcu::States::BusyTransmitMulti;
     transaction_callback = callback;
@@ -365,7 +365,7 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
    * @param callback callback to call when completed
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results StopMasterTransmit(libmcu::AsyncInterface *callback) {
+  constexpr libmcu::Results StopMasterTransmit(libmcu::NonBlocking *callback) {
     buffer_index = 0;
     transaction_callback = callback;
     current_state = libmcu::States::BusyTransmitSingle;  // We use the single transmit to stop
@@ -378,7 +378,7 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
    * @param address Address data
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results StartMasterReceive(libmcu::I2cDeviceAddress address, libmcu::AsyncInterface *callback) {
+  constexpr libmcu::Results StartMasterReceive(libmcu::I2cDeviceAddress address, libmcu::NonBlocking *callback) {
     buffer_index = 0;
     transaction_callback = callback;
     current_state = libmcu::States::BusyReceiveMulti;
@@ -393,7 +393,7 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
    * @param callback Callback when completed
    * @return
    */
-  constexpr libmcu::Results ContinueMasterReceive(libmcu::AsyncInterface *callback) {
+  constexpr libmcu::Results ContinueMasterReceive(libmcu::NonBlocking *callback) {
     if (current_state != libmcu::States::WaitForNextReceive) {
       return static_cast<libmcu::Results>(current_state);
     }
@@ -408,7 +408,7 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
    * @brief Stops I2C master reception
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results StopMasterReceive(libmcu::AsyncInterface *callback) {
+  constexpr libmcu::Results StopMasterReceive(libmcu::NonBlocking *callback) {
     buffer_index = 0;
     transaction_callback = callback;
     current_state = libmcu::States::BusyReceiveSingle;  // We use the single receive to stop
@@ -422,7 +422,7 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
   std::span<std::uint8_t> receive_buffer;                            /*!< Receive buffer */
   std::span<const std::uint8_t> transmit_buffer;                     /*!< transmit buffer */
   std::size_t buffer_index;                                          /*!< current buffer index */
-  libmcu::AsyncInterface *transaction_callback;                      /*!< Pointer to class with async callback */
+  libmcu::NonBlocking *transaction_callback;                      /*!< Pointer to class with async callback */
   std::array<std::uint8_t, 1> single_byte_transmit_buffer;           /*!< Buffer for single byte transmits */
 };
 }  // namespace libmcull::i2c

@@ -26,14 +26,14 @@ struct LowLevelBase {
 };
 
 /* Peripheral bases used by most microcontrollers */
-struct SyncUartBase : public LowLevelBase {};                                 /*!< Synchronous UART base class */
-struct AsyncUartBase : public LowLevelBase, public libmcu::AsyncInterface {}; /*!< Asynchronous UART base class */
-struct SyncSpiBase : public LowLevelBase {};                                  /*!< Synchronous SPI base class */
-struct AsyncSpiBase : public LowLevelBase, public libmcu::AsyncInterface {};  /*!< Asynchronous SPI base class */
-struct SyncI2cBase : public LowLevelBase {};                                  /*!< Synchronous I2C base class */
-struct AsyncI2cBase : public LowLevelBase, public libmcu::AsyncInterface {};  /*!< Asynchronous I2C base class */
-struct AdcBase : public LowLevelBase {};                                      /*!< ADC base class */
-struct GpioBase : public LowLevelBase {};                                     /*!< GPIO base class */
+struct SyncUartBase : public LowLevelBase {};                              /*!< Synchronous UART base class */
+struct AsyncUartBase : public LowLevelBase, public libmcu::NonBlocking {}; /*!< Asynchronous UART base class */
+struct SyncSpiBase : public LowLevelBase {};                               /*!< Synchronous SPI base class */
+struct AsyncSpiBase : public LowLevelBase, public libmcu::NonBlocking {};  /*!< Asynchronous SPI base class */
+struct SyncI2cBase : public LowLevelBase {};                               /*!< Synchronous I2C base class */
+struct AsyncI2cBase : public LowLevelBase, public libmcu::NonBlocking {};  /*!< Asynchronous I2C base class */
+struct AdcBase : public LowLevelBase {};                                   /*!< ADC base class */
+struct GpioBase : public LowLevelBase {};                                  /*!< GPIO base class */
 
 }  // namespace libmcull
 #endif

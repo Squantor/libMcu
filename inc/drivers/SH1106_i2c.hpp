@@ -54,7 +54,7 @@ struct SH1106 : public Display {
    * @param commands
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results SendCommand(const std::span<const std::uint8_t> commands, AsyncInterface *callback = nullptr) {
+  constexpr libmcu::Results SendCommand(const std::span<const std::uint8_t> commands, NonBlocking *callback = nullptr) {
     return Send(preamble_command, commands, callback);
   }
   /**
@@ -92,7 +92,7 @@ struct SH1106 : public Display {
    * @return constexpr libmcu::Results
    */
   constexpr libmcu::Results Send(std::uint8_t action, const std::span<const std::uint8_t> commands,
-                                 AsyncInterface *callback = nullptr) {
+                                 NonBlocking *callback = nullptr) {
     command_buffer[0] = action;
 
     i2c_hal.StartMasterTransmit(i2c_address, std::span<std::uint8_t>(command_buffer.begin(), 1));

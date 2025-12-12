@@ -39,23 +39,23 @@ struct PinBase {};
  */
 struct PortBase {};
 /**
- * @brief Asynchronous interface base class
- * Every asynchronous capable class should inherit from this
+ * @brief Nonblocking interface base class
+ * Every nonblocking class should inherit from this
  */
-struct AsyncInterface {
+struct NonBlocking {
   /**
-   * @brief Progress function for asynchronous interfaces
+   * @brief Progress function for nonblocking interfaces
    * Usually callbacks are called from this context to upper levels
    */
   virtual void Progress(void) = 0;
   /**
-   * @brief Callback function for asynchronous interfaces
+   * @brief Callback function for nonblocking interfaces
    * Usually called from lower levels
    */
   virtual void Callback(void) = 0;
 };
 /**
- * @brief States of the asynchronous interfaces
+ * @brief States of the nonblocking interfaces
  * @todo Maybe change this into results enum as there are a lot of matching cases
  * @todo depricate usage of this state enum and use the States enum that uses Results enum
  */

@@ -47,14 +47,13 @@ struct I2cTransaction {
   libmcu::I2cDeviceAddress address;            /*!< I2C address, needed for Start */
   std::span<const std::uint8_t> transmit_data; /*!< Data to send, needed for Continue */
   std::span<std::uint8_t> receive_data;        /*!< Data to receive, needed for Continue */
-  libmcu::AsyncInterface* asyncInterface;      /*!< Pointer to class with async callback */
+  libmcu::NonBlocking* asyncInterface;         /*!< Pointer to class with async callback */
 };
 
-struct GpioBase : public HalBase {};                                     /*!< GPIO hal base class */
-struct AsyncUartBase : public HalBase, public libmcu::AsyncInterface {}; /*!< Asynchronous UART hal base class */
-struct SyncUartBase : public HalBase {};                                 /*!< Synchronous UART hal base class */
-struct AsyncSpiBase : public HalBase, public libmcu::AsyncInterface {};  /*!< Asynchronous SPI hal base class */
-struct AsyncI2cBase : public HalBase, public libmcu::AsyncInterface {};  /*!< Asynchronous I2C hal base class */
+struct GpioBase : public HalBase {};                             /*!< GPIO hal base class */
+struct UartBase : public HalBase, public libmcu::NonBlocking {}; /*!< UART hal base class */
+struct SpiBase : public HalBase, public libmcu::NonBlocking {};  /*!< SPI hal base class */
+struct I2cBase : public HalBase, public libmcu::NonBlocking {};  /*!< I2C hal base class */
 
 }  // namespace libmcuhal
 

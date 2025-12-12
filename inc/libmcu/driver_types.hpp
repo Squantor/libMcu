@@ -25,7 +25,7 @@ struct DriverBase {
   DriverBase& operator=(DriverBase&&) = delete;
 };
 
-struct Display : public DriverBase, public libmcu::AsyncInterface {}; /*!< Display driver base class, they are all asynchronous */
+struct Display : public DriverBase, public libmcu::NonBlocking {}; /*!< Display driver base class, they are all asynchronous */
 
 }  // namespace libMcuDriver
 

@@ -19,7 +19,7 @@ namespace libmcuhal::i2c {
  * @todo see if you can prevent element copying from the ringbuffer
  */
 template <libmcull::DerivedFromAsyncI2c auto& ll_i2c_async, std::size_t max_transactions = 8>
-struct I2cInterrupt : public libmcuhal::AsyncI2cBase {
+struct I2c : public libmcuhal::I2cBase {
   /**
    * @brief Setup I2C
    * @tparam &clock_config clock configuration to use
@@ -47,7 +47,7 @@ struct I2cInterrupt : public libmcuhal::AsyncI2cBase {
    * @todo turn into transaction
    */
   constexpr libmcu::Results Transmit(const libmcu::I2cDeviceAddress address, const std::span<const std::uint8_t> transmit_buffer,
-                                     AsyncInterface* callback = nullptr) {
+                                     NonBlocking* callback = nullptr) {
     return AddTransaction(
       I2cTransaction{TransactionType::SingleWrite, address, transmit_buffer, std::span<std::uint8_t>(), callback});
   }
@@ -59,7 +59,7 @@ struct I2cInterrupt : public libmcuhal::AsyncI2cBase {
    * @todo turn into transaction
    */
   constexpr libmcu::Results Receive(const libmcu::I2cDeviceAddress address, std::span<std::uint8_t> receive_buffer,
-                                    AsyncInterface* callback = nullptr) {
+                                    NonBlocking* callback = nullptr) {
     return AddTransaction(
       I2cTransaction{TransactionType::SingleRead, address, std::span<std::uint8_t>(), receive_buffer, callback});
   }
@@ -73,7 +73,7 @@ struct I2cInterrupt : public libmcuhal::AsyncI2cBase {
    */
   constexpr libmcu::Results StartMasterTransmit(const libmcu::I2cDeviceAddress address,
                                                 const std::span<const std::uint8_t> transmit_buffer,
-                                                AsyncInterface* callback = nullptr) {
+                                                NonBlocking* callback = nullptr) {
     return AddTransaction(
       I2cTransaction{TransactionType::StartWrite, address, transmit_buffer, std::span<std::uint8_t>(), callback});
   }
@@ -84,7 +84,7 @@ struct I2cInterrupt : public libmcuhal::AsyncI2cBase {
    * @param address I2C device to transmit to
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results StartMasterTransmit(const libmcu::I2cDeviceAddress address, AsyncInterface* callback = nullptr) {
+  constexpr libmcu::Results StartMasterTransmit(const libmcu::I2cDeviceAddress address, NonBlocking* callback = nullptr) {
     return AddTransaction(
       I2cTransaction{TransactionType::StartWrite, address, std::span<std::uint8_t>(), std::span<std::uint8_t>(), callback});
   }
@@ -96,7 +96,7 @@ struct I2cInterrupt : public libmcuhal::AsyncI2cBase {
    * @return constexpr libmcu::Results
    */
   constexpr libmcu::Results ContinueMasterTransmit(const std::span<const std::uint8_t> transmit_buffer,
-                                                   AsyncInterface* callback = nullptr) {
+                                                   NonBlocking* callback = nullptr) {
     return AddTransaction(I2cTransaction{TransactionType::ContinueWrite, 0, transmit_buffer, std::span<std::uint8_t>(), callback});
   }
   // @todo read and continue read operations here
@@ -107,7 +107,7 @@ struct I2cInterrupt : public libmcuhal::AsyncI2cBase {
    * @return constexpr libmcu::Results
    */
   constexpr libmcu::Results StopMasterTransmit(const std::span<const std::uint8_t> transmit_buffer,
-                                               AsyncInterface* callback = nullptr) {
+                                               NonBlocking* callback = nullptr) {
     return AddTransaction(I2cTransaction{TransactionType::StopWrite, 0, transmit_buffer, std::span<std::uint8_t>(), callback});
   }
   /**
@@ -119,7 +119,7 @@ struct I2cInterrupt : public libmcuhal::AsyncI2cBase {
    * @return constexpr libmcu::Results
    */
   constexpr libmcu::Results StartMasterReceive(const libmcu::I2cDeviceAddress address, std::span<std::uint8_t> receive_buffer,
-                                               AsyncInterface* callback = nullptr) {
+                                               NonBlocking* callback = nullptr) {
     return AddTransaction(I2cTransaction{TransactionType::StartRead, address, std::span<std::uint8_t>(), receive_buffer, callback});
   }
   /**
@@ -129,7 +129,7 @@ struct I2cInterrupt : public libmcuhal::AsyncI2cBase {
    * @param callback Callback when completed
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results StartMasterReceive(const libmcu::I2cDeviceAddress address, AsyncInterface* callback = nullptr) {
+  constexpr libmcu::Results StartMasterReceive(const libmcu::I2cDeviceAddress address, NonBlocking* callback = nullptr) {
     return AddTransaction(
       I2cTransaction{TransactionType::StartRead, address, std::span<std::uint8_t>(), std::span<std::uint8_t>(), callback});
   }
@@ -140,7 +140,7 @@ struct I2cInterrupt : public libmcuhal::AsyncI2cBase {
    * @param callback Callback when completed
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results ContinueMasterReceive(std::span<std::uint8_t> receive_buffer, AsyncInterface* callback = nullptr) {
+  constexpr libmcu::Results ContinueMasterReceive(std::span<std::uint8_t> receive_buffer, NonBlocking* callback = nullptr) {
     return AddTransaction(I2cTransaction{TransactionType::ContinueRead, 0, std::span<std::uint8_t>(), receive_buffer, callback});
   }
   /**
@@ -150,7 +150,7 @@ struct I2cInterrupt : public libmcuhal::AsyncI2cBase {
    * @todo add variants where you can pass a buffer to transmit/receive
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results StopMasterReceive(std::span<std::uint8_t> receive_buffer, AsyncInterface* callback = nullptr) {
+  constexpr libmcu::Results StopMasterReceive(std::span<std::uint8_t> receive_buffer, NonBlocking* callback = nullptr) {
     return AddTransaction(I2cTransaction{TransactionType::StopRead, 0, std::span<std::uint8_t>(), receive_buffer, callback});
   }
   /**

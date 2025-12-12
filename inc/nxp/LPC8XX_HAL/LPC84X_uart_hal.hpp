@@ -13,8 +13,6 @@
 #ifndef LPC84X_HAL_UARTSYNC_INT_HPP
 #define LPC84X_HAL_UARTSYNC_INT_HPP
 
-#include "LPC84X_uart_common_hal.hpp"
-
 namespace libmcuhal::usart {
 namespace hardware = libmcuhw::usart;
 namespace lowlevel = libmcull::usart;
@@ -25,7 +23,7 @@ using UartStops = lowlevel::UartStops;
 using UartLengths = lowlevel::UartLengths;
 
 template <libmcull::DerivedFromAsyncUart auto& ll_uart_async, typename TransferType, std::size_t action_timeout = 0x1000>
-struct UartInterrupt : public libmcuhal::AsyncUartBase {
+struct Uart : public libmcuhal::UartBase {
   /**
    * @brief Setup USART
    * @tparam &clock_config clock configuration to use
