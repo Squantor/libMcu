@@ -5,13 +5,11 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * @file LPC84X_hal_i2csync_pol.hpp
- * @brief LPC840 series I2C HAL interrupt mode
+ * @file LPC84X_hal_i2c.hpp
+ * @brief LPC840 series nonblocking I2C HAL
  */
 #ifndef LPC84X_HAL_I2C_INT_HAL_HPP
 #define LPC84X_HAL_I2C_INT_HAL_HPP
-
-#include "LPC84X_i2c_common_hal.hpp"
 
 namespace libmcuhal::i2c {
 /**

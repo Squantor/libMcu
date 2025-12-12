@@ -57,38 +57,11 @@ struct UartInterrupt : libmcull::AsyncUartBase {
     return static_cast<libmcu::Results>(state);
   }
   /**
-   * @brief Claim the USART interface
-   * @return Claimed when the claim has been successful, any other value indicates an error
-   */
-  constexpr libmcu::Results Claim(void) {
-    if (state == libmcu::States::Claimed) {
-      return libmcu::Results::InUse;
-    }
-    if (state == libmcu::States::Idle) {
-      state = libmcu::States::Claimed;
-    }
-    return static_cast<libmcu::Results>(state);
-  }
-  /**
-   * @brief Unclaim the USART interface
-   * @return Unclaimed when the unclaim has been successful, any other value indicates an error
-   */
-  constexpr libmcu::Results Unclaim(void) {
-    if (state == libmcu::States::Claimed) {
-      state = libmcu::States::Idle;
-      return libmcu::Results::Unclaimed;
-    }
-    return static_cast<libmcu::Results>(state);
-  }
-  /**
    * @brief Send data out of the UART
    * @param element Data to transmit
    * @return NotClaimed if not claimed, Started if all okay
    */
   constexpr libmcu::Results Transmit(TransferType element) {
-    if (state != libmcu::States::Claimed) {
-      return static_cast<libmcu::Results>(state);
-    }
     // Busy until tx queue has space
     while (tx_buffer.IsFull()) {
     }
@@ -102,9 +75,6 @@ struct UartInterrupt : libmcull::AsyncUartBase {
    * @return NotClaimed if not claimed, Started if all okay
    */
   constexpr libmcu::Results Transmit(std::span<const TransferType> buffer) {
-    if (state != libmcu::States::Claimed) {
-      return static_cast<libmcu::Results>(state);
-    }
     // Fill transmit queue before enabling TXRDY interrupt
     std::size_t count = 0;
     while (!tx_buffer.IsFull() && count < buffer.size()) {
@@ -133,9 +103,6 @@ struct UartInterrupt : libmcull::AsyncUartBase {
    * @return NoError if all okay
    */
   constexpr libmcu::Results Receive(std::span<TransferType> buffer) {
-    if (state != libmcu::States::Claimed) {
-      return static_cast<libmcu::Results>(state);
-    }
     // Fill receive queue
     std::size_t count = 0;
     while (count < buffer.size()) {
@@ -153,9 +120,6 @@ struct UartInterrupt : libmcull::AsyncUartBase {
    * @return NoError if all okay
    */
   constexpr libmcu::Results Receive(TransferType &element) {
-    if (state != libmcu::States::Claimed) {
-      return static_cast<libmcu::Results>(state);
-    }
     while (rx_buffer.IsEmpty()) {
     }
     rx_buffer.PopBack(element);

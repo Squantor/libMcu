@@ -5,8 +5,8 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * @file LPC84X_hal_uartasync_int.hpp
- * @brief LPC840 series interrupt synchronous UART HAL
+ * @file LPC84X_uart_hal.hpp
+ * @brief LPC840 series nonblocking USART HAL
  * @todo depricate synchronous interrupt interfaces
  * @todo Change this to use the Uart LL interrupt
  */
@@ -19,6 +19,10 @@ namespace libmcuhal::usart {
 namespace hardware = libmcuhw::usart;
 namespace lowlevel = libmcull::usart;
 namespace nvic = libmcuhw::nvic;
+
+using UartParities = lowlevel::UartParities;
+using UartStops = lowlevel::UartStops;
+using UartLengths = lowlevel::UartLengths;
 
 template <libmcull::DerivedFromAsyncUart auto& ll_uart_async, typename TransferType, std::size_t action_timeout = 0x1000>
 struct UartInterrupt : public libmcuhal::AsyncUartBase {
@@ -37,23 +41,6 @@ struct UartInterrupt : public libmcuhal::AsyncUartBase {
     return ll_uart_async.template Init<clock_config>(baudRate, static_cast<lowlevel::UartParities>(parity),
                                                      static_cast<lowlevel::UartStops>(stopBits),
                                                      static_cast<lowlevel::UartLengths>(lengthBits));
-  }
-  /**
-   * @brief Claim asynchronous interface
-   * @returns Claimed if successful
-   * @returns see @ref libmcull::usart::UartInterrupt
-   */
-  libmcu::Results Claim() {
-    return ll_uart_async.Claim();
-  }
-  /**
-   * @brief Release the asynchronous interface
-   * @returns InUse if the interface is already in use by another claimant
-   * @returns Unclaimed if the interface is not claimed
-   * @returns see @ref libmcull::usart::UartInterrupt
-   */
-  libmcu::Results Unclaim() {
-    return ll_uart_async.Unclaim();
   }
 
   constexpr void Progress() {}
