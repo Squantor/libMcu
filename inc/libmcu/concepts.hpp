@@ -5,7 +5,7 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * @file general_concepts.hpp
+ * @file concepts.hpp
  * @brief concepts used by libMcu in general
  */
 #ifndef GENERAL_CONCEPTS_HPP

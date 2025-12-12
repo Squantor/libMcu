@@ -5,7 +5,7 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * @file general_types.hpp
+ * @file types.hpp
  * @brief LibMcu wide used types
  */
 #ifndef GENERAL_TYPES_HPP

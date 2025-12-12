@@ -5,7 +5,7 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file general_algorithms.hpp
+ * \file algorithms.hpp
  * \brief algorithms used by libMcu
  */
 #ifndef GENERAL_ALGORITHMS_HPP

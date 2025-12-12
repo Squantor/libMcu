@@ -12,7 +12,7 @@
 #define LIBMCU_CORTEXM0PLUS_LL_HPP
 
 #include "../libmcu/libmcull.hpp"
-#include "../libmcu/general_functions_CM0.hpp"
+#include "../libmcu/functions_CM0.hpp"
 
 namespace libmcuhw {
 // MCU configuration options

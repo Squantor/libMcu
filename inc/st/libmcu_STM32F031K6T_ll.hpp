@@ -12,7 +12,7 @@
 #define LIBMCU_STM32F031K6T_LL_HPP
 
 #include "../libmcu/libmcull.hpp"
-#include "../libmcu/general_functions_CM0.hpp"
+#include "../libmcu/functions_CM0.hpp"
 
 namespace libmcuhw {
 

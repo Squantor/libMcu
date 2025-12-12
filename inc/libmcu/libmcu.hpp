@@ -17,12 +17,12 @@
 #include <span>
 #include <type_traits>
 #include <limits>
-#include "general_results.hpp"
-#include "general_types.hpp"
-#include "general_concepts.hpp"
-#include "general_functions.hpp"
-#include "general_ringbuffer.hpp"
-#include "general_algorithms.hpp"
-#include "general_states.hpp"
+#include "results.hpp"
+#include "types.hpp"
+#include "concepts.hpp"
+#include "functions.hpp"
+#include "ringbuffer.hpp"
+#include "algorithms.hpp"
+#include "states.hpp"
 
 #endif

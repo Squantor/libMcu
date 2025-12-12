@@ -11,7 +11,7 @@
 #ifndef GENERAL_STATES_HPP
 #define GENERAL_STATES_HPP
 
-#include "general_results.hpp"
+#include "results.hpp"
 
 namespace libmcu {
 /**

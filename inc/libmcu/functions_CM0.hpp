@@ -5,7 +5,7 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * \file general_functions_CM0.hpp
+ * \file functions_CM0.hpp
  * \brief helper functions used by libMcu used by CortexM0 processors
  */
 #ifndef GENERAL_FUNCTIONS_CM0_HPP
