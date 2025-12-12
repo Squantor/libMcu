@@ -24,5 +24,6 @@
 #include "general_ringbuffer.hpp"
 #include "general_algorithms.hpp"
 #include "general_states.hpp"
+#include "nonblocking.hpp"
 
 #endif
