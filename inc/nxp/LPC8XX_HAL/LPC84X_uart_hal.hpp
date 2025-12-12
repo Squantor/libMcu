@@ -36,9 +36,7 @@ struct Uart : public libmcuhal::UartBase {
   template <const libmcuhw::clock::PeriClockConfig& clock_config>
   constexpr std::uint32_t Init(std::uint32_t baudRate, UartParities parity = UartParities::None,
                                UartStops stopBits = UartStops::Stop1, UartLengths lengthBits = UartLengths::Size8) {
-    return ll_uart_async.template Init<clock_config>(baudRate, static_cast<lowlevel::UartParities>(parity),
-                                                     static_cast<lowlevel::UartStops>(stopBits),
-                                                     static_cast<lowlevel::UartLengths>(lengthBits));
+    return ll_uart_async.template Init<clock_config>(baudRate, parity, stopBits, lengthBits);
   }
 
   constexpr void Progress() {}
