@@ -10,8 +10,8 @@
  * @todo depricate synchronous interrupt interfaces
  * @todo Change this to use the Uart LL interrupt
  */
-#ifndef LPC84X_HAL_UARTSYNC_INT_HPP
-#define LPC84X_HAL_UARTSYNC_INT_HPP
+#ifndef LPC84X_I2C_HAL_HPP
+#define LPC84X_I2C_HAL_HPP
 
 namespace libmcuhal::usart {
 namespace hardware = libmcuhw::usart;

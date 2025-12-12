@@ -14,7 +14,9 @@
 #include "libmcu_LPC845M301BD48_ll.hpp"
 #include "../libmcu/libmcuhal.hpp"
 
+#include "LPC8XX_HAL/LPC84X_gpio_hal.hpp"
 #include "LPC8XX_HAL/LPC84X_uart_hal.hpp"
 #include "LPC8XX_HAL/LPC84X_i2c_hal.hpp"
+#include "LPC8XX_HAL/LPC84X_spi_hal.hpp"
 
 #endif
