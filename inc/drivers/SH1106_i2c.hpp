@@ -18,13 +18,13 @@
 namespace libMcuDriver::SH1106 {
 
 /**
- * @brief
+ * @brief SH1106 driver over I2C bus
  * @todo i2chal template parameter needs check with a concept
- * @todo porting from SSD1306 needs to be completed
  * @todo cleanup small buffers for commands to one circular block allocator?
- * @tparam &i2c_hal
- * @tparam &i2c_address
- * @tparam &config
+ * @todo optimize transfer by keeping what bytes are dirty
+ * @tparam i2c_hal I2C hal to be used
+ * @tparam i2c_address I2C address the display is connected to
+ * @tparam config display configuration
  */
 template <auto &i2c_hal, const libmcu::I2cDeviceAddress &i2c_address, auto &config>
 struct SH1106 : public Display {
@@ -34,6 +34,12 @@ struct SH1106 : public Display {
    */
   constexpr libmcu::Results Init() {
     state = libmcu::States::Initializing;
+    framebuffer.fill(0);
+    std::span<uint8_t> framebuffer_span = framebuffer;
+    for (uint32_t i = 0; i < config.size_pages; i++) {
+      SetPageAddress(i);
+      SendData(framebuffer_span.subspan(i * config.size_x, config.size_x));
+    }
     return SendCommand(config.init_commands, this);
   }
   /**
@@ -95,10 +101,10 @@ struct SH1106 : public Display {
    * @return constexpr libmcu::Results
    * @todo Not implemented
    */
-  constexpr libmcu::Results SetColumnAddress(uint32_t address) {
-    std::uint32_t address_byte = static_cast<uint8_t>(address & 0xFF);
-    set_column_address_buffer[0] = FormatSetHigherColumnAddress(static_cast<uint8_t>(address_byte));
-    set_column_address_buffer[1] = FormatSetLowerColumnAddress(static_cast<uint8_t>(address_byte));
+  constexpr libmcu::Results SetColumnAddress(uint32_t column) {
+    std::uint32_t column_byte = static_cast<uint8_t>(column & 0xFF);
+    set_column_address_buffer[0] = FormatSetHigherColumnAddress(static_cast<uint8_t>(column_byte));
+    set_column_address_buffer[1] = FormatSetLowerColumnAddress(static_cast<uint8_t>(column_byte));
     return SendCommand(set_column_address_buffer);
   }
   /**
@@ -106,8 +112,8 @@ struct SH1106 : public Display {
    * @param address
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results SetPageAddress(uint32_t address) {
-    set_page_address_buffer[0] = cmd_set_page_address | static_cast<uint8_t>(address);
+  constexpr libmcu::Results SetPageAddress(uint32_t page) {
+    set_page_address_buffer[0] = FormatSetPageAddress(static_cast<uint8_t>(page));
     return SendCommand(set_page_address_buffer);
   }
   /**
@@ -119,7 +125,7 @@ struct SH1106 : public Display {
   constexpr libmcu::Results SetAddress(uint32_t column, uint32_t page) {
     set_address_buffer[0] = FormatSetHigherColumnAddress(static_cast<uint8_t>(column));
     set_address_buffer[1] = FormatSetLowerColumnAddress(static_cast<uint8_t>(column));
-    set_address_buffer[2] = cmd_set_page_address | static_cast<uint8_t>(page);
+    set_address_buffer[2] = FormatSetPageAddress(static_cast<uint8_t>(page));
     return SendCommand(set_address_buffer);
   }
   /**
@@ -145,6 +151,7 @@ struct SH1106 : public Display {
 
  private:
   libmcu::States state = libmcu::States::Initializing;
+  std::array<std::uint8_t, config.size_framebuffer> framebuffer;
   std::array<const std::uint8_t, 1> preamble_command_buffer = {preamble_command};
   std::array<const std::uint8_t, 1> preamble_data_buffer = {preamble_data};
   // All these separate buffers seem messy, will cause problems with concurrency

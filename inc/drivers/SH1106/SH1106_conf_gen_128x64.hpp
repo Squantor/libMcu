@@ -27,6 +27,8 @@ struct Generic128x64 {
     FormatDisplayOffsetArg(0),
     CmdSetDisplayStartLine(0),
     FormatSetPageAddress(0),
+    FormatSetLowerColumnAddress(0),
+    FormatSetHigherColumnAddress(0),
     cmd_set_charge_pump,
     FormatChargePumpOnArg(true),
     CmdSetSegmentRemap(segmentMapping::column127),
@@ -43,8 +45,10 @@ struct Generic128x64 {
     cmd_set_display_normal,
     cmd_set_display_active};
 
-  static constexpr std::uint8_t size_x{128};
-  static constexpr std::uint8_t suze_y{64};
+  static constexpr std::uint8_t size_x{128};                            /*!< width of display */
+  static constexpr std::uint8_t size_y{64};                             /*!< height of display */
+  static constexpr std::uint8_t size_pages{8};                          /*!< number of pages */
+  static constexpr std::size_t size_framebuffer{(size_x * size_y) / 8}; /*!< size of framebuffer */
 };
 
 }  // namespace libMcuDriver::SH1106
