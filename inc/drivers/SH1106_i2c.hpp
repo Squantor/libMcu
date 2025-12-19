@@ -21,6 +21,7 @@ namespace libMcuDriver::SH1106 {
  * @brief
  * @todo i2chal template parameter needs check with a concept
  * @todo porting from SSD1306 needs to be completed
+ * @todo cleanup small buffers for commands to one circular block allocator?
  * @tparam &i2c_hal
  * @tparam &i2c_address
  * @tparam &config
@@ -55,34 +56,15 @@ struct SH1106 : public Display {
    * @return constexpr libmcu::Results
    */
   constexpr libmcu::Results SendCommand(const std::span<const std::uint8_t> commands, NonBlocking *callback = nullptr) {
-    return Send(preamble_command, commands, callback);
-  }
-  /**
-   * @brief
-   * @param command
-   * @return constexpr libmcu::Results
-   */
-  constexpr libmcu::Results SendCommand(std::uint8_t command) {
-    std::array<std::uint8_t, 1> commands{command};
-    return SendCommand(commands);
-  }
-  /**
-   * @brief
-   * @param command
-   * @param argument
-   * @return constexpr libmcu::Results
-   */
-  constexpr libmcu::Results SendCommand(std::uint8_t command, std::uint8_t argument) {
-    std::array<std::uint8_t, 2> commands{command, argument};
-    return SendCommand(commands);
+    return Send(preamble_command_buffer, commands, callback);
   }
   /**
    * @brief
    * @param data
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results SendData(const std::span<const std::uint8_t> data) {
-    return Send(preamble_data, data);
+  constexpr libmcu::Results SendData(const std::span<const std::uint8_t> data, NonBlocking *callback = nullptr) {
+    return Send(preamble_data_buffer, data, callback);
   }
   /**
    * @brief
@@ -91,13 +73,10 @@ struct SH1106 : public Display {
    * @param callback Callback to execute when Send is done
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results Send(std::uint8_t action, const std::span<const std::uint8_t> commands,
-                                 NonBlocking *callback = nullptr) {
-    command_buffer[0] = action;
-
-    i2c_hal.StartMasterTransmit(i2c_address, std::span<std::uint8_t>(command_buffer.begin(), 1));
+  constexpr libmcu::Results Send(const std::span<const std::uint8_t> action, const std::span<const std::uint8_t> commands,
+                                 NonBlocking *callback) {
+    i2c_hal.StartMasterTransmit(i2c_address, action);
     i2c_hal.StopMasterTransmit(commands, callback);
-
     return libmcu::Results::NoError;
   }
   /**
@@ -106,67 +85,42 @@ struct SH1106 : public Display {
    * @return status of I2C transaction
    */
   constexpr libmcu::Results Contrast(std::uint8_t value) {
-    return SendCommand(cmd_set_constrast, FormatContrastLevelArg(value));
-  }
-  /**
-   * @brief Set the Display Ram object
-   * @param state
-   * @return constexpr libmcu::Results
-   */
-  constexpr libmcu::Results SetDisplayRam(bool state) {
-    if (state == true)
-      return SendCommand(cmdDisplayRam);
-    else
-      return SendCommand(cmd_set_display_on);
-  }
-  /**
-   * @brief Invert the display
-   * @param state
-   * @return constexpr libmcu::Results
-   */
-  constexpr libmcu::Results InvertDisplay(bool state) {
-    if (state == true)
-      return SendCommand(cmd_set_display_inverted);
-    else
-      return SendCommand(cmd_set_display_normal);
-  }
-  /**
-   * @brief Set the Address of the display pointer in page mode
-   * @param column column address
-   * @param page page address
-   * @return constexpr libmcu::Results
-   */
-  constexpr libmcu::Results SetAddressInPageMode(uint8_t column, uint8_t page) {
-    std::array<std::uint8_t, 3> commands{CmdSetPageStart(page), cmdSetLowerColumnAddress(column),
-                                         cmdSetHigherColumnAddress(column)};
-    return SendCommand(commands);
-  }
-  /**
-   * @brief Set the Display Start Line object
-   * @param line
-   * @return constexpr libmcu::Results
-   */
-  constexpr libmcu::Results SetDisplayStartLine(uint32_t line) {
-    return SendCommand(CmdSetDisplayStartLine(line));
+    set_contrast_buffer[0] = cmd_set_constrast;
+    set_contrast_buffer[1] = FormatContrastLevelArg(value);
+    return SendCommand(set_contrast_buffer);
   }
   /**
    * @brief Set the Column Address object
    * @param start
    * @return constexpr libmcu::Results
+   * @todo Not implemented
    */
-  constexpr libmcu::Results SetColumnAddress(uint32_t start, uint32_t end) {
-    std::array<std::uint8_t, 3> commands{cmdSetColumnAddress, static_cast<std::uint8_t>(start), static_cast<std::uint8_t>(end)};
-    return SendCommand(commands);
+  constexpr libmcu::Results SetColumnAddress(uint32_t address) {
+    std::uint32_t address_byte = static_cast<uint8_t>(address & 0xFF);
+    set_column_address_buffer[0] = FormatSetHigherColumnAddress(static_cast<uint8_t>(address_byte));
+    set_column_address_buffer[1] = FormatSetLowerColumnAddress(static_cast<uint8_t>(address_byte));
+    return SendCommand(set_column_address_buffer);
   }
   /**
-   * @brief Set the Page Address object
-   * @param start
-   * @param end
+   * @brief Set the display page address start
+   * @param address
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results SetPageAddress(uint32_t start, uint32_t end) {
-    std::array<std::uint8_t, 3> commands{cmdSetPageAddress, static_cast<std::uint8_t>(start), static_cast<std::uint8_t>(end)};
-    return SendCommand(commands);
+  constexpr libmcu::Results SetPageAddress(uint32_t address) {
+    set_page_address_buffer[0] = cmd_set_page_address | static_cast<uint8_t>(address);
+    return SendCommand(set_page_address_buffer);
+  }
+  /**
+   * @brief Set the display address to write data to
+   * @param column Column address
+   * @param page Page address
+   * @return constexpr libmcu::Results
+   */
+  constexpr libmcu::Results SetAddress(uint32_t column, uint32_t page) {
+    set_address_buffer[0] = FormatSetHigherColumnAddress(static_cast<uint8_t>(column));
+    set_address_buffer[1] = FormatSetLowerColumnAddress(static_cast<uint8_t>(column));
+    set_address_buffer[2] = cmd_set_page_address | static_cast<uint8_t>(page);
+    return SendCommand(set_address_buffer);
   }
   /**
    * @brief
@@ -191,7 +145,13 @@ struct SH1106 : public Display {
 
  private:
   libmcu::States state = libmcu::States::Initializing;
-  std::array<std::uint8_t, 4> command_buffer;
+  std::array<const std::uint8_t, 1> preamble_command_buffer = {preamble_command};
+  std::array<const std::uint8_t, 1> preamble_data_buffer = {preamble_data};
+  // All these separate buffers seem messy, will cause problems with concurrency
+  std::array<std::uint8_t, 1> set_page_address_buffer;
+  std::array<std::uint8_t, 2> set_column_address_buffer;
+  std::array<std::uint8_t, 2> set_contrast_buffer;
+  std::array<std::uint8_t, 3> set_address_buffer;
 };
 
 }  // namespace libMcuDriver::SH1106

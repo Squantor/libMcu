@@ -26,6 +26,7 @@ struct Generic128x64 {
     cmd_set_display_offset,
     FormatDisplayOffsetArg(0),
     CmdSetDisplayStartLine(0),
+    FormatSetPageAddress(0),
     cmd_set_charge_pump,
     FormatChargePumpOnArg(true),
     CmdSetSegmentRemap(segmentMapping::column127),
