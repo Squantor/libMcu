@@ -23,6 +23,7 @@ constexpr inline libmcu::MpuBaseAddress MpuAddress{0xE000'ED90UL};         /*!< 
 }  // namespace libmcuhw
 
 #include "cortex_m_ll.hpp"
+#include "cm_assert.hpp"
 
 #include "systick_hw.hpp"
 #include "nvic_hw.hpp"

@@ -22,6 +22,7 @@ constexpr inline libmcu::ScbBaseAddress ScbAddress{0xE000'ED00UL};         /*!< 
 }  // namespace libmcuhw
 
 #include "cortex_m_ll.hpp"
+#include "cm_assert.hpp"
 
 #include "systick_hw.hpp"
 #include "nvic_hw.hpp"
