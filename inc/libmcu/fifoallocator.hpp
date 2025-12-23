@@ -6,7 +6,7 @@
  */
 /**
  * @file fifoallocator.hpp
- * @brief Implements a FIFO allocator
+ * @brief Implements a First In First Out allocator
  */
 #ifndef FIFOALLOCATOR_HPP
 #define FIFOALLOCATOR_HPP
@@ -14,7 +14,7 @@
 namespace libmcu {
 
 /**
- * @brief FiFo allocation class
+ * @brief First In First Out allocation class
  * @tparam T Type to be used in the FifoAllocator
  * @tparam N Amount of elements in the FifoAllocator
  */

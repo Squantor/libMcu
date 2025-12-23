@@ -27,5 +27,6 @@
 #include "states.hpp"
 #include "assertions.hpp"
 #include "fifoallocator.hpp"
+#include "finoallocator.hpp"
 
 #endif
