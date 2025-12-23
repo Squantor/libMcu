@@ -26,5 +26,6 @@
 #include "algorithms.hpp"
 #include "states.hpp"
 #include "assertions.hpp"
+#include "ringblockbuffer.hpp"
 
 #endif

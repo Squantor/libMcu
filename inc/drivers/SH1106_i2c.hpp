@@ -25,8 +25,10 @@ namespace libMcuDriver::SH1106 {
  * @tparam i2c_hal I2C hal to be used
  * @tparam i2c_address I2C address the display is connected to
  * @tparam config display configuration
+ * @tparam Assert Assertion class
  */
-template <auto &i2c_hal, const libmcu::I2cDeviceAddress &i2c_address, auto &config>
+template <auto &i2c_hal, const libmcu::I2cDeviceAddress &i2c_address, auto &config,
+          libmcu::AssertCallable Assert = libmcu::NoAssert>
 struct SH1106 : public Display {
   /**
    * @brief
@@ -91,6 +93,7 @@ struct SH1106 : public Display {
    * @return status of I2C transaction
    */
   constexpr libmcu::Results Contrast(std::uint8_t value) {
+    std::span<uint8_t> set_contrast_buffer = ring_arena.Request(2);
     set_contrast_buffer[0] = cmd_set_constrast;
     set_contrast_buffer[1] = FormatContrastLevelArg(value);
     return SendCommand(set_contrast_buffer);
@@ -102,6 +105,7 @@ struct SH1106 : public Display {
    * @todo Not implemented
    */
   constexpr libmcu::Results SetColumnAddress(uint32_t column) {
+    std::span<uint8_t> set_column_address_buffer = ring_arena.Request(2);
     std::uint32_t column_byte = static_cast<uint8_t>(column & 0xFF);
     set_column_address_buffer[0] = FormatSetHigherColumnAddress(static_cast<uint8_t>(column_byte));
     set_column_address_buffer[1] = FormatSetLowerColumnAddress(static_cast<uint8_t>(column_byte));
@@ -113,6 +117,7 @@ struct SH1106 : public Display {
    * @return constexpr libmcu::Results
    */
   constexpr libmcu::Results SetPageAddress(uint32_t page) {
+    std::span<uint8_t> set_page_address_buffer = ring_arena.Request(1);
     set_page_address_buffer[0] = FormatSetPageAddress(static_cast<uint8_t>(page));
     return SendCommand(set_page_address_buffer);
   }
@@ -123,6 +128,7 @@ struct SH1106 : public Display {
    * @return constexpr libmcu::Results
    */
   constexpr libmcu::Results SetAddress(uint32_t column, uint32_t page) {
+    std::span<uint8_t> set_address_buffer = ring_arena.Request(3);
     set_address_buffer[0] = FormatSetHigherColumnAddress(static_cast<uint8_t>(column));
     set_address_buffer[1] = FormatSetLowerColumnAddress(static_cast<uint8_t>(column));
     set_address_buffer[2] = FormatSetPageAddress(static_cast<uint8_t>(page));
@@ -141,6 +147,8 @@ struct SH1106 : public Display {
       case libmcu::States::Initializing:
         // we get callback from the I2C HAL driver
         // todo check error status
+        // we have sent everything in flight, just reset arena
+        ring_arena.Reset();
         state = libmcu::States::Idle;
         break;
       default:
@@ -154,11 +162,7 @@ struct SH1106 : public Display {
   std::array<std::uint8_t, config.size_framebuffer> framebuffer;
   std::array<const std::uint8_t, 1> preamble_command_buffer = {preamble_command};
   std::array<const std::uint8_t, 1> preamble_data_buffer = {preamble_data};
-  // All these separate buffers seem messy, will cause problems with concurrency
-  std::array<std::uint8_t, 1> set_page_address_buffer;
-  std::array<std::uint8_t, 2> set_column_address_buffer;
-  std::array<std::uint8_t, 2> set_contrast_buffer;
-  std::array<std::uint8_t, 3> set_address_buffer;
+  libmcu::RingBlockBuffer<std::uint8_t, 20, Assert> ring_arena;
 };
 
 }  // namespace libMcuDriver::SH1106
