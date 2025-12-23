@@ -36,12 +36,13 @@ struct SH1106 : public Display {
   constexpr libmcu::Results Init() {
     state = libmcu::States::Initializing;
     framebuffer.fill(0);
+    SendCommand(config.init_commands);
     std::span<uint8_t> framebuffer_span = framebuffer;
     for (uint32_t i = 0; i < config.size_pages; i++) {
       SetPageAddress(i);
       SendData(framebuffer_span.subspan(i * config.size_x, config.size_x));
     }
-    return SendCommand(config.init_commands, this);
+    return SetAddress(0, 0, this);
   }
   /**
    * @brief Get the Xsize object
@@ -126,12 +127,13 @@ struct SH1106 : public Display {
    * @param page Page address
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results SetAddress(uint32_t column, uint32_t page) {
+  constexpr libmcu::Results SetAddress(uint32_t column, uint32_t page, NonBlocking *callback = nullptr) {
     std::span<uint8_t> set_address_buffer = allocator.Request(3);
+    column = column + config.column_offset;
     set_address_buffer[0] = FormatSetHigherColumnAddress(static_cast<uint8_t>(column));
     set_address_buffer[1] = FormatSetLowerColumnAddress(static_cast<uint8_t>(column));
     set_address_buffer[2] = FormatSetPageAddress(static_cast<uint8_t>(page));
-    return SendCommand(set_address_buffer);
+    return SendCommand(set_address_buffer, callback);
   }
   /**
    * @brief

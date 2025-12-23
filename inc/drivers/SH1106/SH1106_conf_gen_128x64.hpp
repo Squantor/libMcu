@@ -48,6 +48,7 @@ struct Generic128x64 {
   static constexpr std::uint8_t size_x{128};                            /*!< width of display */
   static constexpr std::uint8_t size_y{64};                             /*!< height of display */
   static constexpr std::uint8_t size_pages{8};                          /*!< number of pages */
+  static constexpr std::uint8_t column_offset{4};                       /*!< SSH1106 column offset */
   static constexpr std::size_t size_framebuffer{(size_x * size_y) / 8}; /*!< size of framebuffer */
 };
 
