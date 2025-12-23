@@ -5,26 +5,26 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * @file ringblockbuffer.hpp
- * @brief Implements a ringbuffer that returns blocks
+ * @file ringallocator.hpp
+ * @brief Implements a ring allocator
  */
-#ifndef GENERAL_RINGBLOCKBUFFER_HPP
-#define GENERAL_RINGBLOCKBUFFER_HPP
+#ifndef RINGALLOCATOR_HPP
+#define RINGALLOCATOR_HPP
 
 namespace libmcu {
 
 /**
  * @brief Ring buffer that returns blocks
- * @tparam T Type to be used in the RingBlockBuffer
- * @tparam N Amount of elements in the RingBlockBuffer
+ * @tparam T Type to be used in the RingAllocator
+ * @tparam N Amount of elements in the RingAllocator
  */
 template <typename T, std::size_t size, AssertCallable Assert = NoAssert>
-class RingBlockBuffer {
+class RingAllocator {
  public:
   /**
    * @brief Construct a new Ring Buffer object
    */
-  RingBlockBuffer() {
+  RingAllocator() {
     static_assert(size > 0, "ringbuffer size of zero is not allowed!");
     Reset();
   }
@@ -78,7 +78,7 @@ class RingBlockBuffer {
     if (TryIncrementFront(block_size))
       return {buffer.data() + old_front, block_size};
     else {
-      AssertFailIf(true, "RingBlockBuffer::Request: buffer is full");
+      AssertFailIf(true, "RingAllocator::Request: buffer is full");
       return {};
     }
   }
@@ -88,7 +88,7 @@ class RingBlockBuffer {
    * @param block span to return
    */
   void Release(std::span<T> block) {
-    AssertFailIf(buffer.data() + back != block.data(), "RingBlockBuffer::Release: does not match back index");
+    AssertFailIf(buffer.data() + back != block.data(), "RingAllocator::Release: does not match back index");
     back = back + block.size();
   }
 
