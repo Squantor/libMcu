@@ -26,6 +26,6 @@
 #include "algorithms.hpp"
 #include "states.hpp"
 #include "assertions.hpp"
-#include "ringallocator.hpp"
+#include "fifoallocator.hpp"
 
 #endif

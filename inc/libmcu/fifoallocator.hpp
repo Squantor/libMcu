@@ -5,55 +5,55 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * @file ringallocator.hpp
- * @brief Implements a ring allocator
+ * @file fifoallocator.hpp
+ * @brief Implements a FIFO allocator
  */
-#ifndef RINGALLOCATOR_HPP
-#define RINGALLOCATOR_HPP
+#ifndef FIFOALLOCATOR_HPP
+#define FIFOALLOCATOR_HPP
 
 namespace libmcu {
 
 /**
- * @brief Ring buffer that returns blocks
- * @tparam T Type to be used in the RingAllocator
- * @tparam N Amount of elements in the RingAllocator
+ * @brief FiFo allocation class
+ * @tparam T Type to be used in the FifoAllocator
+ * @tparam N Amount of elements in the FifoAllocator
  */
 template <typename T, std::size_t size, AssertCallable Assert = NoAssert>
-class RingAllocator {
+class FifoAllocator {
  public:
   /**
-   * @brief Construct a new Ring Buffer object
+   * @brief Construct a new Fifo Allocator object
    */
-  RingAllocator() {
-    static_assert(size > 0, "ringbuffer size of zero is not allowed!");
+  FifoAllocator() {
+    static_assert(size > 0, "allocator size of zero is not allowed!");
     Reset();
   }
   /**
-   * @brief Resets the ringbuffer
+   * @brief Resets the allocator
    */
   void Reset() {
     front = 0;
     back = 0;
   }
   /**
-   * @brief Checks if the ringbuffer is full
-   * @return true if ringbuffer is full
-   * @return false if ringbuffer is not full
+   * @brief Checks if the allocator is full
+   * @return true if allocator is full
+   * @return false if allocator is not full
    */
   bool IsFull() {
     return Increment(front) == back;
   }
   /**
-   * @brief Checks if the ringbuffer is empty
-   * @return true if ringbuffer is empty
-   * @return false if ringbuffer is not empty
+   * @brief Checks if the allocator is empty
+   * @return true if allocator is empty
+   * @return false if allocator is not empty
    */
   bool IsEmpty() const {
     return front == back;
   }
   /**
-   * @brief returns fill level of the ringbuffer
-   * @return amount of elements in ringbuffer
+   * @brief returns fill level of the allocator
+   * @return amount of elements in allocator
    */
   std::size_t GetLevel() {
     if (front > back)
@@ -78,7 +78,7 @@ class RingAllocator {
     if (TryIncrementFront(block_size))
       return {buffer.data() + old_front, block_size};
     else {
-      AssertFailIf(true, "RingAllocator::Request: buffer is full");
+      AssertFailIf(true, "FifoAllocator::Request: buffer is full");
       return {};
     }
   }
@@ -88,7 +88,7 @@ class RingAllocator {
    * @param block span to return
    */
   void Release(std::span<T> block) {
-    AssertFailIf(buffer.data() + back != block.data(), "RingAllocator::Release: does not match back index");
+    AssertFailIf(buffer.data() + back != block.data(), "FifoAllocator::Release: does not match back index");
     back = back + block.size();
   }
 
@@ -134,9 +134,9 @@ class RingAllocator {
     return true;
   }
   [[no_unique_address]] Assert assert_function{}; /*!< assertion function */
-  std::size_t front;                              /*!< first element of the ringbuffer */
-  std::size_t back;                               /*!< last element of the ringbuffer */
-  std::array<T, size + 1> buffer;                 /*!< ringbuffer data, one element is added as we need always one element free */
+  std::size_t front;                              /*!< first element of the allocator */
+  std::size_t back;                               /*!< last element of the allocator */
+  std::array<T, size + 1> buffer;                 /*!< allocator data, one element is added as we need always one element free */
 };
 }  // namespace libmcu
 
