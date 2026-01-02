@@ -21,6 +21,7 @@ constexpr inline std::uint8_t preamble_data{0x40};    /*!< data preamble */
 // valid commands, sorted by value
 constexpr inline std::uint8_t cmd_set_col_address_low{0x00};       /*<! set lower column address */
 constexpr inline std::uint8_t cmd_set_col_address_high{0x10};      /*!< set higher column address */
+constexpr inline std::uint8_t cmd_set_display_start_line(0x40);    /*!< set display start line */
 constexpr inline std::uint8_t cmd_set_constrast{0x81};             /*!< set contrast level */
 constexpr inline std::uint8_t cmd_set_charge_pump{0x8D};           /*!< set charge pump state */
 constexpr inline std::uint8_t cmd_set_display_on{0xA4};            /*!< turn all pixels on */
@@ -99,9 +100,6 @@ constexpr std::uint8_t FormatChargePumpOnArg(bool pumpOn) {
 constexpr std::uint8_t FormatContrastLevelArg(std::uint8_t level) {
   return level;
 }
-constexpr std::uint8_t CmdSetDisplayStartLine(std::uint32_t address) {
-  return static_cast<std::uint8_t>((address & 0x3F) | 0x40);
-}
 constexpr std::uint8_t FormatSetPageAddress(std::uint8_t address) {
   return (address & 0x0F) | cmd_set_page_address;
 }
@@ -110,6 +108,14 @@ constexpr std::uint8_t FormatSetHigherColumnAddress(std::uint8_t address) {
 }
 constexpr std::uint8_t FormatSetLowerColumnAddress(std::uint8_t address) {
   return (address & 0x0F) | cmd_set_col_address_low;
+}
+/**
+ * @brief Format display start line
+ * @param address Start line to set
+ * @return Register formatted value
+ */
+constexpr std::uint8_t FormatSetDisplayStartLine(std::uint8_t address) {
+  return (address & 0x3F) | cmd_set_display_start_line;
 }
 
 }  // namespace libMcuDriver::SH1106

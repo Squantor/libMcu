@@ -37,11 +37,7 @@ struct SH1106 : public Display {
     state = libmcu::States::Initializing;
     framebuffer.fill(0);
     SendCommand(config.init_commands);
-    std::span<uint8_t> framebuffer_span = framebuffer;
-    for (uint32_t i = 0; i < config.size_pages; i++) {
-      SetPageAddress(i);
-      SendData(framebuffer_span.subspan(i * config.size_x, config.size_x));
-    }
+    Flip();
     return SetAddress(0, 0, this);
   }
   /**
@@ -136,6 +132,17 @@ struct SH1106 : public Display {
     return SendCommand(set_address_buffer, callback);
   }
   /**
+   * @brief Transfers framebuffer information to the display
+   * Will queue up a bunch of I2C transfers in one go
+   */
+  constexpr void Flip(void) {
+    std::span<uint8_t> framebuffer_span = framebuffer;
+    for (uint32_t i = 0; i < config.size_pages; i++) {
+      SetAddress(0, i);
+      SendData(framebuffer_span.subspan(i * config.size_x, config.size_x));
+    }
+  }
+  /**
    * @brief
    */
   constexpr void Progress(void) override {}
@@ -161,7 +168,7 @@ struct SH1106 : public Display {
   std::array<std::uint8_t, config.size_framebuffer> framebuffer;
   std::array<const std::uint8_t, 1> preamble_command_buffer = {preamble_command};
   std::array<const std::uint8_t, 1> preamble_data_buffer = {preamble_data};
-  libmcu::FinoAllocator<std::uint8_t, 20> allocator;  // Some overprovisioning is needed to be safe
+  libmcu::FinoAllocator<std::uint8_t, 32> allocator;  // Some overprovisioning is needed to be safe
 };
 
 }  // namespace libMcuDriver::SH1106

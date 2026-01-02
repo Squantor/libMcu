@@ -25,10 +25,10 @@ struct Generic128x64 {
     FormatMultiplexRatioArg(63),
     cmd_set_display_offset,
     FormatDisplayOffsetArg(0),
-    CmdSetDisplayStartLine(0),
-    FormatSetPageAddress(0),
-    FormatSetLowerColumnAddress(0),
-    FormatSetHigherColumnAddress(0),
+    cmd_set_display_start_line,
+    cmd_set_page_address,
+    cmd_set_col_address_low,
+    cmd_set_col_address_high,
     cmd_set_charge_pump,
     FormatChargePumpOnArg(true),
     CmdSetSegmentRemap(segmentMapping::column127),
@@ -48,7 +48,7 @@ struct Generic128x64 {
   static constexpr std::uint8_t size_x{128};                            /*!< width of display */
   static constexpr std::uint8_t size_y{64};                             /*!< height of display */
   static constexpr std::uint8_t size_pages{8};                          /*!< number of pages */
-  static constexpr std::uint8_t column_offset{4};                       /*!< SSH1106 column offset */
+  static constexpr std::uint8_t column_offset{2};                       /*!< SSH1106 column offset */
   static constexpr std::size_t size_framebuffer{(size_x * size_y) / 8}; /*!< size of framebuffer */
 };
 
