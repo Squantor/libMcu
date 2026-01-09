@@ -11,6 +11,8 @@
 #ifndef LIBMCUDRIVER_HPP
 #define LIBMCUDRIVER_HPP
 
+#include <array>
+#include <span>
 #include "driver_types.hpp"
 
 #endif
