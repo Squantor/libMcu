@@ -14,6 +14,9 @@
 #include "../libmcu/libmcudriver.hpp"
 
 namespace libMcuDriver::PCF8574 {
+
+using PcfLambda = std::add_pointer<void(std::uint8_t)>::type; /*!< Base type for a PCF8574 lambda */
+
 /**
  * @brief PCF8574 driver
  * @todo i2chal template parameter needs check with a concept
@@ -23,10 +26,11 @@ namespace libMcuDriver::PCF8574 {
 template <auto &i2c_hal, const libmcu::I2cDeviceAddress &i2c_address>
 struct PCF8574 : public libmcu::NonBlocking {
   /**
-   * @brief
+   * @brief Initialize the port expander
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results Init() {
+  constexpr libmcu::Results Init(PcfLambda lambda = nullptr) {
+    callback = lambda;
     previous_isr_counter = 0;
     isr_counter = 0;
     // read out port expander to clear the interrupt and update internal state
@@ -38,29 +42,32 @@ struct PCF8574 : public libmcu::NonBlocking {
   constexpr void Isr(void) {
     isr_counter = isr_counter + 1;
   }
-  /**
-   * @brief
+  /** @brief Progress function
    */
   constexpr void Progress(void) override {
     if (isr_counter != previous_isr_counter) {
-      i2c_hal.Receive(i2c_address, new_pin_state, this);
+      i2c_hal.Receive(i2c_address, pin_state, this);
       previous_isr_counter = isr_counter;
     }
   }
-  /**
-   * @brief
+  /** @brief Callback used by I2C HAL
    */
   constexpr void Callback(void) override {
-    if (new_pin_state[0] != pin_state[0]) {
-      pin_state[0] = new_pin_state[0];
-    }
+    if (callback != nullptr)
+      callback(pin_state[0]);
+  }
+  /** @brief Register a callback
+   * @param lambda lambda to register
+   */
+  constexpr void RegisterCallback(PcfLambda lambda) {
+    callback = lambda;
   }
 
  private:
-  std::array<std::uint8_t, 1> new_pin_state;
   std::array<std::uint8_t, 1> pin_state;
   volatile uint8_t isr_counter; /*!< number of times the ISR has been called */
   uint8_t previous_isr_counter; /*!< number of times the ISR has been called */
+  PcfLambda callback;
 };
 }  // namespace libMcuDriver::PCF8574
 
