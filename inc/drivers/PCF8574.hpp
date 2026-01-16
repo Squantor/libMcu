@@ -27,23 +27,40 @@ struct PCF8574 : public libmcu::NonBlocking {
    * @return constexpr libmcu::Results
    */
   constexpr libmcu::Results Init() {
+    previous_isr_counter = 0;
+    isr_counter = 0;
     // read out port expander to clear the interrupt and update internal state
     i2c_hal.Receive(i2c_address, pin_state);
     return libmcu::Results::NoError;
   }
-  // todo, register for pin change callback
+  /** @brief To be called from pin interrupt ISR
+   */
+  constexpr void Isr(void) {
+    isr_counter = isr_counter + 1;
+  }
   /**
    * @brief
    */
-  constexpr void Progress(void) override {}
+  constexpr void Progress(void) override {
+    if (isr_counter != previous_isr_counter) {
+      i2c_hal.Receive(i2c_address, new_pin_state, this);
+      previous_isr_counter = isr_counter;
+    }
+  }
   /**
    * @brief
    */
-  constexpr void Callback(void) override {}
+  constexpr void Callback(void) override {
+    if (new_pin_state[0] != pin_state[0]) {
+      pin_state[0] = new_pin_state[0];
+    }
+  }
 
  private:
-  // todo: current pin state
+  std::array<std::uint8_t, 1> new_pin_state;
   std::array<std::uint8_t, 1> pin_state;
+  volatile uint8_t isr_counter; /*!< number of times the ISR has been called */
+  uint8_t previous_isr_counter; /*!< number of times the ISR has been called */
 };
 }  // namespace libMcuDriver::PCF8574
 

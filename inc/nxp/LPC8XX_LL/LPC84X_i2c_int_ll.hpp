@@ -422,7 +422,7 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
   std::span<std::uint8_t> receive_buffer;                            /*!< Receive buffer */
   std::span<const std::uint8_t> transmit_buffer;                     /*!< transmit buffer */
   std::size_t buffer_index;                                          /*!< current buffer index */
-  libmcu::NonBlocking *transaction_callback;                      /*!< Pointer to class with async callback */
+  libmcu::NonBlocking *transaction_callback;                         /*!< Pointer to class with async callback */
   std::array<std::uint8_t, 1> single_byte_transmit_buffer;           /*!< Buffer for single byte transmits */
 };
 }  // namespace libmcull::i2c

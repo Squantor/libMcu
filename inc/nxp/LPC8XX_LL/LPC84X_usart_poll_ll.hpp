@@ -36,9 +36,9 @@ struct UartPolled : libmcull::SyncUartBase {
                                UartStops stop_bits = UartStops::Stop1, UartLengths length_bits = UartLengths::Size8) {
     std::uint32_t frequency = GetInputClockFreq<clock_config>();
     std::uint32_t divider = frequency / (baud_rate * 16);
-    UsartPeripheral()->BRG = divider;
-    UsartPeripheral()->CFG = hardware::CFG::ENABLE | static_cast<std::uint32_t>(length_bits) | static_cast<std::uint32_t>(parity) |
-                             static_cast<std::uint32_t>(stop_bits);
+    GetPeripheral()->BRG = divider;
+    GetPeripheral()->CFG = hardware::CFG::ENABLE | static_cast<std::uint32_t>(length_bits) | static_cast<std::uint32_t>(parity) |
+                           static_cast<std::uint32_t>(stop_bits);
     return frequency / 16 / divider;
   }
   /**
@@ -46,21 +46,21 @@ struct UartPolled : libmcull::SyncUartBase {
    * @return std::uint32_t one to one copy of the status register, see bit masks for options
    */
   constexpr std::uint32_t Status() {
-    return UsartPeripheral()->STAT & hardware::STAT::RESERVED_MASK;
+    return GetPeripheral()->STAT & hardware::STAT::RESERVED_MASK;
   }
   /**
    * @brief Send data out of the UART
    * @param data data to send, amount is sent according to configuration
    */
   constexpr void Write(TransferType data) {
-    UsartPeripheral()->TXDAT = static_cast<TransferType>(data & hardware::TXDAT::RESERVED_MASK);
+    GetPeripheral()->TXDAT = static_cast<TransferType>(data & hardware::TXDAT::RESERVED_MASK);
   }
   /**
    * @brief Read data from UART
    * @param data reference to put received data in
    */
   constexpr void Read(TransferType &data) {
-    data = static_cast<TransferType>(UsartPeripheral()->RXDAT);
+    data = static_cast<TransferType>(GetPeripheral()->RXDAT);
   }
   /**
    * @brief Read data and status from UART
@@ -68,7 +68,7 @@ struct UartPolled : libmcull::SyncUartBase {
    * @param status reference to put received status in
    */
   constexpr void Read(TransferType &data, std::uint32_t &status) {
-    std::uint32_t rx_status = UsartPeripheral()->RXDATSTAT;
+    std::uint32_t rx_status = GetPeripheral()->RXDATSTAT;
     data = static_cast<TransferType>(rx_status & hardware::RXDATSTAT::DATA_MASK);
     status = rx_status & hardware::RXDATSTAT::STAT_MASK;
   }
@@ -101,7 +101,7 @@ struct UartPolled : libmcull::SyncUartBase {
    * @return pointer to register address
    */
   constexpr static std::uint32_t GetTxDataAddress() {
-    return reinterpret_cast<std::uint32_t>(&(UsartPeripheral()->TXDAT));
+    return reinterpret_cast<std::uint32_t>(&(GetPeripheral()->TXDAT));
   }
   /**
    * @brief Get the Receiver Data register address
@@ -109,13 +109,13 @@ struct UartPolled : libmcull::SyncUartBase {
    * @return pointer to register address
    */
   constexpr static std::uint32_t GetRxDataAddress() {
-    return reinterpret_cast<std::uint32_t>(&(UsartPeripheral()->RXDAT));
+    return reinterpret_cast<std::uint32_t>(&(GetPeripheral()->RXDAT));
   }
   /**
    * @brief get registers from peripheral
    * @return return pointer to usart registers
    */
-  constexpr static hardware::Usart *UsartPeripheral() {
+  constexpr static hardware::Usart *GetPeripheral() {
     return reinterpret_cast<hardware::Usart *>(usart_address_);
   }
 

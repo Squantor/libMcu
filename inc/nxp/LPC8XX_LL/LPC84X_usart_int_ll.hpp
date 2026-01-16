@@ -36,11 +36,11 @@ struct UartInterrupt : libmcull::AsyncUartBase {
                                UartStops stop_bits = UartStops::Stop1, UartLengths length_bits = UartLengths::Size8) {
     std::uint32_t frequency = GetInputClockFreq<clock_config>();
     std::uint32_t divider = frequency / (baud_rate * 16);
-    UsartPeripheral()->BRG = divider;
-    UsartPeripheral()->CFG = hardware::CFG::ENABLE | static_cast<std::uint32_t>(length_bits) | static_cast<std::uint32_t>(parity) |
-                             static_cast<std::uint32_t>(stop_bits);
+    GetPeripheral()->BRG = divider;
+    GetPeripheral()->CFG = hardware::CFG::ENABLE | static_cast<std::uint32_t>(length_bits) | static_cast<std::uint32_t>(parity) |
+                           static_cast<std::uint32_t>(stop_bits);
     state = libmcu::States::Idle;
-    UsartPeripheral()->INTENSET = hardware::INTENSET::RXRDYEN;
+    GetPeripheral()->INTENSET = hardware::INTENSET::RXRDYEN;
     return frequency / 16 / divider;
   }
 
@@ -66,7 +66,7 @@ struct UartInterrupt : libmcull::AsyncUartBase {
     while (tx_buffer.IsFull()) {
     }
     tx_buffer.PushFront(element);
-    UsartPeripheral()->INTENSET = hardware::INTENSET::TXRDYEN;
+    GetPeripheral()->INTENSET = hardware::INTENSET::TXRDYEN;
     return libmcu::Results::NoError;
   }
   /**
@@ -81,7 +81,7 @@ struct UartInterrupt : libmcull::AsyncUartBase {
       tx_buffer.PushFront(buffer[count]);
       count++;
     }
-    UsartPeripheral()->INTENSET = hardware::INTENSET::TXRDYEN;
+    GetPeripheral()->INTENSET = hardware::INTENSET::TXRDYEN;
     // Continue filling queue until buffer is empty
     while (!tx_buffer.IsFull() && count < buffer.size()) {
       tx_buffer.PushFront(buffer[count]);
@@ -130,22 +130,22 @@ struct UartInterrupt : libmcull::AsyncUartBase {
    */
   constexpr void InterruptHandler() {
     TransferType element;
-    std::uint32_t status = UsartPeripheral()->STAT;
+    std::uint32_t status = GetPeripheral()->STAT;
     if (status & hardware::STAT::TXRDY) {
       // check if buffer is empty
       if (tx_buffer.IsEmpty()) {
-        UsartPeripheral()->INTENCLR = hardware::INTENCLR::TXRDYCLR;
+        GetPeripheral()->INTENCLR = hardware::INTENCLR::TXRDYCLR;
       } else {
         tx_buffer.PopBack(element);
-        UsartPeripheral()->TXDAT = static_cast<std::uint32_t>(element);
+        GetPeripheral()->TXDAT = static_cast<std::uint32_t>(element);
       }
     }
     if (status & hardware::STAT::RXRDY) {
       if (rx_buffer.IsFull()) {
-        element = UsartPeripheral()->RXDAT;  // dummy read
+        element = GetPeripheral()->RXDAT;  // dummy read
         // TODO report overflow
       } else {
-        element = UsartPeripheral()->RXDAT;
+        element = GetPeripheral()->RXDAT;
         rx_buffer.PushFront(element);
       }
     }
@@ -177,7 +177,7 @@ struct UartInterrupt : libmcull::AsyncUartBase {
    * @return pointer to register address
    */
   constexpr static std::uint32_t GetTxDataAddress() {
-    return reinterpret_cast<std::uint32_t>(&(UsartPeripheral()->TXDAT));
+    return reinterpret_cast<std::uint32_t>(&(GetPeripheral()->TXDAT));
   }
   /**
    * @brief Get the Receiver Data register address
@@ -185,13 +185,13 @@ struct UartInterrupt : libmcull::AsyncUartBase {
    * @return pointer to register address
    */
   constexpr static std::uint32_t GetRxDataAddress() {
-    return reinterpret_cast<std::uint32_t>(&(UsartPeripheral()->RXDAT));
+    return reinterpret_cast<std::uint32_t>(&(GetPeripheral()->RXDAT));
   }
   /**
    * @brief get registers from peripheral
    * @return return pointer to usart registers
    */
-  constexpr static hardware::Usart *UsartPeripheral() {
+  constexpr static hardware::Usart *GetPeripheral() {
     return reinterpret_cast<hardware::Usart *>(address);
   }
 
