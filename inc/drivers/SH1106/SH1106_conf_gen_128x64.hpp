@@ -11,7 +11,7 @@
 #ifndef SH1106_CONF_GEN_128X64_HPP
 #define SH1106_CONF_GEN_128X64_HPP
 
-namespace libMcuDriver::SH1106 {
+namespace libmcudrv::SH1106 {
 /**
  * @brief SH1106 configuration for a generic 128 x 64 display
  */
@@ -52,5 +52,5 @@ struct Generic128x64 {
   static constexpr std::size_t size_framebuffer{(size_x * size_y) / 8}; /*!< size of framebuffer */
 };
 
-}  // namespace libMcuDriver::SH1106
+}  // namespace libmcudrv::SH1106
 #endif

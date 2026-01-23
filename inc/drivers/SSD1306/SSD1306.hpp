@@ -14,7 +14,7 @@
 
 #include <cstdint>
 
-namespace libMcuDriver::SSD1306 {
+namespace libmcudrv::SSD1306 {
 
 constexpr inline std::uint8_t preambleCommand{0x00};         /*!< command preamble */
 constexpr inline std::uint8_t preambleData{0x40};            /*!< data preamble */
@@ -125,6 +125,6 @@ constexpr std::uint8_t cmdSetLowerColumnAddress(std::uint8_t address) {
   return (address & 0x0F) | 0x00;
 }
 
-}  // namespace libMcuDriver::SSD1306
+}  // namespace libmcudrv::SSD1306
 
 #endif

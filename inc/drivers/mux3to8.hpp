@@ -11,7 +11,7 @@
 #ifndef MUX3TO8_HPP
 #define MUX3TO8_HPP
 
-namespace libMcuDriver::mux {
+namespace libmcudrv::mux {
 
 using namespace libmcuhal;
 /**
@@ -62,6 +62,6 @@ struct mux3to8 {
   static_assert(std::is_base_of<libmcu::PinBase, a1PinType>::value, "a1PinType is not derived from pinBase");
   static_assert(std::is_base_of<libmcu::PinBase, a2PinType>::value, "a2PinType is not derived from pinBase");
 };
-}  // namespace libMcuDriver::mux
+}  // namespace libmcudrv::mux
 
 #endif

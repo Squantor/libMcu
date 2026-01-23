@@ -14,7 +14,7 @@
 
 #include <cstdint>
 
-namespace libMcuDriver::SH1106 {
+namespace libmcudrv::SH1106 {
 
 constexpr inline std::uint8_t preamble_command{0x00}; /*!< command preamble */
 constexpr inline std::uint8_t preamble_data{0x40};    /*!< data preamble */
@@ -118,6 +118,6 @@ constexpr std::uint8_t FormatSetDisplayStartLine(std::uint8_t address) {
   return (address & 0x3F) | cmd_set_display_start_line;
 }
 
-}  // namespace libMcuDriver::SH1106
+}  // namespace libmcudrv::SH1106
 
 #endif

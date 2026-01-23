@@ -12,6 +12,6 @@ C++ libMcu uses namespaces to group various definitions. We use a few example pe
  * ```libMcuHal``` is the top level namespace that contains libMcuHal types and helper classes
    * ```gpio``` contains the HAL control class for the gpio peripheral.
    * ```uart``` contains the HAL control classes for the uart peripheral. For some peripherals there are a few HAL control class variants.
- * ```libMcuDriver``` is the top level namespace that contain libMcuDriver types and helper classes
+ * ```libmcudrv``` is the top level namespace that contain libmcudrv types and helper classes
    * ```driver``` contains the driver control class. The class name is the same as the namespace name
    

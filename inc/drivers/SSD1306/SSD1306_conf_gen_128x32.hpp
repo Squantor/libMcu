@@ -15,7 +15,7 @@
 #include <array>
 #include <span>
 
-namespace libMcuDriver::SSD1306 {
+namespace libmcudrv::SSD1306 {
 
 struct generic128x32 {
   static constexpr std::array<const std::uint8_t, 26> initCommands = {cmdDisplaySleep,
@@ -48,5 +48,5 @@ struct generic128x32 {
   static constexpr std::uint8_t ySize{32};
 };
 
-}  // namespace libMcuDriver::SSD1306
+}  // namespace libmcudrv::SSD1306
 #endif

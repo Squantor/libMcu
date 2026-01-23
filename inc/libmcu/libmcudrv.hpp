@@ -5,14 +5,15 @@
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * @file libmcudriver.hpp
- * @brief top level include for libMcuDriver
+ * @file libmcudrv.hpp
+ * @brief top level include for libmcudrv
  */
-#ifndef LIBMCUDRIVER_HPP
-#define LIBMCUDRIVER_HPP
+#ifndef LIBMCUDRV_HPP
+#define LIBMCUDRV_HPP
 
 #include <array>
 #include <span>
-#include "driver_types.hpp"
+#include "drv_types.hpp"
+#include "drv_concepts.hpp"
 
 #endif

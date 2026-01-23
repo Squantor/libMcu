@@ -83,5 +83,22 @@ using IsrLambda = std::add_pointer<void()>::type; /*!< Base type for an ISR lamb
 using I2cDeviceAddressBase = libmcu::Constant<std::uint8_t>;
 struct I2cDeviceAddress : I2cDeviceAddressBase {}; /*!< General purpose I2C address type */
 
+/**
+ * @brief Checks if a type is derived from a template
+ * @tparam Derived
+ * @tparam Base
+ */
+template <typename Derived, template <typename...> class Base>
+struct IsDerivedFromTemplate {
+ private:
+  template <typename... Args>
+  static std::true_type test(const Base<Args...>*);
+
+  static std::false_type test(...);
+
+ public:
+  static constexpr bool value = decltype(test(std::declval<Derived*>()))::value;
+};
+
 }  // namespace libmcu
 #endif

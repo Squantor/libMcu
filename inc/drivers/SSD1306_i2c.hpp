@@ -14,7 +14,7 @@
 #include "SSD1306/SSD1306.hpp"
 #include <span>
 
-namespace libMcuDriver::SSD1306 {
+namespace libmcudrv::SSD1306 {
 namespace i2c = libmcull::i2c;
 
 template <auto &i2cHal, const libmcu::i2cDeviceAddress &i2cAddress, auto &config>
@@ -98,6 +98,6 @@ struct SSD1306 {
   }
 };
 
-}  // namespace libMcuDriver::SSD1306
+}  // namespace libmcudrv::SSD1306
 
 #endif

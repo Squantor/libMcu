@@ -11,9 +11,9 @@
 #ifndef PCF8574_HPP
 #define PCF8574_HPP
 
-#include "../libmcu/libmcudriver.hpp"
+#include "../libmcu/libmcudrv.hpp"
 
-namespace libMcuDriver::PCF8574 {
+namespace libmcudrv::PCF8574 {
 
 using PcfLambda = std::add_pointer<void(std::uint8_t)>::type; /*!< Base type for a PCF8574 lambda */
 
@@ -69,6 +69,6 @@ struct PCF8574 : public libmcu::NonBlocking {
   uint8_t previous_isr_counter; /*!< number of times the ISR has been called */
   PcfLambda callback;
 };
-}  // namespace libMcuDriver::PCF8574
+}  // namespace libmcudrv::PCF8574
 
 #endif

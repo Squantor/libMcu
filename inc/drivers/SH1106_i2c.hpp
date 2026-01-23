@@ -11,11 +11,11 @@
 #ifndef SH1106_I2C_HPP
 #define SH1106_I2C_HPP
 
-#include "../libmcu/libmcudriver.hpp"
+#include "../libmcu/libmcudrv.hpp"
 #include "SH1106/SH1106.hpp"
 #include "SH1106/SH1106_conf_gen_128x64.hpp"
 
-namespace libMcuDriver::SH1106 {
+namespace libmcudrv::SH1106 {
 
 /**
  * @brief SH1106 driver over I2C bus
@@ -28,7 +28,7 @@ namespace libMcuDriver::SH1106 {
  */
 template <auto &i2c_hal, const libmcu::I2cDeviceAddress &i2c_address, auto &config,
           libmcu::AssertCallable Assert = libmcu::NoAssert>
-struct SH1106 : public Display {
+struct SH1106 : public GfxDisplay<std::uint32_t, std::uint32_t> {
   /**
    * @brief
    * @return constexpr libmcu::Results
@@ -41,14 +41,14 @@ struct SH1106 : public Display {
     return SetAddress(0, 0, this);
   }
   /**
-   * @brief Get the Xsize object
+   * @brief Get the maximum X coordinate of the display
    * @return constexpr std::uint32_t
    */
   constexpr std::uint32_t GetXsize() {
     return config.xSize;
   }
   /**
-   * @brief Get the Ysize object
+   * @brief Get the maximum Y coordinate of the display
    * @return constexpr std::uint32_t
    */
   constexpr std::uint32_t GetYsize() {
@@ -135,13 +135,47 @@ struct SH1106 : public Display {
    * @brief Transfers framebuffer information to the display
    * Will queue up a bunch of I2C transfers in one go
    */
-  constexpr void Flip(void) {
+  constexpr void Flip(void) override {
     std::span<uint8_t> framebuffer_span = framebuffer;
     for (uint32_t i = 0; i < config.size_pages; i++) {
       SetAddress(0, i);
       SendData(framebuffer_span.subspan(i * config.size_x, config.size_x));
     }
   }
+  /**
+   * @brief Clear the framebuffer with clear pixels, does not flip
+   * @todo Not implemented
+   */
+  constexpr void Clear(uint32_t color = 0) override {
+    std::uint8_t clear_pixel;
+    if (color) {
+      clear_pixel = 0xFF;
+    } else {
+      clear_pixel = 0x00;
+    }
+
+    std::fill(framebuffer.begin(), framebuffer.end(), clear_pixel);
+  }
+  /**
+   * @brief Set the Pixel object
+   *
+   * @param x
+   * @param y
+   * @param color
+   */
+  constexpr void SetPixel(uint32_t x, uint32_t y, uint32_t color) override {
+    (void)x;
+    (void)y;
+    (void)color;
+  }
+  /**
+   * @brief Set the display state
+   * @param state Display state to set
+   */
+  constexpr void SetState(GfxDisplayState state) override {
+    (void)state;
+  }
+
   /**
    * @brief
    */
@@ -171,6 +205,6 @@ struct SH1106 : public Display {
   libmcu::FinoAllocator<std::uint8_t, 32> allocator;  // Some overprovisioning is needed to be safe
 };
 
-}  // namespace libMcuDriver::SH1106
+}  // namespace libmcudrv::SH1106
 
 #endif
