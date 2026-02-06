@@ -37,7 +37,7 @@ struct SH1106 : public GfxDisplay<std::uint32_t, std::uint32_t> {
     state = libmcu::States::Initializing;
     framebuffer.fill(0);
     SendCommand(config.init_commands);
-    Flip();
+    flip();
     return SetAddress(0, 0, this);
   }
   /**
@@ -135,7 +135,7 @@ struct SH1106 : public GfxDisplay<std::uint32_t, std::uint32_t> {
    * @brief Transfers framebuffer information to the display
    * Will queue up a bunch of I2C transfers in one go
    */
-  constexpr void Flip(void) override {
+  constexpr void flip(void) override {
     std::span<uint8_t> framebuffer_span = framebuffer;
     for (uint32_t i = 0; i < config.size_pages; i++) {
       SetAddress(0, i);
@@ -144,26 +144,24 @@ struct SH1106 : public GfxDisplay<std::uint32_t, std::uint32_t> {
   }
   /**
    * @brief Clear the framebuffer with clear pixels, does not flip
-   * @todo Not implemented
+   * @param color Color to clear with
    */
-  constexpr void Clear(uint32_t color = 0) override {
+  constexpr void clear(uint32_t color = 0) override {
     std::uint8_t clear_pixel;
     if (color) {
       clear_pixel = 0xFF;
     } else {
       clear_pixel = 0x00;
     }
-
     std::fill(framebuffer.begin(), framebuffer.end(), clear_pixel);
   }
   /**
-   * @brief Set the Pixel object
-   *
-   * @param x
-   * @param y
-   * @param color
+   * @brief Set a pixel on the display to a certain color
+   * @param x X position
+   * @param y Y position
+   * @param color Color
    */
-  constexpr void SetPixel(uint32_t x, uint32_t y, uint32_t color) override {
+  constexpr void set_pixel(uint32_t x, uint32_t y, uint32_t color) override {
     (void)x;
     (void)y;
     (void)color;
@@ -172,8 +170,13 @@ struct SH1106 : public GfxDisplay<std::uint32_t, std::uint32_t> {
    * @brief Set the display state
    * @param state Display state to set
    */
-  constexpr void SetState(GfxDisplayState state) override {
+  constexpr void set_state(GfxDisplayState state) override {
     (void)state;
+  }
+  constexpr void blit(uint32_t x, uint32_t y, libmcu::bitmap::Const_bitmap &bitmap) override {
+    (void)x;
+    (void)y;
+    (void)bitmap;
   }
 
   /**

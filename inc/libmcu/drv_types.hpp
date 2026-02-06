@@ -11,6 +11,8 @@
 #ifndef DRV_TYPES_HPP
 #define DRV_TYPES_HPP
 
+#include <libmcu/bitmap/bitmap_view.hpp>
+
 namespace libmcudrv {
 /**
  * @brief Driver base class that all Driver classes should inherit from
@@ -42,10 +44,11 @@ struct GfxDisplay : public DriverBase, public libmcu::NonBlocking {
    * @brief Transfer display buffer to the display
    * @todo should have an argument for callbacks when done flipping as it is a timeconsuming operation
    */
-  virtual void Flip(void) = 0;
-  virtual void Clear(PixelType) = 0;
-  virtual void SetState(GfxDisplayState) = 0;
-  virtual void SetPixel(CoordType, CoordType, PixelType) = 0;
+  virtual void flip(void) = 0;
+  virtual void clear(PixelType) = 0;
+  virtual void set_state(GfxDisplayState) = 0;
+  virtual void set_pixel(CoordType, CoordType, PixelType) = 0;
+  virtual void blit(CoordType, CoordType, libmcu::bitmap::Const_bitmap&) = 0;
 };
 
 }  // namespace libmcudrv

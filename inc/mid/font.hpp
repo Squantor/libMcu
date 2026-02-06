@@ -11,8 +11,6 @@
 #ifndef FONT_HPP
 #define FONT_HPP
 
-#include "../libmcu/bitmap.hpp"
-
 namespace libmcumid {
 struct Font {};
 }  // namespace libmcumid

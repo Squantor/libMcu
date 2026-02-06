@@ -5,7 +5,7 @@ Copyright (c) 2026 Bart Bilos
 For conditions of distribution and use, see LICENSE file
 */
 /**
- * \file bitmap.cpp
+ * \file bitmap_view.hpp
  * \brief Class definitions for bitmap class
  */
 #ifndef BITMAP_HPP
@@ -14,7 +14,7 @@ For conditions of distribution and use, see LICENSE file
 #include <cstdint>
 #include <type_traits>
 
-namespace detail {}
+namespace libmcu::bitmap {
 
 /**
  * @brief Class for representing a bitmap
@@ -102,5 +102,7 @@ class Bitmap_view {
 
 using Bitmap = Bitmap_view<std::uint32_t>;
 using Const_bitmap = Bitmap_view<const std::uint32_t>;
+
+}  // namespace libmcu::bitmap
 
 #endif  // BITMAP_HPP

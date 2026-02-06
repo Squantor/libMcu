@@ -116,9 +116,17 @@ inline constexpr std::array<const std::uint8_t, 665> data_8x8_basic_crfo{
 };
 }
 
-struct Font8x8BasicCrfo {
-  Font8x8BasicCrfo() {}
+/**
+ * @brief Basic 8x8 font column row flipped
+ * @todo add bitmap to it
+ * @todo needs a font base class for checks
+ */
+class Font8x8BasicCrfo {
+ public:
+  Font8x8BasicCrfo() : mapping{detail::map_ascii_8x8font} {}
 
+ private:
+  std::span<const std::uint16_t> mapping;
 };
 }  // namespace libmcumid
 

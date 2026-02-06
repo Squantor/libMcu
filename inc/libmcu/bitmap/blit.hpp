@@ -13,6 +13,8 @@ For conditions of distribution and use, see LICENSE file
 
 #include <libmcu/bitmap/bitmap.hpp>
 
+namespace libmcu::bitmap {
+
 template <typename Src_pixel, typename Dst_pixel>
 constexpr void blit(Bitmap_view<const Src_pixel> src, Bitmap_view<Dst_pixel> dst, std::uint16_t dst_x, std::uint16_t dst_y) {
   for (std::uint16_t src_x = 0; src_x < src.get_height(); src_x++) {
@@ -21,5 +23,6 @@ constexpr void blit(Bitmap_view<const Src_pixel> src, Bitmap_view<Dst_pixel> dst
     }
   }
 }
+}  // namespace libmcu::bitmap
 
 #endif  // BLIT_HPP
