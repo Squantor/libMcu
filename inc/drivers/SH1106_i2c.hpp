@@ -162,23 +162,45 @@ struct SH1106 : public GfxDisplay<std::uint32_t, std::uint32_t> {
    * @param color Color
    */
   constexpr void set_pixel(uint32_t x, uint32_t y, uint32_t color) override {
-    (void)x;
-    (void)y;
-    (void)color;
+    std::uint8_t bitmask = 1 << (y & 0x07);
+    std::size_t index = (y >> 3) * config.size_x + x;
+    if (color) {
+      framebuffer[index] |= bitmask;
+    } else {
+      framebuffer[index] &= ~bitmask;
+    }
   }
   /**
    * @brief Set the display state
    * @param state Display state to set
    */
-  constexpr void set_state(GfxDisplayState state) override {
+  constexpr void set_state(Display_state state) override {
     (void)state;
   }
-  constexpr void blit(uint32_t x, uint32_t y, libmcu::bitmap::Const_bitmap &bitmap) override {
-    (void)x;
-    (void)y;
-    (void)bitmap;
+  /**
+   * @brief Blit a bitmap to the display
+   * @param x X position
+   * @param y Y position
+   * @param bitmap Bitmap to blit
+   */
+  constexpr void blit(uint32_t x, uint32_t y, const libmcu::bitmap::Bitmap_view<const uint32_t> &bitmap) override {
+    // compute bitmap bounds
+    uint32_t bitmap_width = bitmap.get_width();
+    uint32_t bitmap_height = bitmap.get_height();
+    if (bitmap_width + x > config.size_x) {
+      bitmap_width = bitmap.get_width() - (bitmap_width + x - config.size_x);
+    }
+    if (bitmap_height + y > config.size_y) {
+      bitmap_height = bitmap.get_height() - (bitmap_height + y - config.size_y);
+    }
+    // copy bitmap data to framebuffer
+    for (uint32_t i = 0; i < bitmap_height; i++) {
+      for (uint32_t j = 0; j < bitmap_width; j++) {
+        set_pixel(x + j, y, bitmap.get_pixel(j, i));
+      }
+      y++;
+    }
   }
-
   /**
    * @brief
    */

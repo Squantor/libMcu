@@ -27,7 +27,7 @@ struct DriverBase {
   DriverBase& operator=(DriverBase&&) = delete;
 };
 
-enum class GfxDisplayState : uint8_t {
+enum class Display_state : uint8_t {
   Off,
   On,
   Inverted,
@@ -46,9 +46,9 @@ struct GfxDisplay : public DriverBase, public libmcu::NonBlocking {
    */
   virtual void flip(void) = 0;
   virtual void clear(PixelType) = 0;
-  virtual void set_state(GfxDisplayState) = 0;
+  virtual void set_state(Display_state) = 0;
   virtual void set_pixel(CoordType, CoordType, PixelType) = 0;
-  virtual void blit(CoordType, CoordType, libmcu::bitmap::Const_bitmap&) = 0;
+  virtual void blit(CoordType, CoordType, const libmcu::bitmap::Bitmap_view<const uint32_t>&) = 0;
 };
 
 }  // namespace libmcudrv

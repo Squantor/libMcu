@@ -25,9 +25,17 @@ template <typename T>
 class Bitmap_view {
  public:
   using Pixel_type = T;
+
+  constexpr Bitmap_view() : data_bitmap(nullptr), width(0), height(0), bits_per_pixel(0) {}
+
   constexpr Bitmap_view(Pixel_type *bitmap_data, std::uint16_t bitmap_width, std::uint16_t bitmap_height,
                         std::uint8_t bitmap_bits_per_pixel)
     : data_bitmap(bitmap_data), width(bitmap_width), height(bitmap_height), bits_per_pixel(bitmap_bits_per_pixel) {}
+
+  template <typename U>
+  requires(std::is_const_v<T> && std::is_same_v<std::remove_const_t<T>, U>)
+  constexpr Bitmap_view(const Bitmap_view<U> &other)
+    : data_bitmap(other.data()), width(other.get_width()), height(other.get_height()), bits_per_pixel(other.get_bits_per_pixel()) {}
 
   [[nodiscard]] constexpr uint16_t get_width() const {
     return width;
@@ -41,7 +49,6 @@ class Bitmap_view {
   [[nodiscard]] constexpr Pixel_type *data() const {
     return data_bitmap;
   }
-
   constexpr void fill(Pixel_type pixel)
   requires(!std::is_const_v<Pixel_type>)
   {
@@ -55,11 +62,6 @@ class Bitmap_view {
       data_bitmap[i] = fill_value;
     }
   }
-
-  [[nodiscard]] constexpr Bitmap_view<const T> as_const() const {
-    return Bitmap_view<const T>{data_bitmap, width, height, bits_per_pixel};
-  }
-
   [[nodiscard]] constexpr Pixel_type get_pixel(std::uint16_t x, std::uint16_t y) const {
     if (x >= width || y >= height)
       return 0;
@@ -74,7 +76,6 @@ class Bitmap_view {
     Pixel_type_nonconst pixel = static_cast<Pixel_type_nonconst>((data_bitmap[data_index] & mask) >> lsb_shift);
     return pixel;
   }
-
   constexpr void set_pixel(std::uint16_t x, std::uint16_t y, Pixel_type pixel)
   requires(!std::is_const_v<Pixel_type>)
   {
