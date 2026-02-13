@@ -11,8 +11,17 @@
 #ifndef FONT_HPP
 #define FONT_HPP
 
+#include <cstdint>
+#include <span>
+
 namespace libmcumid {
-struct Font {};
+struct Font {
+ public:
+  constexpr Font(std::span<const std::uint16_t> mapping) : mapping_table{mapping} {}
+
+ private:
+  std::span<const std::uint16_t> mapping_table;
+};
 }  // namespace libmcumid
 
 #endif

@@ -18,20 +18,32 @@ namespace libmcu::bitmap {
 
 /**
  * @brief Class for representing a bitmap
- * @todo Change the data to a std::span
+ * @todo doxygen
  * @tparam T
  */
 template <typename T>
 class Bitmap_view {
  public:
-  using Pixel_type = T;
-
+  using Pixel_type = T; /*!< type of pixel in bitmap */
+  /** @brief Construct a empty Bitmap_view
+   */
   constexpr Bitmap_view() : data_bitmap(nullptr), width(0), height(0), bits_per_pixel(0) {}
-
+  /**
+   * @brief Construct a new Bitmap_view object
+   * @param bitmap_data Pointer to the bitmap data
+   * @param bitmap_width Width of the bitmap
+   * @param bitmap_height Height of the bitmap
+   * @param bitmap_bits_per_pixel Number of bits per pixel
+   *
+   */
   constexpr Bitmap_view(Pixel_type *bitmap_data, std::uint16_t bitmap_width, std::uint16_t bitmap_height,
                         std::uint8_t bitmap_bits_per_pixel)
     : data_bitmap(bitmap_data), width(bitmap_width), height(bitmap_height), bits_per_pixel(bitmap_bits_per_pixel) {}
-
+  /**
+   * @brief Copy constructor for const Bitmap_view
+   * @tparam U
+   * @param other Bitmap_view to copy
+   */
   template <typename U>
   requires(std::is_const_v<T> && std::is_same_v<std::remove_const_t<T>, U>)
   constexpr Bitmap_view(const Bitmap_view<U> &other)
