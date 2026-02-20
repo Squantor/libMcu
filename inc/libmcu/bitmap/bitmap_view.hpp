@@ -13,6 +13,7 @@ For conditions of distribution and use, see LICENSE file
 
 #include <cstdint>
 #include <type_traits>
+#include <limits>
 
 namespace libmcu::bitmap {
 
@@ -97,9 +98,9 @@ class Bitmap_view {
     std::size_t bit_index = pixel_index * bits_per_pixel;
     std::size_t data_index = bit_index / get_bits_per_pixel_type();
     std::size_t lsb_shift = bit_index % get_bits_per_pixel_type();
-    std::size_t msb_shift = (get_bits_per_pixel_type() - lsb_shift) - bits_per_pixel;
     Pixel_type mask = ~0;
-    mask = static_cast<Pixel_type>(mask >> msb_shift << lsb_shift);
+    mask = static_cast<Pixel_type>(mask >> (std::numeric_limits<Pixel_type>::digits - bits_per_pixel));
+    mask = static_cast<Pixel_type>(mask << lsb_shift);
     data_bitmap[data_index] = static_cast<Pixel_type>((data_bitmap[data_index] & ~mask) | (pixel << lsb_shift));
   }
 
