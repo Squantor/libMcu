@@ -32,14 +32,26 @@ template <typename Dst_pixel, typename Src_pixel>
 constexpr void blit(Bitmap_view<Dst_pixel> dst_bitmap, Bitmap_view<const Src_pixel> src_bitmap, std::uint16_t dst_x,
                     std::uint16_t dst_y, std::uint16_t src_x = 0, std::uint16_t src_y = 0, std::uint16_t src_width = 0,
                     std::uint16_t src_height = 0) {
+  uint16_t src_x_end;
+  uint16_t src_y_end;
   if (src_width == 0)
-    src_width = src_bitmap.get_width();
+    src_x_end = src_bitmap.get_width();
+  else {
+    src_x_end = src_x + src_width;
+    if (src_x_end > src_bitmap.get_width())
+      src_x_end = src_bitmap.get_width();
+  }
   if (src_height == 0)
-    src_height = src_bitmap.get_height();
+    src_y_end = src_bitmap.get_height();
+  else {
+    src_y_end = src_y + src_height;
+    if (src_y_end > src_bitmap.get_height())
+      src_y_end = src_bitmap.get_height();
+  }
   std::uint16_t dst_x_idx = dst_x;
   std::uint16_t dst_y_idx = dst_y;
-  for (std::uint16_t src_y_idx = src_x; src_y_idx < src_height; src_y_idx++) {
-    for (std::uint16_t src_x_idx = src_y; src_x_idx < src_width; src_x_idx++) {
+  for (std::uint16_t src_y_idx = src_y; src_y_idx < src_y_end; src_y_idx++) {
+    for (std::uint16_t src_x_idx = src_x; src_x_idx < src_x_end; src_x_idx++) {
       dst_bitmap.set_pixel(dst_x_idx, dst_y_idx, src_bitmap.get_pixel(src_x_idx, src_y_idx));
       dst_x_idx++;
       if (dst_x_idx >= dst_bitmap.get_width())
