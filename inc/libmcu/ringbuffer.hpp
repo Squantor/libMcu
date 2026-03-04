@@ -7,11 +7,6 @@
 /**
  * @file ringbuffer.hpp
  * @brief Implements a generic ringbuffer class
- * @todo add doxygen documentation
- * @todo retool to use std::optional for the pop functions
- * @todo Add following functions, peekfront(), peekback(),
- * @todo peekfront(size_t count), peekback(size count)
- * @todo dropfront(size_t count), dropback(size_t count)
  */
 #ifndef GENERAL_RINGBUFFER_HPP
 #define GENERAL_RINGBUFFER_HPP
@@ -25,6 +20,13 @@ namespace libmcu {
  * @brief Generic ringbuffer
  * @tparam T Type to be used in the ringbuffer
  * @tparam N Amount of elements in the ringbuffer
+ * @todo add doxygen documentation
+ * @todo retool to use std::optional for the pop functions
+ * @todo Add following functions, peekfront(), peekback(),
+ * @todo peekfront(size_t count), peekback(size count)
+ * @todo dropfront(size_t count), dropback(size_t count)
+ * @todo change naming
+ * @todo add assertion policy parameter for overflow/underflow
  */
 template <typename T, std::size_t size>
 class RingBuffer {

@@ -16,6 +16,11 @@ namespace hardware = libmcuhw::spi;
 namespace lowlevel = libmcull::spi;
 namespace nvic = libmcuhw::nvic;
 
+/**
+ * @brief SPI HAL class
+ * @tparam ll_spi_async
+ * @todo add assertion policy
+ */
 template <libmcull::DerivedFromAsyncSpi auto& ll_spi_async>
 struct Spi : public libmcuhal::SpiBase {};
 }  // namespace libmcuhal::spi

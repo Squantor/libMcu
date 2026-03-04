@@ -22,6 +22,13 @@ using UartParities = lowlevel::UartParities;
 using UartStops = lowlevel::UartStops;
 using UartLengths = lowlevel::UartLengths;
 
+/**
+ * @brief USART HAL class
+ * @tparam ll_uart_async
+ * @tparam TransferType
+ * @tparam action_timeout
+ * @todo add assertion policy
+ */
 template <libmcull::DerivedFromAsyncUart auto& ll_uart_async, typename TransferType, std::size_t action_timeout = 0x1000>
 struct Uart : public libmcuhal::UartBase {
   /**

@@ -12,37 +12,31 @@
 #define ASSERTIONS_HPP
 
 namespace libmcu {
-/** @brief Default assertion function that does nothing
- * Used as default when no assertion function is provided
+/**
+ * @brief Default assertion class that does not catch assertions
  */
-struct NoAssert {
-  /**
-   * @brief Assertion function that does nothing
-   */
-  constexpr void operator()(const char*) const noexcept {}
+struct Assert_default {
+  static constexpr bool enabled = false;
+  static void fail(const char*) noexcept {}
 };
-
-/** @brief Assertion function that loops forever
+/**
+ * @brief Assertion class that loops forever
  */
-struct TrapAssert {
-  /**
-   * @brief Assertion function that loops forever
-   * @param message Cause of the assertion
-   */
-  [[noreturn]] constexpr void operator()(const char* message) const noexcept {
-    (void)message;
+struct Assert_trap {
+  static constexpr bool enabled = true;
+  static void fail(const char*) noexcept {
     while (true)
       ;
   }
 };
-
 /**
- * @brief Concept for checking template assertion class inputs
- * @tparam A assertion class to check
+ * @brief Concept for checking template assertion classes
+ * @tparam T
  */
-template <typename A>
-concept AssertCallable = requires(A a, const char* message) {
-  { a(message) } noexcept -> std::same_as<void>;
+template <typename T>
+concept Assert_concept = requires(const char* message) {
+  { T::enabled } -> std::convertible_to<bool>;
+  { T::fail(message) } -> std::same_as<void>;
 };
 }  // namespace libmcu
 

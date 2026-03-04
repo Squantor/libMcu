@@ -17,6 +17,7 @@ namespace libmcuhal::i2c {
  * @tparam ll_i2c_async pointer to a LPC84X low level I2C interface
  * @tparam max_transactions maximum number of outstanding transactions
  * @todo see if you can prevent element copying from the ringbuffer
+ * @todo add assertion policy
  */
 template <libmcull::DerivedFromAsyncI2c auto& ll_i2c_async, std::size_t max_transactions = 8>
 struct I2c : public libmcuhal::I2cBase {

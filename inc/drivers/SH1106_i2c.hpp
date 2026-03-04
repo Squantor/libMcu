@@ -27,7 +27,7 @@ namespace libmcudrv::SH1106 {
  * @tparam Assert Assertion class
  */
 template <auto &i2c_hal, const libmcu::I2cDeviceAddress &i2c_address, auto &config,
-          libmcu::AssertCallable Assert = libmcu::NoAssert>
+          libmcu::Assert_concept Assert = libmcu::Assert_default>
 struct SH1106 : public GfxDisplay<std::uint32_t, std::uint32_t> {
   /**
    * @brief

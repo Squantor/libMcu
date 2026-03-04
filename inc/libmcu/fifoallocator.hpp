@@ -18,7 +18,7 @@ namespace libmcu {
  * @tparam T Type to be used in the FifoAllocator
  * @tparam N Amount of elements in the FifoAllocator
  */
-template <typename T, std::size_t size, AssertCallable Assert = NoAssert>
+template <typename T, std::size_t size, Assert_concept assert_policy = Assert_default>
 class FifoAllocator {
  public:
   /**
@@ -99,9 +99,9 @@ class FifoAllocator {
    * @param msg
    */
   constexpr void AssertFailIf(bool cond, const char* msg) noexcept {
-    if constexpr (!std::is_same_v<Assert, NoAssert>) {
+    if constexpr (assert_policy::enabled) {
       if (cond) {
-        assert_function(msg);
+        assert_policy::fail(msg);
       }
     }
   }
@@ -133,10 +133,9 @@ class FifoAllocator {
     front = new_front;
     return true;
   }
-  [[no_unique_address]] Assert assert_function{}; /*!< assertion function */
-  std::size_t front;                              /*!< first element of the allocator */
-  std::size_t back;                               /*!< last element of the allocator */
-  std::array<T, size + 1> buffer;                 /*!< allocator data, one element is added as we need always one element free */
+  std::size_t front;              /*!< first element of the allocator */
+  std::size_t back;               /*!< last element of the allocator */
+  std::array<T, size + 1> buffer; /*!< allocator data, one element is added as we need always one element free */
 };
 }  // namespace libmcu
 
