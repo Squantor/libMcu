@@ -6,21 +6,18 @@
  */
 /**
  * \file cm_assert.hpp
- * \brief Assertion type used for CortexM microcontrollers
+ * \brief Assertion policies used for CortexM microcontrollers
  */
 #ifndef CM_ASSERT_HPP
 #define CM_ASSERT_HPP
 
 namespace libmcull {
-/** @brief Assertion class used for CortexM microcontrollers that uses BKPT instruction
- * Useful when debugging on CortexM microcontrollers
+/**
+ * @brief Assertion policy class that executes BKPT instruction in a forever loop
  */
-struct AssertBkpt {
-  /**
-   * @brief Assertion function that executes BKPT instruction in a forever loop
-   */
-  [[noreturn]] constexpr void operator()(const char* message) const noexcept {
-    (void)message;
+struct Assert_bkpt {
+  static constexpr bool enabled = true;
+  static void fail(const char*) noexcept {
     while (true)
       LIBMCULL_BKPT(0x42);
   }
