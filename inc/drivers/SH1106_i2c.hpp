@@ -28,7 +28,9 @@ namespace libmcudrv::SH1106 {
  */
 template <auto &i2c_hal, const libmcu::I2cDeviceAddress &i2c_address, auto &config,
           libmcu::Assert_concept Assert = libmcu::Assert_default>
-struct SH1106 : public GfxDisplay<std::uint32_t, std::uint32_t> {
+struct SH1106 : public GfxDisplay<std::uint16_t, std::uint32_t> {
+  using Coord_type = std::uint16_t;
+  using Pixel_type = std::uint32_t;
   /**
    * @brief
    * @return constexpr libmcu::Results
@@ -44,15 +46,15 @@ struct SH1106 : public GfxDisplay<std::uint32_t, std::uint32_t> {
    * @brief Get the maximum X coordinate of the display
    * @return constexpr std::uint32_t
    */
-  constexpr std::uint32_t GetXsize() {
-    return config.xSize;
+  constexpr std::uint16_t get_width() override {
+    return config.size_x;
   }
   /**
    * @brief Get the maximum Y coordinate of the display
    * @return constexpr std::uint32_t
    */
-  constexpr std::uint32_t GetYsize() {
-    return config.ySize;
+  constexpr std::uint16_t get_height() override {
+    return config.size_y;
   }
   /**
    * @brief
@@ -161,7 +163,7 @@ struct SH1106 : public GfxDisplay<std::uint32_t, std::uint32_t> {
    * @param y Y position
    * @param color Color
    */
-  constexpr void set_pixel(uint32_t x, uint32_t y, uint32_t color) override {
+  constexpr void set_pixel(std::uint16_t x, std::uint16_t y, std::uint32_t color) override {
     std::uint8_t bitmask = 1 << (y & 0x07);
     std::size_t index = (y >> 3) * config.size_x + x;
     if (color) {
@@ -183,10 +185,10 @@ struct SH1106 : public GfxDisplay<std::uint32_t, std::uint32_t> {
    * @param y Y position
    * @param bitmap Bitmap to blit
    */
-  constexpr void blit(uint32_t x, uint32_t y, const libmcu::bitmap::Bitmap_view<const uint32_t> &bitmap) override {
+  constexpr void blit(std::uint16_t x, std::uint16_t y, const libmcu::bitmap::Bitmap_view<const std::uint32_t> &bitmap) override {
     // compute bitmap bounds
-    uint32_t bitmap_width = bitmap.get_width();
-    uint32_t bitmap_height = bitmap.get_height();
+    std::uint32_t bitmap_width = bitmap.get_width();
+    std::uint32_t bitmap_height = bitmap.get_height();
     if (bitmap_width + x > config.size_x) {
       bitmap_width = bitmap.get_width() - (bitmap_width + x - config.size_x);
     }
@@ -194,8 +196,8 @@ struct SH1106 : public GfxDisplay<std::uint32_t, std::uint32_t> {
       bitmap_height = bitmap.get_height() - (bitmap_height + y - config.size_y);
     }
     // copy bitmap data to framebuffer
-    for (uint32_t i = 0; i < bitmap_height; i++) {
-      for (uint32_t j = 0; j < bitmap_width; j++) {
+    for (std::uint32_t i = 0; i < bitmap_height; i++) {
+      for (std::uint32_t j = 0; j < bitmap_width; j++) {
         set_pixel(x + j, y, bitmap.get_pixel(j, i));
       }
       y++;

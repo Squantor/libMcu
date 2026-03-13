@@ -11,6 +11,9 @@
 #ifndef LIBMCUMID_HPP
 #define LIBMCUMID_HPP
 
+#include <concepts>
+#include <type_traits>
 #include "mid_types.hpp"
+#include "mid_concepts.hpp"
 
 #endif

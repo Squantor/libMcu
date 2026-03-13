@@ -13,6 +13,8 @@
 
 #include <array>
 #include <span>
+#include <concepts>
+#include <type_traits>
 #include "drv_types.hpp"
 #include "drv_concepts.hpp"
 

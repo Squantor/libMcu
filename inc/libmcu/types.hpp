@@ -89,7 +89,7 @@ struct I2cDeviceAddress : I2cDeviceAddressBase {}; /*!< General purpose I2C addr
  * @tparam Base
  */
 template <typename Derived, template <typename...> class Base>
-struct IsDerivedFromTemplate {
+struct Derived_from_template {
  private:
   template <typename... Args>
   static std::true_type test(const Base<Args...>*);

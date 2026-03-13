@@ -39,7 +39,16 @@ enum class Display_state : uint8_t {
  */
 template <typename CoordType, typename PixelType>
 struct GfxDisplay : public DriverBase, public libmcu::NonBlocking {
-  // todo: Write(bitmap), State, GetInfo
+  /**
+   * @brief Get the pixel width
+   * @return Pixel width count
+   */
+  virtual CoordType get_width(void) = 0;
+  /**
+   * @brief Get the pixel height
+   * @return Pixel height count
+   */
+  virtual CoordType get_height(void) = 0;
   /**
    * @brief Transfer display buffer to the display
    * @todo should have an argument for callbacks when done flipping as it is a timeconsuming operation
