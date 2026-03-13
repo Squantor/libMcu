@@ -17,7 +17,7 @@
 
 namespace libmcumid {
 namespace detail {
-inline constexpr std::array<const std::uint8_t, 665> data_8x8_basic_crfo{
+inline constexpr std::array<const std::uint8_t, 665> font_data_8x8{
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  // U+0020 (space)
   0x00, 0x00, 0x06, 0x5F, 0x5F, 0x06, 0x00,  // U+0021 (!)
   0x00, 0x03, 0x03, 0x00, 0x03, 0x03, 0x00,  // U+0022 (")
@@ -116,18 +116,6 @@ inline constexpr std::array<const std::uint8_t, 665> data_8x8_basic_crfo{
 };
 }
 
-/**
- * @brief Basic 8x8 font column row flipped
- * @todo add bitmap to it
- * @todo needs a font base class for checks
- */
-class Font8x8BasicCrfo {
- public:
-  Font8x8BasicCrfo() : mapping{detail::map_ascii_8x8font} {}
-
- private:
-  std::span<const std::uint16_t> mapping;
-};
 }  // namespace libmcumid
 
 #endif

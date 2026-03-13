@@ -223,9 +223,9 @@ struct SH1106 : public GfxDisplay<std::uint16_t, std::uint32_t> {
         break;
     }
   }
+  libmcu::States state = libmcu::States::Initializing;
 
  private:
-  libmcu::States state = libmcu::States::Initializing;
   std::array<std::uint8_t, config.size_framebuffer> framebuffer;
   std::array<const std::uint8_t, 1> preamble_command_buffer = {preamble_command};
   std::array<const std::uint8_t, 1> preamble_data_buffer = {preamble_data};

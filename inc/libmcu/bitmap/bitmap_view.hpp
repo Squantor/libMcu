@@ -46,7 +46,7 @@ class Bitmap_view {
    * @param other Bitmap_view to copy
    */
   template <typename U>
-  requires(std::is_const_v<T> && std::is_same_v<std::remove_const_t<T>, U>)
+  requires std::is_convertible_v<U *, T *>
   constexpr Bitmap_view(const Bitmap_view<U> &other)
     : data_bitmap(other.data()), width(other.get_width()), height(other.get_height()), bits_per_pixel(other.get_bits_per_pixel()) {}
 
@@ -59,7 +59,7 @@ class Bitmap_view {
   [[nodiscard]] constexpr std::uint8_t get_bits_per_pixel() const {
     return bits_per_pixel;
   }
-  [[nodiscard]] constexpr Pixel_type *data() const {
+  [[nodiscard]] constexpr Pixel_type *data() const noexcept {
     return data_bitmap;
   }
   constexpr void fill(Pixel_type pixel)

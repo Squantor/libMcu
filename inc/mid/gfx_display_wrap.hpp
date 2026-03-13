@@ -32,6 +32,7 @@ class Gfx_display_wrap {
   using Coord_type = Display_type::Coord_type;
 
  public:
+  Gfx_display_wrap() : cursor_x{0}, cursor_y{0} {}
   Coord_type get_width() {
     return display.get_width();
   }
@@ -43,10 +44,40 @@ class Gfx_display_wrap {
   }
   void clear(Pixel_type color = 0) {
     display.clear(color);
+    cursor_x = 0;
+    cursor_y = 0;
   }
-  void print(const char* str) {}
-
+  /**
+   * @brief Console like print that keeps a position
+   * @param str
+   * @param font
+   */
+  void print(const char* str, libmcumid::Font& font) {
+    while (*str != '\0') {
+      if (*str == '\n') {
+        cursor_x = 0;
+        cursor_y += font.height;
+        str++;
+        continue;
+      }
+      auto glyph = font.get_glyph(*str);
+      display.blit(cursor_x, cursor_y, glyph);
+      str++;
+      cursor_x += font.width;
+    }
+  }
+  void print(std::uint16_t x_coord, std::uint16_t y_coord, const char* str, libmcumid::Font& font) {
+    while (*str != '\0') {
+      auto glyph = font.get_glyph(*str);
+      display.blit(x_coord, y_coord, glyph);
+      str++;
+      x_coord += font.width;
+    }
+  }
+  // print with coordinate that ignore console operation
  private:
+  std::uint16_t cursor_x;
+  std::uint16_t cursor_y;
 };
 
 }  // namespace libmcumid
