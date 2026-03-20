@@ -15,23 +15,23 @@ namespace libmcu {
 
 /**
  * @brief First In First Out allocation class
- * @tparam T Type to be used in the FifoAllocator
- * @tparam N Amount of elements in the FifoAllocator
+ * @tparam T Type to be used in the Fifo_allocator
+ * @tparam N Amount of elements in the Fifo_allocator
  */
 template <typename T, std::size_t size, Assert_concept assert_policy = Assert_default>
-class FifoAllocator {
+class Fifo_allocator {
  public:
   /**
    * @brief Construct a new Fifo Allocator object
    */
-  FifoAllocator() {
+  Fifo_allocator() {
     static_assert(size > 0, "allocator size of zero is not allowed!");
-    Reset();
+    reset();
   }
   /**
    * @brief Resets the allocator
    */
-  void Reset() {
+  void reset() {
     front = 0;
     back = 0;
   }
@@ -40,22 +40,22 @@ class FifoAllocator {
    * @return true if allocator is full
    * @return false if allocator is not full
    */
-  bool IsFull() {
-    return Increment(front) == back;
+  bool is_full() {
+    return increment(front) == back;
   }
   /**
    * @brief Checks if the allocator is empty
    * @return true if allocator is empty
    * @return false if allocator is not empty
    */
-  bool IsEmpty() const {
+  bool is_empty() const {
     return front == back;
   }
   /**
    * @brief returns fill level of the allocator
    * @return amount of elements in allocator
    */
-  std::size_t GetLevel() {
+  std::size_t get_level() {
     if (front > back)
       return front - back;
     if (back > front)
@@ -68,17 +68,17 @@ class FifoAllocator {
    * @param block_size Size of the block
    * @return std::span<T> pointing to the block, returns an empty span if full
    */
-  std::span<T> Request(std::size_t block_size) {
+  std::span<T> request(std::size_t block_size) {
     std::size_t old_front;
     // wrapping check
     if (front + block_size <= buffer.size())
       old_front = front;
     else
       old_front = 0;
-    if (TryIncrementFront(block_size))
+    if (try_increment_front(block_size))
       return {buffer.data() + old_front, block_size};
     else {
-      AssertFailIf(true, "FifoAllocator::Request: buffer is full");
+      assert_fail_if(true, "Fifo_allocator.request: buffer is full");
       return {};
     }
   }
@@ -87,8 +87,8 @@ class FifoAllocator {
    * We do zero checks here if the span is at all valid
    * @param block span to return
    */
-  void Release(std::span<T> block) {
-    AssertFailIf(buffer.data() + back != block.data(), "FifoAllocator::Release: does not match back index");
+  void release(std::span<T> block) {
+    assert_fail_if(buffer.data() + back != block.data(), "Fifo_allocator.release: does not match back index");
     back = back + block.size();
   }
 
@@ -98,7 +98,7 @@ class FifoAllocator {
    * @param cond
    * @param msg
    */
-  constexpr void AssertFailIf(bool cond, const char* msg) noexcept {
+  constexpr void assert_fail_if(bool cond, const char* msg) noexcept {
     if constexpr (assert_policy::enabled) {
       if (cond) {
         assert_policy::fail(msg);
@@ -106,11 +106,11 @@ class FifoAllocator {
     }
   }
   /**
-   * @brief Increments the index by one
+   * @brief increments the index by one
    * @param p index to increment
    * @return incremented index taking care of wraparound
    */
-  std::size_t Increment(const std::size_t index) {
+  std::size_t increment(const std::size_t index) {
     if (index + 1 == buffer.size())
       return 0;
     else
@@ -119,10 +119,10 @@ class FifoAllocator {
   /**
    * @brief Tries to increment the index by a given block size
    * @param block_size Size of the increment
-   * @return true Increment success
-   * @return false Increment failed
+   * @return true increment success
+   * @return false increment failed
    */
-  bool TryIncrementFront(std::size_t block_size) {
+  bool try_increment_front(std::size_t block_size) {
     std::size_t new_front = front + block_size;
     if (new_front > buffer.size()) {
       // Current block is so big that we wrap around, try again from beginning of buffer
