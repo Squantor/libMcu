@@ -18,16 +18,16 @@ namespace libmcu {
 /**
  * @brief First In Never Out allocation class
  * This will overwrite the older blocks, be careful and overprovision this allocator
- * @tparam T Type to be used in the FinoAllocator
- * @tparam N Amount of elements in the FinoAllocator
+ * @tparam T Type to be used in the Fino_allocator
+ * @tparam N Amount of elements in the Fino_allocator
  */
 template <typename T, std::size_t size>
-class FinoAllocator {
+class Fino_allocator {
  public:
   /**
    * @brief Construct a new Fifo Allocator object
    */
-  FinoAllocator() {
+  Fino_allocator() {
     static_assert(size > 0, "allocator size of zero is not allowed!");
   }
   /**
@@ -35,7 +35,7 @@ class FinoAllocator {
    * @param block_size Size of the block
    * @return std::span<T> pointing to the block
    */
-  std::span<T> Request(std::size_t block_size) {
+  std::span<T> request(std::size_t block_size) {
     std::size_t old_front;
     // wrapping check
     if (front + block_size <= buffer.size())

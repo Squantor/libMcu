@@ -229,7 +229,7 @@ struct SH1106 : public GfxDisplay<std::uint16_t, std::uint32_t> {
   std::array<std::uint8_t, config.size_framebuffer> framebuffer;
   std::array<const std::uint8_t, 1> preamble_command_buffer = {preamble_command};
   std::array<const std::uint8_t, 1> preamble_data_buffer = {preamble_data};
-  libmcu::FinoAllocator<std::uint8_t, 32> allocator;  // Some overprovisioning is needed to be safe
+  libmcu::Fino_allocator<std::uint8_t, 32> allocator;  // Some overprovisioning is needed to be safe
 };
 
 }  // namespace libmcudrv::SH1106
