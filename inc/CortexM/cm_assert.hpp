@@ -17,7 +17,8 @@ namespace libmcull {
  */
 struct Assert_bkpt {
   static constexpr bool enabled = true;
-  static void fail(const char*) noexcept {
+  static void fail(const char* message) noexcept {
+    (void)message;
     while (true)
       LIBMCULL_BKPT(0x42);
   }

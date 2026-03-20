@@ -25,7 +25,7 @@ class Fidfo_allocator {
   /**
    * @brief Construct a new Fidfo Allocator object
    */
-  Fidfo_allocator() {
+  Fidfo_allocator() : max_fill(0) {
     static_assert(size > 0, "allocator size of zero is not allowed!");
     reset();
   }
@@ -144,10 +144,14 @@ class Fidfo_allocator {
         return false;
     }
     front = new_front;
+    std::size_t level = get_level();
+    if (level > max_fill)
+      max_fill = level;
     return true;
   }
   std::size_t front;              /*!< first element of the allocator */
   std::size_t back;               /*!< last element of the allocator */
+  std::size_t max_fill;           /*!< maximum fill level of the allocator */
   std::array<T, size + 1> buffer; /*!< allocator data, one element is added as we need always one element free */
 };
 }  // namespace libmcu

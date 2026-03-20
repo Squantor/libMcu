@@ -19,6 +19,7 @@ namespace libmcudrv::SH1106 {
 
 /**
  * @brief SH1106 driver over I2C bus
+ * @todo switched from FINO to FIDFO, need proper state management here!
  * @todo i2chal template parameter needs check with a concept
  * @todo optimize transfer by keeping what bytes are dirty
  * @tparam i2c_hal I2C hal to be used
@@ -38,9 +39,7 @@ struct SH1106 : public GfxDisplay<std::uint16_t, std::uint32_t> {
   constexpr libmcu::Results Init() {
     state = libmcu::States::Initializing;
     framebuffer.fill(0);
-    SendCommand(config.init_commands);
-    flip();
-    return SetAddress(0, 0, this);
+    return SendCommand(config.init_commands, this);
   }
   /**
    * @brief Get the maximum X coordinate of the display
@@ -91,7 +90,7 @@ struct SH1106 : public GfxDisplay<std::uint16_t, std::uint32_t> {
    * @return status of I2C transaction
    */
   constexpr libmcu::Results Contrast(std::uint8_t value) {
-    std::span<uint8_t> set_contrast_buffer = allocator.Request(2);
+    std::span<uint8_t> set_contrast_buffer = allocator.request(2);
     set_contrast_buffer[0] = cmd_set_constrast;
     set_contrast_buffer[1] = FormatContrastLevelArg(value);
     return SendCommand(set_contrast_buffer);
@@ -103,7 +102,7 @@ struct SH1106 : public GfxDisplay<std::uint16_t, std::uint32_t> {
    * @todo Not implemented
    */
   constexpr libmcu::Results SetColumnAddress(uint32_t column) {
-    std::span<uint8_t> set_column_address_buffer = allocator.Request(2);
+    std::span<uint8_t> set_column_address_buffer = allocator.request(2);
     std::uint32_t column_byte = static_cast<uint8_t>(column & 0xFF);
     set_column_address_buffer[0] = FormatSetHigherColumnAddress(static_cast<uint8_t>(column_byte));
     set_column_address_buffer[1] = FormatSetLowerColumnAddress(static_cast<uint8_t>(column_byte));
@@ -115,7 +114,7 @@ struct SH1106 : public GfxDisplay<std::uint16_t, std::uint32_t> {
    * @return constexpr libmcu::Results
    */
   constexpr libmcu::Results SetPageAddress(uint32_t page) {
-    std::span<uint8_t> set_page_address_buffer = allocator.Request(1);
+    std::span<uint8_t> set_page_address_buffer = allocator.request(1);
     set_page_address_buffer[0] = FormatSetPageAddress(static_cast<uint8_t>(page));
     return SendCommand(set_page_address_buffer);
   }
@@ -126,7 +125,7 @@ struct SH1106 : public GfxDisplay<std::uint16_t, std::uint32_t> {
    * @return constexpr libmcu::Results
    */
   constexpr libmcu::Results SetAddress(uint32_t column, uint32_t page, NonBlocking *callback = nullptr) {
-    std::span<uint8_t> set_address_buffer = allocator.Request(3);
+    std::span<uint8_t> set_address_buffer = allocator.request(3);
     column = column + config.column_offset;
     set_address_buffer[0] = FormatSetHigherColumnAddress(static_cast<uint8_t>(column));
     set_address_buffer[1] = FormatSetLowerColumnAddress(static_cast<uint8_t>(column));
@@ -138,11 +137,16 @@ struct SH1106 : public GfxDisplay<std::uint16_t, std::uint32_t> {
    * Will queue up a bunch of I2C transfers in one go
    */
   constexpr void flip(void) override {
+    if (state != libmcu::States::Idle)
+      Assert::fail("Display is not idle");
+    state = libmcu::States::Busy;
     std::span<uint8_t> framebuffer_span = framebuffer;
     for (uint32_t i = 0; i < config.size_pages; i++) {
       SetAddress(0, i);
       SendData(framebuffer_span.subspan(i * config.size_x, config.size_x));
     }
+    // We want a callback after flip is done so the state can be updated so we do a SetAddress here
+    SetAddress(0, 0, this);
   }
   /**
    * @brief Clear the framebuffer with clear pixels, does not flip
@@ -213,9 +217,12 @@ struct SH1106 : public GfxDisplay<std::uint16_t, std::uint32_t> {
    */
   constexpr void Callback(void) override {
     switch (state) {
+      case libmcu::States::Busy:
+        // fallthrough
       case libmcu::States::Initializing:
         // we get callback from the I2C HAL driver
         // todo check error status
+        allocator.reset();
         state = libmcu::States::Idle;
         break;
       default:
@@ -229,7 +236,7 @@ struct SH1106 : public GfxDisplay<std::uint16_t, std::uint32_t> {
   std::array<std::uint8_t, config.size_framebuffer> framebuffer;
   std::array<const std::uint8_t, 1> preamble_command_buffer = {preamble_command};
   std::array<const std::uint8_t, 1> preamble_data_buffer = {preamble_data};
-  libmcu::Fino_allocator<std::uint8_t, 32> allocator;  // Some overprovisioning is needed to be safe
+  libmcu::Fidfo_allocator<std::uint8_t, 64, Assert> allocator;
 };
 
 }  // namespace libmcudrv::SH1106
