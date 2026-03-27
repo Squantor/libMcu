@@ -36,10 +36,10 @@ struct SH1106 : public GfxDisplay<std::uint16_t, std::uint32_t> {
    * @brief
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results Init() {
+  constexpr libmcu::Results init() {
     state = libmcu::States::Initializing;
     framebuffer.fill(0);
-    return SendCommand(config.init_commands, this);
+    return send_command(config.init_commands, this);
   }
   /**
    * @brief Get the maximum X coordinate of the display
@@ -60,16 +60,16 @@ struct SH1106 : public GfxDisplay<std::uint16_t, std::uint32_t> {
    * @param commands
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results SendCommand(const std::span<const std::uint8_t> commands, NonBlocking *callback = nullptr) {
-    return Send(preamble_command_buffer, commands, callback);
+  constexpr libmcu::Results send_command(const std::span<const std::uint8_t> commands, NonBlocking *callback = nullptr) {
+    return send(preamble_command_buffer, commands, callback);
   }
   /**
    * @brief
    * @param data
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results SendData(const std::span<const std::uint8_t> data, NonBlocking *callback = nullptr) {
-    return Send(preamble_data_buffer, data, callback);
+  constexpr libmcu::Results send_data(const std::span<const std::uint8_t> data, NonBlocking *callback = nullptr) {
+    return send(preamble_data_buffer, data, callback);
   }
   /**
    * @brief
@@ -78,7 +78,7 @@ struct SH1106 : public GfxDisplay<std::uint16_t, std::uint32_t> {
    * @param callback Callback to execute when Send is done
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results Send(const std::span<const std::uint8_t> action, const std::span<const std::uint8_t> commands,
+  constexpr libmcu::Results send(const std::span<const std::uint8_t> action, const std::span<const std::uint8_t> commands,
                                  NonBlocking *callback) {
     i2c_hal.StartMasterTransmit(i2c_address, action);
     i2c_hal.StopMasterTransmit(commands, callback);
@@ -89,11 +89,11 @@ struct SH1106 : public GfxDisplay<std::uint16_t, std::uint32_t> {
    * @param contrast contrast value from 1 to 255
    * @return status of I2C transaction
    */
-  constexpr libmcu::Results Contrast(std::uint8_t value) {
+  constexpr libmcu::Results contrast(std::uint8_t value) {
     std::span<uint8_t> set_contrast_buffer = allocator.request(2);
     set_contrast_buffer[0] = cmd_set_constrast;
     set_contrast_buffer[1] = FormatContrastLevelArg(value);
-    return SendCommand(set_contrast_buffer);
+    return send_command(set_contrast_buffer);
   }
   /**
    * @brief Set the Column Address object
@@ -101,22 +101,22 @@ struct SH1106 : public GfxDisplay<std::uint16_t, std::uint32_t> {
    * @return constexpr libmcu::Results
    * @todo Not implemented
    */
-  constexpr libmcu::Results SetColumnAddress(uint32_t column) {
+  constexpr libmcu::Results set_column_address(uint32_t column) {
     std::span<uint8_t> set_column_address_buffer = allocator.request(2);
     std::uint32_t column_byte = static_cast<uint8_t>(column & 0xFF);
     set_column_address_buffer[0] = FormatSetHigherColumnAddress(static_cast<uint8_t>(column_byte));
     set_column_address_buffer[1] = FormatSetLowerColumnAddress(static_cast<uint8_t>(column_byte));
-    return SendCommand(set_column_address_buffer);
+    return send_command(set_column_address_buffer);
   }
   /**
    * @brief Set the display page address start
    * @param address
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results SetPageAddress(uint32_t page) {
+  constexpr libmcu::Results set_page_address(uint32_t page) {
     std::span<uint8_t> set_page_address_buffer = allocator.request(1);
     set_page_address_buffer[0] = FormatSetPageAddress(static_cast<uint8_t>(page));
-    return SendCommand(set_page_address_buffer);
+    return send_command(set_page_address_buffer);
   }
   /**
    * @brief Set the display address to write data to
@@ -124,29 +124,26 @@ struct SH1106 : public GfxDisplay<std::uint16_t, std::uint32_t> {
    * @param page Page address
    * @return constexpr libmcu::Results
    */
-  constexpr libmcu::Results SetAddress(uint32_t column, uint32_t page, NonBlocking *callback = nullptr) {
+  constexpr libmcu::Results set_address(uint32_t column, uint32_t page, NonBlocking *callback = nullptr) {
     std::span<uint8_t> set_address_buffer = allocator.request(3);
     column = column + config.column_offset;
     set_address_buffer[0] = FormatSetHigherColumnAddress(static_cast<uint8_t>(column));
     set_address_buffer[1] = FormatSetLowerColumnAddress(static_cast<uint8_t>(column));
     set_address_buffer[2] = FormatSetPageAddress(static_cast<uint8_t>(page));
-    return SendCommand(set_address_buffer, callback);
+    return send_command(set_address_buffer, callback);
   }
   /**
    * @brief Transfers framebuffer information to the display
    * Will queue up a bunch of I2C transfers in one go
    */
   constexpr void flip(void) override {
-    if (state != libmcu::States::Idle)
-      Assert::fail("Display is not idle");
-    state = libmcu::States::Busy;
-    std::span<uint8_t> framebuffer_span = framebuffer;
-    for (uint32_t i = 0; i < config.size_pages; i++) {
-      SetAddress(0, i);
-      SendData(framebuffer_span.subspan(i * config.size_x, config.size_x));
+    if (state != libmcu::States::Idle) {
+      // we are already busy, update flip request counter
+      flip_requests++;
+      return;
     }
-    // We want a callback after flip is done so the state can be updated so we do a SetAddress here
-    SetAddress(0, 0, this);
+    state = libmcu::States::Busy;
+    flip_internal();
   }
   /**
    * @brief Clear the framebuffer with clear pixels, does not flip
@@ -223,16 +220,37 @@ struct SH1106 : public GfxDisplay<std::uint16_t, std::uint32_t> {
         // we get callback from the I2C HAL driver
         // todo check error status
         allocator.reset();
-        state = libmcu::States::Idle;
+        if (flip_counter != flip_requests) {
+          flip_counter++;
+          flip_internal();
+        } else {
+          state = libmcu::States::Idle;
+        }
         break;
+
       default:
         // should not happen
         break;
     }
   }
-  libmcu::States state = libmcu::States::Initializing;
+  libmcu::States state = libmcu::States::Initializing; /*!< Current state of the display */
 
  private:
+  /**
+   * @brief Transfers framebuffer information to the display
+   * Will queue up a bunch of I2C transfers in one go
+   */
+  constexpr void flip_internal(void) {
+    std::span<uint8_t> framebuffer_span = framebuffer;
+    for (uint32_t i = 0; i < config.size_pages; i++) {
+      set_address(0, i);
+      send_data(framebuffer_span.subspan(i * config.size_x, config.size_x));
+    }
+    // We want a callback after flip is done so the state can be updated so we do a SetAddress here
+    set_address(0, 0, this);
+  }
+  std::size_t flip_counter = 0;  /*!< How many times the framebuffer has been flipped */
+  std::size_t flip_requests = 0; /*!< How many times the framebuffer has to be flipped */
   std::array<std::uint8_t, config.size_framebuffer> framebuffer;
   std::array<const std::uint8_t, 1> preamble_command_buffer = {preamble_command};
   std::array<const std::uint8_t, 1> preamble_data_buffer = {preamble_data};
