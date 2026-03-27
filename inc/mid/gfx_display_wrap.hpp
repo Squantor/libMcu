@@ -48,38 +48,72 @@ class Gfx_display_wrap {
     cursor_y = 0;
   }
   /**
-   * @brief Console like print that keeps a position
+   * @brief
+   * @param x_coord
+   * @param y_coord
+   * @param c
+   * @param font
+   */
+  void print(Coord_type x_coord, Coord_type y_coord, char c, libmcumid::Font& font) {
+    auto glyph = font.get_glyph(c);
+    display.blit(x_coord, y_coord, glyph);
+  }
+  /**
+   * @brief print character while keeping a cursor
+   * @param c Character to print
+   * @param font Font to use
+   */
+  void print(char c, libmcumid::Font& font) {
+    if (c == '\n') {
+      cursor_x = 0;
+      cursor_y += font.height;
+    } else {
+      print(cursor_x, cursor_y, c, font);
+      cursor_x += font.width;
+    }
+  }
+  /**
+   * @brief Console like print C string that keeps a position
    * @param str
    * @param font
    */
   void print(const char* str, libmcumid::Font& font) {
     while (*str != '\0') {
-      if (*str == '\n') {
-        cursor_x = 0;
-        cursor_y += font.height;
-        str++;
-        continue;
-      }
-      auto glyph = font.get_glyph(*str);
-      display.blit(cursor_x, cursor_y, glyph);
+      print(*str, font);
       str++;
-      cursor_x += font.width;
     }
   }
+  /**
+   * @brief
+   * @param x_coord
+   * @param y_coord
+   * @param str
+   * @param font
+   */
   void print(std::uint16_t x_coord, std::uint16_t y_coord, const char* str, libmcumid::Font& font) {
     while (*str != '\0') {
-      auto glyph = font.get_glyph(*str);
-      display.blit(x_coord, y_coord, glyph);
+      print(x_coord, y_coord, *str, font);
       str++;
       x_coord += font.width;
     }
   }
-  // print with coordinate that ignore console operation
+
+  void print(libmcumid::Hex n, libmcumid::Font& font) {
+    detail::print(n, [this, &font](const auto c) {
+      print(c, font);
+    });
+  }
+
+  void print(libmcumid::Dec n, libmcumid::Font& font) {
+    detail::print(n, [this, &font](const auto c) {
+      print(c, font);
+    });
+  }
+
  private:
   std::uint16_t cursor_x;
   std::uint16_t cursor_y;
 };
-
 }  // namespace libmcumid
 
 #endif

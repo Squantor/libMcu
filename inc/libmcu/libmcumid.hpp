@@ -15,5 +15,6 @@
 #include <type_traits>
 #include "mid_types.hpp"
 #include "mid_concepts.hpp"
+#include "print.hpp"
 
 #endif
