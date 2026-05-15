@@ -10,7 +10,7 @@
 #ifndef BLIT_HPP
 #define BLIT_HPP
 
-#include <libmcu/bitmap/bitmap_view.hpp>
+#include <libmcu/bitmap/bitmap.hpp>
 
 //extern libmcull::systick::Systick<libmcuhw::SystickAddress> systick_peripheral;
 extern volatile std::uint32_t ticks;
@@ -28,7 +28,7 @@ namespace libmcu::bitmap {
  * @param src_width source width
  * @param src_height source height
  */
-void blit(Bitmap dst_bitmap, Const_bitmap src_bitmap, std::uint16_t dst_x,
+void blit_old(Bitmap dst_bitmap, Const_bitmap src_bitmap, std::uint16_t dst_x,
                     std::uint16_t dst_y, std::uint16_t src_x = 0, std::uint16_t src_y = 0, std::uint16_t src_width = 0,
                     std::uint16_t src_height = 0) ;
 }  // namespace libmcu::bitmap

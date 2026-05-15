@@ -1,12 +1,11 @@
-/*
-SPDX-License-Identifier: MIT
-
-Copyright (c) 2026 Bart Bilos
-For conditions of distribution and use, see LICENSE file
-*/
 /**
- * \file bitmap_view.hpp
- * \brief Class definitions for bitmap class
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2026 Bart Bilos
+ * For conditions of distribution and use, see LICENSE file
+ *
+ * @file bitmap_view.hpp
+ * @brief Class definitions for bitmap class
  */
 #ifndef BITMAP_HPP
 #define BITMAP_HPP
@@ -36,7 +35,7 @@ struct Bitmap_size {
 };
 
 namespace detail {
-template<typename T>
+template <typename T>
 concept Unsigned32Bit = sizeof(T) == 4 && std::unsigned_integral<T>;
 
 /**

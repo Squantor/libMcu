@@ -9,12 +9,9 @@
  */
 #include "libmcu/bitmap/blit.hpp"
 
-//extern libmcull::systick::Systick<libmcuhw::SystickAddress> systick_peripheral;
-extern volatile std::uint32_t ticks;
-
 namespace libmcu::bitmap {
 
-void blit(Bitmap dst_bitmap, Const_bitmap src_bitmap, std::uint16_t dst_x,
+void blit_old(Bitmap dst_bitmap, Const_bitmap src_bitmap, std::uint16_t dst_x,
                     std::uint16_t dst_y, std::uint16_t src_x, std::uint16_t src_y, std::uint16_t src_width,
                     std::uint16_t src_height) {
   
@@ -36,8 +33,6 @@ void blit(Bitmap dst_bitmap, Const_bitmap src_bitmap, std::uint16_t dst_x,
     if (src_y_end > src_size.h)
       src_y_end = src_size.h;
   }
-  std::uint32_t start_ticks = ticks;
-  std::uint32_t start_systicks = 0;//systick_peripheral.GetCount();
 
   std::uint16_t dst_x_idx = dst_x;
   std::uint16_t dst_y_idx = dst_y;
@@ -52,15 +47,6 @@ void blit(Bitmap dst_bitmap, Const_bitmap src_bitmap, std::uint16_t dst_x,
     dst_y_idx++;
     if (dst_y_idx >= dst_size.h)
       break;
-  }
-  std::uint32_t end_ticks = ticks;
-  std::uint32_t end_systicks = 0;//systick_peripheral.GetCount();
-  std::uint32_t total_systicks = 0;
-  if (start_ticks == end_ticks) {
-    total_systicks = start_systicks - end_systicks;
-  }
-  if (total_systicks > 60000) {
-    //libmcull::nop();
   }
 }
 }  // namespace libmcu::bitmap

@@ -16,9 +16,6 @@
 #include <span>
 #include "bitmap.hpp"
 
-extern libmcull::systick::Systick<libmcuhw::SystickAddress> systick_peripheral;
-extern volatile std::uint32_t ticks;
-
 namespace libmcu::bitmap {
 
 /**
@@ -185,11 +182,11 @@ void blit_1d_bits(std::span<std::uint32_t> dst, std::span<const std::uint32_t> s
     // setup loop to handle first incomplete element
     todo_bits = todo_bits - header_offset;
     mask = 0xFFFFFFFF << header_offset;
-    // check if we have a very small span
-    if (todo_bits > bit_count) {
-      mask = mask & (0xFFFFFFFF >> (todo_bits - bit_count));
-      todo_bits = bit_count;
-    }
+  }
+  // check if we have a very small span
+  if (todo_bits > bit_count) {
+    mask = mask & (0xFFFFFFFF >> (todo_bits - bit_count));
+    todo_bits = bit_count;
   }
   // handle complete elements
   while (bit_count > 0) {
@@ -249,5 +246,5 @@ void blit_bitmap(Bitmap dst, Const_bitmap src, Bitmap_coords dst_coords, Blit_op
 void blit_bitmap(Bitmap dst, Const_bitmap src, Bitmap_coords dst_coords, Bitmap_coords src_coords, Bitmap_size src_size,
                  Blit_ops op = Blit_ops::COPY);
 
-}
+}  // namespace libmcu::bitmap
 #endif

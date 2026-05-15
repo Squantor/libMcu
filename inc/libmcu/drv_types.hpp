@@ -11,7 +11,7 @@
 #ifndef DRV_TYPES_HPP
 #define DRV_TYPES_HPP
 
-#include <libmcu/bitmap/bitmap_view.hpp>
+#include <libmcu/bitmap/bitmap.hpp>
 
 namespace libmcudrv {
 /**
