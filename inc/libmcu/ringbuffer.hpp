@@ -62,7 +62,7 @@ class Ring_buffer {
     if (front > back)
       return front - back;
     if (back > front)
-      return size - (back - front);
+      return buffer.size() - (back - front);
     else
       return 0;
   }
