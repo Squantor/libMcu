@@ -63,9 +63,9 @@ struct UartInterrupt : libmcull::AsyncUartBase {
    */
   constexpr libmcu::Results Transmit(TransferType element) {
     // Busy until tx queue has space
-    while (tx_buffer.IsFull()) {
+    while (tx_buffer.is_full()) {
     }
-    tx_buffer.PushFront(element);
+    tx_buffer.push_front(element);
     GetPeripheral()->INTENSET = hardware::INTENSET::TXRDYEN;
     return libmcu::Results::NoError;
   }
@@ -77,14 +77,14 @@ struct UartInterrupt : libmcull::AsyncUartBase {
   constexpr libmcu::Results Transmit(std::span<const TransferType> buffer) {
     // Fill transmit queue before enabling TXRDY interrupt
     std::size_t count = 0;
-    while (!tx_buffer.IsFull() && count < buffer.size()) {
-      tx_buffer.PushFront(buffer[count]);
+    while (!tx_buffer.is_full() && count < buffer.size()) {
+      tx_buffer.push_front(buffer[count]);
       count++;
     }
     GetPeripheral()->INTENSET = hardware::INTENSET::TXRDYEN;
     // Continue filling queue until buffer is empty
-    while (!tx_buffer.IsFull() && count < buffer.size()) {
-      tx_buffer.PushFront(buffer[count]);
+    while (!tx_buffer.is_full() && count < buffer.size()) {
+      tx_buffer.push_front(buffer[count]);
       count++;
     }
     return libmcu::Results::NoError;
@@ -94,7 +94,7 @@ struct UartInterrupt : libmcull::AsyncUartBase {
    * @return How many elements have been received
    */
   constexpr std::size_t GetReceiveLevel() {
-    return rx_buffer.GetLevel();
+    return rx_buffer.get_level();
   }
   /**
    * @brief Receive characters from the UART
@@ -106,8 +106,8 @@ struct UartInterrupt : libmcull::AsyncUartBase {
     // Fill receive queue
     std::size_t count = 0;
     while (count < buffer.size()) {
-      if (!rx_buffer.IsEmpty()) {
-        rx_buffer.PopBack(buffer[count]);
+      if (!rx_buffer.is_empty()) {
+        rx_buffer.pop_back(buffer[count]);
         count++;
       }
     }
@@ -120,9 +120,9 @@ struct UartInterrupt : libmcull::AsyncUartBase {
    * @return NoError if all okay
    */
   constexpr libmcu::Results Receive(TransferType &element) {
-    while (rx_buffer.IsEmpty()) {
+    while (rx_buffer.is_empty()) {
     }
-    rx_buffer.PopBack(element);
+    rx_buffer.pop_back(element);
     return libmcu::Results::NoError;
   }
   /**
@@ -133,20 +133,20 @@ struct UartInterrupt : libmcull::AsyncUartBase {
     std::uint32_t status = GetPeripheral()->STAT;
     if (status & hardware::STAT::TXRDY) {
       // check if buffer is empty
-      if (tx_buffer.IsEmpty()) {
+      if (tx_buffer.is_empty()) {
         GetPeripheral()->INTENCLR = hardware::INTENCLR::TXRDYCLR;
       } else {
-        tx_buffer.PopBack(element);
+        tx_buffer.pop_back(element);
         GetPeripheral()->TXDAT = static_cast<std::uint32_t>(element);
       }
     }
     if (status & hardware::STAT::RXRDY) {
-      if (rx_buffer.IsFull()) {
+      if (rx_buffer.is_full()) {
         element = GetPeripheral()->RXDAT;  // dummy read
         // TODO report overflow
       } else {
         element = GetPeripheral()->RXDAT;
-        rx_buffer.PushFront(element);
+        rx_buffer.push_front(element);
       }
     }
     // TODO various errors
@@ -198,8 +198,8 @@ struct UartInterrupt : libmcull::AsyncUartBase {
  private:
   static constexpr libmcu::HwAddressType address = usart_address; /*!< peripheral usartAddress */
   volatile libmcu::States state;                                  /*!< claim status */
-  libmcu::RingBuffer<TransferType, buffer_size> rx_buffer;        /*!< receive buffer */
-  libmcu::RingBuffer<TransferType, buffer_size> tx_buffer;        /*!< transmit buffer */
+  libmcu::Ring_buffer<TransferType, buffer_size> rx_buffer;       /*!< receive buffer */
+  libmcu::Ring_buffer<TransferType, buffer_size> tx_buffer;       /*!< transmit buffer */
 };
 }  // namespace libmcull::usart
 #endif

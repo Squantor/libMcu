@@ -1,18 +1,14 @@
-/*
+/**
  * SPDX-License-Identifier: MIT
  *
  * Copyright (c) 2021 Bart Bilos
  * For conditions of distribution and use, see LICENSE file
- */
-/**
+ *
  * @file ringbuffer.hpp
  * @brief Implements a generic ringbuffer class
  */
-#ifndef GENERAL_RINGBUFFER_HPP
-#define GENERAL_RINGBUFFER_HPP
-
-#include <array>
-#include <cstdint>
+#ifndef LIBMCU_RINGBUFFER_HPP
+#define LIBMCU_RINGBUFFER_HPP
 
 namespace libmcu {
 
@@ -20,53 +16,49 @@ namespace libmcu {
  * @brief Generic ringbuffer
  * @tparam T Type to be used in the ringbuffer
  * @tparam N Amount of elements in the ringbuffer
- * @todo add doxygen documentation
- * @todo retool to use std::optional for the pop functions
  * @todo Add following functions, peekfront(), peekback(),
  * @todo peekfront(size_t count), peekback(size count)
  * @todo dropfront(size_t count), dropback(size_t count)
- * @todo change naming
  * @todo add assertion policy parameter for overflow/underflow
  */
-template <typename T, std::size_t size>
-class RingBuffer {
+template <typename T, std::size_t size, Assert_concept assert_policy = Assert_default>
+class Ring_buffer {
  public:
-  using iterator = typename std::array<T, size>::iterator;
   /**
    * @brief Construct a new Ring Buffer object
    */
-  RingBuffer() {
+  Ring_buffer() {
     static_assert(size > 0, "ringbuffer size of zero is not allowed!");
-    Reset();
+    reset();
   }
   /**
    * @brief Resets the ringbuffer
    */
-  void Reset() {
-    front = buffer.begin();
-    back = buffer.begin();
+  void reset() {
+    front = 0;
+    back = 0;
   }
   /**
    * @brief Checks if the ringbuffer is full
    * @return true if ringbuffer is full
    * @return false if ringbuffer is not full
    */
-  bool IsFull() {
-    return Increment(front) == back;
+  bool is_full() {
+    return increment(front) == back;
   }
   /**
    * @brief Checks if the ringbuffer is empty
    * @return true if ringbuffer is empty
    * @return false if ringbuffer is not empty
    */
-  bool IsEmpty() const {
+  bool is_empty() const {
     return front == back;
   }
   /**
    * @brief returns fill level of the ringbuffer
    * @return amount of elements in ringbuffer
    */
-  std::size_t GetLevel() {
+  std::size_t get_level() {
     if (front > back)
       return front - back;
     if (back > front)
@@ -80,12 +72,14 @@ class RingBuffer {
    * @return true if push was successful
    * @return false if buffer was full
    */
-  bool PushBack(const T& p) {
-    if (IsFull())
+  bool push_back(const T& p) {
+    if (is_full()) {
+      assert_fail_if(true, "Ring_buffer.push_back: buffer is full");
       return false;
-    auto temp = Decrement(back);
+    }
+    auto temp = decrement(back);
     back = temp;
-    *back = p;
+    buffer[back] = p;
     return true;
   }
   /**
@@ -94,11 +88,13 @@ class RingBuffer {
    * @return true if push was successful
    * @return false if buffer was full
    */
-  bool PushFront(const T& p) {
-    if (IsFull())
+  bool push_front(const T& p) {
+    if (is_full()) {
+      assert_fail_if(true, "Ring_buffer.push_front: buffer is full");
       return false;
-    auto temp = Increment(front);
-    *front = p;
+    }
+    auto temp = increment(front);
+    buffer[front] = p;
     front = temp;
     return true;
   }
@@ -108,11 +104,13 @@ class RingBuffer {
    * @return true if pop was successful
    * @return false if buffer was empty
    */
-  bool PopBack(T& p) {
-    if (IsEmpty())
+  bool pop_back(T& p) {
+    if (is_empty()) {
+      assert_fail_if(true, "Ring_buffer.pop_back: buffer is empty");
       return false;
-    auto temp = Increment(back);
-    p = *back;
+    }
+    auto temp = increment(back);
+    p = buffer[back];
     back = temp;
     return true;
   }
@@ -121,10 +119,12 @@ class RingBuffer {
    * @return true if pop was successful
    * @return false if buffer was empty
    */
-  bool PopBack() {
-    if (IsEmpty())
+  bool pop_back() {
+    if (is_empty()) {
+      assert_fail_if(true, "Ring_buffer.pop_back: buffer is empty");
       return false;
-    back = Increment(back);
+    }
+    back = increment(back);
     return true;
   }
   /**
@@ -133,11 +133,13 @@ class RingBuffer {
    * @return true if pop was successful
    * @return false if buffer was empty
    */
-  bool PopFront(T& p) {
-    if (IsEmpty())
+  bool pop_front(T& p) {
+    if (is_empty()) {
+      assert_fail_if(true, "Ring_buffer.pop_front: buffer is empty");
       return false;
-    auto temp = Decrement(front);
-    p = *temp;
+    }
+    auto temp = decrement(front);
+    p = buffer[temp];
     front = temp;
     return true;
   }
@@ -146,39 +148,53 @@ class RingBuffer {
    * @return true if pop was successful
    * @return false if buffer was empty
    */
-  bool PopFront(void) {
-    if (IsEmpty())
+  bool pop_front(void) {
+    if (is_empty()) {
+      assert_fail_if(true, "Ring_buffer.pop_front: buffer is empty");
       return false;
-    front = Decrement(front);
+    }
+    front = decrement(front);
     return true;
   }
 
  private:
   /**
+   * @brief Asserts if a condition is true
+   * @param cond Condition to check
+   * @param msg Message to print
+   */
+  constexpr void assert_fail_if(bool cond, const char* msg) noexcept {
+    if constexpr (assert_policy::enabled) {
+      if (cond) {
+        assert_policy::fail(msg);
+      }
+    }
+  }
+  /**
    * @brief Decrements the iterator
    * @param p iterator to decrement
    * @return decremented iterator taking care of wraparound
    */
-  iterator Decrement(const iterator p) {
-    if (p == buffer.begin())
-      return buffer.end() - 1;
+  std::size_t decrement(std::size_t i) {
+    if (i == 0)
+      return buffer.size() - 1;
     else
-      return p - 1;
+      return i - 1;
   }
   /**
    * @brief Increments the iterator
    * @param p interator to increment
    * @return incremented iterator taking care of wraparound
    */
-  iterator Increment(const iterator p) {
-    if (p + 1 == buffer.end())
-      return buffer.begin();
+  std::size_t increment(std::size_t i) {
+    if (i + 1 == buffer.size())
+      return 0;
     else
-      return p + 1;
+      return i + 1;
   }
 
-  iterator front;                 /*!< first element of the ringbuffer */
-  iterator back;                  /*!< last element of the ringbuffer */
+  std::size_t front;              /*!< first element of the ringbuffer */
+  std::size_t back;               /*!< last element of the ringbuffer */
   std::array<T, size + 1> buffer; /*!< ringbuffer data, one element is added as we need always one element free */
 };
 }  // namespace libmcu

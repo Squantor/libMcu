@@ -160,7 +160,7 @@ struct I2c : public libmcuhal::I2cBase {
    * @return constexpr libmcu::Results
    */
   constexpr libmcu::Results AddTransaction(I2cTransaction transaction) {
-    if (!transactions.PushFront(transaction))
+    if (!transactions.push_front(transaction))
       return libmcu::Results::Full;
     else
       return libmcu::Results::NoError;
@@ -170,9 +170,9 @@ struct I2c : public libmcuhal::I2cBase {
    * This should be periodically called to continue an in-progress I2C operation
    */
   constexpr void Progress() {
-    if (state == libmcu::States::Idle && !transactions.IsEmpty()) {
+    if (state == libmcu::States::Idle && !transactions.is_empty()) {
       // we are idle but have elements in the queue
-      transactions.PopBack(current_transaction);
+      transactions.pop_back(current_transaction);
       switch (current_transaction.type) {
         case TransactionType::SingleWrite:
           ll_i2c_async.Transmit(current_transaction.address, current_transaction.transmit_data, this);
@@ -224,7 +224,7 @@ struct I2c : public libmcuhal::I2cBase {
 
  private:
   libmcu::States state = libmcu::States::Idle;
-  libmcu::RingBuffer<I2cTransaction, max_transactions> transactions;
+  libmcu::Ring_buffer<I2cTransaction, max_transactions> transactions;
   I2cTransaction current_transaction;
 };
 
