@@ -7,16 +7,14 @@ This library encompasses three separate libraries:
 * LibMcuDriver: Contains drivers using the LibMcuHal classes so are usable across all microcontroller families.
 # Usage
 To use this project add the inc directory of this repository to your project and to access the register definitions define the microcontroller with a preprocessor define in the shape of ```MCU_DEVICECODE```. See the appropriate header for supported controller. Word of warning, that it is defined there does not mean the support is by any means complete. I tend to add register definitions/features when I need them at that moment, yes this is annoying but feel free to contribute if you are missing something.
-## Uusage example in C++
-Just include the microcontroller specific library with the proper postfix notation for HAL or LL library. For example including the RP2040 LL library:
+## Usage example in C++
+Add the C++ dependencies to your project and then include the microcontroller specific library with the proper postfix notation for HAL or LL library. For example including the RP2040 LL library:
 ```
-// Before inclusion add your clocking configuration in #defines, this will change in the future by using a proper configuration structure
-#include <libmcuRP2040ll.hpp>
+#include <raspberrypi/libmcu_RP2040_ll.hpp>
 ```
 If you want to use the HAL library:
 ```
-// Before inclusion add your clocking configuration in #defines, this will change in the future by using a proper configuration structure
-#include <libmcuRP2040hal.hpp>
+#include <raspberrypi/libmcu_RP2040_hal.hpp>
 ```
 The drivers are located in the ```drivers``` 
 ## Design documents
@@ -31,7 +29,7 @@ The drivers are located in the ```drivers```
 * design of a driver (TODO)
 # Goals
 Support is based on the microcontrollers I use the most, support is spotty as this library is still in development. Peripheral support is based on a first use basis.
-* NXP LPC8 series like the LPC81X, LPC82X, LPC80X, LPC84X, LPC11XX
+* NXP LPC series like the LPC81X, LPC82X, LPC80X, LPC84X, LPC11XX
 * STM32F0 STM32G0 STM32C0 STM32F4 STM32F7
 * RP2040
 I add support for peripherals on a project by project need basis. I use this library mostly as a learning vehicle for using modern C++. If you have a need, feel free to submit a pullrequest.
