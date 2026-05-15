@@ -186,15 +186,16 @@ struct SH1106 : public GfxDisplay<std::uint16_t, std::uint32_t> {
    * @param y Y position
    * @param bitmap Bitmap to blit
    */
-  constexpr void blit(std::uint16_t x, std::uint16_t y, const libmcu::bitmap::Bitmap_view<const std::uint32_t> &bitmap) override {
+  constexpr void blit(std::uint16_t x, std::uint16_t y, const libmcu::bitmap::Const_bitmap &bitmap) override {
     // compute bitmap bounds
-    std::uint32_t bitmap_width = bitmap.get_width();
-    std::uint32_t bitmap_height = bitmap.get_height();
+    libmcu::bitmap::Bitmap_size bitmap_size = bitmap.get_size();
+    std::uint32_t bitmap_width = bitmap_size.w;
+    std::uint32_t bitmap_height = bitmap_size.h;
     if (bitmap_width + x > config.size_x) {
-      bitmap_width = bitmap.get_width() - (bitmap_width + x - config.size_x);
+      bitmap_width = bitmap_width - (bitmap_width + x - config.size_x);
     }
     if (bitmap_height + y > config.size_y) {
-      bitmap_height = bitmap.get_height() - (bitmap_height + y - config.size_y);
+      bitmap_height = bitmap_height - (bitmap_height + y - config.size_y);
     }
     // copy bitmap data to framebuffer
     for (std::uint32_t i = 0; i < bitmap_height; i++) {

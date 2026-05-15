@@ -30,7 +30,7 @@ struct Font {
   libmcu::bitmap::Const_bitmap get_glyph(char character) {
     std::uint32_t glyph_y_pos = mapping_table[character];
     libmcu::bitmap::blit(temp_glyph, bitmap_font, 0, 0, 0, glyph_y_pos, width, height);
-    return temp_glyph;
+    return temp_glyph.as_const();
   }
   std::uint16_t width, height;
 
@@ -38,7 +38,7 @@ struct Font {
   std::span<const std::uint16_t> mapping_table;
   libmcu::bitmap::Const_bitmap &bitmap_font;
   std::array<std::uint32_t, 2> glyph_buffer;
-  libmcu::bitmap::Bitmap temp_glyph{glyph_buffer.data(), 8, 8, 1};
+  libmcu::bitmap::Bitmap temp_glyph{glyph_buffer.data(),libmcu::bitmap::Bitmap_size{8, 8}, 1};
 };
 }  // namespace libmcumid
 

@@ -57,7 +57,7 @@ struct GfxDisplay : public DriverBase, public libmcu::NonBlocking {
   virtual void clear(PixelType) = 0;
   virtual void set_state(Display_state) = 0;
   virtual void set_pixel(CoordType, CoordType, PixelType) = 0;
-  virtual void blit(CoordType, CoordType, const libmcu::bitmap::Bitmap_view<const uint32_t>&) = 0;
+  virtual void blit(CoordType, CoordType, const libmcu::bitmap::Const_bitmap&) = 0;
 };
 
 }  // namespace libmcudrv
