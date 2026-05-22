@@ -52,21 +52,22 @@ class Gfx_display {
    * @param c
    * @param font
    */
-  void print(Coord_type x_coord, Coord_type y_coord, char c, libmcumid::Font& font) {
+  void print(Coord_type x_coord, Coord_type y_coord, char c, libmcumid::Font& font,
+             libmcu::bitmap::Blit_ops op = libmcu::bitmap::Blit_ops::COPY) {
     auto glyph = font.get_glyph(c);
-    display.blit(x_coord, y_coord, glyph);
+    display.blit(x_coord, y_coord, glyph, op);
   }
   /**
    * @brief print character while keeping a cursor
    * @param c Character to print
    * @param font Font to use
    */
-  void print(char c, libmcumid::Font& font) {
+  void print(char c, libmcumid::Font& font, libmcu::bitmap::Blit_ops op = libmcu::bitmap::Blit_ops::COPY) {
     if (c == '\n') {
       cursor_x = 0;
       cursor_y += font.height;
     } else {
-      print(cursor_x, cursor_y, c, font);
+      print(cursor_x, cursor_y, c, font, op);
       cursor_x += font.width;
     }
   }
@@ -75,9 +76,9 @@ class Gfx_display {
    * @param str
    * @param font
    */
-  void print(const char* str, libmcumid::Font& font) {
+  void print(const char* str, libmcumid::Font& font, libmcu::bitmap::Blit_ops op = libmcu::bitmap::Blit_ops::COPY) {
     while (*str != '\0') {
-      print(*str, font);
+      print(*str, font, op);
       str++;
     }
   }
@@ -88,23 +89,24 @@ class Gfx_display {
    * @param str
    * @param font
    */
-  void print(std::uint16_t x_coord, std::uint16_t y_coord, const char* str, libmcumid::Font& font) {
+  void print(std::uint16_t x_coord, std::uint16_t y_coord, const char* str, libmcumid::Font& font,
+             libmcu::bitmap::Blit_ops op = libmcu::bitmap::Blit_ops::COPY) {
     while (*str != '\0') {
-      print(x_coord, y_coord, *str, font);
+      print(x_coord, y_coord, *str, font, op);
       str++;
       x_coord += font.width;
     }
   }
 
-  void print(libmcumid::Hex n, libmcumid::Font& font) {
-    detail::print(n, [this, &font](const auto c) {
-      print(c, font);
+  void print(libmcumid::Hex n, libmcumid::Font& font, libmcu::bitmap::Blit_ops op = libmcu::bitmap::Blit_ops::COPY) {
+    detail::print(n, [this, &font, op](const auto c) {
+      print(c, font, op);
     });
   }
 
-  void print(libmcumid::Dec n, libmcumid::Font& font) {
-    detail::print(n, [this, &font](const auto c) {
-      print(c, font);
+  void print(libmcumid::Dec n, libmcumid::Font& font, libmcu::bitmap::Blit_ops op = libmcu::bitmap::Blit_ops::COPY) {
+    detail::print(n, [this, &font, op](const auto c) {
+      print(c, font, op);
     });
   }
 

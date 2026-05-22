@@ -174,6 +174,21 @@ struct SH1106 : public Gfx_display_driver<std::uint16_t, std::uint32_t> {
     }
   }
   /**
+   * @brief Set a pixel on the display to a certain color
+   * @param x X position
+   * @param y Y position
+   * @param color Color
+   */
+  constexpr std::uint32_t get_pixel(std::uint16_t x, std::uint16_t y) override {
+    std::uint8_t bitmask = 1 << (y & 0x07);
+    std::size_t index = (y >> 3) * config.size_x + x;
+    if (framebuffer[index] & bitmask) {
+      return 1;
+    } else {
+      return 0;
+    }
+  }
+  /**
    * @brief Set the display state
    * @param state Display state to set
    */
@@ -186,7 +201,8 @@ struct SH1106 : public Gfx_display_driver<std::uint16_t, std::uint32_t> {
    * @param y Y position
    * @param bitmap Bitmap to blit
    */
-  constexpr void blit(std::uint16_t x, std::uint16_t y, const libmcu::bitmap::Const_bitmap &bitmap) override {
+  constexpr void blit(std::uint16_t x, std::uint16_t y, const libmcu::bitmap::Const_bitmap &bitmap,
+                      libmcu::bitmap::Blit_ops op = libmcu::bitmap::Blit_ops::COPY) override {
     // compute bitmap bounds
     libmcu::bitmap::Bitmap_size bitmap_size = bitmap.get_size();
     std::uint32_t bitmap_width = bitmap_size.w;
@@ -203,7 +219,30 @@ struct SH1106 : public Gfx_display_driver<std::uint16_t, std::uint32_t> {
     // copy bitmap data to framebuffer
     for (std::uint32_t i = 0; i < bitmap_height; i++) {
       for (std::uint32_t j = 0; j < bitmap_width; j++) {
-        set_pixel(x + j, y, bitmap.get_pixel(j, i));
+        std::uint32_t pixel;
+        switch (op) {
+          case libmcu::bitmap::Blit_ops::COPY:
+            set_pixel(x + j, y, bitmap.get_pixel(j, i));
+            break;
+          case libmcu::bitmap::Blit_ops::INVERT:
+            set_pixel(x + j, y, 1 ^ bitmap.get_pixel(j, i));
+            break;
+          case libmcu::bitmap::Blit_ops::AND:
+            pixel = get_pixel(x + j, y) & bitmap.get_pixel(j, i);
+            set_pixel(x + j, y, pixel);
+            break;
+          case libmcu::bitmap::Blit_ops::OR:
+            pixel = get_pixel(x + j, y) | bitmap.get_pixel(j, i);
+            set_pixel(x + j, y, pixel);
+            break;
+          case libmcu::bitmap::Blit_ops::XOR:
+            pixel = get_pixel(x + j, y) ^ bitmap.get_pixel(j, i);
+            set_pixel(x + j, y, pixel);
+            break;
+
+          default:
+            break;
+        }
       }
       y++;
     }

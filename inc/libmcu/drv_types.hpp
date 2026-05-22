@@ -12,6 +12,7 @@
 #define DRV_TYPES_HPP
 
 #include <libmcu/bitmap/bitmap.hpp>
+#include <libmcu/bitmap/operations.hpp>
 
 namespace libmcudrv {
 /**
@@ -57,7 +58,9 @@ struct Gfx_display_driver : public DriverBase, public libmcu::NonBlocking {
   virtual void clear(PixelType) = 0;
   virtual void set_state(Display_state) = 0;
   virtual void set_pixel(CoordType, CoordType, PixelType) = 0;
-  virtual void blit(CoordType, CoordType, const libmcu::bitmap::Const_bitmap&) = 0;
+  virtual std::uint32_t get_pixel(std::uint16_t x, std::uint16_t y) = 0;
+  virtual void blit(CoordType, CoordType, const libmcu::bitmap::Const_bitmap&,
+                    libmcu::bitmap::Blit_ops op = libmcu::bitmap::Blit_ops::COPY) = 0;
 };
 
 }  // namespace libmcudrv
