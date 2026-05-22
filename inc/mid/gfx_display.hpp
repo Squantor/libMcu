@@ -4,12 +4,12 @@
  * Copyright (c) 2026 Bart Bilos
  * For conditions of distribution and use, see LICENSE file
  *
- * @file gfx_display_wrap.hpp
+ * @file gfx_display.hpp
  * @brief Graphical display wrapper middle ware class definition
  * Wraps a graphical display driver and provides a fully featured graphical display interface
  */
-#ifndef CHAR_DISPLAY_WRAP_HPP
-#define CHAR_DISPLAY_WRAP_HPP
+#ifndef GFX_DISPLAY_HPP
+#define GFX_DISPLAY_HPP
 
 #include "../libmcu/libmcumid.hpp"
 #include "../libmcu/libmcudrv.hpp"
@@ -18,21 +18,19 @@
 namespace libmcumid {
 /**
  * @brief Graphical display wrapper
- * @todo add print function
- * @todo add clear function
- * @todo add flip function
+ * @todo set/get pixel
  * @todo static methods?
  * @tparam display driver to use
  */
 template <auto& display>
-requires libmcudrv::Derived_from_gfx_display<std::remove_cvref_t<decltype(display)> >
-class Gfx_display_wrap {
+requires libmcudrv::Derived_from_gfx_display_driver<std::remove_cvref_t<decltype(display)> >
+class Gfx_display {
   using Display_type = std::remove_reference_t<decltype(display)>;
   using Pixel_type = Display_type::Pixel_type;
   using Coord_type = Display_type::Coord_type;
 
  public:
-  Gfx_display_wrap() : cursor_x{0}, cursor_y{0} {}
+  Gfx_display() : cursor_x{0}, cursor_y{0} {}
   Coord_type get_width() {
     return display.get_width();
   }

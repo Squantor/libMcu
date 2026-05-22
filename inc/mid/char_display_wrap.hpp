@@ -26,7 +26,7 @@ namespace libmcumid {
  * @tparam display driver to use
  */
 template <auto& display>
-requires libmcudrv::Derived_from_gfx_display<std::remove_cvref_t<decltype(display)> >
+requires libmcudrv::Derived_from_gfx_display_driver<std::remove_cvref_t<decltype(display)> >
 class CharDisplayWrap {
  public:
   // TODO

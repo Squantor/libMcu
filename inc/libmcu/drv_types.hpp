@@ -38,7 +38,7 @@ enum class Display_state : uint8_t {
  * They are all nonblocking by default
  */
 template <typename CoordType, typename PixelType>
-struct GfxDisplay : public DriverBase, public libmcu::NonBlocking {
+struct Gfx_display_driver : public DriverBase, public libmcu::NonBlocking {
   /**
    * @brief Get the pixel width
    * @return Pixel width count

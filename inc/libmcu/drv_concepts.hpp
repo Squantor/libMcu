@@ -21,11 +21,11 @@ namespace libmcudrv {
 template <typename T>
 concept Derived_from_driver = std::is_base_of_v<DriverBase, T>;
 /**
- * @brief Concept for types that inherit from libmcu::GfxDisplay
+ * @brief Concept for types that inherit from libmcu::Gfx_display_driver
  * @tparam T Type to check
  */
 template <typename T>
-concept Derived_from_gfx_display = libmcu::Derived_from_template<T, GfxDisplay>::value;
+concept Derived_from_gfx_display_driver = libmcu::Derived_from_template<T, Gfx_display_driver>::value;
 
 }  // namespace libmcudrv
 

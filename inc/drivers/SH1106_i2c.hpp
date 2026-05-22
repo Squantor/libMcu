@@ -29,7 +29,7 @@ namespace libmcudrv::SH1106 {
  */
 template <auto &i2c_hal, const libmcu::I2cDeviceAddress &i2c_address, auto &config,
           libmcu::Assert_concept Assert = libmcu::Assert_default>
-struct SH1106 : public GfxDisplay<std::uint16_t, std::uint32_t> {
+struct SH1106 : public Gfx_display_driver<std::uint16_t, std::uint32_t> {
   using Coord_type = std::uint16_t;
   using Pixel_type = std::uint32_t;
   /**
