@@ -17,7 +17,6 @@
 #include "libmcu/bitmap/bitmap.hpp"
 
 namespace libmcu::bitmap {
-
 /**
  * @brief Blit bitmap loop
  * @note No checks on input parameters performed
@@ -31,8 +30,9 @@ namespace libmcu::bitmap {
  * @param src_width Source width
  * @param src_height Source height
  */
-template <typename Blit_op>
-void blit_bitmap_loop(Bitmap dst, Const_bitmap src, Bitmap_coords dst_coords, Bitmap_coords src_coords, Bitmap_size src_size) {
+template <typename Blit_op, typename Blit_policy>
+static void blit_bitmap_loop(Bitmap dst, Const_bitmap src, Bitmap_coords dst_coords, Bitmap_coords src_coords,
+                             Bitmap_size src_size) {
   // prepare bounds/sizes
   const Bitmap_size dst_bitmap_size{dst.get_size()};
   const Bitmap_size src_bitmap_size{src.get_size()};
@@ -55,7 +55,8 @@ void blit_bitmap_loop(Bitmap dst, Const_bitmap src, Bitmap_coords dst_coords, Bi
   std::size_t dst_bit_index{static_cast<std::size_t>(dst_coords.y * dst_bitmap_size.w + dst_coords.x) *
                             static_cast<std::size_t>(dst.get_bits_per_pixel())};
   while (src_bit_index < src_bit_end) {
-    blit_1d_bits<Blit_op>(dst_span, src_span, dst_bit_index, src_bit_index, src_width_bit_count);
+    Blit_policy::template blit<Blit_op>(dst_span, src_span, dst_bit_index, src_bit_index, src_width_bit_count);
+
     src_bit_index += src_bit_stride;
     dst_bit_index += dst_bit_stride;
     //! @todo adjust src_bit_end to match destination to get this check out of the loop
@@ -65,16 +66,16 @@ void blit_bitmap_loop(Bitmap dst, Const_bitmap src, Bitmap_coords dst_coords, Bi
   }
 }
 
-void blit_bitmap(Bitmap dst, Const_bitmap src, Bitmap_coords dst_coords, Blit_ops op) {
+void blit_bitmap(Bitmap dst, Const_bitmap src, Bitmap_coords dst_coords, Blit_ops op, Blit_policy policy) {
   const Bitmap_size src_bitmap_size{src.get_size()};
-  blit_bitmap(dst, src, dst_coords, Bitmap_coords{0, 0}, src_bitmap_size, op);
+  blit_bitmap(dst, src, dst_coords, Bitmap_coords{0, 0}, src_bitmap_size, op, policy);
 }
 
 /**
  * @todo Check if bitmaps are the same bit depths
  */
 void blit_bitmap(Bitmap dst, Const_bitmap src, Bitmap_coords dst_coords, Bitmap_coords src_coords, Bitmap_size src_size,
-                 Blit_ops op) {
+                 Blit_ops op, Blit_policy policy) {
   const Bitmap_size dst_bitmap_size{dst.get_size()};
   const Bitmap_size src_bitmap_size{src.get_size()};
 
@@ -91,25 +92,53 @@ void blit_bitmap(Bitmap dst, Const_bitmap src, Bitmap_coords dst_coords, Bitmap_
   if (dst_coords.x + src_size.w > dst_bitmap_size.w) {
     src_size.w = dst_bitmap_size.w - dst_coords.x;
   }
-  switch (op) {
-    case Blit_ops::COPY:
-      blit_bitmap_loop<Blit_op_copy>(dst, src, dst_coords, src_coords, src_size);
+  if (src_size.w == 0 || src_size.h == 0) {
+    return;
+  }
+  switch (policy) {
+    case Blit_policy::SMALL:
+      switch (op) {
+        case Blit_ops::COPY:
+          blit_bitmap_loop<Blit_op_copy, Blit_small>(dst, src, dst_coords, src_coords, src_size);
+          break;
+        case Blit_ops::INVERT:
+          blit_bitmap_loop<Blit_op_invert, Blit_small>(dst, src, dst_coords, src_coords, src_size);
+          break;
+        case Blit_ops::AND:
+          blit_bitmap_loop<Blit_op_and, Blit_small>(dst, src, dst_coords, src_coords, src_size);
+          break;
+        case Blit_ops::OR:
+          blit_bitmap_loop<Blit_op_or, Blit_small>(dst, src, dst_coords, src_coords, src_size);
+          break;
+        case Blit_ops::XOR:
+          blit_bitmap_loop<Blit_op_xor, Blit_small>(dst, src, dst_coords, src_coords, src_size);
+          break;
+        default:
+          break;
+      }
       break;
-    case Blit_ops::INVERT:
-      blit_bitmap_loop<Blit_op_invert>(dst, src, dst_coords, src_coords, src_size);
-      break;
-    case Blit_ops::AND:
-      blit_bitmap_loop<Blit_op_and>(dst, src, dst_coords, src_coords, src_size);
-      break;
-    case Blit_ops::OR:
-      blit_bitmap_loop<Blit_op_or>(dst, src, dst_coords, src_coords, src_size);
-      break;
-    case Blit_ops::XOR:
-      blit_bitmap_loop<Blit_op_xor>(dst, src, dst_coords, src_coords, src_size);
-      break;
-    default:
+    case Blit_policy::BALANCED:
+    case Blit_policy::FAST:
+      switch (op) {
+        case Blit_ops::COPY:
+          blit_bitmap_loop<Blit_op_copy, Blit_balanced>(dst, src, dst_coords, src_coords, src_size);
+          break;
+        case Blit_ops::INVERT:
+          blit_bitmap_loop<Blit_op_invert, Blit_balanced>(dst, src, dst_coords, src_coords, src_size);
+          break;
+        case Blit_ops::AND:
+          blit_bitmap_loop<Blit_op_and, Blit_balanced>(dst, src, dst_coords, src_coords, src_size);
+          break;
+        case Blit_ops::OR:
+          blit_bitmap_loop<Blit_op_or, Blit_balanced>(dst, src, dst_coords, src_coords, src_size);
+          break;
+        case Blit_ops::XOR:
+          blit_bitmap_loop<Blit_op_xor, Blit_balanced>(dst, src, dst_coords, src_coords, src_size);
+          break;
+        default:
+          break;
+      }
       break;
   }
 }
-
 }

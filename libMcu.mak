@@ -14,8 +14,7 @@ NAME := libMcu
 LIB_DIR := $(patsubst %/,%,$(dir $(lastword $(MAKEFILE_LIST))))
 
 # library files and includes
-$(NAME)_LIB_FILES := $(LIB_DIR)/src/libmcu/bitmap/blit.cpp \
-$(LIB_DIR)/src/libmcu/bitmap/blit_bitmap.cpp \
+$(NAME)_LIB_FILES := $(LIB_DIR)/src/libmcu/bitmap/blit_bitmap.cpp \
 $(LIB_DIR)/src/libmcu/bitmap/blit1d.cpp
 
 $(NAME)_LIB_INCLUDES := -I$(LIB_DIR)/inc

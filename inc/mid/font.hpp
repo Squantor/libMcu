@@ -14,7 +14,6 @@
 #include <cstdint>
 #include <span>
 #include <libmcu/bitmap/bitmap.hpp>
-#include <libmcu/bitmap/blit.hpp>
 #include <libmcu/bitmap/blits.hpp>
 
 namespace libmcumid {
@@ -27,13 +26,15 @@ struct Font {
   void get_glyph(char character, libmcu::bitmap::Bitmap &bitmap) {
     libmcu::bitmap::Bitmap_coord glyph_y_pos = mapping_table[character];
     libmcu::bitmap::blit_bitmap(bitmap, bitmap_font, libmcu::bitmap::Bitmap_coords{0, 0},
-                                libmcu::bitmap::Bitmap_coords{0, glyph_y_pos}, libmcu::bitmap::Bitmap_size{width, height});
+                                libmcu::bitmap::Bitmap_coords{0, glyph_y_pos}, libmcu::bitmap::Bitmap_size{width, height},
+                                libmcu::bitmap::Blit_ops::COPY, libmcu::bitmap::Blit_policy::BALANCED);
   }
 
   libmcu::bitmap::Const_bitmap get_glyph(char character) {
     libmcu::bitmap::Bitmap_coord glyph_y_pos = mapping_table[character];
     libmcu::bitmap::blit_bitmap(temp_glyph, bitmap_font, libmcu::bitmap::Bitmap_coords{0, 0},
-                                libmcu::bitmap::Bitmap_coords{0, glyph_y_pos}, libmcu::bitmap::Bitmap_size{width, height});
+                                libmcu::bitmap::Bitmap_coords{0, glyph_y_pos}, libmcu::bitmap::Bitmap_size{width, height},
+                                libmcu::bitmap::Blit_ops::COPY, libmcu::bitmap::Blit_policy::BALANCED);
     return temp_glyph.as_const();
   }
   std::uint16_t width, height;
