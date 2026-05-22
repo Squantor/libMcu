@@ -191,11 +191,14 @@ struct SH1106 : public Gfx_display_driver<std::uint16_t, std::uint32_t> {
     libmcu::bitmap::Bitmap_size bitmap_size = bitmap.get_size();
     std::uint32_t bitmap_width = bitmap_size.w;
     std::uint32_t bitmap_height = bitmap_size.h;
+    if (x >= config.size_x || y >= config.size_y) {
+      return;
+    }
     if (bitmap_width + x > config.size_x) {
-      bitmap_width = bitmap_width - (bitmap_width + x - config.size_x);
+      bitmap_width = config.size_x - x;
     }
     if (bitmap_height + y > config.size_y) {
-      bitmap_height = bitmap_height - (bitmap_height + y - config.size_y);
+      bitmap_height = config.size_y - y;
     }
     // copy bitmap data to framebuffer
     for (std::uint32_t i = 0; i < bitmap_height; i++) {
