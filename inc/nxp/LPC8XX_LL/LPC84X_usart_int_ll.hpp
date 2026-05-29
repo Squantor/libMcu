@@ -129,7 +129,7 @@ struct UartInterrupt : libmcull::AsyncUartBase {
    * @brief Interrupt handler for this USART peripheral
    */
   constexpr void InterruptHandler() {
-    TransferType element;
+    TransferType element{0};
     std::uint32_t status = GetPeripheral()->STAT;
     if (status & hardware::STAT::TXRDY) {
       // check if buffer is empty
