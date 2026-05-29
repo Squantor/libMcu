@@ -1,31 +1,30 @@
 /*
  * SPDX-License-Identifier: MIT
  *
- * Copyright (c) 2026 Bart Bilos
+ * Copyright (c) 2025 Bart Bilos
  * For conditions of distribution and use, see LICENSE file
  */
 /**
- * @file fidfoallocator.hpp
- * @brief Implements a First In Discontinuous First Out allocator
- *
+ * @file fifoallocator.hpp
+ * @brief Implements a First In First Out allocator
  */
-#ifndef FIDFOALLOCATOR_HPP
-#define FIDFOALLOCATOR_HPP
+#ifndef LIBMCU_FIFOALLOCATOR_HPP
+#define LIBMCU_FIFOALLOCATOR_HPP
 
 namespace libmcu {
 
 /**
- * @brief First In Discontinuous First Out allocation class
- * @tparam T Type to be used in the FidfoAllocator
- * @tparam N Amount of elements in the FidfoAllocator
+ * @brief First In First Out allocation class
+ * @tparam T Type to be used in the Fifo_allocator
+ * @tparam N Amount of elements in the Fifo_allocator
  */
 template <typename T, std::size_t size, Assert_concept assert_policy = Assert_default>
-class Fidfo_allocator {
+class Fifo_allocator {
  public:
   /**
-   * @brief Construct a new Fidfo Allocator object
+   * @brief Construct a new Fifo Allocator object
    */
-  Fidfo_allocator() : max_fill(0) {
+  Fifo_allocator() {
     static_assert(size > 0, "allocator size of zero is not allowed!");
     reset();
   }
@@ -79,30 +78,18 @@ class Fidfo_allocator {
     if (try_increment_front(block_size))
       return {buffer.data() + old_front, block_size};
     else {
-      assert_fail_if(true, "Fidfo_allocator.request: buffer is full");
+      assert_fail_if(true, "Fifo_allocator.request: buffer is full");
       return {};
     }
   }
   /**
    * @brief Returns a block
-   * @todo change back index to new block
-   * @todo check if block points to used space, otherwise we have an ordering issue
+   * We do zero checks here if the span is at all valid
    * @param block span to return
    */
   void release(std::span<T> block) {
-    assert_fail_if((block.data() < buffer.data()) || (block.data() + block.size() >= buffer.data() + buffer.size()),
-                   "Fidfo_allocator.release: block does not belong to buffer");
-    assert_fail_if(block.size() > get_level(), "Fidfo_allocator.release: block is too big");
-    std::size_t new_back = (block.data() + block.size()) - buffer.data();
-    if (back < front) {
-      assert_fail_if(new_back > front || new_back <= back, "Fidfo_allocator.release: block does not belong to used space");
-      back = new_back;
-    } else if (front < back) {
-      assert_fail_if(new_back > front && new_back <= back, "Fidfo_allocator.release: block does not belong to used space");
-      back = new_back;
-    } else
-      assert_fail_if(true, "Fidfo_allocator.release: buffer is empty");
-    back = new_back;
+    assert_fail_if(buffer.data() + back != block.data(), "Fifo_allocator.release: does not match back index");
+    back = back + block.size();
   }
 
  private:
@@ -119,7 +106,7 @@ class Fidfo_allocator {
     }
   }
   /**
-   * @brief Increments the index by one
+   * @brief increments the index by one
    * @param p index to increment
    * @return incremented index taking care of wraparound
    */
@@ -132,8 +119,8 @@ class Fidfo_allocator {
   /**
    * @brief Tries to increment the index by a given block size
    * @param block_size Size of the increment
-   * @return true Increment success
-   * @return false Increment failed
+   * @return true increment success
+   * @return false increment failed
    */
   bool try_increment_front(std::size_t block_size) {
     std::size_t new_front = front + block_size;
@@ -144,14 +131,10 @@ class Fidfo_allocator {
         return false;
     }
     front = new_front;
-    std::size_t level = get_level();
-    if (level > max_fill)
-      max_fill = level;
     return true;
   }
   std::size_t front;              /*!< first element of the allocator */
   std::size_t back;               /*!< last element of the allocator */
-  std::size_t max_fill;           /*!< maximum fill level of the allocator */
   std::array<T, size + 1> buffer; /*!< allocator data, one element is added as we need always one element free */
 };
 }  // namespace libmcu

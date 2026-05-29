@@ -25,9 +25,10 @@
 #include "algorithms.hpp"
 #include "states.hpp"
 #include "assertions.hpp"
-#include "ringbuffer.hpp"
-#include "fifoallocator.hpp"
-#include "fidfoallocator.hpp"
-#include "finoallocator.hpp"
+#include "data_struct/ringbuffer.hpp"
+#include "data_struct/fifoallocator.hpp"
+#include "data_struct/fidfoallocator.hpp"
+#include "data_struct/finoallocator.hpp"
+#include "data_struct/mregel.hpp"
 
 #endif

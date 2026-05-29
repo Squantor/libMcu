@@ -10,8 +10,8 @@
  * By never out means that it will get eventually overwritten, this saves on housekeeping
  * of what blocks to release in order
  */
-#ifndef FINOALLOCATOR_HPP
-#define FINOALLOCATOR_HPP
+#ifndef LIBMCU_FINOALLOCATOR_HPP
+#define LIBMCU_FINOALLOCATOR_HPP
 
 namespace libmcu {
 
