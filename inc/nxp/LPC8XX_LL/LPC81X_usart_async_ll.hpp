@@ -38,10 +38,10 @@ struct UsartAsync : libmcull::AsyncUartBase {
    * @return std::uint32_t actual baud rate
    */
   constexpr std::uint32_t Init(std::uint32_t baudRate) {
-    std::uint32_t baudDivider = CLOCK_MAIN / (baudRate * 16);
-    GetPeripheral()->BRG = baudDivider;
+    std::uint32_t divider{CLOCK_MAIN / (baudRate * 16)};
+    GetPeripheral()->BRG = divider;
     GetPeripheral()->CFG = hardware::CFG::ENABLE | UartLengths::Size8 | UartParities::ParityNone | UartStops::Stop1;
-    return CLOCK_MAIN / 16 / baudDivider;
+    return CLOCK_MAIN / 16 / divider;
   }
   /**
    * @brief Setup USART
@@ -52,10 +52,10 @@ struct UsartAsync : libmcull::AsyncUartBase {
    * @return std::uint32_t actual baud rate
    */
   constexpr std::uint32_t Init(std::uint32_t baudRate, UartLengths lengthBits, UartParities parity, UartStops stopBits) {
-    std::uint32_t baudDivider = CLOCK_MAIN / (baudRate * 16);
-    GetPeripheral()->BRG = baudDivider;
+    std::uint32_t divider{CLOCK_MAIN / (baudRate * 16)};
+    GetPeripheral()->BRG = divider;
     GetPeripheral()->CFG = hardware::CFG::ENABLE | lengthBits | parity | stopBits;
-    return CLOCK_MAIN / 16 / baudDivider;
+    return CLOCK_MAIN / 16 / divider;
   }
   /**
    * @brief Claim the Usart interface

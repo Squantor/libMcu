@@ -22,13 +22,13 @@ struct Adc : libmcull::LowLevelBase {
    */
   template <auto &config>
   constexpr void Init(uint32_t rate) {
-    uint32_t maxRate{GetInputClockFreq<config>() / 25};
+    uint32_t max_rate{GetInputClockFreq<config>() / 25};
     // initiate hardware selfcal
-    GetPeripheral()->CTRL = hardware::CTRL::CALMODE | hardware::CTRL::CLKDIV(maxRate / 500000);
+    GetPeripheral()->CTRL = hardware::CTRL::CALMODE | hardware::CTRL::CLKDIV(max_rate / 500000);
     while (GetPeripheral()->CTRL & hardware::CTRL::CALMODE)
       ;
     // configure ADC sample rate
-    GetPeripheral()->CTRL = hardware::CTRL::CLKDIV(maxRate / rate);
+    GetPeripheral()->CTRL = hardware::CTRL::CLKDIV(max_rate / rate);
   }
   /**
    * @brief single shot sampling of an ADC pin
@@ -38,16 +38,16 @@ struct Adc : libmcull::LowLevelBase {
    */
   template <typename PIN>
   constexpr std::uint32_t Sample(PIN &pin) {
-    std::uint32_t channelIndex = static_cast<std::uint32_t>(pin.adcPinIndex);
-    GetPeripheral()->SEQ_CTRL[hardware::SequencerA] = hardware::SEQ_CTRL::CHANNELS(channelIndex) | hardware::SEQ_CTRL::TRIG_NONE |
+    std::uint32_t channel_index{static_cast<std::uint32_t>(pin.adcPinIndex)};
+    GetPeripheral()->SEQ_CTRL[hardware::SequencerA] = hardware::SEQ_CTRL::CHANNELS(channel_index) | hardware::SEQ_CTRL::TRIG_NONE |
                                                       hardware::SEQ_CTRL::TRIGPOL_POS | hardware::SEQ_CTRL::LOWPRIO |
                                                       hardware::SEQ_CTRL::SEQ_ENA;
     GetPeripheral()->SEQ_CTRL[hardware::SequencerA] = GetPeripheral()->SEQ_CTRL[hardware::SequencerA] | hardware::SEQ_CTRL::START;
-    std::uint32_t adcSample;
+    std::uint32_t adc_sample;
     do {
-      adcSample = GetPeripheral()->DAT[channelIndex];
-    } while (!(adcSample & hardware::DAT::DATAVALID_FLAG));
-    return hardware::DAT::RESULT(adcSample);
+      adc_sample = GetPeripheral()->DAT[channel_index];
+    } while (!(adc_sample & hardware::DAT::DATAVALID_FLAG));
+    return hardware::DAT::RESULT(adc_sample);
   }
   /**
    * @brief Get input frequency of this peripheral

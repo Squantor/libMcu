@@ -118,16 +118,16 @@ enum class EventCountingDirections : std::uint32_t {
 template <libmcu::SctBaseAddress sct_address>
 struct Sct : libmcull::LowLevelBase {
   constexpr static void Init(CounterModes mode, bool bidirectional = true, bool autolimit = true) {
-    std::uint32_t configRegister = static_cast<std::uint32_t>(mode);
-    std::uint32_t ctrlRegister = hardware::CTRL::HALT_L | hardware::CTRL::HALT_H;
-    GetPeripheral()->CTRL = ctrlRegister;
+    std::uint32_t config_register{static_cast<std::uint32_t>(mode)};
+    std::uint32_t ctrl_register{hardware::CTRL::HALT_L | hardware::CTRL::HALT_H};
+    GetPeripheral()->CTRL = ctrl_register;
     GetPeripheral()->COUNT = 0;
     if (autolimit)
-      configRegister |= hardware::CONFIG::AUTOLIMIT_L | hardware::CONFIG::AUTOLIMIT_H;
+      config_register |= hardware::CONFIG::AUTOLIMIT_L | hardware::CONFIG::AUTOLIMIT_H;
     if (bidirectional)
-      ctrlRegister |= hardware::CTRL::BIDIR_L | hardware::CTRL::BIDIR_H;
-    GetPeripheral()->CONFIG = configRegister;
-    GetPeripheral()->CTRL = ctrlRegister;
+      ctrl_register |= hardware::CTRL::BIDIR_L | hardware::CTRL::BIDIR_H;
+    GetPeripheral()->CONFIG = config_register;
+    GetPeripheral()->CTRL = ctrl_register;
   }
   /**
    * @brief Configure what events can limit the counter
@@ -311,26 +311,26 @@ struct Sct : libmcull::LowLevelBase {
                                    std::uint32_t stateValue, bool matchGreater = true,
                                    EventCountingDirections direction = EventCountingDirections::BIDI,
                                    SubCounters counter = SubCounters::Unified) {
-    std::size_t index = static_cast<std::size_t>(event);
-    std::uint32_t eventRegister = hardware::EV_CTRL::MATCHSESEL(static_cast<std::uint32_t>(match)) |
-                                  hardware::EV_CTRL::IOSEL(ioIndex) | static_cast<std::uint32_t>(ioCondition) |
-                                  static_cast<std::uint32_t>(combineMode) | hardware::EV_CTRL::STATEV(stateValue) |
-                                  static_cast<std::uint32_t>(direction);
+    std::size_t index{static_cast<std::size_t>(event)};
+    std::uint32_t event_register{hardware::EV_CTRL::MATCHSESEL(static_cast<std::uint32_t>(match)) |
+                                 hardware::EV_CTRL::IOSEL(ioIndex) | static_cast<std::uint32_t>(ioCondition) |
+                                 static_cast<std::uint32_t>(combineMode) | hardware::EV_CTRL::STATEV(stateValue) |
+                                 static_cast<std::uint32_t>(direction)};
     switch (counter) {
       case SubCounters::Lower:
       case SubCounters::Unified:
         break;
       case SubCounters::Upper:
-        eventRegister = eventRegister | hardware::EV_CTRL::HEVENT;
+        event_register = event_register | hardware::EV_CTRL::HEVENT;
         break;
     }
     if (output)
-      eventRegister = eventRegister | hardware::EV_CTRL::OUTSEL;
+      event_register = event_register | hardware::EV_CTRL::OUTSEL;
     if (stateLoad)
-      eventRegister = eventRegister | hardware::EV_CTRL::STATELD;
+      event_register = event_register | hardware::EV_CTRL::STATELD;
     if (matchGreater)
-      eventRegister = eventRegister | hardware::EV_CTRL::MATCHMEM;
-    GetPeripheral()->EV[index].CTRL = eventRegister;
+      event_register = event_register | hardware::EV_CTRL::MATCHMEM;
+    GetPeripheral()->EV[index].CTRL = event_register;
     GetPeripheral()->EV[index].STATE = stateMask;
   }
 

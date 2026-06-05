@@ -38,7 +38,7 @@ struct SpiPolled : libmcull::SyncSpiBase {
    * @param bit_rate requested bit rate
    * @return actual bit rate
    */
-  template <const libmcuhw::clock::PeriClockConfig &clock_config>
+  template <const auto &clock_config>
   constexpr std::uint32_t InitMaster(std::uint32_t bit_rate) {
     std::uint32_t actual_bitrate = SetBitRate<clock_config>(bit_rate);
     GetPeripheral()->CFG = hardware::CFG::ENABLE | hardware::CFG::MASTER;
@@ -50,7 +50,7 @@ struct SpiPolled : libmcull::SyncSpiBase {
    * @param bit_rate requested bit rate
    * @return actual bit rate
    */
-  template <const libmcuhw::clock::PeriClockConfig &clock_config>
+  template <const auto &clock_config>
   constexpr std::uint32_t SetBitRate(std::uint32_t bit_rate) {
     // compute divider and truncate so we can observe a possible round off
     std::uint32_t frequency = GetInputClockFreq<clock_config>();
@@ -64,7 +64,7 @@ struct SpiPolled : libmcull::SyncSpiBase {
    * @tparam config clock configuration
    * @return current input clock frequency
    */
-  template <const libmcuhw::clock::PeriClockConfig &clock_config>
+  template <const auto &clock_config>
   constexpr std::uint32_t GetInputClockFreq() {
     // constexpr check if we configure the right peripheral
     if constexpr ((spi_address_ == libmcuhw::Spi0Address) && (clock_config.peripheral_ == libmcuhw::clock::PeriSelect::SPI0))

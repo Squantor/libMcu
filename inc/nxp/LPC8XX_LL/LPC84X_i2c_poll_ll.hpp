@@ -28,18 +28,18 @@ struct I2cPolled : libmcull::SyncI2cBase {
    * @param timeout clocks to timeout
    * @return std::uint32_t actual bit rate
    */
-  template <const libmcuhw::clock::PeriClockConfig &clock_config>
+  template <const auto &clock_config>
   constexpr std::uint32_t InitMaster(std::uint32_t bit_rate, std::uint32_t timeout) {
     /*
     we multiply by 20 as by default MSTTIME divides the timing by 2 and I2C peripheral needs 10 clocks for something.
     This is not described in the datasheet but the calculation does match their example.
     */
-    std::uint32_t peripheralFrequency = GetInputClockFreq<clock_config>();
-    std::uint32_t divider = peripheralFrequency / (bit_rate * 20);
+    std::uint32_t peripheral_freq{GetInputClockFreq<clock_config>()};
+    std::uint32_t divider{peripheral_freq / (bit_rate * 20)};
     GetPeripheral()->TIMEOUT = hardware::TIMEOUT::TO(timeout);
     GetPeripheral()->CLKDIV = divider + 1;
     GetPeripheral()->CFG = hardware::CFG::MSTEN;
-    return peripheralFrequency / divider / 20;
+    return peripheral_freq / divider / 20;
   }
   /**
    * @brief Transmit data to I2C device
@@ -177,7 +177,7 @@ struct I2cPolled : libmcull::SyncI2cBase {
    * @tparam config clock configuration
    * @return current input clock frequency
    */
-  template <const libmcuhw::clock::PeriClockConfig &clock_config>
+  template <const auto &clock_config>
   constexpr std::uint32_t GetInputClockFreq() {
     // constexpr check if we configure the right peripheral
     if constexpr ((i2c_address_ == libmcuhw::I2c0Address) && (clock_config.peripheral_ == libmcuhw::clock::PeriSelect::I2C0))

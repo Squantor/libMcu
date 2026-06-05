@@ -34,11 +34,11 @@ struct Nvic {
    * @param interrupt interrupt number
    */
   constexpr void Enable(libmcuhw::Interrupts interrupt) {
-    std::int32_t number = static_cast<std::uint32_t>(interrupt);
+    std::int32_t number{static_cast<std::int32_t>(interrupt)};
     if (number >= 0) {
-      std::uint32_t index = GetInterruptIndex(interrupt);
-      std::uint32_t bitIndex = GetInterruptBit(interrupt);
-      GetPeripheral()->ISER[index] = hardware::ISER::SETENA(bitIndex);
+      std::uint32_t index{GetInterruptIndex(interrupt)};
+      std::uint32_t bit_index{GetInterruptBit(interrupt)};
+      GetPeripheral()->ISER[index] = hardware::ISER::SETENA(bit_index);
     }
   }
   /**
@@ -46,11 +46,11 @@ struct Nvic {
    * @param interrupt interrupt number
    */
   constexpr void Disable(libmcuhw::Interrupts interrupt) {
-    std::int32_t number = static_cast<std::uint32_t>(interrupt);
+    std::int32_t number{static_cast<std::int32_t>(interrupt)};
     if (number >= 0) {
-      std::uint32_t index = GetInterruptIndex(interrupt);
-      std::uint32_t bitIndex = GetInterruptBit(interrupt);
-      GetPeripheral()->ICER[index] = hardware::ICER::CLRENA(bitIndex);
+      std::uint32_t index{GetInterruptIndex(interrupt)};
+      std::uint32_t bit_index{GetInterruptBit(interrupt)};
+      GetPeripheral()->ICER[index] = hardware::ICER::CLRENA(bit_index);
       libmcull::dsb();
       libmcull::isb();
     }
@@ -60,11 +60,11 @@ struct Nvic {
    * @param interrupt interrupt number
    */
   constexpr void SetPending(libmcuhw::Interrupts interrupt) {
-    std::int32_t number = static_cast<std::uint32_t>(interrupt);
+    std::int32_t number{static_cast<std::int32_t>(interrupt)};
     if (number >= 0) {
-      std::uint32_t index = GetInterruptIndex(interrupt);
-      std::uint32_t bitIndex = GetInterruptBit(interrupt);
-      GetPeripheral()->ISPR[index] = hardware::ISPR::SETPEND(bitIndex);
+      std::uint32_t index{GetInterruptIndex(interrupt)};
+      std::uint32_t bit_index{GetInterruptBit(interrupt)};
+      GetPeripheral()->ISPR[index] = hardware::ISPR::SETPEND(bit_index);
     }
   }
   /**
@@ -72,11 +72,11 @@ struct Nvic {
    * @param interrupt interrupt number
    */
   constexpr void ClearPending(libmcuhw::Interrupts interrupt) {
-    std::int32_t number = static_cast<std::uint32_t>(interrupt);
+    std::int32_t number{static_cast<std::int32_t>(interrupt)};
     if (number >= 0) {
-      std::uint32_t index = GetInterruptIndex(interrupt);
-      std::uint32_t bitIndex = GetInterruptBit(interrupt);
-      GetPeripheral()->ICPR[index] = hardware::ICPR::CLRPEND(bitIndex);
+      std::uint32_t index{GetInterruptIndex(interrupt)};
+      std::uint32_t bit_index{GetInterruptBit(interrupt)};
+      GetPeripheral()->ICPR[index] = hardware::ICPR::CLRPEND(bit_index);
     }
   }
   /**
@@ -87,11 +87,11 @@ struct Nvic {
    * @return false interrupt not pending
    */
   constexpr bool GetPending(libmcuhw::Interrupts interrupt) {
-    std::int32_t number = static_cast<std::uint32_t>(interrupt);
+    std::int32_t number{static_cast<std::int32_t>(interrupt)};
     if (number >= 0) {
-      std::uint32_t index = GetInterruptIndex(interrupt);
-      std::uint32_t bitIndex = GetInterruptBit(interrupt);
-      if (hardware::ISPR::GETPEND(GetPeripheral()->ISPR[index], bitIndex) == 0)
+      std::uint32_t index{GetInterruptIndex(interrupt)};
+      std::uint32_t bit_index{GetInterruptBit(interrupt)};
+      if (hardware::ISPR::GETPEND(GetPeripheral()->ISPR[index], bit_index) == 0)
         return false;
       else
         return true;

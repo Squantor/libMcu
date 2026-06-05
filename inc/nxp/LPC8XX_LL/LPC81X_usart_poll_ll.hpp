@@ -29,10 +29,10 @@ struct UsartPolled : libmcull::LowLevelBase {
    * @return std::uint32_t actual baud rate
    */
   constexpr std::uint32_t Init(std::uint32_t baudRate) {
-    std::uint32_t baudDivider = CLOCK_MAIN / (baudRate * 16);
-    GetPeripheral()->BRG = baudDivider;
+    std::uint32_t divider{CLOCK_MAIN / (baudRate * 16)};
+    GetPeripheral()->BRG = divider;
     GetPeripheral()->CFG = hardware::CFG::ENABLE | UartLengths::Size8 | UartParities::ParityNone | UartStops::Stop1;
-    return CLOCK_MAIN / 16 / baudDivider;
+    return CLOCK_MAIN / 16 / divider;
   }
   /**
    * @brief Setup USART
@@ -43,10 +43,10 @@ struct UsartPolled : libmcull::LowLevelBase {
    * @return std::uint32_t actual baud rate
    */
   constexpr std::uint32_t Init(std::uint32_t baudRate, UartLengths lengthBits, UartParities parity, UartStops stopBits) {
-    std::uint32_t baudDivider = CLOCK_MAIN / (baudRate * 16);
-    GetPeripheral()->BRG = baudDivider;
+    std::uint32_t divider{CLOCK_MAIN / (baudRate * 16)};
+    GetPeripheral()->BRG = divider;
     GetPeripheral()->CFG = hardware::CFG::ENABLE | lengthBits | parity | stopBits;
-    return CLOCK_MAIN / 16 / baudDivider;
+    return CLOCK_MAIN / 16 / divider;
   }
   /**
    * @brief return uart status
@@ -75,9 +75,9 @@ struct UsartPolled : libmcull::LowLevelBase {
    * @param status reference to put received status in
    */
   constexpr void Receive(TransferType &data, std::uint32_t &status) {
-    std::uint32_t regData = GetPeripheral()->RXDATSTAT;
-    data = static_cast<TransferType>(regData & hardware::RXDATSTAT::DATA_MASK);
-    status = regData & hardware::RXDATSTAT::STAT_MASK;
+    std::uint32_t reg_data{GetPeripheral()->RXDATSTAT};
+    data = static_cast<TransferType>(reg_data & hardware::RXDATSTAT::DATA_MASK);
+    status = reg_data & hardware::RXDATSTAT::STAT_MASK;
   }
   /**
    * @brief get registers from peripheral

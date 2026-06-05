@@ -446,7 +446,7 @@ struct Syscon : libmcull::LowLevelBase {
    * @tparam &config configuration for this peripheral
    * @todo add more peripherals
    */
-  template <const libmcuhw::clock::PeriClockConfig &config>
+  template <const auto &config>
   constexpr void ConfigurePeripheralClock() {
     if constexpr (config.peripheral == libmcuhw::clock::PeriSelect::UART0) {
       if constexpr (config.source == libmcuhw::clock::PeriSource::FRO)

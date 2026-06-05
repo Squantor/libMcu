@@ -32,11 +32,11 @@ struct Scb {
    * @return enabled bits in the VTOR register
    */
   constexpr std::uint32_t getVtorMask() {
-    uint32_t backupRegister = scbPeripheral()->VTOR;
+    uint32_t backup_register = scbPeripheral()->VTOR;
     scbPeripheral()->VTOR = 0xFFFFFFFFUL;
-    uint32_t vtorMask = scbPeripheral()->VTOR;
-    scbPeripheral()->VTOR = backupRegister;
-    return vtorMask;
+    uint32_t vtor_mask = scbPeripheral()->VTOR;
+    scbPeripheral()->VTOR = backup_register;
+    return vtor_mask;
   }
   /**
    * @brief set vector table to specific address
@@ -45,8 +45,8 @@ struct Scb {
    */
   constexpr void setVtor(std::uint32_t* vectorTable) {
     static_assert(libmcuhw::vtor::Present == true);
-    std::uint32_t vtorAddress = reinterpret_cast<std::uint32_t>(vectorTable);
-    scbPeripheral()->VTOR = hardware::VTOR::TBLOFF(vtorAddress);
+    std::uint32_t vtor_address{reinterpret_cast<std::uint32_t>(vectorTable)};
+    scbPeripheral()->VTOR = hardware::VTOR::TBLOFF(vtor_address);
   }
   /**
    * @brief Set the system sleep behaviour in various conditions
@@ -55,14 +55,14 @@ struct Scb {
    * @param sleepOnIsrExit Sleep after ISR exit
    */
   constexpr void setSleepBehaviour(bool eventIsWakeup, bool sleepIsDeep, bool sleepOnIsrExit) {
-    std::uint32_t newScr = 0UL;
+    std::uint32_t scr_register = 0UL;
     if (eventIsWakeup)
-      newScr |= hardware::SCR::SEVONPEND;
+      scr_register |= hardware::SCR::SEVONPEND;
     if (sleepIsDeep)
-      newScr |= hardware::SCR::SLEEPDEEP;
+      scr_register |= hardware::SCR::SLEEPDEEP;
     if (sleepOnIsrExit)
-      newScr |= hardware::SCR::SLEEPONEXIT;
-    scbPeripheral()->SCR = newScr;
+      scr_register |= hardware::SCR::SLEEPONEXIT;
+    scbPeripheral()->SCR = scr_register;
   }
   /**
    * @brief Resets the system

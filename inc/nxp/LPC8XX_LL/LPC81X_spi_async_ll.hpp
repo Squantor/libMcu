@@ -250,8 +250,8 @@ struct SpiAsync : libmcull::LowLevelBase {
    * @retval Done transaction done, data available in buffers
    */
   constexpr libmcu::Results ProgressTransceive(TransferType data) {
-    libmcu::Results readResult = ProgressPartialRead();
-    if (readResult == libmcu::Results::Done)
+    libmcu::Results read_result{ProgressPartialRead()};
+    if (read_result == libmcu::Results::Done)
       return libmcu::Results::Done;
     ProgressPartialWrite(hardware::TXDATCTL::TXSSEL(static_cast<std::uint32_t>(transaction_device_enable_)), data);
     return libmcu::Results::Busy;
@@ -262,14 +262,14 @@ struct SpiAsync : libmcull::LowLevelBase {
    * @retval Done transaction done, data available in buffers
    */
   constexpr libmcu::Results ProgressWrite(void) {
-    libmcu::Results writeResult = ProgressPartialWrite(
+    libmcu::Results write_result{ProgressPartialWrite(
       hardware::TXDATCTL::TXSSEL(static_cast<std::uint32_t>(transaction_device_enable_)) | hardware::TXDATCTL::RXIGNORE,
-      transaction_write_data_[transaction_write_index_]);
-    if (writeResult == libmcu::Results::Done) {
+      transaction_write_data_[transaction_write_index_])};
+    if (write_result == libmcu::Results::Done) {
       transaction_state_ = libmcu::AsynchronousStates::Claimed;
       return libmcu::Results::Done;
     } else
-      return writeResult;
+      return write_result;
   }
 
   /**

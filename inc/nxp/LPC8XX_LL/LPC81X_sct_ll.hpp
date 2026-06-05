@@ -165,8 +165,8 @@ struct Sct : libmcull::LowLevelBase {
    * @return current output state
    */
   constexpr bool GetOutputState(Outputs output) {
-    std::uint32_t outputRegister = sctPeripheral()->OUTPUT & (1 << static_cast<std::uint32_t>(output));
-    if (outputRegister == 0u)
+    std::uint32_t output_register{sctPeripheral()->OUTPUT & (1 << static_cast<std::uint32_t>(output))};
+    if (output_register == 0u)
       return false;
     else
       return true;
@@ -203,19 +203,19 @@ struct Sct : libmcull::LowLevelBase {
    * @param condition which condition to capture
    */
   constexpr void setupCapture(Captures capture, Events event, Inputs input, CaptureConditions condition) {
-    size_t captureIndex = static_cast<std::size_t>(capture);
-    size_t eventIndex = static_cast<std::size_t>(event);
-    size_t inputIndex = static_cast<std::size_t>(input);
-    sctPeripheral()->MATCH[captureIndex].U = 0u;  // clear capture register via the aliased match register
+    size_t capture_index{static_cast<std::size_t>(capture)};
+    size_t event_index{static_cast<std::size_t>(event)};
+    size_t input_index{static_cast<std::size_t>(input)};
+    sctPeripheral()->MATCH[capture_index].U = 0u;  // clear capture register via the aliased match register
     sctPeripheral()->CONFIG =
-      sctPeripheral()->CONFIG | hardware::CONFIG::INSYNC_INPUT(inputIndex);  // needs to be done for edge capture condition
-    sctPeripheral()->REGMODE = hardware::REGMODE::REGMOD_CAP(sctPeripheral()->REGMODE, captureIndex);
-    sctPeripheral()->CAPCTRL[captureIndex].U =
-      hardware::CAPCTRL::CAPCON_L_SET(sctPeripheral()->CAPCTRL[captureIndex].U, eventIndex);
-    sctPeripheral()->EV[eventIndex].CTRL = hardware::EV_CTRL::MATCHSEL(captureIndex) | hardware::EV_CTRL::INSEL |
-                                           hardware::EV_CTRL::IOSEL(inputIndex) | static_cast<std::uint32_t>(condition) |
-                                           hardware::EV_CTRL::COMBMODE_IO;
-    sctPeripheral()->EV[eventIndex].STATE = hardware::EV_STATE::STATEMASK0 | hardware::EV_STATE::STATEMASK1;
+      sctPeripheral()->CONFIG | hardware::CONFIG::INSYNC_INPUT(input_index);  // needs to be done for edge capture condition
+    sctPeripheral()->REGMODE = hardware::REGMODE::REGMOD_CAP(sctPeripheral()->REGMODE, capture_index);
+    sctPeripheral()->CAPCTRL[capture_index].U =
+      hardware::CAPCTRL::CAPCON_L_SET(sctPeripheral()->CAPCTRL[capture_index].U, event_index);
+    sctPeripheral()->EV[event_index].CTRL = hardware::EV_CTRL::MATCHSEL(capture_index) | hardware::EV_CTRL::INSEL |
+                                            hardware::EV_CTRL::IOSEL(input_index) | static_cast<std::uint32_t>(condition) |
+                                            hardware::EV_CTRL::COMBMODE_IO;
+    sctPeripheral()->EV[event_index].STATE = hardware::EV_STATE::STATEMASK0 | hardware::EV_STATE::STATEMASK1;
   }
   /**
    * @brief get registers from peripheral

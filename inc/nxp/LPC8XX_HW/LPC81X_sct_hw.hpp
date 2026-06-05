@@ -365,8 +365,8 @@ constexpr inline std::uint32_t TOGGLE{3u << 0};            /*!< toggle the outpu
  * @return new RES register value
  */
 constexpr inline std::uint32_t RES(std::uint32_t oldReg, std::uint32_t output, std::uint32_t solution) {
-  uint32_t indexShift = output * 2;
-  return (oldReg & ~(RES_MASK << indexShift)) | (solution << indexShift);
+  uint32_t index_shift{output * 2};
+  return (oldReg & ~(RES_MASK << index_shift)) | (solution << index_shift);
 }
 }  // namespace RES
 namespace EVEN {

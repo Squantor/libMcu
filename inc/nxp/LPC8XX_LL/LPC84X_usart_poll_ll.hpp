@@ -31,7 +31,7 @@ struct UartPolled : libmcull::SyncUartBase {
    * @param stop_bits Amount of stop bits
    * @return actual baud rate
    */
-  template <const libmcuhw::clock::PeriClockConfig &clock_config>
+  template <const auto &clock_config>
   constexpr std::uint32_t Init(std::uint32_t baud_rate, UartParities parity = UartParities::None,
                                UartStops stop_bits = UartStops::Stop1, UartLengths length_bits = UartLengths::Size8) {
     std::uint32_t frequency = GetInputClockFreq<clock_config>();
@@ -77,7 +77,7 @@ struct UartPolled : libmcull::SyncUartBase {
    * @tparam config clock configuration
    * @return current input clock frequency
    */
-  template <const libmcuhw::clock::PeriClockConfig &clock_config>
+  template <const auto &clock_config>
   constexpr std::uint32_t GetInputClockFreq() {
     // constexpr check if we configure the right peripheral
     if constexpr ((usart_address_ == libmcuhw::Usart0Address) && (clock_config.peripheral_ == libmcuhw::clock::PeriSelect::UART0))

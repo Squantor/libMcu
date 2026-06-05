@@ -30,7 +30,7 @@ struct Swm : libmcull::LowLevelBase {
   constexpr void setup(Pin &pin, Func &function) {
     if constexpr (Func::type == libmcuhw::swm::pinFunctionTypes::Movable) {
       // create a mask for resetting the pin setting
-      constexpr std::uint32_t mask = ~(0xFFu << function.shift);
+      std::uint32_t mask{~(0xFFu << function.shift)};
       GetPeripheral()->PINASSIGN[function.index] =
         (GetPeripheral()->PINASSIGN[function.index] & mask) | (pin.pio << function.shift);
     }

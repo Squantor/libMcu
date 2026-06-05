@@ -15,20 +15,20 @@ namespace libmcull::crc {
 namespace hardware = libmcuhw::crc;
 /**
  * @brief
- * @tparam crcAddress_
+ * @tparam crc_address
  */
-template <libmcu::CrcBaseAddress crcAddress_>
+template <libmcu::CrcBaseAddress crc_address_param>
 struct Crc : libmcull::LowLevelBase {
   /**
    * @brief get registers from peripheral
    * @return return pointer to CRC registers
    */
-  constexpr static libmcuhw::crc::Crc *crcPeripheral() {
-    return reinterpret_cast<libmcuhw::crc::Crc *>(crcAddress_);
+  static constexpr libmcuhw::crc::Crc *get_peripheral() {
+    return reinterpret_cast<libmcuhw::crc::Crc *>(crc_address);
   }
 
  private:
-  static constexpr libmcu::HwAddressType crcAddress = crcAddress_; /*!< peripheral address */
+  static constexpr libmcu::HwAddressType crc_address = crc_address_param; /*!< peripheral address */
 };
 }  // namespace libmcull::crc
 #endif
