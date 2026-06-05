@@ -104,7 +104,7 @@ struct McuClockConfig {
  * @tparam peripheral peripheral to configure
  * @tparam source clock source to setup
  */
-template <const McuClockConfig &clock_config, PeriSelect peripheral, PeriSource source>
+template <const auto &clock_config, PeriSelect peripheral, PeriSource source>
 struct PeriClockConfig {
   PeriSelect peripheral_{peripheral};
   PeriSource source_{source};

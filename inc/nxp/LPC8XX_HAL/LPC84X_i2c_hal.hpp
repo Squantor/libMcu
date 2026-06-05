@@ -19,7 +19,9 @@ namespace libmcuhal::i2c {
  * @todo see if you can prevent element copying from the ringbuffer
  * @todo add assertion policy
  */
-template <libmcull::DerivedFromAsyncI2c auto& ll_i2c_async, std::size_t max_transactions = 8>
+// noinspection CppClangTidyClangDiagnosticError
+template <auto& ll_i2c_async, std::size_t max_transactions = 8>
+requires libmcull::DerivedFromAsyncI2c<std::remove_cvref_t<decltype(ll_i2c_async)>>
 struct I2c : public libmcuhal::I2cBase {
   /**
    * @brief Setup I2C
@@ -28,7 +30,7 @@ struct I2c : public libmcuhal::I2cBase {
    * @param timeout I2C timeout
    * @return actual baud rate
    */
-  template <const libmcuhw::clock::PeriClockConfig& clock_config>
+  template <const auto& clock_config>
   constexpr std::uint32_t Init(std::uint32_t bit_rate, std::uint32_t timeout) {
     return ll_i2c_async.template InitMaster<clock_config>(bit_rate, timeout);
   }
