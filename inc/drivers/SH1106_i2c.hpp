@@ -45,14 +45,14 @@ struct SH1106 : public Gfx_display_driver<std::uint16_t, std::uint32_t> {
    * @brief Get the maximum X coordinate of the display
    * @return constexpr std::uint32_t
    */
-  constexpr std::uint16_t get_width() override {
+  constexpr std::uint16_t get_width() final {
     return config.size_x;
   }
   /**
    * @brief Get the maximum Y coordinate of the display
    * @return constexpr std::uint32_t
    */
-  constexpr std::uint16_t get_height() override {
+  constexpr std::uint16_t get_height() final {
     return config.size_y;
   }
   /**
@@ -136,7 +136,7 @@ struct SH1106 : public Gfx_display_driver<std::uint16_t, std::uint32_t> {
    * @brief Transfers framebuffer information to the display
    * Will queue up a bunch of I2C transfers in one go
    */
-  constexpr void flip(void) override {
+  constexpr void flip(void) final {
     if (state != libmcu::States::Idle) {
       // we are already busy, update flip request counter
       flip_requests++;
@@ -149,7 +149,7 @@ struct SH1106 : public Gfx_display_driver<std::uint16_t, std::uint32_t> {
    * @brief Clear the framebuffer with clear pixels, does not flip
    * @param color Color to clear with
    */
-  constexpr void clear(uint32_t color = 0) override {
+  constexpr void clear(uint32_t color = 0) final {
     std::uint8_t clear_pixel;
     if (color) {
       clear_pixel = 0xFF;
@@ -164,7 +164,7 @@ struct SH1106 : public Gfx_display_driver<std::uint16_t, std::uint32_t> {
    * @param y Y position
    * @param color Color
    */
-  constexpr void set_pixel(std::uint16_t x, std::uint16_t y, std::uint32_t color) override {
+  constexpr void set_pixel(std::uint16_t x, std::uint16_t y, std::uint32_t color) final {
     std::uint8_t bitmask = 1 << (y & 0x07);
     std::size_t index = (y >> 3) * config.size_x + x;
     if (color) {
@@ -179,7 +179,7 @@ struct SH1106 : public Gfx_display_driver<std::uint16_t, std::uint32_t> {
    * @param y Y position
    * @param color Color
    */
-  constexpr std::uint32_t get_pixel(std::uint16_t x, std::uint16_t y) override {
+  constexpr std::uint32_t get_pixel(std::uint16_t x, std::uint16_t y) final {
     std::uint8_t bitmask = 1 << (y & 0x07);
     std::size_t index = (y >> 3) * config.size_x + x;
     if (framebuffer[index] & bitmask) {
@@ -192,7 +192,7 @@ struct SH1106 : public Gfx_display_driver<std::uint16_t, std::uint32_t> {
    * @brief Set the display state
    * @param state Display state to set
    */
-  constexpr void set_state(Display_state state) override {
+  constexpr void set_state(Display_state state) final {
     (void)state;
   }
   /**
@@ -202,7 +202,7 @@ struct SH1106 : public Gfx_display_driver<std::uint16_t, std::uint32_t> {
    * @param bitmap Bitmap to blit
    */
   constexpr void blit(std::uint16_t x, std::uint16_t y, const libmcu::bitmap::Const_bitmap &bitmap,
-                      libmcu::bitmap::Blit_ops op = libmcu::bitmap::Blit_ops::COPY) override {
+                      libmcu::bitmap::Blit_ops op = libmcu::bitmap::Blit_ops::COPY) final {
     // compute bitmap bounds
     libmcu::bitmap::Bitmap_size bitmap_size = bitmap.get_size();
     std::uint32_t bitmap_width = bitmap_size.w;
@@ -250,12 +250,12 @@ struct SH1106 : public Gfx_display_driver<std::uint16_t, std::uint32_t> {
   /**
    * @brief
    */
-  constexpr void Progress(void) override {}
+  constexpr void progress(void) final {}
   /**
    * @brief Callback method
    * Called from I2C HAL
    */
-  constexpr void Callback(void) override {
+  constexpr void callback(libmcu::Results result) final {
     switch (state) {
       case libmcu::States::Busy:
         // fallthrough

@@ -233,22 +233,22 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
    * @brief Progress the I2C interface
    * This should be periodically called to continue operation and callback if needed
    */
-  void Progress(void) final {
+  void progress(void) final {
     if (current_state == libmcu::States::BusyCallbackSingle) {
       if (transaction_callback != nullptr) {
-        transaction_callback->Callback();
+        transaction_callback->callback(transaction_result);
       }
       transaction_result = libmcu::Results::NoError;
       current_state = libmcu::States::Idle;
     } else if (current_state == libmcu::States::BusyCallbackMultiTx) {
       if (transaction_callback != nullptr) {
-        transaction_callback->Callback();
+        transaction_callback->callback(transaction_result);
       }
       transaction_result = libmcu::Results::NoError;
       current_state = libmcu::States::WaitForNextTransmit;
     } else if (current_state == libmcu::States::BusyCallbackMultiRx) {
       if (transaction_callback != nullptr) {
-        transaction_callback->Callback();
+        transaction_callback->callback(transaction_result);
       }
       transaction_result = libmcu::Results::NoError;
       current_state = libmcu::States::WaitForNextReceive;
@@ -258,7 +258,7 @@ struct I2cInterrupt : libmcull::AsyncI2cBase {
    * @brief Callback method
    * Not called by anything as this is a top level driver
    */
-  void Callback(void) final {}
+  void callback(libmcu::Results) final {}
   /**
    * @brief Interrupt handler for this I2C peripheral
    * @todo separate handling for reception/transmission depending on state?

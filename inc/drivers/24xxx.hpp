@@ -41,8 +41,8 @@ struct Eeprom_24xxx : public DriverBase, public libmcu::NonBlocking {
     state = libmcu::States::Busy;
   }
 
-  constexpr void Progress(void) override {}
-  constexpr void Callback(void) override {
+  constexpr void progress(void) final {}
+  constexpr void callback(libmcu::Results) final {
     switch (state) {
       case libmcu::States::Initializing:
         state = libmcu::States::Idle;

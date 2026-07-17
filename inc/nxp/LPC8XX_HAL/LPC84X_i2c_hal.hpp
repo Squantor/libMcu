@@ -171,7 +171,7 @@ struct I2c : public libmcuhal::I2cBase {
    * @brief Continue operating any in-progress I2C operation
    * This should be periodically called to continue an in-progress I2C operation
    */
-  constexpr void Progress() {
+  constexpr void progress() {
     if (state == libmcu::States::Idle && !transactions.is_empty()) {
       // we are idle but have elements in the queue
       transactions.pop_back(current_transaction);
@@ -208,17 +208,17 @@ struct I2c : public libmcuhal::I2cBase {
       }
       state = libmcu::States::Busy;
     }
-    ll_i2c_async.Progress();
+    ll_i2c_async.progress();
   }
   /**
    * @brief Callback method
    * Called from Progress when we are idle, otherwise from the LL driver when a transaction is complete
    */
-  constexpr void Callback() {
+  constexpr void callback(libmcu::Results result) {
     if (state == libmcu::States::Busy) {
       // We where busy so we got callback from I2C LL driver, handle transaction callback
       if (current_transaction.asyncInterface != nullptr) {
-        current_transaction.asyncInterface->Callback();
+        current_transaction.asyncInterface->callback(result);
       }
       state = libmcu::States::Idle;
     }

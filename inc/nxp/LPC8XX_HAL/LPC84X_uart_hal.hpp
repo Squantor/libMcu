@@ -46,9 +46,9 @@ struct Uart : public libmcuhal::UartBase {
     return ll_uart_async.template Init<clock_config>(baudRate, parity, stopBits, lengthBits);
   }
 
-  constexpr void Progress() {}
+  constexpr void progress() final {}
 
-  constexpr void Callback() {}
+  constexpr void callback(libmcu::Results) final {}
   /**
    * @brief Transmit single element
    * @todo timeout handling

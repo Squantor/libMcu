@@ -44,9 +44,9 @@ struct UartInterrupt : libmcull::AsyncUartBase {
     return frequency / 16 / divider;
   }
 
-  void Progress(void) {}
+  void progress(void) final {}
 
-  void Callback(void) {}
+  void callback(libmcu::Results) final {}
 
   /**
    * @brief return uart status

@@ -47,12 +47,13 @@ struct NonBlocking {
    * @brief Progress function for nonblocking interfaces
    * Usually callbacks are called from this context to upper levels
    */
-  virtual void Progress(void) = 0;
+  virtual void progress(void) = 0;
   /**
    * @brief Callback function for nonblocking interfaces
    * Usually called from lower levels
+   * @param result result of the operation
    */
-  virtual void Callback(void) = 0;
+  virtual void callback(libmcu::Results result) = 0;
 };
 /**
  * @brief States of the nonblocking interfaces

@@ -30,7 +30,7 @@ struct PCF8574 : public libmcu::NonBlocking {
    * @return constexpr libmcu::Results
    */
   constexpr libmcu::Results Init(PcfLambda lambda = nullptr) {
-    callback = lambda;
+    pin_change_callback = lambda;
     previous_isr_counter = 0;
     isr_counter = 0;
     // read out port expander to clear the interrupt and update internal state
@@ -44,7 +44,7 @@ struct PCF8574 : public libmcu::NonBlocking {
   }
   /** @brief Progress function
    */
-  constexpr void Progress(void) override {
+  constexpr void progress(void) final {
     if (isr_counter != previous_isr_counter) {
       i2c_hal.Receive(i2c_address, pin_state, this);
       previous_isr_counter = isr_counter;
@@ -52,22 +52,22 @@ struct PCF8574 : public libmcu::NonBlocking {
   }
   /** @brief Callback used by I2C HAL
    */
-  constexpr void Callback(void) override {
-    if (callback != nullptr)
-      callback(pin_state[0]);
+  constexpr void callback(libmcu::Results) final {
+    if (pin_change_callback != nullptr)
+      pin_change_callback(pin_state[0]);
   }
   /** @brief Register a callback
    * @param lambda lambda to register
    */
   constexpr void RegisterCallback(PcfLambda lambda) {
-    callback = lambda;
+    pin_change_callback = lambda;
   }
 
  private:
   std::array<std::uint8_t, 1> pin_state;
   volatile uint8_t isr_counter; /*!< number of times the ISR has been called */
   uint8_t previous_isr_counter; /*!< number of times the ISR has been called */
-  PcfLambda callback;
+  PcfLambda pin_change_callback = nullptr;
 };
 }  // namespace libmcudrv::PCF8574
 

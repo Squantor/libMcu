@@ -94,12 +94,12 @@ struct UsartAsync : libmcull::AsyncUartBase {
    * @brief Callback method
    * Never called as this is a top level driver
    */
-  void Callback(void) override {}
+  void Callback(void) final {}
   /**
    * @brief Progress method
    * Called either by application or HAL to continue processing and invoke callbacks
    */
-  void Progress(void) override {
+  void Progress(void) final {
     //! @todo implement
   }
   /**
