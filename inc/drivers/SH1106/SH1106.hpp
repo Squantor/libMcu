@@ -1,10 +1,9 @@
-/*
+/**
  * SPDX-License-Identifier: MIT
  *
  * Copyright (c) 2024 Bart Bilos
  * For conditions of distribution and use, see LICENSE file
- */
-/**
+ *
  * @file SH1106_i2c.hpp
  * @brief driver for the SH1106 OLED display driver via I2C
  * @todo Change all constexpr formatting function arguments to uint32_t's

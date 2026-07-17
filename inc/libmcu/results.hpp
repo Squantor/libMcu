@@ -48,6 +48,8 @@ enum class Results : std::uint8_t {
   FramingError,        /*!< Framing error*/
   ParityError,         /*!< Parity error */
   BreakError,          /*!< Break error */
+  ErrorAddress,        /*!< Error address */
+  ErrorData,           /*!< Error data */
   Full,                /*!< Buffer is full */
   Empty,               /*!< Buffer is empty */
 };
