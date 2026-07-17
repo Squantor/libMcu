@@ -37,6 +37,7 @@ enum class States : std::uint8_t {
   WaitForNextReceive = static_cast<std::uint8_t>(Results::WaitForNextReceive),   /*!< Waiting for the next receive operation */
   ErrorAddress = static_cast<std::uint8_t>(Results::ErrorAddress),               /*!< Error address */
   ErrorData = static_cast<std::uint8_t>(Results::ErrorData),                     /*!< Error data */
+  ErrorFatal = static_cast<std::uint8_t>(Results::Error),                        /*!< Error fatal */
 };
 }  // namespace libmcu
 

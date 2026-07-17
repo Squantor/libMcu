@@ -52,7 +52,9 @@ struct PCF8574 : public libmcu::NonBlocking {
   }
   /** @brief Callback used by I2C HAL
    */
-  constexpr void callback(libmcu::Results) final {
+  constexpr void callback(libmcu::Results result) final {
+    if (result != libmcu::Results::NoError)
+      return;
     if (pin_change_callback != nullptr)
       pin_change_callback(pin_state[0]);
   }

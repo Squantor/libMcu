@@ -28,7 +28,7 @@ namespace libmcudrv::SH1106 {
  * @tparam Assert Assertion class
  */
 template <auto &i2c_hal, const libmcu::I2cDeviceAddress &i2c_address, auto &config,
-          libmcu::Assert_concept Assert = libmcu::Assert_default>
+          libmcu::Assert_concept assert_policy = libmcu::Assert_default>
 struct SH1106 : public Gfx_display_driver<std::uint16_t, std::uint32_t> {
   using Coord_type = std::uint16_t;
   using Pixel_type = std::uint32_t;
@@ -262,23 +262,39 @@ struct SH1106 : public Gfx_display_driver<std::uint16_t, std::uint32_t> {
       case libmcu::States::Initializing:
         // we get callback from the I2C HAL driver
         // todo check error status
-        allocator.reset();
-        if (flip_counter != flip_requests) {
-          flip_counter++;
-          flip_internal();
+        if (result == libmcu::Results::NoError) {
+          allocator.reset();
+          if (flip_counter != flip_requests) {
+            flip_counter++;
+            flip_internal();
+          } else {
+            state = libmcu::States::Idle;
+          }
         } else {
-          state = libmcu::States::Idle;
+          assert_fail_if(false, "I2C HAL error");
+          state = libmcu::States::ErrorFatal;
         }
         break;
 
       default:
-        // should not happen
         break;
     }
   }
   libmcu::States state = libmcu::States::Initializing; /*!< Current state of the display */
 
  private:
+  /**
+   * @brief Asserts if a condition is true
+   * @param cond Condition to check
+   * @param msg Message to print
+   */
+  constexpr void assert_fail_if(bool cond, const char *msg) noexcept {
+    if constexpr (assert_policy::enabled) {
+      if (cond) {
+        assert_policy::fail(msg);
+      }
+    }
+  }
   /**
    * @brief Transfers framebuffer information to the display
    * Will queue up a bunch of I2C transfers in one go
@@ -297,7 +313,7 @@ struct SH1106 : public Gfx_display_driver<std::uint16_t, std::uint32_t> {
   std::array<std::uint8_t, config.size_framebuffer> framebuffer;
   std::array<const std::uint8_t, 1> preamble_command_buffer = {preamble_command};
   std::array<const std::uint8_t, 1> preamble_data_buffer = {preamble_data};
-  libmcu::Fidfo_allocator<std::uint8_t, 64, Assert> allocator;
+  libmcu::Fidfo_allocator<std::uint8_t, 64, assert_policy> allocator;
 };
 
 }  // namespace libmcudrv::SH1106

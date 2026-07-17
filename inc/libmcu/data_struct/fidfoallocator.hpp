@@ -107,9 +107,9 @@ class Fidfo_allocator {
 
  private:
   /**
-   * @brief
-   * @param cond
-   * @param msg
+   * @brief Asserts if a condition is true
+   * @param cond Condition to check
+   * @param msg Message to print
    */
   constexpr void assert_fail_if(bool cond, const char* msg) noexcept {
     if constexpr (assert_policy::enabled) {

@@ -16,7 +16,7 @@
 namespace libmcudrv::eeprom_24xxx {
 namespace i2c = libmcuhal::i2c;
 template <auto &i2c_hal, const libmcu::I2cDeviceAddress &i2c_address, auto &config,
-          libmcu::Assert_concept Assert = libmcu::Assert_default>
+          libmcu::Assert_concept assert_policy = libmcu::Assert_default>
 struct Eeprom_24xxx : public DriverBase, public libmcu::NonBlocking {
   /**
    * @brief
@@ -42,13 +42,16 @@ struct Eeprom_24xxx : public DriverBase, public libmcu::NonBlocking {
   }
 
   constexpr void progress(void) final {}
-  constexpr void callback(libmcu::Results) final {
+  constexpr void callback(libmcu::Results result) final {
     switch (state) {
       case libmcu::States::Initializing:
-        state = libmcu::States::Idle;
-        break;
       case libmcu::States::Busy:
-        state = libmcu::States::Idle;
+        if (result == libmcu::Results::NoError) {
+          state = libmcu::States::Idle;
+        } else {
+          assert_fail_if(false, "I2C HAL error");
+          state = libmcu::States::ErrorFatal;
+        }
         break;
 
       default:
@@ -57,8 +60,20 @@ struct Eeprom_24xxx : public DriverBase, public libmcu::NonBlocking {
   }
   libmcu::States state = libmcu::States::Initializing;  //< State of the driver
  private:
-  std::array<std::uint8_t, config.address_size> address_buffer;                  //< Buffer for an address
-  std::array<std::uint8_t, config.page_size + config.address_size> page_buffer;  //< Buffer for a page
+  /**
+   * @brief Asserts if a condition is true
+   * @param cond Condition to check
+   * @param msg Message to print
+   */
+  constexpr void assert_fail_if(bool cond, const char *msg) noexcept {
+    if constexpr (assert_policy::enabled) {
+      if (cond) {
+        assert_policy::fail(msg);
+      }
+    }
+  }
+  std::array<std::uint8_t, config.address_size> address_buffer;  //< Buffer for an address
+  std::array<std::uint8_t, config.page_size> page_buffer;        //< Buffer for a page
 };
 }  // namespace libmcudrv::eeprom_24xxx
 
