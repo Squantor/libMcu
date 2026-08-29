@@ -26,7 +26,7 @@ struct Eeprom_24xxx : public DriverBase, public libmcu::NonBlocking {
     state = libmcu::States::Initializing;
     // Set internal EEPROM read/write address to zero
     address_buffer[0] = 0;
-    i2c_hal.Transmit(i2c_address, address_buffer);
+    i2c_hal.Transmit(i2c_address, address_buffer, this);
     return libmcu::Results::NoError;
   }
   /**
