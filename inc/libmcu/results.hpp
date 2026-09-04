@@ -21,6 +21,7 @@ enum class Results : std::uint8_t {
   NoError,             /*!< No error */
   Error,               /*!< Error has occured */
   Started,             /*!< Operation started */
+  Uninitialized,       /*!< Uninitialized */
   Initializing,        /*!< Interface is initializing */
   Idle,                /*!< Interface is idle */
   Busy,                /*!< Operation Busy */
@@ -32,6 +33,8 @@ enum class Results : std::uint8_t {
   BusyCallbackMulti,   /*!< Interface is busy with a multiple callback operation */
   BusyCallbackMultiTx, /*!< Interface is busy with a multiple callback operation */
   BusyCallbackMultiRx, /*!< Interface is busy with a multiple callback operation */
+  busy_writing,        /*!< Interface is busy writing */
+  busy_reading,        /*!< Interface is busy reading */
   WaitForNext,         /*!< Interface is waiting for the next operation to start */
   WaitForNextTransmit, /*!< Interface is waiting for the next transmit operation to start */
   WaitForNextReceive,  /*!< Interface is waiting for the next receive operation to start */

@@ -46,6 +46,7 @@ struct NonBlocking {
   /**
    * @brief Progress function for nonblocking interfaces
    * Usually callbacks are called from this context to upper levels
+   * @todo Maybe an idea to pass ticks to this function?
    */
   virtual void progress(void) = 0;
   /**

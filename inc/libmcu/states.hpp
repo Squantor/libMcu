@@ -19,6 +19,8 @@ namespace libmcu {
  * This enum depends on results making the translation from state to result easier
  */
 enum class States : std::uint8_t {
+  ErrorFatal = static_cast<std::uint8_t>(Results::Error),                        /*!< Error fatal */
+  Uninitialized = static_cast<std::uint8_t>(Results::Uninitialized),             /*!< Interface is uninitialized */
   Initializing = static_cast<std::uint8_t>(Results::Initializing),               /*!< Interface is initializing */
   Idle = static_cast<std::uint8_t>(Results::Idle),                               /*!< Interface is idle */
   Busy = static_cast<std::uint8_t>(Results::Busy),                               /*!< Busy with an operation */
@@ -30,6 +32,8 @@ enum class States : std::uint8_t {
   BusyCallbackMulti = static_cast<std::uint8_t>(Results::BusyCallbackMulti),     /*!< Busy with a multiple callback operation */
   BusyCallbackMultiTx = static_cast<std::uint8_t>(Results::BusyCallbackMultiTx), /*!< Busy with a multiple callback operation */
   BusyCallbackMultiRx = static_cast<std::uint8_t>(Results::BusyCallbackMultiRx), /*!< Busy with a multiple callback operation */
+  busy_writing = static_cast<std::uint8_t>(Results::busy_writing),               /*!< Busy with writing writing */
+  busy_reading = static_cast<std::uint8_t>(Results::busy_reading),               /*!< Busy with reading */
   Done = static_cast<std::uint8_t>(Results::Done),                               /*!< Operation completed*/
   Claimed = static_cast<std::uint8_t>(Results::Claimed),                         /*!< Interface is claimed */
   WaitForNext = static_cast<std::uint8_t>(Results::WaitForNext),                 /*!< Waiting for the next operation */
@@ -37,7 +41,6 @@ enum class States : std::uint8_t {
   WaitForNextReceive = static_cast<std::uint8_t>(Results::WaitForNextReceive),   /*!< Waiting for the next receive operation */
   ErrorAddress = static_cast<std::uint8_t>(Results::ErrorAddress),               /*!< Error address */
   ErrorData = static_cast<std::uint8_t>(Results::ErrorData),                     /*!< Error data */
-  ErrorFatal = static_cast<std::uint8_t>(Results::Error),                        /*!< Error fatal */
 };
 }  // namespace libmcu
 
