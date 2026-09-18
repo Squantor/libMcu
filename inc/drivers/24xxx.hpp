@@ -32,9 +32,19 @@ struct Eeprom_24xxx : public DriverBase, public libmcu::NonBlocking {
   /**
    * @todo Reads data from the EEPROM
    */
+  void read(std::size_t address, std::span<std::uint8_t> buffer, libmcu::NonBlocking *callback = nullptr) {
+    address_buffer[0] = address;
+    i2c_hal.Transmit(i2c_address, address_buffer);
+    i2c_hal.Receive(i2c_address, buffer, callback);
+  }
   /**
    * @todo Writes data to the EEPROM
    */
+  void write(std::size_t address, std::span<const std::uint8_t> buffer, libmcu::NonBlocking *callback = nullptr) {
+    address_buffer[0] = address;
+    i2c_hal.StartMasterTransmit(i2c_address, address_buffer);
+    i2c_hal.StopMasterTransmit(buffer, callback);
+  }
   /**
    * @brief Progress function, not used
    */
@@ -59,6 +69,19 @@ struct Eeprom_24xxx : public DriverBase, public libmcu::NonBlocking {
         break;
     }
   }
+
+  constexpr std::size_t size() const noexcept {
+    return config.bytes;
+  }
+
+  constexpr std::size_t page_size() const noexcept {
+    return config.page_size;
+  }
+
+  constexpr std::size_t page_count() const noexcept {
+    return config.bytes / config.page_size;
+  }
+
   libmcu::States state = libmcu::States::Initializing;  //< State of the driver
  private:
   /**
