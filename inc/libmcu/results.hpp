@@ -35,6 +35,7 @@ enum class Results : std::uint8_t {
   BusyCallbackMultiRx, /*!< Interface is busy with a multiple callback operation */
   busy_writing,        /*!< Interface is busy writing */
   busy_reading,        /*!< Interface is busy reading */
+  busy_searching,      /*<! Interface is busy searching */
   WaitForNext,         /*!< Interface is waiting for the next operation to start */
   WaitForNextTransmit, /*!< Interface is waiting for the next transmit operation to start */
   WaitForNextReceive,  /*!< Interface is waiting for the next receive operation to start */

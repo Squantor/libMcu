@@ -34,6 +34,7 @@ enum class States : std::uint8_t {
   BusyCallbackMultiRx = static_cast<std::uint8_t>(Results::BusyCallbackMultiRx), /*!< Busy with a multiple callback operation */
   busy_writing = static_cast<std::uint8_t>(Results::busy_writing),               /*!< Busy with writing writing */
   busy_reading = static_cast<std::uint8_t>(Results::busy_reading),               /*!< Busy with reading */
+  busy_searching = static_cast<std::uint8_t>(Results::busy_searching),           /*!< Busy with searching */
   Done = static_cast<std::uint8_t>(Results::Done),                               /*!< Operation completed*/
   Claimed = static_cast<std::uint8_t>(Results::Claimed),                         /*!< Interface is claimed */
   WaitForNext = static_cast<std::uint8_t>(Results::WaitForNext),                 /*!< Waiting for the next operation */
