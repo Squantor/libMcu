@@ -1,3 +1,5 @@
+# Migrated
+This project/repository has been migrated to [Codeberg](https://codeberg.org/Squantor/libMcu). Please file any issues and pullrequests there.
 # LibMcu
 This repository contains a set of libraries for usage on various microcontrollers. It is inspired by many microcontroller vendor libraries like LPCopen, STM32 LL drivers and many many more. The biggest problem is that they are locked behind various tools and instead of installing graphical tools that download various zip files I just want to get at the register definitions. Next to that, these libraries are can be big and inefficient, so lets reinvent the wheel ;-).
 All of these libraries are written in C++20.
